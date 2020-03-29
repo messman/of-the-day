@@ -1,0 +1,29 @@
+{
+	"compilerOptions": {
+		"allowJs": false,
+		"alwaysStrict": true,
+		"checkJs": false,
+		"jsx": "react",
+		"module": "esnext",
+		"noImplicitAny": false,
+		"noImplicitReturns": false,
+		"noImplicitThis": false,
+		"outDir": "./build",
+		"target": "es2017",
+		"moduleResolution": "node",
+		"incremental": true,
+		"baseUrl": ".",
+		"paths": {
+			"@/*": [
+				"src/*"
+			]
+		},
+	},
+	"exclude": [
+		"node_modules"
+	],
+	"include": [
+		"src/**/*"
+	],
+	"compileOnSave": false
+}
