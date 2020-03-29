@@ -7,26 +7,31 @@ using Microsoft.Extensions.Logging;
 
 namespace OfTheDay
 {
-	public class HttpOfTheDay
+	public class HttpFunctions
 	{
 		private readonly GoogleSheets _googleSheets;
 
-		public HttpOfTheDay(GoogleSheets googleSheets)
+		public HttpFunctions(GoogleSheets googleSheets)
 		{
 			_googleSheets = googleSheets;
 		}
 
 		[FunctionName("OfTheDay")]
-		public async Task<IActionResult> Run(
-			[HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
-			ILogger log)
+		public async Task<IActionResult> OfTheDay([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req, ILogger log)
 		{
 			log.LogInformation("C# HTTP trigger function processed a request.");
 
-			await _googleSheets.GetData();
+			await _googleSheets.OfTheDay();
 
 			string responseMessage = "Hello, World!";
 			return new OkObjectResult(responseMessage);
+		}
+
+		[FunctionName("AllMusic")]
+		public async Task<IActionResult> AllMusic([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req, ILogger log)
+		{
+			var records = await _googleSheets.AllMusic();
+			return new OkObjectResult(records);
 		}
 	}
 }

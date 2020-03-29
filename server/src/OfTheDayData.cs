@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace OfTheDay
 {
@@ -26,11 +27,16 @@ namespace OfTheDay
 		public string Name { get; set; }
 	}
 
-	public class DailyRecord
+	public class SharedDayRecord
 	{
-		public DateTime Day { get; set; }
+		public string Day { get; set; }
+		public string DayAsText { get; set; }
 		public int DayNumber { get; set; }
 		public string SpecialEvent { get; set; }
+	}
+
+	public class DailyRecord : SharedDayRecord
+	{
 		public string Location { get; set; }
 		public string Note { get; set; }
 		public string Schedule { get; set; }
@@ -42,9 +48,8 @@ namespace OfTheDay
 		public string HowDidItGo { get; set; }
 	}
 
-	public class MusicRecord
+	public class MusicRecord : SharedDayRecord
 	{
-		public DateTime Day { get; set; }
 		public bool IsFavorite { get; set; }
 		public string Title { get; set; }
 		public string Artist { get; set; }
@@ -54,5 +59,27 @@ namespace OfTheDay
 		public string GeniusLink { get; set; }
 		public string Description { get; set; }
 		public string Quote { get; set; }
+
+		public static MusicRecord FromRow(object row)
+		{
+			string[] rowArray = ((IList<object>)row).Select(x => x.ToString()).ToArray();
+			return new MusicRecord()
+			{
+				Day = rowArray.ElementAtOrDefault(0),
+				DayAsText = rowArray.ElementAtOrDefault(1),
+				DayNumber = rowArray.ElementAtOrDefault(2).TryParse(-1),
+				SpecialEvent = rowArray.ElementAtOrDefault(3),
+
+				IsFavorite = !string.IsNullOrEmpty(rowArray.ElementAtOrDefault(4)),
+				Title = rowArray.ElementAtOrDefault(5),
+				Artist = rowArray.ElementAtOrDefault(6),
+				SpotifyLink = rowArray.ElementAtOrDefault(7),
+				YouTubeLink = rowArray.ElementAtOrDefault(8),
+				IsYouTubePreferred = !string.IsNullOrEmpty(rowArray.ElementAtOrDefault(9)),
+				GeniusLink = rowArray.ElementAtOrDefault(10),
+				Description = rowArray.ElementAtOrDefault(11),
+				Quote = rowArray.ElementAtOrDefault(12)
+			};
+		}
 	}
 }
