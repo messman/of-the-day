@@ -79,7 +79,7 @@ namespace OfTheDay
 			try
 			{
 				SheetsService service = CreateService();
-				int dayNumber = await DayNumber(service);
+				int dayNumber = DayNumber;
 
 				int extraRows = 0;
 				// Remove one for 0-based counting.
@@ -177,7 +177,7 @@ namespace OfTheDay
 			try
 			{
 				SheetsService service = CreateService();
-				int dayNumber = await DayNumber(service);
+				int dayNumber = DayNumber;
 				string range = MusicFromCell.ToRangeAdditive('M', dayNumber - 1).ToText();
 				var response = await service.Spreadsheets.Values.Get(_sheetID, range).ExecuteAsync();
 				ThrowIfEmptyResult(response.Values, "all music");
@@ -191,26 +191,16 @@ namespace OfTheDay
 			}
 		}
 
-		private static string DayNumberRangeText = new Cell("Daily", 'B', 1).ToText();
-		private async Task<int> DayNumber(SheetsService service)
-		{
-			try
-			{
-				var response = await service.Spreadsheets.Values.Get(_sheetID, DayNumberRangeText).ExecuteAsync();
-				ThrowIfEmptyResult(response.Values, "number of days");
-				int dayNumber = ((string)response.Values[0][0]).TryParseInt(-1);
-				if (dayNumber < 1)
-				{
-					throw new Exception($"Error retrieving number of days: {dayNumber}");
-				}
-				return dayNumber;
-			}
-			catch (Exception e)
-			{
-				_log.LogError(e, "Could not get number of days");
-				throw;
-			}
-		}
+		private static DateTime StartDate = new DateTime(2020, 03, 25);
+		/// <summary>
+		/// There is an unfortunate inconsistency between Windows/Linux when it comes to getting time zone information.
+		/// So for now, we're just going to hardcode this. NBD.
+		/// </summary>
+		private const int EasternOffset = -4;
+		/// <summary>
+		/// The day we're on currently (1-based) since the start date.
+		/// </summary>
+		private int DayNumber => DateTime.UtcNow.AddHours(EasternOffset).Date.Subtract(StartDate).Days;
 
 		private static void ThrowIfEmptyResult<T>(IList<T> values, string dataType)
 		{
