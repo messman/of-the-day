@@ -13,17 +13,31 @@ namespace OfTheDay
 		public char Column { get; set; }
 		public int Row { get; set; }
 
+		public Cell Clone()
+		{
+			return new Cell(Sheet, Column, Row);
+		}
+
 		public string ToText()
 		{
 			return $"{Sheet}!{Column}{Row}";
 		}
 
-		public Range ToRange(char toColumn, int addRows)
+		public Range ToRangeAdditive(char toColumn, int addRows)
 		{
 			return new Range()
 			{
 				From = this,
 				To = new Cell(Sheet, toColumn, Row + addRows)
+			};
+		}
+
+		public Range ToRange(char toColumn, int toRow)
+		{
+			return new Range()
+			{
+				From = this,
+				To = new Cell(Sheet, toColumn, toRow)
 			};
 		}
 	}

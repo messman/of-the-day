@@ -19,12 +19,10 @@ namespace OfTheDay
 		[FunctionName("OfTheDay")]
 		public async Task<IActionResult> OfTheDay([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req, ILogger log)
 		{
-			log.LogInformation("C# HTTP trigger function processed a request.");
+			bool seeTomorrow = req.Query["tomorrow"] == "1";
 
-			await _googleSheets.OfTheDay();
-
-			string responseMessage = "Hello, World!";
-			return new OkObjectResult(responseMessage);
+			var data = await _googleSheets.OfTheDay(seeTomorrow);
+			return new OkObjectResult(data);
 		}
 
 		[FunctionName("AllMusic")]
