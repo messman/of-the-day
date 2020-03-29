@@ -8,14 +8,15 @@ using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
 using Google.Apis.Util;
 using System.Linq;
+using System.Reflection;
 
 namespace OfTheDay
 {
 	public class GoogleSheets
 	{
-		private readonly ILogger _log;
+		private readonly ILogger<GoogleSheets> _log;
 		private readonly string _sheetID;
-		public GoogleSheets(ILogger log)
+		public GoogleSheets(ILogger<GoogleSheets> log)
 		{
 			_log = log;
 			_sheetID = Settings.GetValue(Settings.SheetIDKey);
@@ -27,34 +28,46 @@ namespace OfTheDay
 		private SheetsService _sheetsService;
 		private SheetsService CreateService()
 		{
-			if (_sheetsService != null)
+			try
 			{
+				if (_sheetsService != null)
+				{
+					return _sheetsService;
+				}
+
+				ServiceAccountCredential credential;
+
+				string jsonFile = Settings.GoogleCredentialsJsonPath;
+				string binDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+				string rootDirectory = Path.GetFullPath(Path.Combine(binDirectory, ".."));
+				string fullJsonPath = Path.Combine(rootDirectory, jsonFile);
+
+				using (var stream = new FileStream(fullJsonPath, FileMode.Open, FileAccess.Read))
+				{
+					credential = (ServiceAccountCredential)GoogleCredential.FromStream(stream).UnderlyingCredential;
+
+					var initializer = new ServiceAccountCredential.Initializer(credential.Id)
+					{
+						User = Settings.GetValue(Settings.ServiceAccountAddressKey),
+						Key = credential.Key,
+						Scopes = Scopes
+					};
+					credential = new ServiceAccountCredential(initializer);
+				}
+
+				// Create Google Sheets API service.
+				_sheetsService = new SheetsService(new BaseClientService.Initializer()
+				{
+					HttpClientInitializer = credential,
+					ApplicationName = ApplicationName,
+				});
 				return _sheetsService;
 			}
-
-			ServiceAccountCredential credential;
-
-			string jsonFile = Settings.GoogleCredentialsJsonPath;
-			using (var stream = new FileStream(jsonFile, FileMode.Open, FileAccess.Read))
+			catch (Exception e)
 			{
-				credential = (ServiceAccountCredential)GoogleCredential.FromStream(stream).UnderlyingCredential;
-
-				var initializer = new ServiceAccountCredential.Initializer(credential.Id)
-				{
-					User = Settings.GetValue(Settings.ServiceAccountAddressKey),
-					Key = credential.Key,
-					Scopes = Scopes
-				};
-				credential = new ServiceAccountCredential(initializer);
+				_log.LogError(e, "Could not create service");
+				throw;
 			}
-
-			// Create Google Sheets API service.
-			_sheetsService = new SheetsService(new BaseClientService.Initializer()
-			{
-				HttpClientInitializer = credential,
-				ApplicationName = ApplicationName,
-			});
-			return _sheetsService;
 		}
 
 		private static Cell DailyFromCell = new Cell("Daily", 'A', 3);
