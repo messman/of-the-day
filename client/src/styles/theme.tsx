@@ -3,31 +3,28 @@ export { ThemeProvider, keyframes } from "styled-components";
 
 export interface Theme {
 	color: {
-		bgDark: string;
-		bgMed: string;
-		bgLight: string;
-		emphasis: string;
-		layerDark: string;
-		layerMed: string;
-		layerLight: string;
-		skyUpper: string;
-		skyLower: string;
+		bg: string,
+		bgPlaceholder: string,
+		text: string,
+		badInfo: string,
+		importantInfo: string,
+		completedToDo: string,
+		incompleteToDo: string,
+		link: string
 	};
 	fontFamily: string;
 }
 
-
 export const theme: Theme = {
 	color: {
-		bgDark: "#1E416A",
-		bgMed: "#44658C",
-		bgLight: "#BFCDDD",
-		emphasis: "#CEB740",
-		layerDark: "#4777AE",
-		layerMed: "#6399D6",
-		layerLight: "#D3E1F2",
-		skyUpper: "#86B6ED",
-		skyLower: "#C4DFFF"
+		bg: "#FFF",
+		bgPlaceholder: "#DDD",
+		text: "#333",
+		badInfo: "#ECC4C4",
+		importantInfo: "#D0E6F4",
+		completedToDo: "#79BC58",
+		incompleteToDo: "#B9B9B9",
+		link: "#3E90E5"
 	},
 	fontFamily: `'Montserrat', sans-serif`
 }
@@ -40,8 +37,8 @@ export const GlobalAppStyles = createGlobalStyle`
 	}
 	
 	body {
-		background-color: ${theme.color.bgDark};
-		color: ${theme.color.layerLight};
+		background-color: ${theme.color.bg};
+		color: ${theme.color.text};
 	}
 
 	html, body, #react-root {

@@ -6,7 +6,7 @@ export interface PromiseState<T> {
 	error: Error
 }
 
-export function usePromise<T>(promiseFunc: () => Promise<T>): PromiseState<T> {
+export function usePromise<T>(promiseFunc: () => Promise<T>, minMilliseconds?: number): PromiseState<T> {
 	const [state, setState] = useState<PromiseState<T>>({
 		isLoading: true,
 		success: null,
@@ -17,20 +17,35 @@ export function usePromise<T>(promiseFunc: () => Promise<T>): PromiseState<T> {
 
 	if (isFirstRun.current) {
 		isFirstRun.current = false;
+
+		const start = Date.now();
+
+		function wrapFinish(success: T, error: Error): void {
+			const timeRemaining = Math.max(0, (minMilliseconds || 0) - (Date.now() - start));
+			if (timeRemaining === 0) {
+				finish(success, error);
+			}
+			else {
+				setTimeout(() => {
+					finish(success, error)
+				}, timeRemaining);
+			}
+		}
+
+		function finish(success: T, error: Error): void {
+			setState({
+				isLoading: false,
+				success: success,
+				error: error,
+			});
+		}
+
 		promiseFunc()
 			.then((resp) => {
-				setState({
-					isLoading: false,
-					success: resp,
-					error: null,
-				});
+				wrapFinish(resp, null);
 			})
 			.catch((err: Error) => {
-				setState({
-					isLoading: false,
-					success: null,
-					error: err
-				});
+				wrapFinish(null, err);
 			});
 	}
 	return state;

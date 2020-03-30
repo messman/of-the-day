@@ -6,7 +6,7 @@ import { OfTheDayData } from "@/data/apiResponse";
 const AppDataContext = createContext<PromiseState<OfTheDayData>>(null);
 
 export const AppDataProvider: React.FC = (props) => {
-	const promiseState = usePromise(getApiData);
+	const promiseState = usePromise(getApiData, 2500);
 
 	return (
 		<AppDataContext.Provider value={promiseState}>

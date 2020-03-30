@@ -265,3 +265,5 @@ __pycache__/
 
 # Google Sheets Credentials
 google-credentials.json
+
+design/

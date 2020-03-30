@@ -15,6 +15,10 @@ export interface PlaceholderProps {
 	length: number
 }
 
+export interface TextPlaceholderProps extends PlaceholderProps {
+	children?: () => any
+}
+
 const Placeholder = styled.span<PlaceholderProps>`
 	position: relative;
 	display: inline-block;
@@ -27,21 +31,23 @@ const Placeholder = styled.span<PlaceholderProps>`
 	-ms-user-select: none;
 	user-select: none;
 
-	animation-duration: .9s;
+	animation-duration: .8s;
 	animation-direction: alternate;
 	animation-fill-mode: none;
 	animation-iteration-count: infinite;
 	animation-name: ${shimmerKeyframe};
 	animation-timing-function: ease-out;
 
-	background-color: ${props => props.theme.color.bgLight};
+	background-color: ${props => props.theme.color.bgPlaceholder};
 	border-radius: .1rem;
 `;
 
-export const TextPlaceholder: StyledFC<PlaceholderProps> = (props) => {
-	if (!props.show)
-		return <>{props.children}</>;
+export const TextPlaceholder: StyledFC<TextPlaceholderProps> = (props) => {
+	if (!props.show) {
+		return <>{props.children ? props.children() : ""}</>;
+	}
+	const { children, className, ...otherProps } = props;
 
-	let repeat: string = 'M'.repeat(props.length);
-	return <Placeholder className={props.className} {...props}>{repeat}</Placeholder>
+	let repeat: string = 'M'.repeat(otherProps.length);
+	return <Placeholder className={className} {...otherProps}>{repeat}</Placeholder>
 }
