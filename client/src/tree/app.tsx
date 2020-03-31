@@ -32,6 +32,7 @@ export const App: React.FC<AppProps> = (props) => {
 			<Checklist />
 			<Day isYesterday={false} />
 			<Day isYesterday={true} />
+			<ExtraSpace />
 		</Root>
 	);
 }
@@ -40,4 +41,9 @@ const Root = styled.div`
 	max-width: 800px;
 	margin: auto;
 	padding: .5rem;
+`;
+
+const ExtraSpace = styled.div`
+	height: 5rem;
+	width: 1px;
 `;

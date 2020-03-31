@@ -50,3 +50,7 @@ export const ImportantText = styled.p`
 	${textBoxStyle}
 	background-color: ${theme.color.importantInfo};
 `;
+
+export const Bump = styled.div`
+	margin-top: 1rem;
+`;
