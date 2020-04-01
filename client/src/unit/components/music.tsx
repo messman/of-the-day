@@ -7,6 +7,7 @@ import { Quote } from "@/tree/days/sections/quote";
 import { OutLink } from "./link";
 import { PlaceholderRenderProperty } from "./placeholderRenderIf";
 import { Video } from "./video";
+import styled from "@/styles/theme";
 
 interface MusicProps {
 	isLoading: boolean
@@ -80,7 +81,9 @@ export const CommonMusic: React.FC<MusicProps> = (props) => {
 			<Common.Bump>
 				<RenderIf show={!!record && !record.isYouTubePreferred}>
 					{() =>
-						<iframe src={spotifyEmbedLink} width="300" height="80" frameBorder="0" allow="encrypted-media"></iframe>
+						<MusicContainer>
+							<iframe src={spotifyEmbedLink} height="80" frameBorder="0" allow="encrypted-media"></iframe>
+						</MusicContainer>
 					}
 				</RenderIf>
 				<RenderIf show={!!record && record.isYouTubePreferred}>
@@ -123,9 +126,8 @@ export const CommonMusic: React.FC<MusicProps> = (props) => {
 	);
 }
 
-
-
-
-
-
-
+const MusicContainer = styled.div`
+	iframe {
+		width: 100%;
+	}
+`;

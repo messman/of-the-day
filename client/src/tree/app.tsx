@@ -3,7 +3,7 @@ import styled from "@/styles/theme";
 import * as Common from "@/styles/common";
 import { OfTheDayAppData, Days } from "./days/days";
 import { AllMusicAppData, AllMusic } from "./allMusic/allMusic";
-import { ActionLink } from "@/unit/components/link";
+import { ActionLink, OutLink } from "@/unit/components/link";
 
 export const App: React.FC = () => {
 
@@ -29,6 +29,10 @@ export const App: React.FC = () => {
 						{renderedSection}
 					</Common.Bump>
 					<ExtraSpaceBottomOfPage />
+					<Common.Text>
+						<OutLink title="Andrew Messier" url="https://andrewmessier.com" />
+					</Common.Text>
+					<ExtraSpaceBottomOfPage />
 				</Root>
 			</AllMusicAppData>
 		</OfTheDayAppData>
@@ -38,10 +42,10 @@ export const App: React.FC = () => {
 const Root = styled.div`
 	max-width: 800px;
 	margin: auto;
-	padding: .5rem;
+	padding: 0 1rem;
 `;
 
 const ExtraSpaceBottomOfPage = styled.div`
-	height: 5rem;
+	height: 3rem;
 	width: 1px;
 `;

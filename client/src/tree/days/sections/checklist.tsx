@@ -77,7 +77,7 @@ const ListItem = styled.li<ListItemProps>`
 	position: relative;
 	&::before {
 		position: absolute;
-		top: 0;
+		top: -.16rem;
 		left: -1rem;
 		content: "\\2022";
 		font-size: 3rem;

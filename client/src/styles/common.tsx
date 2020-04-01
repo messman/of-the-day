@@ -2,27 +2,24 @@ import styled, { css, theme } from "./theme";
 
 /** Title for the page itself. */
 export const PageTitle = styled.h1`
-	font-size: 3.5rem;
-	line-height: 3rem;
+	font-size: 2.8rem;
 	font-weight: 600;
 	margin: 0;
-	margin-top: 2rem;
-	margin-bottom: 1rem;
+	margin-top: 1.5rem;
+	margin-bottom: .5rem;
 `;
 
 /** Title of a section. */
 export const Title = styled.h1`
-	font-size: 2.6rem;
-	line-height: 3rem;
+	font-size: 2rem;
 	font-weight: 600;
 	margin: 0;
 	margin-top: 2rem;
-	margin-bottom: 1rem;
 `;
 
 /** Title for key-val pairs or sub-sections. */
 export const SubTitle = styled.p`
-	font-size: 1.4rem;
+	font-size: 1.2rem;
 	font-weight: 600;
 	margin: 0;
 	margin-top: 1.2rem;
@@ -30,13 +27,13 @@ export const SubTitle = styled.p`
 
 /** Regular paragraphs. */
 export const Text = styled.p`
-	font-size: 1.2rem;
+	font-size: 1rem;
 	margin: 0;
 	margin-top: .3rem;
 `;
 
 const textBoxStyle = css`
-	font-size: 1.2rem;
+	font-size: 1rem;
 	font-weight: 400;
 	margin: 0;
 	margin-top: 1.2rem;

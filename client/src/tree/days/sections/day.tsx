@@ -30,13 +30,13 @@ export const Day: React.FC<DayProps> = (props) => {
 			dayMusic = data.todayMusic;
 		}
 	}
-	const text = props.isYesterday ? "Yesterday" : "Today";
+	const text = !props.isYesterday ? "Today - " : "";
 
 	return (
 		<>
 			<Common.Title>
 				<TextPlaceholder show={isLoading} length={17}>
-					{() => <>{text} - {day.dayAsText}</>}
+					{() => <>{text}{day.dayAsText}</>}
 				</TextPlaceholder>
 			</Common.Title>
 

@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as Common from "@/styles/common";
 import { RenderIf } from "@/unit/components/renderIf";
+import styled from "@/styles/theme";
 
 interface VideoProps {
 	isLoading: boolean,
@@ -29,8 +30,26 @@ export const Video: React.FC<VideoProps> = (props) => {
 				{() => <Common.Text>{description}</Common.Text>}
 			</RenderIf>
 			<Common.Bump>
-				<iframe src={youTubeEmbedLink} width="560" height="315" frameBorder="0" allow="encrypted-media" allowFullScreen></iframe>
+				<VideoContainer>
+					<iframe src={youTubeEmbedLink} frameBorder="0" allow="encrypted-media" allowFullScreen></iframe>
+				</VideoContainer>
 			</Common.Bump>
 		</>
 	);
 }
+
+const VideoContainer = styled.div`
+	position: relative;
+	width: 100%;
+	height: 0;
+	/* Creates our aspect ratio. */
+	padding-bottom: 56%;
+
+	iframe {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+`;
