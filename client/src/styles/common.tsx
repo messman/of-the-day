@@ -1,6 +1,6 @@
 import styled, { css, theme } from "./theme";
-import * as React from "react";
 
+/** Title for the page itself. */
 export const PageTitle = styled.h1`
 	font-size: 3.5rem;
 	line-height: 3rem;
@@ -10,6 +10,7 @@ export const PageTitle = styled.h1`
 	margin-bottom: 1rem;
 `;
 
+/** Title of a section. */
 export const Title = styled.h1`
 	font-size: 2.6rem;
 	line-height: 3rem;
@@ -19,6 +20,7 @@ export const Title = styled.h1`
 	margin-bottom: 1rem;
 `;
 
+/** Title for key-val pairs or sub-sections. */
 export const SubTitle = styled.p`
 	font-size: 1.4rem;
 	font-weight: 600;
@@ -26,6 +28,7 @@ export const SubTitle = styled.p`
 	margin-top: 1.2rem;
 `;
 
+/** Regular paragraphs. */
 export const Text = styled.p`
 	font-size: 1.2rem;
 	margin: 0;
@@ -51,6 +54,7 @@ export const ImportantText = styled.p`
 	background-color: ${theme.color.importantInfo};
 `;
 
+/** Content separator. */
 export const Bump = styled.div`
 	margin-top: 1rem;
 `;

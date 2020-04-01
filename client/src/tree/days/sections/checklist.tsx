@@ -1,22 +1,21 @@
 import * as React from "react";
 import styled from "@/styles/theme";
-import { useAppDataContext } from "@/tree/appData";
 import * as Common from "@/styles/common";
-import { TextPlaceholder } from "@/styles/placeholder";
+import { TextPlaceholder } from "@/unit/components/placeholder";
 import { RenderIf } from "@/unit/components/renderIf";
+import { OfTheDayData } from "@/data/apiResponse";
 
 interface ChecklistProps {
+	isLoading: boolean,
+	data: OfTheDayData
 }
 
 export const Checklist: React.FC<ChecklistProps> = (props) => {
 
-	const { isLoading, success, error } = useAppDataContext();
-	if (error) {
-		return null;
-	}
+	const { isLoading, data } = props;
 
-	const checklistDone = isLoading ? [] : (success.checklistDone || []);
-	const checklistToDo = isLoading ? [] : (success.checklistToDo || []);
+	const checklistDone = isLoading ? [] : (data.checklistDone || []);
+	const checklistToDo = isLoading ? [] : (data.checklistToDo || []);
 
 	return (
 		<RenderIf show={isLoading || checklistDone.length > 0 || checklistToDo.length > 0}>
@@ -29,11 +28,11 @@ export const Checklist: React.FC<ChecklistProps> = (props) => {
 					</Common.SubTitle>
 
 					<Common.Text><TextPlaceholder show={isLoading} length={10} /></Common.Text>
-					<Common.Text><TextPlaceholder show={isLoading} length={10} /></Common.Text>
-					<Common.Text><TextPlaceholder show={isLoading} length={10} /></Common.Text>
-					<Common.Text><TextPlaceholder show={isLoading} length={10} /></Common.Text>
+					<Common.Text><TextPlaceholder show={isLoading} length={12} /></Common.Text>
+					<Common.Text><TextPlaceholder show={isLoading} length={9} /></Common.Text>
+					<Common.Text><TextPlaceholder show={isLoading} length={13} /></Common.Text>
 
-					<RenderIf show={!!success}>
+					<RenderIf show={!!data}>
 						{() =>
 							<>
 								<InnerChecklist isDone={true} items={checklistDone} />

@@ -1,46 +1,51 @@
 import { useState, useRef } from "react";
 
+export interface PromiseInput<T> {
+	promiseFunc: () => Promise<T>,
+	runImmediately: boolean,
+	minMilliseconds: number
+}
 export interface PromiseState<T> {
 	isLoading: boolean,
-	success: T,
+	data: T,
 	error: Error
 }
 
-export function usePromise<T>(promiseFunc: () => Promise<T>, minMilliseconds?: number): PromiseState<T> {
+export interface PromiseOutput<T> extends PromiseState<T> {
+	run: (clear: boolean) => void,
+	stop: (clear: boolean) => void
+}
+
+/** Wraps a promise call with a minimum timeout for smooth user experience. */
+export function usePromise<T>(input: PromiseInput<T>): PromiseOutput<T> {
 	const [state, setState] = useState<PromiseState<T>>({
-		isLoading: true,
-		success: null,
+		isLoading: input.runImmediately,
+		data: null,
 		error: null
 	});
 
-	const isFirstRun = useRef(true);
+	const currentPromise = useRef<Promise<T>>(null);
 
-	if (isFirstRun.current) {
-		isFirstRun.current = false;
-
-		const start = Date.now();
-
+	function runPromise(): void {
+		const startTime = Date.now();
 		function wrapFinish(success: T, error: Error): void {
-			const timeRemaining = Math.max(0, (minMilliseconds || 0) - (Date.now() - start));
-			if (timeRemaining === 0) {
-				finish(success, error);
+			if (currentPromise.current !== promise) {
+				return;
 			}
-			else {
-				setTimeout(() => {
-					finish(success, error)
-				}, timeRemaining);
-			}
+
+			const timeRemaining = Math.max(0, (input.minMilliseconds || 0) - (Date.now() - startTime));
+			setTimeout(() => {
+				setState({
+					isLoading: false,
+					data: success,
+					error: error
+				});
+			}, timeRemaining);
 		}
 
-		function finish(success: T, error: Error): void {
-			setState({
-				isLoading: false,
-				success: success,
-				error: error,
-			});
-		}
-
-		promiseFunc()
+		const promise = input.promiseFunc();
+		currentPromise.current = promise;
+		promise
 			.then((resp) => {
 				wrapFinish(resp, null);
 			})
@@ -48,5 +53,52 @@ export function usePromise<T>(promiseFunc: () => Promise<T>, minMilliseconds?: n
 				wrapFinish(null, err);
 			});
 	}
-	return state;
+
+	function updateState(isLoading: boolean, clear: boolean): void {
+		if (clear) {
+			currentPromise.current = null;
+			setState(p => {
+				if (p.isLoading === isLoading && !p.data && !p.error) {
+					return p;
+				}
+				return {
+					data: null,
+					error: null,
+					isLoading: isLoading
+				}
+			});
+		}
+		else {
+			setState(p => {
+				if (p.isLoading === isLoading) {
+					return p;
+				}
+				return {
+					...p,
+					isLoading: isLoading
+				}
+			});
+		}
+	}
+
+	const runFirstTime = useRef(input.runImmediately);
+	if (runFirstTime.current) {
+		runFirstTime.current = false;
+		runPromise();
+	}
+
+	function run(clear: boolean): void {
+		runPromise();
+		updateState(true, clear);
+	}
+
+	function stop(clear: boolean): void {
+		updateState(false, clear);
+	}
+
+	return {
+		...state,
+		run,
+		stop
+	};
 }

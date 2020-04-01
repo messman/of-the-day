@@ -1,39 +1,37 @@
 import * as React from "react";
-import { FlexColumn } from "@/unit/components/flex";
 import styled from "@/styles/theme";
-import { useAppDataContext } from "./appData";
-import { Title } from "./sections/title";
-import { Error } from "./sections/error";
-import { Header } from "./sections/header";
-import { Checklist } from "./sections/checklist";
-import { Day } from "./sections/day";
+import * as Common from "@/styles/common";
+import { OfTheDayAppData, Days } from "./days/days";
+import { AllMusicAppData, AllMusic } from "./allMusic/allMusic";
+import { ActionLink } from "@/unit/components/link";
 
-interface AppProps {
-}
+export const App: React.FC = () => {
 
-export const App: React.FC<AppProps> = (props) => {
+	const [isViewingDays, setIsViewingDays] = React.useState(true);
 
-	const { isLoading, success, error } = useAppDataContext();
-
-	if (error) {
-		console.error("Error fetching data", error);
-		return (
-			<Root>
-				<Title />
-				<Error />
-			</Root>
-		);
+	function onLinkClick(): void {
+		setIsViewingDays(!isViewingDays);
 	}
 
+	const linkTitle = isViewingDays ? "See all music" : "Back to daily view";
+	const renderedSection = isViewingDays ? <Days /> : <AllMusic />;
+
 	return (
-		<Root>
-			<Title />
-			<Header />
-			<Checklist />
-			<Day isYesterday={false} />
-			<Day isYesterday={true} />
-			<ExtraSpace />
-		</Root>
+		<OfTheDayAppData>
+			<AllMusicAppData>
+				<Root>
+					<Common.PageTitle>Of The Day</Common.PageTitle>
+					<Common.Text>A place for daily updates by Andrew.</Common.Text>
+					<Common.Bump>
+						<ActionLink onClick={onLinkClick} title={linkTitle} />
+					</Common.Bump>
+					<Common.Bump>
+						{renderedSection}
+					</Common.Bump>
+					<ExtraSpaceBottomOfPage />
+				</Root>
+			</AllMusicAppData>
+		</OfTheDayAppData>
 	);
 }
 
@@ -43,7 +41,7 @@ const Root = styled.div`
 	padding: .5rem;
 `;
 
-const ExtraSpace = styled.div`
+const ExtraSpaceBottomOfPage = styled.div`
 	height: 5rem;
 	width: 1px;
 `;

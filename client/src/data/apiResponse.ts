@@ -1,3 +1,6 @@
+/**
+ * Matches the C# definition. 
+ */
 export interface OfTheDayData {
 	keyVal: KeyVal;
 
