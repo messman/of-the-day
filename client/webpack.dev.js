@@ -17,19 +17,6 @@ module.exports = merge(base.base, {
 		open: "google chrome"
 	},
 
-	module: {
-		rules: [
-			{
-				test: /\.scss$/,
-				loaders: [
-					"style-loader", // Create styles from JS strings
-					"css-loader", // Translates CSS into JS
-					"sass-loader", // Compiles SCSS
-				]
-			}
-		]
-	},
-
 	plugins: [
 		// Generate the HTML for us
 		new HTMLWebpackPlugin(base.html)
