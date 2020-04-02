@@ -2,11 +2,14 @@ import * as React from "react";
 import * as Common from "@/styles/common";
 import { TextPlaceholder } from "@/unit/components/placeholder";
 import { RenderIf } from "@/unit/components/renderIf";
+import { IconProps, Icon } from "./icon";
+
 
 export interface PlaceholderRenderPropertyProps {
 	isLoading: boolean,
 	title: string,
 	titleLength: number,
+	titleIcon: IconProps,
 	showIfProperty: () => any,
 	propertyOutput: () => any,
 	propertyLength: number
@@ -23,7 +26,12 @@ export const PlaceholderRenderProperty: React.FC<PlaceholderRenderPropertyProps>
 							<>
 								<Common.SubTitle>
 									<TextPlaceholder show={props.isLoading} length={props.titleLength}>
-										{() => <>{props.title}</>}
+										{() =>
+											<>
+												<Icon {...props.titleIcon} />
+												{props.title}
+											</>
+										}
 									</TextPlaceholder>
 								</Common.SubTitle>
 							</>

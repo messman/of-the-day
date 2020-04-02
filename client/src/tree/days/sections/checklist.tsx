@@ -28,7 +28,7 @@ export const Checklist: React.FC<ChecklistProps> = (props) => {
 					</Common.SubTitle>
 
 					<Common.Text><TextPlaceholder show={isLoading} length={10} /></Common.Text>
-					<Common.Text><TextPlaceholder show={isLoading} length={12} /></Common.Text>
+			Fplace		<Common.Text><TextPlaceholder show={isLoading} length={12} /></Common.Text>
 					<Common.Text><TextPlaceholder show={isLoading} length={9} /></Common.Text>
 					<Common.Text><TextPlaceholder show={isLoading} length={13} /></Common.Text>
 

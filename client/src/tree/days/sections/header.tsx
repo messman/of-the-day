@@ -4,6 +4,7 @@ import { TextPlaceholder } from "@/unit/components/placeholder";
 import { RenderIf } from "@/unit/components/renderIf";
 import { PlaceholderRenderProperty } from "@/unit/components/placeholderRenderIf";
 import { OfTheDayData } from "@/data/apiResponse";
+import { faHourglassHalf, faPlay } from "@fortawesome/free-solid-svg-icons";
 
 interface HeaderProps {
 	isLoading: boolean,
@@ -36,6 +37,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
 				isLoading={isLoading}
 				title="What I'm working on"
 				titleLength={12}
+				titleIcon={icons.workingOn}
 				showIfProperty={() => data.keyVal.workingOn}
 				propertyOutput={() => data.keyVal.workingOn}
 				propertyLength={15}
@@ -45,6 +47,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
 				isLoading={isLoading}
 				title="What I'm looking forward to"
 				titleLength={14}
+				titleIcon={icons.lookingForward}
 				showIfProperty={() => data.keyVal.lookingForwardTo}
 				propertyOutput={() => data.keyVal.lookingForwardTo}
 				propertyLength={15}
@@ -52,3 +55,12 @@ export const Header: React.FC<HeaderProps> = (props) => {
 		</>
 	);
 }
+
+const icons = {
+	workingOn: {
+		definition: faPlay
+	},
+	lookingForward: {
+		definition: faHourglassHalf
+	}
+};

@@ -5,6 +5,9 @@ export interface LinkProps {
 	title: string
 }
 
+const LineBreak = styled.span`
+	display: block;
+`;
 
 const _Link = styled.a`
 	font-size: 1rem;
@@ -33,11 +36,10 @@ export const OutLink: React.FC<OutLinkProps> = (props) => {
 		return null;
 	}
 
-	// Wrap in a div, but keep the link itself as display: inline-block to make sure it's not accidentally clicked. 
 	return (
-		<div>
+		<LineBreak>
 			<_Link href={props.url} rel="noreferrer noopener" target="_blank" title="Opens in a new tab">{props.title} &rsaquo;</_Link>
-		</div>
+		</LineBreak>
 	);
 }
 
@@ -53,10 +55,9 @@ export const ActionLink: React.FC<ActionLinkProps> = (props) => {
 		return false;
 	}
 
-	// Wrap in a div, but keep the link itself as display: inline-block to make sure it's not accidentally clicked. 
 	return (
-		<div>
+		<LineBreak>
 			<_Link title={props.title} onClick={onLinkClicked}>{props.title}</_Link>
-		</div>
+		</LineBreak>
 	);
 }

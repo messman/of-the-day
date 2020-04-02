@@ -21,16 +21,7 @@ export const DayMusic: React.FC<MusicProps> = (props) => {
 	}
 
 	return (
-		<>
-			<Common.SubTitle>
-				<TextPlaceholder show={isLoading} length={6}>
-					{() => <>Song</>}
-				</TextPlaceholder>
-			</Common.SubTitle>
-
-
-			<CommonMusic isLoading={isLoading} record={record} />
-		</>
+		<CommonMusic isLoading={isLoading} record={record} />
 	);
 }
 
@@ -107,6 +98,7 @@ export const CommonMusic: React.FC<MusicProps> = (props) => {
 					isLoading={isLoading}
 					title={null}
 					titleLength={0}
+					titleIcon={null}
 					showIfProperty={() => record.description}
 					propertyOutput={() => record.description}
 					propertyLength={14}

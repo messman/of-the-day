@@ -11,7 +11,7 @@ export const PageTitle = styled.h1`
 
 /** Title of a section. */
 export const Title = styled.h1`
-	font-size: 2rem;
+	font-size: 1.7rem;
 	font-weight: 600;
 	margin: 0;
 	margin-top: 2rem;

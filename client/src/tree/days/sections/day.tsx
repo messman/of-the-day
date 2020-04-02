@@ -7,6 +7,8 @@ import { Quote } from "./quote";
 import { PlaceholderRenderProperty } from "@/unit/components/placeholderRenderIf";
 import { DayMusic } from "@/unit/components/music";
 import { Video } from "@/unit/components/video";
+import { faLocationArrow, faClock, faMoon, faComment, faVideo, faMusic, faPen, faCalendar } from '@fortawesome/free-solid-svg-icons'
+import { IconProps } from "@/unit/components/icon";
 
 interface DayProps {
 	isLoading: boolean,
@@ -36,7 +38,7 @@ export const Day: React.FC<DayProps> = (props) => {
 		<>
 			<Common.Title>
 				<TextPlaceholder show={isLoading} length={17}>
-					{() => <>{text}{day.dayAsText}</>}
+					{() => <>{day.dayAsText} &nbsp;&mdash;&nbsp; Day {day.dayNumber}</>}
 				</TextPlaceholder>
 			</Common.Title>
 
@@ -44,15 +46,7 @@ export const Day: React.FC<DayProps> = (props) => {
 				isLoading={isLoading}
 				title={null}
 				titleLength={0}
-				showIfProperty={() => day.dayNumber}
-				propertyOutput={() => `Day ${day.dayNumber}`}
-				propertyLength={15}
-			/>
-
-			<PlaceholderRenderProperty
-				isLoading={isLoading}
-				title={null}
-				titleLength={0}
+				titleIcon={icons.specialEvent}
 				showIfProperty={() => day.specialEvent}
 				propertyOutput={() => day.specialEvent}
 				propertyLength={10}
@@ -62,6 +56,7 @@ export const Day: React.FC<DayProps> = (props) => {
 				isLoading={isLoading}
 				title={null}
 				titleLength={0}
+				titleIcon={icons.note}
 				showIfProperty={() => day.note}
 				propertyOutput={() => day.note}
 				propertyLength={15}
@@ -71,6 +66,7 @@ export const Day: React.FC<DayProps> = (props) => {
 				isLoading={isLoading}
 				title="Location"
 				titleLength={12}
+				titleIcon={icons.location}
 				showIfProperty={() => day.location}
 				propertyOutput={() => day.location}
 				propertyLength={20}
@@ -80,37 +76,53 @@ export const Day: React.FC<DayProps> = (props) => {
 				isLoading={isLoading}
 				title="Schedule"
 				titleLength={12}
+				titleIcon={icons.schedule}
 				showIfProperty={() => day.schedule}
 				propertyOutput={() => day.schedule}
 				propertyLength={24}
 			/>
 
-			<RenderIf show={isLoading || !!dayMusic}>
-				{() => <DayMusic isLoading={isLoading} record={dayMusic} />}
-			</RenderIf>
-
-			<RenderIf show={!!day && !!day.youTubeLink}>
-				{() =>
-					<>
-						<Common.SubTitle>Video</Common.SubTitle>
-						<Video isLoading={false} link={day.youTubeLink} title={day.youTubeLinkTitle} description={day.youTubeLinkDescription} />
-					</>
+			<PlaceholderRenderProperty
+				isLoading={isLoading}
+				title="Music"
+				titleLength={8}
+				titleIcon={icons.music}
+				showIfProperty={() => dayMusic}
+				propertyOutput={() =>
+					<DayMusic isLoading={isLoading} record={dayMusic} />
 				}
-			</RenderIf>
+				propertyLength={24}
+			/>
 
-			<RenderIf show={!!day && !!day.quote}>
-				{() =>
-					<>
-						<Common.SubTitle>Quote</Common.SubTitle>
-						<Quote text={day.quote} attribution={day.quoteBy} />
-					</>
+			<PlaceholderRenderProperty
+				isLoading={isLoading}
+				title="Video"
+				titleLength={8}
+				titleIcon={icons.video}
+				showIfProperty={() => day.youTubeLink}
+				propertyOutput={() =>
+					<Video isLoading={false} link={day.youTubeLink} title={day.youTubeLinkTitle} description={day.youTubeLinkDescription} />
 				}
-			</RenderIf>
+				propertyLength={24}
+			/>
+
+			<PlaceholderRenderProperty
+				isLoading={isLoading}
+				title="Quote"
+				titleLength={8}
+				titleIcon={icons.quote}
+				showIfProperty={() => day.quote}
+				propertyOutput={() =>
+					<Quote text={day.quote} attribution={day.quoteBy} />
+				}
+				propertyLength={16}
+			/>
 
 			<PlaceholderRenderProperty
 				isLoading={isLoading}
 				title="End-of-day thoughts"
 				titleLength={12}
+				titleIcon={icons.endOfDay}
 				showIfProperty={() => day.howDidItGo}
 				propertyOutput={() => day.howDidItGo}
 				propertyLength={24}
@@ -119,7 +131,29 @@ export const Day: React.FC<DayProps> = (props) => {
 	);
 }
 
-
-
-
-
+const icons = {
+	location: {
+		definition: faLocationArrow
+	},
+	schedule: {
+		definition: faClock
+	},
+	specialEvent: {
+		definition: faCalendar
+	},
+	note: {
+		definition: faPen
+	},
+	music: {
+		definition: faMusic
+	},
+	video: {
+		definition: faVideo
+	},
+	quote: {
+		definition: faComment
+	},
+	endOfDay: {
+		definition: faMoon
+	}
+};
