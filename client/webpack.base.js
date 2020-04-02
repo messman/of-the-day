@@ -64,6 +64,7 @@ const baseWebpackOptions = {
 		new CopyPlugin([
 			// Copy to output folder, but then go one up
 			{ from: 'src/static/favicons', to: './' },
+			{ from: 'src/static/images', to: './' },
 		]),
 	]
 };
