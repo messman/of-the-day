@@ -1,159 +1,89 @@
 import * as React from "react";
 import * as Common from "@/styles/common";
-import { TextPlaceholder } from "@/unit/components/placeholder";
-import { RenderIf } from "@/unit/components/renderIf";
-import { DailyRecord, MusicRecord, OfTheDayData } from "@/data/apiResponse";
+import { DailyRecord, MusicRecord, SharedDayRecord } from "@/data/apiResponse";
 import { Quote } from "./quote";
-import { PlaceholderRenderProperty } from "@/unit/components/placeholderRenderIf";
-import { DayMusic } from "@/unit/components/music";
+import { Music } from "@/unit/components/music";
 import { Video } from "@/unit/components/video";
-import { faLocationArrow, faClock, faMoon, faComment, faVideo, faMusic, faPen, faCalendar } from '@fortawesome/free-solid-svg-icons'
-import { IconProps } from "@/unit/components/icon";
+import { faLocationArrow, faClock, faMoon, faComment, faVideo, faMusic, faPen, faCalendar, faSun } from '@fortawesome/free-solid-svg-icons'
+import { IconTitle } from "@/unit/components/iconTitle";
+import { If } from "@/unit/components/if";
+import { IconPad } from "@/unit/components/icon";
 
 interface DayProps {
-	isLoading: boolean,
-	data: OfTheDayData,
-	isYesterday: boolean
+	day: DailyRecord,
+	dayMusic: MusicRecord
 }
 
 export const Day: React.FC<DayProps> = (props) => {
-
-	const { isLoading, data, isYesterday } = props;
-
-	let day: DailyRecord = null;
-	let dayMusic: MusicRecord = null;
-	if (data) {
-		if (isYesterday) {
-			day = data.yesterday;
-			dayMusic = data.yesterdayMusic;
-		}
-		else {
-			day = data.today;
-			dayMusic = data.todayMusic;
-		}
-	}
-	const text = !props.isYesterday ? "Today - " : "";
+	const { day, dayMusic } = props;
 
 	return (
 		<>
-			<Common.Title>
-				<TextPlaceholder show={isLoading} length={17}>
-					{() => <>{day.dayAsText} &nbsp;&mdash;&nbsp; Day {day.dayNumber}</>}
-				</TextPlaceholder>
-			</Common.Title>
+			<DayTitle day={day} />
+			<IconPad>
+				<If show={day.specialEvent}>
+					{() => <>
+						<Common.Text>{day.specialEvent}</Common.Text>
+					</>}
+				</If>
 
-			<PlaceholderRenderProperty
-				isLoading={isLoading}
-				title={null}
-				titleLength={0}
-				titleIcon={icons.specialEvent}
-				showIfProperty={() => day.specialEvent}
-				propertyOutput={() => day.specialEvent}
-				propertyLength={10}
-			/>
+				<If show={day.note}>
+					{() => <>
+						<Common.Text>{day.note}</Common.Text>
+					</>}
+				</If>
 
-			<PlaceholderRenderProperty
-				isLoading={isLoading}
-				title={null}
-				titleLength={0}
-				titleIcon={icons.note}
-				showIfProperty={() => day.note}
-				propertyOutput={() => day.note}
-				propertyLength={15}
-			/>
+				<If show={day.location}>
+					{() => <>
+						<IconTitle icon={faLocationArrow}>Location</IconTitle>
+						<Common.Text>{day.location}</Common.Text>
+					</>}
+				</If>
 
-			<PlaceholderRenderProperty
-				isLoading={isLoading}
-				title="Location"
-				titleLength={12}
-				titleIcon={icons.location}
-				showIfProperty={() => day.location}
-				propertyOutput={() => day.location}
-				propertyLength={20}
-			/>
+				<If show={day.schedule}>
+					{() => <>
+						<IconTitle icon={faClock}>Schedule</IconTitle>
+						<Common.Text>{day.schedule}</Common.Text>
+					</>}
+				</If>
 
-			<PlaceholderRenderProperty
-				isLoading={isLoading}
-				title="Schedule"
-				titleLength={12}
-				titleIcon={icons.schedule}
-				showIfProperty={() => day.schedule}
-				propertyOutput={() => day.schedule}
-				propertyLength={24}
-			/>
+				<If show={dayMusic}>
+					{() => <>
+						<IconTitle icon={faMusic}>Music</IconTitle>
+						<Music record={dayMusic} />
+					</>}
+				</If>
 
-			<PlaceholderRenderProperty
-				isLoading={isLoading}
-				title="Music"
-				titleLength={8}
-				titleIcon={icons.music}
-				showIfProperty={() => dayMusic}
-				propertyOutput={() =>
-					<DayMusic isLoading={isLoading} record={dayMusic} />
-				}
-				propertyLength={24}
-			/>
+				<If show={day.youTubeLink}>
+					{() => <>
+						<IconTitle icon={faVideo}>Video</IconTitle>
+						<Video link={day.youTubeLink} title={day.youTubeLinkTitle} description={day.youTubeLinkDescription} />
+					</>}
+				</If>
 
-			<PlaceholderRenderProperty
-				isLoading={isLoading}
-				title="Video"
-				titleLength={8}
-				titleIcon={icons.video}
-				showIfProperty={() => day.youTubeLink}
-				propertyOutput={() =>
-					<Video isLoading={false} link={day.youTubeLink} title={day.youTubeLinkTitle} description={day.youTubeLinkDescription} />
-				}
-				propertyLength={24}
-			/>
+				<If show={day.quote}>
+					{() => <>
+						<IconTitle icon={faComment}>Quote</IconTitle>
+						<Quote text={day.quote} attribution={day.quoteBy} />
+					</>}
+				</If>
 
-			<PlaceholderRenderProperty
-				isLoading={isLoading}
-				title="Quote"
-				titleLength={8}
-				titleIcon={icons.quote}
-				showIfProperty={() => day.quote}
-				propertyOutput={() =>
-					<Quote text={day.quote} attribution={day.quoteBy} />
-				}
-				propertyLength={16}
-			/>
-
-			<PlaceholderRenderProperty
-				isLoading={isLoading}
-				title="End-of-day thoughts"
-				titleLength={12}
-				titleIcon={icons.endOfDay}
-				showIfProperty={() => day.howDidItGo}
-				propertyOutput={() => day.howDidItGo}
-				propertyLength={24}
-			/>
+				<If show={day.howDidItGo}>
+					{() => <>
+						<IconTitle icon={faMoon}>End-of-day thoughts</IconTitle>
+						<Common.Text>{day.howDidItGo}</Common.Text>
+					</>}
+				</If>
+			</IconPad>
 		</>
 	);
 }
 
-const icons = {
-	location: {
-		definition: faLocationArrow
-	},
-	schedule: {
-		definition: faClock
-	},
-	specialEvent: {
-		definition: faCalendar
-	},
-	note: {
-		definition: faPen
-	},
-	music: {
-		definition: faMusic
-	},
-	video: {
-		definition: faVideo
-	},
-	quote: {
-		definition: faComment
-	},
-	endOfDay: {
-		definition: faMoon
-	}
-};
+interface DayTitleProps {
+	day: SharedDayRecord
+}
+
+export const DayTitle: React.FC<DayTitleProps> = (props) => {
+	const { day } = props;
+	return <Common.Title >{day.dayAsText} &nbsp;&mdash;&nbsp; Day {day.dayNumber}</Common.Title>;
+}

@@ -11,18 +11,18 @@ export const PageTitle = styled.h1`
 
 /** Title of a section. */
 export const Title = styled.h1`
-	font-size: 1.7rem;
+	font-size: 1.9rem;
 	font-weight: 600;
 	margin: 0;
-	margin-top: 2rem;
+	margin-top: 2.8rem;
 `;
 
 /** Title for key-val pairs or sub-sections. */
 export const SubTitle = styled.p`
-	font-size: 1.2rem;
+	font-size: 1.3rem;
 	font-weight: 600;
 	margin: 0;
-	margin-top: 1.2rem;
+	margin-top: 1.4rem;
 `;
 
 /** Regular paragraphs. */

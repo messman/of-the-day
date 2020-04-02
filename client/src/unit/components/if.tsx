@@ -1,6 +1,6 @@
 import * as React from "react";
 
-export interface RenderIfProps {
+export interface IfProps {
 	/** truthy/falsy value to indicate whether to show the children. */
 	show: any,
 	/** Child render function. */
@@ -12,7 +12,7 @@ export interface RenderIfProps {
  * Not the most performant in regular circumstances, but for this project it is really only used for
  * loading logic. 
  */
-export const RenderIf: React.FC<RenderIfProps> = (props) => {
+export const If: React.FC<IfProps> = (props) => {
 	if (!props.show) {
 		return null;
 	}

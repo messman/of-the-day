@@ -1,8 +1,11 @@
 import * as React from "react";
 import { usePromise, PromiseOutput } from "@/unit/hooks/usePromise";
 import { MusicRecord } from "@/data/apiResponse";
-import { fetchApi, FetchErr } from "@/data/fetch";
-import { ListMusic } from "@/unit/components/music";
+import { fetchApi, FetchErr, fetchMinMilliseconds } from "@/data/fetch";
+import { Music } from "@/unit/components/music";
+import * as Common from "@/styles/common";
+import { LoadingIcon, IconPad } from "@/unit/components/icon";
+import { DayTitle } from "../days/sections/day";
 
 export const AllMusic: React.FC = () => {
 
@@ -17,12 +20,20 @@ export const AllMusic: React.FC = () => {
 	if (error) {
 		return <FetchErr />;
 	}
+	else if (isLoading) {
+		return <LoadingIcon />;
+	}
 	else if (!data) {
 		return null;
 	}
 
 	const music = data.map(m => {
-		return <ListMusic key={m.dayNumber} record={m} />;
+		return (
+			<div key={m.dayNumber}>
+				<DayTitle day={m} />
+				<Music record={m} />
+			</div>
+		);
 	});
 
 	return (
@@ -40,7 +51,7 @@ export const AllMusicAppData: React.FC = (props) => {
 	const promiseOutput = usePromise<MusicRecord[]>({
 		promiseFunc: () => fetchApi(url),
 		runImmediately: false,
-		minMilliseconds: 0
+		minMilliseconds: fetchMinMilliseconds
 	});
 
 	return (

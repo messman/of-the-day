@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as Common from "@/styles/common";
 
-export const fetchMinMilliseconds: number = 2500;
+export const fetchMinMilliseconds: number = 800;
 
 export function fetchApi<T>(url: string): Promise<T> {
 	return fetch(url)

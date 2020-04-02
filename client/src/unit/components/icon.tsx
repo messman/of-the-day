@@ -1,14 +1,9 @@
 import * as React from "react";
 import styled from "@/styles/theme";
-import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { SizeProp } from "@fortawesome/fontawesome-svg-core";
+import { IconDefinition, faSpinner, faCompactDisc, faSun, faCompass } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon, FontAwesomeIconProps } from "@fortawesome/react-fontawesome";
 
-export interface IconProps {
-	definition: IconDefinition,
-	color?: string,
-	fixedWidth?: boolean,
-	size?: SizeProp
+export interface IconProps extends FontAwesomeIconProps {
 }
 
 const IconSpacer = styled.span`
@@ -16,14 +11,32 @@ const IconSpacer = styled.span`
 	margin-right: .3rem;
 `;
 
-/** Creates a link if the url exists. */
 export const Icon: React.FC<IconProps> = (props) => {
-	const fixedWidth = props.fixedWidth === undefined ? true : props.fixedWidth;
-	const size = props.size || "lg";
+	let { fixedWidth, size, ...otherProps } = props;
+	if (fixedWidth === undefined) {
+		fixedWidth = true;
+	}
 
 	return (
 		<IconSpacer>
-			<FontAwesomeIcon icon={props.definition} fixedWidth={fixedWidth} size={size} color={props.color} />
+			<FontAwesomeIcon {...otherProps} fixedWidth={fixedWidth} size={size} />
 		</IconSpacer>
 	);
 };
+
+export const LoadingIcon: React.FC = () => {
+	return (
+		<LoadingIconCenter>
+			<FontAwesomeIcon icon={faCompass} spin={true} size="3x" />
+		</LoadingIconCenter>
+	);
+}
+
+const LoadingIconCenter = styled.div`
+	text-align: center;
+	margin: 3rem 0;
+`;
+
+export const IconPad = styled.div`
+	padding-left: 2rem;
+`;

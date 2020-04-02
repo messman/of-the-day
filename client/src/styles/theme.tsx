@@ -4,7 +4,6 @@ export { ThemeProvider, keyframes } from "styled-components";
 export interface Theme {
 	color: {
 		bg: string,
-		bgPlaceholder: string,
 		text: string,
 		badInfo: string,
 		importantInfo: string,
@@ -18,10 +17,9 @@ export interface Theme {
 export const theme: Theme = {
 	color: {
 		bg: "#FFF",
-		bgPlaceholder: "#DDD",
 		text: "#333",
-		badInfo: "#ECC4C4",
-		importantInfo: "#D0E6F4",
+		badInfo: "#F49797",
+		importantInfo: "#97C8FB",
 		completedToDo: "#79BC58",
 		incompleteToDo: "#B9B9B9",
 		link: "#3E90E5"

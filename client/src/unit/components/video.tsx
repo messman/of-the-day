@@ -1,18 +1,17 @@
 import * as React from "react";
 import * as Common from "@/styles/common";
-import { RenderIf } from "@/unit/components/renderIf";
+import { If } from "@/unit/components/if";
 import styled from "@/styles/theme";
 
 interface VideoProps {
-	isLoading: boolean,
 	link: string,
 	description: string,
 	title: string
 }
 
 export const Video: React.FC<VideoProps> = (props) => {
-	const { isLoading, link, description, title } = props;
-	if (isLoading || !link) {
+	const { link, description, title } = props;
+	if (!link) {
 		return null;
 	}
 
@@ -23,12 +22,12 @@ export const Video: React.FC<VideoProps> = (props) => {
 
 	return (
 		<>
-			<RenderIf show={!!title}>
+			<If show={title}>
 				{() => <Common.Text>"{title}"</Common.Text>}
-			</RenderIf>
-			<RenderIf show={!!description}>
+			</If>
+			<If show={description}>
 				{() => <Common.Text>{description}</Common.Text>}
-			</RenderIf>
+			</If>
 			<Common.Bump>
 				<VideoContainer>
 					<iframe src={youTubeEmbedLink} frameBorder="0" allow="encrypted-media" allowFullScreen></iframe>

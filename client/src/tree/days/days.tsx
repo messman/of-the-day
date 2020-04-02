@@ -2,9 +2,13 @@ import * as React from "react";
 import { usePromise, PromiseOutput } from "@/unit/hooks/usePromise";
 import { OfTheDayData } from "@/data/apiResponse";
 import { fetchApi, fetchMinMilliseconds, FetchErr } from "@/data/fetch";
-import { Header } from "./sections/header";
+import * as Common from "@/styles/common";
 import { Checklist } from "./sections/checklist";
 import { Day } from "./sections/day";
+import { LoadingIcon, IconPad } from "@/unit/components/icon";
+import { If } from "@/unit/components/if";
+import { faPlay, faHourglassHalf } from "@fortawesome/free-solid-svg-icons";
+import { IconTitle } from "@/unit/components/iconTitle";
 
 export const Days: React.FC = () => {
 
@@ -19,16 +23,49 @@ export const Days: React.FC = () => {
 	if (error) {
 		return <FetchErr />;
 	}
-	else if (!isLoading && !data && !error) {
+	else if (isLoading) {
+		return <LoadingIcon />;
+	}
+	else if (!data) {
 		return null;
 	}
 
 	return (
 		<>
-			<Header isLoading={isLoading} data={data} />
-			<Checklist isLoading={isLoading} data={data} />
-			<Day isLoading={isLoading} data={data} isYesterday={false} />
-			<Day isLoading={isLoading} data={data} isYesterday={true} />
+			<If show={data.keyVal.badInformation}>
+				{() =>
+					<Common.BadText>
+						{data.keyVal.badInformation}
+					</Common.BadText>
+				}
+			</If>
+
+			<If show={data.keyVal.importantInformation}>
+				{() =>
+					<Common.ImportantText>
+						{data.keyVal.importantInformation}
+					</Common.ImportantText>
+				}
+			</If>
+
+			<IconPad>
+				<If show={data.keyVal.workingOn}>
+					{() => <>
+						<IconTitle icon={faPlay}>What I'm working on</IconTitle>
+						<Common.Text>{data.keyVal.workingOn}</Common.Text>
+					</>}
+				</If>
+
+				<If show={data.keyVal.lookingForwardTo}>
+					{() => <>
+						<IconTitle icon={faHourglassHalf}>What I'm looking forward to</IconTitle>
+						<Common.Text>{data.keyVal.lookingForwardTo}</Common.Text>
+					</>}
+				</If>
+				<Checklist data={data} />
+			</IconPad>
+			<Day day={data.today} dayMusic={data.todayMusic} />
+			<Day day={data.yesterday} dayMusic={data.yesterdayMusic} />
 		</>
 	);
 }

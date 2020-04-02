@@ -1,48 +1,35 @@
 import * as React from "react";
-import styled from "@/styles/theme";
+import styled, { theme } from "@/styles/theme";
 import * as Common from "@/styles/common";
-import { TextPlaceholder } from "@/unit/components/placeholder";
-import { RenderIf } from "@/unit/components/renderIf";
+import { If } from "@/unit/components/if";
 import { OfTheDayData } from "@/data/apiResponse";
+import { IconTitle } from "@/unit/components/iconTitle";
+import { faTasks, faCheck, faCircle, faCaretRight } from "@fortawesome/free-solid-svg-icons";
+import { Icon } from "@/unit/components/icon";
 
 interface ChecklistProps {
-	isLoading: boolean,
 	data: OfTheDayData
 }
 
 export const Checklist: React.FC<ChecklistProps> = (props) => {
+	const { data } = props;
+	if (!data) {
+		return;
+	}
 
-	const { isLoading, data } = props;
-
-	const checklistDone = isLoading ? [] : (data.checklistDone || []);
-	const checklistToDo = isLoading ? [] : (data.checklistToDo || []);
+	const checklistDone = data.checklistDone || [];
+	const checklistToDo = data.checklistToDo || [];
 
 	return (
-		<RenderIf show={isLoading || checklistDone.length > 0 || checklistToDo.length > 0}>
+		<If show={checklistDone.length > 0 || checklistToDo.length > 0}>
 			{() =>
 				<>
-					<Common.SubTitle>
-						<TextPlaceholder show={isLoading} length={12}>
-							{() => <>Top recent to-do items</>}
-						</TextPlaceholder>
-					</Common.SubTitle>
-
-					<Common.Text><TextPlaceholder show={isLoading} length={10} /></Common.Text>
-			Fplace		<Common.Text><TextPlaceholder show={isLoading} length={12} /></Common.Text>
-					<Common.Text><TextPlaceholder show={isLoading} length={9} /></Common.Text>
-					<Common.Text><TextPlaceholder show={isLoading} length={13} /></Common.Text>
-
-					<RenderIf show={!!data}>
-						{() =>
-							<>
-								<InnerChecklist isDone={true} items={checklistDone} />
-								<InnerChecklist isDone={false} items={checklistToDo} />
-							</>
-						}
-					</RenderIf>
+					<IconTitle icon={faTasks}>Top recent to-do items</IconTitle>
+					<InnerChecklist isDone={true} items={checklistDone} />
+					<InnerChecklist isDone={false} items={checklistToDo} />
 				</>
 			}
-		</RenderIf>
+		</If>
 	);
 }
 
@@ -54,11 +41,15 @@ interface InnerChecklistProps {
 const InnerChecklist: React.FC<InnerChecklistProps> = (props) => {
 	const items = props.items.map((item) => {
 		return (
-			<ListItem key={item} isDone={props.isDone}>
-				<Common.Text>
-					{item}
-				</Common.Text>
-			</ListItem>
+			<Common.Text>
+				<If show={props.isDone}>
+					{() => <Icon icon={faCheck} color={theme.color.completedToDo} />}
+				</If>
+				<If show={!props.isDone}>
+					{() => <Icon icon={faCaretRight} color={theme.color.incompleteToDo} />}
+				</If>
+				{item}
+			</Common.Text>
 		)
 	});
 
@@ -69,29 +60,8 @@ const InnerChecklist: React.FC<InnerChecklistProps> = (props) => {
 	);
 };
 
-interface ListItemProps {
-	isDone: boolean
-}
-
-const ListItem = styled.li<ListItemProps>`
-	position: relative;
-	&::before {
-		position: absolute;
-		top: -.16rem;
-		left: -1rem;
-		content: "\\2022";
-		font-size: 3rem;
-		height: 1rem;
-		width: 1rem;
-		line-height: 1rem;
-		color: ${props => props.isDone ? props.theme.color.completedToDo : props.theme.color.incompleteToDo};
-	}
-`;
-
-const List = styled.ul`
+const List = styled.div`
 	margin-bottom: 1rem;
 	margin-top: 0;
-	padding-left: 2.5rem;
-	list-style-type: none;
 `;
 
