@@ -1,7 +1,7 @@
 import * as React from "react";
-import { usePromise, PromiseOutput } from "@/unit/hooks/usePromise";
+import { usePromise, PromiseOutput, promiseMaximum } from "@/unit/hooks/usePromise";
 import { MusicRecord } from "@/data/apiResponse";
-import { fetchApi, FetchErr, fetchMinMilliseconds } from "@/data/fetch";
+import { fetchApi, FetchErr, fetchMinMilliseconds, fetchMaxMilliseconds } from "@/data/fetch";
 import { Music } from "@/unit/components/music";
 import * as Common from "@/styles/common";
 import { LoadingIcon, IconPad } from "@/unit/components/icon";
@@ -47,9 +47,13 @@ export const AllMusic: React.FC = () => {
 const AllMusicAppDataContext = React.createContext<PromiseOutput<MusicRecord[]>>(null);
 
 const url = "https://agm-of-the-day.azurewebsites.net/api/AllMusic";
+function getData(): Promise<MusicRecord[]> {
+	return promiseMaximum(fetchApi(url), fetchMaxMilliseconds);
+}
+
 export const AllMusicAppData: React.FC = (props) => {
 	const promiseOutput = usePromise<MusicRecord[]>({
-		promiseFunc: () => fetchApi(url),
+		promiseFunc: getData,
 		runImmediately: false,
 		minMilliseconds: fetchMinMilliseconds
 	});

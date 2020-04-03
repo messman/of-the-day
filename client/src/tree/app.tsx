@@ -5,12 +5,15 @@ import { OfTheDayAppData, Days } from "./days/days";
 import { AllMusicAppData, AllMusic } from "./allMusic/allMusic";
 import { ActionLink, OutLink } from "@/unit/components/link";
 import { GlobalAppStyles, ThemeProvider, themes } from "@/styles/theme";
-import { useLocalStorage } from "@/unit/hooks/useLocalStorage";
+import { useLocalStorage, keyFactory } from "@/unit/hooks/useLocalStorage";
+
+export const getKey = keyFactory("of-the-day");
+const themeIndexKey = getKey("themeIndex");
 
 export const App: React.FC = () => {
 
 	const [isViewingDays, setIsViewingDays] = React.useState(true);
-	const [themeIndex, setThemeIndex] = useLocalStorage("themeIndex", 0);
+	const [themeIndex, setThemeIndex] = useLocalStorage(themeIndexKey, 0);
 
 	function onAppSwitchLinkClick(): void {
 		setIsViewingDays(!isViewingDays);

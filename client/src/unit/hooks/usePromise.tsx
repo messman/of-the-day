@@ -102,3 +102,21 @@ export function usePromise<T>(input: PromiseInput<T>): PromiseOutput<T> {
 		stop
 	};
 }
+
+export function promiseMaximum<T>(promise: Promise<T>, maxMilliseconds: number): Promise<T> {
+	return new Promise<T>((resolve, reject) => {
+		const timeoutId = setTimeout(() => {
+			reject(new Error("timed out at maximum"));
+		}, maxMilliseconds);
+		promise.then(
+			(res) => {
+				clearTimeout(timeoutId);
+				resolve(res);
+			},
+			(err) => {
+				clearTimeout(timeoutId);
+				reject(err);
+			}
+		);
+	})
+}

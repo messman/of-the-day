@@ -1,7 +1,7 @@
 import * as React from "react";
-import { usePromise, PromiseOutput } from "@/unit/hooks/usePromise";
+import { usePromise, PromiseOutput, promiseMaximum } from "@/unit/hooks/usePromise";
 import { OfTheDayData } from "@/data/apiResponse";
-import { fetchApi, fetchMinMilliseconds, FetchErr } from "@/data/fetch";
+import { fetchApi, fetchMinMilliseconds, fetchMaxMilliseconds, FetchErr } from "@/data/fetch";
 import * as Common from "@/styles/common";
 import { Checklist } from "./sections/checklist";
 import { Day } from "./sections/day";
@@ -85,9 +85,13 @@ const params = new URLSearchParams(queryString);
 const isTomorrow = params.get("tomorrow") === "1";
 const fullUrl = !isTomorrow ? url : url + "?tomorrow=1";
 
+function getData(): Promise<OfTheDayData> {
+	return promiseMaximum(fetchApi(fullUrl), fetchMaxMilliseconds);
+}
+
 export const OfTheDayAppData: React.FC = (props) => {
 	const promiseOutput = usePromise<OfTheDayData>({
-		promiseFunc: () => fetchApi(fullUrl),
+		promiseFunc: getData,
 		runImmediately: false,
 		minMilliseconds: fetchMinMilliseconds
 	});

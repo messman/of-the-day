@@ -33,3 +33,9 @@ export function useLocalStorage<T>(key: string, initialValue: T): UseLocalStorag
 	};
 	return [storedValue, setValue];
 }
+
+export function keyFactory(namespace: string): (key: string) => string {
+	return function getKey(key: string) {
+		return `${namespace}_${key}`;
+	}
+}
