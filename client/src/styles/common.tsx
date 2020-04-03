@@ -1,4 +1,4 @@
-import styled, { css, theme } from "./theme";
+import styled, { css } from "./theme";
 
 /** Title for the page itself. */
 export const PageTitle = styled.h1`
@@ -43,12 +43,12 @@ const textBoxStyle = css`
 
 export const BadText = styled.p`
 	${textBoxStyle}
-	background-color: ${theme.color.badInfo};
+	background-color: ${p => p.theme.color.badInfo};
 `;
 
 export const ImportantText = styled.p`
 	${textBoxStyle}
-	background-color: ${theme.color.importantInfo};
+	background-color: ${p => p.theme.color.importantInfo};
 `;
 
 /** Content separator. */

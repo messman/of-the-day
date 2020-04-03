@@ -11,12 +11,8 @@ namespace OfTheDay
 		public List<string> ChecklistDone { get; set; }
 		public List<string> ChecklistToDo { get; set; }
 
-		public DailyRecord Today { get; set; }
-		public DailyRecord Yesterday { get; set; }
-
-		public MusicRecord TodayMusic { get; set; }
-		public MusicRecord YesterdayMusic { get; set; }
-
+		public List<DailyRecord> DailyRecords { get; set; }
+		public List<MusicRecord> MusicRecords { get; set; }
 	}
 
 	public class KeyVal

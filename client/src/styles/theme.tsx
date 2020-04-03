@@ -1,4 +1,4 @@
-import baseStyled, { css as baseCss, ThemedStyledInterface, BaseThemedCssFunction, createGlobalStyle, ThemeProps, FlattenInterpolation } from "styled-components";
+import baseStyled, { css as baseCss, ThemedStyledInterface, BaseThemedCssFunction, createGlobalStyle, ThemeProps, FlattenInterpolation, CSSObject, ThemedGlobalStyledClassProps } from "styled-components";
 export { ThemeProvider, keyframes } from "styled-components";
 
 export interface Theme {
@@ -14,7 +14,7 @@ export interface Theme {
 	fontFamily: string;
 }
 
-export const theme: Theme = {
+const defaultTheme: Theme = {
 	color: {
 		bg: "#FFF",
 		text: "#333",
@@ -27,29 +27,26 @@ export const theme: Theme = {
 	fontFamily: `'Montserrat', sans-serif`
 }
 
-export const GlobalAppStyles = createGlobalStyle`
-	
-	html {
-		font-family: ${theme.fontFamily};
-		font-weight: 300;
+const darkTheme: Theme = {
+	...defaultTheme,
+	color: {
+		...defaultTheme.color,
+		bg: "#222",
+		text: "#EEE",
+		badInfo: "#c63232",
+		importantInfo: "#5694d4",
+		link: "#4fa0f5"
 	}
-	
-	body {
-		background-color: ${theme.color.bg};
-		color: ${theme.color.text};
-	}
+}
 
-	html, body, #react-root {
-		margin: 0;
-		padding: 0;
-		height: 100%;
-	}
-
-	* {
-		box-sizing: border-box;
-		z-index: 1
-	}
-`;
+interface ThemeInfo {
+	name: string,
+	theme: Theme
+}
+export const themes: ThemeInfo[] = [
+	{ name: "default", theme: defaultTheme },
+	{ name: "dark", theme: darkTheme },
+];
 
 // Export wrapped styled
 const styled = baseStyled as ThemedStyledInterface<Theme>;
@@ -63,3 +60,26 @@ interface ClassNameProps {
 	className?: string
 }
 export type StyledFC<P> = React.FC<P & ClassNameProps>;
+
+export const GlobalAppStyles = createGlobalStyle<ThemeProps<Theme>>`
+	html {
+		font-family: ${p => p.theme.fontFamily};
+		font-weight: 300;
+	}
+	
+	body {
+		background-color: ${p => p.theme.color.bg};
+		color: ${p => p.theme.color.text};
+	}
+
+	html, body, #react-root {
+		margin: 0;
+		padding: 0;
+		height: 100%;
+	}
+
+	* {
+		box-sizing: border-box;
+		z-index: 1;
+	}
+`;

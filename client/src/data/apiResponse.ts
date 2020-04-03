@@ -7,11 +7,8 @@ export interface OfTheDayData {
 	checklistDone: string[];
 	checklistToDo: string[];
 
-	today: DailyRecord;
-	yesterday: DailyRecord;
-
-	todayMusic: MusicRecord;
-	yesterdayMusic: MusicRecord;
+	dailyRecords: DailyRecord[];
+	musicRecords: MusicRecord[];
 }
 
 export interface KeyVal {

@@ -74,6 +74,8 @@ namespace OfTheDay
 		private static string ChecklistRangeText = new Cell("Checklist", 'A', 2).ToRange('B', 11).ToText();
 		private static string KeyValRangeText = new Cell("KeyVal", 'A', 1).ToRange('B', 5).ToText();
 
+		private const int DaysToReturn = 3;
+
 		public async Task<OfTheDayData> OfTheDay(bool seeTomorrow)
 		{
 			try
@@ -84,11 +86,12 @@ namespace OfTheDay
 				int extraRows = 0;
 				// Remove one for 0-based counting.
 				int fromRowOffset = dayNumber - 1;
-				// Remove another because we are getting yesterday as well.
-				if (dayNumber > 1)
+				int additionalDaysInPast = DaysToReturn - 1;
+				// Remove more because we are getting yesterday as well.
+				if (dayNumber > additionalDaysInPast)
 				{
-					extraRows++;
-					fromRowOffset--;
+					extraRows += additionalDaysInPast;
+					fromRowOffset -= additionalDaysInPast;
 				}
 				// Add one back if we are looking at tomorrow.
 				if (seeTomorrow)
@@ -119,16 +122,19 @@ namespace OfTheDay
 					var musicRecordsValues = values[1];
 					ThrowIfEmptyResult(musicRecordsValues.Values, "music records");
 
-					int todayRecordIndex = 0;
-					// If only one record, it's today (instead of including yesterday)
-					if (dayRecordsValues.Values.Count > 1 && musicRecordsValues.Values.Count > 1)
+					var dailyRecords = new List<DailyRecord>();
+					var musicRecords = new List<MusicRecord>();
+
+					for (int i = 0; i < DaysToReturn; i++)
 					{
-						resultData.Yesterday = DailyRecord.FromRow(dayRecordsValues.Values[0]);
-						resultData.YesterdayMusic = MusicRecord.FromRow(musicRecordsValues.Values[0]);
-						todayRecordIndex = 1;
+						dailyRecords.Add(DailyRecord.FromRow(dayRecordsValues.Values[i]));
+						musicRecords.Add(MusicRecord.FromRow(musicRecordsValues.Values[i]));
 					}
-					resultData.Today = DailyRecord.FromRow(dayRecordsValues.Values[todayRecordIndex]);
-					resultData.TodayMusic = MusicRecord.FromRow(musicRecordsValues.Values[todayRecordIndex]);
+					dailyRecords.Reverse();
+					musicRecords.Reverse();
+
+					resultData.DailyRecords = dailyRecords;
+					resultData.MusicRecords = musicRecords;
 				}
 
 				// 2 - Checklist records

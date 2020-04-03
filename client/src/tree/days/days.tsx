@@ -30,6 +30,13 @@ export const Days: React.FC = () => {
 		return null;
 	}
 
+	const days: JSX.Element[] = [];
+	for (let i = 0; i < data.dailyRecords.length; i++) {
+		const day = data.dailyRecords[i];
+		const music = data.musicRecords[i];
+		days.push(<Day key={day.dayNumber} day={day} dayMusic={music} />);
+	}
+
 	return (
 		<>
 			<If show={data.keyVal.badInformation}>
@@ -64,8 +71,7 @@ export const Days: React.FC = () => {
 				</If>
 				<Checklist data={data} />
 			</IconPad>
-			<Day day={data.today} dayMusic={data.todayMusic} />
-			<Day day={data.yesterday} dayMusic={data.yesterdayMusic} />
+			{days}
 		</>
 	);
 }

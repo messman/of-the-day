@@ -21,12 +21,12 @@ export const IconTitle: React.FC<IconTitleProps> = (props) => {
 	)
 };
 
-const Container = styled.div`
+const Container = styled.span`
 	position: relative;
 	display: inline-block;
 `;
 
-const Offset = styled.div`
+const Offset = styled.span`
 	position: absolute;
 	top: 0;
 	left: -2rem;

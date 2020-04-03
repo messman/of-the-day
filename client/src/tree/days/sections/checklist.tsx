@@ -1,11 +1,12 @@
 import * as React from "react";
-import styled, { theme } from "@/styles/theme";
+import styled from "@/styles/theme";
 import * as Common from "@/styles/common";
 import { If } from "@/unit/components/if";
 import { OfTheDayData } from "@/data/apiResponse";
 import { IconTitle } from "@/unit/components/iconTitle";
 import { faTasks, faCheck, faCircle, faCaretRight } from "@fortawesome/free-solid-svg-icons";
 import { Icon } from "@/unit/components/icon";
+import { ThemeContext } from "styled-components";
 
 interface ChecklistProps {
 	data: OfTheDayData
@@ -39,9 +40,11 @@ interface InnerChecklistProps {
 }
 
 const InnerChecklist: React.FC<InnerChecklistProps> = (props) => {
+	const theme = React.useContext(ThemeContext);
+
 	const items = props.items.map((item) => {
 		return (
-			<Common.Text>
+			<Common.Text key={item}>
 				<If show={props.isDone}>
 					{() => <Icon icon={faCheck} color={theme.color.completedToDo} />}
 				</If>
