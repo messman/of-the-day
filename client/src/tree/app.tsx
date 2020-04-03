@@ -5,7 +5,8 @@ import { OfTheDayAppData, Days } from "./days/days";
 import { AllMusicAppData, AllMusic } from "./allMusic/allMusic";
 import { ActionLink, OutLink } from "@/unit/components/link";
 import { GlobalAppStyles, ThemeProvider, themes } from "@/styles/theme";
-import { useLocalStorage, keyFactory } from "@/unit/hooks/useLocalStorage";
+import { useLocalStorage } from "@/unit/hooks/useLocalStorage";
+import { keyFactory } from "@/data/localStorage";
 
 export const getKey = keyFactory("of-the-day");
 const themeIndexKey = getKey("themeIndex");
@@ -13,18 +14,17 @@ const themeIndexKey = getKey("themeIndex");
 export const App: React.FC = () => {
 
 	const [isViewingDays, setIsViewingDays] = React.useState(true);
+	// function onAppSwitchLinkClick(): void {
+	// 	setIsViewingDays(!isViewingDays);
+	// }
+
 	const [themeIndex, setThemeIndex] = useLocalStorage(themeIndexKey, 0);
-
-	function onAppSwitchLinkClick(): void {
-		setIsViewingDays(!isViewingDays);
-	}
-
 	const theme = themes[themeIndex];
 	function onThemeLinkClick(): void {
 		setThemeIndex((themeIndex + 1) % themes.length);
 	}
 
-	const linkTitle = isViewingDays ? "See all music" : "Back to daily view";
+	//const linkTitle = isViewingDays ? "See all music" : "Back to daily view";
 	const renderedSection = isViewingDays ? <Days /> : <AllMusic />;
 
 	return (
@@ -35,9 +35,9 @@ export const App: React.FC = () => {
 					<Root>
 						<Common.PageTitle>Of The Day</Common.PageTitle>
 						<Common.Text>A place for daily updates by Andrew.</Common.Text>
-						<Common.Bump>
+						{/* <Common.Bump>
 							<ActionLink onClick={onAppSwitchLinkClick}>{linkTitle}</ActionLink>
-						</Common.Bump>
+						</Common.Bump> */}
 						<Common.Bump>
 							{renderedSection}
 						</Common.Bump>

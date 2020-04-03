@@ -46,9 +46,10 @@ export const AllMusic: React.FC = () => {
 
 const AllMusicAppDataContext = React.createContext<PromiseOutput<MusicRecord[]>>(null);
 
+const urlCacheKey = "url_AllMusic";
 const url = "https://agm-of-the-day.azurewebsites.net/api/AllMusic";
 function getData(): Promise<MusicRecord[]> {
-	return promiseMaximum(fetchApi(url), fetchMaxMilliseconds);
+	return promiseMaximum(fetchApi(url, urlCacheKey), fetchMaxMilliseconds);
 }
 
 export const AllMusicAppData: React.FC = (props) => {

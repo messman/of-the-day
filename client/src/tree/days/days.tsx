@@ -79,6 +79,7 @@ export const Days: React.FC = () => {
 
 const OfTheDayAppDataContext = React.createContext<PromiseOutput<OfTheDayData>>(null);
 
+const urlCacheKey = "url_OfTheDay";
 const url = "https://agm-of-the-day.azurewebsites.net/api/OfTheDay";
 const queryString = window.location.search;
 const params = new URLSearchParams(queryString);
@@ -86,7 +87,7 @@ const isTomorrow = params.get("tomorrow") === "1";
 const fullUrl = !isTomorrow ? url : url + "?tomorrow=1";
 
 function getData(): Promise<OfTheDayData> {
-	return promiseMaximum(fetchApi(fullUrl), fetchMaxMilliseconds);
+	return promiseMaximum(fetchApi(fullUrl, urlCacheKey), fetchMaxMilliseconds);
 }
 
 export const OfTheDayAppData: React.FC = (props) => {
