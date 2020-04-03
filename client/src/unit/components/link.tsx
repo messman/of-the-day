@@ -1,14 +1,6 @@
 import * as React from "react";
 import styled from "@/styles/theme";
 
-export interface LinkProps {
-	title: string
-}
-
-const LineBreak = styled.span`
-	display: block;
-`;
-
 const _Link = styled.a`
 	font-size: 1rem;
 	margin: 0;
@@ -26,38 +18,29 @@ const _Link = styled.a`
 	}
 `;
 
-export interface OutLinkProps extends LinkProps {
-	url: string,
-}
+export interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> { }
 
-/** Creates a link if the url exists. */
-export const OutLink: React.FC<OutLinkProps> = (props) => {
-	if (!props.url) {
+export const OutLink: React.FC<LinkProps> = (props) => {
+	const { children, href, rel, target, title, ...otherProps } = props;
+	if (!href) {
 		return null;
 	}
-
-	return (
-		<LineBreak>
-			<_Link href={props.url} rel="noreferrer noopener" target="_blank" title="Opens in a new tab">{props.title} &rsaquo;</_Link>
-		</LineBreak>
-	);
+	const text = props.children as string;
+	return <_Link href={href} rel="noreferrer noopener" target="_blank" title="Opens in a new tab" {...otherProps}>{text} &rsaquo;</_Link>;
 }
 
-export interface ActionLinkProps extends LinkProps {
-	onClick: () => void,
-}
 
 /** Executes a click action. */
-export const ActionLink: React.FC<ActionLinkProps> = (props) => {
+export const ActionLink: React.FC<LinkProps> = (props) => {
+	const { children, onClick, ...otherProps } = props;
+	const text = children as string;
 
-	function onLinkClicked(): boolean {
-		props.onClick();
+	function onLinkClicked(e): boolean {
+		props.onClick(e);
 		return false;
 	}
 
 	return (
-		<LineBreak>
-			<_Link title={props.title} onClick={onLinkClicked}>{props.title}</_Link>
-		</LineBreak>
+		<_Link title={text} onClick={onLinkClicked} {...otherProps}>{text}</_Link>
 	);
 }

@@ -34,7 +34,8 @@ export const LoadingIcon: React.FC = () => {
 
 const LoadingIconCenter = styled.div`
 	text-align: center;
-	margin: 3rem 0;
+	margin-top: 5rem;
+	margin-bottom: 40rem;
 `;
 
 export const IconPad = styled.div`

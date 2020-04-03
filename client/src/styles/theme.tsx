@@ -44,7 +44,7 @@ interface ThemeInfo {
 	theme: Theme
 }
 export const themes: ThemeInfo[] = [
-	{ name: "default", theme: defaultTheme },
+	{ name: "light", theme: defaultTheme },
 	{ name: "dark", theme: darkTheme },
 ];
 

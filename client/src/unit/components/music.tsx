@@ -59,9 +59,11 @@ export const Music: React.FC<MusicProps> = (props) => {
 			</If>
 
 			<Common.Bump>
-				<OutLink title="Spotify" url={record.spotifyLink} />
-				<OutLink title="YouTube" url={record.youTubeLink} />
-				<OutLink title="Genius Lyrics" url={record.geniusLink} />
+				<OutLink href={record.spotifyLink}>Spotify</OutLink>
+				<Spacer />
+				<OutLink href={record.youTubeLink}>YouTube</OutLink>
+				<Spacer />
+				<OutLink href={record.geniusLink}>Lyrics</OutLink>
 			</Common.Bump>
 		</>
 	);
@@ -71,4 +73,9 @@ const MusicContainer = styled.div`
 	iframe {
 		width: 100%;
 	}
+`;
+
+const Spacer = styled.span`
+	display: inline-block;
+	width: 2rem;
 `;

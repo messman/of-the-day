@@ -36,16 +36,29 @@ export const App: React.FC = () => {
 						<Common.PageTitle>Of The Day</Common.PageTitle>
 						<Common.Text>A place for daily updates by Andrew.</Common.Text>
 						<Common.Bump>
-							<ActionLink onClick={onAppSwitchLinkClick} title={linkTitle} />
+							<ActionLink onClick={onAppSwitchLinkClick}>{linkTitle}</ActionLink>
 						</Common.Bump>
 						<Common.Bump>
 							{renderedSection}
 						</Common.Bump>
 						<ExtraSpaceBottomOfPage />
-						<Common.Text>
-							<OutLink title="Andrew Messier" url="https://andrewmessier.com" />
-							<ActionLink onClick={onThemeLinkClick} title={`Theme: ${theme.name}`} />
-						</Common.Text>
+
+						<hr />
+						<Common.Bump>
+							<ActionLink onClick={onThemeLinkClick}>Theme: {theme.name}</ActionLink>
+						</Common.Bump>
+						<Common.Bump>
+							<Common.Text>Copyright &copy; Andrew Messier.</Common.Text>
+							<div>
+								<OutLink href="https://andrewmessier.com">Andrew Messier</OutLink>
+							</div>
+						</Common.Bump>
+						<Common.Bump>
+							<Common.Text>Icons by <OutLink href="https://fontawesome.com/license/free">FontAwesome</OutLink></Common.Text>
+							<div>
+								<OutLink href="https://github.com/messman/of-the-day">GitHub</OutLink>
+							</div>
+						</Common.Bump>
 						<ExtraSpaceBottomOfPage />
 					</Root>
 				</AllMusicAppData>
