@@ -6,7 +6,7 @@ type UseLocalStorageReturn<T> = [T, (value: T) => void];
 export function useLocalStorage<T>(key: string, initialValue: T): UseLocalStorageReturn<T> {
 	const [storedValue, setStoredValue] = React.useState(() => {
 		const value = get<T>(key);
-		if (value !== undefined) {
+		if (value !== undefined && value !== null) {
 			return value;
 		}
 		return initialValue;
