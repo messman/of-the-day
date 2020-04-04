@@ -79,6 +79,7 @@ export const GlobalAppStyles = createGlobalStyle<ThemeProps<Theme>>`
 	}
 
 	* {
+		-webkit-text-size-adjust: 100%;
 		box-sizing: border-box;
 		z-index: 1;
 	}

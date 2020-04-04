@@ -9,6 +9,7 @@ import { LoadingIcon, IconPad } from "@/unit/components/icon";
 import { If } from "@/unit/components/if";
 import { faPlay, faHourglassHalf } from "@fortawesome/free-solid-svg-icons";
 import { IconTitle } from "@/unit/components/iconTitle";
+import { hasParam } from "@/data/url";
 
 export const Days: React.FC = () => {
 
@@ -79,15 +80,12 @@ export const Days: React.FC = () => {
 
 const OfTheDayAppDataContext = React.createContext<PromiseOutput<OfTheDayData>>(null);
 
-const urlCacheKey = "url_OfTheDay";
 const url = "https://agm-of-the-day.azurewebsites.net/api/OfTheDay";
-const queryString = window.location.search;
-const params = new URLSearchParams(queryString);
-const isTomorrow = params.get("tomorrow") === "1";
+const isTomorrow = hasParam("tomorrow");
 const fullUrl = !isTomorrow ? url : url + "?tomorrow=1";
 
 function getData(): Promise<OfTheDayData> {
-	return promiseMaximum(fetchApi(fullUrl, urlCacheKey), fetchMaxMilliseconds);
+	return promiseMaximum(fetchApi(fullUrl), fetchMaxMilliseconds);
 }
 
 export const OfTheDayAppData: React.FC = (props) => {

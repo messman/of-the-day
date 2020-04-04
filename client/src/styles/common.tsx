@@ -19,7 +19,7 @@ export const Title = styled.h1`
 
 /** Title for key-val pairs or sub-sections. */
 export const SubTitle = styled.p`
-	font-size: 1.2rem;
+	font-size: 1.1rem;
 	font-weight: 600;
 	margin: 0;
 	margin-top: 1.4rem;

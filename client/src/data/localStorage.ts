@@ -31,3 +31,7 @@ export function set<T>(key: string, value: T): void {
 		console.log(error);
 	}
 }
+
+export function remove(key: string): void {
+	window.localStorage.removeItem(key);
+}

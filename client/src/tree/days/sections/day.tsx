@@ -47,7 +47,7 @@ export const Day: React.FC<DayProps> = (props) => {
 					</>}
 				</If>
 
-				<If show={dayMusic}>
+				<If show={dayMusic.title}>
 					{() => <>
 						<IconTitle icon={faMusic}>Music</IconTitle>
 						<Music record={dayMusic} />

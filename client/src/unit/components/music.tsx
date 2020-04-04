@@ -14,7 +14,7 @@ interface MusicProps {
 export const Music: React.FC<MusicProps> = (props) => {
 	const { record } = props;
 
-	if (!record) {
+	if (!record || !record.title) {
 		return null;
 	}
 
