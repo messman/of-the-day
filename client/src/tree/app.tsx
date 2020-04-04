@@ -13,11 +13,13 @@ const themeIndexKey = getKey("themeIndex");
 
 export const App: React.FC = () => {
 
+	// Currently unused - for the other view of the page.
 	const [isViewingDays, setIsViewingDays] = React.useState(true);
 	// function onAppSwitchLinkClick(): void {
 	// 	setIsViewingDays(!isViewingDays);
 	// }
 
+	// Rotate between themes through the link. Uses local storage.
 	const [themeIndex, setThemeIndex] = useLocalStorage(themeIndexKey, 0);
 	const theme = themes[themeIndex];
 	function onThemeLinkClick(): void {
@@ -67,12 +69,14 @@ export const App: React.FC = () => {
 	);
 }
 
+// Makes it easier for us to support mobile and desktop without a ton of extra design.
 const Root = styled.div`
 	max-width: 800px;
 	margin: auto;
 	padding: 0 1rem;
 `;
 
+// Extra space to avoid crowding the bottom of the screen.
 const ExtraSpaceBottomOfPage = styled.div`
 	height: 3rem;
 	width: 1px;

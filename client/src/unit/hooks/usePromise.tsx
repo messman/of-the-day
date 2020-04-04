@@ -24,15 +24,18 @@ export function usePromise<T>(input: PromiseInput<T>): PromiseOutput<T> {
 		error: null
 	});
 
+	// Hold our current promise as a way to guard against older promises that complete for newer promises.
 	const currentPromise = useRef<Promise<T>>(null);
 
 	function runPromise(): void {
 		const startTime = Date.now();
 		function wrapFinish(success: T, error: Error): void {
+			// If this is from an old promise, disregard.
 			if (currentPromise.current !== promise) {
 				return;
 			}
 
+			// Apply our minimum time.
 			const timeRemaining = Math.max(0, (input.minMilliseconds || 0) - (Date.now() - startTime));
 			setTimeout(() => {
 				setState({
@@ -55,6 +58,8 @@ export function usePromise<T>(input: PromiseInput<T>): PromiseOutput<T> {
 	}
 
 	function updateState(isLoading: boolean, clear: boolean): void {
+		// If we are clearing, clear the data and error.
+		// Else, just set the loading state.
 		if (clear) {
 			currentPromise.current = null;
 			setState(p => {
@@ -81,17 +86,20 @@ export function usePromise<T>(input: PromiseInput<T>): PromiseOutput<T> {
 		}
 	}
 
+	// Run the first time if told to do so.
 	const runFirstTime = useRef(input.runImmediately);
 	if (runFirstTime.current) {
 		runFirstTime.current = false;
 		runPromise();
 	}
 
+	// Runs, which might override an existing promise.
 	function run(clear: boolean): void {
 		runPromise();
 		updateState(true, clear);
 	}
 
+	// Stops.
 	function stop(clear: boolean): void {
 		updateState(false, clear);
 	}
@@ -103,19 +111,26 @@ export function usePromise<T>(input: PromiseInput<T>): PromiseOutput<T> {
 	};
 }
 
+/** Times out a promise. */
 export function promiseMaximum<T>(promise: Promise<T>, maxMilliseconds: number): Promise<T> {
 	return new Promise<T>((resolve, reject) => {
+		let didTimeOut = false;
 		const timeoutId = setTimeout(() => {
+			didTimeOut = true;
 			reject(new Error("timed out at maximum"));
 		}, maxMilliseconds);
 		promise.then(
 			(res) => {
-				clearTimeout(timeoutId);
-				resolve(res);
+				if (!didTimeOut) {
+					clearTimeout(timeoutId);
+					resolve(res);
+				}
 			},
 			(err) => {
-				clearTimeout(timeoutId);
-				reject(err);
+				if (!didTimeOut) {
+					clearTimeout(timeoutId);
+					reject(err);
+				}
 			}
 		);
 	})

@@ -15,6 +15,7 @@ export const Video: React.FC<VideoProps> = (props) => {
 		return null;
 	}
 
+	// Requires us to get our YouTube link in a special way from the "share" button rather than the URL.
 	let youTubeEmbedLink = null;
 	if (link) {
 		youTubeEmbedLink = link.replace("https://youtu.be/", "https://www.youtube.com/embed/");

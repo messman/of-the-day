@@ -12,6 +12,9 @@ using System.Reflection;
 
 namespace OfTheDay
 {
+	/// <summary>
+	/// Service for accessing Google Sheets.
+	/// </summary>
 	public class GoogleSheets
 	{
 		private readonly ILogger<GoogleSheets> _log;
@@ -37,6 +40,8 @@ namespace OfTheDay
 
 				ServiceAccountCredential credential;
 
+				// Load our credentials file from Google that allows us to access the sheet.
+				// This code is needed for the differences between dev and prod environments.
 				string jsonFile = Settings.GoogleCredentialsJsonPath;
 				string binDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 				string rootDirectory = Path.GetFullPath(Path.Combine(binDirectory, ".."));
@@ -70,10 +75,22 @@ namespace OfTheDay
 			}
 		}
 
+		/// <summary>
+		/// Where the "Daily" sheet's data actually starts.
+		/// </summary>
 		private static Cell DailyFromCell = new Cell("Daily", 'A', 3);
+		/// <summary>
+		/// The full range of our checklist items - only 10 rows allowed.
+		/// </summary>
 		private static string ChecklistRangeText = new Cell("Checklist", 'A', 2).ToRange('B', 11).ToText();
+		/// <summary>
+		/// The full range of our key-value pairs.
+		/// </summary>
 		private static string KeyValRangeText = new Cell("KeyVal", 'A', 1).ToRange('B', 5).ToText();
 
+		/// <summary>
+		/// Number of days to return in our daily view.
+		/// </summary>
 		private const int DaysToReturn = 3;
 
 		public async Task<OfTheDayData> OfTheDay(bool seeTomorrow)
@@ -83,6 +100,7 @@ namespace OfTheDay
 				SheetsService service = CreateService();
 				int dayNumber = DayNumber;
 
+				// 0 means really 1 row.
 				int extraRows = 0;
 				// Remove one for 0-based counting.
 				int fromRowOffset = dayNumber - 1;
@@ -107,6 +125,7 @@ namespace OfTheDay
 				musicFromCell.Row += fromRowOffset;
 				string musicRangeText = musicFromCell.ToRangeAdditive('M', extraRows).ToText();
 
+				// Make our request of multiple ranges at once.
 				var request = service.Spreadsheets.Values.BatchGet(_sheetID);
 				request.Ranges = new Repeatable<string>(new List<string>() { dailyRangeText, musicRangeText, ChecklistRangeText, KeyValRangeText });
 
@@ -130,6 +149,7 @@ namespace OfTheDay
 						dailyRecords.Add(DailyRecord.FromRow(dayRecordsValues.Values[i]));
 						musicRecords.Add(MusicRecord.FromRow(musicRecordsValues.Values[i]));
 					}
+					// Reverse so that most recent day is up top.
 					dailyRecords.Reverse();
 					musicRecords.Reverse();
 
@@ -177,6 +197,9 @@ namespace OfTheDay
 			}
 		}
 
+		/// <summary>
+		///  Where the row data for the Music sheet starts.
+		/// </summary>
 		private static Cell MusicFromCell = new Cell("Music", 'A', 3);
 		public async Task<IEnumerable<MusicRecord>> AllMusic()
 		{

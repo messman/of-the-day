@@ -1,5 +1,7 @@
+// Holds our API interfaces.
+
 /**
- * Matches the C# definition. 
+ * Matches the C# definition. See there for more complete documentation.
  */
 export interface OfTheDayData {
 	keyVal: KeyVal;

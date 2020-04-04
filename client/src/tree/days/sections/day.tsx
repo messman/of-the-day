@@ -85,5 +85,5 @@ interface DayTitleProps {
 
 export const DayTitle: React.FC<DayTitleProps> = (props) => {
 	const { day } = props;
-	return <Common.Title >{day.dayAsText} &nbsp;&mdash;&nbsp; Day {day.dayNumber}</Common.Title>;
+	return <Common.Title >{day.dayAsText} &nbsp;&ndash;&nbsp; Day {day.dayNumber}</Common.Title>;
 }

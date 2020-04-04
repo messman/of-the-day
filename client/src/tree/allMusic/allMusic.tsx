@@ -1,3 +1,6 @@
+// Currently not used - was going to show all the music selections in one view, but it might be too much work to scale.
+// May come up with an alternate "archive" section that shows all data.
+
 import * as React from "react";
 import { usePromise, PromiseOutput, promiseMaximum } from "@/unit/hooks/usePromise";
 import { MusicRecord } from "@/data/apiResponse";

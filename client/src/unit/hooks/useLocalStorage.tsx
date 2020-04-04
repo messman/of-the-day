@@ -3,6 +3,7 @@ import { get, set } from "@/data/localStorage";
 
 type UseLocalStorageReturn<T> = [T, (value: T) => void];
 
+/** Creates a state variable that also saves to LocalStorage. */
 export function useLocalStorage<T>(key: string, initialValue: T): UseLocalStorageReturn<T> {
 	const [storedValue, setStoredValue] = React.useState(() => {
 		const value = get<T>(key);

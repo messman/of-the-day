@@ -1,3 +1,5 @@
+// Handles the simple to-do checklist.
+
 import * as React from "react";
 import styled from "@/styles/theme";
 import * as Common from "@/styles/common";

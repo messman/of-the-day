@@ -1,19 +1,30 @@
+// Wraps styled-components in TypeScript and our custom theme interface.
+
 import baseStyled, { css as baseCss, ThemedStyledInterface, BaseThemedCssFunction, createGlobalStyle, ThemeProps, FlattenInterpolation, CSSObject, ThemedGlobalStyledClassProps } from "styled-components";
 export { ThemeProvider, keyframes } from "styled-components";
 
+/** Our theme object. */
 export interface Theme {
 	color: {
+		/** Background */
 		bg: string,
+		/** All our text */
 		text: string,
+		/** The background of the bad info area */
 		badInfo: string,
+		/** The background of the important info area */
 		importantInfo: string,
+		/** Checkmark color for completed checklist items */
 		completedToDo: string,
+		/** Checkmark color for incomplete checklist items */
 		incompleteToDo: string,
+		/** Link color */
 		link: string
 	};
 	fontFamily: string;
 }
 
+/** The default "light" theme */
 const defaultTheme: Theme = {
 	color: {
 		bg: "#FFF",
@@ -27,6 +38,7 @@ const defaultTheme: Theme = {
 	fontFamily: `'Montserrat', sans-serif`
 }
 
+/** The "dark" theme, based off the default. */
 const darkTheme: Theme = {
 	...defaultTheme,
 	color: {
@@ -61,6 +73,7 @@ interface ClassNameProps {
 }
 export type StyledFC<P> = React.FC<P & ClassNameProps>;
 
+// For some reason, VS Code is not happy to colorize the CSS in this block when `createGlobalStyle` is used with a type.
 export const GlobalAppStyles = createGlobalStyle<ThemeProps<Theme>>`
 	html {
 		font-family: ${p => p.theme.fontFamily};

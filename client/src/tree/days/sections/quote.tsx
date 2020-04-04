@@ -1,3 +1,5 @@
+// Handles the rendering of a quote.
+
 import * as React from "react";
 import * as Common from "@/styles/common";
 import styled from "@/styles/theme";

@@ -1,3 +1,5 @@
+// Holds common stylistic elements for the page.
+
 import styled, { css } from "./theme";
 
 /** Title for the page itself. */

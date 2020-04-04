@@ -1,3 +1,5 @@
+// Handles the music component rendering.
+
 import * as React from "react";
 import * as Common from "@/styles/common";
 import { If } from "@/unit/components/if";
@@ -18,6 +20,7 @@ export const Music: React.FC<MusicProps> = (props) => {
 		return null;
 	}
 
+	// Take the URL we use for the track and turn it into an embed link.
 	let spotifyEmbedLink = null;
 	if (record.spotifyLink) {
 		spotifyEmbedLink = record.spotifyLink.replace("/track", "/embed/track");

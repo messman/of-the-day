@@ -1,6 +1,7 @@
+// Handles wrapping FontAwesome icons for use on this page specifically.
 import * as React from "react";
 import styled from "@/styles/theme";
-import { IconDefinition, faSpinner, faCompactDisc, faSun, faCompass } from "@fortawesome/free-solid-svg-icons";
+import { faCompass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon, FontAwesomeIconProps } from "@fortawesome/react-fontawesome";
 
 export interface IconProps extends FontAwesomeIconProps {

@@ -1,3 +1,4 @@
+// Handles links.
 import * as React from "react";
 import styled from "@/styles/theme";
 
