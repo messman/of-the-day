@@ -1,0 +1,18 @@
+{
+	"name": "agm-oftheday-shared",
+	"version": "2.0.0",
+	"description": "Shared code between client and server for of-the-day.",
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"scripts": {
+		"build": "ts-webpack-builder",
+		"build-production": "ts-webpack-builder --isDevelopment=false",
+		"build-client": "ts-webpack-builder --isNode=false",
+		"build-client-production": "ts-webpack-builder --isNode=false --isDevelopment=false"
+	},
+	"author": "Andrew Messier",
+	"license": "MIT",
+	"devDependencies": {
+		"typescript": "^3.9.5"
+	}
+}
