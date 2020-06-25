@@ -5,7 +5,7 @@ import styled, { css } from "./theme";
 /** Title for the page itself. */
 export const PageTitle = styled.h1`
 	font-size: 2.8rem;
-	font-weight: 600;
+	font-weight: 500;
 	margin: 0;
 	margin-top: 1.5rem;
 	margin-bottom: .5rem;
@@ -14,7 +14,7 @@ export const PageTitle = styled.h1`
 /** Title of a section. */
 export const Title = styled.h1`
 	font-size: 1.9rem;
-	font-weight: 600;
+	font-weight: 500;
 	margin: 0;
 	margin-top: 2.8rem;
 `;
@@ -22,7 +22,7 @@ export const Title = styled.h1`
 /** Title for key-val pairs or sub-sections. */
 export const SubTitle = styled.p`
 	font-size: 1.1rem;
-	font-weight: 600;
+	font-weight: 500;
 	margin: 0;
 	margin-top: 1.4rem;
 `;
@@ -36,7 +36,7 @@ export const Text = styled.p`
 
 const textBoxStyle = css`
 	font-size: 1rem;
-	font-weight: 400;
+	font-weight: 300;
 	margin: 0;
 	margin-top: 1.2rem;
 	padding: .5rem;

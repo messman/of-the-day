@@ -6,16 +6,16 @@ import styled from "@/styles/theme";
 
 export interface QuoteProps {
 	text: string,
-	attribution: string
+	attribution: string;
 }
 
 const QuoteStart = styled.span`
-	font-weight: 600;
+	font-weight: 500;
 	display: inline-block;
 `;
 
 const QuoteEnd = styled.span`
-	font-weight: 600;
+	font-weight: 500;
 	display: inline-block;
 	margin-left: .2rem;
 	white-space: nowrap;
@@ -45,4 +45,4 @@ export const Quote: React.FC<QuoteProps> = (props) => {
 			{attribComponent}
 		</>
 	);
-}
+};

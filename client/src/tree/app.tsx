@@ -20,7 +20,7 @@ export const App: React.FC = () => {
 	// }
 
 	// Rotate between themes through the link. Uses local storage.
-	const [themeIndex, setThemeIndex] = useLocalStorage(themeIndexKey, 0);
+	const [themeIndex, setThemeIndex] = useLocalStorage(themeIndexKey, 1);
 	const theme = themes[themeIndex];
 	function onThemeLinkClick(): void {
 		setThemeIndex((themeIndex + 1) % themes.length);
@@ -58,7 +58,10 @@ export const App: React.FC = () => {
 						<Common.Bump>
 							<Common.Text>Icons by <OutLink href="https://fontawesome.com/license/free">FontAwesome</OutLink></Common.Text>
 							<div>
-								<OutLink href="https://github.com/messman/of-the-day">GitHub</OutLink>
+								Found an issue or want to see the code? Go to <OutLink href="https://github.com/messman/of-the-day">GitHub</OutLink>
+							</div>
+							<div>
+								Need to reach out? Contact me on <OutLink href="https://www.linkedin.com/in/andrewgmessier/">LinkedIn</OutLink>
 							</div>
 						</Common.Bump>
 						<ExtraSpaceBottomOfPage />
@@ -67,7 +70,7 @@ export const App: React.FC = () => {
 			</OfTheDayAppData>
 		</ThemeProvider>
 	);
-}
+};
 
 // Makes it easier for us to support mobile and desktop without a ton of extra design.
 const Root = styled.div`
