@@ -1,5 +1,5 @@
 {
-	"name": "agm-oftheday-shared",
+	"name": "oftheday-shared",
 	"version": "2.0.0",
 	"description": "Shared code between client and server for of-the-day.",
 	"main": "dist/index.js",

@@ -1,0 +1,16 @@
+{
+	"name": "oftheday-server-azure-deploy",
+	"version": "1",
+	"description": "A deploy project.",
+	"main": "dist/index.js",
+	"scripts": {
+		"start": "node ./index"
+	},
+	"author": "Andrew Messier",
+	"dependencies": {
+		"express": "^4.17.1",
+		"luxon": "^1.24.1",
+		"node-fetch": "^2.6.0",
+		"oftheday-shared": "file:../../shared/oftheday-shared-2.0.0.tgz"
+	}
+}
