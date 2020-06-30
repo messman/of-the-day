@@ -1,29 +1,26 @@
 {
+	"extends": "../../tsconfig-base.json",
 	"compilerOptions": {
-		"allowJs": false,
-		"alwaysStrict": true,
-		"checkJs": false,
+		"declaration": false,
+		"declarationMap": false,
+		"lib": [
+			"DOM",
+			"ES2017"
+		],
+		"target": "ES2015",
 		"jsx": "react",
-		"module": "esnext",
-		"noImplicitAny": false,
-		"noImplicitReturns": false,
-		"noImplicitThis": false,
-		"outDir": "./build",
-		"target": "es2017",
-		"moduleResolution": "node",
-		"incremental": true,
+		"outDir": "./ts-build",
 		"baseUrl": ".",
 		"paths": {
 			"@/*": [
 				"src/*"
 			]
-		},
+		}
 	},
 	"exclude": [
 		"node_modules"
 	],
 	"include": [
 		"src/**/*"
-	],
-	"compileOnSave": false
+	]
 }

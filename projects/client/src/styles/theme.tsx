@@ -19,7 +19,7 @@ export interface Theme {
 		/** Checkmark color for incomplete checklist items */
 		incompleteToDo: string,
 		/** Link color */
-		link: string
+		link: string;
 	};
 	fontFamily: string;
 }
@@ -36,7 +36,7 @@ const defaultTheme: Theme = {
 		link: "#3E90E5"
 	},
 	fontFamily: `'Montserrat', sans-serif`
-}
+};
 
 /** The "dark" theme, based off the default. */
 const darkTheme: Theme = {
@@ -49,11 +49,11 @@ const darkTheme: Theme = {
 		importantInfo: "#5694d4",
 		link: "#4fa0f5"
 	}
-}
+};
 
 interface ThemeInfo {
 	name: string,
-	theme: Theme
+	theme: Theme;
 }
 export const themes: ThemeInfo[] = [
 	{ name: "light", theme: defaultTheme },
@@ -69,7 +69,7 @@ export const css = baseCss as BaseThemedCssFunction<Theme>;
 export type ThemedCSS = FlattenInterpolation<ThemeProps<Theme>>;
 
 interface ClassNameProps {
-	className?: string
+	className?: string;
 }
 export type StyledFC<P> = React.FC<P & ClassNameProps>;
 

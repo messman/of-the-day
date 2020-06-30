@@ -1,24 +1,32 @@
-console.log("~~~~~ DEVELOPMENT build ~~~~~");
+const webpack = require('webpack');
+const merge = require('webpack-merge');
+const base = require('./webpack.base.js');
+const HTMLWebpackPlugin = require('html-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const getDefine = require('./define');
 
-const merge = require("webpack-merge");
-const base = require("./webpack.base.js");
+module.exports = async () => {
 
-// Creates the HTML file for you
-const HTMLWebpackPlugin = require("html-webpack-plugin");
+	const DEFINE = await getDefine(true);
 
-module.exports = merge(base.base, {
-	mode: "development",
+	return merge(base.base, {
+		mode: 'development',
 
-	devtool: "cheap-module-source-map",
+		devtool: 'source-map',
 
-	devServer: {
-		port: 8888,
-		contentBase: false,
-		open: "google chrome"
-	},
+		devServer: {
+			port: 8888,
+			contentBase: false,
+			open: 'google chrome'
+		},
 
-	plugins: [
-		// Generate the HTML for us
-		new HTMLWebpackPlugin(base.html)
-	]
-});
+		plugins: [
+			new webpack.DefinePlugin({ __DEFINE__: DEFINE }),
+			new HTMLWebpackPlugin(base.html),
+			new BundleAnalyzerPlugin({
+				analyzerMode: 'disabled',
+				generateStatsFile: true
+			})
+		]
+	});
+};
