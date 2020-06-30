@@ -312,7 +312,7 @@ const TestContainer = styled.div<TestContainerProps>`
 `;
 
 const TestFlex = styled(Flex)`
-	border: 2px solid ${p => p.theme.color.backgroundLightest};
+	border: 2px solid ${p => p.theme.color.backgroundC};
 	padding: .25rem;
 `;
 

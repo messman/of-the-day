@@ -9,7 +9,7 @@ export default { title: 'core/symbol' };
 
 export const TestTextWithIcons = decorate(() => {
 
-	const iconType = iconTypes.calendar;
+	const iconType = iconTypes.alert;
 
 	return (
 		<>

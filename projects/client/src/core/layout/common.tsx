@@ -1,6 +1,6 @@
 import { styled } from '../style/styled';
 import { FlexColumn, FlexRow } from './flex';
-import { LayoutBreakpoint } from '@/services/layout/responsive-layout';
+import { LayoutBreakpoint } from '@/services/layout/layout-info';
 
 /** A flex column whose width is the screen width, not the width decided by flex rules. */
 export const ScreenWidthFlexColumn = styled(FlexColumn)`

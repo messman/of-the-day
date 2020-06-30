@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { themes, useLocalStorageTheme } from '@/core/style/theme';
 import { Wrapper } from '@/entry/wrapper';
-import { useLocalDataPhrase } from '@/services/data/data-local';
-import { DEFINE } from '@/services/define';
 import { select, withKnobs } from '@storybook/addon-knobs';
 
 export interface StoryComponent {
@@ -65,7 +63,6 @@ const CommonKnobsWrapper: React.FC = (props) => {
 	});
 
 	const [themeIndex, setThemeIndex] = useLocalStorageTheme();
-
 	const selectedThemeIndex = select('Theme', themeOptions, themeIndex, 'Global');
 
 	React.useEffect(() => {
@@ -73,29 +70,6 @@ const CommonKnobsWrapper: React.FC = (props) => {
 			setThemeIndex(selectedThemeIndex);
 		}
 	}, [selectedThemeIndex]);
-
-	// LOCAL DATA
-
-	const [localDataPhrase, setLocalDataPhrase] = useLocalDataPhrase();
-	const notUsingLocalDataPhrase = 'REAL';
-
-	const localDataOptions: { [key: string]: string | null; } = {
-		[notUsingLocalDataPhrase]: notUsingLocalDataPhrase,
-	};
-	if (DEFINE.localTestData) {
-		Object.keys(DEFINE.localTestData).forEach((phrase) => {
-			localDataOptions[phrase] = phrase;
-		});
-	}
-
-	const selectedLocalDataPhrase = select('Data', localDataOptions, localDataPhrase || notUsingLocalDataPhrase, 'Global');
-
-	React.useEffect(() => {
-		const realSelectedPhrase = selectedLocalDataPhrase === notUsingLocalDataPhrase ? null : selectedLocalDataPhrase;
-		if (realSelectedPhrase !== localDataPhrase) {
-			setLocalDataPhrase(realSelectedPhrase);
-		}
-	}, [selectedLocalDataPhrase]);
 
 	return (
 		<>

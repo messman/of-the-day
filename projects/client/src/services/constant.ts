@@ -1,5 +1,7 @@
 export const CONSTANT = {
 
+	keyFactory: 'oftheday',
+
 	/** Messages used to block the application. */
 	alertMessages: [] as string[],
 
@@ -19,8 +21,6 @@ export const CONSTANT = {
 
 	clearDataOnNewFetch: false,
 
-	/** Digits precision after the decimal on tide height. Overrides use of the AllResponse returned precision. */
-	tideHeightPrecision: 1,
 };
 
 function seconds(seconds: number): number {

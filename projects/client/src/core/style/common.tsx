@@ -2,9 +2,9 @@ import { StyledComponent } from 'styled-components';
 import { css, styled } from '@/core/style/styled';
 import { Theme } from './theme';
 
-/** Border-radius style. .5rem / 8px. */
+/** Border-radius style. .375rem / 6px. */
 export const borderRadiusStyle = css`
-	border-radius: .5rem;
+	border-radius: .375rem;
 `;
 
 export const noTouchStyle = css`
@@ -38,12 +38,5 @@ export function addPadding<T extends StyledComponent<any, Theme, {}, never>>(com
 export function addMargin<T extends StyledComponent<any, Theme, {}, never>>(component: T, margin: string) {
 	return styled(component)`
 		margin: ${margin};
-	`;
-}
-
-/** Returns a new component that has display: inline-block. */
-export function addInlineBlock<T extends StyledComponent<any, Theme, {}, never>>(component: T) {
-	return styled(component)`
-		display: inline-block;
 	`;
 }

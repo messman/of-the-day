@@ -47,7 +47,7 @@ export const ContextBlock: React.FC<ContextBlockProps> = (props) => {
 };
 
 const ContextBlockRoot = styled(FlexColumn)`
-	background-color: ${p => p.theme.color.backgroundLighter};
+	background-color: ${p => p.theme.color.backgroundB};
 	${borderRadiusStyle};
 	
 	overflow: hidden;

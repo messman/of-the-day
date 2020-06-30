@@ -5,7 +5,7 @@ import { StyledComponent } from 'styled-components';
 const commonTextStyle = css`
 	vertical-align: top;
 
-	/* EM value May be font-specific! */
+	/* EM value may be font-specific! */
 	svg {
 		margin-top: .1em;
 	}
@@ -61,3 +61,22 @@ function createInlineVersion(component: StyledComponent<any, Theme, {}, never>) 
 		display: inline-block;
 	`;
 }
+
+const textBoxStyle = css`
+	font-size: 1rem;
+	font-weight: 300;
+	margin: 0;
+	margin-top: 1.2rem;
+	padding: .5rem;
+	padding-bottom: 2rem;
+`;
+
+export const BadText = styled.p`
+	${textBoxStyle}
+	background-color: ${p => p.theme.color.warning};
+`;
+
+export const ImportantText = styled.p`
+	${textBoxStyle}
+	background-color: ${p => p.theme.color.primary};
+`;
