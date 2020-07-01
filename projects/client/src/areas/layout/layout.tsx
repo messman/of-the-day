@@ -4,11 +4,11 @@ import { Posts, PostsProps } from '@/areas/posts/posts';
 import { Other, OtherProps } from '@/areas/other/other';
 import { Archive, ArchiveProps } from '@/areas/archive/archive';
 import { Account, AccountProps } from '@/areas/account/account';
-import { LayoutBreakpoint, useLayoutInfo } from '@/services/layout/layout-info';
 import { MenuBar } from './menu-bar';
-import { FlexColumn } from '@/core/layout/flex';
+import { FlexColumn, FlexParent } from '@/core/layout/flex';
 import { Switch, Route } from 'react-router-dom';
 import { routes } from '@/services/nav/routing';
+import { styled } from '@/core/style/styled';
 
 export const ApplicationLayout: React.FC = () => {
 	return (
@@ -33,31 +33,35 @@ interface LayoutProps {
 
 export const Layout: React.FC<LayoutProps> = (props) => {
 	const { Posts, Other, Archive, Account, About } = props;
-
-	const layoutInfo = useLayoutInfo();
-	const isCompact = layoutInfo.widthBreakpoint === LayoutBreakpoint.compact;
-
 	return (
-		<FlexColumn>
-			{isCompact ? 'Compact' : 'Not Compact'}
-			<Switch>
-				<Route exact path={routes.posts.path}>
-					<Posts />
-				</Route>
-				<Route path={routes.other.path}>
-					<Other />
-				</Route>
-				<Route path={routes.archive.path}>
-					<Archive />
-				</Route>
-				<Route path={routes.account.path}>
-					<Account />
-				</Route>
-				<Route path={routes.about.path}>
-					<About />
-				</Route>
-			</Switch>
+		<LayoutContainer>
+			<FlexParent>
+				<Switch>
+					<Route exact path={routes.posts.path}>
+						<Posts />
+					</Route>
+					<Route path={routes.other.path}>
+						<Other />
+					</Route>
+					<Route path={routes.archive.path}>
+						<Archive />
+					</Route>
+					<Route path={routes.account.path}>
+						<Account />
+					</Route>
+					<Route path={routes.about.path}>
+						<About />
+					</Route>
+				</Switch>
+			</FlexParent>
 			<MenuBar />
-		</FlexColumn>
+		</LayoutContainer>
 	);
 };
+
+
+const LayoutContainer = styled(FlexColumn)`
+	height: 100vh;
+	/* Used to prevent MenuBar scrolling. */
+	overflow: hidden;
+`;

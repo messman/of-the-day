@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { decorate } from '@/test/storybook/decorate';
-import { TextPara } from '@/core/symbol/text';
+import { Text } from '@/core/symbol/text';
 import { button, boolean, number } from '@storybook/addon-knobs';
 import { clampPromise, usePromise, clampPromiseMaximumTimeoutReason } from './promise';
 
@@ -45,11 +45,11 @@ export const TestPromise = decorate(() => {
 
 	return (
 		<>
-			<TextPara>Is Running: {promiseState.isRunning.toString()}</TextPara>
-			<TextPara>Random: {random}</TextPara>
-			<TextPara>Increment: {increment}</TextPara>
-			<TextPara>Error: {error}</TextPara>
-			<TextPara>Is From Max: {isErrorFromMaximum.toString()}</TextPara>
+			<Text>Is Running: {promiseState.isRunning.toString()}</Text>
+			<Text>Random: {random}</Text>
+			<Text>Increment: {increment}</Text>
+			<Text>Error: {error}</Text>
+			<Text>Is From Max: {isErrorFromMaximum.toString()}</Text>
 		</>
 	);
 });

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { SmallText, Subtitle, Text, TextInline } from '@/core/symbol/text';
+import { SmallText, Subtitle, Text } from '@/core/symbol/text';
 import { decorate } from '@/test/storybook/decorate';
 import { styled } from '../style/styled';
 import { Flex, FlexColumn, FlexRoot, FlexRow } from './flex';
@@ -75,7 +75,7 @@ export const TestFlexRowBasis = decorate(() => {
 					<TestFlex />
 					<TestFlex />
 					<TestFlexSpecialWidth width={testWidthOrHeight}>
-						<TextInline>{testText}</TextInline>
+						<Text isInline={true}>{testText}</Text>
 					</TestFlexSpecialWidth>
 				</FlexRow>
 			</Test>
@@ -94,7 +94,7 @@ export const TestFlexRowBasis = decorate(() => {
 					<TestFlex />
 					<TestFlex />
 					<TestFlexSpecial flex='none'>
-						<TextInline>{testText}</TextInline>
+						<Text isInline={true}>{testText}</Text>
 					</TestFlexSpecial>
 				</FlexRow>
 			</Test>
@@ -112,7 +112,7 @@ export const TestFlexRowBasis = decorate(() => {
 					<TestFlex />
 					<TestFlex />
 					<TestFlexSpecialWidth flex='none' width={testWidthOrHeight}>
-						<TextInline>{testText}</TextInline>
+						<Text isInline={true}>{testText}</Text>
 					</TestFlexSpecialWidth>
 				</FlexRow>
 			</Test>
@@ -131,7 +131,7 @@ export const TestFlexRowBasis = decorate(() => {
 					<TestFlex />
 					<TestFlex />
 					<TestFlexSpecial flex={0}>
-						<TextInline>{testText}</TextInline>
+						<Text isInline={true}>{testText}</Text>
 					</TestFlexSpecial>
 				</FlexRow>
 			</Test>
@@ -149,7 +149,7 @@ export const TestFlexRowBasis = decorate(() => {
 					<TestFlex />
 					<TestFlex />
 					<TestFlexSpecialWidth flex={0} width={testWidthOrHeight}>
-						<TextInline>{testText}</TextInline>
+						<Text isInline={true}>{testText}</Text>
 					</TestFlexSpecialWidth>
 				</FlexRow>
 			</Test>
@@ -187,7 +187,7 @@ export const TestFlexColumnBasis = decorate(() => {
 					<TestFlex />
 					<TestFlex />
 					<TestFlexSpecialHeight height={testWidthOrHeight}>
-						<TextInline>{testText}</TextInline>
+						<Text isInline={true}>{testText}</Text>
 					</TestFlexSpecialHeight>
 				</FlexColumn>
 			</Test>
@@ -206,7 +206,7 @@ export const TestFlexColumnBasis = decorate(() => {
 					<TestFlex />
 					<TestFlex />
 					<TestFlexSpecial flex='none'>
-						<TextInline>{testText}</TextInline>
+						<Text isInline={true}>{testText}</Text>
 					</TestFlexSpecial>
 				</FlexColumn>
 			</Test>
@@ -224,7 +224,7 @@ export const TestFlexColumnBasis = decorate(() => {
 					<TestFlex />
 					<TestFlex />
 					<TestFlexSpecialHeight flex='none' height={testWidthOrHeight}>
-						<TextInline>{testText}</TextInline>
+						<Text isInline={true}>{testText}</Text>
 					</TestFlexSpecialHeight>
 				</FlexColumn>
 			</Test>
@@ -243,7 +243,7 @@ export const TestFlexColumnBasis = decorate(() => {
 					<TestFlex />
 					<TestFlex />
 					<TestFlexSpecial flex={0}>
-						<TextInline>{testText}</TextInline>
+						<Text isInline={true}>{testText}</Text>
 					</TestFlexSpecial>
 				</FlexColumn>
 			</Test>
@@ -261,7 +261,7 @@ export const TestFlexColumnBasis = decorate(() => {
 					<TestFlex />
 					<TestFlex />
 					<TestFlexSpecialHeight flex={0} height={testWidthOrHeight}>
-						<TextInline>{testText}</TextInline>
+						<Text isInline={true}>{testText}</Text>
 					</TestFlexSpecialHeight>
 				</FlexColumn>
 			</Test>

@@ -73,11 +73,6 @@ const defaultThemeIndex = 0;
 // Note: '#root' is for storybook
 // Note: overscroll-behavior comes from https://stackoverflow.com/a/50846937 to prevent macs going back (since we have horizontal scroll)
 export const GlobalStyles = createGlobalStyle<ThemeProps<Theme>>`
-	html {
-		font-family: 'Montserrat', sans-serif;
-		font-weight: 300;
-	}
-	
 	body {
 		background-color: ${p => p.theme.color.backgroundA};
 		color: ${p => p.theme.color.textAndIcon};
@@ -92,6 +87,8 @@ export const GlobalStyles = createGlobalStyle<ThemeProps<Theme>>`
 	}
 
 	* {
+		font-family: 'Montserrat', sans-serif;
+		font-weight: 400;
 		vertical-align: top;
 		-webkit-text-size-adjust: 100%;
 		box-sizing: border-box;

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { FlexRoot } from '@/core/layout/flex';
 import { ThemeProvider } from '@/core/style/theme';
-import { TextPara } from '@/core/symbol/text';
+import { Text } from '@/core/symbol/text';
 import { defaultLowerBreakpoints, LayoutInfoProvider } from '@/services/layout/layout-info';
 import { WindowDimensionsProvider } from '@/services/layout/window-dimensions';
 import { decorateWith } from '@/test/storybook/decorate';
@@ -74,9 +74,9 @@ const ErrorThrower: React.FC = () => {
 
 	return (
 		<div onClick={onClick}>
-			<TextPara>
+			<Text>
 				Click here to cause an error!
-			</TextPara>
+			</Text>
 		</div>
 	);
 };

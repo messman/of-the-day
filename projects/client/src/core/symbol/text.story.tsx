@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { decorate } from '@/test/storybook/decorate';
-import { TitleInline, titleHeight, SubtitleInline, subtitleHeight, TextInline, textHeight, SmallTextInline, smallTextHeight, SubTextInline, subTextHeight } from '@/core/symbol/text';
+import { Title, titleHeight, Subtitle, subtitleHeight, Text, textHeight, SmallText, smallTextHeight } from '@/core/symbol/text';
 import { iconTypes, Icon } from '@/core/symbol/icon';
 import { styled } from '../style/styled';
 import { flowPaddingValue } from '../style/common';
@@ -14,34 +14,28 @@ export const TestTextWithIcons = decorate(() => {
 	return (
 		<>
 			<Padding>
-				<TitleInline>
+				<Title isInline={true}>
 					<Icon type={iconType} height={titleHeight} />
 					Title
-					</TitleInline>
+					</Title>
 			</Padding>
 			<Padding>
-				<SubtitleInline>
+				<Subtitle isInline={true}>
 					<Icon type={iconType} height={subtitleHeight} />
 					Subtitle
-					</SubtitleInline>
+					</Subtitle>
 			</Padding>
 			<Padding>
-				<TextInline>
+				<Text isInline={true}>
 					<Icon type={iconType} height={textHeight} />
 					Text
-					</TextInline>
+					</Text>
 			</Padding>
 			<Padding>
-				<SmallTextInline>
+				<SmallText isInline={true}>
 					<Icon type={iconType} height={smallTextHeight} />
 					SmallText
-					</SmallTextInline>
-			</Padding>
-			<Padding>
-				<SubTextInline>
-					<Icon type={iconType} height={subTextHeight} />
-					SubText
-					</SubTextInline>
+					</SmallText>
 			</Padding>
 		</>
 	);

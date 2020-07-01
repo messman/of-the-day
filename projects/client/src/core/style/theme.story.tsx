@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { decorate } from '@/test/storybook/decorate';
-import { Title, Subtitle, Text, TextInline, SmallText, SubText } from '@/core/symbol/text';
+import { Title, Subtitle, Text, SmallText } from '@/core/symbol/text';
 import { styled } from '@/core/style/styled';
 import { useCurrentTheme } from '@/core/style/theme';
 import { borderRadiusStyle, edgePaddingValue } from '@/core/style/common';
@@ -49,7 +49,6 @@ const TextSizesColorBox: React.FC<ColorBoxProps> = (props) => {
 			<Subtitle>Subtitle</Subtitle>
 			<Text>Text</Text>
 			<SmallText>Small Text</SmallText>
-			<SubText>Sub Text</SubText>
 		</ColorBox>
 	);
 };
@@ -69,7 +68,7 @@ const TextColorBox: React.FC<ColorBoxProps> = (props) => {
 	return (
 		<div>
 			<LongColorBox backgroundColor={props.backgroundColor} />
-			<TextInline>{props.children}</TextInline>
+			<Text isInline={true}>{props.children}</Text>
 		</div>
 	);
 };

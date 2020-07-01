@@ -14,19 +14,8 @@ export interface MenuBarProps {
 const MenuBarContainer = styled(FlexRow)`
 	border-top: 1px solid ${p => p.theme.color.backgroundC};
 	background-color: ${p => p.theme.color.backgroundB};
-	padding: ${edgePaddingValue} 0;
+	padding: calc(${edgePaddingValue} / 2) 0;
 `;
-
-// const MenuBarBottomContainer = styled(FlexColumn)`
-// 	width: 100vw;
-// 	/* Used to prevent MenuBar scrolling. */
-// 	overflow: hidden;
-// `;
-// const MenuBarLeftContainer = styled(FlexRow)`
-// 	height: 100vh;
-// 	/* Used to prevent MenuBar scrolling. */
-// 	overflow: hidden;
-// `;
 
 export const MenuBar: React.FC<MenuBarProps> = (props) => {
 
