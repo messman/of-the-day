@@ -1,29 +1,30 @@
 import * as React from 'react';
 import { FlexRow } from '@/core/layout/flex';
 import { styled } from '@/core/style/styled';
-import { LayoutBreakpoint, useLayoutInfo } from '@/services/layout/layout-info';
 import { routes } from '@/services/nav/routing';
 import { Text } from '@/core/symbol/text';
-import { edgePaddingValue } from '@/core/style/common';
+import { edgePaddingValue, borderRadiusValue, flowPaddingValue } from '@/core/style/common';
 import { useHistory, useLocation, matchPath } from 'react-router-dom';
 
 export interface MenuBarProps {
+	isUpper: boolean;
 	isDisabled?: boolean;
 }
 
-const MenuBarContainer = styled(FlexRow)`
-	border-top: 1px solid ${p => p.theme.color.backgroundC};
+const MenuBarContainer = styled(FlexRow) <MenuBarProps>`
+	border-top: 0 solid ${p => p.theme.color.backgroundC};
+	border-top-width: ${p => p.isUpper ? '1px' : '0'};
 	background-color: ${p => p.theme.color.backgroundB};
 	padding: calc(${edgePaddingValue} / 2) 0;
+	margin-bottom: ${p => p.isUpper ? flowPaddingValue : 0};
+	border-radius: ${p => p.isUpper ? borderRadiusValue : 0};
 `;
 
 export const MenuBar: React.FC<MenuBarProps> = (props) => {
 
-	const layoutInfo = useLayoutInfo();
 	const history = useHistory();
 	const location = useLocation();
 
-	const isCompact = layoutInfo.widthBreakpoint === LayoutBreakpoint.compact;
 
 	const menuBarItems = Object.keys(routes).map((key) => {
 		const route = routes[key as keyof typeof routes];
@@ -46,20 +47,11 @@ export const MenuBar: React.FC<MenuBarProps> = (props) => {
 		/>;
 	});
 
-	if (isCompact) {
-		return (
-			<MenuBarContainer flex='none' justifyContent='space-evenly'>
-				{menuBarItems}
-			</MenuBarContainer>
-		);
-	}
-	else {
-		return (
-			<MenuBarContainer flex='none' justifyContent='space-around'>
-				{menuBarItems}
-			</MenuBarContainer>
-		);
-	}
+	return (
+		<MenuBarContainer {...props} flex='none' justifyContent='space-evenly'>
+			{menuBarItems}
+		</MenuBarContainer>
+	);
 };
 
 export interface MenuBarItemProps {

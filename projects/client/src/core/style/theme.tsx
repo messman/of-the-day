@@ -2,6 +2,7 @@ import * as React from 'react';
 import { createGlobalStyle, ThemeProps, ThemeProvider as StyledThemeProvider } from 'styled-components';
 import { keyFactory, useLocalStorage, UseLocalStorageReturn } from '@/services/data/local-storage';
 import { CONSTANT } from '@/services/constant';
+import { LayoutBreakpoint } from '@/services/layout/layout-info';
 
 /** Custom application theme type. */
 export interface Theme {
@@ -79,9 +80,10 @@ export const GlobalStyles = createGlobalStyle<ThemeProps<Theme>>`
 	}
 
 	html, body, #react-root, #root {
-		margin: 0;
+		margin: 0 auto;
 		padding: 0;
 		height: 100%;
+		max-width: ${LayoutBreakpoint.wide}px;
 
 		overscroll-behavior: none;
 	}

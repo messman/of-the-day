@@ -3,8 +3,9 @@ import { css, styled } from '@/core/style/styled';
 import { Theme } from './theme';
 
 /** Border-radius style. .375rem / 6px. */
+export const borderRadiusValue: string = '.375rem';
 export const borderRadiusStyle = css`
-	border-radius: .375rem;
+	border-radius: ${borderRadiusValue};
 `;
 
 export const noTouchStyle = css`
