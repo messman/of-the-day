@@ -1,17 +1,17 @@
 // // Handles the main view you see upon loading the app - multiple days and basic information.
 
-// import * as React from "react";
-// import { usePromise, PromiseOutput, promiseMaximum } from "@/unit/hooks/usePromise";
-// import { OfTheDayData } from "@/data/apiResponse";
-// import { fetchApi, fetchMinMilliseconds, fetchMaxMilliseconds, FetchErr } from "@/data/fetch";
-// import * as Common from "@/styles/common";
-// import { Checklist } from "./sections/checklist";
-// import { Day } from "./sections/day";
-// import { LoadingIcon, IconPad } from "@/unit/components/icon";
-// import { If } from "@/unit/components/if";
-// import { faPlay, faHourglassHalf } from "@fortawesome/free-solid-svg-icons";
-// import { IconTitle } from "@/unit/components/iconTitle";
-// import { hasParam } from "@/data/url";
+// import * as React from 'react';
+// import { usePromise, PromiseOutput, promiseMaximum } from '@/unit/hooks/usePromise';
+// import { OfTheDayData } from '@/data/apiResponse';
+// import { fetchApi, fetchMinMilliseconds, fetchMaxMilliseconds, FetchErr } from '@/data/fetch';
+// import * as Common from '@/styles/common';
+// import { Checklist } from './sections/checklist';
+// import { Day } from './sections/day';
+// import { LoadingIcon, IconPad } from '@/unit/components/icon';
+// import { If } from '@/unit/components/if';
+// import { faPlay, faHourglassHalf } from '@fortawesome/free-solid-svg-icons';
+// import { IconTitle } from '@/unit/components/iconTitle';
+// import { hasParam } from '@/data/url';
 
 // export const Days: React.FC = () => {
 
@@ -85,10 +85,10 @@
 
 // const OfTheDayAppDataContext = React.createContext<PromiseOutput<OfTheDayData>>(null);
 
-// // If "tomorrow" is present on the page URL, add that to our request to preview tomorrow and make sure everything looks okay.
-// const url = "https://agm-of-the-day.azurewebsites.net/api/OfTheDay";
-// const isTomorrow = hasParam("tomorrow");
-// const fullUrl = !isTomorrow ? url : url + "?tomorrow=1";
+// // If 'tomorrow' is present on the page URL, add that to our request to preview tomorrow and make sure everything looks okay.
+// const url = 'https://agm-of-the-day.azurewebsites.net/api/OfTheDay';
+// const isTomorrow = hasParam('tomorrow');
+// const fullUrl = !isTomorrow ? url : url + '?tomorrow=1';
 
 // function getData(): Promise<OfTheDayData> {
 // 	return promiseMaximum(fetchApi(fullUrl), fetchMaxMilliseconds);

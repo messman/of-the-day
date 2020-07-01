@@ -13,6 +13,7 @@ const Alert = require('@/static/icons/alert.svg').default as SVGIconType;
 const Question = require('@/static/icons/question.svg').default as SVGIconType;
 const Gear = require('@/static/icons/gear.svg').default as SVGIconType;
 const Refresh = require('@/static/icons/refresh.svg').default as SVGIconType;
+const Compass = require('@/static/icons/compass.svg').default as SVGIconType;
 
 export const iconTypes = {
 	reactionSmile: ReactionSmile,
@@ -23,7 +24,8 @@ export const iconTypes = {
 	alert: Alert,
 	question: Question,
 	gear: Gear,
-	refresh: Refresh
+	refresh: Refresh,
+	compass: Compass
 };
 
 export interface IconProps {

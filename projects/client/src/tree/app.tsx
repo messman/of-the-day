@@ -1,15 +1,15 @@
-// import * as React from "react";
-// import styled from "@/styles/theme";
-// import * as Common from "@/styles/common";
-// import { OfTheDayAppData, Days } from "./days/days";
-// import { AllMusicAppData, AllMusic } from "./allMusic/allMusic";
-// import { ActionLink, OutLink } from "@/unit/components/link";
-// import { GlobalAppStyles, ThemeProvider, themes } from "@/styles/theme";
-// import { useLocalStorage } from "@/unit/hooks/useLocalStorage";
-// import { keyFactory } from "@/data/localStorage";
+// import * as React from 'react';
+// import styled from '@/styles/theme';
+// import * as Common from '@/styles/common';
+// import { OfTheDayAppData, Days } from './days/days';
+// import { AllMusicAppData, AllMusic } from './allMusic/allMusic';
+// import { ActionLink, OutLink } from '@/unit/components/link';
+// import { GlobalAppStyles, ThemeProvider, themes } from '@/styles/theme';
+// import { useLocalStorage } from '@/unit/hooks/useLocalStorage';
+// import { keyFactory } from '@/data/localStorage';
 
-// export const getKey = keyFactory("of-the-day");
-// const themeIndexKey = getKey("themeIndex");
+// export const getKey = keyFactory('of-the-day');
+// const themeIndexKey = getKey('themeIndex');
 
 // export const App: React.FC = () => {
 
@@ -26,7 +26,7 @@
 // 		setThemeIndex((themeIndex + 1) % themes.length);
 // 	}
 
-// 	//const linkTitle = isViewingDays ? "See all music" : "Back to daily view";
+// 	//const linkTitle = isViewingDays ? 'See all music' : 'Back to daily view';
 // 	const renderedSection = isViewingDays ? <Days /> : <AllMusic />;
 
 // 	return (
