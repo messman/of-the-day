@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { DEFINE } from '@/services/define';
 import { decorate } from '@/test/storybook/decorate';
-import { flowPaddingValue, addMargin } from '@/core/style/common';
+import { spacingBValue, addMargin } from '@/core/style/common';
 import { Text } from '@/core/symbol/text';
 
 export default { title: 'services' };
@@ -19,4 +19,4 @@ export const TestDefine = decorate(() => {
 	);
 });
 
-const TextPara = addMargin(Text, flowPaddingValue);
+const TextPara = addMargin(Text, spacingBValue);

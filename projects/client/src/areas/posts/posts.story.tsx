@@ -6,7 +6,7 @@ import { Posts } from './posts';
 
 export default { title: 'areas/posts' };
 
-export const TestLayout = decorate(() => {
+export const PostsLayout = decorate(() => {
 	return (
 		<Layout
 			Posts={Posts}

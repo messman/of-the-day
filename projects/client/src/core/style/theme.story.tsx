@@ -3,7 +3,7 @@ import { decorate } from '@/test/storybook/decorate';
 import { Title, Subtitle, Text, SmallText } from '@/core/symbol/text';
 import { styled } from '@/core/style/styled';
 import { useCurrentTheme } from '@/core/style/theme';
-import { borderRadiusStyle, edgePaddingValue } from '@/core/style/common';
+import { borderRadiusStyle, spacingAValue } from '@/core/style/common';
 
 export default { title: 'core/style' };
 
@@ -38,8 +38,8 @@ const ColorBox = styled.div<ColorBoxProps>`
 
 	background-color: ${p => p.backgroundColor};
 	${borderRadiusStyle};
-	margin: ${edgePaddingValue};
-	padding: ${edgePaddingValue};
+	margin: ${spacingAValue};
+	padding: ${spacingAValue};
 `;
 
 const TextSizesColorBox: React.FC<ColorBoxProps> = (props) => {
@@ -60,8 +60,8 @@ const LongColorBox = styled.div<ColorBoxProps>`
 
 	background-color: ${p => p.backgroundColor};
 	${borderRadiusStyle};
-	margin-bottom: ${edgePaddingValue};
-	margin-right: ${edgePaddingValue};
+	margin-bottom: ${spacingAValue};
+	margin-right: ${spacingAValue};
 `;
 
 const TextColorBox: React.FC<ColorBoxProps> = (props) => {

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Flex, FlexColumn } from '@/core/layout/flex';
 import { Overlay } from '@/core/layout/overlay';
-import { addPadding, edgePaddingValue } from '@/core/style/common';
+import { addPadding, spacingAValue } from '@/core/style/common';
 import { keyframes, styled } from '@/core/style/styled';
 import { useCurrentTheme } from '@/core/style/theme';
 import { Text } from '@/core/symbol/text';
@@ -101,7 +101,7 @@ const LoadingBody = styled(Flex)`
 	min-width: 16rem;
 	max-width: 24rem;
 	min-height: 10rem;
-	margin: ${edgePaddingValue};
+	margin: ${spacingAValue};
 	text-align: center;
 `;
 

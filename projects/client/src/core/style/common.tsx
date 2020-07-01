@@ -24,9 +24,9 @@ export const Link = styled.a`
 `;
 
 /** Smaller padding value, for edges against the screen. .625rem / 10px. */
-export const edgePaddingValue: string = '.625rem';
+export const spacingAValue: string = '.625rem';
 /** Larger padding value, for vertical flow. 1rem / 16px. */
-export const flowPaddingValue: string = '1rem';
+export const spacingBValue: string = '1rem';
 
 /** Returns a new component that has the specified padding value. */
 export function addPadding<T extends StyledComponent<any, Theme, {}, never>>(component: T, padding: string) {

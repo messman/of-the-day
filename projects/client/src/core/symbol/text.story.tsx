@@ -3,7 +3,7 @@ import { decorate } from '@/test/storybook/decorate';
 import { Title, titleHeight, Subtitle, subtitleHeight, Text, textHeight, SmallText, smallTextHeight } from '@/core/symbol/text';
 import { iconTypes, Icon } from '@/core/symbol/icon';
 import { styled } from '../style/styled';
-import { flowPaddingValue } from '../style/common';
+import { spacingBValue } from '../style/common';
 
 export default { title: 'core/symbol' };
 
@@ -42,5 +42,5 @@ export const TestTextWithIcons = decorate(() => {
 });
 
 const Padding = styled.div`
-	margin: ${flowPaddingValue};
+	margin: ${spacingBValue};
 `;
