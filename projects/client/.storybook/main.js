@@ -12,7 +12,7 @@ module.exports = {
 
 	webpackFinal: async function (config) {
 
-		const DEFINE = await getDefine(true);
+		const DEFINE = await getDefine(true, true);
 
 		config.module.rules = [];
 		config.module.rules.push(
@@ -46,7 +46,7 @@ module.exports = {
 		config.resolve.extensions.push('.ts', '.tsx');
 
 		// Taken from regular webpack build
-		config.resolve.alias['@'] = path.resolve(__dirname, '../src')
+		config.resolve.alias['@'] = path.resolve(__dirname, '../src');
 
 		config.plugins.push(new webpack.DefinePlugin({ __DEFINE__: DEFINE }));
 

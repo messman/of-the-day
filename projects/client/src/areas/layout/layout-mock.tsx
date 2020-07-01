@@ -39,7 +39,7 @@ export const MockAbout: React.FC<AboutProps> = () => {
 };
 
 const Area = styled(Flex)`
-	color: lightpink;
-	border: 1px solid lightpink;
+	color: darkred;
+	border: 1px solid darkred;
 	padding: 1rem;
 `;

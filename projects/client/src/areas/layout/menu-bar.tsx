@@ -1,15 +1,21 @@
-// import * as React from 'react';
-// import { useComponentLayout } from '@/areas/layout/component-layout';
-// import { FlexColumn, FlexParent, FlexRow } from '@/core/layout/flex';
-// import { styled } from '@/core/style/styled';
-// import { iconTypes } from '@/core/symbol/icon';
-// import { LayoutBreakpoint, LayoutMode, useResponsiveLayout } from '@/services/layout/responsive-layout';
-// import { AllResponseClipboardIcon } from './clipboard';
-// import { MenuBarIcon } from './menu-bar-icon';
+import * as React from 'react';
+import { FlexRow } from '@/core/layout/flex';
+import { styled } from '@/core/style/styled';
+import { LayoutBreakpoint, useLayoutInfo } from '@/services/layout/layout-info';
+import { routes } from '@/services/nav/routing';
+import { Text } from '@/core/symbol/text';
+import { edgePaddingValue } from '@/core/style/common';
+import { useHistory, useLocation, matchPath } from 'react-router-dom';
 
-// const MenuBarContent = styled(FlexParent)`
-// 	background-color: ${p => p.theme.color.ba};
-// `;
+export interface MenuBarProps {
+	isDisabled?: boolean;
+}
+
+const MenuBarContainer = styled(FlexRow)`
+	border-top: 1px solid ${p => p.theme.color.backgroundC};
+	background-color: ${p => p.theme.color.backgroundB};
+	padding: ${edgePaddingValue} 0;
+`;
 
 // const MenuBarBottomContainer = styled(FlexColumn)`
 // 	width: 100vw;
@@ -22,100 +28,86 @@
 // 	overflow: hidden;
 // `;
 
-// /** MenuBar that wraps the other components of the application. */
-// export const MenuBar: React.FC = (props) => {
+export const MenuBar: React.FC<MenuBarProps> = (props) => {
 
-// 	const responsiveLayout = useResponsiveLayout();
+	const layoutInfo = useLayoutInfo();
+	const history = useHistory();
+	const location = useLocation();
 
-// 	// If in the compact view, spread out the icons to take up all the horizontal space.
-// 	// Otherwise, concentrate the icons together. (Code not currently used because only one icon is visible.)
-// 	const isCompact = responsiveLayout.widthBreakpoint === LayoutBreakpoint.compact;
-// 	const justifyContent = isCompact ? 'space-evenly' : 'center';
+	const isCompact = layoutInfo.widthBreakpoint === LayoutBreakpoint.compact;
 
-// 	const bar = <MenuBarInner {...props} />;
+	const menuBarItems = Object.keys(routes).map((key) => {
+		const route = routes[key as keyof typeof routes];
 
-// 	const isBottomMenuBar = isCompact || responsiveLayout.mode === LayoutMode.portrait;
-// 	if (isBottomMenuBar) {
-// 		return (
-// 			<MenuBarBottomContainer>
-// 				{props.children}
-// 				<MenuBarContent flexDirection='row' flex='none' justifyContent={justifyContent}>
-// 					{bar}
-// 				</MenuBarContent>
-// 			</MenuBarBottomContainer>
-// 		);
-// 	}
-// 	else {
-// 		return (
-// 			<MenuBarLeftContainer>
-// 				<MenuBarContent flexDirection='column' flex='none' justifyContent={justifyContent}>
-// 					{bar}
-// 				</MenuBarContent>
-// 				{props.children}
-// 			</MenuBarLeftContainer>
-// 		);
-// 	}
-// };
+		const isActive = !!matchPath(location.pathname, {
+			path: route.path,
+			exact: route === routes.posts // home
+		});
 
-// const MenuBarInner: React.FC = () => {
+		function onClick() {
+			history.push(route.path);
+		}
 
-// 	const responsiveLayout = useResponsiveLayout();
-// 	const [componentLayout, setComponentLayout] = useComponentLayout();
+		return <MenuBarItem
+			key={route.name}
+			title={route.name}
+			isDisabled={props.isDisabled || false}
+			isActive={isActive}
+			onClick={onClick}
+		/>;
+	});
 
-// 	const isCompact = responsiveLayout.widthBreakpoint === LayoutBreakpoint.compact;
+	if (isCompact) {
+		return (
+			<MenuBarContainer flex='none' justifyContent='space-evenly'>
+				{menuBarItems}
+			</MenuBarContainer>
+		);
+	}
+	else {
+		return (
+			<MenuBarContainer flex='none' justifyContent='space-around'>
+				{menuBarItems}
+			</MenuBarContainer>
+		);
+	}
+};
 
-// 	if (isCompact && componentLayout.isCompactForecastView || componentLayout.isCompactSettingsView) {
+export interface MenuBarItemProps {
+	title: string;
+	isDisabled: boolean;
+	isActive: boolean;
+	onClick: () => void;
+}
 
-// 		function onBackClick(): void {
-// 			setComponentLayout({
-// 				isCompactForecastView: false,
-// 				isCompactSettingsView: false
-// 			});
-// 		}
+export const MenuBarItem: React.FC<MenuBarItemProps> = (props) => {
 
-// 		return (
-// 			<MenuBarIcon
-// 				type={iconTypes.chevronLeft}
-// 				title='Back'
-// 				isDisabled={false}
-// 				onClick={onBackClick}
-// 			/>
-// 		);
-// 	}
+	return (
+		<ItemButton {...props} disabled={props.isDisabled}>
+			<ItemButtonTextPadding {...props}>
 
-// 	if (!isCompact) {
-// 		return <AllResponseClipboardIcon />;
-// 	}
+				<Text>
+					{props.title}
+				</Text>
+			</ItemButtonTextPadding>
+		</ItemButton>
+	);
+};
 
-// 	function onForecastClick(): void {
-// 		setComponentLayout({
-// 			isCompactForecastView: true,
-// 			isCompactSettingsView: false
-// 		});
-// 	}
+const ItemButtonTextPadding = styled.div<MenuBarItemProps>`
+	text-align: center;
+	padding: calc(${edgePaddingValue} / 4);
 
-// 	function onSettingsClick(): void {
-// 		setComponentLayout({
-// 			isCompactForecastView: false,
-// 			isCompactSettingsView: true
-// 		});
-// 	}
+	border: 0 solid transparent;
+	border-color: ${p => p.isActive ? (p.isDisabled ? p.theme.color.disabled : p.theme.color.textAndIcon) : 'transparent'};
+	border-bottom-width: 1px;
+`;
 
-// 	return (
-// 		<>
-// 			<AllResponseClipboardIcon />
-// 			<MenuBarIcon
-// 				type={iconTypes.calendar}
-// 				title='Forecast'
-// 				isDisabled={false}
-// 				onClick={onForecastClick}
-// 			/>
-// 			<MenuBarIcon
-// 				type={iconTypes.gear}
-// 				title='Settings'
-// 				isDisabled={false}
-// 				onClick={onSettingsClick}
-// 			/>
-// 		</>
-// 	);
-// };
+const ItemButton = styled.button<MenuBarItemProps>`
+	background-color: transparent;
+	cursor: ${p => p.isDisabled ? 'not-allowed' : 'pointer'};
+	color: ${p => p.isDisabled ? p.theme.color.disabled : p.theme.color.textAndIcon};
+
+	padding: calc(${edgePaddingValue} / 3);
+	border: none;
+`;

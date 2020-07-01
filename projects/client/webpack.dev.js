@@ -7,7 +7,7 @@ const getDefine = require('./define');
 
 module.exports = async () => {
 
-	const DEFINE = await getDefine(true);
+	const DEFINE = await getDefine(true, false);
 
 	return merge(base.base, {
 		mode: 'development',

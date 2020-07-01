@@ -5,6 +5,10 @@ import { Other, OtherProps } from '@/areas/other/other';
 import { Archive, ArchiveProps } from '@/areas/archive/archive';
 import { Account, AccountProps } from '@/areas/account/account';
 import { LayoutBreakpoint, useLayoutInfo } from '@/services/layout/layout-info';
+import { MenuBar } from './menu-bar';
+import { FlexColumn } from '@/core/layout/flex';
+import { Switch, Route } from 'react-router-dom';
+import { routes } from '@/services/nav/routing';
 
 export const ApplicationLayout: React.FC = () => {
 	return (
@@ -34,13 +38,26 @@ export const Layout: React.FC<LayoutProps> = (props) => {
 	const isCompact = layoutInfo.widthBreakpoint === LayoutBreakpoint.compact;
 
 	return (
-		<div>
+		<FlexColumn>
 			{isCompact ? 'Compact' : 'Not Compact'}
-			<Posts />
-			<Other />
-			<Archive />
-			<Account />
-			<About />
-		</div>
+			<Switch>
+				<Route exact path={routes.posts.path}>
+					<Posts />
+				</Route>
+				<Route path={routes.other.path}>
+					<Other />
+				</Route>
+				<Route path={routes.archive.path}>
+					<Archive />
+				</Route>
+				<Route path={routes.account.path}>
+					<Account />
+				</Route>
+				<Route path={routes.about.path}>
+					<About />
+				</Route>
+			</Switch>
+			<MenuBar />
+		</FlexColumn>
 	);
 };

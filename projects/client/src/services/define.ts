@@ -7,6 +7,7 @@ export const DEFINE = {
 	buildVersion: __DEFINE__.buildVersion as string,
 	buildTime: __DEFINE__.buildTime as number,
 	isDevelopment: __DEFINE__.isDevelopment as boolean,
+	isStorybook: __DEFINE__.isStorybook as boolean,
 	serverBase: __DEFINE__.serverBase as string
 };
 

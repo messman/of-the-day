@@ -1,4 +1,4 @@
-module.exports = async function getDefine(isDevelopment) {
+module.exports = async function getDefine(isDevelopment, isStorybook) {
 
 	const buildTime = (new Date()).getTime();
 	const packageJson = require('./package.json');
@@ -12,6 +12,7 @@ module.exports = async function getDefine(isDevelopment) {
 		buildVersion: JSON.stringify(buildVersion),
 		buildTime: JSON.stringify(buildTime),
 		isDevelopment: JSON.stringify(isDevelopment),
+		isStorybook: JSON.stringify(isDevelopment && isStorybook),
 
 		// Overwritten by dev/prod builds
 		serverBase: JSON.stringify(null),
