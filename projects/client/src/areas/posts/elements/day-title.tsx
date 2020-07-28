@@ -18,7 +18,7 @@ export const DayTitle: React.FC<DayTitleProps> = (props) => {
 	const theme = useCurrentTheme();
 
 	return (
-		<Margin justifyContent='space-between'>
+		<Margin justifyContent='space-between' flex='none'>
 			<div>
 				<Subtitle isInline={true} isBold={true}>{day.dayAsText}</Subtitle>
 				<Subtitle isInline={true}>&nbsp;&nbsp;&middot;&nbsp;&nbsp;Day {day.dayNumber}</Subtitle>

@@ -2,6 +2,7 @@ import * as React from 'react';
 import { decorate } from '@/test/storybook/decorate';
 import { Day } from './day';
 import { MusicRecord, DailyRecord } from 'oftheday-shared';
+import { Flex } from '@/core/layout/flex';
 
 export default { title: 'areas/posts' };
 
@@ -11,10 +12,10 @@ export const Days = decorate(() => {
 		day: '06/26/2020',
 		dayAsText: 'Fri, Jun 26',
 		dayNumber: 93,
-		specialEvent: '',
+		specialEvent: 'Special Event day',
 		location: 'Wells, Maine',
-		note: '',
-		schedule: '',
+		note: 'Note!',
+		schedule: 'Do some stuff!',
 		quote: '',
 		quoteBy: '',
 		youTubeLink: 'https://youtu.be/nAtCqHJofJk',
@@ -40,9 +41,11 @@ export const Days = decorate(() => {
 	};
 
 	return (
-		<Day
-			day={day}
-			dayMusic={dayMusic}
-		/>
+		<Flex>
+			<Day
+				day={day}
+				dayMusic={dayMusic}
+			/>
+		</Flex>
 	);
 });

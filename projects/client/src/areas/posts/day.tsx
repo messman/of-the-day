@@ -6,6 +6,7 @@ import { DailyRecord, MusicRecord } from 'oftheday-shared';
 import { styled } from '@/core/style/styled';
 import { DayTitle } from './elements/day-title';
 import { Text } from '@/core/symbol/text';
+import { Basics } from './elements/basics';
 
 interface DayProps {
 	day: DailyRecord,
@@ -40,6 +41,7 @@ export const Day: React.FC<DayProps> = (props) => {
 	return (
 		<>
 			{topSection}
+			<Basics day={day} />
 			<Text>Hello!</Text>
 			{/* <IconPad>
 				<If show={day.specialEvent}>
