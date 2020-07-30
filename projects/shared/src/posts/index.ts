@@ -1,48 +1,97 @@
-export interface OfTheDayData {
-	keyVal: KeyVal;
+import { Meta } from '../meta';
 
-	checklistDone: string[];
-	checklistToDo: string[];
-
-	dailyRecords: DailyRecord[];
-	musicRecords: MusicRecord[];
+export interface PostReactionSummary {
+	emoji?: string[];
+	replies?: string[];
 }
 
-export interface KeyVal {
-	importantInformation: string;
-	badInformation: string;
-	startDate: string;
-	workingOn: string;
-	lookingForwardTo: string;
+export interface PostResponse {
+	meta: Meta;
+
+	posts: Post[] | null;
 }
 
-export interface SharedDayRecord {
-	day: string;
-	dayAsText: string;
+export interface Post {
+	date: string;
+	dateText: string;
 	dayNumber: number;
-	specialEvent: string;
+	isDayOff: boolean;
+	dayOffMessage?: string;
+
+	basics?: PostBasics;
+	endThoughts?: PostEndThoughts;
+	music?: PostMusic;
+	video?: PostVideo;
+	quote?: PostQuote;
+	image?: PostImage;
+	custom?: PostCustom;
 }
 
-export interface DailyRecord extends SharedDayRecord {
-	location: string;
-	note: string;
-	schedule: string;
-	quote: string;
-	quoteBy: string;
-	youTubeLink: string;
-	youTubeLinkTitle: string;
-	youTubeLinkDescription: string;
-	howDidItGo: string;
+export interface PostBasics {
+	event?: string;
+	note?: string;
+	location?: string;
+	schedule?: string;
+	dayTypes?: string[];
+	reactionSummary?: PostReactionSummary;
 }
 
-export interface MusicRecord extends SharedDayRecord {
-	isFavorite: boolean;
-	title: string;
-	artist: string;
-	spotifyLink: string;
-	youTubeLink: string;
-	isYouTubePreferred: boolean;
-	geniusLink: string;
+export interface PostEndThoughts {
+	endThoughts?: string;
+	reactionSummary?: PostReactionSummary;
+}
+
+export interface PostMusic {
+	title?: string;
+	artist?: string;
+	year?: number;
+	isNSFW?: boolean;
+	isTop?: boolean;
+	tags?: string[];
+	spotifyLink?: string;
+	youTubeLink?: string;
+	useYouTube?: boolean;
+	geniusLink?: string;
+	description?: string;
+	quote?: string;
+	reactionSummary?: PostReactionSummary;
+}
+
+export interface PostVideo {
+	title?: string;
+	originalTitle?: string;
+	link?: string;
 	description: string;
-	quote: string;
+	isRemoved?: string;
+	isNSFW?: boolean;
+	isTop?: boolean;
+	tags?: string[];
+	reactionSummary?: PostReactionSummary;
+}
+
+export interface PostQuote {
+	a?: string;
+	aVoice?: string;
+	b?: string;
+	bVoice?: string;
+	source?: string;
+	sourceLink?: string;
+	reactionSummary?: PostReactionSummary;
+}
+
+export interface PostImage {
+	link?: string;
+	description?: string;
+	source?: string;
+	sourceLink?: string;
+	reactionSummary?: PostReactionSummary;
+}
+
+export interface PostCustom {
+	title?: string;
+	value?: string;
+	link?: string;
+	linkText?: string;
+	previewLink?: boolean;
+	reactionSummary?: PostReactionSummary;
 }

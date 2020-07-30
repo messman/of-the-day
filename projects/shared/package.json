@@ -13,6 +13,7 @@
 	"author": "Andrew Messier",
 	"license": "MIT",
 	"devDependencies": {
+		"@messman/ts-webpack-builder": "^1.4.3",
 		"typescript": "^3.9.5"
 	}
 }
