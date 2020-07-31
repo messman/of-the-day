@@ -1,4 +1,3 @@
-import * as path from 'path';
 import { sheets_v4, google } from 'googleapis';
 import { Range } from './cell';
 
@@ -9,7 +8,7 @@ export interface SheetsService {
 
 export function createSheetsService(credentialsPath: string, sheetId: string): SheetsService {
 	const auth = new google.auth.GoogleAuth({
-		keyFile: path.join(credentialsPath, 'google-credentials.json'),
+		keyFile: credentialsPath,
 		scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'],
 	});
 	const sheets = google.sheets({ version: 'v4', auth });

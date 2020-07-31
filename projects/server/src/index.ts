@@ -1,7 +1,7 @@
 import express = require('express');
 import { NextFunction, Request, Response } from 'express';
 import { configureApp } from './app';
-import { Settings } from './services/settings';
+import { settings } from './env';
 
 const port = process.env.PORT || 8000;
 
@@ -9,27 +9,16 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-const isDev = process.env.NODE_ENV === 'dev';
-console.log(`Running in ${isDev ? 'dev' : 'prod'}`);
-let settings: Settings = null!;
-if (isDev) {
-	settings = require('../settings.dev.json');
-}
-else {
-	settings = require('../settings.prod.json');
-}
+const allowedDomain = settings.isDev ? '*' : 'https://tidy.andrewmessier.com';
 
-// if (isDev) {
-// 	// CORS (since this is just for development)
-// 	console.log('Using open CORS settings for development');
-// 	app.use(function (_request: Request, response: Response, next: NextFunction) {
-// 		response.header('Access-Control-Allow-Origin', '*');
-// 		response.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-// 		next();
-// 	});
-// }
+console.log(settings.isDev ? 'Using open CORS settings for development' : `Restricting via CORS to '${allowedDomain}'`);
+app.use(function (_request: Request, response: Response, next: NextFunction) {
+	response.header('Access-Control-Allow-Origin', allowedDomain);
+	response.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+	next();
+});
 
-configureApp(app, settings);
+configureApp(app);
 
 // 404 handler
 app.use(function (_request: Request, response: Response, _next: NextFunction) {

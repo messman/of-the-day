@@ -62,3 +62,55 @@ export function createRange(from: Cell, to: Cell): Range {
 	};
 	return range;
 }
+
+export function columnsFrom(startColumnLetter: string): (columnLetter: string) => number {
+	const startColumnNumber = columnNumber(startColumnLetter);
+	return function (columnLetter: string) {
+		return columnNumber(columnLetter) - startColumnNumber;
+	};
+}
+
+/**
+ * Returns a 1-based map of letters to numbers.
+ * A = 1, B = 2 ... AA = 27
+*/
+function columnNumber(columnLetter: string): number {
+	let totalColumnNumber = 0;
+	const length = columnLetter.length;
+	for (let i = 0; i < length; i++) {
+		const rightIndexPlace = length - i - 1;
+		const letter = columnLetter[i];
+		const columnNumber = columnMap[letter.toLowerCase() as keyof typeof columnMap];
+		totalColumnNumber += columnNumber * Math.pow(26, rightIndexPlace);
+	}
+	return totalColumnNumber;
+}
+
+const columnMap = {
+	a: 1,
+	b: 2,
+	c: 3,
+	d: 4,
+	e: 5,
+	f: 6,
+	g: 7,
+	h: 8,
+	i: 9,
+	j: 10,
+	k: 11,
+	l: 12,
+	m: 13,
+	n: 14,
+	o: 15,
+	p: 16,
+	q: 17,
+	r: 18,
+	s: 19,
+	t: 20,
+	u: 21,
+	v: 22,
+	w: 23,
+	x: 24,
+	y: 25,
+	z: 26
+};

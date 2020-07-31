@@ -1,31 +1,31 @@
 import { Application, Request, Response, NextFunction } from 'express';
-import { OfTheDayData } from 'oftheday-shared';
+import { PostResponse } from 'oftheday-shared';
 import { createSheetsService } from './services/google-sheets/sheets-service';
-import { getRecentPosts } from './features/posts';
-import { Settings } from './services/settings';
+import { getPosts } from './features/posts';
+import { settings } from './env';
 
 function log(...args: any[]): void {
 	console.log('>', ...args);
 }
 
-export function configureApp(app: Application, settings: Settings): void {
+export function configureApp(app: Application): void {
 
-	const credentialsPath = settings.GoogleSheetsCredentialsPath;
-	const sheetId = settings.GoogleSheetsSpreadsheetID;
+	const credentialsPath = settings.GOOGLE_CREDENTIALS_PATH!;
+	const sheetId = settings.GOOGLE_SPREADSHEET_ID!;
 	const sheetsService = createSheetsService(credentialsPath, sheetId);
 
-	app.get('/daily', async (req: Request, response: Response<OfTheDayData>, next: NextFunction) => {
+	app.get('/posts', async (req: Request, response: Response<PostResponse>, next: NextFunction) => {
 		const includeTomorrow = req.query['tomorrow'] == '1';
 
-		let dailyRecords: OfTheDayData = null!;
+		let postResponse: PostResponse = null!;
 		try {
-			dailyRecords = await getRecentPosts(sheetsService, includeTomorrow);
+			postResponse = await getPosts(sheetsService, includeTomorrow, 14, 10);
 		}
 		catch (e) {
 			return next(e);
 		}
-		log('daily', includeTomorrow);
-		return response.json(dailyRecords);
+		log('posts', includeTomorrow);
+		return response.json(postResponse);
 	});
 
 	app.get('/', async (_: Request, res: Response) => {

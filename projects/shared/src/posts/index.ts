@@ -1,14 +1,13 @@
 import { Meta } from '../meta';
 
 export interface PostReactionSummary {
-	emoji?: string[];
-	replies?: string[];
+	emoji: string[];
+	replies: number;
 }
 
 export interface PostResponse {
 	meta: Meta;
-
-	posts: Post[] | null;
+	posts: Post[];
 }
 
 export interface Post {
@@ -16,82 +15,82 @@ export interface Post {
 	dateText: string;
 	dayNumber: number;
 	isDayOff: boolean;
-	dayOffMessage?: string;
+	dayOffMessage: string;
 
-	basics?: PostBasics;
-	endThoughts?: PostEndThoughts;
-	music?: PostMusic;
-	video?: PostVideo;
-	quote?: PostQuote;
-	image?: PostImage;
-	custom?: PostCustom;
+	basics: PostBasics;
+	endThoughts: PostEndThoughts;
+	music: PostMusic;
+	video: PostVideo;
+	quote: PostQuote;
+	image: PostImage;
+	custom: PostCustom;
 }
 
 export interface PostBasics {
-	event?: string;
-	note?: string;
-	location?: string;
-	schedule?: string;
-	dayTypes?: string[];
-	reactionSummary?: PostReactionSummary;
+	event: string;
+	note: string;
+	location: string;
+	schedule: string;
+	dayTypes: string[];
+	reactionSummary: PostReactionSummary;
 }
 
 export interface PostEndThoughts {
-	endThoughts?: string;
-	reactionSummary?: PostReactionSummary;
+	value: string;
+	reactionSummary: PostReactionSummary;
 }
 
 export interface PostMusic {
-	title?: string;
-	artist?: string;
-	year?: number;
-	isNSFW?: boolean;
-	isTop?: boolean;
-	tags?: string[];
-	spotifyLink?: string;
-	youTubeLink?: string;
-	useYouTube?: boolean;
-	geniusLink?: string;
-	description?: string;
-	quote?: string;
-	reactionSummary?: PostReactionSummary;
+	title: string;
+	artist: string;
+	year: number;
+	isNSFW: boolean;
+	isTop: boolean;
+	tags: string[];
+	spotifyLink: string;
+	youTubeLink: string;
+	useYouTube: boolean;
+	geniusLink: string;
+	description: string;
+	quote: string;
+	reactionSummary: PostReactionSummary;
 }
 
 export interface PostVideo {
-	title?: string;
-	originalTitle?: string;
-	link?: string;
+	title: string;
+	originalTitle: string;
+	link: string;
 	description: string;
-	isRemoved?: string;
-	isNSFW?: boolean;
-	isTop?: boolean;
-	tags?: string[];
-	reactionSummary?: PostReactionSummary;
+	isRemoved: boolean;
+	isNSFW: boolean;
+	isTop: boolean;
+	tags: string[];
+	reactionSummary: PostReactionSummary;
 }
 
 export interface PostQuote {
-	a?: string;
-	aVoice?: string;
-	b?: string;
-	bVoice?: string;
-	source?: string;
-	sourceLink?: string;
-	reactionSummary?: PostReactionSummary;
+	a: string;
+	aVoice: string;
+	b: string;
+	bVoice: string;
+	source: string;
+	sourceLink: string;
+	reactionSummary: PostReactionSummary;
 }
 
 export interface PostImage {
-	link?: string;
-	description?: string;
-	source?: string;
-	sourceLink?: string;
-	reactionSummary?: PostReactionSummary;
+	link: string;
+	description: string;
+	source: string;
+	sourceLink: string;
+	reactionSummary: PostReactionSummary;
 }
 
 export interface PostCustom {
-	title?: string;
-	value?: string;
-	link?: string;
-	linkText?: string;
-	previewLink?: boolean;
-	reactionSummary?: PostReactionSummary;
+	title: string;
+	value: string;
+	link: string;
+	linkText: string;
+	previewLink: boolean;
+	reactionSummary: PostReactionSummary;
 }

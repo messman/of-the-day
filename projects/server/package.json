@@ -4,7 +4,7 @@
 	"description": "An api for the of-the-day project.",
 	"main": "dist/index.js",
 	"scripts": {
-		"link": "npm link tidy-shared",
+		"link": "npm link oftheday-shared",
 		"build": "tsc",
 		"start": "PORT=8000 NODE_ENV=dev node ./dist/index",
 		"build-start": "npm run clean && npm run build && npm run start",

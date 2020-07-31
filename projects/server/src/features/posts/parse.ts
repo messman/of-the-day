@@ -1,50 +1,89 @@
-import { DailyRecord, MusicRecord, KeyVal } from 'oftheday-shared';
+import { Post, PostReactionSummary } from 'oftheday-shared';
 import { stringAt, tryParseInt } from '../../services/primitives';
+import { columnsFrom } from '../../services/google-sheets/cell';
+import { keepTruthy } from '../../services/util';
 
-export function parseDailyRecord(row: any[]): DailyRecord {
+export function parsePost(row: any[]): Post {
+	const col = columnsFrom('A');
+	function stringAtCol(columnLetter: string): string {
+		return stringAt(row, col(columnLetter));
+	}
+
 	return {
-		day: stringAt(row, 0),
-		dayAsText: stringAt(row, 1),
-		dayNumber: tryParseInt(stringAt(row, 2), -1),
-		specialEvent: stringAt(row, 3),
-		location: stringAt(row, 4),
-		note: stringAt(row, 5),
-		schedule: stringAt(row, 6),
-		quote: stringAt(row, 7),
-		quoteBy: stringAt(row, 8),
-		youTubeLink: stringAt(row, 9),
-		youTubeLinkTitle: stringAt(row, 10),
-		youTubeLinkDescription: stringAt(row, 11),
-		howDidItGo: stringAt(row, 12)
+		date: stringAtCol('A'),
+		dateText: stringAtCol('B'),
+		dayNumber: tryParseInt(stringAtCol('C'), -1),
+		isDayOff: !!stringAtCol('E'),
+		dayOffMessage: stringAtCol('F'),
+
+		basics: {
+			event: stringAtCol('G'),
+			note: stringAtCol('H'),
+			location: stringAtCol('I'),
+			schedule: stringAtCol('J'),
+			dayTypes: keepTruthy(stringAtCol('K'), stringAtCol('L')),
+			reactionSummary: createEmptyReactionSummary()
+		},
+		endThoughts: {
+			value: stringAtCol('M'),
+			reactionSummary: createEmptyReactionSummary()
+		},
+		music: {
+			title: stringAtCol('N'),
+			artist: stringAtCol('O'),
+			year: tryParseInt(stringAtCol('P'), -1),
+			isNSFW: !!stringAtCol('Q'),
+			isTop: !!stringAtCol('R'),
+			tags: keepTruthy(stringAtCol('S'), stringAtCol('T'), stringAtCol('U')),
+			spotifyLink: stringAtCol('V'),
+			youTubeLink: stringAtCol('W'),
+			useYouTube: !!stringAtCol('X'),
+			geniusLink: stringAtCol('Y'),
+			description: stringAtCol('Z'),
+			quote: stringAtCol('AA'),
+			reactionSummary: createEmptyReactionSummary()
+		},
+		video: {
+			title: stringAtCol('AB'),
+			originalTitle: stringAtCol('AC'),
+			link: stringAtCol('AD'),
+			description: stringAtCol('AE'),
+			isRemoved: !!stringAtCol('AF'),
+			isNSFW: !!stringAtCol('AG'),
+			isTop: !!stringAtCol('AH'),
+			tags: keepTruthy(stringAtCol('AI'), stringAtCol('AJ'), stringAtCol('AK')),
+			reactionSummary: createEmptyReactionSummary()
+		},
+		quote: {
+			a: stringAtCol('AL'),
+			aVoice: stringAtCol('AM'),
+			b: stringAtCol('AN'),
+			bVoice: stringAtCol('AO'),
+			source: stringAtCol('AP'),
+			sourceLink: stringAtCol('AQ'),
+			reactionSummary: createEmptyReactionSummary()
+		},
+		image: {
+			link: stringAtCol('AR'),
+			description: stringAtCol('AS'),
+			source: stringAtCol('AT'),
+			sourceLink: stringAtCol('AU'),
+			reactionSummary: createEmptyReactionSummary()
+		},
+		custom: {
+			title: stringAtCol('AV'),
+			value: stringAtCol('AW'),
+			link: stringAtCol('AX'),
+			linkText: stringAtCol('AY'),
+			previewLink: !!stringAtCol('AZ'),
+			reactionSummary: createEmptyReactionSummary()
+		}
 	};
 }
 
-export function parseMusicRecord(row: any[]): MusicRecord {
+function createEmptyReactionSummary(): PostReactionSummary {
 	return {
-		day: stringAt(row, 0),
-		dayAsText: stringAt(row, 1),
-		dayNumber: tryParseInt(stringAt(row, 2), -1),
-		specialEvent: stringAt(row, 3),
-
-		isFavorite: !!stringAt(row, 4),
-		title: stringAt(row, 5),
-		artist: stringAt(row, 6),
-		spotifyLink: stringAt(row, 7),
-		youTubeLink: stringAt(row, 8),
-		isYouTubePreferred: !!stringAt(row, 9),
-		geniusLink: stringAt(row, 10),
-		description: stringAt(row, 11),
-		quote: stringAt(row, 12)
-	};
-}
-
-export function parseKeyVal(rows: any[][]): KeyVal {
-	return {
-		// Access each by index.
-		importantInformation: stringAt(rows[0], 1),
-		badInformation: stringAt(rows[1], 1),
-		startDate: stringAt(rows[2], 1),
-		workingOn: stringAt(rows[3], 1),
-		lookingForwardTo: stringAt(rows[4], 1)
+		emoji: [],
+		replies: 0
 	};
 }
