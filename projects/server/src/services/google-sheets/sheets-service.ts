@@ -6,9 +6,15 @@ export interface SheetsService {
 	batchGet: (ranges: Range[]) => Promise<any[][][]>;
 }
 
-export function createSheetsService(credentialsPath: string, sheetId: string): SheetsService {
+export function createSheetsService(credentials: { [index: string]: any; } | null, sheetId: string): SheetsService {
+	if (!credentials) {
+		throw new Error('Credentials are null. Cannot create service.');
+	}
 	const auth = new google.auth.GoogleAuth({
-		keyFile: credentialsPath,
+		credentials: {
+			client_email: credentials['client_email'],
+			private_key: credentials['private_key']
+		},
 		scopes: ['https://www.googleapis.com/auth/spreadsheets.readonly'],
 	});
 	const sheets = google.sheets({ version: 'v4', auth });

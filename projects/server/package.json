@@ -8,6 +8,7 @@
 		"build": "tsc",
 		"start": "PORT=8000 NODE_ENV=dev node ./dist/index",
 		"build-start": "npm run clean && npm run build && npm run start",
+		"prepare-credentials": "node ./deploy/prepare-credentials.js",
 		"heroku-build": "bash ./deploy/deploy-build.sh",
 		"heroku-start": "node ./dist/index",
 		"clean": "trash dist"

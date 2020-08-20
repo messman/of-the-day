@@ -1,7 +1,7 @@
 {
 	"PORT": 8000,
 	"NODE_ENV": "dev",
-	"GOOGLE_CREDENTIALS_PATH": "./google-credentials.json",
+	"DEV_GOOGLE_CREDENTIALS_PATH": "./google-credentials.json",
 	"GOOGLE_SPREADSHEET_ID": "1UAtomuGUqDd-Z_XKBvRdxSCUfRhJiOcya6tAvNausL0",
 	"TEST_VALUE": "agm-of-the-day"
 }

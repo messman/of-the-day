@@ -10,9 +10,8 @@ function log(...args: any[]): void {
 
 export function configureApp(app: Application): void {
 
-	const credentialsPath = settings.GOOGLE_CREDENTIALS_PATH!;
 	const sheetId = settings.GOOGLE_SPREADSHEET_ID!;
-	const sheetsService = createSheetsService(credentialsPath, sheetId);
+	const sheetsService = createSheetsService(settings.googleCredentials, sheetId);
 
 	app.get('/posts', async (req: Request, response: Response<IPostResponse>, next: NextFunction) => {
 		const includeTomorrow = req.query['tomorrow'] == '1';
