@@ -17,7 +17,7 @@ echo $SHARED_PATH
 # Install shared into server-http
 echo 'Install Shared Library'
 cd ../server
-npm install ../shared/$SHARED_PATH
+npm install ../shared/$SHARED_PATH --no-save
 
 # Build
 echo 'Build'
