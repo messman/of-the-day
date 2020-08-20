@@ -12,18 +12,19 @@ module.exports = async () => {
 		mode: 'production',
 
 		output: {
-			filename: '[name].[chunkhash].js',
+			// https://webpack.js.org/guides/caching/
+			filename: '[name].[contenthash].js',
 		},
 
 		optimization: {
+			moduleIds: 'hashed',
 			minimize: true,
 			splitChunks: {
 				cacheGroups: {
 					vendor: {
-						name: "node_vendors", // part of the bundle name and
-						// can be used in chunks array of HtmlWebpackPlugin
 						test: /[\\/]node_modules[\\/]/,
-						chunks: "all",
+						name: 'vendors',
+						chunks: 'all',
 					},
 				},
 			},
@@ -38,7 +39,7 @@ module.exports = async () => {
 			new webpack.DefinePlugin({ __DEFINE__: DEFINE }),
 			// Change the module id (unique identifier) to go by path instead of number, so hash names change less often.
 			new webpack.HashedModuleIdsPlugin(),
-			new HTMLWebpackPlugin(base.html),
+			new HTMLWebpackPlugin(base.html)
 		]
 	});
 };
