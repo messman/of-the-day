@@ -1,9 +1,9 @@
-import { Post, PostReactionSummary } from 'oftheday-shared';
+import { IPost, IPostReactionSummary } from 'oftheday-shared';
 import { stringAt, tryParseInt } from '../../services/primitives';
 import { columnsFrom } from '../../services/google-sheets/cell';
 import { keepTruthy } from '../../services/util';
 
-export function parsePost(row: any[]): Post {
+export function parsePost(row: any[]): IPost {
 	const col = columnsFrom('A');
 	function stringAtCol(columnLetter: string): string {
 		return stringAt(row, col(columnLetter));
@@ -81,7 +81,7 @@ export function parsePost(row: any[]): Post {
 	};
 }
 
-function createEmptyReactionSummary(): PostReactionSummary {
+function createEmptyReactionSummary(): IPostReactionSummary {
 	return {
 		emoji: [],
 		replies: 0

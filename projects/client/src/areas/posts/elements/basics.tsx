@@ -1,20 +1,21 @@
 import * as React from 'react';
-import { DailyRecord } from 'oftheday-shared';
-import { LabelValue, Value } from '@/core/layout/common';
+import { IPost } from 'oftheday-shared';
+import { LabelValue, Value, postValueMargin } from '@/core/layout/common';
 
 export interface BasicsProps {
-	day: DailyRecord;
+	post: IPost;
 }
 
 export const Basics: React.FC<BasicsProps> = (props) => {
-	const { day } = props;
+	const { post } = props;
+	const { basics } = post;
 
 	return (
 		<>
-			<Value value={day.specialEvent} margin='1rem' />
-			<Value value={day.note} margin='1rem' />
-			<LabelValue label='Location' value={day.location} margin='1rem' />
-			<LabelValue label='Schedule' value={day.schedule} margin='1rem' />
+			<Value margin={postValueMargin}>{basics.event}</Value>
+			<Value margin={postValueMargin}>{basics.note}</Value>
+			<LabelValue margin={postValueMargin} label='Location'>{basics.location}</LabelValue>
+			<LabelValue margin={postValueMargin} label='Schedule'>{basics.schedule}</LabelValue>
 		</>
 	);
 };

@@ -1,7 +1,7 @@
-import { Meta } from '../meta';
+import { IMeta } from '../meta';
 
 export interface OtherResponse {
-	meta: Meta;
+	meta: IMeta;
 
 	workingOn?: OtherWorkingOn;
 	lookingForward?: OtherLookingForward;
@@ -11,7 +11,8 @@ export interface OtherResponse {
 	imageAlbumLink?: string;
 	imageAlbumLinkText?: string;
 
-	miles?: number;
+	milesByFoot?: number;
+	milesByBicycle?: number;
 
 	topLocations?: Count[];
 	topDayTypes?: Count[];

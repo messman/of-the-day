@@ -1,46 +1,46 @@
-import { Meta } from '../meta';
+import { IMeta } from '../meta';
 
-export interface PostReactionSummary {
+export interface IPostReactionSummary {
 	emoji: string[];
 	replies: number;
 }
 
-export interface PostResponse {
-	meta: Meta;
-	posts: Post[];
+export interface IPostResponse {
+	meta: IMeta;
+	posts: IPost[];
 }
 
-export interface Post {
+export interface IPost {
 	date: string;
 	dateText: string;
 	dayNumber: number;
 	isDayOff: boolean;
 	dayOffMessage: string;
 
-	basics: PostBasics;
-	endThoughts: PostEndThoughts;
-	music: PostMusic;
-	video: PostVideo;
-	quote: PostQuote;
-	image: PostImage;
-	custom: PostCustom;
+	basics: IPostBasics;
+	endThoughts: IPostEndThoughts;
+	music: IPostMusic;
+	video: IPostVideo;
+	quote: IPostQuote;
+	image: IPostImage;
+	custom: IPostCustom;
 }
 
-export interface PostBasics {
+export interface IPostBasics {
 	event: string;
 	note: string;
 	location: string;
 	schedule: string;
 	dayTypes: string[];
-	reactionSummary: PostReactionSummary;
+	reactionSummary: IPostReactionSummary;
 }
 
-export interface PostEndThoughts {
+export interface IPostEndThoughts {
 	value: string;
-	reactionSummary: PostReactionSummary;
+	reactionSummary: IPostReactionSummary;
 }
 
-export interface PostMusic {
+export interface IPostMusic {
 	title: string;
 	artist: string;
 	year: number;
@@ -53,10 +53,10 @@ export interface PostMusic {
 	geniusLink: string;
 	description: string;
 	quote: string;
-	reactionSummary: PostReactionSummary;
+	reactionSummary: IPostReactionSummary;
 }
 
-export interface PostVideo {
+export interface IPostVideo {
 	title: string;
 	originalTitle: string;
 	link: string;
@@ -65,32 +65,32 @@ export interface PostVideo {
 	isNSFW: boolean;
 	isTop: boolean;
 	tags: string[];
-	reactionSummary: PostReactionSummary;
+	reactionSummary: IPostReactionSummary;
 }
 
-export interface PostQuote {
+export interface IPostQuote {
 	a: string;
 	aVoice: string;
 	b: string;
 	bVoice: string;
 	source: string;
 	sourceLink: string;
-	reactionSummary: PostReactionSummary;
+	reactionSummary: IPostReactionSummary;
 }
 
-export interface PostImage {
+export interface IPostImage {
 	link: string;
 	description: string;
 	source: string;
 	sourceLink: string;
-	reactionSummary: PostReactionSummary;
+	reactionSummary: IPostReactionSummary;
 }
 
-export interface PostCustom {
+export interface IPostCustom {
 	title: string;
 	value: string;
 	link: string;
 	linkText: string;
 	previewLink: boolean;
-	reactionSummary: PostReactionSummary;
+	reactionSummary: IPostReactionSummary;
 }

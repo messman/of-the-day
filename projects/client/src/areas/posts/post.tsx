@@ -1,20 +1,19 @@
 import * as React from 'react';
-import { DailyRecord, MusicRecord } from 'oftheday-shared';
+import { IPost } from 'oftheday-shared';
 // import { Quote } from './quote';
 // import { Music } from '@/unit/components/music';
 // import { Video } from '@/unit/components/video';
 import { styled } from '@/core/style/styled';
-import { DayTitle } from './elements/day-title';
+import { PostTitle } from './elements/post-title';
 import { Text } from '@/core/symbol/text';
 import { Basics } from './elements/basics';
 
-interface DayProps {
-	day: DailyRecord,
-	dayMusic: MusicRecord;
+interface PostProps {
+	post: IPost;
 }
 
-export const Day: React.FC<DayProps> = (props) => {
-	const { day } = props;
+export const Post: React.FC<PostProps> = (props) => {
+	const { post } = props;
 
 	const [isCollapsed, setIsCollapsed] = React.useState(false);
 	function onCollapseChange() {
@@ -26,8 +25,8 @@ export const Day: React.FC<DayProps> = (props) => {
 	const topSection = (
 		<>
 			<DaySeparator />
-			<DayTitle
-				day={day}
+			<PostTitle
+				post={post}
 				isCollapsed={isCollapsed}
 				onCollapseChange={onCollapseChange}
 			/>
@@ -41,7 +40,7 @@ export const Day: React.FC<DayProps> = (props) => {
 	return (
 		<>
 			{topSection}
-			<Basics day={day} />
+			<Basics post={post} />
 			<Text>Hello!</Text>
 			{/* <IconPad>
 				<If show={day.specialEvent}>

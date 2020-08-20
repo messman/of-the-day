@@ -4,6 +4,7 @@
 	"description": "Mobile-first web application to show of-the-day information.",
 	"main": "index.js",
 	"scripts": {
+		"link": "npm link oftheday-shared",
 		"build": "webpack --config webpack.dev.js",
 		"dev": "webpack --config webpack.dev.js",
 		"dev:w": "webpack --config webpack.dev.js --watch",

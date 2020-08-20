@@ -1,27 +1,27 @@
 import * as React from 'react';
 import { styled } from '@/core/style/styled';
-import { SharedDayRecord } from 'oftheday-shared';
+import { IPost } from 'oftheday-shared';
 import { Subtitle, subtitleHeight } from '@/core/symbol/text';
 import { spacingBValue } from '@/core/style/common';
 import { FlexRow } from '@/core/layout/flex';
 import { iconTypes, Icon } from '@/core/symbol/icon';
 import { useCurrentTheme } from '@/core/style/theme';
 
-export interface DayTitleProps {
-	day: SharedDayRecord;
+export interface PostTitleProps {
+	post: IPost;
 	isCollapsed: boolean;
 	onCollapseChange: () => void;
 }
 
-export const DayTitle: React.FC<DayTitleProps> = (props) => {
-	const { day, isCollapsed, onCollapseChange } = props;
+export const PostTitle: React.FC<PostTitleProps> = (props) => {
+	const { post, isCollapsed, onCollapseChange } = props;
 	const theme = useCurrentTheme();
 
 	return (
 		<Margin justifyContent='space-between' flex='none'>
 			<div>
-				<Subtitle isInline={true} isBold={true}>{day.dayAsText}</Subtitle>
-				<Subtitle isInline={true}>&nbsp;&nbsp;&middot;&nbsp;&nbsp;Day {day.dayNumber}</Subtitle>
+				<Subtitle isInline={true} isBold={true}>{post.dateText}</Subtitle>
+				<Subtitle isInline={true}>&nbsp;&nbsp;&middot;&nbsp;&nbsp;Day {post.dayNumber}</Subtitle>
 			</div>
 			<Subtitle isInline={true}>
 				<CollapseRotation isCollapsed={isCollapsed} onClick={onCollapseChange}>

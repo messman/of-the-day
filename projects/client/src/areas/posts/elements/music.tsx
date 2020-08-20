@@ -1,30 +1,38 @@
 // Handles the music component rendering.
 
 import * as React from 'react';
-import { MusicRecord } from 'oftheday-shared';
+import { IPostMusic } from 'oftheday-shared';
 // import { Quote } from './quote';
 // // import { OutLink } from './link';
 // import { Video } from './video';
 // import { styled } from '@/core/style/styled';
 import { Text } from '@/core/symbol/text';
+//import { createSpotifyEmbedLink } from '@/services/media/link';
+import { LabelValue, postValueMargin, Value } from '@/core/layout/common';
 
 interface MusicProps {
-	record: MusicRecord;
+	music: IPostMusic;
 }
 
 export const Music: React.FC<MusicProps> = (props) => {
-	const { record } = props;
+	const { music } = props;
 
-	if (!record || !record.title) {
+	const { title, artist, description, isTop, isNSFW, tags, spotifyLink, geniusLink, youTubeLink, useYouTube, quote } = music;
+	// Required properties:
+	if (!title || !artist || !spotifyLink || !geniusLink || !youTubeLink) {
 		return null;
 	}
 
 	// Take the URL we use for the track and turn it into an embed link.
-	//const spotifyEmbedLink = record.spotifyLink.replace('/track', '/embed/track');
+	//const spotifyEmbedLink = createSpotifyEmbedLink(spotifyLink);
 
 	return (
 		<>
-			<Text>{record.artist} - "{record.title}"</Text>
+			<LabelValue margin={postValueMargin} label='Song'>
+				<MusicTitle music={music} />
+			</LabelValue>
+			<Value margin={postValueMargin}>{description}</Value>
+			<Value margin={postValueMargin}>{isTop} {isNSFW} {tags.join()} {useYouTube} {quote}</Value>
 
 			{/* <div>
 				<If show={!record.isYouTubePreferred}>
@@ -78,3 +86,17 @@ export const Music: React.FC<MusicProps> = (props) => {
 // 	display: inline-block;
 // 	width: 2rem;
 // `;
+
+
+
+export const MusicTitle: React.FC<MusicProps> = (props) => {
+	const { music } = props;
+	// Year is optional, others are required.
+	const { title, artist, year } = music;
+
+	const yearSuffix = year ? ` (${year})` : '';
+
+	return (
+		<Text><em>{title}</em> by {artist}{yearSuffix}</Text>
+	);
+};
