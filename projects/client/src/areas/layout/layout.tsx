@@ -5,12 +5,11 @@ import { Other, OtherProps } from '@/areas/other/other';
 import { Archive, ArchiveProps } from '@/areas/archive/archive';
 import { Account, AccountProps } from '@/areas/account/account';
 import { MenuBar } from './menu-bar';
-import { FlexColumn } from '@/core/layout/flex';
 import { Switch, Route } from 'react-router-dom';
 import { routes } from '@/services/nav/routing';
 import { styled } from '@/core/style/styled';
 import { Title, Text } from '@/core/symbol/text';
-import { useLayoutInfo, LayoutBreakpoint } from '@/services/layout/layout-info';
+import { useWindowLayout, DefaultLayoutBreakpoint, FlexColumn } from '@messman/react-common';
 
 export const ApplicationLayout: React.FC = () => {
 	return (
@@ -35,8 +34,8 @@ interface LayoutProps {
 
 export const Layout: React.FC<LayoutProps> = (props) => {
 
-	const layoutInfo = useLayoutInfo();
-	const isCompact = layoutInfo.widthBreakpoint === LayoutBreakpoint.compact;
+	const windowLayout = useWindowLayout();
+	const isCompact = windowLayout.widthBreakpoint === DefaultLayoutBreakpoint.compact;
 
 	const { Posts, Other, Archive, Account, About } = props;
 

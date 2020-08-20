@@ -8,13 +8,6 @@ export const borderRadiusStyle = css`
 	border-radius: ${borderRadiusValue};
 `;
 
-export const noTouchStyle = css`
-	-webkit-touch-callout: none;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	user-select: none;
-`;
-
 export const Link = styled.a`
 	color: ${p => p.theme.color.link};
 
@@ -24,9 +17,9 @@ export const Link = styled.a`
 `;
 
 /** Smaller padding value, for edges against the screen. .625rem / 10px. */
-export const spacingAValue: string = '.625rem';
+export const smallerSpacingValue: string = '.625rem';
 /** Larger padding value, for vertical flow. 1rem / 16px. */
-export const spacingBValue: string = '1rem';
+export const largerSpacingValue: string = '1rem';
 
 /** Returns a new component that has the specified padding value. */
 export function addPadding<T extends StyledComponent<any, Theme, {}, never>>(component: T, padding: string) {

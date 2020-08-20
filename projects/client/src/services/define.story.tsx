@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { DEFINE } from '@/services/define';
-import { decorate } from '@/test/storybook/decorate';
-import { spacingBValue, addMargin } from '@/core/style/common';
+import { decorate } from '@/test/decorate';
+import { largerSpacingValue, addMargin } from '@/core/style/common';
 import { Text } from '@/core/symbol/text';
 
-export default { title: 'services' };
+export default { title: 'Services/Define' };
 
-export const TestDefine = decorate(() => {
+export const TestDefine = decorate('Define', () => {
 
 	console.log(DEFINE);
 
@@ -19,4 +19,4 @@ export const TestDefine = decorate(() => {
 	);
 });
 
-const TextPara = addMargin(Text, spacingBValue);
+const TextPara = addMargin(Text, largerSpacingValue);

@@ -1,13 +1,13 @@
 import * as React from 'react';
-import { decorate } from '@/test/storybook/decorate';
+import { decorate } from '@/test/decorate';
 import { Title, Subtitle, Text, SmallText } from '@/core/symbol/text';
 import { styled } from '@/core/style/styled';
 import { useCurrentTheme } from '@/core/style/theme';
-import { borderRadiusStyle, spacingAValue } from '@/core/style/common';
+import { borderRadiusStyle, smallerSpacingValue } from '@/core/style/common';
 
-export default { title: 'core/style' };
+export default { title: 'Core/Style/Theme' };
 
-export const TestTheme = decorate(() => {
+export const TestTheme = decorate('Theme', () => {
 
 	const theme = useCurrentTheme();
 
@@ -38,8 +38,8 @@ const ColorBox = styled.div<ColorBoxProps>`
 
 	background-color: ${p => p.backgroundColor};
 	${borderRadiusStyle};
-	margin: ${spacingAValue};
-	padding: ${spacingAValue};
+	margin: ${smallerSpacingValue};
+	padding: ${smallerSpacingValue};
 `;
 
 const TextSizesColorBox: React.FC<ColorBoxProps> = (props) => {
@@ -60,8 +60,8 @@ const LongColorBox = styled.div<ColorBoxProps>`
 
 	background-color: ${p => p.backgroundColor};
 	${borderRadiusStyle};
-	margin-bottom: ${spacingAValue};
-	margin-right: ${spacingAValue};
+	margin-bottom: ${smallerSpacingValue};
+	margin-right: ${smallerSpacingValue};
 `;
 
 const TextColorBox: React.FC<ColorBoxProps> = (props) => {

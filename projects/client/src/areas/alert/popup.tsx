@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { Flex, FlexColumn } from '@/core/layout/flex';
 import { Overlay } from '@/core/layout/overlay';
-import { addMargin, borderRadiusStyle, spacingAValue, spacingBValue } from '@/core/style/common';
+import { addMargin, borderRadiusStyle, smallerSpacingValue, largerSpacingValue } from '@/core/style/common';
 import { styled } from '@/core/style/styled';
 import { useCurrentTheme } from '@/core/style/theme';
 import { Icon, iconTypes } from '@/core/symbol/icon';
 import { SmallText, Subtitle, Text, titleHeight } from '@/core/symbol/text';
+import { FlexColumn, Flex } from '@messman/react-common';
 
 export enum PopupType {
 	/** Execution can continue. */
@@ -65,7 +65,7 @@ export const Popup: React.FC = (props) => {
 		popupBody = (
 			<FlexColumn alignItems='center' justifyContent='space-evenly'>
 				<PopupBody flex='none' onClick={onClick}>
-					<Icon type={iconTypes.alert} fill={alertColor} height={titleHeight} />
+					<Icon type={iconTypes.alert} fillColor={alertColor} height={titleHeight} />
 					<PaddedSubtitle>{title}</PaddedSubtitle>
 					<PaddedText>{text}</PaddedText>
 					<SmallText>{buttonText}</SmallText>
@@ -82,19 +82,19 @@ export const Popup: React.FC = (props) => {
 	);
 };
 
-const PaddedSubtitle = addMargin(Subtitle, spacingBValue);
-const PaddedText = addMargin(Text, spacingBValue);
+const PaddedSubtitle = addMargin(Subtitle, largerSpacingValue);
+const PaddedText = addMargin(Text, largerSpacingValue);
 
 const PopupBody = styled(Flex)`
 	background-color: ${p => p.theme.color.backgroundB};
 	${borderRadiusStyle};
-	padding: ${spacingAValue};
+	padding: ${smallerSpacingValue};
 	cursor: pointer;
 
 	/* Prevents crazy resizing scenarios. */
 	min-width: 16rem;
 	max-width: 24rem;
-	margin: ${spacingAValue};
+	margin: ${smallerSpacingValue};
 
 	text-align: center;
 `;

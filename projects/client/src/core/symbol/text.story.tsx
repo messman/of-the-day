@@ -1,13 +1,13 @@
 import * as React from 'react';
-import { decorate } from '@/test/storybook/decorate';
+import { decorate } from '@/test/decorate';
 import { Title, titleHeight, Subtitle, subtitleHeight, Text, textHeight, SmallText, smallTextHeight } from '@/core/symbol/text';
 import { iconTypes, Icon } from '@/core/symbol/icon';
 import { styled } from '../style/styled';
-import { spacingBValue } from '../style/common';
+import { largerSpacingValue } from '../style/common';
 
-export default { title: 'core/symbol' };
+export default { title: 'Core/Symbol/Text' };
 
-export const TestTextWithIcons = decorate(() => {
+export const TestTextWithIcons = decorate('Text', () => {
 
 	const iconType = iconTypes.alert;
 
@@ -42,5 +42,5 @@ export const TestTextWithIcons = decorate(() => {
 });
 
 const Padding = styled.div`
-	margin: ${spacingBValue};
+	margin: ${largerSpacingValue};
 `;

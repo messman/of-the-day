@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { Text } from '@/core/symbol/text';
-import { decorate } from '@/test/storybook/decorate';
+import { decorate } from '@/test/decorate';
 import { boolean, button, select, text } from '@storybook/addon-knobs';
 import { PopupType, usePopup } from './popup';
 
-export default { title: 'areas/alert' };
+export default { title: 'Areas/Alert/Popup' };
 
-export const TestPopup = decorate(() => {
+export const TestPopup = decorate('Popup', () => {
 
 	// Just get the setter.
 	const setPopupData = usePopup()[1];

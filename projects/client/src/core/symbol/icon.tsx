@@ -30,21 +30,36 @@ export const iconTypes = {
 
 export interface IconProps {
 	type: SVGIconType,
-	fill?: string,
+	/** If set, overrides the default text icon color for icons that allow it. */
+	defaultColor?: string;
+	/** If set, overrides all colors in the icon. */
+	fillColor?: string;
 	width?: string,
 	height?: string;
 }
 
 export const Icon: StyledFC<IconProps> = (props) => {
-	// Get the width and height props separately. 
-	const { type, fill, width, height } = props;
+	/*
+		Fill and color:
+		SVGs are exported from Sketch. We want the icons to have multiple colors, where one of those colors is dynamic
+		(can be changed by CSS). If we used CSS Fill, it would change all our multiple colors; so instead, we use the 'currentColor'.
+		During build, we use the replaceAttrValues option of svgr (https://github.com/gregberge/svgr/issues/163) to replace all 
+		'#000' colors with 'currentColor'. Then, here, we set the currentColor via CSS 'color'.
+		So in summary: Fill will override all the colors coming from Sketch; color will just set the one color we want to change.
+	*/
+
+	const { className, type, defaultColor, fillColor, width, height } = props;
+
+	const color = defaultColor;
+	const SVGIcon = type;
+
+
 	// Note - Safari SVG does not accept 'rem' width/height - so use percent and scale using wrapper.
 	const setValue = !!width ? 'width' : 'height';
 	const iconProp = { [setValue]: '100%' };
-	const SVGIcon = type;
 
 	return (
-		<SVGWrapper className={props.className} svgFill={fill} wrapperWidth={width} wrapperHeight={height}>
+		<SVGWrapper className={className} svgColor={color} svgFill={fillColor} wrapperWidth={width} wrapperHeight={height}>
 			<SVGIcon {...iconProp} />
 		</SVGWrapper>
 	);
@@ -53,6 +68,7 @@ export const Icon: StyledFC<IconProps> = (props) => {
 interface SVGWrapperProps {
 	wrapperWidth?: string,
 	wrapperHeight?: string,
+	svgColor?: string;
 	svgFill?: string;
 }
 
@@ -62,6 +78,9 @@ const SVGWrapper = styled.span<SVGWrapperProps>`
 	height: ${p => p.wrapperHeight || 'unset'}; 
 
 	svg, svg path {
-		fill: ${p => (p.svgFill || p.theme.color.textAndIcon)};
+		color: ${p => (p.svgColor || p.theme.color.textAndIcon)};
+		${p => p.svgFill && ({
+		fill: p.svgFill!
+	})}
 	}
 `;

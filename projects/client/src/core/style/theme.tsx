@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { createGlobalStyle, ThemeProps, ThemeProvider as StyledThemeProvider } from 'styled-components';
-import { keyFactory, useLocalStorage, UseLocalStorageReturn } from '@/services/data/local-storage';
-import { CONSTANT } from '@/services/constant';
-import { LayoutBreakpoint } from '@/services/layout/layout-info';
+import { DefaultLayoutBreakpoint, UseLocalStorageReturn } from '@messman/react-common';
+import { localStorage } from '@/services/data/local-storage';
 
 /** Custom application theme type. */
 export interface Theme {
@@ -68,7 +67,7 @@ const lightTheme: Theme = {
 
 // Index is stored in LocalStorage
 export const themes: Theme[] = [darkTheme, lightTheme];
-const defaultThemeIndex = 0;
+const defaultThemeIndex = 1;
 
 // For some reason, VS Code is not happy to colorize the CSS in this block when `createGlobalStyle` is used with a type.
 // Note: '#root' is for storybook
@@ -83,7 +82,7 @@ export const GlobalStyles = createGlobalStyle<ThemeProps<Theme>>`
 		margin: 0 auto;
 		padding: 0;
 		height: 100%;
-		max-width: ${LayoutBreakpoint.wide}px;
+		max-width: ${DefaultLayoutBreakpoint.wide}px;
 
 		overscroll-behavior: none;
 	}
@@ -100,13 +99,14 @@ export const GlobalStyles = createGlobalStyle<ThemeProps<Theme>>`
 
 const ThemeContext = React.createContext<UseLocalStorageReturn<number>>(null!);
 
-const getKey = keyFactory(CONSTANT.keyFactory);
-const themeIndexKey = getKey('themeIndex');
-
 export const ThemeProvider: React.FC = (props) => {
-	const localStorageReturn = useLocalStorage(themeIndexKey, defaultThemeIndex, (value) => {
-		return !!themes[value];
-	}, null);
+	const localStorageReturn = localStorage.useLocalStorage<number>('themeIndex', (value) => {
+		// If not stored or no longer valid, go with the first option.
+		if (value === undefined || !themes[value]) {
+			return defaultThemeIndex;
+		}
+		return value;
+	});
 	const [themeIndex] = localStorageReturn;
 	const theme = themes[themeIndex];
 

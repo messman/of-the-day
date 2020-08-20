@@ -1,94 +1,83 @@
 import * as React from 'react';
-import { usePromise, PromiseOutput } from '../promise';
+import { IPostResponse } from 'oftheday-shared';
+import { DEFINE } from '@/services/define';
+import { clampPromise, PromiseOutput, StalePromiseTimerComponent, StalePromiseTimerOutput, useDocumentVisibility, useStalePromiseTimer } from '@messman/react-common';
+import { CONSTANT } from '../constant';
 
+const PostResponseContext = React.createContext<PromiseOutput<IPostResponse>>(null!);
 
-const AllResponseContext = React.createContext<PromiseOutput<string>>(null!);
+export const PostResponseProvider: React.FC = (props) => {
 
-export const AllResponseProvider: React.FC = (props) => {
+	const documentVisibility = useDocumentVisibility();
 
-	const promiseState = usePromise({
-		promiseFunc: async () => await 'hello',
-		runImmediately: true
+	const promiseFunc = React.useCallback<() => Promise<IPostResponse>>(async () => {
+		return await clampPromise(fetchPostResponse(), CONSTANT.fetchMinTimeout, CONSTANT.fetchMaxTimeout);
+	}, []);
+
+	const promiseTimer: StalePromiseTimerOutput<IPostResponse> = useStalePromiseTimer({
+		initialAction: StalePromiseTimerComponent.none,
+		timerTimeout: CONSTANT.appRefreshTimeout,
+		isTimerTruthy: documentVisibility,
+		promiseFunc: promiseFunc,
 	});
 
+	const { timer, promise, lastCompleted } = promiseTimer;
+
+	React.useEffect(() => {
+		if (!timer.isStarted && !promise.isStarted) {
+			if (lastCompleted === StalePromiseTimerComponent.timer) {
+				window.location.reload();
+			}
+			else {
+				timer.reset({
+					isStarted: true
+				});
+			}
+		}
+	}, [promise, timer, lastCompleted, promiseFunc]);
+
 	return (
-		<AllResponseContext.Provider value={promiseState}>
+		<PostResponseContext.Provider value={promiseTimer.promise}>
 			{props.children}
-		</AllResponseContext.Provider>
+		</PostResponseContext.Provider>
 	);
 };
 
-// function createPromiseFunc(localDataPhrase: string | null): () => Promise<AllResponseSuccess> {
-// 	let promiseFunc: () => Promise<AllResponse> = fetchAllResponse;
-// 	let minTimeout: number = CONSTANT.fetchMinTimeout;
+export const usePostResponse = () => React.useContext(PostResponseContext);
 
-// 	if (localDataPhrase) {
-// 		const localData = DEFINE.localTestData![localDataPhrase];
-// 		promiseFunc = async () => { return localData; };
-// 		minTimeout = CONSTANT.localTestDataMinTimeout;
-// 	}
+export function hasPostResponseData(PostResponsePromise: PromiseOutput<IPostResponse>): boolean {
+	return !!PostResponsePromise?.data?.posts;
+}
 
-// 	const errorWrappedPromiseFunc = async (): Promise<AllResponseSuccess> => {
-// 		try {
-// 			const result = await promiseFunc();
-// 			if (result.error) {
-// 				// Log errors coming in from the API.
-// 				console.error('Errors received from successful fetch', result.error.errors);
-// 				throw new Error('Errors received from result of fetch');
-// 			}
-// 			return {
-// 				info: result.info,
-// 				all: result.all!,
-// 				error: null
-// 			};
-// 		}
-// 		catch (e) {
-// 			console.error(e);
-// 			throw e;
-// 		}
-// 	};
+async function fetchPostResponse(): Promise<IPostResponse> {
 
-// 	return () => {
-// 		return clampPromise(errorWrappedPromiseFunc(), minTimeout, CONSTANT.fetchMaxTimeout);
-// 	};
-// }
+	const url = DEFINE.serverBase;
 
-// export const useAllResponse = () => React.useContext(AllResponseContext);
-
-// export function hasAllResponseData(allResponsePromise: PromiseOutput<AllResponseSuccess>): boolean {
-// 	return !!allResponsePromise?.data?.all;
-// }
-
-// async function fetchAllResponse(): Promise<AllResponse> {
-
-// 	const url = DEFINE.fetchUrl;
-
-// 	try {
-// 		const response = await fetch(url);
-// 		if (response.ok) {
-// 			try {
-// 				const text = await response.text();
-// 				return deserialize(text);
-// 			}
-// 			catch (e) {
-// 				console.error(e);
-// 				throw new Error('Fetch was successful, but there was a problem with deserialization.');
-// 			}
-// 		}
-// 		else {
-// 			if (response.status === 404) {
-// 				throw new Error('The application could not connect to the API (404)');
-// 			}
-// 			throw new Error(`The API experienced an error (${response.status})`);
-// 		}
-// 	}
-// 	catch (err) {
-// 		if (!(err instanceof Error)) {
-// 			err = new Error(err);
-// 		}
-// 		console.error(url, err);
-// 		throw err;
-// 	}
-// }
+	try {
+		const response = await fetch(url);
+		if (response.ok) {
+			try {
+				return await response.json();
+			}
+			catch (e) {
+				console.error(e);
+				throw new Error('Fetch was successful, but there was a problem with deserialization.');
+			}
+		}
+		else {
+			if (response.status === 404) {
+				throw new Error('The application could not connect to the API (404)');
+			}
+			throw new Error(`The API experienced an error (${response.status})`);
+		}
+	}
+	catch (err) {
+		if (!(err instanceof Error)) {
+			err = new Error(err);
+		}
+		console.error(url, err);
+		throw err;
+	}
+}
 
 

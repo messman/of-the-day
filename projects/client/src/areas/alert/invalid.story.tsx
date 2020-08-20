@@ -1,33 +1,12 @@
 import * as React from 'react';
-import { FlexRoot } from '@/core/layout/flex';
-import { ThemeProvider } from '@/core/style/theme';
 import { Text } from '@/core/symbol/text';
-import { defaultLowerBreakpoints, LayoutInfoProvider } from '@/services/layout/layout-info';
-import { WindowDimensionsProvider } from '@/services/layout/window-dimensions';
-import { decorateWith } from '@/test/storybook/decorate';
 import { boolean, text } from '@storybook/addon-knobs';
 import { InvalidCheck } from './invalid';
+import { decorate } from '@/test/decorate';
 
-export default { title: 'areas/alert' };
+export default { title: 'Areas/Alert/Invalid' };
 
-// Use a custom wrapper, so that we can customize the component we are testing.
-// Exclude the wrapper pieces that we don't need for this test.
-// Note - always do format {story()) - see main decorator code for more info.
-const WrapperDecorator = (story: () => JSX.Element) => {
-	return (
-		<ThemeProvider>
-			<WindowDimensionsProvider>
-				<LayoutInfoProvider lowerBreakpoints={defaultLowerBreakpoints}>
-					<FlexRoot>
-						{story()}
-					</FlexRoot>
-				</LayoutInfoProvider>
-			</WindowDimensionsProvider>
-		</ThemeProvider>
-	);
-};
-
-export const TestInvalid = decorateWith(() => {
+export const TestInvalid = decorate('Invalid', () => {
 
 	// Set up knobs.
 	const isForceAlertMessages = boolean('Force Alert Messages', false, 'Build Alert');
@@ -58,7 +37,7 @@ export const TestInvalid = decorateWith(() => {
 			</div>
 		</InvalidCheck>
 	);
-}, [WrapperDecorator]);
+});
 
 const ErrorThrower: React.FC = () => {
 

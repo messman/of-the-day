@@ -1,12 +1,11 @@
 import * as React from 'react';
-import { Flex, FlexRow } from '@/core/layout/flex';
-import { addPadding, spacingAValue, spacingBValue } from '@/core/style/common';
+import { addPadding, smallerSpacingValue, largerSpacingValue } from '@/core/style/common';
 import { styled } from '@/core/style/styled';
 import { useCurrentTheme } from '@/core/style/theme';
 import { Icon, iconTypes } from '@/core/symbol/icon';
 import { SmallText, Subtitle, Text, titleHeight } from '@/core/symbol/text';
 import { CONSTANT } from '@/services/constant';
-import { isInvalidLayoutForApplication, useLayoutInfo } from '@/services/layout/layout-info';
+import { useWindowLayout, DefaultLayoutBreakpoint, Flex, FlexRow } from '@messman/react-common';
 
 export interface InvalidCheckProps {
 	/** Used for testing. Messages about the application as a whole. */
@@ -65,7 +64,7 @@ export class InvalidCheck extends React.Component<InvalidCheckProps, InvalidChec
 const InvalidCheckParser: React.FC<InvalidCheckProps> = (props) => {
 
 	// Get our layout info so we can check its validity.
-	const layoutInfo = useLayoutInfo();
+	const windowLayout = useWindowLayout();
 
 	let invalidMessages: string[] = [];
 	let isAllowRefreshClick = false;
@@ -85,7 +84,7 @@ const InvalidCheckParser: React.FC<InvalidCheckProps> = (props) => {
 		// Honestly, we may never even get here. Internet Explorer may cause the application to fail before we ever run this check. Nice to keep just in case, though.
 		invalidMessages = [`It looks like you're using Internet Explorer`, 'Internet Explorer is not supported for this application.', 'Please, we beg you - use a more modern browser.'];
 	}
-	else if (props.isForceInvalidLayout || isInvalidLayoutForApplication(layoutInfo)) {
+	else if (props.isForceInvalidLayout || windowLayout.heightBreakpoint < DefaultLayoutBreakpoint.regular) {
 		invalidMessages = ['Your screen size and/or rotation are invalid for this application', 'Consider rotating your device or using a different device.'];
 		isAllowRefreshClick = true;
 	}
@@ -140,7 +139,7 @@ const InvalidCenter: React.FC<InvalidCenterProps> = (props) => {
 	return (
 		<InvalidCenterWrapper alignItems='center' onClick={onClick}>
 			<Flex>
-				<Icon type={iconTypes.alert} fill={theme.color.error} height={titleHeight} />
+				<Icon type={iconTypes.alert} fillColor={theme.color.error} height={titleHeight} />
 				<PaddedSubtitle>{firstMessage}</PaddedSubtitle>
 				{otherMessagesText}
 				{clickInstruction}
@@ -151,9 +150,9 @@ const InvalidCenter: React.FC<InvalidCenterProps> = (props) => {
 
 const InvalidCenterWrapper = styled(FlexRow)`
 	/* Pad to ensure the inner Flex content doesn't run up against the edge. */
-	padding: calc(${spacingAValue} * 3);
+	padding: calc(${smallerSpacingValue} * 3);
 	text-align: center;
 `;
 
-const PaddedSubtitle = addPadding(Subtitle, spacingBValue);
-const PaddedSmallText = addPadding(SmallText, spacingBValue);
+const PaddedSubtitle = addPadding(Subtitle, largerSpacingValue);
+const PaddedSmallText = addPadding(SmallText, largerSpacingValue);

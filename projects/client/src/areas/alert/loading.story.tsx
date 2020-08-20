@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { Text } from '@/core/symbol/text';
-import { decorate } from '@/test/storybook/decorate';
+import { decorate } from '@/test/decorate';
 import { boolean } from '@storybook/addon-knobs';
 import { Loading } from './loading';
 
-export default { title: 'areas/alert' };
+export default { title: 'Areas/Alert/Loading' };
 
-export const TestLoading = decorate(() => {
+export const TestLoading = decorate('Loading', () => {
 
 	const isShowing = boolean('Is Showing', true);
 

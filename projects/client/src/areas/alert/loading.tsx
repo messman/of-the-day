@@ -1,13 +1,13 @@
 import * as React from 'react';
-import { Flex, FlexColumn } from '@/core/layout/flex';
 import { Overlay } from '@/core/layout/overlay';
-import { addPadding, spacingAValue } from '@/core/style/common';
+import { addPadding, smallerSpacingValue } from '@/core/style/common';
 import { keyframes, styled } from '@/core/style/styled';
 import { useCurrentTheme } from '@/core/style/theme';
 import { Text } from '@/core/symbol/text';
 import { CONSTANT } from '@/services/constant';
 import { PopupType, usePopup } from './popup';
 import { Icon, iconTypes } from '@/core/symbol/icon';
+import { Flex, FlexColumn } from '@messman/react-common';
 
 export interface LoadingProps {
 	isLoading: boolean;
@@ -101,7 +101,7 @@ const LoadingBody = styled(Flex)`
 	min-width: 16rem;
 	max-width: 24rem;
 	min-height: 10rem;
-	margin: ${spacingAValue};
+	margin: ${smallerSpacingValue};
 	text-align: center;
 `;
 
@@ -132,7 +132,7 @@ const LoadingCompass: React.FC<LoadingDotProps> = (props) => {
 
 	return (
 		<LoadingCompassContainer index={props.index} >
-			<Icon type={iconTypes.compass} fill={theme.color.primary} height='3rem' />
+			<Icon type={iconTypes.compass} fillColor={theme.color.primary} height='3rem' />
 		</LoadingCompassContainer>
 	);
 };

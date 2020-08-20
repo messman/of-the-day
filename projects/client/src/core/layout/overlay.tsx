@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { FlexRoot } from '@/core/layout/flex';
 import { styled } from '@/core/style/styled';
 import { useCurrentTheme } from '@/core/style/theme';
+import { FlexRoot } from '@messman/react-common';
 
 export interface OverlayProps {
 	isActive: boolean,

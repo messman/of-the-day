@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { decorate } from '@/test/storybook/decorate';
+import { decorate } from '@/test/decorate';
 import { Post } from './post';
 import { IPost } from 'oftheday-shared';
-import { Flex } from '@/core/layout/flex';
+import { Flex } from '@messman/react-common';
 
-export default { title: 'areas/posts' };
+export default { title: 'Areas/Posts/Post' };
 
-export const Posts = decorate(() => {
+export const Posts = decorate('Post', () => {
 
 	const post: IPost = {
 		date: '01/01/2020',

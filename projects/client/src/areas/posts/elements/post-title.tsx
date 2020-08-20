@@ -2,10 +2,9 @@ import * as React from 'react';
 import { styled } from '@/core/style/styled';
 import { IPost } from 'oftheday-shared';
 import { Subtitle, subtitleHeight } from '@/core/symbol/text';
-import { spacingBValue } from '@/core/style/common';
-import { FlexRow } from '@/core/layout/flex';
+import { largerSpacingValue } from '@/core/style/common';
 import { iconTypes, Icon } from '@/core/symbol/icon';
-import { useCurrentTheme } from '@/core/style/theme';
+import { FlexRow } from '@messman/react-common';
 
 export interface PostTitleProps {
 	post: IPost;
@@ -15,7 +14,6 @@ export interface PostTitleProps {
 
 export const PostTitle: React.FC<PostTitleProps> = (props) => {
 	const { post, isCollapsed, onCollapseChange } = props;
-	const theme = useCurrentTheme();
 
 	return (
 		<Margin justifyContent='space-between' flex='none'>
@@ -25,7 +23,7 @@ export const PostTitle: React.FC<PostTitleProps> = (props) => {
 			</div>
 			<Subtitle isInline={true}>
 				<CollapseRotation isCollapsed={isCollapsed} onClick={onCollapseChange}>
-					<Icon type={iconTypes.collapse} fill={theme.color.textAndIcon} height={subtitleHeight} />
+					<Icon type={iconTypes.collapse} height={subtitleHeight} />
 				</CollapseRotation>
 			</Subtitle>
 		</Margin>
@@ -33,7 +31,7 @@ export const PostTitle: React.FC<PostTitleProps> = (props) => {
 };
 
 const Margin = styled(FlexRow)`
-	margin: ${spacingBValue};
+	margin: ${largerSpacingValue};
 `;
 
 export interface CollapseRotationProps {

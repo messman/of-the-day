@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { decorate } from '@/test/storybook/decorate';
+import { decorate } from '@/test/decorate';
 import { MockPosts, MockOther, MockArchive, MockAccount, MockAbout } from './layout-mock';
 import { Layout } from './layout';
 
-export default { title: 'areas/layout' };
+export default { title: 'Areas/Layout/Layout' };
 
-export const TestLayout = decorate(() => {
+export const TestLayout = decorate('Layout', () => {
 	return (
 		<Layout
 			Posts={MockPosts}

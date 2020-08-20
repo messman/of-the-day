@@ -1,7 +1,5 @@
 export const CONSTANT = {
 
-	keyFactory: 'oftheday',
-
 	/** Messages used to block the application. */
 	alertMessages: [] as string[],
 
@@ -11,16 +9,13 @@ export const CONSTANT = {
 	fetchMaxTimeout: seconds(36),
 	/** Time before max where an update is shown to the user to reassure them. */
 	fetchStillWaitingTimeout: seconds(15),
-	/** Minimum time to wait for local data fetch response. */
-	localTestDataMinTimeout: seconds(0),
-	/** Expiration timeout for a success. */
-	cacheExpirationTimeout: minutes(4),
+	/** Time to wait since last successful fetch before either fetching again or restarting the application. */
+	appRefreshTimeout: minutes(10),
 
-	elementSizeSmallThrottleTimeout: seconds(.1),
-	elementSizeLargeThrottleTimeout: seconds(.2),
+	elementSizeSmallThrottleTimeout: seconds(0),
+	elementSizeLargeThrottleTimeout: seconds(0),
 
 	clearDataOnNewFetch: false,
-
 };
 
 function seconds(seconds: number): number {
