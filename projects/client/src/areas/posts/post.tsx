@@ -3,10 +3,11 @@ import { IPost } from 'oftheday-shared';
 // import { Quote } from './quote';
 // import { Music } from '@/unit/components/music';
 // import { Video } from '@/unit/components/video';
-import { styled } from '@/core/style/styled';
 import { PostTitle } from './elements/post-title';
 import { Text } from '@/core/symbol/text';
 import { Basics } from './elements/basics';
+import { DaySeparator } from './elements/separators';
+import { Music } from './elements/music';
 
 interface PostProps {
 	post: IPost;
@@ -41,6 +42,7 @@ export const Post: React.FC<PostProps> = (props) => {
 		<>
 			{topSection}
 			<Basics post={post} />
+			<Music music={post.music} />
 			<Text>Hello!</Text>
 			{/* <IconPad>
 				<If show={day.specialEvent}>
@@ -100,9 +102,3 @@ export const Post: React.FC<PostProps> = (props) => {
 		</>
 	);
 };
-
-const DaySeparator = styled.div`
-	height: 1px;
-	width: 100%;
-	background-color: ${p => p.theme.color.backgroundC};
-`;

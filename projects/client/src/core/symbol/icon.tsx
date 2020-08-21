@@ -6,6 +6,8 @@ export type SVGIconType = React.FC<React.SVGAttributes<SVGElement>>;
 // These SVG files are processed by webpack to become actual SVG code in the final code package.
 const ReactionSmile = require('@/static/icons/reaction-smile.svg').default as SVGIconType;
 const ReactionText = require('@/static/icons/reaction-text.svg').default as SVGIconType;
+const QuotationOpen = require('@/static/icons/quotation-open.svg').default as SVGIconType;
+const QuotationClose = require('@/static/icons/quotation-close.svg').default as SVGIconType;
 const Collapse = require('@/static/icons/collapse.svg').default as SVGIconType;
 const TodoIncomplete = require('@/static/icons/todo-incomplete.svg').default as SVGIconType;
 const TodoComplete = require('@/static/icons/todo-complete.svg').default as SVGIconType;
@@ -14,10 +16,13 @@ const Question = require('@/static/icons/question.svg').default as SVGIconType;
 const Gear = require('@/static/icons/gear.svg').default as SVGIconType;
 const Refresh = require('@/static/icons/refresh.svg').default as SVGIconType;
 const Compass = require('@/static/icons/compass.svg').default as SVGIconType;
+const Out = require('@/static/icons/out.svg').default as SVGIconType;
 
 export const iconTypes = {
 	reactionSmile: ReactionSmile,
 	reactionText: ReactionText,
+	quotationOpen: QuotationOpen,
+	quotationClose: QuotationClose,
 	collapse: Collapse,
 	todoIncomplete: TodoIncomplete,
 	todoComplete: TodoComplete,
@@ -25,7 +30,8 @@ export const iconTypes = {
 	question: Question,
 	gear: Gear,
 	refresh: Refresh,
-	compass: Compass
+	compass: Compass,
+	out: Out
 };
 
 export interface IconProps {

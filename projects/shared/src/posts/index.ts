@@ -32,12 +32,12 @@ export interface IPostBasics {
 	location: string;
 	schedule: string;
 	dayTypes: string[];
-	reactionSummary: IPostReactionSummary;
+	reactionSummary?: IPostReactionSummary;
 }
 
 export interface IPostEndThoughts {
 	value: string;
-	reactionSummary: IPostReactionSummary;
+	reactionSummary?: IPostReactionSummary;
 }
 
 export interface IPostMusic {
@@ -53,7 +53,7 @@ export interface IPostMusic {
 	geniusLink: string;
 	description: string;
 	quote: string;
-	reactionSummary: IPostReactionSummary;
+	reactionSummary?: IPostReactionSummary;
 }
 
 export interface IPostVideo {
@@ -65,7 +65,7 @@ export interface IPostVideo {
 	isNSFW: boolean;
 	isTop: boolean;
 	tags: string[];
-	reactionSummary: IPostReactionSummary;
+	reactionSummary?: IPostReactionSummary;
 }
 
 export interface IPostQuote {
@@ -75,7 +75,7 @@ export interface IPostQuote {
 	bVoice: string;
 	source: string;
 	sourceLink: string;
-	reactionSummary: IPostReactionSummary;
+	reactionSummary?: IPostReactionSummary;
 }
 
 export interface IPostImage {
@@ -83,7 +83,7 @@ export interface IPostImage {
 	description: string;
 	source: string;
 	sourceLink: string;
-	reactionSummary: IPostReactionSummary;
+	reactionSummary?: IPostReactionSummary;
 }
 
 export interface IPostCustom {
@@ -92,5 +92,5 @@ export interface IPostCustom {
 	link: string;
 	linkText: string;
 	previewLink: boolean;
-	reactionSummary: IPostReactionSummary;
+	reactionSummary?: IPostReactionSummary;
 }

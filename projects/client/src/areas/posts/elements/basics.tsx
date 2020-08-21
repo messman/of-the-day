@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { IPost } from 'oftheday-shared';
-import { LabelValue, Value, postValueMargin } from '@/core/layout/common';
+import { LabelValue, Value, DynamicMargin } from '@/core/layout/common';
+import { largerSpacing } from '@/core/style/common';
+import { ElementSeparator } from './separators';
 
 export interface BasicsProps {
 	post: IPost;
@@ -10,13 +12,16 @@ export const Basics: React.FC<BasicsProps> = (props) => {
 	const { post } = props;
 	const { basics } = post;
 
+	const { horizontal, vertical } = largerSpacing;
+
 	return (
-		<>
-			<Value margin={postValueMargin}>{basics.event}</Value>
-			<Value margin={postValueMargin}>{basics.note}</Value>
-			<LabelValue margin={postValueMargin} label='Location'>{basics.location}</LabelValue>
-			<LabelValue margin={postValueMargin} label='Schedule'>{basics.schedule}</LabelValue>
-		</>
+		<DynamicMargin margin={horizontal}>
+			<Value margin={vertical}>{basics.event}</Value>
+			<Value margin={vertical}>{basics.note}</Value>
+			<LabelValue margin={vertical} label='Location'>{basics.location}</LabelValue>
+			<LabelValue margin={vertical} label='Schedule'>{basics.schedule}</LabelValue>
+			<ElementSeparator />
+		</DynamicMargin>
 	);
 };
 

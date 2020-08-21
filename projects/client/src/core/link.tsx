@@ -1,12 +1,14 @@
 // Handles links.
 import * as React from 'react';
 import { styled } from '@/core/style/styled';
+import { iconTypes, Icon } from './symbol/icon';
+import { useCurrentTheme } from './style/theme';
 
 const BasicLink = styled.a`
 	font-size: 1rem;
 	margin: 0;
-	margin-top: .3rem;
 
+	position: relative;
 	display: inline-block;
 	cursor: pointer;
 
@@ -19,15 +21,28 @@ const BasicLink = styled.a`
 	}
 `;
 
+const Underline = styled.span`
+	text-decoration: underline;
+`;
+
+
 export interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> { }
 
 export const OutLink: React.FC<LinkProps> = (props) => {
 	const { children, href, rel, target, title, ...otherProps } = props;
+	const theme = useCurrentTheme();
 	if (!href) {
 		return null;
 	}
 	const text = props.children as string;
-	return <BasicLink href={href} rel="noreferrer noopener" target="_blank" title="Opens in a new tab" {...otherProps}>{text} &rsaquo;</BasicLink>;
+	return (
+		<BasicLink href={href} rel="noreferrer noopener" target="_blank" title="Opens in a new tab" {...otherProps}>
+			<Underline>
+				{text}
+			</Underline>
+			<Icon type={iconTypes.out} fillColor={theme.color.link} height='.7rem' />
+		</BasicLink>
+	);
 };
 
 

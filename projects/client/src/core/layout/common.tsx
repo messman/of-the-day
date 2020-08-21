@@ -19,11 +19,9 @@ export const OverflowAutoFlexRow = styled(FlexRow)`
 	overflow: auto;
 `;
 
-export const postValueMargin = '1rem';
-
 export interface ValueProps {
 	show?: any;
-	margin: string | null;
+	margin?: string | null;
 }
 
 export const Value: React.FC<ValueProps> = (props) => {
@@ -34,7 +32,7 @@ export const Value: React.FC<ValueProps> = (props) => {
 	}
 
 	return (
-		<DynamicMargin margin={margin || '0'}>
+		<DynamicMargin margin={margin}>
 			{children}
 		</DynamicMargin>
 	);
@@ -52,7 +50,7 @@ export const LabelValue: React.FC<LabelValueProps> = (props) => {
 	}
 
 	return (
-		<DynamicMargin margin={margin || '0'}>
+		<DynamicMargin margin={margin}>
 			<Text isBold={true}>{label}</Text>
 			<Value margin='3px 0 0 0'>
 				{children}
@@ -61,10 +59,10 @@ export const LabelValue: React.FC<LabelValueProps> = (props) => {
 	);
 };
 
-interface DynamicMarginProps {
-	margin: string;
+export interface DynamicMarginProps {
+	margin?: string | null;
 }
 
-const DynamicMargin = styled.div<DynamicMarginProps>`
-	margin: ${p => p.margin};
+export const DynamicMargin = styled.div<DynamicMarginProps>`
+	margin: ${p => p.margin || 0};
 `;
