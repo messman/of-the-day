@@ -4,6 +4,7 @@ import { text, boolean } from '@storybook/addon-knobs';
 import { MusicQuote, Quote } from './quote';
 import { DynamicMargin } from '@/core/layout/common';
 import { largerSpacingValue } from '@/core/style/common';
+import { IPostQuote } from 'oftheday-shared';
 
 export default { title: 'Areas/Posts/Elements/Quotes' };
 
@@ -25,9 +26,18 @@ export const TestSingleQuote = decorate('Single Quote', () => {
 	const useSourceLink = boolean('use source link', true);
 	const sourceLink = useSourceLink ? 'https://google.com' : '';
 
+	const quote: IPostQuote = {
+		a: a,
+		aVoice: aVoice,
+		b: '',
+		bVoice: '',
+		source: source,
+		sourceLink: sourceLink
+	};
+
 	return (
 		<DynamicMargin margin={largerSpacingValue}>
-			<Quote a={a} aVoice={aVoice} b='' bVoice='' source={source} sourceLink={sourceLink} />
+			<Quote quote={quote} />
 		</DynamicMargin>
 	);
 });
@@ -39,9 +49,18 @@ export const TestAnonymousVoicesQuote = decorate('Anonymous Voices Quote', () =>
 	const useSourceLink = boolean('use source link', true);
 	const sourceLink = useSourceLink ? 'https://google.com' : '';
 
+	const quote: IPostQuote = {
+		a: a,
+		aVoice: '',
+		b: b,
+		bVoice: '',
+		source: source,
+		sourceLink: sourceLink
+	};
+
 	return (
 		<DynamicMargin margin={largerSpacingValue}>
-			<Quote a={a} aVoice='' b={b} bVoice='' source={source} sourceLink={sourceLink} />
+			<Quote quote={quote} />
 		</DynamicMargin>
 	);
 });
@@ -55,9 +74,18 @@ export const TestVoicesQuote = decorate('Voices Quote', () => {
 	const useSourceLink = boolean('use source link', true);
 	const sourceLink = useSourceLink ? 'https://google.com' : '';
 
+	const quote: IPostQuote = {
+		a: a,
+		aVoice: aVoice,
+		b: b,
+		bVoice: bVoice,
+		source: source,
+		sourceLink: sourceLink
+	};
+
 	return (
 		<DynamicMargin margin={largerSpacingValue}>
-			<Quote a={a} aVoice={aVoice} b={b} bVoice={bVoice} source={source} sourceLink={sourceLink} />
+			<Quote quote={quote} />
 		</DynamicMargin>
 	);
 });
@@ -71,9 +99,18 @@ export const TestLongVoicesQuote = decorate('Long Voices Quote', () => {
 	const useSourceLink = boolean('use source link', true);
 	const sourceLink = useSourceLink ? 'https://google.com' : '';
 
+	const quote: IPostQuote = {
+		a: a,
+		aVoice: aVoice,
+		b: b,
+		bVoice: bVoice,
+		source: source,
+		sourceLink: sourceLink
+	};
+
 	return (
 		<DynamicMargin margin={largerSpacingValue}>
-			<Quote a={a} aVoice={aVoice} b={b} bVoice={bVoice} source={source} sourceLink={sourceLink} />
+			<Quote quote={quote} />
 		</DynamicMargin>
 	);
 });

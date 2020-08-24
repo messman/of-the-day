@@ -10,13 +10,19 @@ import { titleHeight } from '@/core/symbol/text';
 import { DynamicMargin, LabelValue } from '@/core/layout/common';
 import { DefaultLayoutBreakpoint, Flex, FlexRow } from '@messman/react-common';
 import { OutLink } from '@/core/link';
+import { ElementSeparator } from './separators';
 
 export interface MusicQuoteProps {
 	lyric: string;
 }
 
 export const MusicQuote: React.FC<MusicQuoteProps> = (props) => {
-	const quoteProps: QuoteProps = {
+	// Required
+	if (!props.lyric) {
+		return null;
+	}
+
+	const quote: IPostQuote = {
 		a: props.lyric,
 		aVoice: '',
 		b: '',
@@ -26,15 +32,39 @@ export const MusicQuote: React.FC<MusicQuoteProps> = (props) => {
 	};
 
 	return (
-		<Quote {...quoteProps} />
+		<MaxWidthContainer>
+			<InnerQuote quote={quote} />
+		</MaxWidthContainer>
 	);
 };
 
-export interface QuoteProps extends IPostQuote {
+export interface QuoteProps {
+	quote: IPostQuote;
 }
 
 export const Quote: React.FC<QuoteProps> = (props) => {
-	const { a, aVoice, b, bVoice, source, sourceLink } = props;
+	const { quote } = props;
+	const { a } = quote;
+	if (!a) {
+		return null;
+	}
+
+	return (
+		<DynamicMargin margin={largerSpacing.horizontal}>
+			<DynamicMargin margin={largerSpacing.vertical}>
+				<Text isBold={true}>Quote</Text>
+			</DynamicMargin>
+			<DynamicMargin margin={largerSpacing.vertical}>
+				<InnerQuote quote={quote} />
+			</DynamicMargin>
+			<ElementSeparator />
+		</DynamicMargin>
+	);
+};
+
+const InnerQuote: React.FC<QuoteProps> = (props) => {
+	const { quote } = props;
+	const { a, aVoice, b, bVoice, source, sourceLink } = quote;
 	if (!a) {
 		return null;
 	}
@@ -115,16 +145,17 @@ const QuoteBackground = styled.div`
 	${borderRadiusStyle}
 `;
 
+
 const TopLeftAbsoluteIcon = styled(Icon)`
 	position: absolute;
 	top: calc(-${p => p.height} / 3);
-	left: calc(-${p => p.height} / 3);
+	left: calc(-${p => p.height} / 4);
 `;
 
 const BottomRightAbsoluteIcon = styled(Icon)`
 	position: absolute;
 	bottom: calc(-${p => p.height} / 3);
-	right: calc(-${p => p.height} / 3);
+	right: calc(-${p => p.height} / 4);
 `;
 
 const CenterAndEmphasize = styled(DynamicMargin)`

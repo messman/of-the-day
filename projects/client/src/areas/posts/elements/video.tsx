@@ -17,7 +17,7 @@ export const Video: React.FC<VideoProps> = (props) => {
 	const { title, originalTitle, description, link, isTop, isNSFW, tags, isRemoved } = video;
 
 	// Required properties:
-	if (!title || !link || !description) {
+	if (!title || (!link && !isRemoved) || (!description && !isRemoved)) {
 		return null;
 	}
 
