@@ -1,33 +1,104 @@
 import * as React from 'react';
 import { styled } from '@/core/style/styled';
+import { IPostVideo } from 'oftheday-shared';
+import { largerSpacing } from '@/core/style/common';
+import { LabelValue, DynamicMargin, Value } from '@/core/layout/common';
+import { Text, SubText } from '@/core/symbol/text';
+import { TagList } from './tag';
+import { ElementSeparator } from './separators';
+import { ActionLink } from '@/core/link';
 
 export interface VideoProps {
-	link: string;
-	description: string | null;
-	title: string | null;
+	video: IPostVideo;
 }
 
 export const Video: React.FC<VideoProps> = (props) => {
-	const { link } = props;
-	if (!link) {
+	const { video } = props;
+	const { title, originalTitle, description, link, isTop, isNSFW, tags, isRemoved } = video;
+
+	// Required properties:
+	if (!title || !link || !description) {
 		return null;
 	}
 
+	const tagStrings = React.useMemo(() => {
+		return ([isTop ? 'top' : '', isNSFW ? 'NSFW' : '', ...tags]).filter(x => !!x);
+	}, [tags, isTop, isNSFW]);
+
+	const { horizontal: largerSpacingHorizontal, vertical: largerSpacingVertical } = largerSpacing;
+
+
+	let internalVideoRender: JSX.Element = null!;
+	if (isRemoved) {
+		internalVideoRender = (
+			<Value margin={largerSpacingVertical}><em>Video removed.</em></Value>
+		);
+	}
+	else {
+		internalVideoRender = (
+			<>
+				<DynamicMargin margin={largerSpacingVertical}>
+					<YouTubeVideoFrame url={link} />
+				</DynamicMargin>
+
+				<Value margin={largerSpacingVertical}>{description}</Value>
+			</>
+		);
+	}
+	return (
+		<DynamicMargin margin={largerSpacingHorizontal}>
+			<LabelValue margin={largerSpacingVertical} label='Video'>
+				<VideoTitle title={title} originalTitle={originalTitle} />
+			</LabelValue>
+
+			<DynamicMargin margin={largerSpacingVertical}>
+				<TagList tags={tagStrings} />
+			</DynamicMargin>
+			{internalVideoRender}
+			<ElementSeparator />
+		</DynamicMargin>
+	);
+};
+
+export interface VideoTitleProps {
+	title: string;
+	originalTitle: string;
+}
+
+const VideoTitle: React.FC<VideoTitleProps> = (props) => {
+	const { title, originalTitle } = props;
+	const [isShowingOriginalTitle, setIsShowingOriginalTitle] = React.useState(false);
+
+	const differentOriginalTitle = title === originalTitle ? '' : originalTitle;
+
+	let originalTitleWarningRender: JSX.Element | null = null;
+	if (differentOriginalTitle && !isShowingOriginalTitle) {
+
+		function onClick() {
+			setIsShowingOriginalTitle(true);
+		}
+
+		originalTitleWarningRender = (
+			<DynamicMargin margin='3px 0 0 0'>
+				<NoteText>Title reworded by Andrew. <ActionLink onClick={onClick}>See original.</ActionLink></NoteText>
+			</DynamicMargin>
+		);
+	}
+
+	const titleToShow = isShowingOriginalTitle ? differentOriginalTitle : title;
+
 	return (
 		<>
-			{/* <If show={title}>
-				{() => <Text>"{title}"</Text>}
-			</If>
-			<If show={description}>
-				{() => <Text>{description}</Text>}
-			</If> */}
-			<div>
-
-			</div>
+			<Text>{titleToShow}</Text>
+			{originalTitleWarningRender}
 		</>
 	);
 };
 
+const NoteText = styled(SubText)`
+	font-style: italic;
+	opacity: .8;
+`;
 
 
 export interface YouTubeVideoFrameProps {

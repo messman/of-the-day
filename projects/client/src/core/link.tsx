@@ -5,7 +5,6 @@ import { iconTypes, Icon } from './symbol/icon';
 import { useCurrentTheme } from './style/theme';
 
 const BasicLink = styled.a`
-	font-size: 1rem;
 	margin: 0;
 
 	position: relative;

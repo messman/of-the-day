@@ -2,12 +2,7 @@
 
 import * as React from 'react';
 import { IPostMusic } from 'oftheday-shared';
-// import { Quote } from './quote';
-// // import { OutLink } from './link';
-// import { Video } from './video';
-// import { styled } from '@/core/style/styled';
 import { Text } from '@/core/symbol/text';
-//import { createSpotifyEmbedLink } from '@/services/media/link';
 import { LabelValue, Value, DynamicMargin } from '@/core/layout/common';
 import { largerSpacing, smallerSpacingValue } from '@/core/style/common';
 import { ElementSeparator } from './separators';
@@ -67,17 +62,6 @@ export const Music: React.FC<MusicProps> = (props) => {
 		</DynamicMargin>
 	);
 };
-
-// const MusicContainer = styled.div`
-// 	iframe {
-// 		width: 100%;
-// 	}
-// `;
-
-
-
-
-
 
 const MusicTitle: React.FC<MusicProps> = (props) => {
 	const windowLayout = useWindowLayout();
@@ -139,22 +123,26 @@ const MusicOutLinks: React.FC<MusicProps> = (props) => {
 
 	if (isCompact) {
 		return (
-			<FlexRow justifyContent='space-around'>
-				<OutLink href={spotifyLink}>Spotify</OutLink>
-				<OutLink href={youTubeLink}>YouTube</OutLink>
-				<OutLink href={geniusLink}>Lyrics</OutLink>
-			</FlexRow>
+			<Text>
+				<FlexRow justifyContent='space-around'>
+					<OutLink href={spotifyLink}>Spotify</OutLink>
+					<OutLink href={youTubeLink}>YouTube</OutLink>
+					<OutLink href={geniusLink}>Lyrics</OutLink>
+				</FlexRow>
+			</Text>
 		);
 	}
 
 	return (
-		<div>
-			<OutLink href={spotifyLink}>Listen on Spotify</OutLink>
-			<Spacer />
-			<OutLink href={youTubeLink}>Watch on YouTube</OutLink>
-			<Spacer />
-			<OutLink href={geniusLink}>See the Lyrics</OutLink>
-		</div>
+		<Text>
+			<div>
+				<OutLink href={spotifyLink}>Listen on Spotify</OutLink>
+				<Spacer />
+				<OutLink href={youTubeLink}>Watch on YouTube</OutLink>
+				<Spacer />
+				<OutLink href={geniusLink}>See the Lyrics</OutLink>
+			</div>
+		</Text>
 	);
 };
 

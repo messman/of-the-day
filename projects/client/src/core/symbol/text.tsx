@@ -40,6 +40,10 @@ export const smallTextHeight = '.875rem';
 /** Small text. .875rem / 14px. */
 export const SmallText = createTextComponent(smallTextHeight);
 
+export const subTextHeight = '.75rem';
+/** Sub text. .75rem / 12px. */
+export const SubText = createTextComponent(subTextHeight);
+
 const textBoxStyle = css`
 	font-size: 1rem;
 	font-weight: 300;
