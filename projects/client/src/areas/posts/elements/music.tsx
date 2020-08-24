@@ -31,9 +31,6 @@ export const Music: React.FC<MusicProps> = (props) => {
 		return null;
 	}
 
-	// Take the URL we use for the track and turn it into an embed link.
-	//const spotifyEmbedLink = createSpotifyEmbedLink(spotifyLink);
-
 	const tagStrings = React.useMemo(() => {
 		return ([isTop ? 'top' : '', isNSFW ? 'NSFW' : '', ...tags]).filter(x => !!x);
 	}, [tags, isTop, isNSFW]);
@@ -58,50 +55,14 @@ export const Music: React.FC<MusicProps> = (props) => {
 			<Value margin={largerSpacingVertical}>{description}</Value>
 
 			<DynamicMargin margin={largerSpacingVertical}>
-				<MusicQuote lyric={quote} />
+				<MusicOutLinks music={music} />
 			</DynamicMargin>
 
 			<DynamicMargin margin={largerSpacingVertical}>
-				<MusicOutLinks music={music} />
+				<MusicQuote lyric={quote} />
 			</DynamicMargin>
-			{/* <div>
-				<If show={!record.isYouTubePreferred}>
-					{() =>
-						<MusicContainer>
-							<iframe src={spotifyEmbedLink} height="80" frameBorder="0" allow="encrypted-media"></iframe>
-						</MusicContainer>
-					}
-				</If>
-				<If show={record.isYouTubePreferred}>
-					{() =>
-						<Video link={record.youTubeLink} title={null} description={null} />
-					}
-				</If>
-			</div>
 
-			<If show={record.quote}>
-				{() =>
-					<div>
-						<Quote text={record.quote} attribution={null} />
-					</div>
-				}
-			</If>
 
-			<If show={record.description}>
-				{() =>
-					<div>
-						<Text>{record.description}</Text>
-					</div>
-				}
-			</If>
-
-			<div>
-				<OutLink href={record.spotifyLink}>Spotify</OutLink>
-				<Spacer />
-				<OutLink href={record.youTubeLink}>YouTube</OutLink>
-				<Spacer />
-				<OutLink href={record.geniusLink}>Lyrics</OutLink>
-			</div> */}
 			<ElementSeparator />
 		</DynamicMargin>
 	);
@@ -119,9 +80,16 @@ export const Music: React.FC<MusicProps> = (props) => {
 
 
 const MusicTitle: React.FC<MusicProps> = (props) => {
+	const windowLayout = useWindowLayout();
 	const { music } = props;
 	// Year is optional, others are required.
 	const { title, artist, year } = music;
+
+	const isCompact = windowLayout.widthBreakpoint < DefaultLayoutBreakpoint.regular;
+	if (!isCompact) {
+		const compactYearSuffix = year ? ` (${year})` : '';
+		return <Text><em>{title}</em>, by {artist}{compactYearSuffix}</Text>;
+	}
 
 	const yearSuffix = year ? <Text>{year}</Text> : <></>;
 
@@ -161,12 +129,12 @@ const EmbedContainer = styled.div`
 `;
 
 const MusicOutLinks: React.FC<MusicProps> = (props) => {
+	const windowLayout = useWindowLayout();
 	const { spotifyLink, youTubeLink, geniusLink } = props.music;
 	if (!spotifyLink || !youTubeLink || !geniusLink) {
 		return null;
 	}
 
-	const windowLayout = useWindowLayout();
 	const isCompact = windowLayout.widthBreakpoint < DefaultLayoutBreakpoint.regular;
 
 	if (isCompact) {

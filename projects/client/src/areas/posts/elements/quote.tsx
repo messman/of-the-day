@@ -48,7 +48,7 @@ export const Quote: React.FC<QuoteProps> = (props) => {
 			<>
 				<TopLeftAbsoluteIcon type={iconTypes.quotationOpen} height={titleHeight} />
 				<CenterAndEmphasize margin={largerSpacing.horizontal}>
-					<Text>{a}</Text>
+					<MultilineQuoteText text={a}></MultilineQuoteText>
 				</CenterAndEmphasize>
 				<BottomRightAbsoluteIcon type={iconTypes.quotationClose} height={titleHeight} />
 			</>
@@ -150,7 +150,7 @@ const HalfQuote: React.FC<HalfQuoteProps> = (props) => {
 			<Icon type={iconTypes.quotationOpen} height={smallTextHeight} />
 				&nbsp;
 			<Flex>
-				{text}
+				<Text isInline={true}>{text}</Text>
 					&nbsp;
 					<Icon type={iconTypes.quotationClose} height={smallTextHeight} />
 			</Flex>
@@ -168,4 +168,17 @@ const HalfQuote: React.FC<HalfQuoteProps> = (props) => {
 	}
 
 	return render;
+};
+
+const multilineQuoteTextSeparator = '/';
+
+interface MultilineQuoteTextProps {
+	text: string;
+}
+
+const MultilineQuoteText: React.FC<MultilineQuoteTextProps> = (props) => {
+	const lines = props.text.split(multilineQuoteTextSeparator).map((line) => {
+		return <Text>{line.trim()}</Text>;
+	});
+	return <>{lines}</>;
 };
