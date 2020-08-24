@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { styled } from '@/core/style/styled';
-import { Text, smallTextHeight } from '@/core/symbol/text';
+import { Text, subTextHeight } from '@/core/symbol/text';
 import { IPostQuote } from 'oftheday-shared';
 import { borderRadiusStyle, largerSpacing, smallerSpacing } from '@/core/style/common';
 import { Icon, iconTypes } from '@/core/symbol/icon';
@@ -178,12 +178,12 @@ const HalfQuote: React.FC<HalfQuoteProps> = (props) => {
 
 	const textRender = (
 		<FlexRow alignItems='stretch'>
-			<Icon type={iconTypes.quotationOpen} height={smallTextHeight} />
+			<Icon type={iconTypes.quotationOpen} height={subTextHeight} />
 				&nbsp;
 			<Flex>
 				<Text isInline={true}>{text}</Text>
 					&nbsp;
-					<Icon type={iconTypes.quotationClose} height={smallTextHeight} />
+					<Icon type={iconTypes.quotationClose} height={subTextHeight} />
 			</Flex>
 		</FlexRow>
 	);

@@ -6,7 +6,9 @@ import { DaySeparator } from './elements/separators';
 import { Music } from './elements/music';
 import { Video } from './elements/video';
 import { Quote } from './elements/quote';
+import { Image } from './elements/image';
 import { EndThoughts } from './elements/end-thoughts';
+import { Custom } from './elements/custom';
 
 interface PostProps {
 	post: IPost;
@@ -37,6 +39,7 @@ export const Post: React.FC<PostProps> = (props) => {
 		return topSection;
 	}
 
+
 	return (
 		<>
 			{topSection}
@@ -44,7 +47,9 @@ export const Post: React.FC<PostProps> = (props) => {
 			<EndThoughts endThoughts={post.endThoughts} />
 			<Music music={post.music} />
 			<Video video={post.video} />
+			<Image image={post.image} />
 			<Quote quote={post.quote} />
+			<Custom custom={post.custom} />
 		</>
 	);
 };
