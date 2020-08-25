@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import { styled } from '@/core/style/styled';
 
 export const DaySeparator = styled.div`
 	height: 1px;

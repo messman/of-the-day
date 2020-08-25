@@ -3,6 +3,7 @@ import { IPostEndThoughts } from 'oftheday-shared';
 import { largerSpacing } from '@/core/style/common';
 import { LabelValue, DynamicMargin } from '@/core/layout/common';
 import { ElementSeparator } from './separators';
+import { ElementRoot } from '../post';
 
 export interface EndThoughtsProps {
 	endThoughts: IPostEndThoughts;
@@ -17,12 +18,13 @@ export const EndThoughts: React.FC<EndThoughtsProps> = (props) => {
 	}
 
 	return (
-		<DynamicMargin margin={largerSpacing.horizontal} >
-			<LabelValue margin={largerSpacing.vertical} label='End-of-day thoughts'>
-				{value}
-			</LabelValue>
-			<ElementSeparator />
-		</DynamicMargin>
-
+		<ElementRoot>
+			<DynamicMargin margin={largerSpacing.horizontal} >
+				<LabelValue margin={largerSpacing.vertical} label='End-of-day thoughts'>
+					{value}
+				</LabelValue>
+				<ElementSeparator />
+			</DynamicMargin>
+		</ElementRoot>
 	);
 };

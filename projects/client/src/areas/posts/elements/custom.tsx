@@ -5,6 +5,7 @@ import { LabelValue, DynamicMargin, Value } from '@/core/layout/common';
 import { ElementSeparator } from './separators';
 import { Text } from '@/core/symbol/text';
 import { OutLink } from '@/core/link';
+import { ElementRoot } from '../post';
 
 export interface CustomProps {
 	custom: IPostCustom;
@@ -18,10 +19,12 @@ export const Custom: React.FC<CustomProps> = (props) => {
 		return null;
 	}
 
+	let render: JSX.Element = null!;
+
 	// If the link is included, it should be at the forefront.
 	if (link) {
-		return (
-			<DynamicMargin margin={largerSpacing.horizontal}>
+		render = (
+			<>
 				<DynamicMargin margin={largerSpacing.vertical}>
 					<Text isBold={true}>{title}</Text>
 				</DynamicMargin>
@@ -31,17 +34,23 @@ export const Custom: React.FC<CustomProps> = (props) => {
 				<Value margin={largerSpacing.vertical}>
 					{value}
 				</Value>
-				<ElementSeparator />
-			</DynamicMargin>
+			</>
+		);
+	}
+	else {
+		render = (
+			<LabelValue margin={largerSpacing.vertical} label={title}>
+				{value}
+			</LabelValue>
 		);
 	}
 
 	return (
-		<DynamicMargin margin={largerSpacing.horizontal} >
-			<LabelValue margin={largerSpacing.vertical} label={title}>
-				{value}
-			</LabelValue>
-			<ElementSeparator />
-		</DynamicMargin>
+		<ElementRoot>
+			<DynamicMargin margin={largerSpacing.horizontal} >
+				{render}
+				<ElementSeparator />
+			</DynamicMargin>
+		</ElementRoot>
 	);
 };

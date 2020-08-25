@@ -14,16 +14,16 @@ export const Posts: React.FC<PostsProps> = (props) => {
 
 	const posts = overridePosts || [];
 
-	const postsRender = posts.map((post) => {
+	const postsRender = posts.map((post, i) => {
 		return (
 			<DynamicMargin margin={largerSpacing.vertical}>
 
-				<Post post={post} />
+				<Post post={post} isCollapsedInitially={i !== 0} />
 			</DynamicMargin>
 		);
 	});
 
 	return (
-		<>{postsRender}</>
+		<div>{postsRender}</div>
 	);
 };

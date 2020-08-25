@@ -12,6 +12,7 @@ import { styled } from '@/core/style/styled';
 import { OutLink } from '@/core/link';
 import { FlexRow, useWindowLayout, DefaultLayoutBreakpoint } from '@messman/react-common';
 import { MusicQuote } from './quote';
+import { ElementRoot } from '../post';
 
 interface MusicProps {
 	music: IPostMusic;
@@ -35,31 +36,33 @@ export const Music: React.FC<MusicProps> = (props) => {
 	const { horizontal: largerSpacingHorizontal, vertical: largerSpacingVertical } = largerSpacing;
 
 	return (
-		<DynamicMargin margin={largerSpacingHorizontal}>
-			<LabelValue margin={largerSpacingVertical} label='Song'>
-				<MusicTitle music={music} />
-			</LabelValue>
+		<ElementRoot>
+			<DynamicMargin margin={largerSpacingHorizontal}>
+				<LabelValue margin={largerSpacingVertical} label='Song'>
+					<MusicTitle music={music} />
+				</LabelValue>
 
-			<DynamicMargin margin={largerSpacingVertical}>
-				<TagList tags={tagStrings} />
+				<DynamicMargin margin={largerSpacingVertical}>
+					<TagList tags={tagStrings} />
+				</DynamicMargin>
+				<DynamicMargin margin={largerSpacingVertical}>
+					{embedRender}
+				</DynamicMargin>
+
+				<Value margin={largerSpacingVertical}>{description}</Value>
+
+				<DynamicMargin margin={largerSpacingVertical}>
+					<MusicOutLinks music={music} />
+				</DynamicMargin>
+
+				<DynamicMargin margin={largerSpacingVertical}>
+					<MusicQuote lyric={quote} />
+				</DynamicMargin>
+
+
+				<ElementSeparator />
 			</DynamicMargin>
-			<DynamicMargin margin={largerSpacingVertical}>
-				{embedRender}
-			</DynamicMargin>
-
-			<Value margin={largerSpacingVertical}>{description}</Value>
-
-			<DynamicMargin margin={largerSpacingVertical}>
-				<MusicOutLinks music={music} />
-			</DynamicMargin>
-
-			<DynamicMargin margin={largerSpacingVertical}>
-				<MusicQuote lyric={quote} />
-			</DynamicMargin>
-
-
-			<ElementSeparator />
-		</DynamicMargin>
+		</ElementRoot>
 	);
 };
 

@@ -7,6 +7,7 @@ import { Text, SubText } from '@/core/symbol/text';
 import { TagList } from './tag';
 import { ElementSeparator } from './separators';
 import { ActionLink } from '@/core/link';
+import { ElementRoot } from '../post';
 
 export interface VideoProps {
 	video: IPostVideo;
@@ -46,17 +47,19 @@ export const Video: React.FC<VideoProps> = (props) => {
 		);
 	}
 	return (
-		<DynamicMargin margin={largerSpacingHorizontal}>
-			<LabelValue margin={largerSpacingVertical} label='Video'>
-				<VideoTitle title={title} originalTitle={originalTitle} />
-			</LabelValue>
+		<ElementRoot>
+			<DynamicMargin margin={largerSpacingHorizontal}>
+				<LabelValue margin={largerSpacingVertical} label='Video'>
+					<VideoTitle title={title} originalTitle={originalTitle} />
+				</LabelValue>
 
-			<DynamicMargin margin={largerSpacingVertical}>
-				<TagList tags={tagStrings} />
+				<DynamicMargin margin={largerSpacingVertical}>
+					<TagList tags={tagStrings} />
+				</DynamicMargin>
+				{internalVideoRender}
+				<ElementSeparator />
 			</DynamicMargin>
-			{internalVideoRender}
-			<ElementSeparator />
-		</DynamicMargin>
+		</ElementRoot>
 	);
 };
 

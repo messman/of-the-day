@@ -11,6 +11,7 @@ import { DynamicMargin, LabelValue } from '@/core/layout/common';
 import { DefaultLayoutBreakpoint, Flex, FlexRow } from '@messman/react-common';
 import { OutLink } from '@/core/link';
 import { ElementSeparator } from './separators';
+import { ElementRoot } from '../post';
 
 export interface MusicQuoteProps {
 	lyric: string;
@@ -50,15 +51,17 @@ export const Quote: React.FC<QuoteProps> = (props) => {
 	}
 
 	return (
-		<DynamicMargin margin={largerSpacing.horizontal}>
-			<DynamicMargin margin={largerSpacing.vertical}>
-				<Text isBold={true}>Quote</Text>
+		<ElementRoot>
+			<DynamicMargin margin={largerSpacing.horizontal}>
+				<DynamicMargin margin={largerSpacing.vertical}>
+					<Text isBold={true}>Quote</Text>
+				</DynamicMargin>
+				<DynamicMargin margin={largerSpacing.vertical}>
+					<InnerQuote quote={quote} />
+				</DynamicMargin>
+				<ElementSeparator />
 			</DynamicMargin>
-			<DynamicMargin margin={largerSpacing.vertical}>
-				<InnerQuote quote={quote} />
-			</DynamicMargin>
-			<ElementSeparator />
-		</DynamicMargin>
+		</ElementRoot>
 	);
 };
 

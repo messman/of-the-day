@@ -1,12 +1,13 @@
 import * as React from 'react';
 import { IPostImage } from 'oftheday-shared';
 import { largerSpacing } from '@/core/style/common';
-import { DynamicMargin, Value } from '@/core/layout/common';
+import { DynamicMargin, Value, LabelValue } from '@/core/layout/common';
 import { ElementSeparator } from './separators';
 import { Text } from '@/core/symbol/text';
 import { DefaultLayoutBreakpoint } from '@messman/react-common';
 import { styled } from '@/core/style/styled';
 import { OutLink } from '@/core/link';
+import { ElementRoot } from '../post';
 
 export interface ImageProps {
 	image: IPostImage;
@@ -33,20 +34,20 @@ export const Image: React.FC<ImageProps> = (props) => {
 	// TODO - add accessibility for image.
 
 	return (
-		<DynamicMargin margin={largerSpacing.horizontal} >
-			<DynamicMargin margin={largerSpacing.vertical} >
-				<Text isBold={true}>Image</Text>
+		<ElementRoot>
+			<DynamicMargin margin={largerSpacing.horizontal} >
+				<LabelValue margin={largerSpacing.vertical} label='Image'>
+					<Text >{description}</Text>
+				</LabelValue>
+				<DynamicMargin margin={largerSpacing.vertical} >
+					<a href={link} target='_blank' rel="noreferrer noopener" title='Click to open in a new tab'>
+						<ConstrainedImage src={link} />
+					</a>
+				</DynamicMargin>
+				<Value margin={largerSpacing.vertical}>{sourceRender}</Value>
+				<ElementSeparator />
 			</DynamicMargin>
-			<DynamicMargin margin={largerSpacing.vertical} >
-				<a href={link} target='_blank' rel="noreferrer noopener" title='Click to open in a new tab'>
-					<ConstrainedImage src={link} />
-				</a>
-			</DynamicMargin>
-			<Value margin={largerSpacing.vertical}>{description}</Value>
-			<Value margin={largerSpacing.vertical}>{sourceRender}</Value>
-			<ElementSeparator />
-		</DynamicMargin>
-
+		</ElementRoot>
 	);
 };
 
