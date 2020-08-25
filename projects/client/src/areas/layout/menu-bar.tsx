@@ -2,7 +2,7 @@ import * as React from 'react';
 import { styled } from '@/core/style/styled';
 import { routes } from '@/services/nav/routing';
 import { Text } from '@/core/symbol/text';
-import { smallerSpacingValue, borderRadiusValue, largerSpacingValue } from '@/core/style/common';
+import { smallerSpacingValue, borderRadiusValue } from '@/core/style/common';
 import { useHistory, useLocation, matchPath } from 'react-router-dom';
 import { FlexRow } from '@messman/react-common';
 
@@ -12,11 +12,8 @@ export interface MenuBarProps {
 }
 
 const MenuBarContainer = styled(FlexRow) <MenuBarProps>`
-	border-top: 0 solid ${p => p.theme.color.backgroundC};
-	border-top-width: ${p => p.isUpper ? '1px' : '0'};
 	background-color: ${p => p.theme.color.backgroundB};
 	padding: calc(${smallerSpacingValue} / 2) 0;
-	margin-bottom: ${p => p.isUpper ? largerSpacingValue : 0};
 	border-radius: ${p => p.isUpper ? borderRadiusValue : 0};
 `;
 

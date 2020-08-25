@@ -16,10 +16,6 @@ export const routes = {
 		name: 'Archive',
 		path: '/archive'
 	},
-	account: {
-		name: 'You',
-		path: '/account'
-	},
 	about: {
 		name: 'About',
 		path: '/about'

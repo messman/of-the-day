@@ -3,7 +3,6 @@ import { About, AboutProps } from '@/areas/about/about';
 import { Posts, PostsProps } from '@/areas/posts/posts';
 import { Other, OtherProps } from '@/areas/other/other';
 import { Archive, ArchiveProps } from '@/areas/archive/archive';
-import { Account, AccountProps } from '@/areas/account/account';
 import { MenuBar } from './menu-bar';
 import { Switch, Route } from 'react-router-dom';
 import { routes } from '@/services/nav/routing';
@@ -17,7 +16,6 @@ export const ApplicationLayout: React.FC = () => {
 			Posts={Posts}
 			Other={Other}
 			Archive={Archive}
-			Account={Account}
 			About={About}
 		/>
 	);
@@ -28,7 +26,6 @@ interface LayoutProps {
 	Posts: React.FC<PostsProps>;
 	Other: React.FC<OtherProps>;
 	Archive: React.FC<ArchiveProps>;
-	Account: React.FC<AccountProps>;
 	About: React.FC<AboutProps>;
 }
 
@@ -37,13 +34,13 @@ export const Layout: React.FC<LayoutProps> = (props) => {
 	const windowLayout = useWindowLayout();
 	const isCompact = windowLayout.widthBreakpoint === DefaultLayoutBreakpoint.compact;
 
-	const { Posts, Other, Archive, Account, About } = props;
+	const { Posts, Other, Archive, About } = props;
 
 	// TODO - you can simplify this logic.
 	if (isCompact) {
 		return (
 			<LayoutContainer>
-				<FlexColumn>
+				<ScrollContainer>
 					<Switch>
 						<Route exact path={routes.posts.path}>
 							<PageTitle />
@@ -55,14 +52,11 @@ export const Layout: React.FC<LayoutProps> = (props) => {
 						<Route path={routes.archive.path}>
 							<Archive />
 						</Route>
-						<Route path={routes.account.path}>
-							<Account />
-						</Route>
 						<Route path={routes.about.path}>
 							<About />
 						</Route>
 					</Switch>
-				</FlexColumn>
+				</ScrollContainer>
 				<MenuBar isUpper={false} />
 			</LayoutContainer>
 		);
@@ -70,9 +64,9 @@ export const Layout: React.FC<LayoutProps> = (props) => {
 	else {
 		return (
 			<LayoutContainer>
-				<FlexColumn>
-					<PageTitle />
-					<MenuBar isUpper={true} />
+				<PageTitle />
+				<MenuBar isUpper={true} />
+				<ScrollContainer>
 					<Switch>
 						<Route exact path={routes.posts.path}>
 							<Posts />
@@ -83,19 +77,19 @@ export const Layout: React.FC<LayoutProps> = (props) => {
 						<Route path={routes.archive.path}>
 							<Archive />
 						</Route>
-						<Route path={routes.account.path}>
-							<Account />
-						</Route>
 						<Route path={routes.about.path}>
 							<About />
 						</Route>
 					</Switch>
-				</FlexColumn>
+				</ScrollContainer>
 			</LayoutContainer>
 		);
 	}
 };
 
+const ScrollContainer = styled(FlexColumn)`
+	overflow-y: auto;
+`;
 
 const LayoutContainer = styled(FlexColumn)`
 	height: 100vh;

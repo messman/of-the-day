@@ -1,15 +1,29 @@
 import * as React from 'react';
-import { Text } from '@/core/symbol/text';
+import { IPost } from 'oftheday-shared';
+import { Post } from './post';
+import { largerSpacing } from '@/core/style/common';
+import { DynamicMargin } from '@/core/layout/common';
 
 export interface PostsProps {
-
+	overridePosts?: IPost[];
 }
 
-export const Posts: React.FC<PostsProps> = () => {
+export const Posts: React.FC<PostsProps> = (props) => {
+
+	const { overridePosts } = props;
+
+	const posts = overridePosts || [];
+
+	const postsRender = posts.map((post) => {
+		return (
+			<DynamicMargin margin={largerSpacing.vertical}>
+
+				<Post post={post} />
+			</DynamicMargin>
+		);
+	});
 
 	return (
-		<div>
-			<Text>A place for daily updates by Andrew.</Text>
-		</div>
+		<>{postsRender}</>
 	);
 };
