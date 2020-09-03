@@ -84,7 +84,7 @@ const SVGWrapper = styled.span<SVGWrapperProps>`
 	height: ${p => p.wrapperHeight || 'unset'}; 
 
 	svg, svg path {
-		color: ${p => (p.svgColor || p.theme.color.textAndIcon)};
+		color: ${p => (p.svgColor || p.theme.color.text)};
 		${p => p.svgFill && ({
 		fill: p.svgFill!
 	})}

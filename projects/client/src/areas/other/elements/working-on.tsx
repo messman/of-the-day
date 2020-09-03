@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { IOther } from 'oftheday-shared';
 import { LabelValue } from '@/core/layout/common';
-import { largerSpacing } from '@/core/style/common';
+import { spacing } from '@/core/style/common';
 import { OutLink } from '@/core/link';
 import { Text } from '@/core/symbol/text';
 
@@ -35,7 +35,7 @@ export const WorkingOn: React.FC<WorkingOnProps> = (props) => {
 	}
 
 	return (
-		<LabelValue margin={largerSpacing.value} label='What I am working on'>
+		<LabelValue margin={spacing.medium.value} label='What I am working on'>
 			<Text>{render}</Text>
 		</LabelValue>
 	);

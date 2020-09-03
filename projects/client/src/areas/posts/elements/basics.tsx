@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { IPost } from 'oftheday-shared';
 import { LabelValue, Value, DynamicMargin } from '@/core/layout/common';
-import { largerSpacing } from '@/core/style/common';
+import { spacing } from '@/core/style/common';
 import { ElementSeparator } from './separators';
 import { TagList } from './tag';
 import { ElementRoot } from '../post';
@@ -15,7 +15,7 @@ export const Basics: React.FC<BasicsProps> = (props) => {
 	const { basics } = post;
 	const { event, note, location, schedule, dayTypes } = basics;
 
-	const { horizontal, vertical } = largerSpacing;
+	const { horizontal, vertical } = spacing.medium;
 
 	return (
 		<ElementRoot>

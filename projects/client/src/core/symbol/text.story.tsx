@@ -3,7 +3,7 @@ import { decorate } from '@/test/decorate';
 import { Title, titleHeight, Subtitle, subtitleHeight, Text, textHeight, SmallText, smallTextHeight } from '@/core/symbol/text';
 import { iconTypes, Icon } from '@/core/symbol/icon';
 import { styled } from '../style/styled';
-import { largerSpacingValue } from '../style/common';
+import { spacing } from '../style/common';
 
 export default { title: 'Core/Symbol/Text' };
 
@@ -42,5 +42,5 @@ export const TestTextWithIcons = decorate('Text', () => {
 });
 
 const Padding = styled.div`
-	margin: ${largerSpacingValue};
+	margin: ${spacing.medium.value};
 `;

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Overlay } from '@/core/layout/overlay';
-import { addPadding, smallerSpacingValue } from '@/core/style/common';
+import { addPadding, spacing } from '@/core/style/common';
 import { keyframes, styled } from '@/core/style/styled';
 import { useCurrentTheme } from '@/core/style/theme';
 import { Text } from '@/core/symbol/text';
@@ -101,7 +101,7 @@ const LoadingBody = styled(Flex)`
 	min-width: 16rem;
 	max-width: 24rem;
 	min-height: 10rem;
-	margin: ${smallerSpacingValue};
+	margin: ${spacing.small.value};
 	text-align: center;
 `;
 
@@ -132,7 +132,7 @@ const LoadingCompass: React.FC<LoadingDotProps> = (props) => {
 
 	return (
 		<LoadingCompassContainer index={props.index} >
-			<Icon type={iconTypes.compass} fillColor={theme.color.primary} height='3rem' />
+			<Icon type={iconTypes.compass} fillColor={theme.color.primaryA} height='3rem' />
 		</LoadingCompassContainer>
 	);
 };

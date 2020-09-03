@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { addPadding, smallerSpacingValue, largerSpacingValue } from '@/core/style/common';
+import { addPadding, spacing } from '@/core/style/common';
 import { styled } from '@/core/style/styled';
 import { useCurrentTheme } from '@/core/style/theme';
 import { Icon, iconTypes } from '@/core/symbol/icon';
@@ -150,9 +150,9 @@ const InvalidCenter: React.FC<InvalidCenterProps> = (props) => {
 
 const InvalidCenterWrapper = styled(FlexRow)`
 	/* Pad to ensure the inner Flex content doesn't run up against the edge. */
-	padding: calc(${smallerSpacingValue} * 3);
+	padding: calc(${spacing.small.value} * 3);
 	text-align: center;
 `;
 
-const PaddedSubtitle = addPadding(Subtitle, largerSpacingValue);
-const PaddedSmallText = addPadding(SmallText, largerSpacingValue);
+const PaddedSubtitle = addPadding(Subtitle, spacing.medium.value);
+const PaddedSmallText = addPadding(SmallText, spacing.medium.value);

@@ -11,11 +11,11 @@ const BasicLink = styled.a`
 	display: inline-block;
 	cursor: pointer;
 
-	color: ${p => p.theme.color.link};
+	color: ${p => p.theme.color.textLink};
 	text-decoration: none;
 
 	&:visited, &:active, &:link, &:hover {
-		color: ${p => p.theme.color.link};
+		color: ${p => p.theme.color.textLink};
 		text-decoration: none;
 	}
 `;
@@ -39,7 +39,7 @@ export const OutLink: React.FC<LinkProps> = (props) => {
 			<Underline>
 				{text}
 			</Underline>
-			<Icon type={iconTypes.out} fillColor={theme.color.link} height='.7rem' />
+			<Icon type={iconTypes.out} fillColor={theme.color.textLink} height='.7rem' />
 		</BasicLink>
 	);
 };

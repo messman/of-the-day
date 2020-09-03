@@ -2,7 +2,7 @@ import * as React from 'react';
 import { styled } from '../style/styled';
 import { Text } from '../symbol/text';
 import { DefaultLayoutBreakpoint, FlexColumn, FlexRow } from '@messman/react-common';
-import { lineSpacing } from '../style/common';
+import { spacing } from '../style/common';
 
 /** A flex column whose width is the screen width, not the width decided by flex rules. */
 export const ScreenWidthFlexColumn = styled(FlexColumn)`
@@ -52,7 +52,7 @@ export const LabelValue: React.FC<LabelValueProps> = (props) => {
 	return (
 		<DynamicMargin margin={margin}>
 			<Text isBold={true}>{label}</Text>
-			<Value margin={lineSpacing.top}>
+			<Value margin={spacing.nudge.top}>
 				{children}
 			</Value>
 		</DynamicMargin>

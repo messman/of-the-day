@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { IPostCustom } from 'oftheday-shared';
-import { largerSpacing } from '@/core/style/common';
+import { spacing } from '@/core/style/common';
 import { LabelValue, DynamicMargin, Value } from '@/core/layout/common';
 import { ElementSeparator } from './separators';
 import { Text } from '@/core/symbol/text';
@@ -25,13 +25,13 @@ export const Custom: React.FC<CustomProps> = (props) => {
 	if (link) {
 		render = (
 			<>
-				<DynamicMargin margin={largerSpacing.vertical}>
+				<DynamicMargin margin={spacing.medium.vertical}>
 					<Text isBold={true}>{title}</Text>
 				</DynamicMargin>
-				<Value margin={largerSpacing.vertical}>
+				<Value margin={spacing.medium.vertical}>
 					<OutLink href={link}>{linkText}</OutLink>
 				</Value>
-				<Value margin={largerSpacing.vertical}>
+				<Value margin={spacing.medium.vertical}>
 					{value}
 				</Value>
 			</>
@@ -39,7 +39,7 @@ export const Custom: React.FC<CustomProps> = (props) => {
 	}
 	else {
 		render = (
-			<LabelValue margin={largerSpacing.vertical} label={title}>
+			<LabelValue margin={spacing.medium.vertical} label={title}>
 				{value}
 			</LabelValue>
 		);
@@ -47,7 +47,7 @@ export const Custom: React.FC<CustomProps> = (props) => {
 
 	return (
 		<ElementRoot>
-			<DynamicMargin margin={largerSpacing.horizontal} >
+			<DynamicMargin margin={spacing.medium.horizontal} >
 				{render}
 				<ElementSeparator />
 			</DynamicMargin>

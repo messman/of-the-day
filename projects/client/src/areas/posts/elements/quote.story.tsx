@@ -3,7 +3,7 @@ import { decorate } from '@/test/decorate';
 import { text, boolean } from '@storybook/addon-knobs';
 import { MusicQuote, Quote } from './quote';
 import { DynamicMargin } from '@/core/layout/common';
-import { largerSpacingValue } from '@/core/style/common';
+import { spacing } from '@/core/style/common';
 import { IPostQuote } from 'oftheday-shared';
 
 export default { title: 'Areas/Posts/Elements/Quotes' };
@@ -13,7 +13,7 @@ export const TestMusicQuote = decorate('Music Quote', () => {
 	const lyric = text('lyric', 'Cause it feels so empty without me');
 
 	return (
-		<DynamicMargin margin={largerSpacingValue}>
+		<DynamicMargin margin={spacing.medium.value}>
 			<MusicQuote lyric={lyric} />
 		</DynamicMargin>
 	);
@@ -36,7 +36,7 @@ export const TestSingleQuote = decorate('Single Quote', () => {
 	};
 
 	return (
-		<DynamicMargin margin={largerSpacingValue}>
+		<DynamicMargin margin={spacing.medium.value}>
 			<Quote quote={quote} />
 		</DynamicMargin>
 	);
@@ -59,7 +59,7 @@ export const TestAnonymousVoicesQuote = decorate('Anonymous Voices Quote', () =>
 	};
 
 	return (
-		<DynamicMargin margin={largerSpacingValue}>
+		<DynamicMargin margin={spacing.medium.value}>
 			<Quote quote={quote} />
 		</DynamicMargin>
 	);
@@ -84,7 +84,7 @@ export const TestVoicesQuote = decorate('Voices Quote', () => {
 	};
 
 	return (
-		<DynamicMargin margin={largerSpacingValue}>
+		<DynamicMargin margin={spacing.medium.value}>
 			<Quote quote={quote} />
 		</DynamicMargin>
 	);
@@ -109,7 +109,7 @@ export const TestLongVoicesQuote = decorate('Long Voices Quote', () => {
 	};
 
 	return (
-		<DynamicMargin margin={largerSpacingValue}>
+		<DynamicMargin margin={spacing.medium.value}>
 			<Quote quote={quote} />
 		</DynamicMargin>
 	);

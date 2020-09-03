@@ -3,7 +3,7 @@ import { decorate } from '@/test/decorate';
 import { Title, Subtitle, Text, SmallText } from '@/core/symbol/text';
 import { styled } from '@/core/style/styled';
 import { useCurrentTheme } from '@/core/style/theme';
-import { borderRadiusStyle, smallerSpacingValue } from '@/core/style/common';
+import { borderRadiusStyle, spacing } from '@/core/style/common';
 
 export default { title: 'Core/Style/Theme' };
 
@@ -21,8 +21,7 @@ export const TestTheme = decorate('Theme', () => {
 			<TextColorBox backgroundColor={theme.color.error}>Error</TextColorBox>
 			<TextColorBox backgroundColor={theme.color.warning}>Warning</TextColorBox>
 			<TextColorBox backgroundColor={theme.color.success}>Success</TextColorBox>
-			<TextColorBox backgroundColor={theme.color.link}>Link</TextColorBox>
-			<TextColorBox backgroundColor={theme.color.primary}>Primary</TextColorBox>
+			<TextColorBox backgroundColor={theme.color.textLink}>Link</TextColorBox>
 		</>
 	);
 });
@@ -38,8 +37,8 @@ const ColorBox = styled.div<ColorBoxProps>`
 
 	background-color: ${p => p.backgroundColor};
 	${borderRadiusStyle};
-	margin: ${smallerSpacingValue};
-	padding: ${smallerSpacingValue};
+	margin: ${spacing.small.value};
+	padding: ${spacing.small.value};
 `;
 
 const TextSizesColorBox: React.FC<ColorBoxProps> = (props) => {
@@ -60,8 +59,8 @@ const LongColorBox = styled.div<ColorBoxProps>`
 
 	background-color: ${p => p.backgroundColor};
 	${borderRadiusStyle};
-	margin-bottom: ${smallerSpacingValue};
-	margin-right: ${smallerSpacingValue};
+	margin-bottom: ${spacing.small.value};
+	margin-right: ${spacing.small.value};
 `;
 
 const TextColorBox: React.FC<ColorBoxProps> = (props) => {

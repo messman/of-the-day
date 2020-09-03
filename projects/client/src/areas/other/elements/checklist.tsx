@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { IOther } from 'oftheday-shared';
 import { LabelValue, DynamicMargin } from '@/core/layout/common';
-import { largerSpacing, smallerSpacing } from '@/core/style/common';
+import { spacing } from '@/core/style/common';
 import { useCurrentTheme } from '@/core/style/theme';
 import { iconTypes, Icon } from '@/core/symbol/icon';
 import { Text, textHeight } from '@/core/symbol/text';
@@ -21,7 +21,7 @@ export const Checklist: React.FC<ChecklistProps> = (props) => {
 		return null;
 	}
 
-	const { horizontal, vertical } = largerSpacing;
+	const { horizontal, vertical } = spacing.medium;
 
 	return (
 		<DynamicMargin margin={horizontal}>
@@ -47,7 +47,7 @@ const InnerChecklist: React.FC<InnerChecklistProps> = (props) => {
 
 		return (
 			<Text key={item}>
-				<DynamicMargin isInline={true} margin={smallerSpacing.right}>
+				<DynamicMargin isInline={true} margin={spacing.small.right}>
 					<Icon type={iconType} fillColor={color} height={textHeight} />
 				</DynamicMargin>
 				{item}
@@ -63,6 +63,6 @@ const InnerChecklist: React.FC<InnerChecklistProps> = (props) => {
 };
 
 const List = styled.div`
-	margin-bottom: ${smallerSpacing.value};
+	margin-bottom: ${spacing.small.value};
 	margin-top: 0;
 `;

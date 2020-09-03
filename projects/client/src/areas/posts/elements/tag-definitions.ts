@@ -7,10 +7,10 @@ interface DynamicTagProps {
 	lightColor: (theme: Theme) => string;
 }
 
-const primaryColor = (theme: Theme) => theme.color.primary;
+const primaryColor = (theme: Theme) => theme.color.primaryA;
 const successColor = (theme: Theme) => theme.color.success;
 const transparentColor = (_: Theme) => 'transparent';
-const textColor = (theme: Theme) => theme.color.textAndIcon;
+const textColor = (theme: Theme) => theme.color.text;
 
 const commonTagProps: { [key: string]: DynamicTagProps; } = {
 	nsfw: {

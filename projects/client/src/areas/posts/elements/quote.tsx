@@ -4,7 +4,7 @@ import * as React from 'react';
 import { styled } from '@/core/style/styled';
 import { Text, subTextHeight } from '@/core/symbol/text';
 import { IPostQuote } from 'oftheday-shared';
-import { borderRadiusStyle, largerSpacing, smallerSpacing } from '@/core/style/common';
+import { borderRadiusStyle, spacing } from '@/core/style/common';
 import { Icon, iconTypes } from '@/core/symbol/icon';
 import { titleHeight } from '@/core/symbol/text';
 import { DynamicMargin, LabelValue } from '@/core/layout/common';
@@ -52,11 +52,11 @@ export const Quote: React.FC<QuoteProps> = (props) => {
 
 	return (
 		<ElementRoot>
-			<DynamicMargin margin={largerSpacing.horizontal}>
-				<DynamicMargin margin={largerSpacing.vertical}>
+			<DynamicMargin margin={spacing.medium.horizontal}>
+				<DynamicMargin margin={spacing.medium.vertical}>
 					<Text isBold={true}>Quote</Text>
 				</DynamicMargin>
-				<DynamicMargin margin={largerSpacing.vertical}>
+				<DynamicMargin margin={spacing.medium.vertical}>
 					<InnerQuote quote={quote} />
 				</DynamicMargin>
 				<ElementSeparator />
@@ -80,7 +80,7 @@ const InnerQuote: React.FC<QuoteProps> = (props) => {
 		render = (
 			<>
 				<TopLeftAbsoluteIcon type={iconTypes.quotationOpen} height={titleHeight} />
-				<CenterAndEmphasize margin={largerSpacing.horizontal}>
+				<CenterAndEmphasize margin={spacing.medium.horizontal}>
 					<MultilineQuoteText text={a}></MultilineQuoteText>
 				</CenterAndEmphasize>
 				<BottomRightAbsoluteIcon type={iconTypes.quotationClose} height={titleHeight} />
@@ -91,7 +91,7 @@ const InnerQuote: React.FC<QuoteProps> = (props) => {
 		render = (
 			<>
 				<HalfQuote text={a} voice={aVoice} />
-				<DynamicMargin margin={largerSpacing.top} />
+				<DynamicMargin margin={spacing.medium.top} />
 				<HalfQuote text={b} voice={bVoice} />
 			</>
 		);
@@ -120,7 +120,7 @@ const InnerQuote: React.FC<QuoteProps> = (props) => {
 
 	if (attributionRender) {
 		attributionRender = (
-			<Right margin={smallerSpacing.top}>
+			<Right margin={spacing.small.top}>
 				<Text>&mdash;&#8288;&nbsp;&#8288;{attributionRender}</Text>
 			</Right>
 		);
@@ -142,7 +142,7 @@ const MaxWidthContainer = styled.div`
 `;
 
 const QuoteBackground = styled.div`
-	padding: ${largerSpacing.value};
+	padding: ${spacing.medium.value};
 	position: relative;
 	background-color: ${p => p.theme.color.backgroundB};
 	${borderRadiusStyle}

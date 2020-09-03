@@ -2,7 +2,7 @@ import * as React from 'react';
 import { styled } from '@/core/style/styled';
 import { IPost } from 'oftheday-shared';
 import { Subtitle, subtitleHeight } from '@/core/symbol/text';
-import { largerSpacingValue } from '@/core/style/common';
+import { spacing } from '@/core/style/common';
 import { iconTypes, Icon } from '@/core/symbol/icon';
 import { FlexRow } from '@messman/react-common';
 
@@ -31,7 +31,7 @@ export const PostTitle: React.FC<PostTitleProps> = (props) => {
 };
 
 const Margin = styled(FlexRow)`
-	margin: ${largerSpacingValue};
+	margin: ${spacing.medium.value};
 `;
 
 export interface CollapseRotationProps {

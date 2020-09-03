@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { IPostImage } from 'oftheday-shared';
-import { largerSpacing } from '@/core/style/common';
+import { spacing } from '@/core/style/common';
 import { DynamicMargin, Value, LabelValue } from '@/core/layout/common';
 import { ElementSeparator } from './separators';
 import { Text } from '@/core/symbol/text';
@@ -35,16 +35,16 @@ export const Image: React.FC<ImageProps> = (props) => {
 
 	return (
 		<ElementRoot>
-			<DynamicMargin margin={largerSpacing.horizontal} >
-				<LabelValue margin={largerSpacing.vertical} label='Image'>
+			<DynamicMargin margin={spacing.medium.horizontal} >
+				<LabelValue margin={spacing.medium.vertical} label='Image'>
 					<Text >{description}</Text>
 				</LabelValue>
-				<DynamicMargin margin={largerSpacing.vertical} >
+				<DynamicMargin margin={spacing.medium.vertical} >
 					<a href={link} target='_blank' rel="noreferrer noopener" title='Click to open in a new tab'>
 						<ConstrainedImage src={link} />
 					</a>
 				</DynamicMargin>
-				<Value margin={largerSpacing.vertical}>{sourceRender}</Value>
+				<Value margin={spacing.medium.vertical}>{sourceRender}</Value>
 				<ElementSeparator />
 			</DynamicMargin>
 		</ElementRoot>

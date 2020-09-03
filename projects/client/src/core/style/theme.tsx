@@ -14,12 +14,21 @@ export interface Theme {
 		/** Tertiary version of background, used for UI components. */
 		backgroundC: string,
 
-		/** All our text and icons that aren't superseded by another color. */
-		textAndIcon: string,
-		/** Color of text links. */
-		link: string,
-		/** Disabled text. */
-		disabled: string,
+		primaryA: string,
+		primaryB: string,
+
+		secondary: string,
+
+		textTitle: string,
+		textSubtitle: string,
+		text: string,
+		textSubtle: string,
+		textDisabled: string,
+
+		textLink: string,
+
+		buttonActionText: string,
+		buttonActionBackground: string,
 
 		/** Color used for warning information. */
 		warning: string,
@@ -27,8 +36,6 @@ export interface Theme {
 		error: string,
 		/** Color used for success information. */
 		success: string,
-		/** Color used for primary information. */
-		primary: string,
 	};
 }
 
@@ -36,16 +43,26 @@ export interface Theme {
 const darkTheme: Theme = {
 	name: 'dark',
 	color: {
-		backgroundA: '#1A1A1A',
-		backgroundB: '#262626',
-		backgroundC: '#2B2B2B',
-		textAndIcon: '#EEEEEE',
-		link: '#2589BD',
-		disabled: '#646464',
+		backgroundA: '#171C1C',
+		backgroundB: '#1E2424',
+		backgroundC: '#2E3738',
+		primaryA: '#62BEC1',
+		primaryB: '#41A1A5',
+		secondary: '#FFD681',
+
+		textTitle: '#F7F8F8',
+		textSubtitle: '#62BEC1',
+		text: '#D5DCDC',
+		textSubtle: '#798A8B',
+		textDisabled: '#798A8B',
+		textLink: '#FFD681',
+
+		buttonActionText: '#171C1C',
+		buttonActionBackground: '#FFD681',
+
 		warning: '#DC965A',
 		error: '#A63446',
 		success: '#4B7F52',
-		primary: '#558C8C'
 	},
 };
 
@@ -57,11 +74,22 @@ const lightTheme: Theme = {
 		...darkTheme.color,
 
 		// Overrides
-		backgroundA: '#F8F8F8',
-		backgroundB: '#EAEAEA',
-		backgroundC: '#CCCCCC',
-		textAndIcon: '#222222',
-		disabled: '#999999',
+		backgroundA: '#171C1C',
+		backgroundB: '#1E2424',
+		backgroundC: '#2E3738',
+		primaryA: '#62BEC1',
+		primaryB: '#41A1A5',
+		secondary: '#FFD681',
+
+		textTitle: '#F7F8F8',
+		textSubtitle: '#62BEC1',
+		text: '#D5DCDC',
+		textSubtle: '#798A8B',
+		textDisabled: '#798A8B',
+		textLink: '#FFD681',
+
+		buttonActionText: '#171C1C',
+		buttonActionBackground: '#FFD681',
 	}
 };
 
@@ -69,13 +97,16 @@ const lightTheme: Theme = {
 export const themes: Theme[] = [darkTheme, lightTheme];
 const defaultThemeIndex = 1;
 
+export type ThemePick<T> = (t: Theme) => T;
+export type ThemePickString = ThemePick<string>;
+
 // For some reason, VS Code is not happy to colorize the CSS in this block when `createGlobalStyle` is used with a type.
 // Note: '#root' is for storybook
 // Note: overscroll-behavior comes from https://stackoverflow.com/a/50846937 to prevent macs going back (since we have horizontal scroll)
 export const GlobalStyles = createGlobalStyle<ThemeProps<Theme>>`
 	body {
 		background-color: ${p => p.theme.color.backgroundA};
-		color: ${p => p.theme.color.textAndIcon};
+		color: ${p => p.theme.color.text};
 	}
 
 	html, body, #react-root, #root {

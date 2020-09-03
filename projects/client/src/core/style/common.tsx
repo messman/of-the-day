@@ -30,15 +30,18 @@ function createSpacing(value: string): Spacing {
 	};
 }
 
-/** Line spacing value, for separation of lines of text. .1875rem / 3px. */
-export const lineSpacingValue: string = '.1875rem';
-export const lineSpacing = createSpacing(lineSpacingValue);
-/** Smaller padding value, for edges against the screen. .625rem / 10px. */
-export const smallerSpacingValue: string = '.625rem';
-export const smallerSpacing = createSpacing(smallerSpacingValue);
-/** Larger padding value, for vertical flow. 1rem / 16px. */
-export const largerSpacingValue: string = '1rem';
-export const largerSpacing = createSpacing(largerSpacingValue);
+export const spacing = {
+	/** For separation of lines of text. .1875rem / 3px. */
+	nudge: createSpacing('.1875rem'),
+	/** For edges against a small screen. .625rem / 10px. */
+	small: createSpacing('.625rem'),
+	/** For vertical flow. 1rem / 16px. */
+	medium: createSpacing('1rem'),
+	/** For section separation. 2rem / 32px. */
+	large: createSpacing('2rem'),
+	/** For large screen space. 3rem / 48px. */
+	grand: createSpacing('3rem'),
+};
 
 /** Returns a new component that has the specified padding value. */
 export function addPadding<T extends StyledComponent<any, Theme, {}, never>>(component: T, padding: string) {

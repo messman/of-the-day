@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Overlay } from '@/core/layout/overlay';
-import { addMargin, borderRadiusStyle, smallerSpacingValue, largerSpacingValue } from '@/core/style/common';
+import { addMargin, borderRadiusStyle, spacing } from '@/core/style/common';
 import { styled } from '@/core/style/styled';
 import { useCurrentTheme } from '@/core/style/theme';
 import { Icon, iconTypes } from '@/core/symbol/icon';
@@ -82,19 +82,19 @@ export const Popup: React.FC = (props) => {
 	);
 };
 
-const PaddedSubtitle = addMargin(Subtitle, largerSpacingValue);
-const PaddedText = addMargin(Text, largerSpacingValue);
+const PaddedSubtitle = addMargin(Subtitle, spacing.medium.value);
+const PaddedText = addMargin(Text, spacing.medium.value);
 
 const PopupBody = styled(Flex)`
 	background-color: ${p => p.theme.color.backgroundB};
 	${borderRadiusStyle};
-	padding: ${smallerSpacingValue};
+	padding: ${spacing.small.value};
 	cursor: pointer;
 
 	/* Prevents crazy resizing scenarios. */
 	min-width: 16rem;
 	max-width: 24rem;
-	margin: ${smallerSpacingValue};
+	margin: ${spacing.small.value};
 
 	text-align: center;
 `;

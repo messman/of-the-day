@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { styled } from '@/core/style/styled';
 import { SVGIconType, Icon } from '@/core/symbol/icon';
-import { smallerSpacingValue, borderRadiusStyle } from '@/core/style/common';
+import { spacing, borderRadiusStyle } from '@/core/style/common';
 import { SmallText, smallTextHeight } from '@/core/symbol/text';
 import { DynamicMargin } from '@/core/layout/common';
 import { useCurrentTheme } from '@/core/style/theme';
@@ -41,7 +41,7 @@ interface TagContainerProps {
 const TagContainer = styled.div<TagContainerProps>`
 	${borderRadiusStyle};
 	display: inline-block;
-	padding: calc(${smallerSpacingValue} / 4) ${smallerSpacingValue};
+	padding: calc(${spacing.small.value} / 4) ${spacing.small.value};
 	white-space: nowrap;
 	border: 1px solid ${p => p.darkColor};
 	background-color: ${p => p.useDarkColorForBackground ? p.darkColor : p.lightColor};
@@ -49,7 +49,7 @@ const TagContainer = styled.div<TagContainerProps>`
 	margin-left: none;
 
 	& + & {
-		margin-left: ${smallerSpacingValue};
+		margin-left: ${spacing.small.value};
 	}
 
 `;

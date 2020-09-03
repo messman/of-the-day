@@ -9,6 +9,8 @@ import { routes } from '@/services/nav/routing';
 import { styled } from '@/core/style/styled';
 import { Title, Text } from '@/core/symbol/text';
 import { useWindowLayout, DefaultLayoutBreakpoint, FlexColumn } from '@messman/react-common';
+import { DynamicMargin } from '@/core/layout/common';
+import { spacing } from '@/core/style/common';
 
 export const ApplicationLayout: React.FC = () => {
 	return (
@@ -34,57 +36,71 @@ export const Layout: React.FC<LayoutProps> = (props) => {
 	const windowLayout = useWindowLayout();
 	const isCompact = windowLayout.widthBreakpoint === DefaultLayoutBreakpoint.compact;
 
-	const { Posts, Other, Archive, About } = props;
-
-	// TODO - you can simplify this logic.
 	if (isCompact) {
-		return (
-			<LayoutContainer>
-				<ScrollContainer>
-					<Switch>
-						<Route exact path={routes.posts.path}>
-							<PageTitle />
-							<Posts />
-						</Route>
-						<Route path={routes.other.path}>
-							<Other />
-						</Route>
-						<Route path={routes.archive.path}>
-							<Archive />
-						</Route>
-						<Route path={routes.about.path}>
-							<About />
-						</Route>
-					</Switch>
-				</ScrollContainer>
-				<MenuBar isUpper={false} />
-			</LayoutContainer>
-		);
+		return <CompactLayout {...props} />;
 	}
 	else {
-		return (
-			<LayoutContainer>
-				<PageTitle />
-				<MenuBar isUpper={true} />
-				<ScrollContainer>
-					<Switch>
-						<Route exact path={routes.posts.path}>
-							<Posts />
-						</Route>
-						<Route path={routes.other.path}>
-							<Other />
-						</Route>
-						<Route path={routes.archive.path}>
-							<Archive />
-						</Route>
-						<Route path={routes.about.path}>
-							<About />
-						</Route>
-					</Switch>
-				</ScrollContainer>
-			</LayoutContainer>
-		);
+		return <RegularLayout {...props} />;
 	}
+};
+
+
+const RegularLayout: React.FC<LayoutProps> = (props) => {
+
+	const { Posts, Other, Archive, About } = props;
+	const scrollContainerRef = React.useRef<any>(null);
+
+	return (
+		<LayoutContainer>
+			<ScrollContainer ref={scrollContainerRef}>
+				<PageTitle isCompact={false} />
+				<MenuBar isUpper={true} rootRef={scrollContainerRef} />
+				<Switch>
+					<Route exact path={routes.posts.path}>
+						<Posts />
+					</Route>
+					<Route path={routes.other.path}>
+						<Other />
+					</Route>
+					<Route path={routes.archive.path}>
+						<Archive />
+					</Route>
+					<Route path={routes.about.path}>
+						<About />
+					</Route>
+				</Switch>
+			</ScrollContainer>
+		</LayoutContainer>
+	);
+
+};
+const CompactLayout: React.FC<LayoutProps> = (props) => {
+
+	const { Posts, Other, Archive, About } = props;
+	const scrollContainerRef = React.useRef<any>(null);
+	return (
+		<LayoutContainer>
+			<ScrollContainer ref={scrollContainerRef}>
+				<Switch>
+					<Route exact path={routes.posts.path}>
+						<PageTitle isCompact={true} />
+						<Posts />
+					</Route>
+					<Route path={routes.other.path}>
+						<Other />
+					</Route>
+					<Route path={routes.archive.path}>
+						<Archive />
+					</Route>
+					<Route path={routes.about.path}>
+						<About />
+					</Route>
+				</Switch>
+			</ScrollContainer>
+			<MenuBar isUpper={false} />
+		</LayoutContainer>
+	);
+
 };
 
 const ScrollContainer = styled(FlexColumn)`
@@ -97,12 +113,20 @@ const LayoutContainer = styled(FlexColumn)`
 	overflow: hidden;
 `;
 
-const PageTitle: React.FC = () => {
+interface PageTitleProps {
+	isCompact: boolean;
+}
+
+const PageTitle: React.FC<PageTitleProps> = (props) => {
+	const { isCompact } = props;
+
 	return (
-		<PageTitlePadding>
-			<Title isBold={true}>Of The Day</Title>
-			<Text>A place for daily updates by Andrew.</Text>
-		</PageTitlePadding>
+		<DynamicMargin margin={spacing.grand.value}>
+			<PageTitlePadding>
+				<Title isBold={isCompact}>Of The Day</Title>
+				<Text>A place for daily updates by Andrew.</Text>
+			</PageTitlePadding>
+		</DynamicMargin>
 	);
 };
 

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { IPost } from 'oftheday-shared';
 import { Post } from './post';
-import { largerSpacing } from '@/core/style/common';
+import { spacing } from '@/core/style/common';
 import { DynamicMargin } from '@/core/layout/common';
 
 export interface PostsProps {
@@ -16,7 +16,7 @@ export const Posts: React.FC<PostsProps> = (props) => {
 
 	const postsRender = posts.map((post, i) => {
 		return (
-			<DynamicMargin margin={largerSpacing.vertical}>
+			<DynamicMargin margin={spacing.medium.vertical}>
 
 				<Post post={post} isCollapsedInitially={i !== 0} />
 			</DynamicMargin>

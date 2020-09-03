@@ -4,7 +4,7 @@ import * as React from 'react';
 import { IPostMusic } from 'oftheday-shared';
 import { Text } from '@/core/symbol/text';
 import { LabelValue, Value, DynamicMargin } from '@/core/layout/common';
-import { largerSpacing, smallerSpacingValue } from '@/core/style/common';
+import { spacing } from '@/core/style/common';
 import { ElementSeparator } from './separators';
 import { YouTubeVideoFrame } from './video';
 import { TagList } from './tag';
@@ -33,29 +33,29 @@ export const Music: React.FC<MusicProps> = (props) => {
 
 	const embedRender: JSX.Element = useYouTube ? <YouTubeVideoFrame url={youTubeLink} /> : <SpotifyEmbedFrame url={spotifyLink} />;
 
-	const { horizontal: largerSpacingHorizontal, vertical: largerSpacingVertical } = largerSpacing;
+	const { horizontal, vertical } = spacing.medium;
 
 	return (
 		<ElementRoot>
-			<DynamicMargin margin={largerSpacingHorizontal}>
-				<LabelValue margin={largerSpacingVertical} label='Song'>
+			<DynamicMargin margin={horizontal}>
+				<LabelValue margin={vertical} label='Song'>
 					<MusicTitle music={music} />
 				</LabelValue>
 
-				<DynamicMargin margin={largerSpacingVertical}>
+				<DynamicMargin margin={vertical}>
 					<TagList tags={tagStrings} />
 				</DynamicMargin>
-				<DynamicMargin margin={largerSpacingVertical}>
+				<DynamicMargin margin={vertical}>
 					{embedRender}
 				</DynamicMargin>
 
-				<Value margin={largerSpacingVertical}>{description}</Value>
+				<Value margin={vertical}>{description}</Value>
 
-				<DynamicMargin margin={largerSpacingVertical}>
+				<DynamicMargin margin={vertical}>
 					<MusicOutLinks music={music} />
 				</DynamicMargin>
 
-				<DynamicMargin margin={largerSpacingVertical}>
+				<DynamicMargin margin={vertical}>
 					<MusicQuote lyric={quote} />
 				</DynamicMargin>
 
@@ -151,5 +151,5 @@ const MusicOutLinks: React.FC<MusicProps> = (props) => {
 
 const Spacer = styled.span`
 	display: inline-block;
-	width: calc(${smallerSpacingValue} * 2);
+	width: calc(${spacing.small.value} * 2);
 `;

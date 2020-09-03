@@ -2,18 +2,19 @@ import * as React from 'react';
 import { styled } from '@/core/style/styled';
 import { routes } from '@/services/nav/routing';
 import { Text } from '@/core/symbol/text';
-import { smallerSpacingValue, borderRadiusValue } from '@/core/style/common';
+import { spacing, borderRadiusValue } from '@/core/style/common';
 import { useHistory, useLocation, matchPath } from 'react-router-dom';
 import { FlexRow } from '@messman/react-common';
 
 export interface MenuBarProps {
 	isUpper: boolean;
+	rootRef?: React.RefObject<any>;
 	isDisabled?: boolean;
 }
 
 const MenuBarContainer = styled(FlexRow) <MenuBarProps>`
 	background-color: ${p => p.theme.color.backgroundB};
-	padding: calc(${smallerSpacingValue} / 2) 0;
+	padding: calc(${spacing.small.value} / 2) 0;
 	border-radius: ${p => p.isUpper ? borderRadiusValue : 0};
 `;
 
@@ -73,18 +74,18 @@ export const MenuBarItem: React.FC<MenuBarItemProps> = (props) => {
 
 const ItemButtonTextPadding = styled.div<MenuBarItemProps>`
 	text-align: center;
-	padding: calc(${smallerSpacingValue} / 4);
+	padding: calc(${spacing.small.value} / 4);
 
 	border: 0 solid transparent;
-	border-color: ${p => p.isActive ? (p.isDisabled ? p.theme.color.disabled : p.theme.color.textAndIcon) : 'transparent'};
+	border-color: ${p => p.isActive ? (p.isDisabled ? p.theme.color.textDisabled : p.theme.color.text) : 'transparent'};
 	border-bottom-width: 1px;
 `;
 
 const ItemButton = styled.button<MenuBarItemProps>`
 	background-color: transparent;
 	cursor: ${p => p.isDisabled ? 'not-allowed' : 'pointer'};
-	color: ${p => p.isDisabled ? p.theme.color.disabled : p.theme.color.textAndIcon};
+	color: ${p => p.isDisabled ? p.theme.color.textDisabled : p.theme.color.text};
 
-	padding: calc(${smallerSpacingValue} / 3);
+	padding: calc(${spacing.small.value} / 3);
 	border: none;
 `;

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { styled } from '@/core/style/styled';
 import { IPostVideo } from 'oftheday-shared';
-import { largerSpacing, lineSpacing } from '@/core/style/common';
+import { spacing } from '@/core/style/common';
 import { LabelValue, DynamicMargin, Value } from '@/core/layout/common';
 import { Text, SubText } from '@/core/symbol/text';
 import { TagList } from './tag';
@@ -26,34 +26,34 @@ export const Video: React.FC<VideoProps> = (props) => {
 		return ([isTop ? 'top' : '', isNSFW ? 'NSFW' : '', ...tags]).filter(x => !!x);
 	}, [tags, isTop, isNSFW]);
 
-	const { horizontal: largerSpacingHorizontal, vertical: largerSpacingVertical } = largerSpacing;
+	const { horizontal, vertical } = spacing.medium;
 
 
 	let internalVideoRender: JSX.Element = null!;
 	if (isRemoved) {
 		internalVideoRender = (
-			<Value margin={largerSpacingVertical}><em>Video removed.</em></Value>
+			<Value margin={vertical}><em>Video removed.</em></Value>
 		);
 	}
 	else {
 		internalVideoRender = (
 			<>
-				<DynamicMargin margin={largerSpacingVertical}>
+				<DynamicMargin margin={vertical}>
 					<YouTubeVideoFrame url={link} />
 				</DynamicMargin>
 
-				<Value margin={largerSpacingVertical}>{description}</Value>
+				<Value margin={vertical}>{description}</Value>
 			</>
 		);
 	}
 	return (
 		<ElementRoot>
-			<DynamicMargin margin={largerSpacingHorizontal}>
-				<LabelValue margin={largerSpacingVertical} label='Video'>
+			<DynamicMargin margin={horizontal}>
+				<LabelValue margin={vertical} label='Video'>
 					<VideoTitle title={title} originalTitle={originalTitle} />
 				</LabelValue>
 
-				<DynamicMargin margin={largerSpacingVertical}>
+				<DynamicMargin margin={vertical}>
 					<TagList tags={tagStrings} />
 				</DynamicMargin>
 				{internalVideoRender}
@@ -82,7 +82,7 @@ const VideoTitle: React.FC<VideoTitleProps> = (props) => {
 		}
 
 		originalTitleWarningRender = (
-			<DynamicMargin margin={lineSpacing.top}>
+			<DynamicMargin margin={spacing.nudge.top}>
 				<NoteText>Title reworded by Andrew. <ActionLink onClick={onClick}>See original.</ActionLink></NoteText>
 			</DynamicMargin>
 		);
