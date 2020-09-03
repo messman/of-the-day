@@ -3,7 +3,6 @@ import { AboutProps } from '@/areas/about/about';
 import { PostsProps } from '@/areas/posts/posts';
 import { OtherProps } from '@/areas/other/other';
 import { ArchiveProps } from '@/areas/archive/archive';
-import { AccountProps } from '@/areas/account/account';
 import { styled } from '@/core/style/styled';
 import { Text } from '@/core/symbol/text';
 import { Flex } from '@messman/react-common';
@@ -23,12 +22,6 @@ export const MockOther: React.FC<OtherProps> = () => {
 export const MockArchive: React.FC<ArchiveProps> = () => {
 	return (
 		<Area><Text>Archive</Text></Area>
-	);
-};
-
-export const MockAccount: React.FC<AccountProps> = () => {
-	return (
-		<Area><Text>Account</Text></Area>
 	);
 };
 

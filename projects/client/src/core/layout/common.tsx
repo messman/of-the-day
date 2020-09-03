@@ -2,6 +2,7 @@ import * as React from 'react';
 import { styled } from '../style/styled';
 import { Text } from '../symbol/text';
 import { DefaultLayoutBreakpoint, FlexColumn, FlexRow } from '@messman/react-common';
+import { lineSpacing } from '../style/common';
 
 /** A flex column whose width is the screen width, not the width decided by flex rules. */
 export const ScreenWidthFlexColumn = styled(FlexColumn)`
@@ -30,7 +31,6 @@ export const Value: React.FC<ValueProps> = (props) => {
 	if (!children || (show !== undefined && !show)) {
 		return null;
 	}
-
 	return (
 		<DynamicMargin margin={margin}>
 			{children}
@@ -52,7 +52,7 @@ export const LabelValue: React.FC<LabelValueProps> = (props) => {
 	return (
 		<DynamicMargin margin={margin}>
 			<Text isBold={true}>{label}</Text>
-			<Value margin='3px 0 0 0'>
+			<Value margin={lineSpacing.top}>
 				{children}
 			</Value>
 		</DynamicMargin>
@@ -61,8 +61,10 @@ export const LabelValue: React.FC<LabelValueProps> = (props) => {
 
 export interface DynamicMarginProps {
 	margin?: string | null;
+	isInline?: boolean;
 }
 
 export const DynamicMargin = styled.div<DynamicMarginProps>`
+	display: ${p => p.isInline ? 'inline-block' : 'block'};
 	margin: ${p => p.margin || 0};
 `;

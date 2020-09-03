@@ -8,10 +8,6 @@ import { IPost } from 'oftheday-shared';
 export default { title: 'Areas/Posts/Posts' };
 
 export const PostsLayout = decorate('Posts', () => {
-
-
-
-
 	return (
 		<Layout
 			Posts={TestPosts}

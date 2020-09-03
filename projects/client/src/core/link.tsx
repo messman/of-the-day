@@ -33,7 +33,7 @@ export const OutLink: React.FC<LinkProps> = (props) => {
 	if (!href) {
 		return null;
 	}
-	const text = props.children as string;
+	const text = (props.children as string) || href;
 	return (
 		<BasicLink href={href} rel="noreferrer noopener" target="_blank" title="Opens in a new tab" {...otherProps}>
 			<Underline>

@@ -30,6 +30,9 @@ function createSpacing(value: string): Spacing {
 	};
 }
 
+/** Line spacing value, for separation of lines of text. .1875rem / 3px. */
+export const lineSpacingValue: string = '.1875rem';
+export const lineSpacing = createSpacing(lineSpacingValue);
 /** Smaller padding value, for edges against the screen. .625rem / 10px. */
 export const smallerSpacingValue: string = '.625rem';
 export const smallerSpacing = createSpacing(smallerSpacingValue);

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { styled } from '@/core/style/styled';
 import { IPostVideo } from 'oftheday-shared';
-import { largerSpacing } from '@/core/style/common';
+import { largerSpacing, lineSpacing } from '@/core/style/common';
 import { LabelValue, DynamicMargin, Value } from '@/core/layout/common';
 import { Text, SubText } from '@/core/symbol/text';
 import { TagList } from './tag';
@@ -82,7 +82,7 @@ const VideoTitle: React.FC<VideoTitleProps> = (props) => {
 		}
 
 		originalTitleWarningRender = (
-			<DynamicMargin margin='3px 0 0 0'>
+			<DynamicMargin margin={lineSpacing.top}>
 				<NoteText>Title reworded by Andrew. <ActionLink onClick={onClick}>See original.</ActionLink></NoteText>
 			</DynamicMargin>
 		);

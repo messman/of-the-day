@@ -2,9 +2,12 @@ import { IMeta } from '../meta';
 
 export interface OtherResponse {
 	meta: IMeta;
+	other: IOther;
+}
 
-	workingOn?: OtherWorkingOn;
-	lookingForward?: OtherLookingForward;
+export interface IOther {
+	workingOn?: IOtherWorkingOn;
+	lookingForward?: IOtherLookingForward;
 
 	spotifyLink?: string;
 	youTubeLink?: string;
@@ -14,26 +17,26 @@ export interface OtherResponse {
 	milesByFoot?: number;
 	milesByBicycle?: number;
 
-	topLocations?: Count[];
-	topDayTypes?: Count[];
-	topArtists?: Count[];
+	topLocations?: IOtherCount[];
+	topDayTypes?: IOtherCount[];
+	topArtists?: IOtherCount[];
 
 	checklistDone: string[];
 	checklistToDo: string[];
 }
 
-export interface Count {
+export interface IOtherCount {
 	text: string;
 	count: number;
 }
 
-export interface OtherWorkingOn {
+export interface IOtherWorkingOn {
 	text?: string;
 	link?: string;
 	linkText?: string;
 }
 
-export interface OtherLookingForward {
+export interface IOtherLookingForward {
 	text?: string;
 	link?: string;
 	linkText?: string;
