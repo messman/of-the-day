@@ -10,6 +10,12 @@ export const ScreenWidthFlexColumn = styled(FlexColumn)`
 	max-width: ${DefaultLayoutBreakpoint.regular}px;
 `;
 
+export const ApplicationMaxWidth = styled.div`
+	max-width: ${DefaultLayoutBreakpoint.wide}px;
+	margin-left: auto;
+	margin-right: auto;
+`;
+
 /** A flex column whose width is the Regular Layout Breakpoint Size. */
 export const RegularWidthFlexColumn = styled(FlexColumn)`
 	width: ${DefaultLayoutBreakpoint.regular}px;

@@ -1,46 +1,40 @@
 import * as React from 'react';
 import { styled, StyledFC } from '@/core/style/styled';
+import { ThemePickColor } from '../style/theme';
+import { css } from 'styled-components';
 
 export type SVGIconType = React.FC<React.SVGAttributes<SVGElement>>;
 
 // These SVG files are processed by webpack to become actual SVG code in the final code package.
-const ReactionSmile = require('@/static/icons/reaction-smile.svg').default as SVGIconType;
-const ReactionText = require('@/static/icons/reaction-text.svg').default as SVGIconType;
-const QuotationOpen = require('@/static/icons/quotation-open.svg').default as SVGIconType;
-const QuotationClose = require('@/static/icons/quotation-close.svg').default as SVGIconType;
-const Collapse = require('@/static/icons/collapse.svg').default as SVGIconType;
-const TodoIncomplete = require('@/static/icons/todo-incomplete.svg').default as SVGIconType;
-const TodoComplete = require('@/static/icons/todo-complete.svg').default as SVGIconType;
-const Alert = require('@/static/icons/alert.svg').default as SVGIconType;
-const Question = require('@/static/icons/question.svg').default as SVGIconType;
-const Gear = require('@/static/icons/gear.svg').default as SVGIconType;
-const Refresh = require('@/static/icons/refresh.svg').default as SVGIconType;
-const Compass = require('@/static/icons/compass.svg').default as SVGIconType;
-const Out = require('@/static/icons/out.svg').default as SVGIconType;
-
 export const iconTypes = {
-	reactionSmile: ReactionSmile,
-	reactionText: ReactionText,
-	quotationOpen: QuotationOpen,
-	quotationClose: QuotationClose,
-	collapse: Collapse,
-	todoIncomplete: TodoIncomplete,
-	todoComplete: TodoComplete,
-	alert: Alert,
-	question: Question,
-	gear: Gear,
-	refresh: Refresh,
-	compass: Compass,
-	out: Out
+	reactionSmile: require('@/static/icons/reaction-smile.svg').default as SVGIconType,
+	reactionText: require('@/static/icons/reaction-text.svg').default as SVGIconType,
+	quotationOpen: require('@/static/icons/quotation-open.svg').default as SVGIconType,
+	quotationClose: require('@/static/icons/quotation-close.svg').default as SVGIconType,
+	collapse: require('@/static/icons/collapse.svg').default as SVGIconType,
+	todoIncomplete: require('@/static/icons/todo-incomplete.svg').default as SVGIconType,
+	todoComplete: require('@/static/icons/todo-complete.svg').default as SVGIconType,
+	alert: require('@/static/icons/alert.svg').default as SVGIconType,
+	question: require('@/static/icons/question.svg').default as SVGIconType,
+	gear: require('@/static/icons/gear.svg').default as SVGIconType,
+	refresh: require('@/static/icons/refresh.svg').default as SVGIconType,
+	compass: require('@/static/icons/compass.svg').default as SVGIconType,
+	out: require('@/static/icons/out.svg').default as SVGIconType,
+	calendar: require('@/static/icons/calendar.svg').default as SVGIconType,
+	image: require('@/static/icons/image.svg').default as SVGIconType,
+	music: require('@/static/icons/music.svg').default as SVGIconType,
+	quote: require('@/static/icons/quote.svg').default as SVGIconType,
+	thought: require('@/static/icons/thought.svg').default as SVGIconType,
+	video: require('@/static/icons/video.svg').default as SVGIconType
 };
 
 export interface IconProps {
-	type: SVGIconType,
+	type: SVGIconType;
 	/** If set, overrides the default text icon color for icons that allow it. */
-	defaultColor?: string;
+	defaultColor?: ThemePickColor;
 	/** If set, overrides all colors in the icon. */
-	fillColor?: string;
-	width?: string,
+	fillColor?: ThemePickColor;
+	width?: string;
 	height?: string;
 }
 
@@ -56,7 +50,6 @@ export const Icon: StyledFC<IconProps> = (props) => {
 
 	const { className, type, defaultColor, fillColor, width, height } = props;
 
-	const color = defaultColor;
 	const SVGIcon = type;
 
 
@@ -65,17 +58,17 @@ export const Icon: StyledFC<IconProps> = (props) => {
 	const iconProp = { [setValue]: '100%' };
 
 	return (
-		<SVGWrapper className={className} svgColor={color} svgFill={fillColor} wrapperWidth={width} wrapperHeight={height}>
+		<SVGWrapper className={className} svgColor={defaultColor} svgFill={fillColor} wrapperWidth={width} wrapperHeight={height}>
 			<SVGIcon {...iconProp} />
 		</SVGWrapper>
 	);
 };
 
 interface SVGWrapperProps {
-	wrapperWidth?: string,
-	wrapperHeight?: string,
-	svgColor?: string;
-	svgFill?: string;
+	wrapperWidth?: string;
+	wrapperHeight?: string;
+	svgColor?: ThemePickColor;
+	svgFill?: ThemePickColor;
 }
 
 const SVGWrapper = styled.span<SVGWrapperProps>`
@@ -84,9 +77,9 @@ const SVGWrapper = styled.span<SVGWrapperProps>`
 	height: ${p => p.wrapperHeight || 'unset'}; 
 
 	svg, svg path {
-		color: ${p => (p.svgColor || p.theme.color.text)};
-		${p => p.svgFill && ({
-		fill: p.svgFill!
-	})}
+		color: ${p => (p.svgColor ? p.svgColor!(p.theme.color) : p.theme.color.text)};
+		${p => !!p.svgFill && css({
+	fill: p.svgFill!(p.theme.color)
+})}
 	}
 `;

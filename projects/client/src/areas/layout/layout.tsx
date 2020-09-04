@@ -7,10 +7,8 @@ import { MenuBar } from './menu-bar';
 import { Switch, Route } from 'react-router-dom';
 import { routes } from '@/services/nav/routing';
 import { styled } from '@/core/style/styled';
-import { Title, Text } from '@/core/symbol/text';
 import { useWindowLayout, DefaultLayoutBreakpoint, FlexColumn } from '@messman/react-common';
-import { DynamicMargin } from '@/core/layout/common';
-import { spacing } from '@/core/style/common';
+import { PageTitle } from './page-title';
 
 export const ApplicationLayout: React.FC = () => {
 	return (
@@ -113,23 +111,3 @@ const LayoutContainer = styled(FlexColumn)`
 	overflow: hidden;
 `;
 
-interface PageTitleProps {
-	isCompact: boolean;
-}
-
-const PageTitle: React.FC<PageTitleProps> = (props) => {
-	const { isCompact } = props;
-
-	return (
-		<DynamicMargin margin={spacing.grand.value}>
-			<PageTitlePadding>
-				<Title isBold={isCompact}>Of The Day</Title>
-				<Text>A place for daily updates by Andrew.</Text>
-			</PageTitlePadding>
-		</DynamicMargin>
-	);
-};
-
-const PageTitlePadding = styled.div`
-	padding: 10px;
-`;

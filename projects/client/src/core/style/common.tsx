@@ -8,6 +8,10 @@ export const borderRadiusStyle = css`
 	border-radius: ${borderRadiusValue};
 `;
 
+export const Center = styled.div`
+	text-align: center;
+`;
+
 export interface Spacing {
 	value: string;
 	vertical: string;
@@ -37,10 +41,10 @@ export const spacing = {
 	small: createSpacing('.625rem'),
 	/** For vertical flow. 1rem / 16px. */
 	medium: createSpacing('1rem'),
-	/** For section separation. 2rem / 32px. */
-	large: createSpacing('2rem'),
-	/** For large screen space. 3rem / 48px. */
-	grand: createSpacing('3rem'),
+	/** For section separation. 3rem / 48px. */
+	large: createSpacing('3rem'),
+	/** For large screen space. 4.5rem / 72px. */
+	grand: createSpacing('4.5rem'),
 };
 
 /** Returns a new component that has the specified padding value. */

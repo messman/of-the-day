@@ -2,7 +2,6 @@ import * as React from 'react';
 import { Overlay } from '@/core/layout/overlay';
 import { addMargin, borderRadiusStyle, spacing } from '@/core/style/common';
 import { styled } from '@/core/style/styled';
-import { useCurrentTheme } from '@/core/style/theme';
 import { Icon, iconTypes } from '@/core/symbol/icon';
 import { SmallText, Subtitle, Text, titleHeight } from '@/core/symbol/text';
 import { FlexColumn, Flex } from '@messman/react-common';
@@ -33,15 +32,13 @@ export const Popup: React.FC = (props) => {
 
 	// Pull from our context.
 	const [popupData, setPopupData] = usePopup();
-	const theme = useCurrentTheme();
 
 	let popupBody: JSX.Element | null = null;
 
 	// If the application set a pop-up...
 	if (!!popupData) {
 		const { type, title, text, forcePageReload, onDataRefresh } = popupData;
-
-		const alertColor = type === PopupType.error ? theme.color.error : theme.color.warning;
+		const isError = type === PopupType.error;
 
 		const buttonText = `Click/tap to  ${(forcePageReload ? 'reload page' : (!!onDataRefresh ? 'refresh' : 'dismiss'))}.`;
 		function onClick() {
@@ -65,7 +62,7 @@ export const Popup: React.FC = (props) => {
 		popupBody = (
 			<FlexColumn alignItems='center' justifyContent='space-evenly'>
 				<PopupBody flex='none' onClick={onClick}>
-					<Icon type={iconTypes.alert} fillColor={alertColor} height={titleHeight} />
+					<Icon type={iconTypes.alert} fillColor={c => isError ? c.error : c.warning} height={titleHeight} />
 					<PaddedSubtitle>{title}</PaddedSubtitle>
 					<PaddedText>{text}</PaddedText>
 					<SmallText>{buttonText}</SmallText>

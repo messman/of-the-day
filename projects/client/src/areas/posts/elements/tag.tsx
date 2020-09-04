@@ -17,7 +17,7 @@ export const Tag: React.FC<TagProps> = (props) => {
 	const { value, icon, darkColor, lightColor, useDarkColorForBackground } = props;
 
 	const iconFillColor = useDarkColorForBackground ? lightColor : darkColor;
-	const iconRender = icon ? <Icon type={icon} fillColor={iconFillColor} height={smallTextHeight} /> : null;
+	const iconRender = icon ? <Icon type={icon} fillColor={() => iconFillColor} height={smallTextHeight} /> : null;
 	const valueRender = value || '';
 	const paddingRender = (icon && value) ? <InlinePadding /> : null;
 

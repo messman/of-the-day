@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { addPadding, spacing } from '@/core/style/common';
 import { styled } from '@/core/style/styled';
-import { useCurrentTheme } from '@/core/style/theme';
 import { Icon, iconTypes } from '@/core/symbol/icon';
 import { SmallText, Subtitle, Text, titleHeight } from '@/core/symbol/text';
 import { CONSTANT } from '@/services/constant';
@@ -107,8 +106,6 @@ export interface InvalidCenterProps {
 
 const InvalidCenter: React.FC<InvalidCenterProps> = (props) => {
 
-	const theme = useCurrentTheme();
-
 	// First message will get a larger size.
 	const [firstMessage, ...otherMessages] = props.messages;
 
@@ -139,7 +136,7 @@ const InvalidCenter: React.FC<InvalidCenterProps> = (props) => {
 	return (
 		<InvalidCenterWrapper alignItems='center' onClick={onClick}>
 			<Flex>
-				<Icon type={iconTypes.alert} fillColor={theme.color.error} height={titleHeight} />
+				<Icon type={iconTypes.alert} fillColor={c => c.error} height={titleHeight} />
 				<PaddedSubtitle>{firstMessage}</PaddedSubtitle>
 				{otherMessagesText}
 				{clickInstruction}

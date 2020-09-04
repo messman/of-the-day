@@ -1,5 +1,5 @@
 import { styled, css } from '@/core/style/styled';
-import { ThemePickString } from '../style/theme';
+import { ThemePickColor } from '../style/theme';
 
 const commonTextStyle = css`
 	vertical-align: top;
@@ -13,15 +13,15 @@ const commonTextStyle = css`
 export interface TextProps {
 	isBold?: boolean;
 	isInline?: boolean;
-	color?: ThemePickString;
+	dataColor?: ThemePickColor;
 	margin?: string;
 }
 
-export function createTextComponent(fontSize: string, defaultColor: ThemePickString) {
+export function createTextComponent(fontSize: string, defaultColor: ThemePickColor) {
 	return styled.div<TextProps>`
 		${commonTextStyle};
 		margin: ${p => p.margin || '0'};
-		color: ${p => (p.color || defaultColor)(p.theme)};
+		color: ${p => (p.dataColor || defaultColor)(p.theme.color)};
 		font-size: ${fontSize};
 		display: ${p => p.isInline ? 'inline-block' : 'block'};
 		font-weight: ${p => p.isBold ? '600' : '400'};
@@ -29,25 +29,30 @@ export function createTextComponent(fontSize: string, defaultColor: ThemePickStr
 }
 
 // Default 1rem = 16px
+
+export const grandTitleHeight = '3.5rem';
+/** Title. 3.5rem / 56px. */
+export const GrandTitle = createTextComponent(grandTitleHeight, c => c.textTitle);
+
 export const titleHeight = '2rem';
 /** Title. 2rem / 32px. */
-export const Title = createTextComponent(titleHeight, t => t.color.textTitle);
+export const Title = createTextComponent(titleHeight, c => c.textTitle);
 
 export const subtitleHeight = '1.25rem';
 /** Subtitle. 1.25rem / 20px. */
-export const Subtitle = createTextComponent(subtitleHeight, t => t.color.textSubtitle);
+export const Subtitle = createTextComponent(subtitleHeight, c => c.textSubtitle);
 
 export const textHeight = '1rem';
 /** Regular text. 1rem / 16px. */
-export const Text = createTextComponent(textHeight, t => t.color.text);
+export const Text = createTextComponent(textHeight, c => c.text);
 
 export const smallTextHeight = '.875rem';
 /** Small text. .875rem / 14px. */
-export const SmallText = createTextComponent(smallTextHeight, t => t.color.text);
+export const SmallText = createTextComponent(smallTextHeight, c => c.text);
 
 export const subTextHeight = '.75rem';
 /** Sub text. .75rem / 12px. */
-export const SubText = createTextComponent(subTextHeight, t => t.color.text);
+export const SubText = createTextComponent(subTextHeight, c => c.text);
 
 const textBoxStyle = css`
 	font-size: 1rem;

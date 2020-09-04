@@ -2,7 +2,6 @@
 import * as React from 'react';
 import { styled } from '@/core/style/styled';
 import { iconTypes, Icon } from './symbol/icon';
-import { useCurrentTheme } from './style/theme';
 
 const BasicLink = styled.a`
 	margin: 0;
@@ -29,7 +28,6 @@ export interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement>
 
 export const OutLink: React.FC<LinkProps> = (props) => {
 	const { children, href, rel, target, title, ...otherProps } = props;
-	const theme = useCurrentTheme();
 	if (!href) {
 		return null;
 	}
@@ -39,7 +37,7 @@ export const OutLink: React.FC<LinkProps> = (props) => {
 			<Underline>
 				{text}
 			</Underline>
-			<Icon type={iconTypes.out} fillColor={theme.color.textLink} height='.7rem' />
+			<Icon type={iconTypes.out} fillColor={c => c.textLink} height='.7rem' />
 		</BasicLink>
 	);
 };

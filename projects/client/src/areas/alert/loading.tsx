@@ -2,7 +2,6 @@ import * as React from 'react';
 import { Overlay } from '@/core/layout/overlay';
 import { addPadding, spacing } from '@/core/style/common';
 import { keyframes, styled } from '@/core/style/styled';
-import { useCurrentTheme } from '@/core/style/theme';
 import { Text } from '@/core/symbol/text';
 import { CONSTANT } from '@/services/constant';
 import { PopupType, usePopup } from './popup';
@@ -128,11 +127,10 @@ const LoadingDot = styled.div<LoadingDotProps>`
 `;
 
 const LoadingCompass: React.FC<LoadingDotProps> = (props) => {
-	const theme = useCurrentTheme();
 
 	return (
 		<LoadingCompassContainer index={props.index} >
-			<Icon type={iconTypes.compass} fillColor={theme.color.primaryA} height='3rem' />
+			<Icon type={iconTypes.compass} fillColor={c => c.primaryA} height='3rem' />
 		</LoadingCompassContainer>
 	);
 };

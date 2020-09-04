@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { createGlobalStyle, ThemeProps, ThemeProvider as StyledThemeProvider } from 'styled-components';
-import { DefaultLayoutBreakpoint, UseLocalStorageReturn } from '@messman/react-common';
+import { UseLocalStorageReturn } from '@messman/react-common';
 import { localStorage } from '@/services/data/local-storage';
 
 /** Custom application theme type. */
@@ -98,7 +98,7 @@ export const themes: Theme[] = [darkTheme, lightTheme];
 const defaultThemeIndex = 1;
 
 export type ThemePick<T> = (t: Theme) => T;
-export type ThemePickString = ThemePick<string>;
+export type ThemePickColor = (c: Theme['color']) => string;
 
 // For some reason, VS Code is not happy to colorize the CSS in this block when `createGlobalStyle` is used with a type.
 // Note: '#root' is for storybook
@@ -110,11 +110,9 @@ export const GlobalStyles = createGlobalStyle<ThemeProps<Theme>>`
 	}
 
 	html, body, #react-root, #root {
-		margin: 0 auto;
+		margin: 0;
 		padding: 0;
 		height: 100%;
-		max-width: ${DefaultLayoutBreakpoint.wide}px;
-
 		overscroll-behavior: none;
 	}
 
@@ -124,7 +122,6 @@ export const GlobalStyles = createGlobalStyle<ThemeProps<Theme>>`
 		vertical-align: top;
 		-webkit-text-size-adjust: 100%;
 		box-sizing: border-box;
-		z-index: 1;
 	}
 `;
 

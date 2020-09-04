@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { styled } from '@/core/style/styled';
 import { routes } from '@/services/nav/routing';
-import { Text } from '@/core/symbol/text';
-import { spacing, borderRadiusValue } from '@/core/style/common';
+import { Subtitle } from '@/core/symbol/text';
+import { spacing } from '@/core/style/common';
 import { useHistory, useLocation, matchPath } from 'react-router-dom';
-import { FlexRow } from '@messman/react-common';
+import { FlexRow, DefaultLayoutBreakpoint } from '@messman/react-common';
 
 export interface MenuBarProps {
 	isUpper: boolean;
@@ -12,10 +12,9 @@ export interface MenuBarProps {
 	isDisabled?: boolean;
 }
 
-const MenuBarContainer = styled(FlexRow) <MenuBarProps>`
-	background-color: ${p => p.theme.color.backgroundB};
+const MenuBarContainer = styled.div<MenuBarProps>`
+	background-color: ${p => p.isUpper ? p.theme.color.primaryA : p.theme.color.backgroundB};
 	padding: calc(${spacing.small.value} / 2) 0;
-	border-radius: ${p => p.isUpper ? borderRadiusValue : 0};
 `;
 
 export const MenuBar: React.FC<MenuBarProps> = (props) => {
@@ -39,20 +38,31 @@ export const MenuBar: React.FC<MenuBarProps> = (props) => {
 			key={route.name}
 			title={route.name}
 			isDisabled={props.isDisabled || false}
+			isUpper={props.isUpper}
 			isActive={isActive}
 			onClick={onClick}
 		/>;
 	});
 
 	return (
-		<MenuBarContainer {...props} flex='none' justifyContent='space-evenly'>
-			{menuBarItems}
+		<MenuBarContainer {...props} >
+			<MaxWidth>
+				<FlexRow flex='none' justifyContent='space-around'>
+					{menuBarItems}
+				</FlexRow>
+			</MaxWidth>
 		</MenuBarContainer>
 	);
 };
 
+const MaxWidth = styled.div`
+	max-width: ${DefaultLayoutBreakpoint.regular}px;
+	margin: ${spacing.medium.value} auto;
+`;
+
 export interface MenuBarItemProps {
 	title: string;
+	isUpper: boolean;
 	isDisabled: boolean;
 	isActive: boolean;
 	onClick: () => void;
@@ -63,10 +73,9 @@ export const MenuBarItem: React.FC<MenuBarItemProps> = (props) => {
 	return (
 		<ItemButton {...props} disabled={props.isDisabled}>
 			<ItemButtonTextPadding {...props}>
-
-				<Text>
+				<ItemButtonText {...props}>
 					{props.title}
-				</Text>
+				</ItemButtonText>
 			</ItemButtonTextPadding>
 		</ItemButton>
 	);
@@ -74,18 +83,22 @@ export const MenuBarItem: React.FC<MenuBarItemProps> = (props) => {
 
 const ItemButtonTextPadding = styled.div<MenuBarItemProps>`
 	text-align: center;
-	padding: calc(${spacing.small.value} / 4);
+	padding: ${spacing.nudge.value};
 
 	border: 0 solid transparent;
-	border-color: ${p => p.isActive ? (p.isDisabled ? p.theme.color.textDisabled : p.theme.color.text) : 'transparent'};
-	border-bottom-width: 1px;
+	border-color: ${p => p.isActive ? (p.isDisabled ? p.theme.color.textDisabled : p.theme.color.textLink) : 'transparent'};
+	border-bottom-width: 2px;
 `;
 
 const ItemButton = styled.button<MenuBarItemProps>`
 	background-color: transparent;
 	cursor: ${p => p.isDisabled ? 'not-allowed' : 'pointer'};
-	color: ${p => p.isDisabled ? p.theme.color.textDisabled : p.theme.color.text};
 
-	padding: calc(${spacing.small.value} / 3);
+	padding: ${spacing.nudge.value};
 	border: none;
+	z-index: 30;
+`;
+
+const ItemButtonText = styled(Subtitle) <MenuBarItemProps>`
+	color: ${p => p.isDisabled ? p.theme.color.textDisabled : (p.isUpper ? p.theme.color.backgroundA : p.theme.color.text)};
 `;
