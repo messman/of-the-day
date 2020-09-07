@@ -42,6 +42,14 @@ module.exports = {
 						}
 					}
 				]
+			},
+			{
+				test: /\.(png|jpg|gif)$/i,
+				use: [
+					{
+						loader: 'url-loader'
+					}
+				]
 			});
 		config.resolve.extensions.push('.ts', '.tsx');
 

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { HeaderImg } from './header-img';
 import { GrandTitle, Subtitle } from '@/core/symbol/text';
 import { FlexRow, Flex } from '@messman/react-common';
 import { spacing, Center } from '@/core/style/common';
@@ -16,14 +17,14 @@ const backgroundColor: ThemePickColor = c => c.backgroundA;
 
 const leftIconsInitialDelayFactor = 0;
 const leftIcons: IconAnimationDefinitions = {
-	calendar: [iconTypes.calendar, [-10, 10]],
-	video: [iconTypes.video, [-10, 10]],
+	calendar: [iconTypes.calendar, [-11, 11]],
+	video: [iconTypes.video, [-9, 9]],
 	thought: [iconTypes.thought, [-7, -3, 3]]
 };
 
 const rightIconsInitialDelayFactor = .5;
 const rightIcons: IconAnimationDefinitions = {
-	music: [iconTypes.music, [-10, -7, 7, 10]],
+	music: [iconTypes.music, [-12, -7, 7, 12]],
 	quote: [iconTypes.quote, [-20, -15, 15, 20]],
 	image: [iconTypes.image, [-13, -8, 8, 13]]
 };
@@ -31,6 +32,7 @@ const rightIcons: IconAnimationDefinitions = {
 export const PageTitle: React.FC<PageTitleProps> = () => {
 	return (
 		<PageTitleBackground>
+			<HeaderImg />
 			<ApplicationMaxWidth>
 				<FlexRow justifyContent='space-between' alignItems='center'>
 					<IconScrollAnimation icons={leftIcons} delayFactor={leftIconsInitialDelayFactor} />
@@ -55,6 +57,7 @@ export const PageTitle: React.FC<PageTitleProps> = () => {
 };
 
 const PageTitleBackground = styled.div`
+	position: relative;
 	padding-top: ${spacing.grand.value};
 	padding-bottom: ${spacing.large.value};
 	background: ${p => p.theme.color.primaryA};
