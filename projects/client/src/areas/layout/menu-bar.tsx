@@ -1,10 +1,13 @@
 import * as React from 'react';
-import { styled } from '@/core/style/styled';
+import { styled, css } from '@/core/style/styled';
 import { routes } from '@/services/nav/routing';
-import { Subtitle } from '@/core/symbol/text';
+import { Text } from '@/core/symbol/text';
 import { spacing } from '@/core/style/common';
 import { useHistory, useLocation, matchPath } from 'react-router-dom';
-import { FlexRow, DefaultLayoutBreakpoint } from '@messman/react-common';
+import { FlexRow, DefaultLayoutBreakpoint, Sticky, useSticky } from '@messman/react-common';
+
+/** Use an explicit height for the upper menu bar to be used for sticky and background images. */
+export const upperMenuBarHeightRem = 3.5;
 
 export interface MenuBarProps {
 	isUpper: boolean;
@@ -12,15 +15,12 @@ export interface MenuBarProps {
 	isDisabled?: boolean;
 }
 
-const MenuBarContainer = styled.div<MenuBarProps>`
-	background-color: ${p => p.isUpper ? p.theme.color.primaryA : p.theme.color.backgroundB};
-	padding: calc(${spacing.small.value} / 2) 0;
-`;
-
 export const MenuBar: React.FC<MenuBarProps> = (props) => {
 
 	const history = useHistory();
 	const location = useLocation();
+
+	const stickyOutput = useSticky({});
 
 	const menuBarItems = Object.keys(routes).map((key) => {
 		const route = routes[key as keyof typeof routes];
@@ -45,19 +45,29 @@ export const MenuBar: React.FC<MenuBarProps> = (props) => {
 	});
 
 	return (
-		<MenuBarContainer {...props} >
-			<MaxWidth>
-				<FlexRow flex='none' justifyContent='space-around'>
+		<Sticky isSticky={true} output={stickyOutput}>
+			<MenuBarContainer {...props} flex='none'>
+				<MenuBarInnerContainer {...props} justifyContent='space-around' alignItems='center'>
 					{menuBarItems}
-				</FlexRow>
-			</MaxWidth>
-		</MenuBarContainer>
+				</MenuBarInnerContainer>
+			</MenuBarContainer>
+		</Sticky>
 	);
 };
 
-const MaxWidth = styled.div`
+const MenuBarContainer = styled(FlexRow) <MenuBarProps>`
+	position: relative;
+	z-index: 100;
+	background-color: ${p => p.isUpper ? p.theme.color.backgroundB : p.theme.color.backgroundB};
+	${p => p.isUpper && css`
+		height: ${upperMenuBarHeightRem}rem;
+	`}
+`;
+
+const MenuBarInnerContainer = styled(FlexRow) <MenuBarProps>`
 	max-width: ${DefaultLayoutBreakpoint.regular}px;
-	margin: ${spacing.medium.value} auto;
+	margin-left: auto;
+	margin-right: auto;
 `;
 
 export interface MenuBarItemProps {
@@ -99,6 +109,6 @@ const ItemButton = styled.button<MenuBarItemProps>`
 	z-index: 30;
 `;
 
-const ItemButtonText = styled(Subtitle) <MenuBarItemProps>`
-	color: ${p => p.isDisabled ? p.theme.color.textDisabled : (p.isUpper ? p.theme.color.backgroundA : p.theme.color.text)};
+const ItemButtonText = styled(Text) <MenuBarItemProps>`
+	color: ${p => p.isDisabled ? p.theme.color.textDisabled : p.theme.color.text};
 `;
