@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { IPostCustom } from 'oftheday-shared';
 import { spacing } from '@/core/style/common';
-import { LabelValue, DynamicMargin, Value } from '@/core/layout/common';
+import { LabelValue, DynamicMargin, Value, ApplicationMaxWidth } from '@/core/layout/common';
 import { ElementSeparator } from './separators';
 import { Text } from '@/core/symbol/text';
 import { OutLink } from '@/core/link';
@@ -47,10 +47,12 @@ export const Custom: React.FC<CustomProps> = (props) => {
 
 	return (
 		<ElementRoot>
-			<DynamicMargin margin={spacing.medium.horizontal} >
-				{render}
-				<ElementSeparator />
-			</DynamicMargin>
+			<ApplicationMaxWidth>
+				<DynamicMargin margin={spacing.medium.horizontal} >
+					{render}
+					<ElementSeparator />
+				</DynamicMargin>
+			</ApplicationMaxWidth>
 		</ElementRoot>
 	);
 };

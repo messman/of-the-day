@@ -2,7 +2,6 @@ import * as React from 'react';
 import { IPost } from 'oftheday-shared';
 import { LabelValue, Value, DynamicMargin } from '@/core/layout/common';
 import { spacing } from '@/core/style/common';
-import { ElementSeparator } from './separators';
 import { TagList } from './tag';
 import { ElementRoot } from '../post';
 
@@ -18,16 +17,13 @@ export const Basics: React.FC<BasicsProps> = (props) => {
 	const { horizontal, vertical } = spacing.medium;
 
 	return (
-		<ElementRoot>
-			<DynamicMargin margin={horizontal}>
-				<Value margin={vertical}>{event}</Value>
-				<Value margin={vertical}>{note}</Value>
-				<LabelValue margin={vertical} label='Location'>{location}</LabelValue>
-				<LabelValue margin={vertical} label='Schedule'>{schedule}</LabelValue>
-				<DynamicMargin margin={vertical}>
-					<TagList tags={dayTypes} />
-				</DynamicMargin>
-				<ElementSeparator />
+		<ElementRoot margin={horizontal}>
+			<Value margin={vertical}>{event}</Value>
+			<Value margin={vertical}>{note}</Value>
+			<LabelValue margin={vertical} label='Location'>{location}</LabelValue>
+			<LabelValue margin={vertical} label='Schedule'>{schedule}</LabelValue>
+			<DynamicMargin margin={vertical}>
+				<TagList tags={dayTypes} />
 			</DynamicMargin>
 		</ElementRoot>
 	);

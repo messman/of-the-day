@@ -95,5 +95,4 @@ export const PageTitleScrollAnimation: React.FC = () => {
 const PageTitleScrollAnimationContainer = styled(animated.span)`
 	position: absolute;
 	right: 0;
-	z-index: 20;
 `;

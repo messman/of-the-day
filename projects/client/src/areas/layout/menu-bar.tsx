@@ -6,8 +6,8 @@ import { spacing } from '@/core/style/common';
 import { useHistory, useLocation, matchPath } from 'react-router-dom';
 import { FlexRow, DefaultLayoutBreakpoint, Sticky, useSticky } from '@messman/react-common';
 
-/** Use an explicit height for the upper menu bar to be used for sticky and background images. */
-export const upperMenuBarHeightRem = 3.5;
+/** Use an explicit pixel height for the upper menu bar to be used for sticky. */
+export const upperMenuBarHeightPixels = 56;
 
 export interface MenuBarProps {
 	isUpper: boolean;
@@ -45,7 +45,7 @@ export const MenuBar: React.FC<MenuBarProps> = (props) => {
 	});
 
 	return (
-		<Sticky isSticky={true} output={stickyOutput}>
+		<Sticky isSticky={true} output={stickyOutput} zIndex={1}>
 			<MenuBarContainer {...props} flex='none'>
 				<MenuBarInnerContainer {...props} justifyContent='space-around' alignItems='center'>
 					{menuBarItems}
@@ -57,10 +57,9 @@ export const MenuBar: React.FC<MenuBarProps> = (props) => {
 
 const MenuBarContainer = styled(FlexRow) <MenuBarProps>`
 	position: relative;
-	z-index: 100;
 	background-color: ${p => p.isUpper ? p.theme.color.backgroundB : p.theme.color.backgroundB};
 	${p => p.isUpper && css`
-		height: ${upperMenuBarHeightRem}rem;
+		height: ${upperMenuBarHeightPixels}px;
 	`}
 `;
 
@@ -106,7 +105,6 @@ const ItemButton = styled.button<MenuBarItemProps>`
 
 	padding: ${spacing.nudge.value};
 	border: none;
-	z-index: 30;
 `;
 
 const ItemButtonText = styled(Text) <MenuBarItemProps>`

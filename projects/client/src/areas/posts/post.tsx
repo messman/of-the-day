@@ -11,6 +11,7 @@ import { EndThoughts } from './elements/end-thoughts';
 import { Custom } from './elements/custom';
 import { DayOff } from './elements/day-off';
 import { styled } from '@/core/style/styled';
+import { DynamicMarginProps, ApplicationMaxWidth, DynamicMargin } from '@/core/layout/common';
 
 interface PostProps {
 	isCollapsedInitially?: boolean;
@@ -73,10 +74,25 @@ export const Post: React.FC<PostProps> = (props) => {
 	);
 };
 
-export const ElementRoot = styled.div``;
+const ElementRootColor = styled.div`
+	overflow: auto;
+	&:nth-child(even) {
+		background-color: ${p => p.theme.color.backgroundB};
+	}
+`;
+
+export const ElementRoot: React.FC<DynamicMarginProps> = (props) => {
+	return (
+		<ElementRootColor>
+			<ApplicationMaxWidth>
+				<DynamicMargin {...props} />
+			</ApplicationMaxWidth>
+		</ElementRootColor>
+	);
+};
 
 const PostRoot = styled.div`
-	& > ${ElementRoot}:last-of-type ${ElementSeparator} {
+	& > ${ElementRootColor}:last-of-type ${ElementSeparator} {
 		display: none;
 	}
 `;
