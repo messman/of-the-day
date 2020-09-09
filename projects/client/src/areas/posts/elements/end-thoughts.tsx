@@ -2,7 +2,6 @@ import * as React from 'react';
 import { IPostEndThoughts } from 'oftheday-shared';
 import { spacing } from '@/core/style/common';
 import { LabelValue, DynamicMargin, ApplicationMaxWidth } from '@/core/layout/common';
-import { ElementSeparator } from './separators';
 import { ElementRoot } from '../post';
 
 export interface EndThoughtsProps {
@@ -25,7 +24,6 @@ export const EndThoughts: React.FC<EndThoughtsProps> = (props) => {
 					<LabelValue margin={spacing.medium.vertical} label='End-of-day thoughts'>
 						{value}
 					</LabelValue>
-					<ElementSeparator />
 				</DynamicMargin>
 			</ApplicationMaxWidth>
 		</ElementRoot>

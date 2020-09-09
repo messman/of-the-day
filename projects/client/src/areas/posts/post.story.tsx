@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { decorate } from '@/test/decorate';
 import { Post } from './post';
-import { IPost } from 'oftheday-shared';
+import { IPost, IPostDayReference } from 'oftheday-shared';
 import { Flex } from '@messman/react-common';
 
 export default { title: 'Areas/Posts/Post' };
@@ -12,6 +12,7 @@ export const Posts = decorate('Post', () => {
 		date: '01/01/2020',
 		dateText: 'Wed, Jan 1',
 		dayNumber: 287,
+		dayReference: IPostDayReference.tomorrow,
 
 		isDayOff: false,
 		dayOffMessage: 'Here is a message about the day off',

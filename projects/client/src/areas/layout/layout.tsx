@@ -3,7 +3,7 @@ import { About, AboutProps } from '@/areas/about/about';
 import { Posts, PostsProps } from '@/areas/posts/posts';
 import { Other, OtherProps } from '@/areas/other/other';
 import { Archive, ArchiveProps } from '@/areas/archive/archive';
-import { MenuBar } from './menu-bar';
+import { MenuBar, upperMenuBarHeightPixels } from './menu-bar';
 import { Switch, Route } from 'react-router-dom';
 import { routes } from '@/services/nav/routing';
 import { styled } from '@/core/style/styled';
@@ -55,7 +55,7 @@ const RegularLayout: React.FC<LayoutProps> = (props) => {
 				<MenuBar isUpper={true} rootRef={scrollContainerRef} />
 				<Switch>
 					<Route exact path={routes.posts.path}>
-						<Posts />
+						<Posts rootRef={scrollContainerRef} isUpper={true} offsetPixels={upperMenuBarHeightPixels} />
 					</Route>
 					<Route path={routes.other.path}>
 						<Other />
@@ -82,7 +82,7 @@ const CompactLayout: React.FC<LayoutProps> = (props) => {
 				<Switch>
 					<Route exact path={routes.posts.path}>
 						<PageTitle isCompact={true} />
-						<Posts />
+						<Posts rootRef={scrollContainerRef} isUpper={false} offsetPixels={0} />
 					</Route>
 					<Route path={routes.other.path}>
 						<Other />

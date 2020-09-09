@@ -10,7 +10,6 @@ import { titleHeight } from '@/core/symbol/text';
 import { DynamicMargin, LabelValue } from '@/core/layout/common';
 import { DefaultLayoutBreakpoint, Flex, FlexRow } from '@messman/react-common';
 import { OutLink } from '@/core/link';
-import { ElementSeparator } from './separators';
 import { ElementRoot } from '../post';
 
 export interface MusicQuoteProps {
@@ -59,7 +58,6 @@ export const Quote: React.FC<QuoteProps> = (props) => {
 				<DynamicMargin margin={spacing.medium.vertical}>
 					<InnerQuote quote={quote} />
 				</DynamicMargin>
-				<ElementSeparator />
 			</DynamicMargin>
 		</ElementRoot>
 	);

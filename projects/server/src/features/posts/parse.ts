@@ -1,9 +1,9 @@
-import { IPost, IPostReactionSummary } from 'oftheday-shared';
+import { IPost, IPostReactionSummary, IPostDayReference } from 'oftheday-shared';
 import { stringAt, tryParseInt } from '../../services/primitives';
 import { columnsFrom } from '../../services/google-sheets/cell';
 import { keepTruthy } from '../../services/util';
 
-export function parsePost(row: any[]): IPost {
+export function parsePost(row: any[], dayReference: IPostDayReference): IPost {
 	const col = columnsFrom('A');
 	function stringAtCol(columnLetter: string): string {
 		return stringAt(row, col(columnLetter));
@@ -13,6 +13,7 @@ export function parsePost(row: any[]): IPost {
 		date: stringAtCol('A'),
 		dateText: stringAtCol('B'),
 		dayNumber: tryParseInt(stringAtCol('C'), -1),
+		dayReference: dayReference,
 		isDayOff: !!stringAtCol('E'),
 		dayOffMessage: stringAtCol('F'),
 

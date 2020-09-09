@@ -5,7 +5,6 @@ import { spacing } from '@/core/style/common';
 import { LabelValue, DynamicMargin, Value } from '@/core/layout/common';
 import { Text, SubText } from '@/core/symbol/text';
 import { TagList } from './tag';
-import { ElementSeparator } from './separators';
 import { ActionLink } from '@/core/link';
 import { ElementRoot } from '../post';
 
@@ -57,7 +56,6 @@ export const Video: React.FC<VideoProps> = (props) => {
 					<TagList tags={tagStrings} />
 				</DynamicMargin>
 				{internalVideoRender}
-				<ElementSeparator />
 			</DynamicMargin>
 		</ElementRoot>
 	);

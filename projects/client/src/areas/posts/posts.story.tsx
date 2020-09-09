@@ -3,7 +3,7 @@ import { decorate } from '@/test/decorate';
 import { MockOther, MockArchive, MockAbout } from '@/areas/layout/layout-mock';
 import { Layout } from '@/areas/layout/layout';
 import { Posts, PostsProps } from './posts';
-import { IPost } from 'oftheday-shared';
+import { IPost, IPostDayReference } from 'oftheday-shared';
 
 export default { title: 'Areas/Posts/Posts' };
 
@@ -23,6 +23,7 @@ const postsTestData: IPost[] = [
 		date: '08/27/2020',
 		dateText: 'Thu, Aug 27',
 		dayNumber: 456,
+		dayReference: IPostDayReference.tomorrow,
 
 		isDayOff: false,
 		dayOffMessage: 'Here is a message about the day off',
@@ -58,7 +59,7 @@ const postsTestData: IPost[] = [
 			title: 'Cornbread | Basics with Babish',
 			originalTitle: 'Cornbread | Basics with Babish',
 			description: '\'Binging with Babish\' is a great cooking channel on YouTube. As a person who enjoys making and eating cornbread, I was very interested to see the different ways it can be made. (Links to recipes are in the video description.) The cornbread I make is more similar to the northern style.',
-			link: 'https://youtu.be/nAtCqHJofJk',
+			link: 'https://youtu.be/Bpu0TIXzI1w',
 			isNSFW: false,
 			isRemoved: false,
 			isTop: false,
@@ -94,6 +95,7 @@ const postsTestData: IPost[] = [
 		date: '08/28/2020',
 		dateText: 'Fri, Aug 28',
 		dayNumber: 457,
+		dayReference: IPostDayReference.today,
 
 		isDayOff: false,
 		dayOffMessage: '',
@@ -165,6 +167,7 @@ const postsTestData: IPost[] = [
 		date: '08/29/2020',
 		dateText: 'Sat, Aug 29',
 		dayNumber: 458,
+		dayReference: IPostDayReference.yesterday,
 
 		isDayOff: true,
 		dayOffMessage: '',
@@ -236,9 +239,7 @@ const postsTestData: IPost[] = [
 
 ];
 
-const TestPosts: React.FC<PostsProps> = () => {
+const TestPosts: React.FC<PostsProps> = (props) => {
 
-
-
-	return <Posts overridePosts={postsTestData} />;
+	return <Posts overridePosts={postsTestData} {...props} />;
 };

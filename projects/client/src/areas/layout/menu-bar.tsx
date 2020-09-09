@@ -16,11 +16,14 @@ export interface MenuBarProps {
 }
 
 export const MenuBar: React.FC<MenuBarProps> = (props) => {
+	const { rootRef } = props;
 
 	const history = useHistory();
 	const location = useLocation();
 
-	const stickyOutput = useSticky({});
+	const stickyOutput = useSticky({
+		rootRef: rootRef
+	});
 
 	const menuBarItems = Object.keys(routes).map((key) => {
 		const route = routes[key as keyof typeof routes];
@@ -45,7 +48,7 @@ export const MenuBar: React.FC<MenuBarProps> = (props) => {
 	});
 
 	return (
-		<Sticky isSticky={true} output={stickyOutput} zIndex={1}>
+		<Sticky isSticky={true} output={stickyOutput} zIndex={1} >
 			<MenuBarContainer {...props} flex='none'>
 				<MenuBarInnerContainer {...props} justifyContent='space-around' alignItems='center'>
 					{menuBarItems}

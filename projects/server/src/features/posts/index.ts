@@ -1,5 +1,5 @@
 import { createCell } from '../../services/google-sheets/cell';
-import { IPostResponse, IPost } from 'oftheday-shared';
+import { IPostResponse, IPost, IPostDayReference } from 'oftheday-shared';
 import { SheetsService } from '../../services/google-sheets/sheets-service';
 import { getDayNumber } from '../../services/time';
 import { parsePost } from './parse';
@@ -44,8 +44,25 @@ export async function getPosts(sheetsService: SheetsService, includeTomorrow: bo
 			const postRecords = values[0];
 			const posts: IPost[] = [];
 			// Reverse so that most recent day (or tomorrow) is up top.
+			let dayReferenceIndex = includeTomorrow ? -1 : 0;
 			for (let i = totalRows - 1; i >= 0; i--) {
-				posts.push(parsePost(postRecords[i]));
+				let dayReference: IPostDayReference = null!;
+				switch (dayReferenceIndex) {
+					case -1:
+						dayReference = IPostDayReference.tomorrow;
+						break;
+					case 0:
+						dayReference = IPostDayReference.today;
+						break;
+					case 1:
+						dayReference = IPostDayReference.yesterday;
+						break;
+					default:
+						dayReference = IPostDayReference.other;
+				}
+
+				posts.push(parsePost(postRecords[i], dayReference));
+				dayReferenceIndex++;
 			}
 			postResponse.posts = posts;
 		}

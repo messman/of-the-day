@@ -14,9 +14,9 @@ export interface IPost {
 	date: string;
 	dateText: string;
 	dayNumber: number;
+	dayReference: IPostDayReference;
 	isDayOff: boolean;
 	dayOffMessage: string;
-
 	basics: IPostBasics;
 	endThoughts: IPostEndThoughts;
 	music: IPostMusic;
@@ -24,6 +24,13 @@ export interface IPost {
 	quote: IPostQuote;
 	image: IPostImage;
 	custom: IPostCustom;
+}
+
+export enum IPostDayReference {
+	other,
+	today,
+	yesterday,
+	tomorrow
 }
 
 export interface IPostBasics {

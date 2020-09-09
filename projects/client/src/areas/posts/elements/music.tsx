@@ -5,7 +5,6 @@ import { IPostMusic } from 'oftheday-shared';
 import { Text } from '@/core/symbol/text';
 import { LabelValue, Value, DynamicMargin } from '@/core/layout/common';
 import { spacing } from '@/core/style/common';
-import { ElementSeparator } from './separators';
 import { YouTubeVideoFrame } from './video';
 import { TagList } from './tag';
 import { styled } from '@/core/style/styled';
@@ -59,8 +58,6 @@ export const Music: React.FC<MusicProps> = (props) => {
 					<MusicQuote lyric={quote} />
 				</DynamicMargin>
 
-
-				<ElementSeparator />
 			</DynamicMargin>
 		</ElementRoot>
 	);

@@ -1,29 +1,43 @@
 import * as React from 'react';
 import { IPost } from 'oftheday-shared';
 import { Post } from './post';
-import { spacing } from '@/core/style/common';
-import { DynamicMargin } from '@/core/layout/common';
+import { PostsHeader } from './posts-header';
 
 export interface PostsProps {
 	overridePosts?: IPost[];
+	rootRef: React.RefObject<any>;
+	offsetPixels: number;
+	isUpper: boolean;
 }
+
+const defaultPosts: IPost[] = [];
 
 export const Posts: React.FC<PostsProps> = (props) => {
 
-	const { overridePosts } = props;
+	const { overridePosts, rootRef, offsetPixels, isUpper } = props;
 
-	const posts = overridePosts || [];
+	const posts = overridePosts || defaultPosts;
 
-	const postsRender = posts.map((post, i) => {
+	const [activePostIndex, setActivePostIndex] = React.useState(0);
+
+	React.useEffect(() => {
+		setActivePostIndex(0);
+	}, [posts]);
+
+	const postsRender = posts.map((post) => {
 		return (
-			<DynamicMargin margin={spacing.medium.vertical}>
-
-				<Post post={post} isCollapsedInitially={i !== 0} />
-			</DynamicMargin>
+			<Post key={post.dateText} post={post} />
 		);
 	});
 
+	function onPostChosen(newActivePostIndex: number) {
+		setActivePostIndex(newActivePostIndex);
+	}
+
 	return (
-		<div>{postsRender}</div>
+		<>
+			<PostsHeader rootRef={rootRef} offsetPixels={offsetPixels} isUpper={isUpper} posts={posts} activePostIndex={activePostIndex} onPostChosen={onPostChosen} />
+			<div>{postsRender}</div>
+		</>
 	);
 };

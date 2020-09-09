@@ -2,7 +2,6 @@ import * as React from 'react';
 import { IPostImage } from 'oftheday-shared';
 import { spacing } from '@/core/style/common';
 import { DynamicMargin, Value, LabelValue } from '@/core/layout/common';
-import { ElementSeparator } from './separators';
 import { Text } from '@/core/symbol/text';
 import { DefaultLayoutBreakpoint } from '@messman/react-common';
 import { styled } from '@/core/style/styled';
@@ -45,7 +44,6 @@ export const Image: React.FC<ImageProps> = (props) => {
 					</a>
 				</DynamicMargin>
 				<Value margin={spacing.medium.vertical}>{sourceRender}</Value>
-				<ElementSeparator />
 			</DynamicMargin>
 		</ElementRoot>
 	);
