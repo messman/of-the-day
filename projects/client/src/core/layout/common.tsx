@@ -15,6 +15,9 @@ export const ApplicationMaxWidth = styled.div`
 	margin-left: auto;
 	margin-right: auto;
 `;
+export const TextContentMaxWidth = styled.div`
+	max-width: ${DefaultLayoutBreakpoint.regular}px;
+`;
 
 /** A flex column whose width is the Regular Layout Breakpoint Size. */
 export const RegularWidthFlexColumn = styled(FlexColumn)`

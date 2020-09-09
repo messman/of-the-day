@@ -34,8 +34,8 @@ export const grandTitleHeight = '3.5rem';
 /** Title. 3.5rem / 56px. */
 export const GrandTitle = createTextComponent(grandTitleHeight, c => c.textTitle);
 
-export const titleHeight = '2rem';
-/** Title. 2rem / 32px. */
+export const titleHeight = '1.75rem';
+/** Title. 1.75rem / 28px. */
 export const Title = createTextComponent(titleHeight, c => c.textTitle);
 
 export const subtitleHeight = '1.25rem';

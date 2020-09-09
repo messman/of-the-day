@@ -60,7 +60,7 @@ export const MenuBar: React.FC<MenuBarProps> = (props) => {
 
 const MenuBarContainer = styled(FlexRow) <MenuBarProps>`
 	position: relative;
-	background-color: ${p => p.isUpper ? p.theme.color.backgroundB : p.theme.color.backgroundB};
+	background-color: ${p => p.isUpper ? p.theme.color.backgroundA : p.theme.color.backgroundB};
 	${p => p.isUpper && css`
 		height: ${upperMenuBarHeightPixels}px;
 	`}

@@ -26,7 +26,7 @@ const RegularBasics: React.FC<BasicsProps> = (props) => {
 	const { basics } = post;
 	const { event, note, location, schedule, dayTypes } = basics;
 
-	const titleMargin = spacing.large.bottom;
+	const titleMargin = spacing.medium.bottom;
 
 	const textMargin = spacing.medium.vertical;
 
@@ -100,6 +100,6 @@ const VerticalSeparator = styled.div`
 
 const TextContainer = styled.div`
 	flex: 1;
-	margin: ${spacing.medium.value};
+	margin: ${spacing.large.value};
 	text-align: center;
 `;

@@ -1,8 +1,10 @@
 import * as React from 'react';
 import { IPostEndThoughts } from 'oftheday-shared';
-import { spacing } from '@/core/style/common';
-import { LabelValue, DynamicMargin, ApplicationMaxWidth } from '@/core/layout/common';
+import { ApplicationMaxWidth, TextContentMaxWidth } from '@/core/layout/common';
 import { ElementRoot } from '../post';
+import { styled } from '@/core/style/styled';
+import { Subtitle, Text } from '@/core/symbol/text';
+import { spacing } from '@/core/style/common';
 
 export interface EndThoughtsProps {
 	endThoughts: IPostEndThoughts;
@@ -19,13 +21,19 @@ export const EndThoughts: React.FC<EndThoughtsProps> = (props) => {
 	return (
 		<ElementRoot>
 			<ApplicationMaxWidth>
-
-				<DynamicMargin margin={spacing.medium.horizontal} >
-					<LabelValue margin={spacing.medium.vertical} label='End-of-day thoughts'>
+				<CenteredContent>
+					<Subtitle isBold={true}>End-of-day Thoughts</Subtitle>
+					<Text margin={spacing.medium.top}>
 						{value}
-					</LabelValue>
-				</DynamicMargin>
+					</Text>
+				</CenteredContent>
 			</ApplicationMaxWidth>
 		</ElementRoot>
 	);
 };
+
+const CenteredContent = styled(TextContentMaxWidth)`
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+`;

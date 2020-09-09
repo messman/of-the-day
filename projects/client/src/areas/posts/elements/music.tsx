@@ -2,17 +2,16 @@
 
 import * as React from 'react';
 import { IPostMusic } from 'oftheday-shared';
-import { Text } from '@/core/symbol/text';
-import { LabelValue, Value, DynamicMargin } from '@/core/layout/common';
+import { Text, Subtitle, Title } from '@/core/symbol/text';
+import { Value, DynamicMargin } from '@/core/layout/common';
 import { spacing } from '@/core/style/common';
 import { YouTubeVideoFrame } from './video';
 import { TagList } from './tag';
 import { styled } from '@/core/style/styled';
 import { OutLink } from '@/core/link';
-import { FlexRow } from '@messman/react-common';
+import { FlexRow, Flex } from '@messman/react-common';
 import { MusicQuote } from './quote';
 import { ElementRoot } from '../post';
-import { useIsCompactWidth } from '@/services/layout/window-layout';
 
 interface MusicProps {
 	music: IPostMusic;
@@ -21,70 +20,59 @@ interface MusicProps {
 export const Music: React.FC<MusicProps> = (props) => {
 	const { music } = props;
 
-	const { title, artist, description, isTop, isNSFW, tags, spotifyLink, geniusLink, youTubeLink, useYouTube, quote } = music;
-	// Required properties:
-	if (!title || !artist || !spotifyLink || !geniusLink || !youTubeLink) {
-		return null;
-	}
+	const { title, artist, description, isTop, isNSFW, tags, spotifyLink, geniusLink, youTubeLink, useYouTube, quote, year } = music;
 
 	const tagStrings = React.useMemo(() => {
 		return ([isTop ? 'top' : '', isNSFW ? 'NSFW' : '', ...tags]).filter(x => !!x);
 	}, [tags, isTop, isNSFW]);
 
+	// Required properties:
+	if (!title || !artist || !spotifyLink || !geniusLink || !youTubeLink) {
+		return null;
+	}
+
+	const yearSuffix = year ? <Text margin={spacing.nudge.top}>{year}</Text> : <></>;
+
 	const embedRender: JSX.Element = useYouTube ? <YouTubeVideoFrame url={youTubeLink} /> : <SpotifyEmbedFrame url={spotifyLink} />;
 
-	const { horizontal, vertical } = spacing.medium;
+	const sectionMargin = spacing.large.vertical;
 
 	return (
 		<ElementRoot>
-			<DynamicMargin margin={horizontal}>
-				<LabelValue margin={vertical} label='Song'>
-					<MusicTitle music={music} />
-				</LabelValue>
-
-				<DynamicMargin margin={vertical}>
-					<TagList tags={tagStrings} />
-				</DynamicMargin>
-				<DynamicMargin margin={vertical}>
-					{embedRender}
-				</DynamicMargin>
-
-				<Value margin={vertical}>{description}</Value>
-
-				<DynamicMargin margin={vertical}>
-					<MusicOutLinks music={music} />
-				</DynamicMargin>
-
-				<DynamicMargin margin={vertical}>
-					<MusicQuote lyric={quote} />
-				</DynamicMargin>
-
-			</DynamicMargin>
+			<FlexRow>
+				<Flex flex={.6}>
+					<DynamicMargin margin={spacing.large.bottom}>
+						<Subtitle isBold={true} margin={spacing.small.bottom}>Music</Subtitle>
+						<ItalicTitle isBold={true}>{title}</ItalicTitle>
+						<Title isBold={true}>{artist}</Title>
+						{yearSuffix}
+					</DynamicMargin>
+					<DynamicMargin margin={sectionMargin}>
+						<TagList tags={tagStrings} />
+					</DynamicMargin>
+					<Value show={description} margin={sectionMargin}>
+						{description}
+					</Value>
+					<Value show={quote} margin={sectionMargin}>
+						<MusicQuote lyric={quote} />
+					</Value>
+					<DynamicMargin margin={sectionMargin}>
+						<MusicOutLinks music={music} />
+					</DynamicMargin>
+				</Flex>
+				<Flex >
+					<DynamicMargin margin={spacing.medium.left}>
+						{embedRender}
+					</DynamicMargin>
+				</Flex>
+			</FlexRow>
 		</ElementRoot>
 	);
 };
 
-const MusicTitle: React.FC<MusicProps> = (props) => {
-	const isCompactWidth = useIsCompactWidth();
-	const { music } = props;
-	// Year is optional, others are required.
-	const { title, artist, year } = music;
-
-	if (!isCompactWidth) {
-		const compactYearSuffix = year ? ` (${year})` : '';
-		return <Text><em>{title}</em>, by {artist}{compactYearSuffix}</Text>;
-	}
-
-	const yearSuffix = year ? <Text>{year}</Text> : <></>;
-
-	return (
-		<>
-			<Text><em>{title}</em></Text>
-			<Text>{artist}</Text>
-			{yearSuffix}
-		</>
-	);
-};
+const ItalicTitle = styled(Title)`
+	font-style: italic;
+`;
 
 interface SpotifyEmbedFrameProps {
 	url: string;
@@ -113,39 +101,18 @@ const EmbedContainer = styled.div`
 `;
 
 const MusicOutLinks: React.FC<MusicProps> = (props) => {
-	const isCompactWidth = useIsCompactWidth();
 	const { spotifyLink, youTubeLink, geniusLink } = props.music;
 	if (!spotifyLink || !youTubeLink || !geniusLink) {
 		return null;
 	}
 
-
-	if (isCompactWidth) {
-		return (
-			<Text>
-				<FlexRow justifyContent='space-around'>
-					<OutLink href={spotifyLink}>Spotify</OutLink>
-					<OutLink href={youTubeLink}>YouTube</OutLink>
-					<OutLink href={geniusLink}>Lyrics</OutLink>
-				</FlexRow>
-			</Text>
-		);
-	}
-
 	return (
 		<Text>
-			<div>
-				<OutLink href={spotifyLink}>Listen on Spotify</OutLink>
-				<Spacer />
-				<OutLink href={youTubeLink}>Watch on YouTube</OutLink>
-				<Spacer />
-				<OutLink href={geniusLink}>See the Lyrics</OutLink>
-			</div>
+			<FlexRow justifyContent='space-around'>
+				<OutLink href={spotifyLink}>Spotify</OutLink>
+				<OutLink href={youTubeLink}>YouTube</OutLink>
+				<OutLink href={geniusLink}>Lyrics</OutLink>
+			</FlexRow>
 		</Text>
 	);
 };
-
-const Spacer = styled.span`
-	display: inline-block;
-	width: calc(${spacing.small.value} * 2);
-`;

@@ -10,6 +10,7 @@ import { Custom } from './elements/custom';
 import { DayOff } from './elements/day-off';
 import { styled } from '@/core/style/styled';
 import { DynamicMarginProps, ApplicationMaxWidth, DynamicMargin } from '@/core/layout/common';
+import { spacing } from '@/core/style/common';
 
 interface PostProps {
 	isActive?: boolean;
@@ -56,10 +57,15 @@ const ElementRootColor = styled.div`
 `;
 
 export const ElementRoot: React.FC<DynamicMarginProps> = (props) => {
+
+	const { margin, ...otherProps } = props;
+
+	let finalMargin = margin || `${spacing.large.value} ${spacing.medium.value}`;
+
 	return (
 		<ElementRootColor>
 			<ApplicationMaxWidth>
-				<DynamicMargin {...props} />
+				<DynamicMargin margin={finalMargin} {...otherProps} />
 			</ApplicationMaxWidth>
 		</ElementRootColor>
 	);
