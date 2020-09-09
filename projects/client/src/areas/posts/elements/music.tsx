@@ -9,9 +9,10 @@ import { YouTubeVideoFrame } from './video';
 import { TagList } from './tag';
 import { styled } from '@/core/style/styled';
 import { OutLink } from '@/core/link';
-import { FlexRow, useWindowLayout, DefaultLayoutBreakpoint } from '@messman/react-common';
+import { FlexRow } from '@messman/react-common';
 import { MusicQuote } from './quote';
 import { ElementRoot } from '../post';
+import { useIsCompactWidth } from '@/services/layout/window-layout';
 
 interface MusicProps {
 	music: IPostMusic;
@@ -64,13 +65,12 @@ export const Music: React.FC<MusicProps> = (props) => {
 };
 
 const MusicTitle: React.FC<MusicProps> = (props) => {
-	const windowLayout = useWindowLayout();
+	const isCompactWidth = useIsCompactWidth();
 	const { music } = props;
 	// Year is optional, others are required.
 	const { title, artist, year } = music;
 
-	const isCompact = windowLayout.widthBreakpoint < DefaultLayoutBreakpoint.regular;
-	if (!isCompact) {
+	if (!isCompactWidth) {
 		const compactYearSuffix = year ? ` (${year})` : '';
 		return <Text><em>{title}</em>, by {artist}{compactYearSuffix}</Text>;
 	}
@@ -113,15 +113,14 @@ const EmbedContainer = styled.div`
 `;
 
 const MusicOutLinks: React.FC<MusicProps> = (props) => {
-	const windowLayout = useWindowLayout();
+	const isCompactWidth = useIsCompactWidth();
 	const { spotifyLink, youTubeLink, geniusLink } = props.music;
 	if (!spotifyLink || !youTubeLink || !geniusLink) {
 		return null;
 	}
 
-	const isCompact = windowLayout.widthBreakpoint < DefaultLayoutBreakpoint.regular;
 
-	if (isCompact) {
+	if (isCompactWidth) {
 		return (
 			<Text>
 				<FlexRow justifyContent='space-around'>

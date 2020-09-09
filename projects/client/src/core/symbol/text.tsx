@@ -24,7 +24,7 @@ export function createTextComponent(fontSize: string, defaultColor: ThemePickCol
 		color: ${p => (p.dataColor || defaultColor)(p.theme.color)};
 		font-size: ${fontSize};
 		display: ${p => p.isInline ? 'inline-block' : 'block'};
-		font-weight: ${p => p.isBold ? '600' : '400'};
+		font-weight: ${p => p.isBold ? '500' : '400'};
 	`;
 }
 
