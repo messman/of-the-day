@@ -32,7 +32,7 @@ const RegularBasics: React.FC<BasicsProps> = (props) => {
 	let leftRender: JSX.Element | null = null;
 	if (event || note) {
 		leftRender = (
-			<TextContainer>
+			<TextContainer key='notes'>
 				<Subtitle isBold={true} margin={titleMargin}>Notes</Subtitle>
 				<Subtitle show={event} margin={textMargin} color={c => c.text}>{event}</Subtitle>
 				<RegularText show={note} margin={textMargin}>{note}</RegularText>
@@ -43,7 +43,7 @@ const RegularBasics: React.FC<BasicsProps> = (props) => {
 	let centerRender: JSX.Element | null = null;
 	if (schedule || (dayTypes && dayTypes.length)) {
 		centerRender = (
-			<TextContainer>
+			<TextContainer key='schedule'>
 				<Subtitle isBold={true} margin={titleMargin}>Schedule</Subtitle>
 				<RegularText show={schedule} margin={textMargin}>{schedule}</RegularText>
 				<TagList margin={textMargin} tags={dayTypes} />
@@ -54,23 +54,19 @@ const RegularBasics: React.FC<BasicsProps> = (props) => {
 	let rightRender: JSX.Element | null = null;
 	if (location) {
 		rightRender = (
-			<TextContainer>
+			<TextContainer key='location'>
 				<Subtitle isBold={true} margin={titleMargin}>Location</Subtitle>
 				<Subtitle color={c => c.text}>{location}</Subtitle>
 			</TextContainer>
 		);
 	}
 
-	const renders = [leftRender, centerRender, rightRender].filter(r => !!r).map((render, i) => {
+	const renders: JSX.Element[] = [];
+	[leftRender, centerRender, rightRender].filter(r => !!r).forEach((render, i) => {
 		if (i !== 0) {
-			return (
-				<>
-					<VerticalSeparator />
-					{render}
-				</>
-			);
+			renders.push(<VerticalSeparator key={i} />);
 		}
-		return render;
+		renders.push(render!);
 	});
 
 	return (

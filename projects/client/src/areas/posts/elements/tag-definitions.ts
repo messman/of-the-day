@@ -1,22 +1,22 @@
 import { TagProps } from './tag';
-import { Theme } from '@/core/style/theme';
+import { Theme, ThemePickColor } from '@/core/style/theme';
 
 interface DynamicTagProps {
 	useDarkColorForBackground: boolean;
-	darkColor: (theme: Theme) => string;
-	lightColor: (theme: Theme) => string;
+	darkColor: ThemePickColor;
+	lightColor: ThemePickColor;
 }
 
-const primaryColor = (theme: Theme) => theme.color.primaryA;
-const successColor = (theme: Theme) => theme.color.success;
-const transparentColor = (_: Theme) => 'transparent';
-const textColor = (theme: Theme) => theme.color.text;
+const primaryColor: ThemePickColor = c => c.primaryA;
+const nsfwColor: ThemePickColor = c => c.error;
+const transparentColor: ThemePickColor = () => 'transparent';
+const textColor: ThemePickColor = c => c.text;
 
 const commonTagProps: { [key: string]: DynamicTagProps; } = {
 	nsfw: {
 		useDarkColorForBackground: true,
 		lightColor: textColor,
-		darkColor: successColor
+		darkColor: nsfwColor
 	},
 	top: {
 		useDarkColorForBackground: true,
@@ -103,20 +103,22 @@ const commonTagProps: { [key: string]: DynamicTagProps; } = {
 export function createTagProps(tags: string[], theme: Theme): TagProps[] {
 	return tags.map<TagProps>((tag) => {
 
+		const themeColor = theme.color;
+
 		const dynamicTagProp = commonTagProps[tag.toLowerCase()];
 		if (dynamicTagProp) {
 			return {
 				value: tag,
-				lightColor: dynamicTagProp.lightColor(theme),
-				darkColor: dynamicTagProp.darkColor(theme),
+				lightColor: dynamicTagProp.lightColor(themeColor),
+				darkColor: dynamicTagProp.darkColor(themeColor),
 				useDarkColorForBackground: dynamicTagProp.useDarkColorForBackground
 			};
 		}
 
 		return {
 			value: tag,
-			lightColor: transparentColor(theme),
-			darkColor: primaryColor(theme),
+			lightColor: transparentColor(themeColor),
+			darkColor: primaryColor(themeColor),
 			useDarkColorForBackground: false
 		};
 	});

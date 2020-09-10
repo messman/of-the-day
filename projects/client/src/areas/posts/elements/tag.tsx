@@ -41,7 +41,7 @@ interface TagContainerProps {
 const TagContainer = tStyled.div<TagContainerProps>`
 	${borderRadiusStyle};
 	display: inline-block;
-	padding: calc(${spacing.small.value} / 4) ${spacing.small.value};
+	padding: ${spacing.nudge.value} ${spacing.small.value};
 	white-space: nowrap;
 	border: 1px solid ${p => p.darkColor};
 	background-color: ${p => p.useDarkColorForBackground ? p.darkColor : p.lightColor};
@@ -51,12 +51,11 @@ const TagContainer = tStyled.div<TagContainerProps>`
 	& + & {
 		margin-left: ${spacing.small.value};
 	}
-
 `;
 
 const InlinePadding = tStyled.div`
 	display: inline-block;
-	margin: 3px;
+	margin: ${spacing.nudge.value};
 `;
 
 export interface TagListProps {

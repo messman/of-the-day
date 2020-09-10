@@ -77,11 +77,11 @@ const InnerQuote: React.FC<QuoteProps> = (props) => {
 		singleVoice = aVoice || null;
 		render = (
 			<>
-				<TopLeftAbsoluteIcon type={iconTypes.quotationOpen} height={titleHeight} />
+				<TopLeftAbsoluteIcon type={iconTypes.quotationOpen} height={titleHeight} fillColor={c => c.primaryA} />
 				<CenterAndEmphasize margin={spacing.medium.horizontal}>
 					<MultilineQuoteText text={a}></MultilineQuoteText>
 				</CenterAndEmphasize>
-				<BottomRightAbsoluteIcon type={iconTypes.quotationClose} height={titleHeight} />
+				<BottomRightAbsoluteIcon type={iconTypes.quotationClose} height={titleHeight} fillColor={c => c.primaryA} />
 			</>
 		);
 	}
@@ -179,12 +179,12 @@ const HalfQuote: React.FC<HalfQuoteProps> = (props) => {
 
 	const textRender = (
 		<FlexRow alignItems='stretch'>
-			<Icon type={iconTypes.quotationOpen} height={subTextHeight} />
+			<Icon type={iconTypes.quotationOpen} height={subTextHeight} fillColor={c => c.primaryA} />
 				&nbsp;
 			<Flex>
 				<RegularText isInline={true}>{text}</RegularText>
 					&nbsp;
-					<Icon type={iconTypes.quotationClose} height={subTextHeight} />
+					<Icon type={iconTypes.quotationClose} height={subTextHeight} fillColor={c => c.primaryA} />
 			</Flex>
 		</FlexRow>
 	);
@@ -210,8 +210,8 @@ interface MultilineQuoteTextProps {
 }
 
 const MultilineQuoteText: React.FC<MultilineQuoteTextProps> = (props) => {
-	const lines = props.text.split(multilineQuoteTextSeparator).map((line) => {
-		return <RegularText>{line.trim()}</RegularText>;
+	const lines = props.text.split(multilineQuoteTextSeparator).map((line, i) => {
+		return <RegularText key={i}>{line.trim()}</RegularText>;
 	});
 	return <>{lines}</>;
 };

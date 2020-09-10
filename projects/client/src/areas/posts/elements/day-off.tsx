@@ -1,6 +1,8 @@
 import * as React from 'react';
-import { spacing, Spacing } from '@/core/layout/common';
+import { spacing } from '@/core/layout/common';
 import { Subtitle, RegularText } from '@/core/symbol/text';
+import { ElementRoot } from '../post';
+import { Center } from '@/core/style/common';
 
 export interface DayOffProps {
 	message: string;
@@ -9,14 +11,16 @@ export interface DayOffProps {
 export const DayOff: React.FC<DayOffProps> = (props) => {
 	const { message } = props;
 
-	const messageText = message || 'Andrew is taking the day off from updating this page. Check back later!';
+	const messageText = message || 'Andrew has marked this day as a \'day off\'. Check back tomorrow.';
 
 	return (
-		<Spacing margin={spacing.medium.horizontal}>
-			<Subtitle>Off Day</Subtitle>
-			<RegularText>
-				{messageText}
-			</RegularText>
-		</Spacing>
+		<ElementRoot>
+			<Center>
+				<Subtitle margin={spacing.medium.bottom}>Off Day</Subtitle>
+				<RegularText>
+					{messageText}
+				</RegularText>
+			</Center>
+		</ElementRoot>
 	);
 };

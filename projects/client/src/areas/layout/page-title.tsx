@@ -33,7 +33,7 @@ export const PageTitle: React.FC<PageTitleProps> = () => {
 									</GrandTitle>
 								</Flex>
 							</FlexRow>
-							<Subtitle margin={spacing.small.top} color={backgroundColor}>daily sharing from Andrew</Subtitle>
+							<Subtitle isBold={false} margin={spacing.small.top} color={backgroundColor}>daily sharing from Andrew</Subtitle>
 						</Center>
 						<Flex />
 					</FlexRow>

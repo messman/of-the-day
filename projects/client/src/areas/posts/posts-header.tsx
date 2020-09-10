@@ -24,7 +24,8 @@ const dayReferencesText: Record<keyof typeof IPostDayReference, string> = {
 };
 
 export const PostsHeader: React.FC<PostsHeaderProps> = (props) => {
-	const { rootRef, offsetPixels, posts, activePostIndex } = props;
+	const { onPostChosen, ...otherProps } = props;
+	const { rootRef, offsetPixels, posts, activePostIndex } = otherProps;
 
 	const stickyOutput = useSticky({
 		rootRef: rootRef,
@@ -42,7 +43,7 @@ export const PostsHeader: React.FC<PostsHeaderProps> = (props) => {
 
 	return (
 		<Sticky isSticky={true} output={stickyOutput} zIndex={1} >
-			<PostsHeaderContainer {...props} flex='none' justifyContent='center' alignItems='center'>
+			<PostsHeaderContainer {...otherProps} flex='none' justifyContent='center' alignItems='center'>
 				<LeftIcon>
 					<Icon type={iconTypes.calendar} fillColor={c => c.secondary} height={titleHeight} />
 				</LeftIcon>

@@ -11,6 +11,7 @@ import { OutLink } from '@/core/link';
 import { FlexRow, Flex } from '@messman/react-common';
 import { MusicQuote } from './quote';
 import { ElementRoot } from '../post';
+import { borderRadiusStyle } from '@/core/style/common';
 
 interface MusicProps {
 	music: IPostMusic;
@@ -41,25 +42,28 @@ export const Music: React.FC<MusicProps> = (props) => {
 			<FlexRow>
 				<Flex flex={.6}>
 					<Spacing margin={spacing.large.bottom}>
-						<Subtitle isBold={true} margin={spacing.small.bottom}>Music</Subtitle>
-						<ItalicTitle isBold={true}>{title}</ItalicTitle>
-						<Title isBold={true}>{artist}</Title>
+						<Subtitle margin={spacing.small.bottom}>Music</Subtitle>
+						<Title isItalic={true}>{title}</Title>
+						<Title>{artist}</Title>
 						{yearSuffix}
 					</Spacing>
 					<Spacing margin={sectionMargin}>
-						<TagList tags={tagStrings} />
-					</Spacing>
-					<RegularText show={description} margin={sectionMargin}>
-						{description}
-					</RegularText>
-					<Spacing show={quote} margin={sectionMargin}>
-						<MusicQuote lyric={quote} />
-					</Spacing>
-					<Spacing margin={sectionMargin}>
+						<TagList margin={spacing.medium.bottom} tags={tagStrings} />
+						<RegularText margin={spacing.medium.bottom} show={description}>
+							{description}
+						</RegularText>
 						<MusicOutLinks music={music} />
 					</Spacing>
+					<Spacing show={quote} margin={spacing.large.value}>
+						<MusicQuote lyric={quote} />
+					</Spacing>
+					<Spacing margin={spacing.large.top}>
+						<SeeMoreButton>
+							<RegularText color={c => c.buttonActionText}>See All Music</RegularText>
+						</SeeMoreButton>
+					</Spacing>
 				</Flex>
-				<Flex >
+				<Flex>
 					<Spacing margin={spacing.medium.left}>
 						{embedRender}
 					</Spacing>
@@ -69,8 +73,11 @@ export const Music: React.FC<MusicProps> = (props) => {
 	);
 };
 
-const ItalicTitle = tStyled(Title)`
-	font-style: italic;
+const SeeMoreButton = tStyled.button`
+	padding: ${spacing.medium.value} ${spacing.large.value};
+	${borderRadiusStyle};
+	border: none;
+	background-color: ${p => p.theme.color.buttonActionBackground};
 `;
 
 interface SpotifyEmbedFrameProps {
@@ -105,13 +112,19 @@ const MusicOutLinks: React.FC<MusicProps> = (props) => {
 		return null;
 	}
 
+	const linkSpacing = spacing.medium.right;
+
 	return (
-		<RegularText>
-			<FlexRow justifyContent='space-around'>
+		<div>
+			<RegularText isInline={true} margin={linkSpacing}>
 				<OutLink href={spotifyLink}>Spotify</OutLink>
+			</RegularText>
+			<RegularText isInline={true} margin={linkSpacing}>
 				<OutLink href={youTubeLink}>YouTube</OutLink>
+			</RegularText>
+			<RegularText isInline={true}>
 				<OutLink href={geniusLink}>Lyrics</OutLink>
-			</FlexRow>
-		</RegularText>
+			</RegularText>
+		</div>
 	);
 };
