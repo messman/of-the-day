@@ -59,7 +59,7 @@ export const ElementRoot: React.FC<SpacingProps> = (props) => {
 
 	const { margin, ...otherProps } = props;
 
-	let finalMargin = margin || `${spacing.large.value} ${spacing.medium.value}`;
+	let finalMargin = margin || `${spacing.grand.value} ${spacing.medium.value}`;
 
 	return (
 		<ElementRootColor>

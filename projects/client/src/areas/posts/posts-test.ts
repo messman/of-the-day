@@ -39,7 +39,7 @@ export const postsTestData: IPost[] = [
 		},
 		video: {
 			title: 'Cornbread | Basics with Babish',
-			originalTitle: 'Cornbread | Basics with Babish',
+			originalTitle: 'Cornbread by by by Basics with Babish',
 			description: '\'Binging with Babish\' is a great cooking channel on YouTube. As a person who enjoys making and eating cornbread, I was very interested to see the different ways it can be made. (Links to recipes are in the video description.) The cornbread I make is more similar to the northern style.',
 			link: 'https://youtu.be/Bpu0TIXzI1w',
 			isNSFW: false,
@@ -50,7 +50,7 @@ export const postsTestData: IPost[] = [
 		},
 		image: {
 			description: 'A shot of my dog.',
-			link: 'https://homepages.cae.wisc.edu/~ece533/images/airplane.png',
+			link: 'https://drscdn.500px.org/photo/1019496186/m%3D900/v2?sig=a21d2c3833b5997ba905355f1b6961dbf59e3a19739fa97a10ecea93191c02ed',
 			source: 'Google',
 			sourceLink: 'https://google.com',
 			reactionSummary: { emoji: [], replies: 0 }
@@ -122,7 +122,7 @@ export const postsTestData: IPost[] = [
 		},
 		image: {
 			description: 'A boat.',
-			link: 'https://homepages.cae.wisc.edu/~ece533/images/boat.png',
+			link: 'https://drscdn.500px.org/photo/1019496202/m%3D900/v2?sig=a8a2e58478162534eb4635c7ca1a792e245d20f2602446b633d664eae06059d2',
 			source: 'Google',
 			sourceLink: 'https://google.com',
 			reactionSummary: { emoji: [], replies: 0 }

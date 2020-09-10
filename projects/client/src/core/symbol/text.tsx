@@ -32,9 +32,9 @@ export const subtitleHeight = '1.25rem';
 /** Subtitle. 1.25rem / 20px. */
 export const Subtitle = createTextComponent(subtitleHeight, c => c.textSubtitle, true);
 
-export const textHeight = '1rem';
+export const regularTextHeight = '1rem';
 /** Regular text. 1rem / 16px. */
-export const RegularText = createTextComponent(textHeight, c => c.text, false);
+export const RegularText = createTextComponent(regularTextHeight, c => c.text, false);
 
 export const smallTextHeight = '.875rem';
 /** Small text. .875rem / 14px. */

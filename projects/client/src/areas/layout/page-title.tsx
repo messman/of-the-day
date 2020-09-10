@@ -28,7 +28,7 @@ export const PageTitle: React.FC<PageTitleProps> = () => {
 									<PageTitleScrollAnimation />
 								</SideContainer>
 								<Flex>
-									<GrandTitle color={backgroundColor} isBold={true}>
+									<GrandTitle color={backgroundColor}>
 										Of The Day
 									</GrandTitle>
 								</Flex>
@@ -50,8 +50,7 @@ const Parent = tStyled.div`
 
 const PageTitleBackground = tStyled.div`
 	position: relative;
-	padding-top: ${spacing.grand.value};
-	padding-bottom: ${spacing.large.value};
+	padding: ${spacing.grand.vertical};
 `;
 
 const SideContainer = tStyled(FlexRow)`

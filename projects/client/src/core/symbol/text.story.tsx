@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { decorate } from '@/test/decorate';
-import { Title, titleHeight, Subtitle, subtitleHeight, RegularText, textHeight, SmallText, smallTextHeight } from '@/core/symbol/text';
+import { Title, titleHeight, Subtitle, subtitleHeight, RegularText, regularTextHeight, SmallText, smallTextHeight } from '@/core/symbol/text';
 import { iconTypes, Icon } from '@/core/symbol/icon';
 import { tStyled } from '../style/styled';
 import { spacing } from '../layout/common';
@@ -27,7 +27,7 @@ export const TestTextWithIcons = decorate('Text', () => {
 			</Padding>
 			<Padding>
 				<RegularText isInline={true}>
-					<Icon type={iconType} height={textHeight} />
+					<Icon type={iconType} height={regularTextHeight} />
 					Text
 					</RegularText>
 			</Padding>

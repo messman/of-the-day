@@ -2,10 +2,12 @@ import * as React from 'react';
 import { tStyled } from '@/core/style/styled';
 import { IPostVideo } from 'oftheday-shared';
 import { spacing, Spacing } from '@/core/layout/common';
-import { RegularText, SubText } from '@/core/symbol/text';
+import { Title, RegularText, SmallText, Subtitle } from '@/core/symbol/text';
 import { TagList } from './tag';
 import { ActionLink } from '@/core/link';
 import { ElementRoot } from '../post';
+import { SeeMoreButton, borderRadiusStyle, mediaBoxShadowStyle } from '@/core/style/common';
+import { MediaSplit } from '@/core/layout/media-split';
 
 export interface VideoProps {
 	video: IPostVideo;
@@ -24,36 +26,35 @@ export const Video: React.FC<VideoProps> = (props) => {
 		return ([isTop ? 'top' : '', isNSFW ? 'NSFW' : '', ...tags]).filter(x => !!x);
 	}, [tags, isTop, isNSFW]);
 
-	const { horizontal, vertical } = spacing.medium;
-
 
 	let internalVideoRender: JSX.Element = null!;
 	if (isRemoved) {
 		internalVideoRender = (
-			<RegularText isItalic={true} margin={vertical}>Video removed.</RegularText>
+			<RegularText isItalic={true}>Unfortunately, this video is no longer available.</RegularText>
 		);
 	}
 	else {
 		internalVideoRender = (
-			<>
-				<Spacing margin={vertical}>
-					<YouTubeVideoFrame url={link} />
-				</Spacing>
-
-				<RegularText margin={vertical}>{description}</RegularText>
-			</>
+			<YouTubeVideoFrame url={link} />
 		);
 	}
 	return (
 		<ElementRoot>
-			<Spacing margin={horizontal}>
-				<VideoTitle title={title} originalTitle={originalTitle} />
-
-				<Spacing margin={vertical}>
-					<TagList tags={tagStrings} />
+			<MediaSplit isMediaOnRight={false} mediaRender={internalVideoRender}>
+				<Spacing margin={spacing.large.bottom}>
+					<Subtitle margin={spacing.small.bottom}>Video</Subtitle>
+					<VideoTitle title={title} originalTitle={originalTitle} />
 				</Spacing>
-				{internalVideoRender}
-			</Spacing>
+				<Spacing margin={spacing.large.vertical}>
+					<TagList margin={spacing.medium.bottom} tags={tagStrings} />
+					<RegularText show={description}>
+						{description}
+					</RegularText>
+				</Spacing>
+				<Spacing margin={spacing.large.top}>
+					<SeeMoreButton>See All Video</SeeMoreButton>
+				</Spacing>
+			</MediaSplit>
 		</ElementRoot>
 	);
 };
@@ -78,7 +79,7 @@ const VideoTitle: React.FC<VideoTitleProps> = (props) => {
 
 		originalTitleWarningRender = (
 			<Spacing margin={spacing.nudge.top}>
-				<NoteText>Title reworded by Andrew. <ActionLink onClick={onClick}>See original.</ActionLink></NoteText>
+				<SmallText>Title reworded by Andrew. <ActionLink onClick={onClick}>See original.</ActionLink></SmallText>
 			</Spacing>
 		);
 	}
@@ -87,17 +88,11 @@ const VideoTitle: React.FC<VideoTitleProps> = (props) => {
 
 	return (
 		<>
-			<RegularText>{titleToShow}</RegularText>
+			<Title>{titleToShow}</Title>
 			{originalTitleWarningRender}
 		</>
 	);
 };
-
-const NoteText = tStyled(SubText)`
-	font-style: italic;
-	opacity: .8;
-`;
-
 
 export interface YouTubeVideoFrameProps {
 	url: string;
@@ -125,6 +120,10 @@ const VideoContainer = tStyled.div`
 	width: 100%;
 	height: 0;
 	padding-bottom: 56%;
+
+	overflow: hidden;
+	${borderRadiusStyle};
+	${mediaBoxShadowStyle};
 
 	iframe {
 		position: absolute;

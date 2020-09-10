@@ -60,8 +60,8 @@ export const spacing = {
 	medium: createSpacing('1rem'),
 	/** For section separation. 3rem / 48px. */
 	large: createSpacing('3rem'),
-	/** For large screen space. 4.5rem / 72px. */
-	grand: createSpacing('4.5rem'),
+	/** For large screen space. 5rem / 80px. */
+	grand: createSpacing('5rem'),
 };
 
 /** Returns a new component that has the specified padding value. */

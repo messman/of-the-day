@@ -1,11 +1,13 @@
 import * as React from 'react';
 import { IPostImage } from 'oftheday-shared';
-import { spacing, Spacing } from '@/core/layout/common';
+import { spacing } from '@/core/layout/common';
 import { RegularText, Subtitle } from '@/core/symbol/text';
 import { DefaultLayoutBreakpoint } from '@messman/react-common';
 import { tStyled } from '@/core/style/styled';
 import { OutLink } from '@/core/link';
 import { ElementRoot } from '../post';
+import { MediaSplit } from '@/core/layout/media-split';
+import { borderRadiusStyle, mediaBoxShadowStyle } from '@/core/style/common';
 
 export interface ImageProps {
 	image: IPostImage;
@@ -31,18 +33,19 @@ export const Image: React.FC<ImageProps> = (props) => {
 
 	// TODO - add accessibility for image.
 
+	const mediaRender = (
+		<a href={link} target='_blank' rel="noreferrer noopener" title='Click to open in a new tab'>
+			<ConstrainedImage src={link} />
+		</a>
+	);
+
 	return (
 		<ElementRoot>
-			<Spacing margin={spacing.medium.horizontal}>
-				<Subtitle margin={spacing.medium.vertical}>Image</Subtitle>
-				<RegularText>{description}</RegularText>
-				<Spacing margin={spacing.medium.vertical} >
-					<a href={link} target='_blank' rel="noreferrer noopener" title='Click to open in a new tab'>
-						<ConstrainedImage src={link} />
-					</a>
-				</Spacing>
-				<RegularText margin={spacing.medium.vertical}>{sourceRender}</RegularText>
-			</Spacing>
+			<MediaSplit isMediaOnRight={true} mediaRender={mediaRender}>
+				<Subtitle margin={spacing.small.bottom}>Image</Subtitle>
+				<RegularText show={description} margin={spacing.small.top}>{description}</RegularText>
+				<RegularText show={sourceRender} margin={spacing.nudge.top}>From {sourceRender}</RegularText>
+			</MediaSplit>
 		</ElementRoot>
 	);
 };
@@ -51,4 +54,7 @@ const ConstrainedImage = tStyled.img`
 	width: 100%;
 	max-width: ${DefaultLayoutBreakpoint.wide}px;
 	max-height: ${DefaultLayoutBreakpoint.wide}px;
+
+	${borderRadiusStyle};
+	${mediaBoxShadowStyle};
 `;
