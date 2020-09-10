@@ -2,7 +2,8 @@ import * as React from 'react';
 import { tStyled } from '@/core/style/styled';
 import { Subtitle } from '@/core/symbol/text';
 import { decorate } from '@/test/decorate';
-import { DefaultLayoutBreakpoint, LayoutOrientation, useWindowLayout } from '@messman/react-common';
+import { LayoutOrientation, useWindowLayout } from '@messman/react-common';
+import { LayoutBreakpoint, isInvalidLayout } from './window-layout';
 
 export default { title: 'Services/Layout/Window Layout' };
 
@@ -10,15 +11,15 @@ export const TestWindowLayout = decorate('Window Layout', () => {
 
 	const windowLayout = useWindowLayout();
 	let invalidSubtitle: JSX.Element | null = null;
-	if (windowLayout.heightBreakpoint < DefaultLayoutBreakpoint.regular) {
+	if (isInvalidLayout(windowLayout)) {
 		invalidSubtitle = <InvalidSubtitle>Invalid Layout</InvalidSubtitle>;
 	}
 
 	return (
 		<>
 			<Subtitle>{LayoutOrientation[windowLayout.orientation]}</Subtitle>
-			<Subtitle>width - {DefaultLayoutBreakpoint[windowLayout.widthBreakpoint]} ({windowLayout.widthBreakpoint})</Subtitle>
-			<Subtitle>height - {DefaultLayoutBreakpoint[windowLayout.heightBreakpoint]} ({windowLayout.heightBreakpoint})</Subtitle>
+			<Subtitle>width - {LayoutBreakpoint[windowLayout.widthBreakpoint]} ({windowLayout.widthBreakpoint})</Subtitle>
+			<Subtitle>height - {LayoutBreakpoint[windowLayout.heightBreakpoint]} ({windowLayout.heightBreakpoint})</Subtitle>
 			{invalidSubtitle}
 		</>
 	);

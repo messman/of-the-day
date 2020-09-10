@@ -9,7 +9,7 @@ import { routes } from '@/services/nav/routing';
 import { tStyled } from '@/core/style/styled';
 import { FlexColumn } from '@messman/react-common';
 import { PageTitle } from './page-title';
-import { useIsCompactWidth } from '@/services/layout/window-layout';
+import { useIsMobileWidth } from '@/services/layout/window-layout';
 
 export const ApplicationLayout: React.FC = () => {
 	return (
@@ -32,9 +32,9 @@ interface LayoutProps {
 
 export const Layout: React.FC<LayoutProps> = (props) => {
 
-	const isCompactWidth = useIsCompactWidth();
+	const isMobileWidth = useIsMobileWidth();
 
-	if (isCompactWidth) {
+	if (isMobileWidth) {
 		return <CompactLayout {...props} />;
 	}
 	else {

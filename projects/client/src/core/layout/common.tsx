@@ -1,32 +1,17 @@
 import * as React from 'react';
 import { tStyled, tCss } from '../style/styled';
-import { DefaultLayoutBreakpoint, FlexColumn, FlexRow } from '@messman/react-common';
 import { StyledComponent } from 'styled-components';
 import { Theme, ThemePickColor } from '../style/theme';
-
-/** A flex column whose width is the screen width, not the width decided by flex rules. */
-export const ScreenWidthFlexColumn = tStyled(FlexColumn)`
-	width: 100vw;
-	max-width: ${DefaultLayoutBreakpoint.regular}px;
-`;
+import { grandTitleHeight } from '../symbol/text';
+import { LayoutBreakpoint } from '@/services/layout/window-layout';
 
 export const ApplicationMaxWidth = tStyled.div`
-	max-width: ${DefaultLayoutBreakpoint.wide}px;
+	max-width: ${LayoutBreakpoint.wide}px;
 	margin-left: auto;
 	margin-right: auto;
 `;
 export const TextContentMaxWidth = tStyled.div`
-	max-width: ${DefaultLayoutBreakpoint.regular}px;
-`;
-
-/** A flex column whose width is the Regular Layout Breakpoint Size. */
-export const RegularWidthFlexColumn = tStyled(FlexColumn)`
-	width: ${DefaultLayoutBreakpoint.regular}px;
-`;
-
-/** A Flex Row that has overflow: auto, so it scrolls if its width is greater than its parent. */
-export const OverflowAutoFlexRow = tStyled(FlexRow)`
-	overflow: auto;
+	max-width: ${LayoutBreakpoint.tablet}px;
 `;
 
 export interface Spacing {
@@ -103,7 +88,7 @@ export const Spacing: React.FC<SpacingProps> = (props) => {
 			className={className}
 			dataMargin={margin}
 			dataPadding={padding}
-			fontSize={fontSize}
+			dataFontSize={fontSize}
 			isInline={isInline}
 			isBold={isBold}
 			isItalic={isItalic}
@@ -119,7 +104,7 @@ interface InternalSpacingProps {
 	dataPadding?: string | null;
 	isRelative?: boolean;
 	isInline?: boolean;
-	fontSize?: string | null;
+	dataFontSize?: string | null;
 	isBold?: boolean;
 	isItalic?: boolean;
 	dataColor?: ThemePickColor;
@@ -136,6 +121,9 @@ const inlineBlockStyle = tCss`
 
 const boldStyle = tCss`
 	font-weight: 500;
+`;
+const extraBoldStyle = tCss`
+	font-weight: 600;
 `;
 
 const italicStyle = tCss`
@@ -157,8 +145,8 @@ export const InternalSpacing = tStyled.div<InternalSpacingProps>`
 	${p => p.isRelative && relativeStyle}
 	${p => p.isInline && inlineBlockStyle}
 
-	${p => p.fontSize && ('font-size: ' + p.fontSize + ';')}
-	${p => p.isBold && boldStyle}
+	${p => p.dataFontSize && ('font-size: ' + p.dataFontSize + ';')}
+	${p => p.isBold && (p.dataFontSize === grandTitleHeight ? extraBoldStyle : boldStyle)}
 	${p => p.isItalic && italicStyle}
 
 	${p => p.dataColor && ('color: ' + p.dataColor(p.theme.color) + ';')}

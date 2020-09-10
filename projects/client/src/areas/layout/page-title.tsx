@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { GrandTitle, Subtitle } from '@/core/symbol/text';
+import { GrandTitle, RegularText } from '@/core/symbol/text';
 import { FlexRow, Flex } from '@messman/react-common';
 import { ApplicationMaxWidth, spacing } from '@/core/layout/common';
 import { ThemePickColor } from '@/core/style/theme';
@@ -33,7 +33,7 @@ export const PageTitle: React.FC<PageTitleProps> = () => {
 									</GrandTitle>
 								</Flex>
 							</FlexRow>
-							<Subtitle isBold={false} margin={spacing.small.top} color={backgroundColor}>daily sharing from Andrew</Subtitle>
+							<RegularText margin={spacing.small.top} color={backgroundColor}>daily sharing from Andrew</RegularText>
 						</Center>
 						<Flex />
 					</FlexRow>

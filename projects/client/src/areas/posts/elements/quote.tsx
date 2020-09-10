@@ -8,9 +8,10 @@ import { borderRadiusStyle } from '@/core/style/common';
 import { Icon, iconTypes } from '@/core/symbol/icon';
 import { titleHeight } from '@/core/symbol/text';
 import { spacing, Spacing } from '@/core/layout/common';
-import { DefaultLayoutBreakpoint, Flex, FlexRow } from '@messman/react-common';
+import { Flex, FlexRow } from '@messman/react-common';
 import { OutLink } from '@/core/link';
 import { ElementRoot } from '../post';
+import { LayoutBreakpoint } from '@/services/layout/window-layout';
 
 export interface MusicQuoteProps {
 	lyric: string;
@@ -135,7 +136,7 @@ const InnerQuote: React.FC<QuoteProps> = (props) => {
 };
 
 const MaxWidthContainer = tStyled.div`
-	max-width: ${DefaultLayoutBreakpoint.regular}px;
+	max-width: ${LayoutBreakpoint.tablet}px;
 	margin: auto;
 `;
 

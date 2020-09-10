@@ -3,8 +3,9 @@ import { tStyled, tCss } from '@/core/style/styled';
 import { routes } from '@/services/nav/routing';
 import { RegularText } from '@/core/symbol/text';
 import { useHistory, useLocation, matchPath } from 'react-router-dom';
-import { FlexRow, DefaultLayoutBreakpoint, Sticky, useSticky } from '@messman/react-common';
+import { FlexRow, Sticky, useSticky } from '@messman/react-common';
 import { spacing } from '@/core/layout/common';
+import { LayoutBreakpoint } from '@/services/layout/window-layout';
 
 /** Use an explicit pixel height for the upper menu bar to be used for sticky. */
 export const upperMenuBarHeightPixels = 56;
@@ -67,7 +68,7 @@ const MenuBarContainer = tStyled(FlexRow) <MenuBarProps>`
 `;
 
 const MenuBarInnerContainer = tStyled(FlexRow) <MenuBarProps>`
-	max-width: ${DefaultLayoutBreakpoint.regular}px;
+	max-width: ${LayoutBreakpoint.tablet}px;
 	margin-left: auto;
 	margin-right: auto;
 `;

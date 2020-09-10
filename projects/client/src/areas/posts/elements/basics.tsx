@@ -5,7 +5,7 @@ import { TagList } from './tag';
 import { ElementRoot } from '../post';
 import { FlexRow } from '@messman/react-common';
 import { tStyled } from '@/core/style/styled';
-import { useIsCompactWidth } from '@/services/layout/window-layout';
+import { useIsMobileWidth } from '@/services/layout/window-layout';
 import { Subtitle, RegularText } from '@/core/symbol/text';
 
 export interface BasicsProps {
@@ -13,8 +13,8 @@ export interface BasicsProps {
 }
 
 export const Basics: React.FC<BasicsProps> = (props) => {
-	const isCompactWidth = useIsCompactWidth();
-	if (isCompactWidth) {
+	const isMobileWidth = useIsMobileWidth();
+	if (isMobileWidth) {
 		return null;
 	}
 	return <RegularBasics {...props} />;
@@ -33,8 +33,8 @@ const RegularBasics: React.FC<BasicsProps> = (props) => {
 	if (event || note) {
 		leftRender = (
 			<TextContainer key='notes'>
-				<Subtitle isBold={true} margin={titleMargin}>Notes</Subtitle>
-				<Subtitle show={event} margin={textMargin} color={c => c.text}>{event}</Subtitle>
+				<Subtitle margin={titleMargin}>Notes</Subtitle>
+				<Subtitle isBold={false} show={event} margin={textMargin} color={c => c.text}>{event}</Subtitle>
 				<RegularText show={note} margin={textMargin}>{note}</RegularText>
 			</TextContainer>
 		);
@@ -44,7 +44,7 @@ const RegularBasics: React.FC<BasicsProps> = (props) => {
 	if (schedule || (dayTypes && dayTypes.length)) {
 		centerRender = (
 			<TextContainer key='schedule'>
-				<Subtitle isBold={true} margin={titleMargin}>Schedule</Subtitle>
+				<Subtitle margin={titleMargin}>Schedule</Subtitle>
 				<RegularText show={schedule} margin={textMargin}>{schedule}</RegularText>
 				<TagList margin={textMargin} tags={dayTypes} />
 			</TextContainer>
@@ -56,7 +56,7 @@ const RegularBasics: React.FC<BasicsProps> = (props) => {
 		rightRender = (
 			<TextContainer key='location'>
 				<Subtitle isBold={true} margin={titleMargin}>Location</Subtitle>
-				<Subtitle color={c => c.text}>{location}</Subtitle>
+				<Subtitle isBold={false} color={c => c.text}>{location}</Subtitle>
 			</TextContainer>
 		);
 	}

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { tCss, tStyled } from '@/core/style/styled';
-import { useIsCompactWidth } from '@/services/layout/window-layout';
+import { useIsMobileWidth } from '@/services/layout/window-layout';
 import { spacing } from '../layout/common';
 import { regularTextHeight } from '../symbol/text';
 
@@ -19,11 +19,11 @@ export const Center = tStyled.div`
 `;
 
 export const FontSizeManager: React.FC = (props) => {
-	const isCompact = useIsCompactWidth();
+	const isMobileWidth = useIsMobileWidth();
 
 	React.useEffect(() => {
-		document.body.style.fontSize = isCompact ? '16px' : '14px';
-	}, [isCompact]);
+		document.body.style.fontSize = isMobileWidth ? '16px' : '14px';
+	}, [isMobileWidth]);
 
 	return <>{props.children}</>;
 };

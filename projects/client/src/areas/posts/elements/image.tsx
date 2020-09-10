@@ -2,12 +2,12 @@ import * as React from 'react';
 import { IPostImage } from 'oftheday-shared';
 import { spacing } from '@/core/layout/common';
 import { RegularText, Subtitle } from '@/core/symbol/text';
-import { DefaultLayoutBreakpoint } from '@messman/react-common';
 import { tStyled } from '@/core/style/styled';
 import { OutLink } from '@/core/link';
 import { ElementRoot } from '../post';
 import { MediaSplit } from '@/core/layout/media-split';
 import { borderRadiusStyle, mediaBoxShadowStyle } from '@/core/style/common';
+import { LayoutBreakpoint } from '@/services/layout/window-layout';
 
 export interface ImageProps {
 	image: IPostImage;
@@ -52,8 +52,8 @@ export const Image: React.FC<ImageProps> = (props) => {
 
 const ConstrainedImage = tStyled.img`
 	width: 100%;
-	max-width: ${DefaultLayoutBreakpoint.wide}px;
-	max-height: ${DefaultLayoutBreakpoint.wide}px;
+	max-width: ${LayoutBreakpoint.wide}px;
+	max-height: ${LayoutBreakpoint.wide}px;
 
 	${borderRadiusStyle};
 	${mediaBoxShadowStyle};
