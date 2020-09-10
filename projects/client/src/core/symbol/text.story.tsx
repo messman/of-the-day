@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { decorate } from '@/test/decorate';
-import { Title, titleHeight, Subtitle, subtitleHeight, Text, textHeight, SmallText, smallTextHeight } from '@/core/symbol/text';
+import { Title, titleHeight, Subtitle, subtitleHeight, RegularText, textHeight, SmallText, smallTextHeight } from '@/core/symbol/text';
 import { iconTypes, Icon } from '@/core/symbol/icon';
-import { styled } from '../style/styled';
-import { spacing } from '../style/common';
+import { tStyled } from '../style/styled';
+import { spacing } from '../layout/common';
 
 export default { title: 'Core/Symbol/Text' };
 
@@ -26,10 +26,10 @@ export const TestTextWithIcons = decorate('Text', () => {
 					</Subtitle>
 			</Padding>
 			<Padding>
-				<Text isInline={true}>
+				<RegularText isInline={true}>
 					<Icon type={iconType} height={textHeight} />
 					Text
-					</Text>
+					</RegularText>
 			</Padding>
 			<Padding>
 				<SmallText isInline={true}>
@@ -41,6 +41,6 @@ export const TestTextWithIcons = decorate('Text', () => {
 	);
 });
 
-const Padding = styled.div`
+const Padding = tStyled.div`
 	margin: ${spacing.medium.value};
 `;

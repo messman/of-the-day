@@ -1,13 +1,13 @@
 // Handles the rendering of a quote.
 
 import * as React from 'react';
-import { styled } from '@/core/style/styled';
-import { Text, subTextHeight } from '@/core/symbol/text';
+import { tStyled } from '@/core/style/styled';
+import { RegularText, subTextHeight, Subtitle } from '@/core/symbol/text';
 import { IPostQuote } from 'oftheday-shared';
-import { borderRadiusStyle, spacing } from '@/core/style/common';
+import { borderRadiusStyle } from '@/core/style/common';
 import { Icon, iconTypes } from '@/core/symbol/icon';
 import { titleHeight } from '@/core/symbol/text';
-import { DynamicMargin, LabelValue } from '@/core/layout/common';
+import { spacing, Spacing } from '@/core/layout/common';
 import { DefaultLayoutBreakpoint, Flex, FlexRow } from '@messman/react-common';
 import { OutLink } from '@/core/link';
 import { ElementRoot } from '../post';
@@ -51,14 +51,14 @@ export const Quote: React.FC<QuoteProps> = (props) => {
 
 	return (
 		<ElementRoot>
-			<DynamicMargin margin={spacing.medium.horizontal}>
-				<DynamicMargin margin={spacing.medium.vertical}>
-					<Text isBold={true}>Quote</Text>
-				</DynamicMargin>
-				<DynamicMargin margin={spacing.medium.vertical}>
+			<Spacing margin={spacing.medium.horizontal}>
+				<Spacing margin={spacing.medium.vertical}>
+					<RegularText isBold={true}>Quote</RegularText>
+				</Spacing>
+				<Spacing margin={spacing.medium.vertical}>
 					<InnerQuote quote={quote} />
-				</DynamicMargin>
-			</DynamicMargin>
+				</Spacing>
+			</Spacing>
 		</ElementRoot>
 	);
 };
@@ -89,7 +89,7 @@ const InnerQuote: React.FC<QuoteProps> = (props) => {
 		render = (
 			<>
 				<HalfQuote text={a} voice={aVoice} />
-				<DynamicMargin margin={spacing.medium.top} />
+				<Spacing margin={spacing.medium.top} />
 				<HalfQuote text={b} voice={bVoice} />
 			</>
 		);
@@ -119,7 +119,7 @@ const InnerQuote: React.FC<QuoteProps> = (props) => {
 	if (attributionRender) {
 		attributionRender = (
 			<Right margin={spacing.small.top}>
-				<Text>&mdash;&#8288;&nbsp;&#8288;{attributionRender}</Text>
+				<RegularText>&mdash;&#8288;&nbsp;&#8288;{attributionRender}</RegularText>
 			</Right>
 		);
 	}
@@ -134,12 +134,12 @@ const InnerQuote: React.FC<QuoteProps> = (props) => {
 	);
 };
 
-const MaxWidthContainer = styled.div`
+const MaxWidthContainer = tStyled.div`
 	max-width: ${DefaultLayoutBreakpoint.regular}px;
 	margin: auto;
 `;
 
-const QuoteBackground = styled.div`
+const QuoteBackground = tStyled.div`
 	padding: ${spacing.medium.value};
 	position: relative;
 	background-color: ${p => p.theme.color.backgroundB};
@@ -147,24 +147,24 @@ const QuoteBackground = styled.div`
 `;
 
 
-const TopLeftAbsoluteIcon = styled(Icon)`
+const TopLeftAbsoluteIcon = tStyled(Icon)`
 	position: absolute;
 	top: calc(-${p => p.height} / 3);
 	left: calc(-${p => p.height} / 4);
 `;
 
-const BottomRightAbsoluteIcon = styled(Icon)`
+const BottomRightAbsoluteIcon = tStyled(Icon)`
 	position: absolute;
 	bottom: calc(-${p => p.height} / 3);
 	right: calc(-${p => p.height} / 4);
 `;
 
-const CenterAndEmphasize = styled(DynamicMargin)`
+const CenterAndEmphasize = tStyled(Spacing)`
 	text-align: center;
 	font-style: italic;
 `;
 
-const Right = styled(DynamicMargin)`
+const Right = tStyled(Spacing)`
 	text-align: right;
 	word-wrap: break-word;
 `;
@@ -182,7 +182,7 @@ const HalfQuote: React.FC<HalfQuoteProps> = (props) => {
 			<Icon type={iconTypes.quotationOpen} height={subTextHeight} />
 				&nbsp;
 			<Flex>
-				<Text isInline={true}>{text}</Text>
+				<RegularText isInline={true}>{text}</RegularText>
 					&nbsp;
 					<Icon type={iconTypes.quotationClose} height={subTextHeight} />
 			</Flex>
@@ -193,9 +193,10 @@ const HalfQuote: React.FC<HalfQuoteProps> = (props) => {
 	if (voice) {
 		const voiceLabel = voice + ':';
 		render = (
-			<LabelValue label={voiceLabel}>
+			<>
+				<Subtitle>{voiceLabel}</Subtitle>
 				{textRender}
-			</LabelValue>
+			</>
 		);
 	}
 
@@ -210,7 +211,7 @@ interface MultilineQuoteTextProps {
 
 const MultilineQuoteText: React.FC<MultilineQuoteTextProps> = (props) => {
 	const lines = props.text.split(multilineQuoteTextSeparator).map((line) => {
-		return <Text>{line.trim()}</Text>;
+		return <RegularText>{line.trim()}</RegularText>;
 	});
 	return <>{lines}</>;
 };

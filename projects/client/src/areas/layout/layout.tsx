@@ -6,7 +6,7 @@ import { Archive, ArchiveProps } from '@/areas/archive/archive';
 import { MenuBar, upperMenuBarHeightPixels } from './menu-bar';
 import { Switch, Route } from 'react-router-dom';
 import { routes } from '@/services/nav/routing';
-import { styled } from '@/core/style/styled';
+import { tStyled } from '@/core/style/styled';
 import { FlexColumn } from '@messman/react-common';
 import { PageTitle } from './page-title';
 import { useIsCompactWidth } from '@/services/layout/window-layout';
@@ -101,11 +101,11 @@ const CompactLayout: React.FC<LayoutProps> = (props) => {
 
 };
 
-const ScrollContainer = styled(FlexColumn)`
+const ScrollContainer = tStyled(FlexColumn)`
 	overflow-y: auto;
 `;
 
-const LayoutContainer = styled(FlexColumn)`
+const LayoutContainer = tStyled(FlexColumn)`
 	height: 100vh;
 	/* Used to prevent MenuBar scrolling. */
 	overflow: hidden;

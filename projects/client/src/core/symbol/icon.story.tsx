@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { decorate } from '@/test/decorate';
-import { Text } from '@/core/symbol/text';
+import { RegularText } from '@/core/symbol/text';
 import { iconTypes, Icon } from '@/core/symbol/icon';
 
 export default { title: 'Core/Symbol/Icon' };
@@ -12,7 +12,7 @@ export const TestIcon = decorate('Icon', () => {
 
 		return (
 			<div key={iconName}>
-				<Text>{iconName}</Text>
+				<RegularText>{iconName}</RegularText>
 				<Icon type={icon} height='2rem' />
 			</div>
 		);

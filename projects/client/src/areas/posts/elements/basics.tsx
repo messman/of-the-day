@@ -1,13 +1,12 @@
 import * as React from 'react';
 import { IPost } from 'oftheday-shared';
-import { Value } from '@/core/layout/common';
-import { spacing } from '@/core/style/common';
+import { spacing } from '@/core/layout/common';
 import { TagList } from './tag';
 import { ElementRoot } from '../post';
 import { FlexRow } from '@messman/react-common';
-import { styled } from '@/core/style/styled';
+import { tStyled } from '@/core/style/styled';
 import { useIsCompactWidth } from '@/services/layout/window-layout';
-import { Subtitle, Text } from '@/core/symbol/text';
+import { Subtitle, RegularText } from '@/core/symbol/text';
 
 export interface BasicsProps {
 	post: IPost;
@@ -35,12 +34,8 @@ const RegularBasics: React.FC<BasicsProps> = (props) => {
 		leftRender = (
 			<TextContainer>
 				<Subtitle isBold={true} margin={titleMargin}>Notes</Subtitle>
-				<Value show={event} margin={textMargin}>
-					<Subtitle dataColor={c => c.text}>{event}</Subtitle>
-				</Value>
-				<Value show={note} margin={textMargin}>
-					<Text>{note}</Text>
-				</Value>
+				<Subtitle show={event} margin={textMargin} color={c => c.text}>{event}</Subtitle>
+				<RegularText show={note} margin={textMargin}>{note}</RegularText>
 			</TextContainer>
 		);
 	}
@@ -50,12 +45,8 @@ const RegularBasics: React.FC<BasicsProps> = (props) => {
 		centerRender = (
 			<TextContainer>
 				<Subtitle isBold={true} margin={titleMargin}>Schedule</Subtitle>
-				<Value show={schedule} margin={textMargin}>
-					<Text>{schedule}</Text>
-				</Value>
-				<Value margin={textMargin}>
-					<TagList tags={dayTypes} />
-				</Value>
+				<RegularText show={schedule} margin={textMargin}>{schedule}</RegularText>
+				<TagList margin={textMargin} tags={dayTypes} />
 			</TextContainer>
 		);
 	}
@@ -65,9 +56,7 @@ const RegularBasics: React.FC<BasicsProps> = (props) => {
 		rightRender = (
 			<TextContainer>
 				<Subtitle isBold={true} margin={titleMargin}>Location</Subtitle>
-				<Value>
-					<Subtitle dataColor={c => c.text}>{location}</Subtitle>
-				</Value>
+				<Subtitle color={c => c.text}>{location}</Subtitle>
 			</TextContainer>
 		);
 	}
@@ -93,12 +82,12 @@ const RegularBasics: React.FC<BasicsProps> = (props) => {
 	);
 };
 
-const VerticalSeparator = styled.div`
+const VerticalSeparator = tStyled.div`
 	width: 2px;
 	background-color: ${p => p.theme.color.backgroundC};
 `;
 
-const TextContainer = styled.div`
+const TextContainer = tStyled.div`
 	flex: 1;
 	margin: ${spacing.large.value};
 	text-align: center;

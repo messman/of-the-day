@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { styled, StyledFC } from '@/core/style/styled';
+import { tStyled, StyledFC } from '@/core/style/styled';
 import { ThemePickColor } from '../style/theme';
 import { css } from 'styled-components';
 
@@ -75,7 +75,7 @@ interface SVGWrapperProps {
 	svgFill?: ThemePickColor;
 }
 
-const SVGWrapper = styled.span<SVGWrapperProps>`
+const SVGWrapper = tStyled.span<SVGWrapperProps>`
 	display: inline-block;
 	width: ${p => p.wrapperWidth || 'unset'};
 	height: ${p => p.wrapperHeight || 'unset'}; 

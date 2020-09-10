@@ -8,9 +8,8 @@ import { Image } from './elements/image';
 import { EndThoughts } from './elements/end-thoughts';
 import { Custom } from './elements/custom';
 import { DayOff } from './elements/day-off';
-import { styled } from '@/core/style/styled';
-import { DynamicMarginProps, ApplicationMaxWidth, DynamicMargin } from '@/core/layout/common';
-import { spacing } from '@/core/style/common';
+import { tStyled } from '@/core/style/styled';
+import { spacing, SpacingProps, ApplicationMaxWidth, Spacing } from '@/core/layout/common';
 
 interface PostProps {
 	isActive?: boolean;
@@ -49,14 +48,14 @@ export const Post: React.FC<PostProps> = (props) => {
 	);
 };
 
-const ElementRootColor = styled.div`
+const ElementRootColor = tStyled.div`
 	overflow: auto;
 	&:nth-child(even) {
 		background-color: ${p => p.theme.color.backgroundB};
 	}
 `;
 
-export const ElementRoot: React.FC<DynamicMarginProps> = (props) => {
+export const ElementRoot: React.FC<SpacingProps> = (props) => {
 
 	const { margin, ...otherProps } = props;
 
@@ -65,10 +64,10 @@ export const ElementRoot: React.FC<DynamicMarginProps> = (props) => {
 	return (
 		<ElementRootColor>
 			<ApplicationMaxWidth>
-				<DynamicMargin margin={finalMargin} {...otherProps} />
+				<Spacing margin={finalMargin} {...otherProps} />
 			</ApplicationMaxWidth>
 		</ElementRootColor>
 	);
 };
 
-const PostRoot = styled.div``;
+const PostRoot = tStyled.div``;

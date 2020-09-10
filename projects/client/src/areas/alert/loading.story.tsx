@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text } from '@/core/symbol/text';
+import { RegularText } from '@/core/symbol/text';
 import { decorate } from '@/test/decorate';
 import { boolean } from '@storybook/addon-knobs';
 import { Loading } from './loading';
@@ -12,9 +12,9 @@ export const TestLoading = decorate('Loading', () => {
 
 	return (
 		<Loading isLoading={isShowing} error={null}>
-			<Text>
+			<RegularText>
 				Here is some background text.
-			</Text>
+			</RegularText>
 		</Loading>
 	);
 });

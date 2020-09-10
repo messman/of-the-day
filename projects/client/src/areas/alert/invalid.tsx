@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { addPadding, spacing } from '@/core/style/common';
-import { styled } from '@/core/style/styled';
+import { spacing } from '@/core/layout/common';
+import { tStyled } from '@/core/style/styled';
 import { Icon, iconTypes } from '@/core/symbol/icon';
-import { SmallText, Subtitle, Text, titleHeight } from '@/core/symbol/text';
+import { SmallText, Subtitle, RegularText, titleHeight } from '@/core/symbol/text';
 import { CONSTANT } from '@/services/constant';
 import { useWindowLayout, DefaultLayoutBreakpoint, Flex, FlexRow } from '@messman/react-common';
 
@@ -112,7 +112,7 @@ const InvalidCenter: React.FC<InvalidCenterProps> = (props) => {
 	// Other messages become regular text.
 	const otherMessagesText = otherMessages.map((m) => {
 		return (
-			<Text key={m}>{m}</Text>
+			<RegularText key={m}>{m}</RegularText>
 		);
 	});
 
@@ -123,7 +123,7 @@ const InvalidCenter: React.FC<InvalidCenterProps> = (props) => {
 			window.location.reload();
 		};
 		clickInstruction = (
-			<PaddedSmallText>Click/tap here to reset the application if you believe this message is incorrect.</PaddedSmallText>
+			<SmallText padding={spacing.medium.value}>Click/tap here to reset the application if you believe this message is incorrect.</SmallText>
 		);
 	}
 
@@ -137,7 +137,7 @@ const InvalidCenter: React.FC<InvalidCenterProps> = (props) => {
 		<InvalidCenterWrapper alignItems='center' onClick={onClick}>
 			<Flex>
 				<Icon type={iconTypes.alert} fillColor={c => c.error} height={titleHeight} />
-				<PaddedSubtitle>{firstMessage}</PaddedSubtitle>
+				<Subtitle padding={spacing.medium.value}>{firstMessage}</Subtitle>
 				{otherMessagesText}
 				{clickInstruction}
 			</Flex>
@@ -145,11 +145,8 @@ const InvalidCenter: React.FC<InvalidCenterProps> = (props) => {
 	);
 };
 
-const InvalidCenterWrapper = styled(FlexRow)`
+const InvalidCenterWrapper = tStyled(FlexRow)`
 	/* Pad to ensure the inner Flex content doesn't run up against the edge. */
 	padding: calc(${spacing.small.value} * 3);
 	text-align: center;
 `;
-
-const PaddedSubtitle = addPadding(Subtitle, spacing.medium.value);
-const PaddedSmallText = addPadding(SmallText, spacing.medium.value);

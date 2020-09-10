@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { styled } from '@/core/style/styled';
+import { tStyled } from '@/core/style/styled';
 import { SVGIconType, Icon } from '@/core/symbol/icon';
-import { spacing, borderRadiusStyle } from '@/core/style/common';
+import { borderRadiusStyle } from '@/core/style/common';
 import { SmallText, smallTextHeight } from '@/core/symbol/text';
-import { DynamicMargin } from '@/core/layout/common';
+import { spacing, Spacing } from '@/core/layout/common';
 import { useCurrentTheme } from '@/core/style/theme';
 import { createTagProps } from './tag-definitions';
 
@@ -38,7 +38,7 @@ interface TagContainerProps {
 	useDarkColorForBackground: boolean;
 }
 
-const TagContainer = styled.div<TagContainerProps>`
+const TagContainer = tStyled.div<TagContainerProps>`
 	${borderRadiusStyle};
 	display: inline-block;
 	padding: calc(${spacing.small.value} / 4) ${spacing.small.value};
@@ -54,7 +54,7 @@ const TagContainer = styled.div<TagContainerProps>`
 
 `;
 
-const InlinePadding = styled.div`
+const InlinePadding = tStyled.div`
 	display: inline-block;
 	margin: 3px;
 `;
@@ -83,8 +83,8 @@ export const TagList: React.FC<TagListProps> = (props) => {
 	});
 
 	return (
-		<DynamicMargin margin={margin} >
+		<Spacing margin={margin} >
 			{tagsRender}
-		</DynamicMargin>
+		</Spacing>
 	);
 };

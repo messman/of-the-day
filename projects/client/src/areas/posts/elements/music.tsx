@@ -2,12 +2,11 @@
 
 import * as React from 'react';
 import { IPostMusic } from 'oftheday-shared';
-import { Text, Subtitle, Title } from '@/core/symbol/text';
-import { Value, DynamicMargin } from '@/core/layout/common';
-import { spacing } from '@/core/style/common';
+import { RegularText, Subtitle, Title } from '@/core/symbol/text';
+import { spacing, Spacing } from '@/core/layout/common';
 import { YouTubeVideoFrame } from './video';
 import { TagList } from './tag';
-import { styled } from '@/core/style/styled';
+import { tStyled } from '@/core/style/styled';
 import { OutLink } from '@/core/link';
 import { FlexRow, Flex } from '@messman/react-common';
 import { MusicQuote } from './quote';
@@ -31,7 +30,7 @@ export const Music: React.FC<MusicProps> = (props) => {
 		return null;
 	}
 
-	const yearSuffix = year ? <Text margin={spacing.nudge.top}>{year}</Text> : <></>;
+	const yearSuffix = year ? <RegularText margin={spacing.nudge.top}>{year}</RegularText> : <></>;
 
 	const embedRender: JSX.Element = useYouTube ? <YouTubeVideoFrame url={youTubeLink} /> : <SpotifyEmbedFrame url={spotifyLink} />;
 
@@ -41,36 +40,36 @@ export const Music: React.FC<MusicProps> = (props) => {
 		<ElementRoot>
 			<FlexRow>
 				<Flex flex={.6}>
-					<DynamicMargin margin={spacing.large.bottom}>
+					<Spacing margin={spacing.large.bottom}>
 						<Subtitle isBold={true} margin={spacing.small.bottom}>Music</Subtitle>
 						<ItalicTitle isBold={true}>{title}</ItalicTitle>
 						<Title isBold={true}>{artist}</Title>
 						{yearSuffix}
-					</DynamicMargin>
-					<DynamicMargin margin={sectionMargin}>
+					</Spacing>
+					<Spacing margin={sectionMargin}>
 						<TagList tags={tagStrings} />
-					</DynamicMargin>
-					<Value show={description} margin={sectionMargin}>
+					</Spacing>
+					<RegularText show={description} margin={sectionMargin}>
 						{description}
-					</Value>
-					<Value show={quote} margin={sectionMargin}>
+					</RegularText>
+					<Spacing show={quote} margin={sectionMargin}>
 						<MusicQuote lyric={quote} />
-					</Value>
-					<DynamicMargin margin={sectionMargin}>
+					</Spacing>
+					<Spacing margin={sectionMargin}>
 						<MusicOutLinks music={music} />
-					</DynamicMargin>
+					</Spacing>
 				</Flex>
 				<Flex >
-					<DynamicMargin margin={spacing.medium.left}>
+					<Spacing margin={spacing.medium.left}>
 						{embedRender}
-					</DynamicMargin>
+					</Spacing>
 				</Flex>
 			</FlexRow>
 		</ElementRoot>
 	);
 };
 
-const ItalicTitle = styled(Title)`
+const ItalicTitle = tStyled(Title)`
 	font-style: italic;
 `;
 
@@ -94,7 +93,7 @@ const SpotifyEmbedFrame: React.FC<SpotifyEmbedFrameProps> = (props) => {
 	);
 };
 
-const EmbedContainer = styled.div`
+const EmbedContainer = tStyled.div`
 	iframe {
 		width: 100%;
 	}
@@ -107,12 +106,12 @@ const MusicOutLinks: React.FC<MusicProps> = (props) => {
 	}
 
 	return (
-		<Text>
+		<RegularText>
 			<FlexRow justifyContent='space-around'>
 				<OutLink href={spotifyLink}>Spotify</OutLink>
 				<OutLink href={youTubeLink}>YouTube</OutLink>
 				<OutLink href={geniusLink}>Lyrics</OutLink>
 			</FlexRow>
-		</Text>
+		</RegularText>
 	);
 };

@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { IOther, IOtherCount } from 'oftheday-shared';
-import { LabelValue, DynamicMargin } from '@/core/layout/common';
-import { spacing } from '@/core/style/common';
-import { Text } from '@/core/symbol/text';
+import { spacing, Spacing } from '@/core/layout/common';
+import { RegularText, Subtitle } from '@/core/symbol/text';
 
 export interface TopsProps {
 	other: IOther;
@@ -39,13 +38,12 @@ const Top: React.FC<TopProps> = (props) => {
 		return `${item.text} (${item.count})`;
 	}).join(', ');
 
-	const { horizontal, vertical } = spacing.medium;
+	const { horizontal } = spacing.medium;
 
 	return (
-		<DynamicMargin margin={horizontal}>
-			<LabelValue margin={vertical} label={label}>
-				<Text>{countsText}</Text>
-			</LabelValue>
-		</DynamicMargin>
+		<Spacing margin={horizontal}>
+			<Subtitle>{label}</Subtitle>
+			<RegularText>{countsText}</RegularText>
+		</Spacing>
 	);
 };

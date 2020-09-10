@@ -138,6 +138,8 @@ export const ThemeProvider: React.FC = (props) => {
 	const [themeIndex] = localStorageReturn;
 	const theme = themes[themeIndex];
 
+
+
 	return (
 		<ThemeContext.Provider value={localStorageReturn}>
 			<StyledThemeProvider theme={theme}>

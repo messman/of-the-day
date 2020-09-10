@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { IOther } from 'oftheday-shared';
-import { LabelValue, Value } from '@/core/layout/common';
-import { spacing } from '@/core/style/common';
+import { spacing, Spacing } from '@/core/layout/common';
+import { Subtitle, RegularText } from '@/core/symbol/text';
 
 export interface MilesProps {
 	other: IOther;
@@ -16,9 +16,10 @@ export const Miles: React.FC<MilesProps> = (props) => {
 	const { value, vertical } = spacing.medium;
 
 	return (
-		<LabelValue margin={value} label='Miles of exercise'>
-			<Value margin={vertical} show={milesByFoot}>{milesByFoot} by foot (walking or running)</Value>
-			<Value margin={vertical} show={milesByBicycle}>{milesByBicycle} by bicycle</Value>
-		</LabelValue>
+		<Spacing margin={value}>
+			<Subtitle>Miles of Exercise</Subtitle>
+			<RegularText margin={vertical} show={milesByFoot}>{milesByFoot} by foot (walking or running)</RegularText>
+			<RegularText margin={vertical} show={milesByBicycle}>{milesByBicycle} by bicycle</RegularText>
+		</Spacing>
 	);
 };

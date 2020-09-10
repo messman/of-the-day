@@ -6,6 +6,7 @@ import { PostResponseProvider } from '@/services/data/data';
 import { DEFINE } from '@/services/define';
 import { MemoryRouter, BrowserRouter } from 'react-router-dom';
 import { WindowLayoutProvider, WindowDimensionsProvider, defaultLowerBreakpoints, FlexRoot, DocumentVisibilityProvider } from '@messman/react-common';
+import { FontSizeManager } from '@/core/style/common';
 
 export const Wrapper: React.FC = (props) => {
 	return (
@@ -27,11 +28,13 @@ export const Providers: React.FC = (props) => {
 				<ThemeProvider>
 					<WindowDimensionsProvider>
 						<WindowLayoutProvider lowerBreakpoints={defaultLowerBreakpoints}>
-							<PopupProvider>
-								<PostResponseProvider>
-									{props.children}
-								</PostResponseProvider>
-							</PopupProvider>
+							<FontSizeManager>
+								<PopupProvider>
+									<PostResponseProvider>
+										{props.children}
+									</PostResponseProvider>
+								</PopupProvider>
+							</FontSizeManager>
 						</WindowLayoutProvider>
 					</WindowDimensionsProvider>
 				</ThemeProvider>

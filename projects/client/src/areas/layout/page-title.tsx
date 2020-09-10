@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { GrandTitle, Subtitle } from '@/core/symbol/text';
 import { FlexRow, Flex } from '@messman/react-common';
-import { spacing, Center } from '@/core/style/common';
-import { ApplicationMaxWidth } from '@/core/layout/common';
+import { ApplicationMaxWidth, spacing } from '@/core/layout/common';
 import { ThemePickColor } from '@/core/style/theme';
-import { styled } from '@/core/style/styled';
+import { tStyled } from '@/core/style/styled';
 import { PageTitleScrollAnimation } from './page-title-animations';
+import { Center } from '@/core/style/common';
 
 export interface PageTitleProps {
 	isCompact: boolean;
@@ -28,12 +28,12 @@ export const PageTitle: React.FC<PageTitleProps> = () => {
 									<PageTitleScrollAnimation />
 								</SideContainer>
 								<Flex>
-									<GrandTitle dataColor={backgroundColor} isBold={true}>
+									<GrandTitle color={backgroundColor} isBold={true}>
 										Of The Day
 									</GrandTitle>
 								</Flex>
 							</FlexRow>
-							<Subtitle margin={spacing.small.top} dataColor={backgroundColor}>daily sharing from Andrew</Subtitle>
+							<Subtitle margin={spacing.small.top} color={backgroundColor}>daily sharing from Andrew</Subtitle>
 						</Center>
 						<Flex />
 					</FlexRow>
@@ -43,25 +43,25 @@ export const PageTitle: React.FC<PageTitleProps> = () => {
 	);
 };
 
-const Parent = styled.div`
+const Parent = tStyled.div`
 	position: relative;
 	background-color: ${p => p.theme.color.primaryA};
 `;
 
-const PageTitleBackground = styled.div`
+const PageTitleBackground = tStyled.div`
 	position: relative;
 	padding-top: ${spacing.grand.value};
 	padding-bottom: ${spacing.large.value};
 `;
 
-const SideContainer = styled(FlexRow)`
+const SideContainer = tStyled(FlexRow)`
 	width: 0;
 	overflow: visible;
 `;
 
 const headerImgDataUrl = require('@/static/images/header-background.png').default as string;
 
-export const HeaderImg = styled.div`
+export const HeaderImg = tStyled.div`
 	position: absolute;
 	margin: 0;
 	padding: 0;
@@ -71,7 +71,7 @@ export const HeaderImg = styled.div`
 	background-position: center;
 `;
 
-export const HeaderImgOverlay = styled.div`
+export const HeaderImgOverlay = tStyled.div`
 	position: absolute;
 	margin: 0;
 	padding: 0;

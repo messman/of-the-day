@@ -1,9 +1,8 @@
 import * as React from 'react';
-import { styled } from '@/core/style/styled';
+import { tStyled } from '@/core/style/styled';
 import { IPostVideo } from 'oftheday-shared';
-import { spacing } from '@/core/style/common';
-import { LabelValue, DynamicMargin, Value } from '@/core/layout/common';
-import { Text, SubText } from '@/core/symbol/text';
+import { spacing, Spacing } from '@/core/layout/common';
+import { RegularText, SubText } from '@/core/symbol/text';
 import { TagList } from './tag';
 import { ActionLink } from '@/core/link';
 import { ElementRoot } from '../post';
@@ -31,32 +30,30 @@ export const Video: React.FC<VideoProps> = (props) => {
 	let internalVideoRender: JSX.Element = null!;
 	if (isRemoved) {
 		internalVideoRender = (
-			<Value margin={vertical}><em>Video removed.</em></Value>
+			<RegularText isItalic={true} margin={vertical}>Video removed.</RegularText>
 		);
 	}
 	else {
 		internalVideoRender = (
 			<>
-				<DynamicMargin margin={vertical}>
+				<Spacing margin={vertical}>
 					<YouTubeVideoFrame url={link} />
-				</DynamicMargin>
+				</Spacing>
 
-				<Value margin={vertical}>{description}</Value>
+				<RegularText margin={vertical}>{description}</RegularText>
 			</>
 		);
 	}
 	return (
 		<ElementRoot>
-			<DynamicMargin margin={horizontal}>
-				<LabelValue margin={vertical} label='Video'>
-					<VideoTitle title={title} originalTitle={originalTitle} />
-				</LabelValue>
+			<Spacing margin={horizontal}>
+				<VideoTitle title={title} originalTitle={originalTitle} />
 
-				<DynamicMargin margin={vertical}>
+				<Spacing margin={vertical}>
 					<TagList tags={tagStrings} />
-				</DynamicMargin>
+				</Spacing>
 				{internalVideoRender}
-			</DynamicMargin>
+			</Spacing>
 		</ElementRoot>
 	);
 };
@@ -80,9 +77,9 @@ const VideoTitle: React.FC<VideoTitleProps> = (props) => {
 		}
 
 		originalTitleWarningRender = (
-			<DynamicMargin margin={spacing.nudge.top}>
+			<Spacing margin={spacing.nudge.top}>
 				<NoteText>Title reworded by Andrew. <ActionLink onClick={onClick}>See original.</ActionLink></NoteText>
-			</DynamicMargin>
+			</Spacing>
 		);
 	}
 
@@ -90,13 +87,13 @@ const VideoTitle: React.FC<VideoTitleProps> = (props) => {
 
 	return (
 		<>
-			<Text>{titleToShow}</Text>
+			<RegularText>{titleToShow}</RegularText>
 			{originalTitleWarningRender}
 		</>
 	);
 };
 
-const NoteText = styled(SubText)`
+const NoteText = tStyled(SubText)`
 	font-style: italic;
 	opacity: .8;
 `;
@@ -123,7 +120,7 @@ export const YouTubeVideoFrame: React.FC<YouTubeVideoFrameProps> = (props) => {
 };
 
 /* The padding-bottom creates our aspect ratio. */
-const VideoContainer = styled.div`
+const VideoContainer = tStyled.div`
 	position: relative;
 	width: 100%;
 	height: 0;

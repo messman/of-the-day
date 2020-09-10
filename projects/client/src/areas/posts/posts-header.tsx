@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { styled } from '@/core/style/styled';
+import { tStyled } from '@/core/style/styled';
 import { IPost, IPostDayReference } from 'oftheday-shared';
-import { Title, Text, titleHeight } from '@/core/symbol/text';
-import { spacing, Center } from '@/core/style/common';
+import { Title, RegularText, titleHeight } from '@/core/symbol/text';
+import { Center } from '@/core/style/common';
 import { FlexRow, Sticky, useSticky } from '@messman/react-common';
 import { Icon, iconTypes } from '@/core/symbol/icon';
+import { spacing } from '@/core/layout/common';
 
 export interface PostsHeaderProps {
 	rootRef: React.RefObject<any>;
@@ -49,7 +50,7 @@ export const PostsHeader: React.FC<PostsHeaderProps> = (props) => {
 					<Icon type={iconTypes.left} fillColor={c => c.secondary} height={titleHeight} />
 				</LeftIcon>
 				<Center>
-					<Text margin={spacing.nudge.bottom} dataColor={c => c.textSubtle}>{dayReferenceRender}Day {dayNumber}</Text>
+					<RegularText margin={spacing.nudge.bottom} color={c => c.textSubtle}>{dayReferenceRender}Day {dayNumber}</RegularText>
 					<Title isBold={true}>{dateText}</Title>
 				</Center>
 				<RightIcon>
@@ -63,16 +64,16 @@ export const PostsHeader: React.FC<PostsHeaderProps> = (props) => {
 	);
 };
 
-const PostsHeaderContainer = styled(FlexRow) <PostsHeaderProps>`
+const PostsHeaderContainer = tStyled(FlexRow) <PostsHeaderProps>`
 	padding: ${spacing.medium.vertical};
 	position: relative;
 	background-color: ${p => p.isUpper ? p.theme.color.backgroundB : p.theme.color.backgroundB};
 `;
 
-const LeftIcon = styled.div`
+const LeftIcon = tStyled.div`
 	margin-right: ${spacing.large.value};
 `;
 
-const RightIcon = styled.div`
+const RightIcon = tStyled.div`
 	margin-left: ${spacing.large.value};
 `;

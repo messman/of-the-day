@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { styled } from '@/core/style/styled';
+import { tStyled } from '@/core/style/styled';
 import { Subtitle } from '@/core/symbol/text';
 import { decorate } from '@/test/decorate';
 import { DefaultLayoutBreakpoint, LayoutOrientation, useWindowLayout } from '@messman/react-common';
@@ -25,6 +25,6 @@ export const TestWindowLayout = decorate('Window Layout', () => {
 });
 
 
-const InvalidSubtitle = styled(Subtitle)`
+const InvalidSubtitle = tStyled(Subtitle)`
 	color: ${p => p.theme.color.warning};
 `;

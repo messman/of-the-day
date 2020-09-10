@@ -1,10 +1,9 @@
 import * as React from 'react';
 import { IPostImage } from 'oftheday-shared';
-import { spacing } from '@/core/style/common';
-import { DynamicMargin, Value, LabelValue } from '@/core/layout/common';
-import { Text } from '@/core/symbol/text';
+import { spacing, Spacing } from '@/core/layout/common';
+import { RegularText, Subtitle } from '@/core/symbol/text';
 import { DefaultLayoutBreakpoint } from '@messman/react-common';
-import { styled } from '@/core/style/styled';
+import { tStyled } from '@/core/style/styled';
 import { OutLink } from '@/core/link';
 import { ElementRoot } from '../post';
 
@@ -34,22 +33,21 @@ export const Image: React.FC<ImageProps> = (props) => {
 
 	return (
 		<ElementRoot>
-			<DynamicMargin margin={spacing.medium.horizontal} >
-				<LabelValue margin={spacing.medium.vertical} label='Image'>
-					<Text >{description}</Text>
-				</LabelValue>
-				<DynamicMargin margin={spacing.medium.vertical} >
+			<Spacing margin={spacing.medium.horizontal}>
+				<Subtitle margin={spacing.medium.vertical}>Image</Subtitle>
+				<RegularText>{description}</RegularText>
+				<Spacing margin={spacing.medium.vertical} >
 					<a href={link} target='_blank' rel="noreferrer noopener" title='Click to open in a new tab'>
 						<ConstrainedImage src={link} />
 					</a>
-				</DynamicMargin>
-				<Value margin={spacing.medium.vertical}>{sourceRender}</Value>
-			</DynamicMargin>
+				</Spacing>
+				<RegularText margin={spacing.medium.vertical}>{sourceRender}</RegularText>
+			</Spacing>
 		</ElementRoot>
 	);
 };
 
-const ConstrainedImage = styled.img`
+const ConstrainedImage = tStyled.img`
 	width: 100%;
 	max-width: ${DefaultLayoutBreakpoint.wide}px;
 	max-height: ${DefaultLayoutBreakpoint.wide}px;

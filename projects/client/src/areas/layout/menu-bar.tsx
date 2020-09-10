@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { styled, css } from '@/core/style/styled';
+import { tStyled, tCss } from '@/core/style/styled';
 import { routes } from '@/services/nav/routing';
-import { Text } from '@/core/symbol/text';
-import { spacing } from '@/core/style/common';
+import { RegularText } from '@/core/symbol/text';
 import { useHistory, useLocation, matchPath } from 'react-router-dom';
 import { FlexRow, DefaultLayoutBreakpoint, Sticky, useSticky } from '@messman/react-common';
+import { spacing } from '@/core/layout/common';
 
 /** Use an explicit pixel height for the upper menu bar to be used for sticky. */
 export const upperMenuBarHeightPixels = 56;
@@ -58,15 +58,15 @@ export const MenuBar: React.FC<MenuBarProps> = (props) => {
 	);
 };
 
-const MenuBarContainer = styled(FlexRow) <MenuBarProps>`
+const MenuBarContainer = tStyled(FlexRow) <MenuBarProps>`
 	position: relative;
 	background-color: ${p => p.isUpper ? p.theme.color.backgroundA : p.theme.color.backgroundB};
-	${p => p.isUpper && css`
+	${p => p.isUpper && tCss`
 		height: ${upperMenuBarHeightPixels}px;
 	`}
 `;
 
-const MenuBarInnerContainer = styled(FlexRow) <MenuBarProps>`
+const MenuBarInnerContainer = tStyled(FlexRow) <MenuBarProps>`
 	max-width: ${DefaultLayoutBreakpoint.regular}px;
 	margin-left: auto;
 	margin-right: auto;
@@ -93,7 +93,7 @@ export const MenuBarItem: React.FC<MenuBarItemProps> = (props) => {
 	);
 };
 
-const ItemButtonTextPadding = styled.div<MenuBarItemProps>`
+const ItemButtonTextPadding = tStyled.div<MenuBarItemProps>`
 	text-align: center;
 	padding: ${spacing.nudge.value};
 
@@ -102,7 +102,7 @@ const ItemButtonTextPadding = styled.div<MenuBarItemProps>`
 	border-bottom-width: 2px;
 `;
 
-const ItemButton = styled.button<MenuBarItemProps>`
+const ItemButton = tStyled.button<MenuBarItemProps>`
 	background-color: transparent;
 	cursor: ${p => p.isDisabled ? 'not-allowed' : 'pointer'};
 
@@ -110,6 +110,6 @@ const ItemButton = styled.button<MenuBarItemProps>`
 	border: none;
 `;
 
-const ItemButtonText = styled(Text) <MenuBarItemProps>`
+const ItemButtonText = tStyled(RegularText) <MenuBarItemProps>`
 	color: ${p => p.isDisabled ? p.theme.color.textDisabled : p.theme.color.text};
 `;

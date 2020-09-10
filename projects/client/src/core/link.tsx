@@ -1,9 +1,9 @@
 // Handles links.
 import * as React from 'react';
-import { styled } from '@/core/style/styled';
+import { tStyled } from '@/core/style/styled';
 import { iconTypes, Icon } from './symbol/icon';
 
-const BasicLink = styled.a`
+const BasicLink = tStyled.a`
 	margin: 0;
 
 	position: relative;
@@ -19,7 +19,7 @@ const BasicLink = styled.a`
 	}
 `;
 
-const Underline = styled.span`
+const Underline = tStyled.span`
 	text-decoration: underline;
 `;
 

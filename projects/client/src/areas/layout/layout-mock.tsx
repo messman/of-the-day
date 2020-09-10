@@ -3,35 +3,35 @@ import { AboutProps } from '@/areas/about/about';
 import { PostsProps } from '@/areas/posts/posts';
 import { OtherProps } from '@/areas/other/other';
 import { ArchiveProps } from '@/areas/archive/archive';
-import { styled } from '@/core/style/styled';
-import { Text } from '@/core/symbol/text';
+import { tStyled } from '@/core/style/styled';
+import { RegularText } from '@/core/symbol/text';
 import { Flex } from '@messman/react-common';
 
 export const MockPosts: React.FC<PostsProps> = () => {
 	return (
-		<Area><Text>Posts</Text></Area>
+		<Area><RegularText>Posts</RegularText></Area>
 	);
 };
 
 export const MockOther: React.FC<OtherProps> = () => {
 	return (
-		<Area><Text>Other</Text></Area>
+		<Area><RegularText>Other</RegularText></Area>
 	);
 };
 
 export const MockArchive: React.FC<ArchiveProps> = () => {
 	return (
-		<Area><Text>Archive</Text></Area>
+		<Area><RegularText>Archive</RegularText></Area>
 	);
 };
 
 export const MockAbout: React.FC<AboutProps> = () => {
 	return (
-		<Area><Text>About</Text></Area>
+		<Area><RegularText>About</RegularText></Area>
 	);
 };
 
-const Area = styled(Flex)`
+const Area = tStyled(Flex)`
 	color: darkred;
 	border: 1px solid darkred;
 	padding: 1rem;

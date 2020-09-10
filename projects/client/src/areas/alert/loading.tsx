@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Overlay } from '@/core/layout/overlay';
-import { addPadding, spacing } from '@/core/style/common';
-import { keyframes, styled } from '@/core/style/styled';
-import { Text } from '@/core/symbol/text';
+import { spacing } from '@/core/layout/common';
+import { keyframes, tStyled } from '@/core/style/styled';
+import { RegularText, Subtitle } from '@/core/symbol/text';
 import { CONSTANT } from '@/services/constant';
 import { PopupType, usePopup } from './popup';
 import { Icon, iconTypes } from '@/core/symbol/icon';
@@ -57,7 +57,7 @@ export const Loading: React.FC<LoadingProps> = (props) => {
 					<LoadingDot index={0}>
 						<LoadingCompass index={0} />
 					</LoadingDot>
-					<PaddedSubtitle>Loading</PaddedSubtitle>
+					<Subtitle padding={spacing.medium.value}>Loading</Subtitle>
 				</LoadingBody>
 				<Flex flex='none' />
 			</FlexColumn>
@@ -84,18 +84,16 @@ export const Loading: React.FC<LoadingProps> = (props) => {
 	);
 };
 
-const PaddedSubtitle = addPadding(Text, '0');
-
 interface StillWorkingTextProps {
 	isShowing: boolean;
 }
 
-const StillWorkingText = styled(Text) <StillWorkingTextProps>`
+const StillWorkingText = tStyled(RegularText) <StillWorkingTextProps>`
 	opacity: ${p => p.isShowing ? 1 : 0};
 	transition: opacity .1s linear;
 `;
 
-const LoadingBody = styled(Flex)`
+const LoadingBody = tStyled(Flex)`
 	/* Prevents crazy resizing scenarios. */
 	min-width: 16rem;
 	max-width: 24rem;
@@ -119,7 +117,7 @@ interface LoadingDotProps {
 	index: number;
 }
 
-const LoadingDot = styled.div<LoadingDotProps>`
+const LoadingDot = tStyled.div<LoadingDotProps>`
 	display: inline-block;
 	margin: .25rem;
 	animation: ${scale} 6s infinite ease-in-out both;
@@ -144,7 +142,7 @@ const spin = keyframes`
     }
 `;
 
-const LoadingCompassContainer = styled.div<LoadingDotProps>`
+const LoadingCompassContainer = tStyled.div<LoadingDotProps>`
 	width: 3rem;
 	height: 3rem;
 

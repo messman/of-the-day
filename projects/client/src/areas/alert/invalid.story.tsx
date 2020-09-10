@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text } from '@/core/symbol/text';
+import { RegularText } from '@/core/symbol/text';
 import { boolean, text } from '@storybook/addon-knobs';
 import { InvalidCheck } from './invalid';
 import { decorate } from '@/test/decorate';
@@ -53,9 +53,9 @@ const ErrorThrower: React.FC = () => {
 
 	return (
 		<div onClick={onClick}>
-			<Text>
+			<RegularText>
 				Click here to cause an error!
-			</Text>
+			</RegularText>
 		</div>
 	);
 };

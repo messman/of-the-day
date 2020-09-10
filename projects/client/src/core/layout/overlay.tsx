@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { styled } from '@/core/style/styled';
+import { tStyled } from '@/core/style/styled';
 import { useCurrentTheme } from '@/core/style/theme';
 import { FlexRoot } from '@messman/react-common';
 
@@ -38,7 +38,7 @@ interface OverlayAbsoluteBackdropProps {
 	backdropOpacity: number,
 }
 
-const OverlayAbsoluteBackdrop = styled.div<OverlayAbsoluteBackdropProps>`
+const OverlayAbsoluteBackdrop = tStyled.div<OverlayAbsoluteBackdropProps>`
 	display: ${p => p.isActive ? 'block' : 'none'};
 	position: absolute;
 	top: 0;
@@ -53,7 +53,7 @@ interface OverlayAbsoluteComponentContainerProps {
 	isActive: boolean;
 }
 
-const OverlayAbsoluteComponentContainer = styled(FlexRoot) <OverlayAbsoluteComponentContainerProps>`
+const OverlayAbsoluteComponentContainer = tStyled(FlexRoot) <OverlayAbsoluteComponentContainerProps>`
 	display: ${p => p.isActive ? 'flex' : 'none'};
 	position: absolute;
 	top: 0;

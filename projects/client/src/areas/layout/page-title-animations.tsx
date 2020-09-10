@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { GrandTitle, grandTitleHeight } from '@/core/symbol/text';
 import { useTransition, animated } from 'react-spring';
-import { styled } from '@/core/style/styled';
+import { tStyled } from '@/core/style/styled';
 
 const words = [
 	'Music',
@@ -78,7 +78,7 @@ export const PageTitleScrollAnimation: React.FC = () => {
 		const { item, key, props } = transition;
 		return (
 			<PageTitleScrollAnimationContainer key={key} style={props}>
-				<GrandTitle dataColor={c => c.secondary} isBold={true}>
+				<GrandTitle color={c => c.secondary} isBold={true}>
 					{item}&nbsp;
 				</GrandTitle>
 			</PageTitleScrollAnimationContainer>
@@ -92,7 +92,7 @@ export const PageTitleScrollAnimation: React.FC = () => {
 	);
 };
 
-const PageTitleScrollAnimationContainer = styled(animated.span)`
+const PageTitleScrollAnimationContainer = tStyled(animated.span)`
 	position: absolute;
 	right: 0;
 `;

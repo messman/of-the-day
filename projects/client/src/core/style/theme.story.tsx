@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { decorate } from '@/test/decorate';
-import { Title, Subtitle, Text, SmallText } from '@/core/symbol/text';
-import { styled } from '@/core/style/styled';
+import { Title, Subtitle, RegularText, SmallText } from '@/core/symbol/text';
+import { tStyled } from '@/core/style/styled';
 import { useCurrentTheme } from '@/core/style/theme';
-import { borderRadiusStyle, spacing } from '@/core/style/common';
+import { borderRadiusStyle } from '@/core/style/common';
+import { spacing } from '../layout/common';
 
 export default { title: 'Core/Style/Theme' };
 
@@ -30,7 +31,7 @@ interface ColorBoxProps {
 	backgroundColor: string,
 }
 
-const ColorBox = styled.div<ColorBoxProps>`
+const ColorBox = tStyled.div<ColorBoxProps>`
 	display: inline-block;
 	min-width: 3rem;
 	min-height: 1rem;
@@ -46,13 +47,13 @@ const TextSizesColorBox: React.FC<ColorBoxProps> = (props) => {
 		<ColorBox backgroundColor={props.backgroundColor}>
 			<Title>Title</Title>
 			<Subtitle>Subtitle</Subtitle>
-			<Text>Text</Text>
+			<RegularText>Text</RegularText>
 			<SmallText>Small Text</SmallText>
 		</ColorBox>
 	);
 };
 
-const LongColorBox = styled.div<ColorBoxProps>`
+const LongColorBox = tStyled.div<ColorBoxProps>`
 	display: inline-block;
 	min-width: 8rem;
 	min-height: 1rem;
@@ -67,7 +68,7 @@ const TextColorBox: React.FC<ColorBoxProps> = (props) => {
 	return (
 		<div>
 			<LongColorBox backgroundColor={props.backgroundColor} />
-			<Text isInline={true}>{props.children}</Text>
+			<RegularText isInline={true}>{props.children}</RegularText>
 		</div>
 	);
 };

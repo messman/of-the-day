@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text } from '@/core/symbol/text';
+import { RegularText } from '@/core/symbol/text';
 import { decorate } from '@/test/decorate';
 import { boolean, button, select, text } from '@storybook/addon-knobs';
 import { PopupType, usePopup } from './popup';
@@ -42,8 +42,8 @@ export const TestPopup = decorate('Popup', () => {
 	});
 
 	return (
-		<Text>
+		<RegularText>
 			Here is some background text. Times refreshed: {timesRefreshed.toString()}
-		</Text>
+		</RegularText>
 	);
 });

@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { IPostCustom } from 'oftheday-shared';
-import { spacing } from '@/core/style/common';
-import { LabelValue, DynamicMargin, Value, ApplicationMaxWidth } from '@/core/layout/common';
-import { Text } from '@/core/symbol/text';
+import { spacing, Spacing, ApplicationMaxWidth } from '@/core/layout/common';
+import { RegularText, Subtitle } from '@/core/symbol/text';
 import { OutLink } from '@/core/link';
 import { ElementRoot } from '../post';
 
@@ -24,32 +23,33 @@ export const Custom: React.FC<CustomProps> = (props) => {
 	if (link) {
 		render = (
 			<>
-				<DynamicMargin margin={spacing.medium.vertical}>
-					<Text isBold={true}>{title}</Text>
-				</DynamicMargin>
-				<Value margin={spacing.medium.vertical}>
+				<Spacing margin={spacing.medium.vertical}>
+					<RegularText isBold={true}>{title}</RegularText>
+				</Spacing>
+				<RegularText margin={spacing.medium.vertical}>
 					<OutLink href={link}>{linkText}</OutLink>
-				</Value>
-				<Value margin={spacing.medium.vertical}>
+				</RegularText>
+				<RegularText margin={spacing.medium.vertical}>
 					{value}
-				</Value>
+				</RegularText>
 			</>
 		);
 	}
 	else {
 		render = (
-			<LabelValue margin={spacing.medium.vertical} label={title}>
-				{value}
-			</LabelValue>
+			<Spacing margin={spacing.medium.vertical}>
+				<Subtitle>{title}</Subtitle>
+				<RegularText>{value}</RegularText>
+			</Spacing>
 		);
 	}
 
 	return (
 		<ElementRoot>
 			<ApplicationMaxWidth>
-				<DynamicMargin margin={spacing.medium.horizontal} >
+				<Spacing margin={spacing.medium.horizontal} >
 					{render}
-				</DynamicMargin>
+				</Spacing>
 			</ApplicationMaxWidth>
 		</ElementRoot>
 	);

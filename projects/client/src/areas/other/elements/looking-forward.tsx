@@ -1,9 +1,8 @@
 import * as React from 'react';
 import { IOther } from 'oftheday-shared';
-import { LabelValue } from '@/core/layout/common';
-import { spacing } from '@/core/style/common';
 import { OutLink } from '@/core/link';
-import { Text } from '@/core/symbol/text';
+import { RegularText, Subtitle } from '@/core/symbol/text';
+import { spacing, Spacing } from '@/core/layout/common';
 
 export interface LookingForwardProps {
 	other: IOther;
@@ -35,8 +34,11 @@ export const LookingForward: React.FC<LookingForwardProps> = (props) => {
 	}
 
 	return (
-		<LabelValue margin={spacing.medium.value} label='What I am looking forward to'>
-			<Text>{render}</Text>
-		</LabelValue>
+		<Spacing margin={spacing.medium.value}>
+			<Subtitle>
+				What I'm looking forward to
+			</Subtitle>
+			<RegularText>{render}</RegularText>
+		</Spacing>
 	);
 };

@@ -2,8 +2,7 @@ import * as React from 'react';
 import { decorate } from '@/test/decorate';
 import { text, boolean } from '@storybook/addon-knobs';
 import { MusicQuote, Quote } from './quote';
-import { DynamicMargin } from '@/core/layout/common';
-import { spacing } from '@/core/style/common';
+import { spacing, Spacing } from '@/core/layout/common';
 import { IPostQuote } from 'oftheday-shared';
 
 export default { title: 'Areas/Posts/Elements/Quotes' };
@@ -13,9 +12,9 @@ export const TestMusicQuote = decorate('Music Quote', () => {
 	const lyric = text('lyric', 'Cause it feels so empty without me');
 
 	return (
-		<DynamicMargin margin={spacing.medium.value}>
+		<Spacing margin={spacing.medium.value}>
 			<MusicQuote lyric={lyric} />
-		</DynamicMargin>
+		</Spacing>
 	);
 });
 
@@ -36,9 +35,9 @@ export const TestSingleQuote = decorate('Single Quote', () => {
 	};
 
 	return (
-		<DynamicMargin margin={spacing.medium.value}>
+		<Spacing margin={spacing.medium.value}>
 			<Quote quote={quote} />
-		</DynamicMargin>
+		</Spacing>
 	);
 });
 
@@ -59,9 +58,9 @@ export const TestAnonymousVoicesQuote = decorate('Anonymous Voices Quote', () =>
 	};
 
 	return (
-		<DynamicMargin margin={spacing.medium.value}>
+		<Spacing margin={spacing.medium.value}>
 			<Quote quote={quote} />
-		</DynamicMargin>
+		</Spacing>
 	);
 });
 
@@ -84,9 +83,9 @@ export const TestVoicesQuote = decorate('Voices Quote', () => {
 	};
 
 	return (
-		<DynamicMargin margin={spacing.medium.value}>
+		<Spacing margin={spacing.medium.value}>
 			<Quote quote={quote} />
-		</DynamicMargin>
+		</Spacing>
 	);
 });
 
@@ -109,8 +108,8 @@ export const TestLongVoicesQuote = decorate('Long Voices Quote', () => {
 	};
 
 	return (
-		<DynamicMargin margin={spacing.medium.value}>
+		<Spacing margin={spacing.medium.value}>
 			<Quote quote={quote} />
-		</DynamicMargin>
+		</Spacing>
 	);
 });
