@@ -38,22 +38,25 @@ export const Video: React.FC<VideoProps> = (props) => {
 			<YouTubeVideoFrame url={link} />
 		);
 	}
+
+	const titleRender = (
+		<>
+			<Subtitle margin={spacing.small.bottom}>Video</Subtitle>
+			<VideoTitle title={title} originalTitle={originalTitle} />
+		</>
+	);
+
+	const splitRender = (
+		<SeeMoreButton>See All Video</SeeMoreButton>
+	);
+
 	return (
 		<ElementRoot>
-			<MediaSplit isMediaOnRight={false} mediaRender={internalVideoRender}>
-				<Spacing margin={spacing.large.bottom}>
-					<Subtitle margin={spacing.small.bottom}>Video</Subtitle>
-					<VideoTitle title={title} originalTitle={originalTitle} />
-				</Spacing>
-				<Spacing margin={spacing.large.vertical}>
-					<TagList margin={spacing.medium.bottom} tags={tagStrings} />
-					<RegularText show={description}>
-						{description}
-					</RegularText>
-				</Spacing>
-				<Spacing margin={spacing.large.top}>
-					<SeeMoreButton>See All Video</SeeMoreButton>
-				</Spacing>
+			<MediaSplit isLeft={false} titleRender={titleRender} mediaRender={internalVideoRender} splitRender={splitRender}>
+				<TagList margin={spacing.medium.bottom} tags={tagStrings} />
+				<RegularText show={description}>
+					{description}
+				</RegularText>
 			</MediaSplit>
 		</ElementRoot>
 	);

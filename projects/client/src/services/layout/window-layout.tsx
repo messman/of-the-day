@@ -3,15 +3,19 @@ import { useWindowLayout, WindowLayout } from '@messman/react-common';
 // Customized breakpoints based on design.
 export enum LayoutBreakpoint {
 	mobile = 0,
-	tablet = 500,
-	desktop = 900,
-	wide = 1400,
+	mobileLarge = 576,
+	tablet = 768,
+	desktop = 992,
+	wide = 1200,
 }
-export const lowerBreakpoints: number[] = [LayoutBreakpoint.mobile, LayoutBreakpoint.tablet, LayoutBreakpoint.desktop, LayoutBreakpoint.wide];
+/** Maximum line length that we accept for paragraphs of text, in rem. */
+export const lineBreakpoint = '32rem';
+
+export const lowerBreakpoints: number[] = [LayoutBreakpoint.mobile, LayoutBreakpoint.mobileLarge, LayoutBreakpoint.tablet, LayoutBreakpoint.desktop, LayoutBreakpoint.wide];
 
 export function isInvalidLayout(windowLayout: WindowLayout): boolean {
 	// If height is too small, it's invalid.
-	return windowLayout.heightBreakpoint < LayoutBreakpoint.tablet;
+	return windowLayout.heightBreakpoint === LayoutBreakpoint.mobile;
 }
 
 export function useIsMobileWidth(): boolean {

@@ -33,6 +33,10 @@ export const Image: React.FC<ImageProps> = (props) => {
 
 	// TODO - add accessibility for image.
 
+	const titleRender = (
+		<Subtitle>Image</Subtitle>
+	);
+
 	const mediaRender = (
 		<a href={link} target='_blank' rel="noreferrer noopener" title='Click to open in a new tab'>
 			<ConstrainedImage src={link} />
@@ -41,8 +45,7 @@ export const Image: React.FC<ImageProps> = (props) => {
 
 	return (
 		<ElementRoot>
-			<MediaSplit isMediaOnRight={true} mediaRender={mediaRender}>
-				<Subtitle margin={spacing.small.bottom}>Image</Subtitle>
+			<MediaSplit isLeft={true} titleRender={titleRender} mediaRender={mediaRender}>
 				<RegularText show={description} margin={spacing.small.top}>{description}</RegularText>
 				<RegularText show={sourceRender} margin={spacing.nudge.top}>From {sourceRender}</RegularText>
 			</MediaSplit>

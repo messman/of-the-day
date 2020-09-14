@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { IPostMusic } from 'oftheday-shared';
 import { RegularText, Subtitle, Title } from '@/core/symbol/text';
-import { spacing, Spacing } from '@/core/layout/common';
+import { spacing, Spacing, LineMaxWidth } from '@/core/layout/common';
 import { YouTubeVideoFrame } from './video';
 import { TagList } from './tag';
 import { tStyled } from '@/core/style/styled';
@@ -33,32 +33,38 @@ export const Music: React.FC<MusicProps> = (props) => {
 
 	const yearSuffix = year ? <RegularText margin={spacing.nudge.top}>{year}</RegularText> : <></>;
 
+	const titleRender = (
+		<>
+			<Subtitle margin={spacing.small.bottom}>Music</Subtitle>
+			<Title isItalic={true}>{title}</Title>
+			<Title>{artist}</Title>
+			{yearSuffix}
+		</>
+	);
+
+	const splitRender = (
+		<>
+			<Spacing show={quote} margin={spacing.large.bottom}>
+				<MusicQuote lyric={quote} />
+			</Spacing>
+			<SeeMoreButton>See All Music</SeeMoreButton>
+		</>
+	);
+
 	const embedRender: JSX.Element = useYouTube ? <YouTubeVideoFrame url={youTubeLink} /> : <SpotifyEmbedFrame url={spotifyLink} />;
 
-	const sectionMargin = spacing.large.vertical;
+
 
 	return (
 		<ElementRoot>
-			<MediaSplit isMediaOnRight={true} mediaRender={embedRender}>
-				<Spacing margin={spacing.large.bottom}>
-					<Subtitle margin={spacing.small.bottom}>Music</Subtitle>
-					<Title isItalic={true}>{title}</Title>
-					<Title>{artist}</Title>
-					{yearSuffix}
-				</Spacing>
-				<Spacing margin={sectionMargin}>
-					<TagList margin={spacing.medium.bottom} tags={tagStrings} />
-					<RegularText margin={spacing.medium.bottom} show={description}>
+			<MediaSplit isLeft={true} titleRender={titleRender} mediaRender={embedRender} splitRender={splitRender}>
+				<TagList margin={spacing.medium.bottom} tags={tagStrings} />
+				<RegularText margin={spacing.medium.bottom} show={description}>
+					<LineMaxWidth>
 						{description}
-					</RegularText>
-					<MusicOutLinks music={music} />
-				</Spacing>
-				<Spacing show={quote} margin={spacing.large.value}>
-					<MusicQuote lyric={quote} />
-				</Spacing>
-				<Spacing margin={spacing.large.top}>
-					<SeeMoreButton>See All Music</SeeMoreButton>
-				</Spacing>
+					</LineMaxWidth>
+				</RegularText>
+				<MusicOutLinks music={music} />
 			</MediaSplit>
 		</ElementRoot>
 	);

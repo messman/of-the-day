@@ -2,7 +2,7 @@ import * as React from 'react';
 import { tStyled } from '@/core/style/styled';
 import { IPost, IPostDayReference } from 'oftheday-shared';
 import { Title, RegularText, titleHeight } from '@/core/symbol/text';
-import { Center } from '@/core/style/common';
+import { TextAlign } from '@/core/style/common';
 import { FlexRow, Sticky, useSticky } from '@messman/react-common';
 import { Icon, iconTypes } from '@/core/symbol/icon';
 import { spacing } from '@/core/layout/common';
@@ -50,10 +50,10 @@ export const PostsHeader: React.FC<PostsHeaderProps> = (props) => {
 				<LeftIcon>
 					<Icon type={iconTypes.left} fillColor={c => c.secondary} height={titleHeight} />
 				</LeftIcon>
-				<Center>
+				<TextAlign align='center'>
 					<RegularText margin={spacing.nudge.bottom} color={c => c.textSubtle}>{dayReferenceRender}Day {dayNumber}</RegularText>
 					<Title isBold={true}>{dateText}</Title>
-				</Center>
+				</TextAlign>
 				<RightIcon>
 					<Icon type={iconTypes.right} fillColor={c => c.secondary} height={titleHeight} />
 				</RightIcon>

@@ -3,15 +3,15 @@ import { tStyled, tCss } from '../style/styled';
 import { StyledComponent } from 'styled-components';
 import { Theme, ThemePickColor } from '../style/theme';
 import { grandTitleHeight } from '../symbol/text';
-import { LayoutBreakpoint } from '@/services/layout/window-layout';
+import { LayoutBreakpoint, lineBreakpoint } from '@/services/layout/window-layout';
 
 export const ApplicationMaxWidth = tStyled.div`
 	max-width: ${LayoutBreakpoint.wide}px;
 	margin-left: auto;
 	margin-right: auto;
 `;
-export const TextContentMaxWidth = tStyled.div`
-	max-width: ${LayoutBreakpoint.tablet}px;
+export const LineMaxWidth = tStyled.div`
+	max-width: ${lineBreakpoint};
 `;
 
 export interface Spacing {

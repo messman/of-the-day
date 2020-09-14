@@ -2,7 +2,7 @@ import * as React from 'react';
 import { spacing } from '@/core/layout/common';
 import { Subtitle, RegularText } from '@/core/symbol/text';
 import { ElementRoot } from '../post';
-import { Center } from '@/core/style/common';
+import { TextAlign } from '@/core/style/common';
 
 export interface DayOffProps {
 	message: string;
@@ -15,12 +15,12 @@ export const DayOff: React.FC<DayOffProps> = (props) => {
 
 	return (
 		<ElementRoot>
-			<Center>
+			<TextAlign align='center'>
 				<Subtitle margin={spacing.medium.bottom}>Off Day</Subtitle>
 				<RegularText>
 					{messageText}
 				</RegularText>
-			</Center>
+			</TextAlign>
 		</ElementRoot>
 	);
 };

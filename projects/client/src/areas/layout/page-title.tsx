@@ -5,7 +5,7 @@ import { ApplicationMaxWidth, spacing } from '@/core/layout/common';
 import { ThemePickColor } from '@/core/style/theme';
 import { tStyled } from '@/core/style/styled';
 import { PageTitleScrollAnimation } from './page-title-animations';
-import { Center } from '@/core/style/common';
+import { TextAlign } from '@/core/style/common';
 
 export interface PageTitleProps {
 	isCompact: boolean;
@@ -22,7 +22,7 @@ export const PageTitle: React.FC<PageTitleProps> = () => {
 				<ApplicationMaxWidth>
 					<FlexRow justifyContent='space-between' alignItems='center'>
 						<Flex />
-						<Center>
+						<TextAlign align='center'>
 							<FlexRow>
 								<SideContainer flex='none' justifyContent='flex-end'>
 									<PageTitleScrollAnimation />
@@ -34,7 +34,7 @@ export const PageTitle: React.FC<PageTitleProps> = () => {
 								</Flex>
 							</FlexRow>
 							<RegularText margin={spacing.small.top} color={backgroundColor}>daily sharing from Andrew</RegularText>
-						</Center>
+						</TextAlign>
 						<Flex />
 					</FlexRow>
 				</ApplicationMaxWidth>

@@ -5,8 +5,9 @@ import { ThemeProvider } from '@/core/style/theme';
 import { PostResponseProvider } from '@/services/data/data';
 import { DEFINE } from '@/services/define';
 import { MemoryRouter, BrowserRouter } from 'react-router-dom';
-import { WindowLayoutProvider, WindowDimensionsProvider, defaultLowerBreakpoints, FlexRoot, DocumentVisibilityProvider } from '@messman/react-common';
+import { WindowLayoutProvider, WindowDimensionsProvider, FlexRoot, DocumentVisibilityProvider } from '@messman/react-common';
 import { FontSizeManager } from '@/core/style/common';
+import { lowerBreakpoints } from '@/services/layout/window-layout';
 
 export const Wrapper: React.FC = (props) => {
 	return (
@@ -27,7 +28,7 @@ export const Providers: React.FC = (props) => {
 			<DocumentVisibilityProvider>
 				<ThemeProvider>
 					<WindowDimensionsProvider>
-						<WindowLayoutProvider lowerBreakpoints={defaultLowerBreakpoints}>
+						<WindowLayoutProvider lowerBreakpoints={lowerBreakpoints}>
 							<FontSizeManager>
 								<PopupProvider>
 									<PostResponseProvider>

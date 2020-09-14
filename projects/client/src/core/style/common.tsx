@@ -14,8 +14,12 @@ export const mediaBoxShadowStyle = tCss`
 	box-shadow: 0px 3px 15px 5px #111;
 `;
 
-export const Center = tStyled.div`
-	text-align: center;
+export interface TextAlignProps {
+	align: 'left' | 'right' | 'center';
+}
+
+export const TextAlign = tStyled.div<TextAlignProps>`
+	text-align: ${p => p.align || 'left'};
 `;
 
 export const FontSizeManager: React.FC = (props) => {
@@ -29,6 +33,8 @@ export const FontSizeManager: React.FC = (props) => {
 };
 
 export const SeeMoreButton = tStyled.button`
+	display: block;
+	width: 100%;
 	font-size: ${regularTextHeight};
 	padding: ${spacing.medium.value} ${spacing.large.value};
 	${borderRadiusStyle};

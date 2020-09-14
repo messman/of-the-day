@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { IPostEndThoughts } from 'oftheday-shared';
-import { spacing, ApplicationMaxWidth, TextContentMaxWidth } from '@/core/layout/common';
+import { spacing, ApplicationMaxWidth, LineMaxWidth } from '@/core/layout/common';
 import { ElementRoot } from '../post';
 import { tStyled } from '@/core/style/styled';
 import { Subtitle, RegularText } from '@/core/symbol/text';
@@ -31,7 +31,7 @@ export const EndThoughts: React.FC<EndThoughtsProps> = (props) => {
 	);
 };
 
-const CenteredContent = tStyled(TextContentMaxWidth)`
+const CenteredContent = tStyled(LineMaxWidth)`
 	text-align: center;
 	margin-left: auto;
 	margin-right: auto;
