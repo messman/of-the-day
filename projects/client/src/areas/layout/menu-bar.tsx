@@ -51,7 +51,7 @@ export const MenuBar: React.FC<MenuBarProps> = (props) => {
 	return (
 		<Sticky isSticky={true} output={stickyOutput} zIndex={1} >
 			<MenuBarContainer {...props} flex='none'>
-				<MenuBarInnerContainer {...props} justifyContent='space-around' alignItems='center'>
+				<MenuBarInnerContainer justifyContent='space-around' alignItems='center'>
 					{menuBarItems}
 				</MenuBarInnerContainer>
 			</MenuBarContainer>
@@ -67,7 +67,7 @@ const MenuBarContainer = tStyled(FlexRow) <MenuBarProps>`
 	`}
 `;
 
-const MenuBarInnerContainer = tStyled(FlexRow) <MenuBarProps>`
+const MenuBarInnerContainer = tStyled(FlexRow)`
 	max-width: ${LayoutBreakpoint.tablet}px;
 	margin-left: auto;
 	margin-right: auto;

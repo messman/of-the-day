@@ -29,7 +29,7 @@ export const titleHeight = '1.75rem';
 export const Title = createTextComponent(titleHeight, c => c.textTitle, true);
 
 export const subtitleHeight = '1.3rem';
-/** Subtitle. 1.3rem / 20px. */
+/** Subtitle. 1.3rem / 20.8px. */
 export const Subtitle = createTextComponent(subtitleHeight, c => c.textSubtitle, true);
 
 export const regularTextHeight = '1rem';

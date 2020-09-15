@@ -13,6 +13,11 @@ export const ApplicationMaxWidth = tStyled.div`
 export const LineMaxWidth = tStyled.div`
 	max-width: ${lineBreakpoint};
 `;
+export const LineMaxWidthCenter = tStyled.div`
+	max-width: ${lineBreakpoint};
+	margin-left: auto;
+	margin-right: auto;
+`;
 
 export interface Spacing {
 	value: string;

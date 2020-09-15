@@ -3,7 +3,7 @@ import { IPost } from 'oftheday-shared';
 import { Basics } from './elements/basics';
 import { Music } from './elements/music';
 import { Video } from './elements/video';
-import { Quote } from './elements/quote';
+import { Quote } from './elements/quote/quote';
 import { Image } from './elements/image';
 import { EndThoughts } from './elements/end-thoughts';
 import { Custom } from './elements/custom';

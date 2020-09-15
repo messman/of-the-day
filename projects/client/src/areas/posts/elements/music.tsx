@@ -8,7 +8,7 @@ import { YouTubeVideoFrame } from './video';
 import { TagList } from './tag';
 import { tStyled } from '@/core/style/styled';
 import { OutLink } from '@/core/link';
-import { MusicQuote } from './quote';
+import { MusicQuote } from './quote/quote';
 import { ElementRoot } from '../post';
 import { SeeMoreButton } from '@/core/style/common';
 import { MediaSplit } from '@/core/layout/media-split';
