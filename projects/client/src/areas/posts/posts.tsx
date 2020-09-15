@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { IPost } from 'oftheday-shared';
 import { Post } from './post';
-import { PostsHeader } from './posts-header';
+import { PostsHeader, PostDayHeader } from './posts-header';
 
 export interface PostsProps {
 	overridePosts?: IPost[];
@@ -24,9 +24,16 @@ export const Posts: React.FC<PostsProps> = (props) => {
 		setActivePostIndex(0);
 	}, [posts]);
 
-	const postsRender = posts.map((post) => {
+	const postsRender = posts.map((post, i) => {
+
+		const headerKey = `header_${post.dateText}`;
+		const postDayHeader = i === 0 ? null : <PostDayHeader key={headerKey} post={post} />;
+
 		return (
-			<Post key={post.dateText} post={post} />
+			<>
+				{postDayHeader}
+				<Post key={post.dateText} post={post} />
+			</>
 		);
 	});
 

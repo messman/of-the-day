@@ -24,8 +24,7 @@ const dayReferencesText: Record<keyof typeof IPostDayReference, string> = {
 };
 
 export const PostsHeader: React.FC<PostsHeaderProps> = (props) => {
-	const { onPostChosen, ...otherProps } = props;
-	const { rootRef, offsetPixels, posts, activePostIndex } = otherProps;
+	const { rootRef, offsetPixels, posts, activePostIndex } = props;
 
 	const stickyOutput = useSticky({
 		rootRef: rootRef,
@@ -33,27 +32,17 @@ export const PostsHeader: React.FC<PostsHeaderProps> = (props) => {
 	});
 
 	const post = posts[activePostIndex];
-	const { dayReference, dateText, dayNumber } = post;
-
-	let dayReferenceRender: JSX.Element | null = null;
-	if (dayReference !== IPostDayReference.other) {
-		const dayReferenceText = dayReferencesText[IPostDayReference[dayReference] as keyof typeof IPostDayReference];
-		dayReferenceRender = <>{dayReferenceText}&nbsp;&middot;&nbsp;</>;
-	}
 
 	return (
 		<Sticky isSticky={true} output={stickyOutput} zIndex={1} >
-			<PostsHeaderContainer {...otherProps} flex='none' justifyContent='center' alignItems='center'>
+			<PostsHeaderContainer flex='none' justifyContent='center' alignItems='center'>
 				<LeftIcon>
 					<Icon type={iconTypes.calendar} fillColor={c => c.secondary} height={titleHeight} />
 				</LeftIcon>
 				<LeftIcon>
 					<Icon type={iconTypes.left} fillColor={c => c.secondary} height={titleHeight} />
 				</LeftIcon>
-				<TextAlign dataAlign='center'>
-					<RegularText margin={spacing.nudge.bottom} color={c => c.textSubtle}>{dayReferenceRender}Day {dayNumber}</RegularText>
-					<Title isBold={true}>{dateText}</Title>
-				</TextAlign>
+				<PostDayTitle post={post} />
 				<RightIcon>
 					<Icon type={iconTypes.right} fillColor={c => c.secondary} height={titleHeight} />
 				</RightIcon>
@@ -65,10 +54,10 @@ export const PostsHeader: React.FC<PostsHeaderProps> = (props) => {
 	);
 };
 
-const PostsHeaderContainer = tStyled(FlexRow) <PostsHeaderProps>`
+const PostsHeaderContainer = tStyled(FlexRow)`
 	padding: ${spacing.medium.vertical};
 	position: relative;
-	background-color: ${p => p.isUpper ? p.theme.color.backgroundC : p.theme.color.backgroundB};
+	background-color: ${p => p.theme.color.backgroundC};
 `;
 
 const LeftIcon = tStyled.div`
@@ -78,3 +67,39 @@ const LeftIcon = tStyled.div`
 const RightIcon = tStyled.div`
 	margin-left: ${spacing.large.value};
 `;
+
+export interface PostDayHeader {
+	post: IPost;
+}
+
+export const PostDayHeader: React.FC<PostDayHeader> = (props) => {
+	const { post } = props;
+
+	return (
+		<PostsHeaderContainer flex='none' justifyContent='center'>
+			<PostDayTitle post={post} />
+		</PostsHeaderContainer>
+	);
+};
+
+interface PostDayTitle {
+	post: IPost;
+}
+
+const PostDayTitle: React.FC<PostDayTitle> = (props) => {
+	const { post } = props;
+	const { dayReference, dateText, dayNumber } = post;
+
+	let dayReferenceRender: JSX.Element | null = null;
+	if (dayReference !== IPostDayReference.other) {
+		const dayReferenceText = dayReferencesText[IPostDayReference[dayReference] as keyof typeof IPostDayReference];
+		dayReferenceRender = <>{dayReferenceText}&nbsp;&middot;&nbsp;</>;
+	}
+
+	return (
+		<TextAlign dataAlign='center'>
+			<RegularText margin={spacing.nudge.bottom} color={c => c.textSubtle}>{dayReferenceRender}Day {dayNumber}</RegularText>
+			<Title isBold={true}>{dateText}</Title>
+		</TextAlign>
+	);
+};
