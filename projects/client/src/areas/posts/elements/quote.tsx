@@ -4,10 +4,10 @@ import * as React from 'react';
 import { tStyled } from '@/core/style/styled';
 import { RegularText, subTextHeight, Subtitle } from '@/core/symbol/text';
 import { IPostQuote } from 'oftheday-shared';
-import { borderRadiusStyle } from '@/core/style/common';
+import { borderRadiusStyle, ListItemOppositeBackground, mediaBoxShadowStyle, TextAlign } from '@/core/style/common';
 import { Icon, iconTypes } from '@/core/symbol/icon';
 import { titleHeight } from '@/core/symbol/text';
-import { spacing, Spacing } from '@/core/layout/common';
+import { spacing, Spacing, LineMaxWidth } from '@/core/layout/common';
 import { Flex, FlexRow } from '@messman/react-common';
 import { OutLink } from '@/core/link';
 import { ElementRoot } from '../post';
@@ -52,14 +52,10 @@ export const Quote: React.FC<QuoteProps> = (props) => {
 
 	return (
 		<ElementRoot>
-			<Spacing margin={spacing.medium.horizontal}>
-				<Spacing margin={spacing.medium.vertical}>
-					<RegularText isBold={true}>Quote</RegularText>
-				</Spacing>
-				<Spacing margin={spacing.medium.vertical}>
-					<InnerQuote quote={quote} />
-				</Spacing>
-			</Spacing>
+			<TextAlign align='center'>
+				<Subtitle margin={spacing.medium.bottom}>Quote</Subtitle>
+			</TextAlign>
+			<InnerQuote quote={quote} />
 		</ElementRoot>
 	);
 };
@@ -79,18 +75,22 @@ const InnerQuote: React.FC<QuoteProps> = (props) => {
 		render = (
 			<>
 				<TopLeftAbsoluteIcon type={iconTypes.quotationOpen} height={titleHeight} fillColor={c => c.primaryA} />
-				<CenterAndEmphasize margin={spacing.medium.horizontal}>
-					<MultilineQuoteText text={a}></MultilineQuoteText>
-				</CenterAndEmphasize>
+				<Spacing margin={spacing.medium.horizontal}>
+					<TextAlign align='center'>
+						<MultilineQuoteText text={a}></MultilineQuoteText>
+					</TextAlign>
+				</Spacing>
 				<BottomRightAbsoluteIcon type={iconTypes.quotationClose} height={titleHeight} fillColor={c => c.primaryA} />
 			</>
 		);
 	}
 	else {
+		const gapSpacing = bVoice ? spacing.large : spacing.medium;
+
 		render = (
 			<>
 				<HalfQuote text={a} voice={aVoice} />
-				<Spacing margin={spacing.medium.top} />
+				<Spacing margin={gapSpacing.top} />
 				<HalfQuote text={b} voice={bVoice} />
 			</>
 		);
@@ -140,11 +140,12 @@ const MaxWidthContainer = tStyled.div`
 	margin: auto;
 `;
 
-const QuoteBackground = tStyled.div`
+const QuoteBackground = tStyled(ListItemOppositeBackground)`
+	display: inline-block;
 	padding: ${spacing.medium.value};
 	position: relative;
-	background-color: ${p => p.theme.color.backgroundB};
 	${borderRadiusStyle}
+	${mediaBoxShadowStyle}
 `;
 
 
@@ -160,10 +161,6 @@ const BottomRightAbsoluteIcon = tStyled(Icon)`
 	right: calc(-${p => p.height} / 4);
 `;
 
-const CenterAndEmphasize = tStyled(Spacing)`
-	text-align: center;
-	font-style: italic;
-`;
 
 const Right = tStyled(Spacing)`
 	text-align: right;
@@ -181,11 +178,15 @@ const HalfQuote: React.FC<HalfQuoteProps> = (props) => {
 	const textRender = (
 		<FlexRow alignItems='stretch'>
 			<Icon type={iconTypes.quotationOpen} height={subTextHeight} fillColor={c => c.primaryA} />
-				&nbsp;
+			&nbsp;
 			<Flex>
-				<RegularText isInline={true}>{text}</RegularText>
-					&nbsp;
-					<Icon type={iconTypes.quotationClose} height={subTextHeight} fillColor={c => c.primaryA} />
+				<LineMaxWidth>
+					<RegularText isInline={true}>
+						{text}
+						&#8288;&nbsp;&#8288;
+						<Icon type={iconTypes.quotationClose} height={subTextHeight} fillColor={c => c.primaryA} />
+					</RegularText>
+				</LineMaxWidth>
 			</Flex>
 		</FlexRow>
 	);
@@ -195,7 +196,7 @@ const HalfQuote: React.FC<HalfQuoteProps> = (props) => {
 		const voiceLabel = voice + ':';
 		render = (
 			<>
-				<Subtitle>{voiceLabel}</Subtitle>
+				<RegularText color={c => c.textTitle} margin={spacing.small.bottom}>{voiceLabel}</RegularText>
 				{textRender}
 			</>
 		);

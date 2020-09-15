@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { tCss, tStyled } from '@/core/style/styled';
-import { useIsMobileWidth } from '@/services/layout/window-layout';
 import { spacing } from '../layout/common';
 import { regularTextHeight } from '../symbol/text';
+import { useWindowLayout } from '@messman/react-common';
+import { LayoutBreakpoint } from '@/services/layout/window-layout';
 
 /** Border-radius style. .375rem / 6px. */
 export const borderRadiusValue: string = '.375rem';
@@ -23,11 +24,23 @@ export const TextAlign = tStyled.div<TextAlignProps>`
 `;
 
 export const FontSizeManager: React.FC = (props) => {
-	const isMobileWidth = useIsMobileWidth();
+	const windowLayout = useWindowLayout();
+	const { widthBreakpoint } = windowLayout;
 
 	React.useEffect(() => {
-		document.body.style.fontSize = isMobileWidth ? '16px' : '14px';
-	}, [isMobileWidth]);
+
+		// Default font size.
+		let fontSize = '16px';
+		if (widthBreakpoint <= LayoutBreakpoint.mobileLarge) {
+			fontSize = '14px';
+		}
+		else if (widthBreakpoint >= LayoutBreakpoint.wide) {
+			fontSize = '18px';
+		}
+		console.log(fontSize, LayoutBreakpoint[widthBreakpoint], document.body.style.fontSize);
+
+		document.documentElement.style.fontSize = fontSize;
+	}, [widthBreakpoint]);
 
 	return <>{props.children}</>;
 };
@@ -41,4 +54,18 @@ export const SeeMoreButton = tStyled.button`
 	border: none;
 	color: ${p => p.theme.color.buttonActionText};
 	background-color: ${p => p.theme.color.buttonActionBackground};
+`;
+
+export const ListItemOppositeBackground = tStyled.div`
+	background-color: ${p => p.theme.color.backgroundB};
+`;
+
+export const ListItemBackground = tStyled.div`
+	&:nth-child(even) {
+		background-color: ${p => p.theme.color.backgroundB};
+
+		${ListItemOppositeBackground} {
+			background-color: ${p => p.theme.color.backgroundA};
+		}
+	}
 `;

@@ -36,9 +36,11 @@ export const Music: React.FC<MusicProps> = (props) => {
 	const titleRender = (
 		<>
 			<Subtitle margin={spacing.small.bottom}>Music</Subtitle>
-			<Title isItalic={true}>{title}</Title>
-			<Title>{artist}</Title>
-			{yearSuffix}
+			<Spacing margin={spacing.large.bottom}>
+				<Title isItalic={true}>{title}</Title>
+				<Title>{artist}</Title>
+				{yearSuffix}
+			</Spacing>
 		</>
 	);
 

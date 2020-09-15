@@ -10,6 +10,7 @@ import { Custom } from './elements/custom';
 import { DayOff } from './elements/day-off';
 import { tStyled } from '@/core/style/styled';
 import { spacing, SpacingProps, ApplicationMaxWidth, Spacing } from '@/core/layout/common';
+import { ListItemBackground } from '@/core/style/common';
 
 interface PostProps {
 	isActive?: boolean;
@@ -48,11 +49,8 @@ export const Post: React.FC<PostProps> = (props) => {
 	);
 };
 
-const ElementRootColor = tStyled.div`
+const ElementRootColor = tStyled(ListItemBackground)`
 	overflow: auto;
-	&:nth-child(even) {
-		background-color: ${p => p.theme.color.backgroundB};
-	}
 `;
 
 export const ElementRoot: React.FC<SpacingProps> = (props) => {

@@ -25,11 +25,9 @@ export const MediaSplit: React.FC<MediaSplitProps> = (props) => {
 	const textAlign = 'left';
 
 	const titleContentRender = (
-		<Spacing margin={spacing.large.bottom}>
-			<TextAlign align={textAlign}>
-				{titleRender}
-			</TextAlign>
-		</Spacing>
+		<TextAlign align={textAlign}>
+			{titleRender}
+		</TextAlign>
 	);
 
 	const mainContentRender = (
@@ -130,5 +128,6 @@ const Divider = tStyled.div`
 const VisibleDivider = tStyled.div`
 	width: 2px;
 	background-color: ${p => p.theme.color.backgroundC};
-	margin: ${spacing.medium.horizontal};
+	margin-left: calc(${spacing.large.value} / 2);
+	margin-right: calc(${spacing.large.value} / 2);
 `;

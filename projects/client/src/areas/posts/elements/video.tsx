@@ -42,7 +42,9 @@ export const Video: React.FC<VideoProps> = (props) => {
 	const titleRender = (
 		<>
 			<Subtitle margin={spacing.small.bottom}>Video</Subtitle>
-			<VideoTitle title={title} originalTitle={originalTitle} />
+			<Spacing margin={spacing.large.bottom}>
+				<VideoTitle title={title} originalTitle={originalTitle} />
+			</Spacing>
 		</>
 	);
 

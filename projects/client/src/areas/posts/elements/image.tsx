@@ -34,7 +34,7 @@ export const Image: React.FC<ImageProps> = (props) => {
 	// TODO - add accessibility for image.
 
 	const titleRender = (
-		<Subtitle>Image</Subtitle>
+		<Subtitle margin={spacing.medium.bottom}>Image</Subtitle>
 	);
 
 	const mediaRender = (
