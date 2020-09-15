@@ -1,4 +1,4 @@
-import { useWindowLayout, WindowLayout } from '@messman/react-common';
+import { WindowLayout } from '@messman/react-common';
 
 // Customized breakpoints based on design.
 export enum LayoutBreakpoint {
@@ -16,9 +16,4 @@ export const lowerBreakpoints: number[] = [LayoutBreakpoint.mobile, LayoutBreakp
 export function isInvalidLayout(windowLayout: WindowLayout): boolean {
 	// If height is too small, it's invalid.
 	return windowLayout.heightBreakpoint === LayoutBreakpoint.mobile;
-}
-
-export function useIsMobileWidth(): boolean {
-	const windowLayout = useWindowLayout();
-	return windowLayout.widthBreakpoint === LayoutBreakpoint.mobile;
 }

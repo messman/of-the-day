@@ -7,9 +7,9 @@ import { MenuBar, upperMenuBarHeightPixels } from './menu-bar';
 import { Switch, Route } from 'react-router-dom';
 import { routes } from '@/services/nav/routing';
 import { tStyled } from '@/core/style/styled';
-import { FlexColumn } from '@messman/react-common';
+import { FlexColumn, useWindowLayout } from '@messman/react-common';
 import { PageTitle } from './page-title';
-import { useIsMobileWidth } from '@/services/layout/window-layout';
+import { LayoutBreakpoint } from '@/services/layout/window-layout';
 
 export const ApplicationLayout: React.FC = () => {
 	return (
@@ -32,9 +32,10 @@ interface LayoutProps {
 
 export const Layout: React.FC<LayoutProps> = (props) => {
 
-	const isMobileWidth = useIsMobileWidth();
+	const windowLayout = useWindowLayout();
+	const isAnyMobileWidth = windowLayout.widthBreakpoint <= LayoutBreakpoint.mobileLarge;
 
-	if (isMobileWidth) {
+	if (isAnyMobileWidth) {
 		return <CompactLayout {...props} />;
 	}
 	else {

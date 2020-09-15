@@ -3,36 +3,31 @@ import { IPost } from 'oftheday-shared';
 import { spacing } from '@/core/layout/common';
 import { TagList } from './tag';
 import { ElementRoot } from '../post';
-import { FlexRow } from '@messman/react-common';
+import { FlexRow, useWindowLayout, Flex, FlexColumn } from '@messman/react-common';
 import { tStyled } from '@/core/style/styled';
-import { useIsMobileWidth } from '@/services/layout/window-layout';
 import { Subtitle, RegularText } from '@/core/symbol/text';
+import { LayoutBreakpoint } from '@/services/layout/window-layout';
 
 export interface BasicsProps {
 	post: IPost;
 }
 
 export const Basics: React.FC<BasicsProps> = (props) => {
-	const isMobileWidth = useIsMobileWidth();
-	if (isMobileWidth) {
-		return null;
-	}
-	return <RegularBasics {...props} />;
-};
-
-const RegularBasics: React.FC<BasicsProps> = (props) => {
 	const { post } = props;
 	const { basics } = post;
 	const { event, note, location, schedule, dayTypes } = basics;
 
-	const titleMargin = spacing.medium.bottom;
+	const windowLayout = useWindowLayout();
+	const isAnyMobileWidth = windowLayout.widthBreakpoint <= LayoutBreakpoint.mobileLarge;
+	const flex = isAnyMobileWidth ? 'none' : 1;
 
+	const titleMargin = spacing.medium.bottom;
 	const textMargin = spacing.medium.vertical;
 
 	let leftRender: JSX.Element | null = null;
 	if (event || note) {
 		leftRender = (
-			<TextContainer key='notes'>
+			<TextContainer key='notes' flex={flex}>
 				<Subtitle margin={titleMargin}>Notes</Subtitle>
 				<Subtitle isBold={false} show={event} margin={textMargin} color={c => c.text}>{event}</Subtitle>
 				<RegularText show={note} margin={textMargin}>{note}</RegularText>
@@ -43,7 +38,7 @@ const RegularBasics: React.FC<BasicsProps> = (props) => {
 	let centerRender: JSX.Element | null = null;
 	if (schedule || (dayTypes && dayTypes.length)) {
 		centerRender = (
-			<TextContainer key='schedule'>
+			<TextContainer key='schedule' flex={flex}>
 				<Subtitle margin={titleMargin}>Schedule</Subtitle>
 				<RegularText show={schedule} margin={textMargin}>{schedule}</RegularText>
 				<TagList margin={textMargin} tags={dayTypes} />
@@ -54,7 +49,7 @@ const RegularBasics: React.FC<BasicsProps> = (props) => {
 	let rightRender: JSX.Element | null = null;
 	if (location) {
 		rightRender = (
-			<TextContainer key='location'>
+			<TextContainer key='location' flex={flex}>
 				<Subtitle isBold={true} margin={titleMargin}>Location</Subtitle>
 				<Subtitle isBold={false} color={c => c.text}>{location}</Subtitle>
 			</TextContainer>
@@ -64,16 +59,20 @@ const RegularBasics: React.FC<BasicsProps> = (props) => {
 	const renders: JSX.Element[] = [];
 	[leftRender, centerRender, rightRender].filter(r => !!r).forEach((render, i) => {
 		if (i !== 0) {
-			renders.push(<VerticalSeparator key={i} />);
+			const Separator = isAnyMobileWidth ? HorizontalSeparator : VerticalSeparator;
+			renders.push(<Separator key={i} />);
 		}
 		renders.push(render!);
 	});
 
+	const ListWrapper = isAnyMobileWidth ? FlexColumn : FlexRow;
+	const margin = isAnyMobileWidth ? spacing.large.horizontal : spacing.large.vertical;
+
 	return (
-		<ElementRoot margin={spacing.large.vertical}>
-			<FlexRow>
+		<ElementRoot margin={margin}>
+			<ListWrapper>
 				{renders}
-			</FlexRow>
+			</ListWrapper>
 		</ElementRoot>
 	);
 };
@@ -83,8 +82,12 @@ const VerticalSeparator = tStyled.div`
 	background-color: ${p => p.theme.color.backgroundC};
 `;
 
-const TextContainer = tStyled.div`
-	flex: 1;
+const HorizontalSeparator = tStyled.div`
+	height: 2px;
+	background-color: ${p => p.theme.color.backgroundC};
+`;
+
+const TextContainer = tStyled(Flex)`
 	margin: ${spacing.large.value};
 	text-align: center;
 `;
