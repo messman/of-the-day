@@ -66,7 +66,7 @@ export const Basics: React.FC<BasicsProps> = (props) => {
 	});
 
 	const ListWrapper = isAnyMobileWidth ? FlexColumn : FlexRow;
-	const margin = isAnyMobileWidth ? spacing.large.horizontal : spacing.large.vertical;
+	const margin = isAnyMobileWidth ? `${spacing.large.value} ${spacing.grand.value}` : undefined;
 
 	return (
 		<ElementRoot margin={margin}>
