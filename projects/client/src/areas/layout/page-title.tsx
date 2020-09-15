@@ -22,7 +22,7 @@ export const PageTitle: React.FC<PageTitleProps> = () => {
 				<ApplicationMaxWidth>
 					<FlexRow justifyContent='space-between' alignItems='center'>
 						<Flex />
-						<TextAlign align='center'>
+						<TextAlign dataAlign='center'>
 							<FlexRow>
 								<SideContainer flex='none' justifyContent='flex-end'>
 									<PageTitleScrollAnimation />

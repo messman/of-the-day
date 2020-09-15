@@ -4,6 +4,7 @@ import { StyledComponent } from 'styled-components';
 import { Theme, ThemePickColor } from '../style/theme';
 import { grandTitleHeight } from '../symbol/text';
 import { LayoutBreakpoint, lineBreakpoint } from '@/services/layout/window-layout';
+import { useWindowLayout } from '@messman/react-common';
 
 export const ApplicationMaxWidth = tStyled.div`
 	max-width: ${LayoutBreakpoint.wide}px;
@@ -13,9 +14,30 @@ export const ApplicationMaxWidth = tStyled.div`
 export const LineMaxWidth = tStyled.div`
 	max-width: ${lineBreakpoint};
 `;
-export const LineMaxWidthCenter = tStyled.div`
+
+export interface LayoutAlignProps { }
+export const LayoutAlign: React.FC<LayoutAlignProps> = (props) => {
+	const { children } = props;
+
+	const windowLayout = useWindowLayout();
+	const isMobile = windowLayout.widthBreakpoint === LayoutBreakpoint.mobile;
+	const align = isMobile ? 'left' : 'center';
+
+	return (
+		<ContentAlign dataAlign={align}>
+			{children}
+		</ContentAlign>
+	);
+};
+
+interface ContentAlignProps {
+	dataAlign: 'left' | 'center';
+}
+
+const ContentAlign = tStyled.div<ContentAlignProps>`
 	max-width: ${lineBreakpoint};
-	margin-left: auto;
+	text-align: ${p => p.dataAlign};
+	margin-left: ${p => p.dataAlign === 'left' ? '0' : 'auto'};
 	margin-right: auto;
 `;
 

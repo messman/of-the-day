@@ -29,7 +29,7 @@ export async function getPosts(sheetsService: SheetsService, includeTomorrow: bo
 
 		const postsFromCell = postsBaseFromCell.clone();
 		postsFromCell.row += rowOffset;
-		const postsRange = postsFromCell.toRangeAdditive('AZ', extraRows);
+		const postsRange = postsFromCell.toRangeAdditive('BA', extraRows);
 
 		const ranges = [postsRange, metaRange];
 		const values = await sheetsService.batchGet(ranges);

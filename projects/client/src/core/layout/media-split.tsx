@@ -25,13 +25,13 @@ export const MediaSplit: React.FC<MediaSplitProps> = (props) => {
 	const textAlign = 'left';
 
 	const titleContentRender = (
-		<TextAlign align={textAlign}>
+		<TextAlign dataAlign={textAlign}>
 			{titleRender}
 		</TextAlign>
 	);
 
 	const mainContentRender = (
-		<TextAlign align={textAlign}>
+		<TextAlign dataAlign={textAlign}>
 			{children}
 		</TextAlign>
 	);

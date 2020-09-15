@@ -1,56 +1,76 @@
 import * as React from 'react';
 import { IPostCustom } from 'oftheday-shared';
-import { spacing, Spacing, ApplicationMaxWidth } from '@/core/layout/common';
-import { RegularText, Subtitle } from '@/core/symbol/text';
-import { OutLink } from '@/core/link';
+import { spacing, ApplicationMaxWidth, Spacing, LayoutAlign } from '@/core/layout/common';
+import { RegularText, Subtitle, SmallText } from '@/core/symbol/text';
+import { OutLink, ActionLink } from '@/core/link';
 import { ElementRoot } from '../post';
+import { tStyled } from '@/core/style/styled';
+import { ListItemOppositeBackground, borderRadiusStyle } from '@/core/style/common';
 
 export interface CustomProps {
 	custom: IPostCustom;
 }
 
+/*
+	Possible things in this section:
+	- Jokes (using hidden section for punchline, or not)
+	- Riddles (using hidden section for answer, or not)
+	- Quiz Questions (using hidden section for answer)
+	- Fact
+	- Article (link)
+	- Project (link)
+	- Webpage (link)
+	- Recommended Media (Movie, Show) (link)
+*/
+
 export const Custom: React.FC<CustomProps> = (props) => {
 	const { custom } = props;
-	const { value, title, link, linkText } = custom;
+	const { value, title, link, linkText, hiddenValue } = custom;
+
+	const [isShowingHiddenValue, setIsShowingHiddenValue] = React.useState(false);
 
 	if (!value || !title) {
 		return null;
 	}
 
-	let render: JSX.Element = null!;
+	function onClick() {
+		setIsShowingHiddenValue((p) => {
+			return !p;
+		});
+	}
 
-	// If the link is included, it should be at the forefront.
-	if (link) {
-		render = (
-			<>
-				<Spacing margin={spacing.medium.vertical}>
-					<RegularText isBold={true}>{title}</RegularText>
-				</Spacing>
-				<RegularText margin={spacing.medium.vertical}>
-					<OutLink href={link}>{linkText}</OutLink>
-				</RegularText>
-				<RegularText margin={spacing.medium.vertical}>
-					{value}
-				</RegularText>
-			</>
-		);
-	}
-	else {
-		render = (
-			<Spacing margin={spacing.medium.vertical}>
-				<Subtitle>{title}</Subtitle>
-				<RegularText>{value}</RegularText>
-			</Spacing>
-		);
-	}
+	const revealText = isShowingHiddenValue ? 'Hide' : 'Reveal';
 
 	return (
 		<ElementRoot>
 			<ApplicationMaxWidth>
-				<Spacing margin={spacing.medium.horizontal} >
-					{render}
-				</Spacing>
+				<LayoutAlign>
+					<Subtitle margin={spacing.medium.bottom}>{title}</Subtitle>
+					<RegularText show={link} margin={spacing.medium.top}>
+						<OutLink href={link}>{linkText}</OutLink>
+					</RegularText>
+					<RegularText margin={spacing.medium.top}>
+						{value}
+					</RegularText>
+					<SmallText show={hiddenValue} margin={spacing.medium.top}>
+						<ActionLink onClick={onClick}>{revealText}</ActionLink>
+					</SmallText>
+					<Spacing show={hiddenValue && isShowingHiddenValue} margin={spacing.small.top}>
+						<HiddenArea>
+							<RegularText>
+								{hiddenValue}
+							</RegularText>
+						</HiddenArea>
+					</Spacing>
+				</LayoutAlign>
 			</ApplicationMaxWidth>
 		</ElementRoot>
 	);
 };
+
+
+
+const HiddenArea = tStyled(ListItemOppositeBackground)`
+	padding: ${spacing.medium.value};
+	${borderRadiusStyle}
+`;

@@ -16,11 +16,11 @@ export const mediaBoxShadowStyle = tCss`
 `;
 
 export interface TextAlignProps {
-	align: 'left' | 'right' | 'center';
+	dataAlign: 'left' | 'right' | 'center';
 }
 
 export const TextAlign = tStyled.div<TextAlignProps>`
-	text-align: ${p => p.align || 'left'};
+	text-align: ${p => p.dataAlign || 'left'};
 `;
 
 export const FontSizeManager: React.FC = (props) => {
@@ -37,7 +37,6 @@ export const FontSizeManager: React.FC = (props) => {
 		else if (widthBreakpoint >= LayoutBreakpoint.wide) {
 			fontSize = '18px';
 		}
-		console.log(fontSize, LayoutBreakpoint[widthBreakpoint], document.body.style.fontSize);
 
 		document.documentElement.style.fontSize = fontSize;
 	}, [widthBreakpoint]);

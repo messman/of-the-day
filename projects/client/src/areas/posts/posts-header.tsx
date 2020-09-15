@@ -50,7 +50,7 @@ export const PostsHeader: React.FC<PostsHeaderProps> = (props) => {
 				<LeftIcon>
 					<Icon type={iconTypes.left} fillColor={c => c.secondary} height={titleHeight} />
 				</LeftIcon>
-				<TextAlign align='center'>
+				<TextAlign dataAlign='center'>
 					<RegularText margin={spacing.nudge.bottom} color={c => c.textSubtle}>{dayReferenceRender}Day {dayNumber}</RegularText>
 					<Title isBold={true}>{dateText}</Title>
 				</TextAlign>

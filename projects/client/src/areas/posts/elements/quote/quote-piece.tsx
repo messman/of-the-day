@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { iconTypes, Icon } from '@/core/symbol/icon';
 import { titleHeight, RegularText, subtitleHeight } from '@/core/symbol/text';
-import { Spacing, spacing, LineMaxWidthCenter } from '@/core/layout/common';
+import { Spacing, spacing } from '@/core/layout/common';
 import { TextAlign, ListItemOppositeBackground, borderRadiusStyle, mediaBoxShadowStyle } from '@/core/style/common';
 import { tStyled } from '@/core/style/styled';
+import { lineBreakpoint } from '@/services/layout/window-layout';
 
 export interface QuotePieceProps {
 	isLarge: boolean;
@@ -23,7 +24,7 @@ export const QuotePiece: React.FC<QuotePieceProps> = (props) => {
 			<TopLeftAbsoluteIcon type={iconTypes.quotationOpen} height={iconHeight} fillColor={c => c.primaryA} />
 			<Spacing margin={spacing.medium.horizontal}>
 				<LineMaxWidthCenter>
-					<TextAlign align='center'>
+					<TextAlign dataAlign='center'>
 						<Spacing margin={spacing.medium.horizontal}>
 							<MultilineQuoteText text={text} />
 						</Spacing>
@@ -43,6 +44,12 @@ const QuoteBackground = tStyled(ListItemOppositeBackground) <QuoteBackgroundProp
 	position: relative;
 	${borderRadiusStyle}
 	${mediaBoxShadowStyle}
+`;
+
+const LineMaxWidthCenter = tStyled.div`
+	max-width: ${lineBreakpoint};
+	margin-left: auto;
+	margin-right: auto;
 `;
 
 const TopLeftAbsoluteIcon = tStyled(Icon)`

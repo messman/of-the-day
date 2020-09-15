@@ -96,6 +96,7 @@ export interface IPostImage {
 export interface IPostCustom {
 	title: string;
 	value: string;
+	hiddenValue: string;
 	link: string;
 	linkText: string;
 	previewLink: boolean;

@@ -3,8 +3,7 @@
 import * as React from 'react';
 import { Subtitle } from '@/core/symbol/text';
 import { IPostQuote } from 'oftheday-shared';
-import { TextAlign } from '@/core/style/common';
-import { spacing } from '@/core/layout/common';
+import { spacing, LayoutAlign } from '@/core/layout/common';
 import { ElementRoot } from '../../post';
 import { InnerQuote, InnerSingleQuote } from './quote-inner';
 
@@ -50,9 +49,9 @@ export const Quote: React.FC<QuoteProps> = (props) => {
 
 	return (
 		<ElementRoot>
-			<TextAlign align='center'>
+			<LayoutAlign>
 				<Subtitle margin={spacing.medium.bottom}>Quote</Subtitle>
-			</TextAlign>
+			</LayoutAlign>
 			<InnerQuote quote={quote} />
 		</ElementRoot>
 	);

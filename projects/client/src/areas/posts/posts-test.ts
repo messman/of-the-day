@@ -67,6 +67,7 @@ export const postsTestData: IPost[] = [
 		custom: {
 			title: 'Hey Now',
 			value: 'Yes, you!',
+			hiddenValue: 'Hello!',
 			linkText: 'Google',
 			link: 'https://google.com',
 			previewLink: false,
@@ -138,7 +139,8 @@ export const postsTestData: IPost[] = [
 		},
 		custom: {
 			title: 'Shower Thought',
-			value: 'Bees?',
+			value: 'Bees? Like, am I right?',
+			hiddenValue: '',
 			linkText: '',
 			link: '',
 			previewLink: false,
@@ -211,6 +213,7 @@ export const postsTestData: IPost[] = [
 		custom: {
 			title: '',
 			value: '',
+			hiddenValue: '',
 			linkText: '',
 			link: '',
 			previewLink: false,

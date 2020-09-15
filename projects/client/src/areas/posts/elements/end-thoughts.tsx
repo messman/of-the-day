@@ -1,9 +1,6 @@
 import * as React from 'react';
-import { IPostEndThoughts } from 'oftheday-shared';
-import { spacing, ApplicationMaxWidth, LineMaxWidth } from '@/core/layout/common';
-import { ElementRoot } from '../post';
-import { tStyled } from '@/core/style/styled';
-import { Subtitle, RegularText } from '@/core/symbol/text';
+import { IPostEndThoughts, IPostCustom } from 'oftheday-shared';
+import { Custom } from './custom';
 
 export interface EndThoughtsProps {
 	endThoughts: IPostEndThoughts;
@@ -17,22 +14,16 @@ export const EndThoughts: React.FC<EndThoughtsProps> = (props) => {
 		return null;
 	}
 
+	const custom: IPostCustom = {
+		title: 'End-of-day Thoughts',
+		value: value,
+		link: '',
+		linkText: '',
+		hiddenValue: '',
+		previewLink: false
+	};
+
 	return (
-		<ElementRoot>
-			<ApplicationMaxWidth>
-				<CenteredContent>
-					<Subtitle isBold={true}>End-of-day Thoughts</Subtitle>
-					<RegularText margin={spacing.medium.top}>
-						{value}
-					</RegularText>
-				</CenteredContent>
-			</ApplicationMaxWidth>
-		</ElementRoot>
+		<Custom custom={custom} />
 	);
 };
-
-const CenteredContent = tStyled(LineMaxWidth)`
-	text-align: center;
-	margin-left: auto;
-	margin-right: auto;
-`;

@@ -77,6 +77,7 @@ export function parsePost(row: any[], dayReference: IPostDayReference): IPost {
 			link: stringAtCol('AX'),
 			linkText: stringAtCol('AY'),
 			previewLink: !!stringAtCol('AZ'),
+			hiddenValue: stringAtCol('BA'),
 			reactionSummary: createEmptyReactionSummary()
 		}
 	};

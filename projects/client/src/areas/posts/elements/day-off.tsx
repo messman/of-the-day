@@ -15,7 +15,7 @@ export const DayOff: React.FC<DayOffProps> = (props) => {
 
 	return (
 		<ElementRoot>
-			<TextAlign align='center'>
+			<TextAlign dataAlign='center'>
 				<Subtitle margin={spacing.medium.bottom}>Off Day</Subtitle>
 				<RegularText>
 					{messageText}
