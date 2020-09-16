@@ -52,7 +52,7 @@ const RegularLayout: React.FC<LayoutProps> = (props) => {
 	return (
 		<LayoutContainer>
 			<ScrollContainer ref={scrollContainerRef}>
-				<PageTitle isCompact={false} />
+				<PageTitle />
 				<MenuBar isUpper={true} rootRef={scrollContainerRef} />
 				<Switch>
 					<Route exact path={routes.posts.path}>
@@ -82,7 +82,7 @@ const CompactLayout: React.FC<LayoutProps> = (props) => {
 			<ScrollContainer ref={scrollContainerRef}>
 				<Switch>
 					<Route exact path={routes.posts.path}>
-						<PageTitle isCompact={true} />
+						<PageTitle />
 						<Posts rootRef={scrollContainerRef} isUpper={false} offsetPixels={0} />
 					</Route>
 					<Route path={routes.other.path}>

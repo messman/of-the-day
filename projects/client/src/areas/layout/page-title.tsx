@@ -1,44 +1,40 @@
 import * as React from 'react';
-import { GrandTitle, RegularText } from '@/core/symbol/text';
-import { FlexRow, Flex } from '@messman/react-common';
-import { ApplicationMaxWidth, spacing } from '@/core/layout/common';
+import { RegularText } from '@/core/symbol/text';
+import { FlexRow, useWindowLayout } from '@messman/react-common';
+import { spacing, Spacing } from '@/core/layout/common';
 import { ThemePickColor } from '@/core/style/theme';
 import { tStyled } from '@/core/style/styled';
 import { PageTitleScrollAnimation } from './page-title-animations';
 import { TextAlign } from '@/core/style/common';
-
-export interface PageTitleProps {
-	isCompact: boolean;
-}
+import { LayoutBreakpoint } from '@/services/layout/window-layout';
 
 const backgroundColor: ThemePickColor = c => c.backgroundA;
 
-export const PageTitle: React.FC<PageTitleProps> = () => {
+export const PageTitle: React.FC = () => {
+
+	const { widthBreakpoint } = useWindowLayout();
+
+	// Default to desktop.
+	let paddingTop = spacing.grand.value;
+	let paddingBottom = spacing.grand.value;
+	if (widthBreakpoint <= LayoutBreakpoint.tablet) {
+		paddingTop = spacing.large.value;
+		paddingBottom = spacing.medium.value;
+	}
+	const padding = `${paddingTop} 0 ${paddingBottom} 0`;
+
 	return (
 		<Parent>
 			<HeaderImg />
 			<HeaderImgOverlay />
-			<PageTitleBackground>
-				<ApplicationMaxWidth>
-					<FlexRow justifyContent='space-between' alignItems='center'>
-						<Flex />
-						<TextAlign dataAlign='center'>
-							<FlexRow>
-								<SideContainer flex='none' justifyContent='flex-end'>
-									<PageTitleScrollAnimation />
-								</SideContainer>
-								<Flex>
-									<GrandTitle color={backgroundColor}>
-										Of The Day
-									</GrandTitle>
-								</Flex>
-							</FlexRow>
-							<RegularText margin={spacing.small.top} color={backgroundColor}>daily sharing from Andrew</RegularText>
-						</TextAlign>
-						<Flex />
-					</FlexRow>
-				</ApplicationMaxWidth>
-			</PageTitleBackground>
+			<Spacing padding={padding}>
+				<FlexRow justifyContent='center'>
+					<TextAlign dataAlign='center'>
+						<PageTitleScrollAnimation />
+						<RegularText margin={spacing.small.top} color={backgroundColor}>daily sharing from Andrew</RegularText>
+					</TextAlign>
+				</FlexRow>
+			</Spacing>
 		</Parent>
 	);
 };
@@ -46,16 +42,6 @@ export const PageTitle: React.FC<PageTitleProps> = () => {
 const Parent = tStyled.div`
 	position: relative;
 	background-color: ${p => p.theme.color.headerSpecialBackground};
-`;
-
-const PageTitleBackground = tStyled.div`
-	position: relative;
-	padding: ${spacing.grand.vertical};
-`;
-
-const SideContainer = tStyled(FlexRow)`
-	width: 0;
-	overflow: visible;
 `;
 
 const headerImgDataUrl = require('@/static/images/header-background.png').default as string;

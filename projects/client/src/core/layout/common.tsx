@@ -96,6 +96,7 @@ export interface SpacingProps {
 	margin?: string | null;
 	padding?: string | null;
 	fontSize?: string | null;
+	isRelative?: boolean;
 	isInline?: boolean;
 	isBold?: boolean;
 	isItalic?: boolean;
@@ -104,7 +105,7 @@ export interface SpacingProps {
 }
 
 export const Spacing: React.FC<SpacingProps> = (props) => {
-	const { className, children, show, margin, padding, fontSize, isInline, isBold, isItalic, color, backgroundColor } = props;
+	const { className, children, show, margin, padding, fontSize, isRelative, isInline, isBold, isItalic, color, backgroundColor } = props;
 
 	if ((show !== undefined) && (!show || !children)) {
 		return null;
@@ -116,6 +117,7 @@ export const Spacing: React.FC<SpacingProps> = (props) => {
 			dataMargin={margin}
 			dataPadding={padding}
 			dataFontSize={fontSize}
+			isRelative={isRelative}
 			isInline={isInline}
 			isBold={isBold}
 			isItalic={isItalic}
