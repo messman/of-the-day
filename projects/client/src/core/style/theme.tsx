@@ -47,23 +47,24 @@ const darkTheme: Theme = {
 	name: 'dark',
 	color: {
 		backgroundA: '#171C1C',
-		backgroundB: '#1C2121',
-		backgroundC: '#202727',
+		backgroundB: '#1C2121', // Lighter
+		backgroundC: '#202727', // Lighter
 		shadow: '#111',
 
 		primaryA: '#62BEC1',
-		primaryB: '#41A1A5',
-		secondary: '#FFD681',
+		primaryB: '#41A1A5', // Darker Primary
+		secondary: '#FFD681', // Yellow
 
-		textSpecialHeader: '#FFD681',
-		textTitle: '#F7F8F8',
-		textSubtitle: '#62BEC1',
-		text: '#E0E5E5',
-		textSubtle: '#798A8B',
-		textDisabled: '#798A8B',
-		textLink: '#FFD681',
+		textSpecialHeader: '#FFD681', // Secondary
+		textLink: '#FFD681', // Secondary
 
-		buttonActionText: '#171C1C',
+		textTitle: '#F7F8F8', // Lightest
+		textSubtitle: '#62BEC1', // Primary
+		text: '#ACB9B9', // Light Medium
+		textSubtle: '#798A8B', // Medium
+		textDisabled: '#4A5859', // Dark Medium
+
+		buttonActionText: '#171C1C', // Background (Dark)
 		buttonActionBackground: '#FFD681',
 
 		warning: '#DC965A',
@@ -81,23 +82,23 @@ const lightTheme: Theme = {
 
 		// Overrides
 		backgroundA: '#F7F8F8',
-		backgroundB: '#ECEFEF',
-		backgroundC: '#E0E5E5',
+		backgroundB: '#ECEFEF', // Darker
+		backgroundC: '#E0E5E5', // Darker
 		shadow: '#DDD',
 
 		primaryA: '#62BEC1',
-		primaryB: '#41A1A5',
-		secondary: '#1584AC',
+		secondary: '#1584AC', // Blue
 
-		textSpecialHeader: '#1584AC',
-		textTitle: '#171C1C',
-		textSubtitle: '#62BEC1',
-		text: '#202727',
-		textSubtle: '#798A8B',
-		textDisabled: '#798A8B',
-		textLink: '#1584AC',
+		textSpecialHeader: '#1584AC', // Secondary
+		textLink: '#1584AC', // Secondary
 
-		buttonActionText: '#171C1C',
+		textTitle: '#171C1C', // Darkest
+		textSubtitle: '#62BEC1', // Primary
+		text: '#4A5859', // Dark Medium
+		textSubtle: '#798A8B', // Medium
+		textDisabled: '#ACB9B9', // Light Medium
+
+		buttonActionText: '#F7F8F8', // Background (Light)
 		buttonActionBackground: '#1584AC',
 	}
 };
