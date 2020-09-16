@@ -23,7 +23,7 @@ export const Music: React.FC<MusicProps> = (props) => {
 	const { title, artist, description, isTop, isNSFW, tags, spotifyLink, geniusLink, youTubeLink, useYouTube, quote, year } = music;
 
 	const tagStrings = React.useMemo(() => {
-		return ([isTop ? 'top' : '', isNSFW ? 'NSFW' : '', ...tags]).filter(x => !!x);
+		return ([isTop ? 'Top' : '', isNSFW ? 'NSFW' : '', ...tags]).filter(x => !!x);
 	}, [tags, isTop, isNSFW]);
 
 	// Required properties:

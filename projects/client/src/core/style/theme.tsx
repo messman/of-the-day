@@ -49,8 +49,8 @@ export interface Theme {
 
 const common = {
 	dark: '#171C1C',
-	darkP1: '#1C2121',
-	darkP2: '#252C2C',
+	darkP1: '#1E2424',
+	darkP2: '#272F2F',
 
 	mediumM1: '#4A5859',
 	medium: '#798A8B',
