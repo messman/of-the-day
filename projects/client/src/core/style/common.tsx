@@ -15,6 +15,8 @@ export const mediaBoxShadowStyle = tCss`
 	box-shadow: 0px 3px 15px 5px ${p => p.theme.color.shadow};
 `;
 
+export const separatorThickness = '3px';
+
 export interface TextAlignProps {
 	dataAlign: 'left' | 'right' | 'center';
 }
@@ -55,13 +57,20 @@ export const SeeMoreButton = tStyled.button`
 	background-color: ${p => p.theme.color.buttonActionBackground};
 `;
 
+export const ListItemBackground = tStyled.div`
+	background-color: ${p => p.theme.color.backgroundA};
+`;
+
 export const ListItemOppositeBackground = tStyled.div`
 	background-color: ${p => p.theme.color.backgroundB};
 `;
 
-export const ListItemBackground = tStyled.div`
+export const ListItemRoot = tStyled.div`
 	&:nth-child(even) {
-		background-color: ${p => p.theme.color.backgroundB};
+
+		${ListItemBackground} {
+			background-color: ${p => p.theme.color.backgroundB};
+		}
 
 		${ListItemOppositeBackground} {
 			background-color: ${p => p.theme.color.backgroundA};

@@ -57,7 +57,9 @@ export const PostsHeader: React.FC<PostsHeaderProps> = (props) => {
 const PostsHeaderContainer = tStyled(FlexRow)`
 	padding: ${spacing.medium.vertical};
 	position: relative;
-	background-color: ${p => p.theme.color.backgroundC};
+	background-color: ${p => p.theme.color.backgroundB};
+	border-top: 1px solid ${p => p.theme.color.backgroundC};
+	border-bottom: 1px solid ${p => p.theme.color.backgroundC};
 `;
 
 const LeftIcon = tStyled.div`

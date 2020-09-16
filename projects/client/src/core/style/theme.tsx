@@ -16,22 +16,27 @@ export interface Theme {
 
 		shadow: string,
 
-		primaryA: string,
-		primaryB: string,
+		headerSpecialBackground: string,
+		headerSpecialText: string,
 
+		primaryA: string,
 		secondary: string,
 
-		textSpecialHeader: string,
 		textTitle: string,
 		textSubtitle: string,
 		text: string,
 		textSubtle: string,
 		textDisabled: string,
-
+		textDistinct: string;
 		textLink: string,
 
 		buttonActionText: string,
 		buttonActionBackground: string,
+
+		tagNSFW: string,
+		tagTop: string,
+		tagLight: string,
+		tagDark: string,
 
 		/** Color used for warning information. */
 		warning: string,
@@ -42,30 +47,56 @@ export interface Theme {
 	};
 }
 
+const common = {
+	dark: '#171C1C',
+	darkP1: '#1C2121',
+	darkP2: '#252C2C',
+
+	mediumM1: '#4A5859',
+	medium: '#798A8B',
+	mediumP1: '#ACB9B9',
+
+	lightM2: '#DBE1E1',
+	lightM1: '#ECEFEF',
+	light: '#F7F8F8',
+
+	primaryGreen: '#62BEC1',
+	primaryGreenM1: '#41A1A5',
+
+	secondaryYellow: '#FFD681',
+	secondaryBlue: '#1584AC'
+};
+
 /** The dark theme */
 const darkTheme: Theme = {
 	name: 'dark',
 	color: {
-		backgroundA: '#171C1C',
-		backgroundB: '#1C2121', // Lighter
-		backgroundC: '#202727', // Lighter
+		backgroundA: common.dark,
+		backgroundB: common.darkP1,
+		backgroundC: common.darkP2,
 		shadow: '#111',
 
-		primaryA: '#62BEC1',
-		primaryB: '#41A1A5', // Darker Primary
-		secondary: '#FFD681', // Yellow
+		headerSpecialBackground: common.primaryGreen,
+		headerSpecialText: common.light,
 
-		textSpecialHeader: '#FFD681', // Secondary
-		textLink: '#FFD681', // Secondary
+		primaryA: common.primaryGreen,
+		secondary: common.secondaryYellow,
 
-		textTitle: '#F7F8F8', // Lightest
-		textSubtitle: '#62BEC1', // Primary
-		text: '#ACB9B9', // Light Medium
-		textSubtle: '#798A8B', // Medium
-		textDisabled: '#4A5859', // Dark Medium
+		textTitle: common.light,
+		textSubtitle: common.primaryGreen,
+		text: common.mediumP1,
+		textSubtle: common.medium,
+		textDisabled: common.mediumM1,
+		textDistinct: common.light,
+		textLink: common.secondaryYellow,
 
-		buttonActionText: '#171C1C', // Background (Dark)
-		buttonActionBackground: '#FFD681',
+		buttonActionText: common.dark,
+		buttonActionBackground: common.secondaryYellow,
+
+		tagNSFW: '#A63446',
+		tagTop: '#FFC03D',
+		tagLight: common.light,
+		tagDark: common.dark,
 
 		warning: '#DC965A',
 		error: '#A63446',
@@ -81,25 +112,26 @@ const lightTheme: Theme = {
 		...darkTheme.color,
 
 		// Overrides
-		backgroundA: '#F7F8F8',
-		backgroundB: '#ECEFEF', // Darker
-		backgroundC: '#E0E5E5', // Darker
+		backgroundA: common.light,
+		backgroundB: common.lightM1,
+		backgroundC: common.lightM2,
 		shadow: '#DDD',
 
-		primaryA: '#62BEC1',
-		secondary: '#1584AC', // Blue
+		headerSpecialText: common.primaryGreen,
 
-		textSpecialHeader: '#1584AC', // Secondary
-		textLink: '#1584AC', // Secondary
+		primaryA: common.primaryGreenM1,
+		secondary: common.secondaryBlue,
 
-		textTitle: '#171C1C', // Darkest
-		textSubtitle: '#62BEC1', // Primary
-		text: '#4A5859', // Dark Medium
-		textSubtle: '#798A8B', // Medium
-		textDisabled: '#ACB9B9', // Light Medium
+		textTitle: common.dark,
+		textSubtitle: common.primaryGreenM1,
+		text: common.mediumM1,
+		textSubtle: common.medium,
+		textDisabled: common.mediumP1,
+		textDistinct: common.dark,
+		textLink: common.secondaryBlue,
 
-		buttonActionText: '#F7F8F8', // Background (Light)
-		buttonActionBackground: '#1584AC',
+		buttonActionText: common.light,
+		buttonActionBackground: common.secondaryBlue,
 	}
 };
 

@@ -45,7 +45,7 @@ export const PageTitle: React.FC<PageTitleProps> = () => {
 
 const Parent = tStyled.div`
 	position: relative;
-	background-color: ${p => p.theme.color.primaryA};
+	background-color: ${p => p.theme.color.headerSpecialBackground};
 `;
 
 const PageTitleBackground = tStyled.div`

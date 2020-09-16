@@ -11,15 +11,15 @@ export const postsTestData: IPost[] = [
 		dayOffMessage: 'Here is a message about the day off',
 
 		basics: {
-			event: 'This is a special event!',
+			event: 'Halfway Point',
+			note: 'Halfway there - isn\'t that crazy? Though really, with how my budget\'s been going, I\'m in a better position than I thought,',
 			location: 'Wells, Maine',
-			note: 'Here is a note!',
-			schedule: 'Do some stuff!',
+			schedule: 'Do some stuff; play some ping pong; work on my daily affirmations',
 			dayTypes: ['Work', 'Play'],
 			reactionSummary: { emoji: [], replies: 0 }
 		},
 		endThoughts: {
-			value: 'The day was good!',
+			value: 'The day was good! It was a good time doing this and that; I really enjoyed the part where I did Y and Z together.',
 			reactionSummary: { emoji: [], replies: 0 }
 		},
 		music: {
@@ -49,27 +49,27 @@ export const postsTestData: IPost[] = [
 			reactionSummary: { emoji: [], replies: 0 }
 		},
 		image: {
-			description: 'A shot of my dog.',
+			description: 'A shot of my dog. I got this shot when I was out late at night.',
 			link: 'https://drscdn.500px.org/photo/1019496186/m%3D900/v2?sig=a21d2c3833b5997ba905355f1b6961dbf59e3a19739fa97a10ecea93191c02ed',
 			source: 'Google',
 			sourceLink: 'https://google.com',
 			reactionSummary: { emoji: [], replies: 0 }
 		},
 		quote: {
-			a: 'Well this is a thing',
-			aVoice: 'Sgt. Pepper',
-			b: 'Yeah, I guess so',
-			bVoice: 'Colonel Salt',
-			source: 'Nowhere',
-			sourceLink: '',
+			a: 'I have a rule that I never think of anything negative when I\'m running.',
+			aVoice: 'Dr. Jill Biden',
+			b: 'Same here, though running itself is a negative thought for me, so I don\'t do it.',
+			bVoice: 'Stephen Colbert',
+			source: 'The Late Show with Stephen Colbert',
+			sourceLink: 'https://youtu.be/yeFk2709fgY?t=612',
 			reactionSummary: { emoji: [], replies: 0 }
 		},
 		custom: {
-			title: 'Hey Now',
-			value: 'Yes, you!',
-			hiddenValue: 'Hello!',
-			linkText: 'Google',
-			link: 'https://google.com',
+			title: 'Joke',
+			value: 'Did you hear about the actor who fell through the floorboards?',
+			hiddenValue: 'He was just going through a stage.',
+			linkText: '',
+			link: '',
 			previewLink: false,
 			reactionSummary: { emoji: [], replies: 0 }
 		}

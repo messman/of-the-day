@@ -8,11 +8,12 @@ import { lineBreakpoint } from '@/services/layout/window-layout';
 
 export interface QuotePieceProps {
 	isLarge: boolean;
+	align: 'center' | 'left' | 'right';
 	text: string;
 }
 
 export const QuotePiece: React.FC<QuotePieceProps> = (props) => {
-	const { isLarge, text } = props;
+	const { isLarge, text, align } = props;
 	if (!text) {
 		return null;
 	}
@@ -24,10 +25,8 @@ export const QuotePiece: React.FC<QuotePieceProps> = (props) => {
 			<TopLeftAbsoluteIcon type={iconTypes.quotationOpen} height={iconHeight} fillColor={c => c.primaryA} />
 			<Spacing margin={spacing.medium.horizontal}>
 				<LineMaxWidthCenter>
-					<TextAlign dataAlign='center'>
-						<Spacing margin={spacing.medium.horizontal}>
-							<MultilineQuoteText text={text} />
-						</Spacing>
+					<TextAlign dataAlign={align}>
+						<MultilineQuoteText text={text} />
 					</TextAlign>
 				</LineMaxWidthCenter>
 			</Spacing>

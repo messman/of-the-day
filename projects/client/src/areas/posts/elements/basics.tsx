@@ -7,6 +7,7 @@ import { FlexRow, useWindowLayout, Flex, FlexColumn } from '@messman/react-commo
 import { tStyled } from '@/core/style/styled';
 import { Subtitle, RegularText } from '@/core/symbol/text';
 import { LayoutBreakpoint } from '@/services/layout/window-layout';
+import { separatorThickness } from '@/core/style/common';
 
 export interface BasicsProps {
 	post: IPost;
@@ -29,7 +30,7 @@ export const Basics: React.FC<BasicsProps> = (props) => {
 		leftRender = (
 			<TextContainer key='notes' flex={flex}>
 				<Subtitle margin={titleMargin}>Notes</Subtitle>
-				<Subtitle isBold={false} show={event} margin={textMargin} color={c => c.textTitle}>{event}</Subtitle>
+				<Subtitle isBold={false} show={event} margin={textMargin} color={c => c.textDistinct}>{event}</Subtitle>
 				<RegularText show={note} margin={textMargin}>{note}</RegularText>
 			</TextContainer>
 		);
@@ -51,11 +52,13 @@ export const Basics: React.FC<BasicsProps> = (props) => {
 		rightRender = (
 			<TextContainer key='location' flex={flex}>
 				<Subtitle isBold={true} margin={titleMargin}>Location</Subtitle>
-				<Subtitle isBold={false} color={c => c.textTitle}>{location}</Subtitle>
+				<Subtitle isBold={false} color={c => c.textDistinct}>{location}</Subtitle>
 			</TextContainer>
 		);
 	}
 
+	// TODO - this is here just to add separators, though right now they are transparent. 
+	// If we decide we like it that way, clean up this code.
 	const renders: JSX.Element[] = [];
 	[leftRender, centerRender, rightRender].filter(r => !!r).forEach((render, i) => {
 		if (i !== 0) {
@@ -78,13 +81,11 @@ export const Basics: React.FC<BasicsProps> = (props) => {
 };
 
 const VerticalSeparator = tStyled.div`
-	width: 2px;
-	background-color: ${p => p.theme.color.backgroundC};
+	width: ${separatorThickness};
 `;
 
 const HorizontalSeparator = tStyled.div`
-	height: 2px;
-	background-color: ${p => p.theme.color.backgroundC};
+	height: ${separatorThickness};
 `;
 
 const TextContainer = tStyled(Flex)`

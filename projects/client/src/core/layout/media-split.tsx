@@ -2,7 +2,7 @@ import * as React from 'react';
 import { tStyled } from '../style/styled';
 import { FlexRow, useWindowLayout, FlexColumn } from '@messman/react-common';
 import { spacing, Spacing } from './common';
-import { TextAlign } from '../style/common';
+import { TextAlign, separatorThickness } from '../style/common';
 import { LayoutBreakpoint } from '@/services/layout/window-layout';
 
 export interface MediaSplitProps {
@@ -126,7 +126,7 @@ const Divider = tStyled.div`
 `;
 
 const VisibleDivider = tStyled.div`
-	width: 2px;
+	width: ${separatorThickness};
 	background-color: ${p => p.theme.color.backgroundC};
 	margin-left: calc(${spacing.large.value} / 2);
 	margin-right: calc(${spacing.large.value} / 2);

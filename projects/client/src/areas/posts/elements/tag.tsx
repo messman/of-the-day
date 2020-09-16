@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { tStyled } from '@/core/style/styled';
-import { SVGIconType, Icon } from '@/core/symbol/icon';
 import { borderRadiusStyle } from '@/core/style/common';
-import { SmallText, smallTextHeight } from '@/core/symbol/text';
+import { smallTextHeight } from '@/core/symbol/text';
 import { spacing, Spacing } from '@/core/layout/common';
 import { useCurrentTheme } from '@/core/style/theme';
 import { createTagProps } from './tag-definitions';
@@ -10,52 +9,38 @@ import { createTagProps } from './tag-definitions';
 
 export interface TagProps extends TagContainerProps {
 	value?: string;
-	icon?: SVGIconType;
 }
 
 export const Tag: React.FC<TagProps> = (props) => {
-	const { value, icon, darkColor, lightColor, useDarkColorForBackground } = props;
-
-	const iconFillColor = useDarkColorForBackground ? lightColor : darkColor;
-	const iconRender = icon ? <Icon type={icon} fillColor={() => iconFillColor} height={smallTextHeight} /> : null;
+	const { value, backgroundColor, foregroundColor } = props;
 	const valueRender = value || '';
-	const paddingRender = (icon && value) ? <InlinePadding /> : null;
 
 	return (
-		<TagContainer darkColor={darkColor} lightColor={lightColor} useDarkColorForBackground={useDarkColorForBackground}>
-			<SmallText>
-				{iconRender}
-				{paddingRender}
-				{valueRender}
-			</SmallText>
+		<TagContainer backgroundColor={backgroundColor} foregroundColor={foregroundColor}>
+			{valueRender}
 		</TagContainer>
 	);
 };
 
 interface TagContainerProps {
-	darkColor: string;
-	lightColor: string;
-	useDarkColorForBackground: boolean;
+	foregroundColor: string;
+	backgroundColor: string;
 }
 
 const TagContainer = tStyled.div<TagContainerProps>`
 	${borderRadiusStyle};
 	display: inline-block;
 	padding: ${spacing.nudge.value} ${spacing.small.value};
+	margin-left: 0;
 	white-space: nowrap;
-	border: 1px solid ${p => p.darkColor};
-	background-color: ${p => p.useDarkColorForBackground ? p.darkColor : p.lightColor};
-	color: ${p => p.useDarkColorForBackground ? p.lightColor : p.darkColor};
-	margin-left: none;
+	border: none;
+	font-size: ${smallTextHeight};
+	color: ${p => p.foregroundColor};
+	background-color: ${p => p.backgroundColor};
 
 	& + & {
 		margin-left: ${spacing.small.value};
 	}
-`;
-
-const InlinePadding = tStyled.div`
-	display: inline-block;
-	margin: ${spacing.nudge.value};
 `;
 
 export interface TagListProps {

@@ -2,124 +2,49 @@ import { TagProps } from './tag';
 import { Theme, ThemePickColor } from '@/core/style/theme';
 
 interface DynamicTagProps {
-	useDarkColorForBackground: boolean;
-	darkColor: ThemePickColor;
-	lightColor: ThemePickColor;
+	foregroundColor: ThemePickColor;
+	backgroundColor: ThemePickColor;
 }
 
-const primaryColor: ThemePickColor = c => c.primaryA;
-const nsfwColor: ThemePickColor = c => c.error;
-const transparentColor: ThemePickColor = () => 'transparent';
-const textColor: ThemePickColor = c => c.text;
+const defaultTag: DynamicTagProps = {
+	foregroundColor: c => c.backgroundA,
+	backgroundColor: c => c.primaryA
+};
 
 const commonTagProps: { [key: string]: DynamicTagProps; } = {
 	nsfw: {
-		useDarkColorForBackground: true,
-		lightColor: textColor,
-		darkColor: nsfwColor
+		foregroundColor: c => c.tagLight,
+		backgroundColor: c => c.tagNSFW
 	},
 	top: {
-		useDarkColorForBackground: true,
-		lightColor: textColor,
-		darkColor: primaryColor
+		foregroundColor: c => c.tagDark,
+		backgroundColor: c => c.tagTop
 	},
-	work: {
-		useDarkColorForBackground: false,
-		lightColor: textColor,
-		darkColor: primaryColor
-	},
-	relaxation: {
-		useDarkColorForBackground: false,
-		lightColor: textColor,
-		darkColor: primaryColor
-	},
-	adventure: {
-		useDarkColorForBackground: false,
-		lightColor: textColor,
-		darkColor: primaryColor
-	},
-	party: {
-		useDarkColorForBackground: false,
-		lightColor: textColor,
-		darkColor: primaryColor
-	},
-	travel: {
-		useDarkColorForBackground: false,
-		lightColor: textColor,
-		darkColor: primaryColor
-	},
-	'turn it up': {
-		useDarkColorForBackground: false,
-		lightColor: textColor,
-		darkColor: primaryColor
-	},
-	'check the lyrics': {
-		useDarkColorForBackground: false,
-		lightColor: textColor,
-		darkColor: primaryColor
-	},
-	'personally meaningful': {
-		useDarkColorForBackground: false,
-		lightColor: textColor,
-		darkColor: primaryColor
-	},
-	'that\'s what i call music': {
-		useDarkColorForBackground: false,
-		lightColor: textColor,
-		darkColor: primaryColor
-	},
-	educational: {
-		useDarkColorForBackground: false,
-		lightColor: textColor,
-		darkColor: primaryColor
-	},
-	comedy: {
-		useDarkColorForBackground: false,
-		lightColor: textColor,
-		darkColor: primaryColor
-	},
-	music: {
-		useDarkColorForBackground: false,
-		lightColor: textColor,
-		darkColor: primaryColor
-	},
-	fun: {
-		useDarkColorForBackground: false,
-		lightColor: textColor,
-		darkColor: primaryColor
-	},
-	impressive: {
-		useDarkColorForBackground: false,
-		lightColor: textColor,
-		darkColor: primaryColor
-	},
-	art: {
-		useDarkColorForBackground: false,
-		lightColor: textColor,
-		darkColor: primaryColor
-	}
+	work: defaultTag,
+	relaxation: defaultTag,
+	adventure: defaultTag,
+	party: defaultTag,
+	travel: defaultTag,
+	'turn it up': defaultTag,
+	'check the lyrics': defaultTag,
+	'personally meaningful': defaultTag,
+	'that\'s what i call music': defaultTag,
+	educational: defaultTag,
+	comedy: defaultTag,
+	music: defaultTag,
+	fun: defaultTag,
+	impressive: defaultTag,
+	art: defaultTag
 };
 
 export function createTagProps(tags: string[], theme: Theme): TagProps[] {
 	return tags.map<TagProps>((tag) => {
-
 		const themeColor = theme.color;
-
-		const dynamicTagProp = commonTagProps[tag.toLowerCase()];
-		if (dynamicTagProp) {
-			return {
-				value: tag,
-				lightColor: dynamicTagProp.lightColor(themeColor),
-				darkColor: dynamicTagProp.darkColor(themeColor),
-				useDarkColorForBackground: dynamicTagProp.useDarkColorForBackground
-			};
-		}
-
+		const dynamicTagProp = commonTagProps[tag.toLowerCase()] || defaultTag;
 		return {
 			value: tag,
-			lightColor: transparentColor(themeColor),
-			darkColor: primaryColor(themeColor),
-			useDarkColorForBackground: false
+			foregroundColor: dynamicTagProp.foregroundColor(themeColor),
+			backgroundColor: dynamicTagProp.backgroundColor(themeColor),
 		};
 	});
 }

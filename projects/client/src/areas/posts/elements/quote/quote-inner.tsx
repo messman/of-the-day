@@ -7,6 +7,7 @@ import { QuoteAttribution } from './quote-attribution';
 import { QuotePiece } from './quote-piece';
 import { LayoutBreakpoint } from '@/services/layout/window-layout';
 import { tStyled } from '@/core/style/styled';
+import { separatorThickness } from '@/core/style/common';
 
 /** Controls the inner content of the quote based on quote properties. */
 export const InnerQuote: React.FC<QuoteProps> = (props) => {
@@ -34,7 +35,7 @@ export const InnerSingleQuote: React.FC<QuoteProps> = (props) => {
 	return (
 		<FlexRow justifyContent='center'>
 			<SingleQuoteWidthControlContainer flex='none'>
-				<QuotePiece isLarge={true} text={a} />
+				<QuotePiece isLarge={true} text={a} align='center' />
 				<QuoteAttribution quote={quote} />
 			</SingleQuoteWidthControlContainer>
 		</FlexRow>
@@ -74,7 +75,7 @@ export const InnerMultiQuote: React.FC<QuoteProps> = (props) => {
 };
 
 const Divider = tStyled.div`
-	width: 2px;
+	width: ${separatorThickness};
 	background-color: ${p => p.theme.color.backgroundC};
 `;
 
@@ -101,7 +102,7 @@ const MultiQuotePiece: React.FC<MultiQuotePieceProps> = (props) => {
 		const voiceLabel = voice + ':';
 		voiceRender = (
 			<LineMaxWidth>
-				<RegularText color={c => c.textTitle} margin={spacing.small.bottom}>{voiceLabel}</RegularText>
+				<RegularText color={c => c.textDistinct} margin={spacing.small.bottom}>{voiceLabel}</RegularText>
 			</LineMaxWidth>
 		);
 	}
@@ -115,7 +116,7 @@ const MultiQuotePiece: React.FC<MultiQuotePieceProps> = (props) => {
 			{leftRender}
 			<div>
 				{voiceRender}
-				<QuotePiece isLarge={false} text={text} />
+				<QuotePiece isLarge={false} text={text} align='left' />
 			</div>
 			{rightRender}
 		</FlexRow>
