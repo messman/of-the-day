@@ -78,7 +78,7 @@ export const PageTitleScrollAnimation: React.FC = () => {
 		const { item, key, props } = transition;
 		return (
 			<PageTitleScrollAnimationContainer key={key} style={props}>
-				<GrandTitle color={c => c.secondary} isBold={true}>
+				<GrandTitle color={c => c.textSpecialHeader} isBold={true}>
 					{item}&nbsp;
 				</GrandTitle>
 			</PageTitleScrollAnimationContainer>

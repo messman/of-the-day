@@ -12,7 +12,7 @@ export const borderRadiusStyle = tCss`
 `;
 
 export const mediaBoxShadowStyle = tCss`
-	box-shadow: 0px 3px 15px 5px #111;
+	box-shadow: 0px 3px 15px 5px ${p => p.theme.color.shadow};
 `;
 
 export interface TextAlignProps {

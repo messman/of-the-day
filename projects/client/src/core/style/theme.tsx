@@ -14,11 +14,14 @@ export interface Theme {
 		/** Tertiary version of background, used for UI components. */
 		backgroundC: string,
 
+		shadow: string,
+
 		primaryA: string,
 		primaryB: string,
 
 		secondary: string,
 
+		textSpecialHeader: string,
 		textTitle: string,
 		textSubtitle: string,
 		text: string,
@@ -44,15 +47,18 @@ const darkTheme: Theme = {
 	name: 'dark',
 	color: {
 		backgroundA: '#171C1C',
-		backgroundB: '#1E2424',
-		backgroundC: '#2E3738',
+		backgroundB: '#1C2121',
+		backgroundC: '#202727',
+		shadow: '#111',
+
 		primaryA: '#62BEC1',
 		primaryB: '#41A1A5',
 		secondary: '#FFD681',
 
+		textSpecialHeader: '#FFD681',
 		textTitle: '#F7F8F8',
 		textSubtitle: '#62BEC1',
-		text: '#D5DCDC',
+		text: '#E0E5E5',
 		textSubtle: '#798A8B',
 		textDisabled: '#798A8B',
 		textLink: '#FFD681',
@@ -74,22 +80,25 @@ const lightTheme: Theme = {
 		...darkTheme.color,
 
 		// Overrides
-		backgroundA: '#171C1C',
-		backgroundB: '#1E2424',
-		backgroundC: '#2E3738',
+		backgroundA: '#F7F8F8',
+		backgroundB: '#ECEFEF',
+		backgroundC: '#E0E5E5',
+		shadow: '#DDD',
+
 		primaryA: '#62BEC1',
 		primaryB: '#41A1A5',
-		secondary: '#FFD681',
+		secondary: '#1584AC',
 
-		textTitle: '#F7F8F8',
+		textSpecialHeader: '#1584AC',
+		textTitle: '#171C1C',
 		textSubtitle: '#62BEC1',
-		text: '#D5DCDC',
+		text: '#202727',
 		textSubtle: '#798A8B',
 		textDisabled: '#798A8B',
-		textLink: '#FFD681',
+		textLink: '#1584AC',
 
 		buttonActionText: '#171C1C',
-		buttonActionBackground: '#FFD681',
+		buttonActionBackground: '#1584AC',
 	}
 };
 
