@@ -5,7 +5,6 @@ import { RegularText } from '@/core/symbol/text';
 import { useHistory, useLocation, matchPath } from 'react-router-dom';
 import { FlexRow, Sticky, useSticky } from '@messman/react-common';
 import { spacing } from '@/core/layout/common';
-import { LayoutBreakpoint } from '@/services/layout/window-layout';
 
 /** Use an explicit pixel height for the upper menu bar to be used for sticky. */
 export const upperMenuBarHeightPixels = 56;
@@ -50,10 +49,8 @@ export const MenuBar: React.FC<MenuBarProps> = (props) => {
 
 	return (
 		<Sticky isSticky={true} output={stickyOutput} zIndex={1} >
-			<MenuBarContainer {...props} flex='none'>
-				<MenuBarInnerContainer justifyContent='space-around' alignItems='center'>
-					{menuBarItems}
-				</MenuBarInnerContainer>
+			<MenuBarContainer {...props} flex='none' justifyContent='center'>
+				{menuBarItems}
 			</MenuBarContainer>
 		</Sticky>
 	);
@@ -65,12 +62,6 @@ const MenuBarContainer = tStyled(FlexRow) <MenuBarProps>`
 	${p => p.isUpper && tCss`
 		height: ${upperMenuBarHeightPixels}px;
 	`}
-`;
-
-const MenuBarInnerContainer = tStyled(FlexRow)`
-	max-width: ${LayoutBreakpoint.tablet}px;
-	margin-left: auto;
-	margin-right: auto;
 `;
 
 export interface MenuBarItemProps {
@@ -108,6 +99,7 @@ const ItemButton = tStyled.button<MenuBarItemProps>`
 	cursor: ${p => p.isDisabled ? 'not-allowed' : 'pointer'};
 
 	padding: ${spacing.nudge.value};
+	margin: ${p => p.isUpper ? spacing.medium.horizontal : 'none'};
 	border: none;
 `;
 

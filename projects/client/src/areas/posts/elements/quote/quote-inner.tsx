@@ -101,7 +101,7 @@ const MultiQuotePiece: React.FC<MultiQuotePieceProps> = (props) => {
 		const voiceLabel = voice + ':';
 		voiceRender = (
 			<LineMaxWidth>
-				<RegularText color={c => c.text} margin={spacing.small.bottom}>{voiceLabel}</RegularText>
+				<RegularText color={c => c.textTitle} margin={spacing.small.bottom}>{voiceLabel}</RegularText>
 			</LineMaxWidth>
 		);
 	}
