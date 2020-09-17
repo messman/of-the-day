@@ -128,6 +128,5 @@ const Divider = tStyled.div`
 const VisibleDivider = tStyled.div`
 	width: ${separatorThickness};
 	background-color: ${p => p.theme.color.backgroundC};
-	margin-left: calc(${spacing.large.value} / 2);
-	margin-right: calc(${spacing.large.value} / 2);
+	margin: ${spacing.large.horizontal};
 `;

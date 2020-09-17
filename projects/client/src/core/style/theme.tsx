@@ -48,16 +48,16 @@ export interface Theme {
 }
 
 const common = {
-	dark: '#171C1C',
-	darkP1: '#1E2424',
-	darkP2: '#272F2F',
+	dark: '#181B1B',
+	darkP1: '#1D2020',
+	darkP2: '#292D2E',
 
-	mediumM1: '#4A5859',
-	medium: '#798A8B',
-	mediumP1: '#ACB9B9',
+	mediumM1: '#4E5556',
+	medium: '#7D8787',
+	mediumP1: '#AFB6B6',
 
-	lightM2: '#DBE1E1',
-	lightM1: '#ECEFEF',
+	lightM2: '#DCE0E0',
+	lightM1: '#ECEEEE',
 	light: '#F7F8F8',
 
 	primaryGreen: '#62BEC1',
@@ -76,14 +76,14 @@ const darkTheme: Theme = {
 		backgroundC: common.darkP2,
 		shadow: '#111',
 
-		headerSpecialBackground: common.primaryGreen,
+		headerSpecialBackground: common.secondaryYellow,
 		headerSpecialText: common.light,
 
-		primaryA: common.primaryGreen,
+		primaryA: common.secondaryYellow,
 		secondary: common.secondaryYellow,
 
 		textTitle: common.light,
-		textSubtitle: common.primaryGreen,
+		textSubtitle: common.light,
 		text: common.mediumP1,
 		textSubtle: common.medium,
 		textDisabled: common.mediumM1,
@@ -117,13 +117,13 @@ const lightTheme: Theme = {
 		backgroundC: common.lightM2,
 		shadow: '#DDD',
 
-		headerSpecialText: common.primaryGreen,
+		headerSpecialText: common.secondaryBlue,
 
-		primaryA: common.primaryGreenM1,
+		primaryA: common.secondaryBlue,
 		secondary: common.secondaryBlue,
 
 		textTitle: common.dark,
-		textSubtitle: common.primaryGreenM1,
+		textSubtitle: common.dark,
 		text: common.mediumM1,
 		textSubtle: common.medium,
 		textDisabled: common.mediumP1,

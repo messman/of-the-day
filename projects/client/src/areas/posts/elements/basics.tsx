@@ -30,7 +30,7 @@ export const Basics: React.FC<BasicsProps> = (props) => {
 		leftRender = (
 			<TextContainer key='notes' flex={flex}>
 				<Subtitle margin={titleMargin}>Notes</Subtitle>
-				<Subtitle isBold={false} show={event} margin={textMargin} color={c => c.textDistinct}>{event}</Subtitle>
+				<RegularText isBold={true} show={event} margin={textMargin} color={c => c.textDistinct}>{event}</RegularText>
 				<RegularText show={note} margin={textMargin}>{note}</RegularText>
 			</TextContainer>
 		);
@@ -51,8 +51,8 @@ export const Basics: React.FC<BasicsProps> = (props) => {
 	if (location) {
 		rightRender = (
 			<TextContainer key='location' flex={flex}>
-				<Subtitle isBold={true} margin={titleMargin}>Location</Subtitle>
-				<Subtitle isBold={false} color={c => c.textDistinct}>{location}</Subtitle>
+				<Subtitle margin={titleMargin}>Location</Subtitle>
+				<RegularText isBold={true} color={c => c.textDistinct}>{location}</RegularText>
 			</TextContainer>
 		);
 	}

@@ -54,7 +54,6 @@ export const HeaderImg = tStyled.div`
 	height: 100%;
 	background-image: url(${headerImgDataUrl});
 	background-position: center;
-	background-size: auto 100%;
 `;
 
 export const HeaderImgOverlay = tStyled.div`
@@ -63,5 +62,5 @@ export const HeaderImgOverlay = tStyled.div`
 	padding: 0;
 	width: 100%;
 	height: 100%;
- 	background-image: radial-gradient(circle farthest-side at center, rgba(98,190,193,0.85) 5%, rgba(98,190,193,0.19) 50%);
+ 	background-image: radial-gradient(circle farthest-side at center, ${p => p.theme.color.headerSpecialBackground} 5%, transparent 50%);
 `;

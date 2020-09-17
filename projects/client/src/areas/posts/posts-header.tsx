@@ -100,8 +100,8 @@ const PostDayTitle: React.FC<PostDayTitle> = (props) => {
 
 	return (
 		<TextAlign dataAlign='center'>
-			<RegularText margin={spacing.nudge.bottom} color={c => c.textSubtle}>{dayReferenceRender}Day {dayNumber}</RegularText>
-			<Title isBold={true}>{dateText}</Title>
+			<RegularText margin={spacing.nudge.bottom} color={c => c.primaryA}>{dayReferenceRender}Day {dayNumber}</RegularText>
+			<Title>{dateText}</Title>
 		</TextAlign>
 	);
 };
