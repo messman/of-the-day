@@ -81,7 +81,7 @@ const SVGWrapper = tStyled.span<SVGWrapperProps>`
 	height: ${p => p.wrapperHeight || 'unset'}; 
 
 	svg, svg path {
-		color: ${p => (p.svgColor ? p.svgColor!(p.theme.color) : p.theme.color.text)};
+		color: ${p => (p.svgColor ? p.svgColor!(p.theme.color) : p.theme.color.textRegular)};
 		${p => !!p.svgFill && css({
 	fill: p.svgFill!(p.theme.color)
 })}

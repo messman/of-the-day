@@ -94,7 +94,7 @@ export const PageTitleScrollAnimation: React.FC<PageTitleScrollAnimationProps> =
 			const { item, key, props } = transition;
 			return (
 				<PageTitleScrollAnimationContainer key={key} style={props}>
-					<TextComponent color={c => c.textDistinct}>
+					<TextComponent color={c => c.headerSpecialText}>
 						{item}&nbsp;
 				</TextComponent>
 				</PageTitleScrollAnimationContainer>
@@ -103,7 +103,7 @@ export const PageTitleScrollAnimation: React.FC<PageTitleScrollAnimationProps> =
 	}
 
 	return (
-		<TextComponent isInline={true} isRelative={true} color={c => c.backgroundA}>
+		<TextComponent isInline={true} isRelative={true} color={c => c.textDistinct}>
 			<SideContainer flex='none' justifyContent='flex-end'>
 				{transitionRender}
 			</SideContainer>

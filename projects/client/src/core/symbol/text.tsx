@@ -34,15 +34,15 @@ export const Subtitle = createTextComponent(subtitleHeight, c => c.textSubtitle,
 
 export const regularTextHeight = '1rem';
 /** Regular text. 1rem / 16px. */
-export const RegularText = createTextComponent(regularTextHeight, c => c.text, false);
+export const RegularText = createTextComponent(regularTextHeight, c => c.textRegular, false);
 
 export const smallTextHeight = '.875rem';
 /** Small text. .875rem / 14px. */
-export const SmallText = createTextComponent(smallTextHeight, c => c.text, false);
+export const SmallText = createTextComponent(smallTextHeight, c => c.textRegular, false);
 
 export const subTextHeight = '.75rem';
 /** Sub text. .75rem / 12px. */
-export const SubText = createTextComponent(subTextHeight, c => c.text, false);
+export const SubText = createTextComponent(subTextHeight, c => c.textRegular, false);
 
 export const Text = {
 	GrandTitle,
@@ -69,5 +69,5 @@ export const BadText = tStyled.p`
 
 export const ImportantText = tStyled.p`
 	${textBoxStyle}
-	background-color: ${p => p.theme.color.primaryA};
+	background-color: ${p => p.theme.color.primary};
 `;

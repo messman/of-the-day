@@ -22,7 +22,7 @@ export const QuotePiece: React.FC<QuotePieceProps> = (props) => {
 
 	return (
 		<QuoteBackground>
-			<TopLeftAbsoluteIcon type={iconTypes.quotationOpen} height={iconHeight} fillColor={c => c.primaryA} />
+			<TopLeftAbsoluteIcon type={iconTypes.quotationOpen} height={iconHeight} fillColor={c => c.primary} />
 			<Spacing margin={spacing.medium.horizontal}>
 				<LineMaxWidthCenter>
 					<TextAlign dataAlign={align}>
@@ -30,7 +30,7 @@ export const QuotePiece: React.FC<QuotePieceProps> = (props) => {
 					</TextAlign>
 				</LineMaxWidthCenter>
 			</Spacing>
-			<BottomRightAbsoluteIcon type={iconTypes.quotationClose} height={iconHeight} fillColor={c => c.primaryA} />
+			<BottomRightAbsoluteIcon type={iconTypes.quotationClose} height={iconHeight} fillColor={c => c.primary} />
 		</QuoteBackground>
 	);
 };

@@ -97,7 +97,7 @@ const BackgroundColor = tStyled.div`
 	transform: translateZ(-.5px) scale(2);
 	z-index: -1;
 
-	background-color: ${p => p.theme.color.primaryA};
+	background-color: ${p => p.theme.color.primary};
 `;
 
 const headerImgDataUrl = require('@/static/images/header-background.png').default as string;

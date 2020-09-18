@@ -2,13 +2,10 @@ import * as React from 'react';
 import { RegularText } from '@/core/symbol/text';
 import { FlexRow, useWindowLayout } from '@messman/react-common';
 import { spacing, Spacing } from '@/core/layout/common';
-import { ThemePickColor } from '@/core/style/theme';
 import { tStyled } from '@/core/style/styled';
 import { PageTitleScrollAnimation } from './page-title-animations';
 import { TextAlign } from '@/core/style/common';
 import { LayoutBreakpoint } from '@/services/layout/window-layout';
-
-const backgroundColor: ThemePickColor = c => c.backgroundA;
 
 export const PageTitle: React.FC = () => {
 
@@ -31,7 +28,7 @@ export const PageTitle: React.FC = () => {
 				<FlexRow justifyContent='center'>
 					<TextAlign dataAlign='center'>
 						<PageTitleScrollAnimation />
-						<RegularText margin={spacing.small.top} color={backgroundColor}>daily sharing from Andrew</RegularText>
+						<RegularText margin={spacing.small.top} color={c => c.textDistinct}>daily sharing from Andrew</RegularText>
 					</TextAlign>
 				</FlexRow>
 			</Spacing>
@@ -54,6 +51,7 @@ export const HeaderImg = tStyled.div`
 	height: 100%;
 	background-image: url(${headerImgDataUrl});
 	background-position: center;
+	opacity: ${p => p.theme.isLightMode ? .4 : .9};
 `;
 
 export const HeaderImgOverlay = tStyled.div`
@@ -62,5 +60,5 @@ export const HeaderImgOverlay = tStyled.div`
 	padding: 0;
 	width: 100%;
 	height: 100%;
- 	background-image: radial-gradient(circle farthest-side at center, ${p => p.theme.color.headerSpecialBackground} 5%, transparent 50%);
+ 	background-image: radial-gradient(circle farthest-side at center, ${p => p.theme.color.headerSpecialBackground} 10%, transparent 60%);
 `;

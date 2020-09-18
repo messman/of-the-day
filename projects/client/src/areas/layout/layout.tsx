@@ -52,8 +52,8 @@ const RegularLayout: React.FC<LayoutProps> = (props) => {
 	return (
 		<LayoutContainer>
 			<ScrollContainer ref={scrollContainerRef}>
-				<PageTitle />
 				<MenuBar isUpper={true} rootRef={scrollContainerRef} />
+				<PageTitle />
 				<Switch>
 					<Route exact path={routes.posts.path}>
 						<Posts rootRef={scrollContainerRef} isUpper={true} offsetPixels={upperMenuBarHeightPixels} />

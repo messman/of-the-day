@@ -14,8 +14,7 @@ export interface MediaSplitProps {
 
 const splitMediaBreakpoint = '26rem';
 const SplitWidth = tStyled.div`
-	max-width: ${splitMediaBreakpoint};
-	min-width: 10rem;
+	width: ${splitMediaBreakpoint};
 `;
 
 export const MediaSplit: React.FC<MediaSplitProps> = (props) => {
@@ -105,7 +104,7 @@ export const MediaSplit: React.FC<MediaSplitProps> = (props) => {
 					</SplitWidth>
 				</OrderedFlexColumn>
 				<VisibleDivider />
-				<OrderedFlexColumn isFirst={!isLeft} justifyContent='center'>
+				<OrderedFlexColumn isFirst={!isLeft} justifyContent='center' flex='0 1 100%'>
 					{mediaRender}
 				</OrderedFlexColumn>
 			</FlexRow>

@@ -104,5 +104,5 @@ const ItemButton = tStyled.button<MenuBarItemProps>`
 `;
 
 const ItemButtonText = tStyled(RegularText) <MenuBarItemProps>`
-	color: ${p => p.isDisabled ? p.theme.color.textDisabled : p.theme.color.text};
+	color: ${p => p.isDisabled ? p.theme.color.textDisabled : p.theme.color.textRegular};
 `;

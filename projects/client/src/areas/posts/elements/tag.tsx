@@ -55,7 +55,7 @@ export const TagList: React.FC<TagListProps> = (props) => {
 
 	const tagProps = React.useMemo(() => {
 		return createTagProps(tags, theme);
-	}, [tags]);
+	}, [tags, theme]);
 
 	const tagsRender = tagProps.map((tagProps, i) => {
 		return (

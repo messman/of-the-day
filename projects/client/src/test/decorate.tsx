@@ -62,7 +62,8 @@ const InnerTestWrapper: React.FC = (props) => {
 
 	const themeOptions: { [key: string]: number; } = {};
 	themes.forEach((theme, index) => {
-		themeOptions[theme.name] = index;
+		const name = `${theme.colorName} (${theme.isLightMode ? 'Light' : 'Dark'})`;
+		themeOptions[name] = index;
 	});
 
 	const [themeIndex, setThemeIndex] = useLocalStorageTheme();

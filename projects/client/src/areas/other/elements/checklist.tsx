@@ -44,7 +44,7 @@ const InnerChecklist: React.FC<InnerChecklistProps> = (props) => {
 		return (
 			<RegularText key={item}>
 				<Spacing isInline={true} margin={spacing.small.right}>
-					<Icon type={iconType} fillColor={c => isDone ? c.success : c.textSubtle} height={regularTextHeight} />
+					<Icon type={iconType} fillColor={c => isDone ? c.success : c.textDisabled} height={regularTextHeight} />
 				</Spacing>
 				{item}
 			</RegularText>

@@ -8,17 +8,17 @@ interface DynamicTagProps {
 
 const defaultTag: DynamicTagProps = {
 	foregroundColor: c => c.backgroundA,
-	backgroundColor: c => c.primaryA
+	backgroundColor: c => c.primary
 };
 
 const commonTagProps: { [key: string]: DynamicTagProps; } = {
 	nsfw: {
-		foregroundColor: c => c.tagLight,
-		backgroundColor: c => c.tagNSFW
+		foregroundColor: c => c.tagNSFWForeground,
+		backgroundColor: c => c.tagNSFWBackground
 	},
 	top: {
-		foregroundColor: c => c.tagDark,
-		backgroundColor: c => c.tagTop
+		foregroundColor: c => c.tagTopForeground,
+		backgroundColor: c => c.tagTopBackground
 	},
 	work: defaultTag,
 	relaxation: defaultTag,

@@ -7,7 +7,6 @@ import { OutLink } from '@/core/link';
 import { ElementRoot } from '../post';
 import { MediaSplit } from '@/core/layout/media-split';
 import { borderRadiusStyle, mediaBoxShadowStyle } from '@/core/style/common';
-import { LayoutBreakpoint } from '@/services/layout/window-layout';
 
 export interface ImageProps {
 	image: IPostImage;
@@ -54,9 +53,8 @@ export const Image: React.FC<ImageProps> = (props) => {
 };
 
 const ConstrainedImage = tStyled.img`
-	width: 100%;
-	max-width: ${LayoutBreakpoint.wide}px;
-	max-height: ${LayoutBreakpoint.wide}px;
+	max-width: 100%;
+	max-height: 80vh;
 
 	${borderRadiusStyle};
 	${mediaBoxShadowStyle};
