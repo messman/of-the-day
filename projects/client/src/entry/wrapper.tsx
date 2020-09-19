@@ -6,7 +6,7 @@ import { PostResponseProvider } from '@/services/data/data';
 import { DEFINE } from '@/services/define';
 import { MemoryRouter, BrowserRouter } from 'react-router-dom';
 import { WindowLayoutProvider, WindowDimensionsProvider, FlexRoot, DocumentVisibilityProvider } from '@messman/react-common';
-import { FontSizeManager } from '@/core/style/common';
+import { FontSizeManager } from '@/core/symbol/text';
 import { lowerBreakpoints } from '@/services/layout/window-layout';
 
 export const Wrapper: React.FC = (props) => {

@@ -1,9 +1,6 @@
-import * as React from 'react';
 import { tCss, tStyled } from '@/core/style/styled';
 import { spacing } from '../layout/common';
 import { regularTextHeight } from '../symbol/text';
-import { useWindowLayout } from '@messman/react-common';
-import { LayoutBreakpoint } from '@/services/layout/window-layout';
 
 /** Border-radius style. .375rem / 6px. */
 export const borderRadiusValue: string = '.375rem';
@@ -24,27 +21,6 @@ export interface TextAlignProps {
 export const TextAlign = tStyled.div<TextAlignProps>`
 	text-align: ${p => p.dataAlign || 'left'};
 `;
-
-export const FontSizeManager: React.FC = (props) => {
-	const windowLayout = useWindowLayout();
-	const { widthBreakpoint } = windowLayout;
-
-	React.useEffect(() => {
-
-		// Default font size.
-		let fontSize = '16px';
-		if (widthBreakpoint <= LayoutBreakpoint.mobileLarge) {
-			fontSize = '14px';
-		}
-		else if (widthBreakpoint >= LayoutBreakpoint.wide) {
-			fontSize = '18px';
-		}
-
-		document.documentElement.style.fontSize = fontSize;
-	}, [widthBreakpoint]);
-
-	return <>{props.children}</>;
-};
 
 export const SeeMoreButton = tStyled.button`
 	display: block;

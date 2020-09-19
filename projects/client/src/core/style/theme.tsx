@@ -2,6 +2,7 @@ import * as React from 'react';
 import { createGlobalStyle, ThemeProps, ThemeProvider as StyledThemeProvider } from 'styled-components';
 import { UseLocalStorageReturn } from '@messman/react-common';
 import { localStorage } from '@/services/data/local-storage';
+import { defaultFontSize } from '../symbol/text';
 
 /** Custom application theme type. */
 export interface Theme {
@@ -84,9 +85,9 @@ const blue: Scale = {
 	s4: '#24718D',
 	s5: '#5CAECB',
 	s6: '#D7EDF5',
-	s7: '#E4F3F8',
-	s8: '#F2F9FC',
-	s9: '#FFFFFF',
+	s7: '#D6E0E3',
+	s8: '#E7EEF0',
+	s9: '#F4F7F8',
 };
 
 // const yellow: Scale = {
@@ -311,6 +312,10 @@ export type ThemePickColor = (c: ThemeColor) => string;
 // Note: '#root' is for storybook
 // Note: overscroll-behavior comes from https://stackoverflow.com/a/50846937 to prevent macs going back (since we have horizontal scroll)
 export const GlobalStyles = createGlobalStyle<ThemeProps<Theme>>`
+	html {
+		font-size: ${defaultFontSize};
+	}
+
 	body {
 		background-color: ${p => p.theme.color.backgroundA};
 		color: ${p => p.theme.color.textRegular};

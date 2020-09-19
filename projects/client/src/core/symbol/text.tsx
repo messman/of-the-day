@@ -2,6 +2,8 @@ import * as React from 'react';
 import { tStyled, tCss } from '@/core/style/styled';
 import { ThemePickColor } from '../style/theme';
 import { SpacingProps, Spacing } from '../layout/common';
+import { LayoutBreakpoint } from '@/services/layout/window-layout';
+import { useWindowLayout } from '@messman/react-common';
 
 export interface TextProps extends Omit<SpacingProps, 'fontSize'> {
 }
@@ -18,7 +20,27 @@ export function createTextComponent(fontSize: string, defaultColor: ThemePickCol
 	return component;
 }
 
-// Default 1rem = 16px, but compact is 14px
+export const defaultFontSize = '16px';
+
+export const FontSizeManager: React.FC = (props) => {
+	const windowLayout = useWindowLayout();
+	const { widthBreakpoint } = windowLayout;
+
+	React.useEffect(() => {
+		let fontSize = defaultFontSize;
+		if (widthBreakpoint >= LayoutBreakpoint.wide) {
+			fontSize = '20px';
+		}
+		if (widthBreakpoint >= LayoutBreakpoint.tablet) {
+			fontSize = '18px';
+		}
+		document.documentElement.style.fontSize = fontSize;
+	}, [widthBreakpoint]);
+
+	return <>{props.children}</>;
+};
+
+// Default 1rem = 16px, but see theme for changes
 
 export const grandTitleHeight = '3.5rem';
 /** Title. 3.5rem / 56px. */
