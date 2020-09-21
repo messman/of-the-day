@@ -2,7 +2,6 @@ import * as React from 'react';
 import { createGlobalStyle, ThemeProps, ThemeProvider as StyledThemeProvider } from 'styled-components';
 import { UseLocalStorageReturn } from '@messman/react-common';
 import { localStorage } from '@/services/data/local-storage';
-import { defaultFontSize } from '../symbol/text';
 
 /** Custom application theme type. */
 export interface Theme {
@@ -19,10 +18,10 @@ export interface ThemeColor {
 	/** Tertiary version of background, used for UI components. */
 	backgroundC: string,
 
-	shadow: string,
+	darkShadow: string,
 
-	headerSpecialBackground: string,
-	headerSpecialText: string,
+	headerBackground: string,
+	headerText: string,
 
 	primary: string,
 	secondary: string,
@@ -51,22 +50,17 @@ export interface ThemeColor {
 	success: string,
 }
 
-interface Scale {
-	s0: string;
-	s1: string;
-	s2: string;
-	s3: string;
-	s4: string;
-	s5: string;
-	s6: string;
-	s7: string;
-	s8: string;
-	s9: string;
-}
+const gray = {
+	black: '#171717',
+	white: '#F8F8F8',
+	dark: {
+		background: '#171717'
+	}
+};
 
-const gray: Scale = {
-	s0: '#000000',
-	s1: '#1A1A1A',
+const gray2 = {
+	s0: '#171717',
+	s1: '#26262C',
 	s2: '#262626',
 	s3: '#404040',
 	s4: '#666666',
@@ -77,18 +71,18 @@ const gray: Scale = {
 	s9: '#FFFFFF',
 };
 
-const blue: Scale = {
-	s0: '#040D10',
-	s1: '#08191F',
-	s2: '#184B5E',
-	s3: '#1C586D',
-	s4: '#24718D',
-	s5: '#5CAECB',
-	s6: '#D7EDF5',
-	s7: '#D6E0E3',
-	s8: '#E7EEF0',
-	s9: '#F4F7F8',
-};
+// const blue = {
+// 	s0: '#040D10',
+// 	s1: '#08191F',
+// 	s2: '#184B5E',
+// 	s3: '#1C586D',
+// 	s4: '#24718D',
+// 	s5: '#5CAECB',
+// 	s6: '#D7EDF5',
+// 	s7: '#D6E0E3',
+// 	s8: '#E7EEF0',
+// 	s9: '#F4F7F8',
+// };
 
 // const yellow: Scale = {
 // 	base: '#F1C262',
@@ -105,9 +99,9 @@ const blue: Scale = {
 // };
 
 const commonColor: Partial<ThemeColor> = {
-	tagNSFWForeground: gray.s9,
+	tagNSFWForeground: gray.white,
 	tagNSFWBackground: '#A63446',
-	tagTopForeground: gray.s0,
+	tagTopForeground: gray.black,
 	tagTopBackground: '#FFC03D',
 
 	warning: '#DC965A',
@@ -115,121 +109,128 @@ const commonColor: Partial<ThemeColor> = {
 	success: '#4B7F52',
 };
 
-const grayLightTheme: Theme = {
-	colorName: 'Gray',
-	isLightMode: true,
-	color: {
-		...(commonColor as ThemeColor),
-
-		backgroundA: gray.s9,
-		backgroundB: gray.s8,
-		backgroundC: gray.s7,
-		shadow: gray.s6,
-
-		headerSpecialBackground: gray.s5,
-		headerSpecialText: gray.s4,
-
-		primary: gray.s5,
-		secondary: gray.s5,
-
-		textDistinct: gray.s0,
-		textTitle: gray.s2,
-		textSubtitle: gray.s2,
-		textRegular: gray.s4,
-		textDisabled: gray.s5,
-		textLink: gray.s4,
-
-		buttonActionText: gray.s9,
-		buttonActionBackground: gray.s5,
-	}
+const purple = {
+	dark: {
+		base: '#5C59CD',
+		text: '#D4D3E7'
+	},
 };
 
-const grayDarkTheme: Theme = {
-	colorName: 'Gray',
+const purpleDarkTheme: Theme = {
+	colorName: 'Purple',
 	isLightMode: false,
 	color: {
 		...(commonColor as ThemeColor),
 
-		backgroundA: gray.s0,
-		backgroundB: gray.s1,
-		backgroundC: gray.s2,
-		shadow: '#111',
+		backgroundA: gray.dark.background,
+		backgroundB: gray2.s8,
+		backgroundC: gray2.s7,
+		darkShadow: '#111',
 
-		headerSpecialBackground: gray.s4,
-		headerSpecialText: gray.s5,
+		headerBackground: purple.dark.base,
+		headerText: purple.dark.text,
 
-		primary: gray.s4,
-		secondary: gray.s4,
+		primary: gray2.s5,
+		secondary: gray2.s5,
 
-		textDistinct: gray.s9,
-		textTitle: gray.s7,
-		textSubtitle: gray.s7,
-		textRegular: gray.s6,
-		textDisabled: gray.s5,
-		textLink: gray.s6,
+		textDistinct: gray2.s0,
+		textTitle: gray2.s2,
+		textSubtitle: gray2.s2,
+		textRegular: gray2.s4,
+		textDisabled: gray2.s5,
+		textLink: gray2.s4,
 
-		buttonActionText: gray.s0,
-		buttonActionBackground: gray.s4,
+		buttonActionText: gray2.s9,
+		buttonActionBackground: gray2.s5,
 	}
 };
 
-const blueLightTheme: Theme = {
-	colorName: 'Blue',
-	isLightMode: true,
-	color: {
-		...grayLightTheme.color,
+// const grayDarkTheme: Theme = {
+// 	colorName: 'Gray',
+// 	isLightMode: false,
+// 	color: {
+// 		...(commonColor as ThemeColor),
 
-		backgroundA: blue.s9,
-		backgroundB: blue.s8,
-		backgroundC: blue.s7,
-		shadow: gray.s6,
+// 		backgroundA: gray.s0,
+// 		backgroundB: gray.s1,
+// 		backgroundC: gray.s2,
+// 		darkShadow: '#111',
 
-		headerSpecialBackground: blue.s5,
-		headerSpecialText: blue.s3,
+// 		headerBackground: gray.s4,
+// 		headerText: gray.s5,
 
-		primary: blue.s5,
-		secondary: blue.s5,
+// 		primary: gray.s4,
+// 		secondary: gray.s4,
 
-		textDistinct: gray.s0,
-		textTitle: gray.s2,
-		textSubtitle: gray.s2,
-		textRegular: gray.s4,
-		textDisabled: gray.s5,
-		textLink: blue.s4,
+// 		textDistinct: gray.s9,
+// 		textTitle: gray.s7,
+// 		textSubtitle: gray.s7,
+// 		textRegular: gray.s6,
+// 		textDisabled: gray.s5,
+// 		textLink: gray.s6,
 
-		buttonActionText: gray.s9,
-		buttonActionBackground: blue.s5,
-	}
-};
+// 		buttonActionText: gray.s0,
+// 		buttonActionBackground: gray.s4,
+// 	}
+// };
 
-const blueDarkTheme: Theme = {
-	colorName: 'Blue',
-	isLightMode: false,
-	color: {
-		...grayDarkTheme.color,
+// const blueLightTheme: Theme = {
+// 	colorName: 'Blue',
+// 	isLightMode: true,
+// 	color: {
+// 		...grayLightTheme.color,
 
-		backgroundA: blue.s0,
-		backgroundB: blue.s1,
-		backgroundC: blue.s2,
-		shadow: '#111',
+// 		backgroundA: blue.s9,
+// 		backgroundB: blue.s8,
+// 		backgroundC: blue.s7,
+// 		darkShadow: gray.s6,
 
-		headerSpecialBackground: blue.s5,
-		headerSpecialText: blue.s7,
+// 		headerBackground: blue.s5,
+// 		headerText: blue.s3,
 
-		primary: blue.s5,
-		secondary: blue.s5,
+// 		primary: blue.s5,
+// 		secondary: blue.s5,
 
-		textDistinct: gray.s9,
-		textTitle: gray.s7,
-		textSubtitle: gray.s7,
-		textRegular: gray.s6,
-		textDisabled: gray.s5,
-		textLink: gray.s6,
+// 		textDistinct: gray.s0,
+// 		textTitle: gray.s2,
+// 		textSubtitle: gray.s2,
+// 		textRegular: gray.s4,
+// 		textDisabled: gray.s5,
+// 		textLink: blue.s4,
 
-		buttonActionText: gray.s0,
-		buttonActionBackground: blue.s5,
-	}
-};
+// 		buttonActionText: gray.s9,
+// 		buttonActionBackground: blue.s5,
+// 	}
+// };
+
+// const blueDarkTheme: Theme = {
+// 	colorName: 'Blue',
+// 	isLightMode: false,
+// 	color: {
+// 		...grayDarkTheme.color,
+
+// 		backgroundA: blue.s0,
+// 		backgroundB: blue.s1,
+// 		backgroundC: blue.s2,
+// 		darkShadow: '#111',
+
+// 		headerBackground: blue.s5,
+// 		headerText: blue.s7,
+
+// 		primary: blue.s5,
+// 		secondary: blue.s5,
+
+// 		textDistinct: gray.s9,
+// 		textTitle: gray.s7,
+// 		textSubtitle: gray.s7,
+// 		textRegular: gray.s6,
+// 		textDisabled: gray.s5,
+// 		textLink: gray.s6,
+
+// 		buttonActionText: gray.s0,
+// 		buttonActionBackground: blue.s5,
+// 	}
+// };
 
 
 // 
@@ -302,11 +303,20 @@ const blueDarkTheme: Theme = {
 // };
 
 // Index is stored in LocalStorage
-export const themes: Theme[] = [grayLightTheme, blueLightTheme, grayDarkTheme, blueDarkTheme];
+export const themes: Theme[] = [purpleDarkTheme];
 const defaultThemeIndex = 0;
 
 export type ThemePick<T> = (t: Theme) => T;
 export type ThemePickColor = (c: ThemeColor) => string;
+
+// Set from Google Font. Search for 'Montserrat' across the codebase.
+export const fontWeights = {
+	regular: 400,
+	medium: 500,
+	bold: 700
+};
+
+export const defaultFontSize = '16px';
 
 // For some reason, VS Code is not happy to colorize the CSS in this block when `createGlobalStyle` is used with a type.
 // Note: '#root' is for storybook
@@ -330,7 +340,7 @@ export const GlobalStyles = createGlobalStyle<ThemeProps<Theme>>`
 
 	* {
 		font-family: 'Montserrat', sans-serif;
-		font-weight: 400;
+		font-weight: ${fontWeights.regular};
 		vertical-align: top;
 		-webkit-text-size-adjust: 100%;
 		box-sizing: border-box;

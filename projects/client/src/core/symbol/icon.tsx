@@ -7,6 +7,7 @@ export type SVGIconType = React.FC<React.SVGAttributes<SVGElement>>;
 
 // These SVG files are processed by webpack to become actual SVG code in the final code package.
 export const iconTypes = {
+	brand: require('@/static/icons/brand.svg').default as SVGIconType,
 	reactionSmile: require('@/static/icons/reaction-smile.svg').default as SVGIconType,
 	reactionText: require('@/static/icons/reaction-text.svg').default as SVGIconType,
 	quotationOpen: require('@/static/icons/quotation-open.svg').default as SVGIconType,
@@ -29,7 +30,10 @@ export const iconTypes = {
 	music: require('@/static/icons/music.svg').default as SVGIconType,
 	quote: require('@/static/icons/quote.svg').default as SVGIconType,
 	thought: require('@/static/icons/thought.svg').default as SVGIconType,
-	video: require('@/static/icons/video.svg').default as SVGIconType
+	video: require('@/static/icons/video.svg').default as SVGIconType,
+	compassLarge: require('@/static/icons/compass-large.svg').default as SVGIconType,
+	screen: require('@/static/icons/screen.svg').default as SVGIconType,
+	activity: require('@/static/icons/activity.svg').default as SVGIconType,
 };
 
 export interface IconProps {
@@ -55,7 +59,6 @@ export const Icon: StyledFC<IconProps> = (props) => {
 	const { className, type, defaultColor, fillColor, width, height } = props;
 
 	const SVGIcon = type;
-
 
 	// Note - Safari SVG does not accept 'rem' width/height - so use percent and scale using wrapper.
 	const setValue = !!width ? 'width' : 'height';

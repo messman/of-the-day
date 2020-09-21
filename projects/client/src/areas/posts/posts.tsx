@@ -2,6 +2,7 @@ import * as React from 'react';
 import { IPost } from 'oftheday-shared';
 import { Post } from './post';
 import { PostsHeader, PostDayHeader } from './posts-header';
+import { spacing, Spacing } from '@/core/layout/common';
 
 export interface PostsProps {
 	overridePosts?: IPost[];
@@ -42,9 +43,9 @@ export const Posts: React.FC<PostsProps> = (props) => {
 	}
 
 	return (
-		<>
+		<Spacing margin={spacing.large.top}>
 			<PostsHeader rootRef={rootRef} offsetPixels={offsetPixels} isUpper={isUpper} posts={posts} activePostIndex={activePostIndex} onPostChosen={onPostChosen} />
 			<div>{postsRender}</div>
-		</>
+		</Spacing>
 	);
 };

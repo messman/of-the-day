@@ -7,7 +7,7 @@ import { FlexRow, Sticky, useSticky } from '@messman/react-common';
 import { spacing } from '@/core/layout/common';
 
 /** Use an explicit pixel height for the upper menu bar to be used for sticky. */
-export const upperMenuBarHeightPixels = 56;
+export const upperMenuBarHeightPixels = 64;
 
 export interface MenuBarProps {
 	isUpper: boolean;

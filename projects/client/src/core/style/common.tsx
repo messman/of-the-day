@@ -2,14 +2,14 @@ import { tCss, tStyled } from '@/core/style/styled';
 import { spacing } from '../layout/common';
 import { regularTextHeight } from '../symbol/text';
 
-/** Border-radius style. .375rem / 6px. */
+/** Border-radius style. .375rem. */
 export const borderRadiusValue: string = '.375rem';
 export const borderRadiusStyle = tCss`
 	border-radius: ${borderRadiusValue};
 `;
 
 export const mediaBoxShadowStyle = tCss`
-	box-shadow: 0px 3px 15px 5px ${p => p.theme.color.shadow};
+	box-shadow: 0px 3px 15px 5px ${p => p.theme.color.darkShadow};
 `;
 
 export const separatorThickness = '3px';

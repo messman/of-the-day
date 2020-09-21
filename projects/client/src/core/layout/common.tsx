@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { tStyled, tCss } from '../style/styled';
 import { StyledComponent } from 'styled-components';
-import { Theme, ThemePickColor } from '../style/theme';
-import { grandTitleHeight } from '../symbol/text';
+import { Theme, ThemePickColor, fontWeights } from '../style/theme';
 import { LayoutBreakpoint, lineBreakpoint } from '@/services/layout/window-layout';
 import { useWindowLayout } from '@messman/react-common';
 
@@ -96,6 +95,7 @@ export interface SpacingProps {
 	margin?: string | null;
 	padding?: string | null;
 	fontSize?: string | null;
+	textAlign?: string | null;
 	isRelative?: boolean;
 	isInline?: boolean;
 	isBold?: boolean;
@@ -105,7 +105,7 @@ export interface SpacingProps {
 }
 
 export const Spacing: React.FC<SpacingProps> = (props) => {
-	const { className, children, show, margin, padding, fontSize, isRelative, isInline, isBold, isItalic, color, backgroundColor } = props;
+	const { className, children, show, margin, padding, fontSize, textAlign, isRelative, isInline, isBold, isItalic, color, backgroundColor } = props;
 
 	if ((show !== undefined) && (!show || !children)) {
 		return null;
@@ -117,6 +117,7 @@ export const Spacing: React.FC<SpacingProps> = (props) => {
 			dataMargin={margin}
 			dataPadding={padding}
 			dataFontSize={fontSize}
+			dataTextAlign={textAlign}
 			isRelative={isRelative}
 			isInline={isInline}
 			isBold={isBold}
@@ -134,6 +135,7 @@ interface InternalSpacingProps {
 	isRelative?: boolean;
 	isInline?: boolean;
 	dataFontSize?: string | null;
+	dataTextAlign?: string | null;
 	isBold?: boolean;
 	isItalic?: boolean;
 	dataColor?: ThemePickColor;
@@ -149,10 +151,7 @@ const inlineBlockStyle = tCss`
 `;
 
 const boldStyle = tCss`
-	font-weight: 500;
-`;
-const extraBoldStyle = tCss`
-	font-weight: 600;
+	font-weight: ${fontWeights.medium};
 `;
 
 const italicStyle = tCss`
@@ -163,11 +162,6 @@ const italicStyle = tCss`
 export const InternalSpacing = tStyled.div<InternalSpacingProps>`
 	vertical-align: top;
 
-	/* EM value may be font-specific! */
-	svg {
-		margin-top: .1em;
-	}
-
 	${p => p.dataMargin && ('margin: ' + p.dataMargin + ';')}
 	${p => p.dataPadding && ('padding: ' + p.dataPadding + ';')}
 
@@ -175,7 +169,8 @@ export const InternalSpacing = tStyled.div<InternalSpacingProps>`
 	${p => p.isInline && inlineBlockStyle}
 
 	${p => p.dataFontSize && ('font-size: ' + p.dataFontSize + ';')}
-	${p => p.isBold && (p.dataFontSize === grandTitleHeight ? extraBoldStyle : boldStyle)}
+	${p => p.dataTextAlign && ('text-align: ' + p.dataTextAlign + ';')}
+	${p => p.isBold && boldStyle}
 	${p => p.isItalic && italicStyle}
 
 	${p => p.dataColor && ('color: ' + p.dataColor(p.theme.color) + ';')}

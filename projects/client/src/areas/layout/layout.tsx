@@ -8,7 +8,7 @@ import { Switch, Route } from 'react-router-dom';
 import { routes } from '@/services/nav/routing';
 import { tStyled } from '@/core/style/styled';
 import { FlexColumn, useWindowLayout } from '@messman/react-common';
-import { PageTitle } from './page-title';
+import { Header } from './header/header';
 import { LayoutBreakpoint } from '@/services/layout/window-layout';
 
 export const ApplicationLayout: React.FC = () => {
@@ -52,8 +52,8 @@ const RegularLayout: React.FC<LayoutProps> = (props) => {
 	return (
 		<LayoutContainer>
 			<ScrollContainer ref={scrollContainerRef}>
+				<Header />
 				<MenuBar isUpper={true} rootRef={scrollContainerRef} />
-				<PageTitle />
 				<Switch>
 					<Route exact path={routes.posts.path}>
 						<Posts rootRef={scrollContainerRef} isUpper={true} offsetPixels={upperMenuBarHeightPixels} />
@@ -82,7 +82,7 @@ const CompactLayout: React.FC<LayoutProps> = (props) => {
 			<ScrollContainer ref={scrollContainerRef}>
 				<Switch>
 					<Route exact path={routes.posts.path}>
-						<PageTitle />
+						<Header />
 						<Posts rootRef={scrollContainerRef} isUpper={false} offsetPixels={0} />
 					</Route>
 					<Route path={routes.other.path}>
