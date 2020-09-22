@@ -35,4 +35,5 @@ const Area = tStyled(Flex)`
 	color: darkred;
 	border: 1px solid darkred;
 	padding: 1rem;
+	min-height: 100rem;
 `;

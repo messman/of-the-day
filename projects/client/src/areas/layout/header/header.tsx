@@ -23,6 +23,7 @@ export const Header: React.FC = () => {
 
 	const [titleHeight, subtitleHeight, borderRadius] = useHeaderDimensions();
 	const topBottomMargin = `${titleHeight} 0`;
+	const textTopMargin = `${subtitleHeight} 0 0 0`;
 
 	const animationState = useHeaderAnimationState();
 
@@ -30,21 +31,19 @@ export const Header: React.FC = () => {
 		<Parent>
 			<HeaderImage />
 			<FlexRow justifyContent='center'>
-				<div>
-					<Spacing textAlign='center' margin={topBottomMargin}>
-						<FlexRow>
-							<HeaderIconAnimation animationState={animationState} titleHeight={titleHeight} subtitleHeight={subtitleHeight} borderRadius={borderRadius} />
-							<div>
-								<HeaderSubtitleAnimation animationState={animationState} height={subtitleHeight} />
-								<HeaderBoldText dataFontSize={titleHeight}>Of The Day</HeaderBoldText>
-							</div>
-						</FlexRow>
-					</Spacing>
-					<Spacing textAlign='center' margin={topBottomMargin}>
+				<Spacing textAlign='center' margin={topBottomMargin}>
+					<FlexRow>
+						<HeaderIconAnimation animationState={animationState} titleHeight={titleHeight} subtitleHeight={subtitleHeight} borderRadius={borderRadius} />
+						<div>
+							<HeaderSubtitleAnimation animationState={animationState} height={subtitleHeight} />
+							<HeaderBoldText dataFontSize={titleHeight}>Of The Day</HeaderBoldText>
+						</div>
+					</FlexRow>
+					<Spacing textAlign='center' margin={textTopMargin}>
 						<RegularText color={c => c.headerText}>A place for Andrew to share things</RegularText>
 						<RegularText color={c => c.headerText} margin={spacing.nudge.top}>until he runs out of money.</RegularText>
 					</Spacing>
-				</div>
+				</Spacing>
 			</FlexRow>
 			<HeaderShadow />
 		</Parent>

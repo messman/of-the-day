@@ -182,7 +182,7 @@ export const HeaderIconAnimation: React.FC<HeaderIconAnimationProps> = (props) =
 		) : null;
 
 		return (
-			<IconAnimationContainer key={key} style={props}>
+			<IconAnimationContainer key={key} style={props} borderRadius={borderRadius}>
 				{iconRender}
 			</IconAnimationContainer>
 		);
@@ -197,13 +197,17 @@ export const HeaderIconAnimation: React.FC<HeaderIconAnimationProps> = (props) =
 	);
 };
 
-const IconAnimationContainer = tStyled(animated.div)`
+interface IconAnimationContainerProps {
+	borderRadius: string;
+}
+
+const IconAnimationContainer = tStyled(animated.div) <IconAnimationContainerProps>`
 	position: absolute;
 	top: 0;
 	left: 0;
 	width: 100%;
 	height: 100%;
-	padding: ${spacing.small.value};
+	padding: ${p => p.borderRadius};
 `;
 
 interface IconBackgroundProps {

@@ -30,6 +30,7 @@ export interface ThemeColor {
 	textTitle: string,
 	textSubtitle: string,
 	textRegular: string,
+	textInactive: string,
 	/** Does not need to conform to accessibility standards. */
 	textDisabled: string,
 	textLink: string,
@@ -112,7 +113,10 @@ const commonColor: Partial<ThemeColor> = {
 const purple = {
 	dark: {
 		base: '#5C59CD',
-		text: '#D4D3E7'
+		text: '#D4D3E7',
+		background: '#26262C',
+		backgroundContrast: '#2C2C3B',
+		textInactive: '#B1B0C8',
 	},
 };
 
@@ -123,20 +127,21 @@ const purpleDarkTheme: Theme = {
 		...(commonColor as ThemeColor),
 
 		backgroundA: gray.dark.background,
-		backgroundB: gray2.s8,
-		backgroundC: gray2.s7,
+		backgroundB: purple.dark.background,
+		backgroundC: purple.dark.backgroundContrast,
 		darkShadow: '#111',
 
 		headerBackground: purple.dark.base,
 		headerText: purple.dark.text,
 
-		primary: gray2.s5,
+		primary: purple.dark.base,
 		secondary: gray2.s5,
 
 		textDistinct: gray2.s0,
 		textTitle: gray2.s2,
 		textSubtitle: gray2.s2,
-		textRegular: gray2.s4,
+		textRegular: purple.dark.text,
+		textInactive: purple.dark.textInactive,
 		textDisabled: gray2.s5,
 		textLink: gray2.s4,
 
