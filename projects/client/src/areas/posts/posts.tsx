@@ -6,7 +6,7 @@ import { spacing, Spacing } from '@/core/layout/common';
 
 export interface PostsProps {
 	overridePosts?: IPost[];
-	rootRef: React.RefObject<any>;
+	rootElement: HTMLElement | null;
 	offsetPixels: number;
 	isUpper: boolean;
 }
@@ -15,7 +15,7 @@ const defaultPosts: IPost[] = [];
 
 export const Posts: React.FC<PostsProps> = (props) => {
 
-	const { overridePosts, rootRef, offsetPixels, isUpper } = props;
+	const { overridePosts, rootElement, offsetPixels, isUpper } = props;
 
 	const posts = overridePosts || defaultPosts;
 
@@ -25,17 +25,13 @@ export const Posts: React.FC<PostsProps> = (props) => {
 		setActivePostIndex(0);
 	}, [posts]);
 
-	const postsRender = posts.map((post, i) => {
-
+	const postsRender: JSX.Element[] = [];
+	posts.forEach((post, i) => {
 		const headerKey = `header_${post.dateText}`;
-		const postDayHeader = i === 0 ? null : <PostDayHeader key={headerKey} post={post} />;
-
-		return (
-			<>
-				{postDayHeader}
-				<Post key={post.dateText} post={post} />
-			</>
-		);
+		if (i !== 0) {
+			postsRender.push(<PostDayHeader key={headerKey} post={post} />);
+		}
+		postsRender.push(<Post key={post.dateText} post={post} />);
 	});
 
 	function onPostChosen(newActivePostIndex: number) {
@@ -44,7 +40,7 @@ export const Posts: React.FC<PostsProps> = (props) => {
 
 	return (
 		<Spacing margin={spacing.large.top}>
-			<PostsHeader rootRef={rootRef} offsetPixels={offsetPixels} isUpper={isUpper} posts={posts} activePostIndex={activePostIndex} onPostChosen={onPostChosen} />
+			<PostsHeader rootElement={rootElement} offsetPixels={offsetPixels} isUpper={isUpper} posts={posts} activePostIndex={activePostIndex} onPostChosen={onPostChosen} />
 			<div>{postsRender}</div>
 		</Spacing>
 	);

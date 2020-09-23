@@ -3,11 +3,11 @@ import { About, AboutProps } from '@/areas/about/about';
 import { Posts, PostsProps } from '@/areas/posts/posts';
 import { Other, OtherProps } from '@/areas/other/other';
 import { Archive, ArchiveProps } from '@/areas/archive/archive';
-import { MenuBar, upperMenuBarHeightPixels } from './menu-bar/menu-bar';
+import { LowerMenuBar, UpperMenuBar, upperMenuBarHeightPixels } from './menu-bar/menu-bar';
 import { Switch, Route } from 'react-router-dom';
 import { routes } from '@/services/nav/routing';
 import { tStyled } from '@/core/style/styled';
-import { FlexColumn, useWindowLayout } from '@messman/react-common';
+import { FlexColumn, useStateDOM, useWindowLayout } from '@messman/react-common';
 import { Header } from './header/header';
 import { LayoutBreakpoint } from '@/services/layout/window-layout';
 
@@ -31,32 +31,30 @@ interface LayoutProps {
 }
 
 export const Layout: React.FC<LayoutProps> = (props) => {
+	const { Posts, Other, Archive, About } = props;
 
 	const windowLayout = useWindowLayout();
 	const isAnyMobileWidth = windowLayout.widthBreakpoint <= LayoutBreakpoint.mobileLarge;
 
-	if (isAnyMobileWidth) {
-		return <CompactLayout {...props} />;
-	}
-	else {
-		return <RegularLayout {...props} />;
-	}
-};
-
-
-const RegularLayout: React.FC<LayoutProps> = (props) => {
-
-	const { Posts, Other, Archive, About } = props;
-	const scrollContainerRef = React.useRef<any>(null);
+	/*
+		Bit of a hack here. 
+		We are storing a DOM element that would normally just be a ref. 
+		Why?:
+		- Child components need to know when this ref is set (including when it updates).
+		- Child components need the actual DOM element. 
+		I could use an incrementing number and a ref, but this, although hacky, is more clear.
+		We aren't really using the element as DOM - we are using it as data.
+	*/
+	const [scrollContainerRef, scrollContainerElement] = useStateDOM();
 
 	return (
 		<LayoutContainer>
 			<ScrollContainer ref={scrollContainerRef}>
 				<Header />
-				<MenuBar isUpper={true} rootRef={scrollContainerRef} />
+				<UpperMenuBar isMobileWidth={isAnyMobileWidth} rootElement={scrollContainerElement} />
 				<Switch>
 					<Route exact path={routes.posts.path}>
-						<Posts rootRef={scrollContainerRef} isUpper={true} offsetPixels={upperMenuBarHeightPixels} />
+						<Posts rootElement={scrollContainerElement} isUpper={true} offsetPixels={upperMenuBarHeightPixels.total} />
 					</Route>
 					<Route path={routes.other.path}>
 						<Other />
@@ -69,40 +67,12 @@ const RegularLayout: React.FC<LayoutProps> = (props) => {
 					</Route>
 				</Switch>
 			</ScrollContainer>
+			<LowerMenuBar isMobileWidth={isAnyMobileWidth} />
 		</LayoutContainer>
 	);
-
-};
-const CompactLayout: React.FC<LayoutProps> = (props) => {
-
-	const { Posts, Other, Archive, About } = props;
-	const scrollContainerRef = React.useRef<any>(null);
-	return (
-		<LayoutContainer>
-			<ScrollContainer ref={scrollContainerRef}>
-				<Switch>
-					<Route exact path={routes.posts.path}>
-						<Header />
-						<Posts rootRef={scrollContainerRef} isUpper={false} offsetPixels={0} />
-					</Route>
-					<Route path={routes.other.path}>
-						<Other />
-					</Route>
-					<Route path={routes.archive.path}>
-						<Archive />
-					</Route>
-					<Route path={routes.about.path}>
-						<About />
-					</Route>
-				</Switch>
-			</ScrollContainer>
-			<MenuBar isUpper={false} />
-		</LayoutContainer>
-	);
-
 };
 
-const ScrollContainer = tStyled(FlexColumn)`
+const ScrollContainer = tStyled.div`
 	overflow-y: auto;
 `;
 
@@ -111,4 +81,3 @@ const LayoutContainer = tStyled(FlexColumn)`
 	/* Used to prevent MenuBar scrolling. */
 	overflow: hidden;
 `;
-

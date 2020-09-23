@@ -158,12 +158,12 @@ const TextHeightContainer = tStyled.div<HeightContainerProps>`
 export interface HeaderIconAnimationProps {
 	titleHeight: string;
 	subtitleHeight: string;
-	borderRadius: string;
+	borderRadiusValue: string;
 	animationState: HeaderAnimationState;
 }
 
 export const HeaderIconAnimation: React.FC<HeaderIconAnimationProps> = (props) => {
-	const { animationState, titleHeight, subtitleHeight, borderRadius } = props;
+	const { animationState, titleHeight, subtitleHeight, borderRadiusValue } = props;
 	const { entity } = animationState;
 	const icon = entity?.icon || null;
 
@@ -182,45 +182,51 @@ export const HeaderIconAnimation: React.FC<HeaderIconAnimationProps> = (props) =
 		) : null;
 
 		return (
-			<IconAnimationContainer key={key} style={props} borderRadius={borderRadius}>
-				{iconRender}
+			<IconAnimationContainer key={key} style={props}>
+				<IconPaddingWrapper borderRadiusValue={borderRadiusValue}>
+					{iconRender}
+				</IconPaddingWrapper>
 			</IconAnimationContainer>
 		);
 	});
 
 	return (
 		<IconHeightContainer titleHeight={titleHeight} subtitleHeight={subtitleHeight}>
-			<IconBackground borderRadius={borderRadius}>
+			<IconBackground borderRadiusValue={borderRadiusValue}>
 				{transitionRender}
 			</IconBackground>
 		</IconHeightContainer>
 	);
 };
 
-interface IconAnimationContainerProps {
-	borderRadius: string;
-}
-
-const IconAnimationContainer = tStyled(animated.div) <IconAnimationContainerProps>`
+const IconAnimationContainer = tStyled(animated.div)`
 	position: absolute;
 	top: 0;
 	left: 0;
 	width: 100%;
 	height: 100%;
-	padding: ${p => p.borderRadius};
+`;
+
+interface IconPaddingWrapperProps {
+	borderRadiusValue: string;
+}
+
+const IconPaddingWrapper = tStyled.div<IconPaddingWrapperProps>`
+	position: relative;
+	width: 100%;
+	height: 100%;
+	padding: ${p => p.borderRadiusValue};
 `;
 
 interface IconBackgroundProps {
-	borderRadius: string;
+	borderRadiusValue: string;
 }
 
 const IconBackground = tStyled.div<IconBackgroundProps>`
-	position: absolute;
-	top: 0;
-	left: 0;
+	position: relative;
 	width: 100%;
 	height: 100%;
-	border-radius: ${p => p.borderRadius};
+	border-radius: ${p => p.borderRadiusValue};
 	overflow: hidden;
 	background-color: ${p => p.theme.color.backgroundA};
 `;
@@ -231,7 +237,6 @@ interface IconHeightContainerProps {
 }
 
 const IconHeightContainer = tStyled.div<IconHeightContainerProps>`
-	position: relative;
 	width: calc(${p => p.titleHeight} + ${p => p.subtitleHeight});
 	height: calc(${p => p.titleHeight} + ${p => p.subtitleHeight});
 	margin-right: ${spacing.medium.value};

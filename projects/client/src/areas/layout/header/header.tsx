@@ -21,7 +21,7 @@ export function useHeaderDimensions(): [string, string, string] {
 
 export const Header: React.FC = () => {
 
-	const [titleHeight, subtitleHeight, borderRadius] = useHeaderDimensions();
+	const [titleHeight, subtitleHeight, borderRadiusValue] = useHeaderDimensions();
 	const topBottomMargin = `${titleHeight} 0`;
 	const textTopMargin = `${subtitleHeight} 0 0 0`;
 
@@ -33,7 +33,7 @@ export const Header: React.FC = () => {
 			<FlexRow justifyContent='center'>
 				<Spacing textAlign='center' margin={topBottomMargin}>
 					<FlexRow>
-						<HeaderIconAnimation animationState={animationState} titleHeight={titleHeight} subtitleHeight={subtitleHeight} borderRadius={borderRadius} />
+						<HeaderIconAnimation animationState={animationState} titleHeight={titleHeight} subtitleHeight={subtitleHeight} borderRadiusValue={borderRadiusValue} />
 						<div>
 							<HeaderSubtitleAnimation animationState={animationState} height={subtitleHeight} />
 							<HeaderBoldText dataFontSize={titleHeight}>Of The Day</HeaderBoldText>

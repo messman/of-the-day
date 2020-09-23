@@ -8,7 +8,7 @@ import { Icon, iconTypes } from '@/core/symbol/icon';
 import { spacing } from '@/core/layout/common';
 
 export interface PostsHeaderProps {
-	rootRef: React.RefObject<any>;
+	rootElement: HTMLElement | null;
 	offsetPixels: number;
 	isUpper: boolean;
 	activePostIndex: number;
@@ -24,10 +24,10 @@ const dayReferencesText: Record<keyof typeof IPostDayReference, string> = {
 };
 
 export const PostsHeader: React.FC<PostsHeaderProps> = (props) => {
-	const { rootRef, offsetPixels, posts, activePostIndex } = props;
+	const { rootElement, offsetPixels, posts, activePostIndex } = props;
 
 	const stickyOutput = useSticky({
-		rootRef: rootRef,
+		rootElement: rootElement,
 		offsetPixels: offsetPixels,
 	});
 
