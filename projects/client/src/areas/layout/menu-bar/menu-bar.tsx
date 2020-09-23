@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { tStyled } from '@/core/style/styled';
-import { Flex, FlexColumn, FlexRow, Sticky, useSticky } from '@messman/react-common';
+import { Flex, FlexColumn, FlexRow } from '@messman/react-common';
 import { borderRadiusStyle } from '@/core/style/common';
 import { MenuBarItems } from './menu-bar-items';
 import { useSpring, animated } from 'react-spring';
@@ -20,34 +20,24 @@ export const upperMenuBarHeightPixels = {
 const upperMenuBarTitleHeight = '25px';
 const upperMenuBarMaxWidth = '500px';
 
-export interface UpperMenuBarProps {
+export interface UpperLowerMenuBarProps {
 	isMobileWidth: boolean;
-	isDesktopWidth: boolean;
-	rootElement: HTMLElement | null;
 }
 
-export const UpperMenuBar: React.FC<UpperMenuBarProps> = (props) => {
-
+export const UpperMenuBar: React.FC<UpperLowerMenuBarProps> = (props) => {
 	const { isMobileWidth } = props;
-
-	let upperMenuBarContent: JSX.Element | null = null;
-	if (!isMobileWidth) {
-		// Add in the upper menu bar content (links, etc)
-		upperMenuBarContent = (
-			<UpperMenuBarCenter flex='none' justifyContent='center' alignItems='center'>
-				<UpperMenuBarContainer {...props} flex='none'>
-					<MenuBarItems isUpper={true} />
-				</UpperMenuBarContainer>
-			</UpperMenuBarCenter>
-		);
+	if (isMobileWidth) {
+		return null;
 	}
 
+	// Add in the upper menu bar content (links, etc)
 	// Note that in the upper menu bar, height of the container is set explicitly. We don't need padding.
 	return (
-		<>
-			{upperMenuBarContent}
-			<UpperStickyMenuBar {...props} />
-		</>
+		<UpperMenuBarCenter flex='none' justifyContent='center' alignItems='center'>
+			<UpperMenuBarContainer flex='none'>
+				<MenuBarItems isUpper={true} />
+			</UpperMenuBarContainer>
+		</UpperMenuBarCenter>
 	);
 };
 
@@ -58,7 +48,7 @@ const UpperMenuBarCenter = tStyled(FlexColumn)`
 	z-index: 1;
 `;
 
-const UpperMenuBarContainer = tStyled(FlexRow) <UpperMenuBarProps>`
+const UpperMenuBarContainer = tStyled(FlexRow)`
 	position: relative;
 	background-color: ${p => p.theme.color.backgroundB};
 	width: ${upperMenuBarMaxWidth};
@@ -67,70 +57,46 @@ const UpperMenuBarContainer = tStyled(FlexRow) <UpperMenuBarProps>`
 	overflow: hidden;
 `;
 
+export interface UpperMenuBarProps {
+	isMobileWidth: boolean;
+	isDesktopWidth: boolean;
+	isShowing: boolean;
+}
 
-const UpperStickyMenuBar: React.FC<UpperMenuBarProps> = (props) => {
-	const { rootElement, isMobileWidth, isDesktopWidth } = props;
+export const UpperStickyMenuBar: React.FC<UpperMenuBarProps> = (props) => {
+	const { isShowing, isMobileWidth, isDesktopWidth } = props;
 
-	const stickyOutput = useSticky({
-		rootElement: rootElement,
-		secondPixels: upperMenuBarHeightPixels.total
-	});
-	const { isAtFirst, isAtSecond } = stickyOutput;
+	const springProps = useSpring({ top: isShowing ? '0px' : `-${upperMenuBarHeightPixels.total}px` });
 
-	const springProps = useSpring({ top: isAtSecond ? '0px' : `-${upperMenuBarHeightPixels.total}px` });
-
-	let variableContent: JSX.Element | null = null;
-	if (isAtFirst) {
-
-		const topLeftTitle = isDesktopWidth ? (
-			<UpperMenuStickyTitleContainer alignItems='center'>
-				<Icon type={iconTypes.brand} height={upperMenuBarTitleHeight} fillColor={c => c.textRegular} />
-				<UpperMenuStickyTitle>
-					Of The Day
+	const topLeftTitle = isDesktopWidth ? (
+		<UpperMenuStickyTitleContainer alignItems='center'>
+			<Icon type={iconTypes.brand} height={upperMenuBarTitleHeight} fillColor={c => c.textRegular} />
+			<UpperMenuStickyTitle>
+				Of The Day
 						</UpperMenuStickyTitle>
-			</UpperMenuStickyTitleContainer>
-		) : null;
+		</UpperMenuStickyTitleContainer>
+	) : null;
 
-		// Create the content for when the bar is sticky.
-		const stickyContent = !isMobileWidth ? (
-			<UpperStickyMenuBarCenter>
-				<Flex>
-					{topLeftTitle}
-				</Flex>
-				<UpperStickyMenuBarContainer flex='none'>
-					<MenuBarItems isUpper={true} />
-				</UpperStickyMenuBarContainer>
-				<Flex />
-			</UpperStickyMenuBarCenter>
-		) : null;
-
-		variableContent = (
-			<UpperStickyMenuBarRelative>
-				<UpperStickyMenuBarAbsolute style={springProps}>
-					<UpperStickyMenuBarColor />
-					{stickyContent}
-				</UpperStickyMenuBarAbsolute>
-			</UpperStickyMenuBarRelative>
-		);
-	}
+	// Create the content for when the bar is sticky.
+	const stickyContent = !isMobileWidth ? (
+		<UpperStickyMenuBarCenter>
+			<Flex>
+				{topLeftTitle}
+			</Flex>
+			<UpperStickyMenuBarContainer flex='none'>
+				<MenuBarItems isUpper={true} />
+			</UpperStickyMenuBarContainer>
+			<Flex />
+		</UpperStickyMenuBarCenter>
+	) : null;
 
 	return (
-		<Sticky isSticky={false} output={stickyOutput} zIndex={1} variableContent={variableContent} />
+		<UpperStickyMenuBarAbsolute style={springProps}>
+			<UpperStickyMenuBarColor />
+			{stickyContent}
+		</UpperStickyMenuBarAbsolute>
 	);
 };
-
-/**
- * Container for all the sticky content.
- * No overflow so that absolute transitions won't show above the container.
- * Also no cursor so that clicks can go straight through.
-*/
-const UpperStickyMenuBarRelative = tStyled.div`
-	position: relative;
-	width: 100%;
-	height: ${upperMenuBarHeightPixels.total}px;
-	overflow: hidden;
-	pointer-events: none;
-`;
 
 /**
  * Div that will get animations applied for opacity and/or position.
@@ -138,9 +104,7 @@ const UpperStickyMenuBarRelative = tStyled.div`
 const UpperStickyMenuBarAbsolute = tStyled(animated.div)`
 	position: absolute;
 	width: 100%;
-	height: 100%;
-	pointer-events: initial;
-	z-index: 1;
+	z-index: 2;
 `;
 
 const UpperStickyMenuBarColor = tStyled.div`
@@ -176,11 +140,7 @@ const UpperMenuStickyTitle = tStyled.div`
 	padding-left: ${spacing.nudge.value};
 `;
 
-export interface LowerMenuBarProps {
-	isMobileWidth: boolean;
-}
-
-export const LowerMenuBar: React.FC<LowerMenuBarProps> = (props) => {
+export const LowerMenuBar: React.FC<UpperLowerMenuBarProps> = (props) => {
 	const { isMobileWidth } = props;
 
 	if (!isMobileWidth) {

@@ -3,11 +3,11 @@ import { About, AboutProps } from '@/areas/about/about';
 import { Posts, PostsProps } from '@/areas/posts/posts';
 import { Other, OtherProps } from '@/areas/other/other';
 import { Archive, ArchiveProps } from '@/areas/archive/archive';
-import { LowerMenuBar, UpperMenuBar, upperMenuBarHeightPixels } from './menu-bar/menu-bar';
+import { LowerMenuBar, UpperMenuBar, upperMenuBarHeightPixels, UpperStickyMenuBar } from './menu-bar/menu-bar';
 import { Switch, Route } from 'react-router-dom';
 import { routes } from '@/services/nav/routing';
 import { tStyled } from '@/core/style/styled';
-import { FlexColumn, useStateDOM, useWindowLayout } from '@messman/react-common';
+import { createThreshold, FlexColumn, useElementIntersect, useStateDOM, useWindowLayout } from '@messman/react-common';
 import { Header } from './header/header';
 import { LayoutBreakpoint } from '@/services/layout/window-layout';
 
@@ -30,6 +30,8 @@ interface LayoutProps {
 	About: React.FC<AboutProps>;
 }
 
+const threshold = createThreshold();
+
 export const Layout: React.FC<LayoutProps> = (props) => {
 	const { Posts, Other, Archive, About } = props;
 
@@ -47,15 +49,39 @@ export const Layout: React.FC<LayoutProps> = (props) => {
 		We aren't really using the element as DOM - we are using it as data.
 	*/
 	const [scrollContainerRef, scrollContainerElement] = useStateDOM();
+	const [isShowingStickyMenuBar, setIsShowingStickyMenuBar] = React.useState(false);
+
+	// Mobile settings
+	let stickyMenuOffset = -upperMenuBarHeightPixels.color;
+	let postHeaderOffset = upperMenuBarHeightPixels.color;
+
+	if (!isAnyMobileWidth) {
+		stickyMenuOffset = 0 - (upperMenuBarHeightPixels.content / 2) - upperMenuBarHeightPixels.color;
+		postHeaderOffset = upperMenuBarHeightPixels.total;
+	}
+
+	const elementIntersectRef = useElementIntersect({
+		rootMargin: `${stickyMenuOffset}px 0px 0px 0px`,
+		rootElement: scrollContainerElement,
+		threshold: threshold
+	}, (intersect) => {
+		if (!intersect || !elementIntersectRef.current) {
+			return;
+		}
+		console.log(intersect);
+		setIsShowingStickyMenuBar(intersect.top.isBefore);
+	});
 
 	return (
 		<LayoutContainer>
+			<UpperStickyMenuBar isMobileWidth={isAnyMobileWidth} isDesktopWidth={isDesktopWidth} isShowing={isShowingStickyMenuBar} />
 			<ScrollContainer ref={scrollContainerRef}>
 				<Header />
-				<UpperMenuBar isMobileWidth={isAnyMobileWidth} isDesktopWidth={isDesktopWidth} rootElement={scrollContainerElement} />
+				<UpperMenuBar isMobileWidth={isAnyMobileWidth} />
+				<div ref={elementIntersectRef} />
 				<Switch>
 					<Route exact path={routes.posts.path}>
-						<Posts rootElement={scrollContainerElement} isUpper={true} offsetPixels={upperMenuBarHeightPixels.total} />
+						<Posts rootElement={scrollContainerElement} isUpper={true} offsetPixels={postHeaderOffset} />
 					</Route>
 					<Route path={routes.other.path}>
 						<Other />
@@ -74,6 +100,7 @@ export const Layout: React.FC<LayoutProps> = (props) => {
 };
 
 const ScrollContainer = tStyled.div`
+	position: relative;
 	overflow-y: auto;
 `;
 
