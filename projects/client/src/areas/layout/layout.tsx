@@ -35,6 +35,7 @@ export const Layout: React.FC<LayoutProps> = (props) => {
 
 	const windowLayout = useWindowLayout();
 	const isAnyMobileWidth = windowLayout.widthBreakpoint <= LayoutBreakpoint.mobileLarge;
+	const isDesktopWidth = windowLayout.widthBreakpoint >= LayoutBreakpoint.desktop;
 
 	/*
 		Bit of a hack here. 
@@ -51,7 +52,7 @@ export const Layout: React.FC<LayoutProps> = (props) => {
 		<LayoutContainer>
 			<ScrollContainer ref={scrollContainerRef}>
 				<Header />
-				<UpperMenuBar isMobileWidth={isAnyMobileWidth} rootElement={scrollContainerElement} />
+				<UpperMenuBar isMobileWidth={isAnyMobileWidth} isDesktopWidth={isDesktopWidth} rootElement={scrollContainerElement} />
 				<Switch>
 					<Route exact path={routes.posts.path}>
 						<Posts rootElement={scrollContainerElement} isUpper={true} offsetPixels={upperMenuBarHeightPixels.total} />

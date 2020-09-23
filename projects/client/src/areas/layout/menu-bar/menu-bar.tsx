@@ -1,10 +1,12 @@
 import * as React from 'react';
 import { tStyled } from '@/core/style/styled';
-import { FlexColumn, FlexRow, Sticky, useSticky } from '@messman/react-common';
+import { Flex, FlexColumn, FlexRow, Sticky, useSticky } from '@messman/react-common';
 import { borderRadiusStyle } from '@/core/style/common';
-import { LayoutBreakpoint } from '@/services/layout/window-layout';
 import { MenuBarItems } from './menu-bar-items';
 import { useSpring, animated } from 'react-spring';
+import { spacing } from '@/core/layout/common';
+import { Icon, iconTypes } from '@/core/symbol/icon';
+import { fontWeights } from '@/core/style/theme';
 
 /** Use an explicit pixel height for the upper menu bar to be used for sticky. */
 const upperMenuBarContentHeightPixels = 50;
@@ -15,8 +17,12 @@ export const upperMenuBarHeightPixels = {
 	total: upperMenuBarContentHeightPixels + upperMenuBarColorHeightPixels
 };
 
+const upperMenuBarTitleHeight = '25px';
+const upperMenuBarMaxWidth = '500px';
+
 export interface UpperMenuBarProps {
 	isMobileWidth: boolean;
+	isDesktopWidth: boolean;
 	rootElement: HTMLElement | null;
 }
 
@@ -55,14 +61,15 @@ const UpperMenuBarCenter = tStyled(FlexColumn)`
 const UpperMenuBarContainer = tStyled(FlexRow) <UpperMenuBarProps>`
 	position: relative;
 	background-color: ${p => p.theme.color.backgroundB};
-	width: ${LayoutBreakpoint.mobileLarge}px;
+	width: ${upperMenuBarMaxWidth};
 	height: ${upperMenuBarContentHeightPixels}px;
 	${borderRadiusStyle}
 	overflow: hidden;
 `;
 
+
 const UpperStickyMenuBar: React.FC<UpperMenuBarProps> = (props) => {
-	const { rootElement, isMobileWidth } = props;
+	const { rootElement, isMobileWidth, isDesktopWidth } = props;
 
 	const stickyOutput = useSticky({
 		rootElement: rootElement,
@@ -72,26 +79,40 @@ const UpperStickyMenuBar: React.FC<UpperMenuBarProps> = (props) => {
 
 	const springProps = useSpring({ top: isAtSecond ? '0px' : `-${upperMenuBarHeightPixels.total}px` });
 
-	let stickyContent: JSX.Element | null = null;
-	if (!isMobileWidth) {
+	let variableContent: JSX.Element | null = null;
+	if (isAtFirst) {
+
+		const topLeftTitle = isDesktopWidth ? (
+			<UpperMenuStickyTitleContainer alignItems='center'>
+				<Icon type={iconTypes.brand} height={upperMenuBarTitleHeight} fillColor={c => c.textRegular} />
+				<UpperMenuStickyTitle>
+					Of The Day
+						</UpperMenuStickyTitle>
+			</UpperMenuStickyTitleContainer>
+		) : null;
+
 		// Create the content for when the bar is sticky.
-		stickyContent = (
+		const stickyContent = !isMobileWidth ? (
 			<UpperStickyMenuBarCenter>
+				<Flex>
+					{topLeftTitle}
+				</Flex>
 				<UpperStickyMenuBarContainer flex='none'>
 					<MenuBarItems isUpper={true} />
 				</UpperStickyMenuBarContainer>
+				<Flex />
 			</UpperStickyMenuBarCenter>
+		) : null;
+
+		variableContent = (
+			<UpperStickyMenuBarRelative>
+				<UpperStickyMenuBarAbsolute style={springProps}>
+					<UpperStickyMenuBarColor />
+					{stickyContent}
+				</UpperStickyMenuBarAbsolute>
+			</UpperStickyMenuBarRelative>
 		);
 	}
-
-	const variableContent = isAtFirst ? (
-		<UpperStickyMenuBarRelative>
-			<UpperStickyMenuBarAbsolute style={springProps}>
-				<UpperStickyMenuBarColor />
-				{stickyContent}
-			</UpperStickyMenuBarAbsolute>
-		</UpperStickyMenuBarRelative>
-	) : null;
 
 	return (
 		<Sticky isSticky={false} output={stickyOutput} zIndex={1} variableContent={variableContent} />
@@ -139,7 +160,20 @@ const UpperStickyMenuBarCenter = tStyled.div`
 `;
 
 const UpperStickyMenuBarContainer = tStyled(FlexRow) <UpperMenuBarProps>`
-	width: ${LayoutBreakpoint.mobileLarge}px;
+	width: ${upperMenuBarMaxWidth};
+`;
+
+const UpperMenuStickyTitleContainer = tStyled(FlexRow)`
+	height: 100%;
+	margin-left: ${spacing.medium.value};
+`;
+
+const UpperMenuStickyTitle = tStyled.div`
+	display: inline-block;
+	font-size: ${upperMenuBarTitleHeight};
+	font-weight: ${fontWeights.bold};
+	color: ${p => p.theme.color.textRegular};
+	padding-left: ${spacing.nudge.value};
 `;
 
 export interface LowerMenuBarProps {
