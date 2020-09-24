@@ -10,6 +10,8 @@ import { tStyled } from '@/core/style/styled';
 import { createThreshold, FlexColumn, useElementIntersect, useStateDOM, useWindowLayout } from '@messman/react-common';
 import { Header } from './header/header';
 import { LayoutBreakpoint } from '@/services/layout/window-layout';
+import { IScrollIntoViewOptions, IScrollToOptions } from 'seamless-scroll-polyfill/dist/esm/common';
+import { elementScrollTo, elementScrollIntoView } from 'seamless-scroll-polyfill';
 
 export const ApplicationLayout: React.FC = () => {
 	return (
@@ -31,6 +33,18 @@ interface LayoutProps {
 }
 
 const threshold = createThreshold();
+
+// seamless-scroll-polyfill used here to provide smooth scrolling for iOS Safari.
+const scrollToTopOptions: IScrollToOptions = {
+	behavior: 'smooth',
+	top: 0
+};
+
+const scrollToStickyOptions: IScrollIntoViewOptions = {
+	behavior: 'smooth',
+	block: 'start',
+	inline: 'nearest'
+};
 
 export const Layout: React.FC<LayoutProps> = (props) => {
 	const { Posts, Other, Archive, About } = props;
@@ -72,12 +86,29 @@ export const Layout: React.FC<LayoutProps> = (props) => {
 		setIsShowingStickyMenuBar(intersect.top.isBefore);
 	});
 
+	function onScrollToTop() {
+		elementScrollTo((scrollContainerRef.current as HTMLElement), scrollToTopOptions);
+	}
+
+	function onScrollToSticky() {
+
+
+
+		elementScrollIntoView((elementIntersectRef.current as HTMLElement), scrollToStickyOptions);
+	}
+
 	return (
 		<LayoutContainer>
-			<UpperStickyMenuBar isMobileWidth={isAnyMobileWidth} isDesktopWidth={isDesktopWidth} isShowing={isShowingStickyMenuBar} />
+			<UpperStickyMenuBar
+				isMobileWidth={isAnyMobileWidth}
+				isDesktopWidth={isDesktopWidth}
+				isShowing={isShowingStickyMenuBar}
+				onScrollToTop={onScrollToTop}
+				onPathClick={onScrollToSticky}
+			/>
 			<ScrollContainer ref={scrollContainerRef}>
 				<Header />
-				<UpperMenuBar isMobileWidth={isAnyMobileWidth} />
+				<UpperMenuBar isMobileWidth={isAnyMobileWidth} onPathClick={onScrollToSticky} />
 				<div ref={elementIntersectRef} />
 				<Switch>
 					<Route exact path={routes.posts.path}>
@@ -94,7 +125,7 @@ export const Layout: React.FC<LayoutProps> = (props) => {
 					</Route>
 				</Switch>
 			</ScrollContainer>
-			<LowerMenuBar isMobileWidth={isAnyMobileWidth} />
+			<LowerMenuBar isMobileWidth={isAnyMobileWidth} onPathClick={onScrollToSticky} />
 		</LayoutContainer>
 	);
 };
@@ -105,7 +136,7 @@ const ScrollContainer = tStyled.div`
 `;
 
 const LayoutContainer = tStyled(FlexColumn)`
-	height: 100vh;
+	height: 100%;
 	/* Used to prevent MenuBar scrolling. */
 	overflow: hidden;
 `;

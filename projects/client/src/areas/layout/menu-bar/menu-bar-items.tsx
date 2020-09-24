@@ -8,10 +8,11 @@ import { spacing } from '@/core/layout/common';
 
 export interface MenuBarItemsProps {
 	isUpper: boolean;
+	onPathClick: () => void;
 }
 
 export const MenuBarItems: React.FC<MenuBarItemsProps> = (props) => {
-	const { isUpper } = props;
+	const { isUpper, onPathClick } = props;
 	const history = useHistory();
 	const location = useLocation();
 
@@ -31,6 +32,7 @@ export const MenuBarItems: React.FC<MenuBarItemsProps> = (props) => {
 
 		function onClick() {
 			history.push(route.path);
+			onPathClick();
 		}
 
 		return <MenuBarItem

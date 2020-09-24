@@ -2,7 +2,6 @@ const webpack = require('webpack');
 const WebpackMerge = require('webpack-merge');
 const base = require('./webpack.base.js');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const getDefine = require('./define');
 
 module.exports = async () => {
@@ -22,11 +21,7 @@ module.exports = async () => {
 
 		plugins: [
 			new webpack.DefinePlugin({ __DEFINE__: DEFINE }),
-			new HTMLWebpackPlugin(base.html),
-			new BundleAnalyzerPlugin({
-				analyzerMode: 'disabled',
-				generateStatsFile: true
-			})
+			new HTMLWebpackPlugin(base.html)
 		]
 	});
 };

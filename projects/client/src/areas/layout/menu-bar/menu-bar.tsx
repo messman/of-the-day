@@ -22,10 +22,11 @@ const upperMenuBarMaxWidth = '500px';
 
 export interface UpperLowerMenuBarProps {
 	isMobileWidth: boolean;
+	onPathClick: () => void;
 }
 
 export const UpperMenuBar: React.FC<UpperLowerMenuBarProps> = (props) => {
-	const { isMobileWidth } = props;
+	const { isMobileWidth, onPathClick } = props;
 	if (isMobileWidth) {
 		return null;
 	}
@@ -35,7 +36,7 @@ export const UpperMenuBar: React.FC<UpperLowerMenuBarProps> = (props) => {
 	return (
 		<UpperMenuBarCenter flex='none' justifyContent='center' alignItems='center'>
 			<UpperMenuBarContainer flex='none'>
-				<MenuBarItems isUpper={true} />
+				<MenuBarItems isUpper={true} onPathClick={onPathClick} />
 			</UpperMenuBarContainer>
 		</UpperMenuBarCenter>
 	);
@@ -61,19 +62,23 @@ export interface UpperMenuBarProps {
 	isMobileWidth: boolean;
 	isDesktopWidth: boolean;
 	isShowing: boolean;
+	onScrollToTop: () => void;
+	onPathClick: () => void;
 }
 
 export const UpperStickyMenuBar: React.FC<UpperMenuBarProps> = (props) => {
-	const { isShowing, isMobileWidth, isDesktopWidth } = props;
+	const { isShowing, isMobileWidth, isDesktopWidth, onScrollToTop, onPathClick } = props;
 
 	const springProps = useSpring({ top: isShowing ? '0px' : `-${upperMenuBarHeightPixels.total}px` });
 
 	const topLeftTitle = isDesktopWidth ? (
 		<UpperMenuStickyTitleContainer alignItems='center'>
-			<Icon type={iconTypes.brand} height={upperMenuBarTitleHeight} fillColor={c => c.textRegular} />
-			<UpperMenuStickyTitle>
-				Of The Day
-						</UpperMenuStickyTitle>
+			<UpperMenuStickyTitleClickContainer onClick={onScrollToTop}>
+				<Icon type={iconTypes.brand} height={upperMenuBarTitleHeight} fillColor={c => c.textRegular} />
+				<UpperMenuStickyTitle>
+					Of The Day
+			</UpperMenuStickyTitle>
+			</UpperMenuStickyTitleClickContainer>
 		</UpperMenuStickyTitleContainer>
 	) : null;
 
@@ -84,7 +89,7 @@ export const UpperStickyMenuBar: React.FC<UpperMenuBarProps> = (props) => {
 				{topLeftTitle}
 			</Flex>
 			<UpperStickyMenuBarContainer flex='none'>
-				<MenuBarItems isUpper={true} />
+				<MenuBarItems isUpper={true} onPathClick={onPathClick} />
 			</UpperStickyMenuBarContainer>
 			<Flex />
 		</UpperStickyMenuBarCenter>
@@ -92,7 +97,7 @@ export const UpperStickyMenuBar: React.FC<UpperMenuBarProps> = (props) => {
 
 	return (
 		<UpperStickyMenuBarAbsolute style={springProps}>
-			<UpperStickyMenuBarColor />
+			<UpperStickyMenuBarColor onClick={onScrollToTop} />
 			{stickyContent}
 		</UpperStickyMenuBarAbsolute>
 	);
@@ -110,6 +115,7 @@ const UpperStickyMenuBarAbsolute = tStyled(animated.div)`
 const UpperStickyMenuBarColor = tStyled.div`
 	height: ${upperMenuBarHeightPixels.color}px;
 	background-color: ${p => p.theme.color.primary};
+	cursor: pointer;
 `;
 
 const UpperStickyMenuBarCenter = tStyled.div`
@@ -123,13 +129,17 @@ const UpperStickyMenuBarCenter = tStyled.div`
 	border-bottom: 1px solid ${p => p.theme.color.backgroundC};
 `;
 
-const UpperStickyMenuBarContainer = tStyled(FlexRow) <UpperMenuBarProps>`
+const UpperStickyMenuBarContainer = tStyled(FlexRow)`
 	width: ${upperMenuBarMaxWidth};
 `;
 
 const UpperMenuStickyTitleContainer = tStyled(FlexRow)`
 	height: 100%;
 	margin-left: ${spacing.medium.value};
+`;
+
+const UpperMenuStickyTitleClickContainer = tStyled.div`
+	cursor: pointer;
 `;
 
 const UpperMenuStickyTitle = tStyled.div`
@@ -141,7 +151,7 @@ const UpperMenuStickyTitle = tStyled.div`
 `;
 
 export const LowerMenuBar: React.FC<UpperLowerMenuBarProps> = (props) => {
-	const { isMobileWidth } = props;
+	const { isMobileWidth, onPathClick } = props;
 
 	if (!isMobileWidth) {
 		return null;
@@ -149,7 +159,7 @@ export const LowerMenuBar: React.FC<UpperLowerMenuBarProps> = (props) => {
 
 	return (
 		<LowerMenuBarContainer flex='none'>
-			<MenuBarItems isUpper={false} />
+			<MenuBarItems isUpper={false} onPathClick={onPathClick} />
 		</LowerMenuBarContainer>
 	);
 };
