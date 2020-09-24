@@ -37,17 +37,17 @@ export const PostsHeader: React.FC<PostsHeaderProps> = (props) => {
 		<Sticky isSticky={true} output={stickyOutput} zIndex={1} >
 			<PostsHeaderContainer flex='none' justifyContent='center' alignItems='center'>
 				<LeftIcon>
-					<Icon type={iconTypes.calendar} fillColor={c => c.secondary} height={titleHeight} />
+					<Icon type={iconTypes.calendar} fillColor={c => c.accent} height={titleHeight} />
 				</LeftIcon>
 				<LeftIcon>
-					<Icon type={iconTypes.left} fillColor={c => c.secondary} height={titleHeight} />
+					<Icon type={iconTypes.left} fillColor={c => c.accent} height={titleHeight} />
 				</LeftIcon>
 				<PostDayTitle post={post} />
 				<RightIcon>
-					<Icon type={iconTypes.right} fillColor={c => c.secondary} height={titleHeight} />
+					<Icon type={iconTypes.right} fillColor={c => c.accent} height={titleHeight} />
 				</RightIcon>
 				<RightIcon>
-					<Icon type={iconTypes.top} fillColor={c => c.secondary} height={titleHeight} />
+					<Icon type={iconTypes.top} fillColor={c => c.accent} height={titleHeight} />
 				</RightIcon>
 			</PostsHeaderContainer>
 		</Sticky>
@@ -97,7 +97,7 @@ const PostDayTitle: React.FC<PostDayTitle> = (props) => {
 
 	return (
 		<TextAlign dataAlign='center'>
-			<RegularText margin={spacing.nudge.bottom} color={c => c.primary}>{dayReferenceRender}Day {dayNumber}</RegularText>
+			<RegularText margin={spacing.nudge.bottom} color={c => c.textInactive}>{dayReferenceRender}Day {dayNumber}</RegularText>
 			<Title>{dateText}</Title>
 		</TextAlign>
 	);

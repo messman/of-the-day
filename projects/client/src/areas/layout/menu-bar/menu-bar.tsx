@@ -4,7 +4,7 @@ import { Flex, FlexColumn, FlexRow } from '@messman/react-common';
 import { borderRadiusStyle } from '@/core/style/common';
 import { MenuBarItems } from './menu-bar-items';
 import { useSpring, animated } from 'react-spring';
-import { spacing } from '@/core/layout/common';
+import { Spacing, spacing } from '@/core/layout/common';
 import { Icon, iconTypes } from '@/core/symbol/icon';
 import { fontWeights } from '@/core/style/theme';
 
@@ -34,11 +34,13 @@ export const UpperMenuBar: React.FC<UpperLowerMenuBarProps> = (props) => {
 	// Add in the upper menu bar content (links, etc)
 	// Note that in the upper menu bar, height of the container is set explicitly. We don't need padding.
 	return (
-		<UpperMenuBarCenter flex='none' justifyContent='center' alignItems='center'>
-			<UpperMenuBarContainer flex='none'>
-				<MenuBarItems isUpper={true} onPathClick={onPathClick} />
-			</UpperMenuBarContainer>
-		</UpperMenuBarCenter>
+		<Spacing padding={spacing.medium.bottom}>
+			<UpperMenuBarCenter flex='none' justifyContent='center' alignItems='center'>
+				<UpperMenuBarContainer flex='none'>
+					<MenuBarItems isUpper={true} onPathClick={onPathClick} />
+				</UpperMenuBarContainer>
+			</UpperMenuBarCenter>
+		</Spacing>
 	);
 };
 
@@ -114,7 +116,7 @@ const UpperStickyMenuBarAbsolute = tStyled(animated.div)`
 
 const UpperStickyMenuBarColor = tStyled.div`
 	height: ${upperMenuBarHeightPixels.color}px;
-	background-color: ${p => p.theme.color.primary};
+	background-color: ${p => p.theme.color.accent};
 	cursor: pointer;
 `;
 

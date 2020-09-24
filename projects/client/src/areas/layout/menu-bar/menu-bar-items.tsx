@@ -78,7 +78,7 @@ const MenuBarActiveLine = tStyled.div<MenuBarActiveLineProps>`
 	${p => p.isUpper ? 'bottom' : 'top'}: 0;
 	height: 4px;
 	border-radius: 2px;
-	background-color: ${p => p.theme.color.primary};
+	background-color: ${p => p.theme.color.accent};
 	${transitionStyle}
 	transition-property: left;
 `;

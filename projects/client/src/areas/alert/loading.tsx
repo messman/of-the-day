@@ -128,7 +128,7 @@ const LoadingCompass: React.FC<LoadingDotProps> = (props) => {
 
 	return (
 		<LoadingCompassContainer index={props.index} >
-			<Icon type={iconTypes.compass} fillColor={c => c.primary} height='3rem' />
+			<Icon type={iconTypes.compass} fillColor={c => c.accent} height='3rem' />
 		</LoadingCompassContainer>
 	);
 };

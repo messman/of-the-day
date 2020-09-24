@@ -23,8 +23,7 @@ export interface ThemeColor {
 	headerBackground: string,
 	headerText: string,
 
-	primary: string,
-	secondary: string,
+	accent: string,
 
 	textDistinct: string;
 	textTitle: string,
@@ -116,7 +115,7 @@ const purple = {
 		text: '#D4D3E7',
 		background: '#26262C',
 		backgroundContrast: '#2C2C3B',
-		textInactive: '#B1B0C8',
+		textInactive: '#9190A4',
 	},
 };
 
@@ -134,12 +133,11 @@ const purpleDarkTheme: Theme = {
 		headerBackground: purple.dark.base,
 		headerText: purple.dark.text,
 
-		primary: purple.dark.base,
-		secondary: gray2.s5,
+		accent: purple.dark.base,
 
-		textDistinct: gray2.s0,
-		textTitle: gray2.s2,
-		textSubtitle: gray2.s2,
+		textDistinct: gray.white,
+		textTitle: purple.dark.text,
+		textSubtitle: purple.dark.text,
 		textRegular: purple.dark.text,
 		textInactive: purple.dark.textInactive,
 		textDisabled: gray2.s5,
