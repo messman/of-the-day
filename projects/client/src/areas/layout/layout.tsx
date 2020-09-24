@@ -12,6 +12,7 @@ import { Header } from './header/header';
 import { LayoutBreakpoint } from '@/services/layout/window-layout';
 import { IScrollIntoViewOptions, IScrollToOptions } from 'seamless-scroll-polyfill/dist/esm/common';
 import { elementScrollTo, elementScrollIntoView } from 'seamless-scroll-polyfill';
+import { spacing } from '@/core/layout/common';
 
 export const ApplicationLayout: React.FC = () => {
 	return (
@@ -106,20 +107,27 @@ export const Layout: React.FC<LayoutProps> = (props) => {
 				<Header />
 				<UpperMenuBar isMobileWidth={isAnyMobileWidth} onPathClick={onScrollToSticky} />
 				<div ref={elementIntersectRef} />
-				<Switch>
-					<Route exact path={routes.posts.path}>
-						<Posts rootElement={scrollContainerElement} isUpper={true} offsetPixels={postHeaderOffset} />
-					</Route>
-					<Route path={routes.other.path}>
-						<Other />
-					</Route>
-					<Route path={routes.archive.path}>
-						<Archive />
-					</Route>
-					<Route path={routes.about.path}>
-						<About />
-					</Route>
-				</Switch>
+				<RouteContainer>
+					<Switch>
+
+						<Route exact path={routes.posts.path}>
+							<Posts
+								rootElement={scrollContainerElement}
+								isUpper={true}
+								offsetPixels={postHeaderOffset}
+								onScrollTop={onScrollToSticky} />
+						</Route>
+						<Route path={routes.other.path}>
+							<Other />
+						</Route>
+						<Route path={routes.archive.path}>
+							<Archive />
+						</Route>
+						<Route path={routes.about.path}>
+							<About />
+						</Route>
+					</Switch>
+				</RouteContainer>
 			</ScrollContainer>
 			<LowerMenuBar isMobileWidth={isAnyMobileWidth} onPathClick={onScrollToSticky} />
 		</LayoutContainer>
@@ -135,4 +143,9 @@ const LayoutContainer = tStyled(FlexColumn)`
 	height: 100%;
 	/* Used to prevent MenuBar scrolling. */
 	overflow: hidden;
+`;
+
+const RouteContainer = tStyled.div`
+	margin: ${spacing.large.top};
+	min-height: 100vh;
 `;

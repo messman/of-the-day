@@ -79,4 +79,6 @@ export const ElementRoot: React.FC<SpacingProps> = (props) => {
 	);
 };
 
-const PostRoot = tStyled.div``;
+const PostRoot = tStyled.div`
+	margin: ${spacing.large.bottom};
+`;

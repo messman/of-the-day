@@ -4,7 +4,7 @@ import { IPost, IPostDayReference } from 'oftheday-shared';
 import { subtitleHeight, regularTextHeight } from '@/core/symbol/text';
 import { TextAlign } from '@/core/style/common';
 import { FlexRow, Sticky, useSticky, useWindowLayout } from '@messman/react-common';
-import { Icon, iconTypes } from '@/core/symbol/icon';
+import { Icon, iconTypes, SVGIconType } from '@/core/symbol/icon';
 import { spacing } from '@/core/layout/common';
 import { LayoutBreakpoint } from '@/services/layout/window-layout';
 import { fontWeights } from '@/core/style/theme';
@@ -16,6 +16,7 @@ export interface PostsHeaderProps {
 	activePostIndex: number;
 	posts: IPost[];
 	onPostChosen: (newActivePostIndex: number) => void;
+	onScrollTop: () => void;
 }
 
 const dayReferencesText: Record<keyof typeof IPostDayReference, string> = {
@@ -26,7 +27,7 @@ const dayReferencesText: Record<keyof typeof IPostDayReference, string> = {
 };
 
 export const PostsHeader: React.FC<PostsHeaderProps> = (props) => {
-	const { rootElement, posts, offsetPixels, activePostIndex } = props;
+	const { rootElement, posts, offsetPixels, activePostIndex, onPostChosen, onScrollTop } = props;
 
 	const stickyOutput = useSticky({
 		rootElement: rootElement
@@ -35,16 +36,34 @@ export const PostsHeader: React.FC<PostsHeaderProps> = (props) => {
 
 	const post = posts[activePostIndex];
 
+	function onClickCalendar() {
+
+	}
+
+	const hasEarlierPost = activePostIndex < posts.length - 1;
+	function onClickEarlierPost() {
+		onPostChosen(activePostIndex + 1);
+	}
+
+	const hasLaterPost = activePostIndex > 0;
+	function onClickLaterPost() {
+		onPostChosen(activePostIndex - 1);
+	}
+
+	function onClickTop() {
+		onScrollTop();
+	}
+
 	return (
 		<Sticky isSticky={true} output={stickyOutput} zIndex={1} >
 			<PostsHeaderEmptySpace dataHeightPixels={offsetPixels} />
 			<PostsHeaderContainer isSticking={isAtFirst} flex='none' justifyContent='center'>
 				<PostsHeaderCenterContainer justifyContent='space-evenly' alignItems='center'>
-					<Icon type={iconTypes.calendar} fillColor={c => c.accent} height={subtitleHeight} />
-					<Icon type={iconTypes.left} fillColor={c => c.accent} height={subtitleHeight} />
+					<ClickableIcon type={iconTypes.calendar} isDisabled={false} onClick={onClickCalendar} />
+					<ClickableIcon type={iconTypes.left} isDisabled={!hasEarlierPost} onClick={onClickEarlierPost} />
 					<PostDayTitle post={post} />
-					<Icon type={iconTypes.right} fillColor={c => c.accent} height={subtitleHeight} />
-					<Icon type={iconTypes.top} fillColor={c => c.accent} height={subtitleHeight} />
+					<ClickableIcon type={iconTypes.right} isDisabled={!hasLaterPost} onClick={onClickLaterPost} />
+					<ClickableIcon type={iconTypes.top} isDisabled={!isAtFirst} onClick={onClickTop} />
 				</PostsHeaderCenterContainer>
 			</PostsHeaderContainer>
 		</Sticky>
@@ -74,20 +93,6 @@ const PostsHeaderContainer = tStyled(FlexRow) <PostsHeaderContainerProps>`
 const PostsHeaderCenterContainer = tStyled(FlexRow)`
 	max-width: ${LayoutBreakpoint.tablet}px;
 `;
-
-export interface PostDayHeader {
-	post: IPost;
-}
-
-export const PostDayHeader: React.FC<PostDayHeader> = (props) => {
-	const { post } = props;
-
-	return (
-		<PostsHeaderContainer isSticking={false} flex='none' justifyContent='center'>
-			<PostDayTitle post={post} />
-		</PostsHeaderContainer>
-	);
-};
 
 interface PostDayTitle {
 	post: IPost;
@@ -144,4 +149,34 @@ const PostDaySubtitleText = tStyled.div<PostDaySubtitleTextProps>`
 	font-weight: ${fontWeights.regular};
 	color: ${p => p.theme.color.textInactive};
 	margin: ${spacing.nudge.bottom};
+`;
+
+interface ClickableIconProps {
+	isDisabled: boolean;
+	onClick: () => void;
+	type: SVGIconType;
+}
+
+const ClickableIcon: React.FC<ClickableIconProps> = (props) => {
+	const { isDisabled, onClick, type } = props;
+
+	function onIconClick() {
+		if (!isDisabled) {
+			onClick();
+		}
+	}
+
+	return (
+		<InnerClickableIcon onClick={onIconClick} isDisabled={isDisabled} >
+			<Icon type={type} height={subtitleHeight} fillColor={c => isDisabled ? c.textDisabled : c.accent} />
+		</InnerClickableIcon>
+	);
+};
+
+interface InnerClickableIconProps {
+	isDisabled: boolean;
+}
+
+const InnerClickableIcon = tStyled.span<InnerClickableIconProps>`
+	cursor: ${p => p.isDisabled ? 'not-allowed' : 'pointer'};
 `;
