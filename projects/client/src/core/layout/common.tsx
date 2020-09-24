@@ -19,7 +19,7 @@ export const LayoutAlign: React.FC<LayoutAlignProps> = (props) => {
 	const { children } = props;
 
 	const windowLayout = useWindowLayout();
-	const isMobile = windowLayout.widthBreakpoint === LayoutBreakpoint.mobile;
+	const isMobile = windowLayout.widthBreakpoint <= LayoutBreakpoint.mobileLarge;
 	const align = isMobile ? 'left' : 'center';
 
 	return (

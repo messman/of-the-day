@@ -1,5 +1,4 @@
 import { addParameters } from '@storybook/react';
-import { MINIMAL_VIEWPORTS } from '@storybook/addon-viewport';
 
 /*
 	Default Viewports:
@@ -9,6 +8,20 @@ import { MINIMAL_VIEWPORTS } from '@storybook/addon-viewport';
 */
 
 const customViewports = {
+	mobileMin: {
+		name: 'Mobile Min (iPhone SE)',
+		styles: {
+			width: '320px',
+			height: '568px',
+		},
+	},
+	mobileRegular: {
+		name: 'Mobile Regular (iPhone X)',
+		styles: {
+			width: '375px',
+			height: '568px',
+		},
+	},
 	iPhone8Plus: {
 		name: 'iPhone 8 Plus',
 		styles: {
@@ -16,18 +29,25 @@ const customViewports = {
 			height: '736px',
 		},
 	},
-	iPhoneX: {
-		name: 'iPhone X',
+	mobileLarge: {
+		name: 'Mobile Large',
 		styles: {
-			width: '375px',
+			width: '576px',
 			height: '812px',
 		},
 	},
-	mobileLarge: {
-		name: 'Mobile Large Layout',
+	tablet: {
+		name: 'Tablet (iPad Mini 4)',
 		styles: {
-			width: '600px',
-			height: '812px',
+			width: '768px',
+			height: '1024px',
+		}
+	},
+	desktop: {
+		name: 'Desktop',
+		styles: {
+			width: '992px',
+			height: '1100px',
 		}
 	},
 	iPadPro: {
@@ -45,7 +65,6 @@ addParameters({
 	},
 	viewport: {
 		viewports: {
-			...MINIMAL_VIEWPORTS,
 			...customViewports,
 		},
 	}

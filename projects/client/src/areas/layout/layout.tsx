@@ -82,7 +82,6 @@ export const Layout: React.FC<LayoutProps> = (props) => {
 		if (!intersect || !elementIntersectRef.current) {
 			return;
 		}
-		console.log(intersect);
 		setIsShowingStickyMenuBar(intersect.top.isBefore);
 	});
 
@@ -91,9 +90,6 @@ export const Layout: React.FC<LayoutProps> = (props) => {
 	}
 
 	function onScrollToSticky() {
-
-
-
 		elementScrollIntoView((elementIntersectRef.current as HTMLElement), scrollToStickyOptions);
 	}
 
