@@ -8,6 +8,7 @@ import { tStyled } from '@/core/style/styled';
 import { Subtitle, RegularText } from '@/core/symbol/text';
 import { LayoutBreakpoint } from '@/services/layout/window-layout';
 import { separatorThickness } from '@/core/style/common';
+import { fontWeights } from '@/core/style/theme';
 
 export interface BasicsProps {
 	post: IPost;
@@ -30,7 +31,7 @@ export const Basics: React.FC<BasicsProps> = (props) => {
 		leftRender = (
 			<TextContainer key='notes' flex={flex}>
 				<Subtitle margin={titleMargin}>Notes</Subtitle>
-				<RegularText isBold={true} show={event} margin={textMargin} color={c => c.textDistinct}>{event}</RegularText>
+				<RegularText fontWeight={fontWeights.bold} show={event} margin={textMargin} color={c => c.textDistinct}>{event}</RegularText>
 				<RegularText show={note} margin={textMargin}>{note}</RegularText>
 			</TextContainer>
 		);
@@ -52,7 +53,7 @@ export const Basics: React.FC<BasicsProps> = (props) => {
 		rightRender = (
 			<TextContainer key='location' flex={flex}>
 				<Subtitle margin={titleMargin}>Location</Subtitle>
-				<RegularText isBold={true} color={c => c.textDistinct}>{location}</RegularText>
+				<RegularText fontWeight={fontWeights.bold} color={c => c.textDistinct}>{location}</RegularText>
 			</TextContainer>
 		);
 	}

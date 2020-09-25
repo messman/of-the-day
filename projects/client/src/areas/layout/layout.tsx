@@ -37,12 +37,12 @@ const threshold = createThreshold();
 
 // seamless-scroll-polyfill used here to provide smooth scrolling for iOS Safari.
 const scrollToTopOptions: IScrollToOptions = {
-	behavior: 'smooth',
+	//behavior: 'smooth',
 	top: 0
 };
 
 const scrollToStickyOptions: IScrollIntoViewOptions = {
-	behavior: 'smooth',
+	//behavior: 'smooth',
 	block: 'start',
 	inline: 'nearest'
 };

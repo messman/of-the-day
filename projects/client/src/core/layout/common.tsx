@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { tStyled, tCss } from '../style/styled';
 import { StyledComponent } from 'styled-components';
-import { Theme, ThemePickColor, fontWeights } from '../style/theme';
+import { Theme, ThemePickColor } from '../style/theme';
 import { LayoutBreakpoint, lineBreakpoint } from '@/services/layout/window-layout';
 import { useWindowLayout } from '@messman/react-common';
 
 export const ApplicationMaxWidth = tStyled.div`
-	max-width: ${LayoutBreakpoint.wide}px;
+	max-width: ${LayoutBreakpoint.max}px;
 	margin-left: auto;
 	margin-right: auto;
 `;
@@ -95,17 +95,17 @@ export interface SpacingProps {
 	margin?: string | null;
 	padding?: string | null;
 	fontSize?: string | null;
+	fontWeight?: string | number | null;
 	textAlign?: string | null;
 	isRelative?: boolean;
 	isInline?: boolean;
-	isBold?: boolean;
 	isItalic?: boolean;
 	color?: ThemePickColor;
 	backgroundColor?: ThemePickColor;
 }
 
 export const Spacing: React.FC<SpacingProps> = (props) => {
-	const { className, children, show, margin, padding, fontSize, textAlign, isRelative, isInline, isBold, isItalic, color, backgroundColor } = props;
+	const { className, children, show, margin, padding, fontSize, fontWeight, textAlign, isRelative, isInline, isItalic, color, backgroundColor } = props;
 
 	if ((show !== undefined) && (!show || !children)) {
 		return null;
@@ -117,10 +117,10 @@ export const Spacing: React.FC<SpacingProps> = (props) => {
 			dataMargin={margin}
 			dataPadding={padding}
 			dataFontSize={fontSize}
+			dataFontWeight={fontWeight}
 			dataTextAlign={textAlign}
 			isRelative={isRelative}
 			isInline={isInline}
-			isBold={isBold}
 			isItalic={isItalic}
 			dataColor={color}
 			dataBackgroundColor={backgroundColor}>
@@ -135,6 +135,7 @@ interface InternalSpacingProps {
 	isRelative?: boolean;
 	isInline?: boolean;
 	dataFontSize?: string | null;
+	dataFontWeight?: number | string | null;
 	dataTextAlign?: string | null;
 	isBold?: boolean;
 	isItalic?: boolean;
@@ -150,14 +151,9 @@ const inlineBlockStyle = tCss`
 	display: inline-block;
 `;
 
-const boldStyle = tCss`
-	font-weight: ${fontWeights.bold};
-`;
-
 const italicStyle = tCss`
 	font-style: italic;
 `;
-
 
 export const InternalSpacing = tStyled.div<InternalSpacingProps>`
 	vertical-align: top;
@@ -169,8 +165,8 @@ export const InternalSpacing = tStyled.div<InternalSpacingProps>`
 	${p => p.isInline && inlineBlockStyle}
 
 	${p => p.dataFontSize && ('font-size: ' + p.dataFontSize + ';')}
+	${p => p.dataFontWeight && ('font-weight: ' + p.dataFontWeight + ';')}
 	${p => p.dataTextAlign && ('text-align: ' + p.dataTextAlign + ';')}
-	${p => p.isBold && boldStyle}
 	${p => p.isItalic && italicStyle}
 
 	${p => p.dataColor && ('color: ' + p.dataColor(p.theme.color) + ';')}

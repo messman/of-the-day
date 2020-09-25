@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { tStyled, tCss } from '@/core/style/styled';
-import { defaultFontSize, ThemePickColor } from '../style/theme';
+import { defaultFontSize, fontWeights, ThemePickColor } from '../style/theme';
 import { SpacingProps, Spacing } from '../layout/common';
 import { LayoutBreakpoint } from '@/services/layout/window-layout';
 import { useWindowLayout } from '@messman/react-common';
@@ -8,13 +8,13 @@ import { useWindowLayout } from '@messman/react-common';
 export interface TextProps extends Omit<SpacingProps, 'fontSize'> {
 }
 
-export function createTextComponent(fontSize: string, defaultColor: ThemePickColor, defaultIsBold: boolean) {
+export function createTextComponent(fontSize: string, defaultColor: ThemePickColor, defaultFontWeight: number | string) {
 	const component: React.FC<TextProps> = (props) => {
-		let { isBold, color, ...otherProps } = props;
-		isBold = isBold === undefined ? defaultIsBold : isBold;
+		let { fontWeight, color, ...otherProps } = props;
+		fontWeight = fontWeight === undefined ? defaultFontWeight : fontWeight;
 		color = color === undefined ? defaultColor : color;
 		return (
-			<TextSpacing fontSize={fontSize} isBold={isBold} color={color} {...otherProps} />
+			<TextSpacing fontSize={fontSize} fontWeight={fontWeight} color={color} {...otherProps} />
 		);
 	};
 	return component;
@@ -48,23 +48,23 @@ export const FontSizeManager: React.FC = (props) => {
 
 export const titleHeight = '2rem';
 /** Title. 2rem. */
-export const Title = createTextComponent(titleHeight, c => c.textTitle, true);
+export const Title = createTextComponent(titleHeight, c => c.textTitle, fontWeights.bold);
 
 export const subtitleHeight = '1.5rem';
 /** Subtitle. 1.5rem. */
-export const Subtitle = createTextComponent(subtitleHeight, c => c.textSubtitle, false);
+export const Subtitle = createTextComponent(subtitleHeight, c => c.textSubtitle, fontWeights.medium);
 
 export const regularTextHeight = '1rem';
 /** Regular text. 1rem. */
-export const RegularText = createTextComponent(regularTextHeight, c => c.textRegular, false);
+export const RegularText = createTextComponent(regularTextHeight, c => c.textRegular, fontWeights.medium);
 
 export const smallTextHeight = '.875rem';
 /** Small text. .875rem. */
-export const SmallText = createTextComponent(smallTextHeight, c => c.textRegular, false);
+export const SmallText = createTextComponent(smallTextHeight, c => c.textRegular, fontWeights.medium);
 
 export const subTextHeight = '.75rem';
 /** Sub text. .75rem. */
-export const SubText = createTextComponent(subTextHeight, c => c.textRegular, false);
+export const SubText = createTextComponent(subTextHeight, c => c.textRegular, fontWeights.medium);
 
 const textBoxStyle = tCss`
 	font-size: 1rem;

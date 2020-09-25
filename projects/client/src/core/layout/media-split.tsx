@@ -113,7 +113,7 @@ export const MediaSplit: React.FC<MediaSplitProps> = (props) => {
 };
 
 interface OrderedFlexColumnProps {
-	isFirst: number;
+	isFirst: boolean;
 }
 
 const OrderedFlexColumn = tStyled(FlexColumn) <OrderedFlexColumnProps>`
@@ -126,6 +126,5 @@ const Divider = tStyled.div`
 
 const VisibleDivider = tStyled.div`
 	width: ${separatorThickness};
-	background-color: ${p => p.theme.color.backgroundC};
-	margin: ${spacing.large.horizontal};
+	margin: ${spacing.medium.horizontal};
 `;
