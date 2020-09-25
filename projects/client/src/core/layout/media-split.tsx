@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { tStyled } from '../style/styled';
 import { FlexRow, useWindowLayout, FlexColumn } from '@messman/react-common';
-import { spacing, Spacing } from './common';
-import { TextAlign, separatorThickness } from '../style/common';
+import { VerticalDivider, spacing, Spacing } from './common';
+import { TextAlign } from '../style/common';
 import { LayoutBreakpoint } from '@/services/layout/window-layout';
 
 export interface MediaSplitProps {
@@ -20,7 +20,7 @@ const SplitWidth = tStyled.div`
 export const MediaSplit: React.FC<MediaSplitProps> = (props) => {
 	const { isLeft, titleRender, mediaRender, splitRender, children } = props;
 
-	const windowLayout = useWindowLayout();
+	const { widthBreakpoint } = useWindowLayout();
 	const textAlign = 'left';
 
 	const titleContentRender = (
@@ -41,7 +41,7 @@ export const MediaSplit: React.FC<MediaSplitProps> = (props) => {
 		Desktop and up: non-media on one side, media on another
 	*/
 
-	if (windowLayout.widthBreakpoint <= LayoutBreakpoint.mobileLarge) {
+	if (widthBreakpoint <= LayoutBreakpoint.mobileLarge) {
 		// All mobile. Everything in rows.
 
 		return (
@@ -57,7 +57,7 @@ export const MediaSplit: React.FC<MediaSplitProps> = (props) => {
 			</>
 		);
 	}
-	else if (windowLayout.widthBreakpoint <= LayoutBreakpoint.tablet) {
+	else if (widthBreakpoint <= LayoutBreakpoint.tablet) {
 		// Tablet. Split the non-media content.
 
 		if (!splitRender) {
@@ -79,7 +79,7 @@ export const MediaSplit: React.FC<MediaSplitProps> = (props) => {
 					<FlexColumn justifyContent='flex-start'>
 						{mainContentRender}
 					</FlexColumn>
-					<Divider />
+					<VerticalDivider dataSpacing={spacing.medium.value} />
 					<FlexColumn justifyContent='flex-end'>
 						{splitRender}
 					</FlexColumn>
@@ -90,6 +90,8 @@ export const MediaSplit: React.FC<MediaSplitProps> = (props) => {
 			</>
 		);
 	}
+
+	const largeDividerWidth = widthBreakpoint >= LayoutBreakpoint.wide ? spacing.grand.value : spacing.large.value;
 
 	return (
 		<>
@@ -103,7 +105,7 @@ export const MediaSplit: React.FC<MediaSplitProps> = (props) => {
 						</Spacing>
 					</SplitWidth>
 				</OrderedFlexColumn>
-				<VisibleDivider />
+				<VerticalDivider dataSpacing={largeDividerWidth} />
 				<OrderedFlexColumn isFirst={!isLeft} justifyContent='center' flex='0 1 100%'>
 					{mediaRender}
 				</OrderedFlexColumn>
@@ -118,13 +120,4 @@ interface OrderedFlexColumnProps {
 
 const OrderedFlexColumn = tStyled(FlexColumn) <OrderedFlexColumnProps>`
 	order: ${p => p.isFirst ? -1 : 2};
-`;
-
-const Divider = tStyled.div`
-	margin: ${spacing.large.left};
-`;
-
-const VisibleDivider = tStyled.div`
-	width: ${separatorThickness};
-	margin: ${spacing.medium.horizontal};
 `;

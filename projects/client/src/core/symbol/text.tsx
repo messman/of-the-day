@@ -20,7 +20,7 @@ export function createTextComponent(fontSize: string, defaultColor: ThemePickCol
 	return component;
 }
 
-const TextSpacing = tStyled(Spacing)`
+export const TextSpacing = tStyled(Spacing)`
 	/* EM value may be font-specific! */
 	svg {
 		margin-top: .1em;
@@ -52,7 +52,7 @@ export const Title = createTextComponent(titleHeight, c => c.textTitle, fontWeig
 
 export const subtitleHeight = '1.5rem';
 /** Subtitle. 1.5rem. */
-export const Subtitle = createTextComponent(subtitleHeight, c => c.textSubtitle, fontWeights.medium);
+export const Subtitle = createTextComponent(subtitleHeight, c => c.textSubtitle, fontWeights.bold);
 
 export const regularTextHeight = '1rem';
 /** Regular text. 1rem. */

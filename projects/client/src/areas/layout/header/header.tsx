@@ -28,23 +28,21 @@ export const Header: React.FC = () => {
 	const animationState = useHeaderAnimationState();
 
 	return (
-		<Parent>
+		<Parent justifyContent='center' alignItems='center'>
 			<HeaderImage />
-			<FlexRow justifyContent='center'>
-				<Spacing textAlign='center' margin={topBottomMargin}>
-					<FlexRow>
-						<HeaderIconAnimation animationState={animationState} titleHeight={titleHeight} subtitleHeight={subtitleHeight} borderRadiusValue={borderRadiusValue} />
-						<div>
-							<HeaderSubtitleAnimation animationState={animationState} height={subtitleHeight} />
-							<HeaderBoldText dataFontSize={titleHeight}>Of The Day</HeaderBoldText>
-						</div>
-					</FlexRow>
-					<Spacing textAlign='center' margin={textTopMargin}>
-						<RegularText color={c => c.headerText}>A place for Andrew to share things</RegularText>
-						<RegularText color={c => c.headerText} margin={spacing.nudge.top}>until he runs out of money.</RegularText>
-					</Spacing>
+			<Spacing textAlign='center' margin={topBottomMargin}>
+				<FlexRow>
+					<HeaderIconAnimation animationState={animationState} titleHeight={titleHeight} subtitleHeight={subtitleHeight} borderRadiusValue={borderRadiusValue} />
+					<div>
+						<HeaderSubtitleAnimation animationState={animationState} height={subtitleHeight} />
+						<HeaderBoldText dataFontSize={titleHeight}>Of The Day</HeaderBoldText>
+					</div>
+				</FlexRow>
+				<Spacing textAlign='center' margin={textTopMargin}>
+					<RegularText color={c => c.headerText}>A place for Andrew to share things</RegularText>
+					<RegularText color={c => c.headerText} margin={spacing.nudge.top}>until he runs out of money.</RegularText>
 				</Spacing>
-			</FlexRow>
+			</Spacing>
 			<HeaderShadow />
 		</Parent>
 	);
@@ -63,16 +61,18 @@ const HeaderBoldText = tStyled.div<HeaderBoldTextProps>`
 	color: ${p => p.theme.color.headerText};
 `;
 
-const Parent = tStyled.div`
+const Parent = tStyled(FlexRow)`
 	position: relative;
 	background-color: ${p => p.theme.color.headerBackground};
 	overflow: hidden;
 	flex: none;
+	min-height: 70vh;
 `;
 
 const headerImageDataUrl = require('@/static/images/header-background.png').default as string;
 
 const HeaderImage = tStyled.div`
+	flex: none;
 	position: absolute;
 	margin: 0;
 	padding: 0;
@@ -93,6 +93,7 @@ const HeaderImage = tStyled.div`
 // `;
 
 const HeaderShadow = tStyled.div`
+	flex: none;
 	position: absolute;
 	top: -5rem;
 	left: -5rem;

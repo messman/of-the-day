@@ -1,13 +1,12 @@
 import * as React from 'react';
 import { IPost } from 'oftheday-shared';
-import { spacing } from '@/core/layout/common';
+import { Divider, LineMaxWidth, spacing, VerticalDivider } from '@/core/layout/common';
 import { TagList } from './tag';
 import { ElementRoot } from '../post';
 import { FlexRow, useWindowLayout, Flex, FlexColumn } from '@messman/react-common';
 import { tStyled } from '@/core/style/styled';
 import { Subtitle, RegularText } from '@/core/symbol/text';
 import { LayoutBreakpoint } from '@/services/layout/window-layout';
-import { separatorThickness } from '@/core/style/common';
 import { fontWeights } from '@/core/style/theme';
 
 export interface BasicsProps {
@@ -19,9 +18,9 @@ export const Basics: React.FC<BasicsProps> = (props) => {
 	const { basics } = post;
 	const { event, note, location, schedule, dayTypes } = basics;
 
-	const windowLayout = useWindowLayout();
-	const isAnyMobileWidth = windowLayout.widthBreakpoint <= LayoutBreakpoint.mobileLarge;
-	const flex = isAnyMobileWidth ? 'none' : 1;
+	const { widthBreakpoint } = useWindowLayout();
+	const isRow = widthBreakpoint >= LayoutBreakpoint.desktop;
+	const flex = isRow ? 1 : 'none';
 
 	const titleMargin = spacing.medium.bottom;
 	const textMargin = spacing.medium.vertical;
@@ -31,8 +30,10 @@ export const Basics: React.FC<BasicsProps> = (props) => {
 		leftRender = (
 			<TextContainer key='notes' flex={flex}>
 				<Subtitle margin={titleMargin}>Notes</Subtitle>
-				<RegularText fontWeight={fontWeights.bold} show={event} margin={textMargin} color={c => c.textDistinct}>{event}</RegularText>
-				<RegularText show={note} margin={textMargin}>{note}</RegularText>
+				<LineMaxWidth>
+					<RegularText fontWeight={fontWeights.bold} show={event} margin={textMargin} color={c => c.textDistinct}>{event}</RegularText>
+					<RegularText show={note} margin={textMargin}>{note}</RegularText>
+				</LineMaxWidth>
 			</TextContainer>
 		);
 	}
@@ -63,17 +64,16 @@ export const Basics: React.FC<BasicsProps> = (props) => {
 	const renders: JSX.Element[] = [];
 	[leftRender, centerRender, rightRender].filter(r => !!r).forEach((render, i) => {
 		if (i !== 0) {
-			const Separator = isAnyMobileWidth ? HorizontalSeparator : VerticalSeparator;
-			renders.push(<Separator key={i} />);
+			const Separator = isRow ? VerticalDivider : Divider;
+			renders.push(<Separator key={i} dataSpacing={spacing.large.value} />);
 		}
 		renders.push(render!);
 	});
 
-	const ListWrapper = isAnyMobileWidth ? FlexColumn : FlexRow;
-	const margin = isAnyMobileWidth ? `${spacing.large.value} ${spacing.grand.value}` : undefined;
+	const ListWrapper = isRow ? FlexRow : FlexColumn;
 
 	return (
-		<ElementRoot margin={margin}>
+		<ElementRoot>
 			<ListWrapper>
 				{renders}
 			</ListWrapper>
@@ -81,15 +81,6 @@ export const Basics: React.FC<BasicsProps> = (props) => {
 	);
 };
 
-const VerticalSeparator = tStyled.div`
-	width: ${separatorThickness};
-`;
-
-const HorizontalSeparator = tStyled.div`
-	height: ${separatorThickness};
-`;
-
 const TextContainer = tStyled(Flex)`
-	margin: ${spacing.large.value};
 	text-align: center;
 `;

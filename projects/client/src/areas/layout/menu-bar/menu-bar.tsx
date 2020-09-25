@@ -6,6 +6,7 @@ import { MenuBarItems } from './menu-bar-items';
 import { useSpring, animated } from 'react-spring';
 import { Spacing, spacing } from '@/core/layout/common';
 import { Icon, iconTypes } from '@/core/symbol/icon';
+import { TextSpacing } from '@/core/symbol/text';
 import { fontWeights } from '@/core/style/theme';
 
 /** Use an explicit pixel height for the upper menu bar to be used for sticky. */
@@ -76,7 +77,10 @@ export const UpperStickyMenuBar: React.FC<UpperMenuBarProps> = (props) => {
 	const topLeftTitle = isDesktopWidth ? (
 		<UpperMenuStickyTitleContainer alignItems='center'>
 			<UpperMenuStickyTitleClickContainer onClick={onScrollToTop}>
-				<Icon type={iconTypes.brand} height={upperMenuBarTitleHeight} fillColor={c => c.textRegular} />
+				<TextSpacing isInline={true}>
+
+					<Icon type={iconTypes.brand} height={upperMenuBarTitleHeight} fillColor={c => c.textRegular} />
+				</TextSpacing>
 				<UpperMenuStickyTitle>
 					Of The Day
 			</UpperMenuStickyTitle>

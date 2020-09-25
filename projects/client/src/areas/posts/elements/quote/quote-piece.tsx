@@ -2,7 +2,7 @@ import * as React from 'react';
 import { iconTypes, Icon } from '@/core/symbol/icon';
 import { titleHeight, RegularText, subtitleHeight } from '@/core/symbol/text';
 import { Spacing, spacing } from '@/core/layout/common';
-import { TextAlign, ListItemOppositeBackground, borderRadiusStyle, mediaBoxShadowStyle } from '@/core/style/common';
+import { TextAlign, borderRadiusStyle, mediaBoxShadowStyle } from '@/core/style/common';
 import { tStyled } from '@/core/style/styled';
 import { lineBreakpoint } from '@/services/layout/window-layout';
 
@@ -38,7 +38,8 @@ export const QuotePiece: React.FC<QuotePieceProps> = (props) => {
 export interface QuoteBackgroundProps {
 }
 
-const QuoteBackground = tStyled(ListItemOppositeBackground) <QuoteBackgroundProps>`
+const QuoteBackground = tStyled.div<QuoteBackgroundProps>`
+	background-color: ${p => p.theme.color.backgroundB};
 	padding: ${spacing.medium.value};
 	position: relative;
 	${borderRadiusStyle}

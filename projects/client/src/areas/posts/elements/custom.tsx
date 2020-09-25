@@ -5,7 +5,7 @@ import { RegularText, Subtitle, SmallText } from '@/core/symbol/text';
 import { OutLink, ActionLink } from '@/core/link';
 import { ElementRoot } from '../post';
 import { tStyled } from '@/core/style/styled';
-import { ListItemOppositeBackground, borderRadiusStyle } from '@/core/style/common';
+import { borderRadiusStyle } from '@/core/style/common';
 
 export interface CustomProps {
 	custom: IPostCustom;
@@ -70,7 +70,7 @@ export const Custom: React.FC<CustomProps> = (props) => {
 
 
 
-const HiddenArea = tStyled(ListItemOppositeBackground)`
+const HiddenArea = tStyled.div`
 	padding: ${spacing.medium.value};
 	${borderRadiusStyle}
 `;

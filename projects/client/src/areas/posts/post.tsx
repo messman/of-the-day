@@ -9,8 +9,7 @@ import { EndThoughts } from './elements/end-thoughts';
 import { Custom } from './elements/custom';
 import { DayOff } from './elements/day-off';
 import { tStyled } from '@/core/style/styled';
-import { spacing, SpacingProps, ApplicationMaxWidth, Spacing } from '@/core/layout/common';
-import { ListItemRoot, ListItemBackground, borderRadiusStyle } from '@/core/style/common';
+import { spacing, ApplicationMaxWidth, Spacing } from '@/core/layout/common';
 
 interface PostProps {
 	isActive?: boolean;
@@ -49,33 +48,18 @@ export const Post: React.FC<PostProps> = (props) => {
 	);
 };
 
-const ElementRootContainer = tStyled(ListItemRoot)`
-	background-color: ${p => p.theme.color.backgroundA};
-`;
-
 const ElementMaxWidthContainer = tStyled(ApplicationMaxWidth)`
 `;
 
-const ElementRootColor = tStyled(ListItemBackground)`
-	overflow: auto;
-	${borderRadiusStyle}
-`;
-
-
-export const ElementRoot: React.FC<SpacingProps> = (props) => {
-
-	const { margin, ...otherProps } = props;
-
-	let finalMargin = margin || `${spacing.grand.value} ${spacing.medium.value}`;
-
+export const ElementRoot: React.FC = (props) => {
+	const { children } = props;
+	let finalMargin = `${spacing.grand.value} ${spacing.medium.value}`;
 	return (
-		<ElementRootContainer>
-			<ElementMaxWidthContainer>
-				<ElementRootColor>
-					<Spacing padding={finalMargin} {...otherProps} />
-				</ElementRootColor>
-			</ElementMaxWidthContainer>
-		</ElementRootContainer>
+		<ElementMaxWidthContainer>
+			<Spacing margin={finalMargin}>
+				{children}
+			</Spacing>
+		</ElementMaxWidthContainer>
 	);
 };
 

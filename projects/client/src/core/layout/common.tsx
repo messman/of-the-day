@@ -75,6 +75,20 @@ export const spacing = {
 	grand: createSpacing('5rem'),
 };
 
+export interface DividerProps {
+	dataSpacing: string;
+}
+
+export const Divider = tStyled.div<DividerProps>`
+	flex: none;
+	height: ${p => p.dataSpacing};
+`;
+
+export const VerticalDivider = tStyled.div<DividerProps>`
+	flex: none;
+	width: ${p => p.dataSpacing};
+`;
+
 /** Returns a new component that has the specified padding value. */
 export function addPadding<T extends StyledComponent<any, Theme, {}, never>>(component: T, padding: string) {
 	return tStyled(component)`

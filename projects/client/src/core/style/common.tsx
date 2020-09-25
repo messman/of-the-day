@@ -32,24 +32,3 @@ export const SeeMoreButton = tStyled.button`
 	color: ${p => p.theme.color.buttonActionText};
 	background-color: ${p => p.theme.color.buttonActionBackground};
 `;
-
-export const ListItemBackground = tStyled.div`
-	background-color: ${p => p.theme.color.backgroundA};
-`;
-
-export const ListItemOppositeBackground = tStyled.div`
-	background-color: ${p => p.theme.color.backgroundB};
-`;
-
-export const ListItemRoot = tStyled.div`
-	&:nth-child(even) {
-
-		${ListItemBackground} {
-			background-color: ${p => p.theme.color.backgroundB};
-		}
-
-		${ListItemOppositeBackground} {
-			background-color: ${p => p.theme.color.backgroundA};
-		}
-	}
-`;
