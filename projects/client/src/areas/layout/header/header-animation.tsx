@@ -145,7 +145,7 @@ interface HeightContainerProps {
 const TextContainer = tStyled.div<HeightContainerProps>`
 	line-height: ${p => p.dataHeight};
 	font-size: ${p => p.dataHeight};
-	font-weight: ${fontWeights.bold};
+	font-weight: ${fontWeights.extraBold};
 	color: ${p => p.theme.color.headerText};
 `;
 

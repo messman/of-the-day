@@ -59,7 +59,7 @@ const HeaderBoldText = tStyled.div<HeaderBoldTextProps>`
 	padding: 0;
 	line-height: ${p => p.dataFontSize};
 	font-size: ${p => p.dataFontSize};
-	font-weight: ${fontWeights.bold};
+	font-weight: ${fontWeights.extraBold};
 	color: ${p => p.theme.color.headerText};
 `;
 

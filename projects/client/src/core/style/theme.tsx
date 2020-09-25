@@ -314,9 +314,9 @@ export type ThemePickColor = (c: ThemeColor) => string;
 
 // Set from Google Font. Search for 'Montserrat' across the codebase.
 export const fontWeights = {
-	regular: 400,
 	medium: 500,
-	bold: 700
+	bold: 700,
+	extraBold: 800
 };
 
 export const defaultFontSize = '16px';
@@ -343,10 +343,11 @@ export const GlobalStyles = createGlobalStyle<ThemeProps<Theme>>`
 
 	* {
 		font-family: 'Montserrat', sans-serif;
-		font-weight: ${fontWeights.regular};
+		font-weight: ${fontWeights.medium};
 		vertical-align: top;
-		-webkit-text-size-adjust: 100%;
 		box-sizing: border-box;
+		-webkit-text-size-adjust: 100%;
+		-webkit-font-smoothing: antialiased;
 	}
 `;
 

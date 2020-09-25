@@ -136,7 +136,7 @@ interface PostDayTitleTextProps {
 
 const PostDayTitleText = tStyled.div<PostDayTitleTextProps>`
 	font-size: ${p => p.fontSize};
-	font-weight: ${fontWeights.medium};
+	font-weight: ${fontWeights.bold};
 	color: ${p => p.theme.color.textTitle};
 `;
 
@@ -146,7 +146,7 @@ interface PostDaySubtitleTextProps {
 
 const PostDaySubtitleText = tStyled.div<PostDaySubtitleTextProps>`
 	font-size: ${p => p.fontSize};
-	font-weight: ${fontWeights.regular};
+	font-weight: ${fontWeights.medium};
 	color: ${p => p.theme.color.textInactive};
 	margin: ${spacing.nudge.bottom};
 `;

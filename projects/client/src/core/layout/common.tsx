@@ -151,7 +151,7 @@ const inlineBlockStyle = tCss`
 `;
 
 const boldStyle = tCss`
-	font-weight: ${fontWeights.medium};
+	font-weight: ${fontWeights.bold};
 `;
 
 const italicStyle = tCss`

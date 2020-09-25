@@ -147,7 +147,7 @@ const UpperMenuStickyTitleClickContainer = tStyled.div`
 const UpperMenuStickyTitle = tStyled.div`
 	display: inline-block;
 	font-size: ${upperMenuBarTitleHeight};
-	font-weight: ${fontWeights.bold};
+	font-weight: ${fontWeights.extraBold};
 	color: ${p => p.theme.color.textRegular};
 	padding-left: ${spacing.nudge.value};
 `;
