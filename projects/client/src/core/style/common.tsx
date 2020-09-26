@@ -1,6 +1,6 @@
 import { tCss, tStyled } from '@/core/style/styled';
 import { spacing } from '../layout/common';
-import { regularTextHeight } from '../symbol/text';
+import { FontSize } from '../symbol/text';
 
 /** Border-radius style. .375rem. */
 export const borderRadiusValue: string = '.375rem';
@@ -25,7 +25,7 @@ export const TextAlign = tStyled.div<TextAlignProps>`
 export const SeeMoreButton = tStyled.button`
 	display: block;
 	width: 100%;
-	font-size: ${regularTextHeight};
+	font-size: ${FontSize.textRegular};
 	padding: ${spacing.medium.value} ${spacing.large.value};
 	${borderRadiusStyle};
 	border: none;

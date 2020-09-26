@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { IPostMusic } from 'oftheday-shared';
-import { RegularText, Subtitle, Title } from '@/core/symbol/text';
+import { RegularText, Heading2 } from '@/core/symbol/text';
 import { spacing, Spacing, LineMaxWidth } from '@/core/layout/common';
 import { YouTubeVideoFrame } from './video';
 import { TagList } from './tag';
@@ -35,10 +35,10 @@ export const Music: React.FC<MusicProps> = (props) => {
 
 	const titleRender = (
 		<>
-			<Subtitle margin={spacing.small.bottom}>Music</Subtitle>
+			<Heading2 margin={spacing.small.bottom}>Music</Heading2>
 			<Spacing margin={spacing.large.bottom}>
-				<Title isItalic={true}>{title}</Title>
-				<Title>{artist}</Title>
+				<Heading2 isItalic={true}>{title}</Heading2>
+				<Heading2>{artist}</Heading2>
 				{yearSuffix}
 			</Spacing>
 		</>
@@ -61,11 +61,11 @@ export const Music: React.FC<MusicProps> = (props) => {
 		<ElementRoot>
 			<MediaSplit isLeft={true} titleRender={titleRender} mediaRender={embedRender} splitRender={splitRender}>
 				<TagList margin={spacing.medium.bottom} tags={tagStrings} />
-				<RegularText margin={spacing.medium.bottom} show={description}>
-					<LineMaxWidth>
+				<LineMaxWidth>
+					<RegularText margin={spacing.medium.bottom} show={description}>
 						{description}
-					</LineMaxWidth>
-				</RegularText>
+					</RegularText>
+				</LineMaxWidth>
 				<MusicOutLinks music={music} />
 			</MediaSplit>
 		</ElementRoot>

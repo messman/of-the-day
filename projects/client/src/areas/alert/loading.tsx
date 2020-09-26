@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Overlay } from '@/core/layout/overlay';
 import { spacing } from '@/core/layout/common';
 import { keyframes, tStyled } from '@/core/style/styled';
-import { RegularText, Subtitle } from '@/core/symbol/text';
+import { RegularText, Heading2 } from '@/core/symbol/text';
 import { CONSTANT } from '@/services/constant';
 import { PopupType, usePopup } from './popup';
 import { Icon, iconTypes } from '@/core/symbol/icon';
@@ -57,7 +57,7 @@ export const Loading: React.FC<LoadingProps> = (props) => {
 					<LoadingDot index={0}>
 						<LoadingCompass index={0} />
 					</LoadingDot>
-					<Subtitle padding={spacing.medium.value}>Loading</Subtitle>
+					<Heading2 padding={spacing.medium.value}>Loading</Heading2>
 				</LoadingBody>
 				<Flex flex='none' />
 			</FlexColumn>

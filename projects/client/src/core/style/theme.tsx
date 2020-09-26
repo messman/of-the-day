@@ -26,8 +26,8 @@ export interface ThemeColor {
 	accent: string,
 
 	textDistinct: string;
-	textTitle: string,
-	textSubtitle: string,
+	textHeading1: string,
+	textHeading3: string,
 	textRegular: string,
 	textInactive: string,
 	/** Does not need to conform to accessibility standards. */
@@ -136,15 +136,15 @@ const purpleDarkTheme: Theme = {
 		accent: purple.dark.base,
 
 		textDistinct: gray.white,
-		textTitle: purple.dark.text,
-		textSubtitle: purple.dark.text,
+		textHeading1: purple.dark.text,
+		textHeading3: purple.dark.text,
 		textRegular: purple.dark.text,
 		textInactive: purple.dark.textInactive,
 		textDisabled: gray2.s5,
-		textLink: gray2.s4,
+		textLink: purple.dark.base,
 
-		buttonActionText: gray2.s9,
-		buttonActionBackground: gray2.s5,
+		buttonActionText: gray.white,
+		buttonActionBackground: purple.dark.base,
 	}
 };
 
@@ -313,10 +313,10 @@ export type ThemePick<T> = (t: Theme) => T;
 export type ThemePickColor = (c: ThemeColor) => string;
 
 // Set from Google Font. Search for 'Montserrat' across the codebase.
-export const fontWeights = {
-	medium: 500,
-	bold: 700,
-	extraBold: 800
+export enum FontWeight {
+	medium = 500,
+	bold = 700,
+	extraBold = 800
 };
 
 export const defaultFontSize = '16px';
@@ -343,11 +343,15 @@ export const GlobalStyles = createGlobalStyle<ThemeProps<Theme>>`
 
 	* {
 		font-family: 'Montserrat', sans-serif;
-		font-weight: ${fontWeights.medium};
+		font-weight: ${FontWeight.medium};
 		vertical-align: top;
 		box-sizing: border-box;
 		-webkit-text-size-adjust: 100%;
 		-webkit-font-smoothing: antialiased;
+	}
+
+	h1, h2, h3, h4, h5, h6, p {
+		margin: 0;
 	}
 `;
 

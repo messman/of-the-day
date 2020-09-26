@@ -2,7 +2,7 @@ import * as React from 'react';
 import { IOther } from 'oftheday-shared';
 import { spacing, Spacing } from '@/core/layout/common';
 import { OutLink } from '@/core/link';
-import { Subtitle } from '@/core/symbol/text';
+import { Heading2 } from '@/core/symbol/text';
 
 export interface ListLinksProps {
 	other: IOther;
@@ -19,7 +19,7 @@ export const ListLinks: React.FC<ListLinksProps> = (props) => {
 
 	return (
 		<Spacing margin={horizontal}>
-			<Subtitle>Content Links</Subtitle>
+			<Heading2>Content Links</Heading2>
 			<Spacing margin={spacing.nudge.top} show={spotifyLink}>
 				<OutLink href={spotifyLink}>Spotify Playlist</OutLink> of all songs
 			</Spacing>

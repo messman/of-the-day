@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { iconTypes, Icon } from '@/core/symbol/icon';
-import { titleHeight, RegularText, subtitleHeight } from '@/core/symbol/text';
+import { FontSize, RegularText } from '@/core/symbol/text';
 import { Spacing, spacing } from '@/core/layout/common';
 import { TextAlign, borderRadiusStyle, mediaBoxShadowStyle } from '@/core/style/common';
 import { tStyled } from '@/core/style/styled';
@@ -18,7 +18,7 @@ export const QuotePiece: React.FC<QuotePieceProps> = (props) => {
 		return null;
 	}
 
-	const iconHeight = isLarge ? titleHeight : subtitleHeight;
+	const iconHeight = isLarge ? FontSize.heading1 : FontSize.heading2;
 
 	return (
 		<QuoteBackground>

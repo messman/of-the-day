@@ -3,7 +3,7 @@ import { Overlay } from '@/core/layout/overlay';
 import { spacing } from '@/core/layout/common';
 import { tStyled } from '@/core/style/styled';
 import { Icon, iconTypes } from '@/core/symbol/icon';
-import { SmallText, titleHeight, Subtitle, RegularText } from '@/core/symbol/text';
+import { SmallText, FontSize, Heading2, RegularText } from '@/core/symbol/text';
 import { FlexColumn, Flex } from '@messman/react-common';
 import { borderRadiusStyle } from '@/core/style/common';
 
@@ -63,8 +63,8 @@ export const Popup: React.FC = (props) => {
 		popupBody = (
 			<FlexColumn alignItems='center' justifyContent='space-evenly'>
 				<PopupBody flex='none' onClick={onClick}>
-					<Icon type={iconTypes.alert} fillColor={c => isError ? c.error : c.warning} height={titleHeight} />
-					<Subtitle padding={spacing.medium.value}>{title}</Subtitle>
+					<Icon type={iconTypes.alert} fillColor={c => isError ? c.error : c.warning} height={FontSize.heading1} />
+					<Heading2 padding={spacing.medium.value}>{title}</Heading2>
 					<RegularText padding={spacing.medium.value}>{text}</RegularText>
 					<SmallText>{buttonText}</SmallText>
 				</PopupBody>

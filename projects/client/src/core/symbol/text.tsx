@@ -1,31 +1,72 @@
 import * as React from 'react';
 import { tStyled, tCss } from '@/core/style/styled';
-import { defaultFontSize, fontWeights, ThemePickColor } from '../style/theme';
+import { defaultFontSize, FontWeight, ThemePickColor } from '../style/theme';
 import { SpacingProps, Spacing } from '../layout/common';
 import { LayoutBreakpoint } from '@/services/layout/window-layout';
 import { useWindowLayout } from '@messman/react-common';
 
-export interface TextProps extends Omit<SpacingProps, 'fontSize'> {
+export interface TextProps extends SpacingProps {
+	fontSize?: string | null;
+	fontWeight?: string | number | null;
+	isItalic?: boolean;
+	color?: ThemePickColor;
 }
 
-export function createTextComponent(fontSize: string, defaultColor: ThemePickColor, defaultFontWeight: number | string) {
-	const component: React.FC<TextProps> = (props) => {
-		let { fontWeight, color, ...otherProps } = props;
-		fontWeight = fontWeight === undefined ? defaultFontWeight : fontWeight;
-		color = color === undefined ? defaultColor : color;
-		return (
-			<TextSpacing fontSize={fontSize} fontWeight={fontWeight} color={color} {...otherProps} />
-		);
-	};
-	return component;
+
+interface BaseTextProps extends SpacingProps {
+	$fontSize?: string | null;
+	$fontWeight?: string | number | null;
+	$isItalic?: boolean;
+	$color?: ThemePickColor;
 }
 
-export const TextSpacing = tStyled(Spacing)`
+const italicStyle = tCss`
+	font-style: italic;
+`;
+
+export const BaseText = tStyled(Spacing) <BaseTextProps>`
 	/* EM value may be font-specific! */
 	svg {
 		margin-top: .1em;
 	}
+
+	${p => p.$fontSize && ('font-size: ' + p.$fontSize + ';')}
+	${p => p.$fontSize && ('line-height: ' + p.$fontSize + ';')}
+	${p => p.$fontWeight && ('font-weight: ' + p.$fontWeight + ';')}
+	${p => p.$isItalic && italicStyle}
+	${p => p.$color && ('color: ' + p.$color(p.theme.color) + ';')}
 `;
+
+export function createTextComponent(asElement: keyof JSX.IntrinsicElements, defaultFontSize: string, defaultFontWeight: number | string, defaultColor: ThemePickColor) {
+	const component: React.FC<TextProps> = (props) => {
+		const { fontSize, fontWeight, isItalic, color, ...otherProps } = props;
+
+		return (
+			<BaseText $fontSize={fontSize} $fontWeight={fontWeight} $isItalic={isItalic} $color={color} forwardedAs={asElement} {...otherProps as unknown} />
+		);
+	};
+	component.defaultProps = {
+		fontSize: defaultFontSize,
+		fontWeight: defaultFontWeight,
+		color: defaultColor
+	};
+	return component;
+}
+
+export enum FontSize {
+	heading1 = '2rem',
+	heading2 = '1.5rem',
+	heading3 = '1.2rem',
+	textRegular = '1rem',
+	textSmall = '.875rem'
+}
+
+export const FreeText = createTextComponent('div', FontSize.textRegular, FontWeight.medium, c => c.textRegular);
+export const Heading1 = createTextComponent('h1', FontSize.heading1, FontWeight.bold, c => c.textHeading1);
+export const Heading2 = createTextComponent('h2', FontSize.heading2, FontWeight.bold, c => c.textHeading3);
+export const Heading3 = createTextComponent('h3', FontSize.heading3, FontWeight.bold, c => c.textHeading3);
+export const RegularText = createTextComponent('p', FontSize.textRegular, FontWeight.medium, c => c.textRegular);
+export const SmallText = createTextComponent('small', FontSize.textSmall, FontWeight.medium, c => c.textRegular);
 
 export const FontSizeManager: React.FC = (props) => {
 	const windowLayout = useWindowLayout();
@@ -45,26 +86,6 @@ export const FontSizeManager: React.FC = (props) => {
 
 	return <>{props.children}</>;
 };
-
-export const titleHeight = '2rem';
-/** Title. 2rem. */
-export const Title = createTextComponent(titleHeight, c => c.textTitle, fontWeights.bold);
-
-export const subtitleHeight = '1.5rem';
-/** Subtitle. 1.5rem. */
-export const Subtitle = createTextComponent(subtitleHeight, c => c.textSubtitle, fontWeights.bold);
-
-export const regularTextHeight = '1rem';
-/** Regular text. 1rem. */
-export const RegularText = createTextComponent(regularTextHeight, c => c.textRegular, fontWeights.medium);
-
-export const smallTextHeight = '.875rem';
-/** Small text. .875rem. */
-export const SmallText = createTextComponent(smallTextHeight, c => c.textRegular, fontWeights.medium);
-
-export const subTextHeight = '.75rem';
-/** Sub text. .75rem. */
-export const SubText = createTextComponent(subTextHeight, c => c.textRegular, fontWeights.medium);
 
 const textBoxStyle = tCss`
 	font-size: 1rem;

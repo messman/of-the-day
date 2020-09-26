@@ -2,7 +2,7 @@ import * as React from 'react';
 import { spacing } from '@/core/layout/common';
 import { tStyled } from '@/core/style/styled';
 import { Icon, iconTypes } from '@/core/symbol/icon';
-import { SmallText, Subtitle, RegularText, titleHeight } from '@/core/symbol/text';
+import { SmallText, Heading2, RegularText, FontSize } from '@/core/symbol/text';
 import { CONSTANT } from '@/services/constant';
 import { useWindowLayout, Flex, FlexRow } from '@messman/react-common';
 import { isInvalidLayout } from '@/services/layout/window-layout';
@@ -137,8 +137,8 @@ const InvalidCenter: React.FC<InvalidCenterProps> = (props) => {
 	return (
 		<InvalidCenterWrapper alignItems='center' onClick={onClick}>
 			<Flex>
-				<Icon type={iconTypes.alert} fillColor={c => c.error} height={titleHeight} />
-				<Subtitle padding={spacing.medium.value}>{firstMessage}</Subtitle>
+				<Icon type={iconTypes.alert} fillColor={c => c.error} height={FontSize.heading1} />
+				<Heading2 padding={spacing.medium.value}>{firstMessage}</Heading2>
 				{otherMessagesText}
 				{clickInstruction}
 			</Flex>

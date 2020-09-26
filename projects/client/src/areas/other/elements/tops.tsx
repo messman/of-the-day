@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { IOther, IOtherCount } from 'oftheday-shared';
 import { spacing, Spacing } from '@/core/layout/common';
-import { RegularText, Subtitle } from '@/core/symbol/text';
+import { RegularText, Heading2 } from '@/core/symbol/text';
 
 export interface TopsProps {
 	other: IOther;
@@ -42,7 +42,7 @@ const Top: React.FC<TopProps> = (props) => {
 
 	return (
 		<Spacing margin={horizontal}>
-			<Subtitle>{label}</Subtitle>
+			<Heading2>{label}</Heading2>
 			<RegularText>{countsText}</RegularText>
 		</Spacing>
 	);

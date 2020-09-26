@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { tStyled } from '@/core/style/styled';
 import { IPost, IPostDayReference } from 'oftheday-shared';
-import { subtitleHeight, regularTextHeight } from '@/core/symbol/text';
+import { FontSize } from '@/core/symbol/text';
 import { TextAlign } from '@/core/style/common';
 import { FlexRow, Sticky, useSticky, useWindowLayout } from '@messman/react-common';
 import { Icon, iconTypes, SVGIconType } from '@/core/symbol/icon';
 import { spacing } from '@/core/layout/common';
 import { LayoutBreakpoint } from '@/services/layout/window-layout';
-import { fontWeights } from '@/core/style/theme';
+import { FontWeight } from '@/core/style/theme';
 
 export interface PostsHeaderProps {
 	rootElement: HTMLElement | null;
@@ -111,15 +111,15 @@ const PostDayTitle: React.FC<PostDayTitle> = (props) => {
 	}
 
 	// Mobile
-	let subtitleFontSize = '.875rem';
-	let titleFontSize = '1.2rem';
+	let titleFontSize = FontSize.heading3;
+	let subtitleFontSize = FontSize.textSmall;
 	if (widthBreakpoint >= LayoutBreakpoint.tablet) {
-		subtitleFontSize = regularTextHeight;
-		titleFontSize = '1.75rem';
+		titleFontSize = FontSize.heading2;
+		subtitleFontSize = FontSize.textRegular;
 	}
 	else if (widthBreakpoint >= LayoutBreakpoint.mobileRegular) {
-		subtitleFontSize = regularTextHeight;
-		titleFontSize = subtitleHeight;
+		titleFontSize = FontSize.heading2;
+		subtitleFontSize = FontSize.textRegular;
 	}
 
 	return (
@@ -136,8 +136,8 @@ interface PostDayTitleTextProps {
 
 const PostDayTitleText = tStyled.div<PostDayTitleTextProps>`
 	font-size: ${p => p.fontSize};
-	font-weight: ${fontWeights.bold};
-	color: ${p => p.theme.color.textTitle};
+	font-weight: ${FontWeight.bold};
+	color: ${p => p.theme.color.textHeading1};
 `;
 
 interface PostDaySubtitleTextProps {
@@ -146,7 +146,7 @@ interface PostDaySubtitleTextProps {
 
 const PostDaySubtitleText = tStyled.div<PostDaySubtitleTextProps>`
 	font-size: ${p => p.fontSize};
-	font-weight: ${fontWeights.medium};
+	font-weight: ${FontWeight.medium};
 	color: ${p => p.theme.color.textInactive};
 	margin: ${spacing.nudge.bottom};
 `;
@@ -168,7 +168,7 @@ const ClickableIcon: React.FC<ClickableIconProps> = (props) => {
 
 	return (
 		<InnerClickableIcon onClick={onIconClick} isDisabled={isDisabled} >
-			<Icon type={type} height={subtitleHeight} fillColor={c => isDisabled ? c.textDisabled : c.accent} />
+			<Icon type={type} height={FontSize.heading2} fillColor={c => isDisabled ? c.textDisabled : c.accent} />
 		</InnerClickableIcon>
 	);
 };

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { decorate } from '@/test/decorate';
-import { Title, Subtitle, RegularText, SmallText } from '@/core/symbol/text';
+import { Heading1, Heading2, Heading3, RegularText, SmallText } from '@/core/symbol/text';
 import { tStyled } from '@/core/style/styled';
 import { useCurrentTheme } from '@/core/style/theme';
 import { borderRadiusStyle } from '@/core/style/common';
@@ -45,9 +45,10 @@ const ColorBox = tStyled.div<ColorBoxProps>`
 const TextSizesColorBox: React.FC<ColorBoxProps> = (props) => {
 	return (
 		<ColorBox backgroundColor={props.backgroundColor}>
-			<Title>Title</Title>
-			<Subtitle>Subtitle</Subtitle>
-			<RegularText>Text</RegularText>
+			<Heading1>Heading 1</Heading1>
+			<Heading2>Heading 2</Heading2>
+			<Heading3>Heading 3</Heading3>
+			<RegularText>Regular Text</RegularText>
 			<SmallText>Small Text</SmallText>
 		</ColorBox>
 	);

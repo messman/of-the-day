@@ -6,8 +6,8 @@ import { MenuBarItems } from './menu-bar-items';
 import { useSpring, animated } from 'react-spring';
 import { Spacing, spacing } from '@/core/layout/common';
 import { Icon, iconTypes } from '@/core/symbol/icon';
-import { TextSpacing } from '@/core/symbol/text';
-import { fontWeights } from '@/core/style/theme';
+import { FreeText } from '@/core/symbol/text';
+import { FontWeight } from '@/core/style/theme';
 
 /** Use an explicit pixel height for the upper menu bar to be used for sticky. */
 const upperMenuBarContentHeightPixels = 50;
@@ -77,13 +77,10 @@ export const UpperStickyMenuBar: React.FC<UpperMenuBarProps> = (props) => {
 	const topLeftTitle = isDesktopWidth ? (
 		<UpperMenuStickyTitleContainer alignItems='center'>
 			<UpperMenuStickyTitleClickContainer onClick={onScrollToTop}>
-				<TextSpacing isInline={true}>
-
-					<Icon type={iconTypes.brand} height={upperMenuBarTitleHeight} fillColor={c => c.textRegular} />
-				</TextSpacing>
-				<UpperMenuStickyTitle>
+				<FreeText isInline={true} fontSize={upperMenuBarTitleHeight} fontWeight={FontWeight.bold} color={c => c.textRegular}>
+					<SpacedIcon type={iconTypes.brand} height={upperMenuBarTitleHeight} fillColor={c => c.textRegular} />
 					Of The Day
-			</UpperMenuStickyTitle>
+				</FreeText>
 			</UpperMenuStickyTitleClickContainer>
 		</UpperMenuStickyTitleContainer>
 	) : null;
@@ -148,12 +145,8 @@ const UpperMenuStickyTitleClickContainer = tStyled.div`
 	cursor: pointer;
 `;
 
-const UpperMenuStickyTitle = tStyled.div`
-	display: inline-block;
-	font-size: ${upperMenuBarTitleHeight};
-	font-weight: ${fontWeights.extraBold};
-	color: ${p => p.theme.color.textRegular};
-	padding-left: ${spacing.nudge.value};
+const SpacedIcon = tStyled(Icon)`
+	margin: ${spacing.nudge.right};
 `;
 
 export const LowerMenuBar: React.FC<UpperLowerMenuBarProps> = (props) => {

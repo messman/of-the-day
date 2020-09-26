@@ -13,7 +13,7 @@ export const TestIcon = decorate('Icon', () => {
 		return (
 			<div key={iconName}>
 				<RegularText>{iconName}</RegularText>
-				<Icon type={icon} height='2rem' />
+				<Icon type={icon} height='2rem' fillColor={c => c.accent} />
 			</div>
 		);
 	});

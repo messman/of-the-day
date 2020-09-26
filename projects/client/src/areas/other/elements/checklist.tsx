@@ -2,7 +2,7 @@ import * as React from 'react';
 import { IOther } from 'oftheday-shared';
 import { Spacing, spacing } from '@/core/layout/common';
 import { iconTypes, Icon } from '@/core/symbol/icon';
-import { RegularText, regularTextHeight } from '@/core/symbol/text';
+import { RegularText, FontSize } from '@/core/symbol/text';
 import { tStyled } from '@/core/style/styled';
 
 export interface ChecklistProps {
@@ -44,7 +44,7 @@ const InnerChecklist: React.FC<InnerChecklistProps> = (props) => {
 		return (
 			<RegularText key={item}>
 				<Spacing isInline={true} margin={spacing.small.right}>
-					<Icon type={iconType} fillColor={c => isDone ? c.success : c.textDisabled} height={regularTextHeight} />
+					<Icon type={iconType} fillColor={c => isDone ? c.success : c.textDisabled} height={FontSize.textRegular} />
 				</Spacing>
 				{item}
 			</RegularText>

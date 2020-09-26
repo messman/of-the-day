@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { spacing } from '@/core/layout/common';
-import { Subtitle, RegularText } from '@/core/symbol/text';
+import { Heading2, RegularText } from '@/core/symbol/text';
 import { ElementRoot } from '../post';
 import { TextAlign } from '@/core/style/common';
 
@@ -16,7 +16,7 @@ export const DayOff: React.FC<DayOffProps> = (props) => {
 	return (
 		<ElementRoot>
 			<TextAlign dataAlign='center'>
-				<Subtitle margin={spacing.medium.bottom}>Off Day</Subtitle>
+				<Heading2 margin={spacing.medium.bottom}>Off Day</Heading2>
 				<RegularText>
 					{messageText}
 				</RegularText>

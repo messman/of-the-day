@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { IPostCustom } from 'oftheday-shared';
 import { spacing, ApplicationMaxWidth, Spacing, LayoutAlign } from '@/core/layout/common';
-import { RegularText, Subtitle, SmallText } from '@/core/symbol/text';
+import { RegularText, Heading2, SmallText } from '@/core/symbol/text';
 import { OutLink, ActionLink } from '@/core/link';
 import { ElementRoot } from '../post';
 import { tStyled } from '@/core/style/styled';
@@ -45,7 +45,7 @@ export const Custom: React.FC<CustomProps> = (props) => {
 		<ElementRoot>
 			<ApplicationMaxWidth>
 				<LayoutAlign>
-					<Subtitle margin={spacing.medium.bottom}>{title}</Subtitle>
+					<Heading2 margin={spacing.medium.bottom}>{title}</Heading2>
 					<RegularText show={link} margin={spacing.medium.top}>
 						<OutLink href={link}>{linkText}</OutLink>
 					</RegularText>

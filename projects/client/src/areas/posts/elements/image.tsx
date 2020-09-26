@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { IPostImage } from 'oftheday-shared';
 import { spacing } from '@/core/layout/common';
-import { RegularText, Subtitle } from '@/core/symbol/text';
+import { RegularText, Heading2 } from '@/core/symbol/text';
 import { tStyled } from '@/core/style/styled';
 import { OutLink } from '@/core/link';
 import { ElementRoot } from '../post';
@@ -33,7 +33,7 @@ export const Image: React.FC<ImageProps> = (props) => {
 	// TODO - add accessibility for image.
 
 	const titleRender = (
-		<Subtitle margin={spacing.medium.bottom}>Image</Subtitle>
+		<Heading2 margin={spacing.medium.bottom}>Image</Heading2>
 	);
 
 	const mediaRender = (

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useTransition, animated } from 'react-spring';
 import { tStyled } from '@/core/style/styled';
 import { Icon, iconTypes, SVGIconType } from '@/core/symbol/icon';
-import { fontWeights } from '@/core/style/theme';
+import { FontWeight } from '@/core/style/theme';
 import { spacing } from '@/core/layout/common';
 
 export interface HeaderAnimationState {
@@ -145,7 +145,7 @@ interface HeightContainerProps {
 const TextContainer = tStyled.div<HeightContainerProps>`
 	line-height: ${p => p.dataHeight};
 	font-size: ${p => p.dataHeight};
-	font-weight: ${fontWeights.extraBold};
+	font-weight: ${FontWeight.extraBold};
 	color: ${p => p.theme.color.headerText};
 `;
 

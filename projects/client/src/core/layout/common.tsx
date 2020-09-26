@@ -108,18 +108,14 @@ export interface SpacingProps {
 	show?: any;
 	margin?: string | null;
 	padding?: string | null;
-	fontSize?: string | null;
-	fontWeight?: string | number | null;
 	textAlign?: string | null;
 	isRelative?: boolean;
 	isInline?: boolean;
-	isItalic?: boolean;
-	color?: ThemePickColor;
 	backgroundColor?: ThemePickColor;
 }
 
 export const Spacing: React.FC<SpacingProps> = (props) => {
-	const { className, children, show, margin, padding, fontSize, fontWeight, textAlign, isRelative, isInline, isItalic, color, backgroundColor } = props;
+	const { className, children, show, margin, padding, textAlign, isRelative, isInline, backgroundColor } = props;
 
 	if ((show !== undefined) && (!show || !children)) {
 		return null;
@@ -130,13 +126,9 @@ export const Spacing: React.FC<SpacingProps> = (props) => {
 			className={className}
 			dataMargin={margin}
 			dataPadding={padding}
-			dataFontSize={fontSize}
-			dataFontWeight={fontWeight}
 			dataTextAlign={textAlign}
 			isRelative={isRelative}
 			isInline={isInline}
-			isItalic={isItalic}
-			dataColor={color}
 			dataBackgroundColor={backgroundColor}>
 			{children}
 		</InternalSpacing>
@@ -148,12 +140,7 @@ interface InternalSpacingProps {
 	dataPadding?: string | null;
 	isRelative?: boolean;
 	isInline?: boolean;
-	dataFontSize?: string | null;
-	dataFontWeight?: number | string | null;
 	dataTextAlign?: string | null;
-	isBold?: boolean;
-	isItalic?: boolean;
-	dataColor?: ThemePickColor;
 	dataBackgroundColor?: ThemePickColor;
 }
 
@@ -165,10 +152,6 @@ const inlineBlockStyle = tCss`
 	display: inline-block;
 `;
 
-const italicStyle = tCss`
-	font-style: italic;
-`;
-
 export const InternalSpacing = tStyled.div<InternalSpacingProps>`
 	vertical-align: top;
 
@@ -178,11 +161,7 @@ export const InternalSpacing = tStyled.div<InternalSpacingProps>`
 	${p => p.isRelative && relativeStyle}
 	${p => p.isInline && inlineBlockStyle}
 
-	${p => p.dataFontSize && ('font-size: ' + p.dataFontSize + ';')}
-	${p => p.dataFontWeight && ('font-weight: ' + p.dataFontWeight + ';')}
 	${p => p.dataTextAlign && ('text-align: ' + p.dataTextAlign + ';')}
-	${p => p.isItalic && italicStyle}
 
-	${p => p.dataColor && ('color: ' + p.dataColor(p.theme.color) + ';')}
 	${p => p.dataBackgroundColor && ('background-color: ' + p.dataBackgroundColor(p.theme.color) + ';')}
 `;

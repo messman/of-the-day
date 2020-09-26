@@ -2,7 +2,7 @@ import * as React from 'react';
 import { IOther } from 'oftheday-shared';
 import { spacing, Spacing } from '@/core/layout/common';
 import { OutLink } from '@/core/link';
-import { RegularText, Subtitle } from '@/core/symbol/text';
+import { RegularText, Heading2 } from '@/core/symbol/text';
 
 export interface WorkingOnProps {
 	other: IOther;
@@ -35,7 +35,7 @@ export const WorkingOn: React.FC<WorkingOnProps> = (props) => {
 
 	return (
 		<Spacing margin={spacing.medium.value}>
-			<Subtitle>What I'm working on</Subtitle>
+			<Heading2>What I'm working on</Heading2>
 			<RegularText>{render}</RegularText>
 		</Spacing>
 	);

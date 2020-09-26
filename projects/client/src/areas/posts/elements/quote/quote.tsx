@@ -1,7 +1,7 @@
 // Handles the rendering of a quote.
 
 import * as React from 'react';
-import { Subtitle } from '@/core/symbol/text';
+import { Heading2 } from '@/core/symbol/text';
 import { IPostQuote } from 'oftheday-shared';
 import { spacing, LayoutAlign } from '@/core/layout/common';
 import { ElementRoot } from '../../post';
@@ -50,7 +50,7 @@ export const Quote: React.FC<QuoteProps> = (props) => {
 	return (
 		<ElementRoot>
 			<LayoutAlign>
-				<Subtitle margin={spacing.medium.bottom}>Quote</Subtitle>
+				<Heading2 margin={spacing.medium.bottom}>Quote</Heading2>
 			</LayoutAlign>
 			<InnerQuote quote={quote} />
 		</ElementRoot>

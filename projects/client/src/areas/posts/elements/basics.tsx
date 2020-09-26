@@ -5,9 +5,9 @@ import { TagList } from './tag';
 import { ElementRoot } from '../post';
 import { FlexRow, useWindowLayout, Flex, FlexColumn } from '@messman/react-common';
 import { tStyled } from '@/core/style/styled';
-import { Subtitle, RegularText } from '@/core/symbol/text';
+import { Heading2, RegularText } from '@/core/symbol/text';
 import { LayoutBreakpoint } from '@/services/layout/window-layout';
-import { fontWeights } from '@/core/style/theme';
+import { FontWeight } from '@/core/style/theme';
 
 export interface BasicsProps {
 	post: IPost;
@@ -29,9 +29,9 @@ export const Basics: React.FC<BasicsProps> = (props) => {
 	if (event || note) {
 		leftRender = (
 			<TextContainer key='notes' flex={flex}>
-				<Subtitle margin={titleMargin}>Notes</Subtitle>
+				<Heading2 margin={titleMargin}>Notes</Heading2>
 				<LineMaxWidth>
-					<RegularText fontWeight={fontWeights.bold} show={event} margin={textMargin} color={c => c.textDistinct}>{event}</RegularText>
+					<RegularText fontWeight={FontWeight.bold} show={event} margin={textMargin} color={c => c.textDistinct}>{event}</RegularText>
 					<RegularText show={note} margin={textMargin}>{note}</RegularText>
 				</LineMaxWidth>
 			</TextContainer>
@@ -42,7 +42,7 @@ export const Basics: React.FC<BasicsProps> = (props) => {
 	if (schedule || (dayTypes && dayTypes.length)) {
 		centerRender = (
 			<TextContainer key='schedule' flex={flex}>
-				<Subtitle margin={titleMargin}>Schedule</Subtitle>
+				<Heading2 margin={titleMargin}>Schedule</Heading2>
 				<RegularText show={schedule} margin={textMargin}>{schedule}</RegularText>
 				<TagList margin={textMargin} tags={dayTypes} />
 			</TextContainer>
@@ -53,8 +53,8 @@ export const Basics: React.FC<BasicsProps> = (props) => {
 	if (location) {
 		rightRender = (
 			<TextContainer key='location' flex={flex}>
-				<Subtitle margin={titleMargin}>Location</Subtitle>
-				<RegularText fontWeight={fontWeights.bold} color={c => c.textDistinct}>{location}</RegularText>
+				<Heading2 margin={titleMargin}>Location</Heading2>
+				<RegularText fontWeight={FontWeight.bold} color={c => c.textDistinct}>{location}</RegularText>
 			</TextContainer>
 		);
 	}

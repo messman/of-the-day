@@ -2,7 +2,7 @@ import * as React from 'react';
 import { tStyled } from '@/core/style/styled';
 import { IPostVideo } from 'oftheday-shared';
 import { spacing, Spacing } from '@/core/layout/common';
-import { Title, RegularText, SmallText, Subtitle } from '@/core/symbol/text';
+import { RegularText, SmallText, Heading2 } from '@/core/symbol/text';
 import { TagList } from './tag';
 import { ActionLink } from '@/core/link';
 import { ElementRoot } from '../post';
@@ -41,7 +41,7 @@ export const Video: React.FC<VideoProps> = (props) => {
 
 	const titleRender = (
 		<>
-			<Subtitle margin={spacing.small.bottom}>Video</Subtitle>
+			<Heading2 margin={spacing.small.bottom}>Video</Heading2>
 			<Spacing margin={spacing.large.bottom}>
 				<VideoTitle title={title} originalTitle={originalTitle} />
 			</Spacing>
@@ -93,7 +93,7 @@ const VideoTitle: React.FC<VideoTitleProps> = (props) => {
 
 	return (
 		<>
-			<Title>{titleToShow}</Title>
+			<Heading2>{titleToShow}</Heading2>
 			{originalTitleWarningRender}
 		</>
 	);

@@ -4,7 +4,7 @@ import { FlexRow, useWindowLayout } from '@messman/react-common';
 import { spacing, Spacing } from '@/core/layout/common';
 import { tStyled } from '@/core/style/styled';
 import { LayoutBreakpoint } from '@/services/layout/window-layout';
-import { fontWeights } from '@/core/style/theme';
+import { FontWeight } from '@/core/style/theme';
 import { HeaderIconAnimation, HeaderSubtitleAnimation, useHeaderAnimationState } from './header-animation';
 import { borderRadiusValue } from '@/core/style/common';
 
@@ -57,7 +57,7 @@ const HeaderBoldText = tStyled.div<HeaderBoldTextProps>`
 	padding: 0;
 	line-height: ${p => p.dataFontSize};
 	font-size: ${p => p.dataFontSize};
-	font-weight: ${fontWeights.extraBold};
+	font-weight: ${FontWeight.extraBold};
 	color: ${p => p.theme.color.headerText};
 `;
 

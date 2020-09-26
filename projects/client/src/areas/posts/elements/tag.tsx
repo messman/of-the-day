@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { tStyled } from '@/core/style/styled';
 import { borderRadiusStyle } from '@/core/style/common';
-import { smallTextHeight } from '@/core/symbol/text';
+import { FontSize } from '@/core/symbol/text';
 import { spacing, Spacing } from '@/core/layout/common';
 import { useCurrentTheme } from '@/core/style/theme';
 import { createTagProps } from './tag-definitions';
@@ -34,7 +34,7 @@ const TagContainer = tStyled.div<TagContainerProps>`
 	margin-left: 0;
 	white-space: nowrap;
 	border: none;
-	font-size: ${smallTextHeight};
+	font-size: ${FontSize.textSmall};
 	color: ${p => p.foregroundColor};
 	background-color: ${p => p.backgroundColor};
 
