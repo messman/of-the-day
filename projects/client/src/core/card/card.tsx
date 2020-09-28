@@ -6,7 +6,7 @@ import { tStyled } from '../style/styled';
 import { Icon, SVGIconType } from '../symbol/icon';
 import { FontSize, Heading2 } from '../symbol/text';
 
-interface CardProps {
+export interface CardProps {
 	title: string;
 	icon: SVGIconType | null;
 }

@@ -56,6 +56,20 @@ const customViewports = {
 			width: '1024px',
 			height: '1366px',
 		}
+	},
+	wide: {
+		name: 'Wide',
+		styles: {
+			width: '1200px',
+			height: '1500px',
+		}
+	},
+	max: {
+		name: 'Max',
+		styles: {
+			width: '1500px',
+			height: '1800px',
+		}
 	}
 };
 

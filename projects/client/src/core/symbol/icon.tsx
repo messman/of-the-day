@@ -34,6 +34,7 @@ export const iconTypes = {
 	compassLarge: require('@/static/icons/compass-large.svg').default as SVGIconType,
 	screen: require('@/static/icons/screen.svg').default as SVGIconType,
 	activity: require('@/static/icons/activity.svg').default as SVGIconType,
+	note: require('@/static/icons/note.svg').default as SVGIconType,
 };
 
 export interface IconProps {

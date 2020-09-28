@@ -5,9 +5,18 @@ import { ApplicationMaxWidth, Spacing, spacing } from '../layout/common';
 import { tStyled } from '../style/styled';
 import { CardContainer } from './card';
 
+export function findNumberOfChildren(children: React.ReactNode): number {
+	return React.Children.toArray(children).filter((child) => {
+		console.log(child, React.isValidElement(child));
+		return !!child;
+	}).length;
+}
+
 export function useCardFlowSpacing(numberOfChildren?: number): [boolean, Spacing] {
 
 	numberOfChildren = numberOfChildren || 0;
+
+	console.log({ numberOfChildren });
 
 	const { widthBreakpoint } = useWindowLayout();
 
@@ -50,20 +59,21 @@ export function useCardFlowSpacing(numberOfChildren?: number): [boolean, Spacing
 }
 
 export interface CardFlowProps {
-	useVerticalMargin?: boolean;
+	explicitNumberOfChildren?: number;
+	useAutoVerticalMargin?: boolean;
 }
 
 export const CardFlow: React.FC<CardFlowProps> = (props) => {
-	const { useVerticalMargin, children } = props;
+	const { explicitNumberOfChildren, useAutoVerticalMargin, children } = props;
 
-	const numberOfChildren = React.Children.count(children);
+	const numberOfChildren = explicitNumberOfChildren || findNumberOfChildren(children);
 	const [isRow, spacingBetween] = useCardFlowSpacing(numberOfChildren);
 
 	const FlowElement = isRow ? Row : Column;
 
 	return (
 		<ApplicationMaxWidth>
-			<FlowElement $spacing={spacingBetween.value} $useVerticalMargin={useVerticalMargin || false}>
+			<FlowElement $spacing={spacingBetween.value} $useVerticalMargin={useAutoVerticalMargin || false}>
 				{children}
 			</FlowElement>
 		</ApplicationMaxWidth>

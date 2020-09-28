@@ -1,13 +1,10 @@
 import * as React from 'react';
 import { IPost } from 'oftheday-shared';
-import { Divider, LineMaxWidth, spacing, VerticalDivider } from '@/core/layout/common';
+import { spacing } from '@/core/layout/common';
 import { TagList } from './tag';
-import { ElementRoot } from '../post';
-import { FlexRow, useWindowLayout, Flex, FlexColumn } from '@messman/react-common';
-import { tStyled } from '@/core/style/styled';
-import { Heading2, RegularText } from '@/core/symbol/text';
-import { LayoutBreakpoint } from '@/services/layout/window-layout';
-import { FontWeight } from '@/core/style/theme';
+import { iconTypes } from '@/core/symbol/icon';
+import { TextCard } from '@/core/card/card-presets';
+import { CardFlow } from '@/core/card/card-flow';
 
 export interface BasicsProps {
 	post: IPost;
@@ -15,72 +12,66 @@ export interface BasicsProps {
 
 export const Basics: React.FC<BasicsProps> = (props) => {
 	const { post } = props;
-	const { basics } = post;
-	const { event, note, location, schedule, dayTypes } = basics;
 
-	const { widthBreakpoint } = useWindowLayout();
-	const isRow = widthBreakpoint >= LayoutBreakpoint.desktop;
-	const flex = isRow ? 1 : 'none';
-
-	const titleMargin = spacing.medium.bottom;
-	const textMargin = spacing.medium.vertical;
-
-	let leftRender: JSX.Element | null = null;
-	if (event || note) {
-		leftRender = (
-			<TextContainer key='notes' flex={flex}>
-				<Heading2 margin={titleMargin}>Notes</Heading2>
-				<LineMaxWidth>
-					<RegularText fontWeight={FontWeight.bold} show={event} margin={textMargin} color={c => c.textHeading3}>{event}</RegularText>
-					<RegularText show={note} margin={textMargin}>{note}</RegularText>
-				</LineMaxWidth>
-			</TextContainer>
-		);
-	}
-
-	let centerRender: JSX.Element | null = null;
-	if (schedule || (dayTypes && dayTypes.length)) {
-		centerRender = (
-			<TextContainer key='schedule' flex={flex}>
-				<Heading2 margin={titleMargin}>Schedule</Heading2>
-				<RegularText show={schedule} margin={textMargin}>{schedule}</RegularText>
-				<TagList margin={textMargin} tags={dayTypes} />
-			</TextContainer>
-		);
-	}
-
-	let rightRender: JSX.Element | null = null;
-	if (location) {
-		rightRender = (
-			<TextContainer key='location' flex={flex}>
-				<Heading2 margin={titleMargin}>Location</Heading2>
-				<RegularText fontWeight={FontWeight.bold} color={c => c.textHeading3}>{location}</RegularText>
-			</TextContainer>
-		);
-	}
-
-	// TODO - this is here just to add separators, though right now they are transparent. 
-	// If we decide we like it that way, clean up this code.
-	const renders: JSX.Element[] = [];
-	[leftRender, centerRender, rightRender].filter(r => !!r).forEach((render, i) => {
-		if (i !== 0) {
-			const Separator = isRow ? VerticalDivider : Divider;
-			renders.push(<Separator key={i} dataSpacing={spacing.large.value} />);
-		}
-		renders.push(render!);
-	});
-
-	const ListWrapper = isRow ? FlexRow : FlexColumn;
+	// Pull out logic check so that the CardFlow counts the right number of children.
+	// Could have also passed a specific number prop.
+	const notes = shouldRenderNotes(post) ? <Notes post={post} /> : null;
 
 	return (
-		<ElementRoot>
-			<ListWrapper>
-				{renders}
-			</ListWrapper>
-		</ElementRoot>
+		<CardFlow>
+			{notes}
+			<Schedule post={post} />
+			<Location post={post} />
+		</CardFlow>
 	);
 };
 
-const TextContainer = tStyled(Flex)`
-	text-align: center;
-`;
+function shouldRenderNotes(post: IPost) {
+	const { basics } = post;
+	const { event, note } = basics;
+	return event || note;
+}
+
+const Notes: React.FC<BasicsProps> = (props) => {
+	const { post } = props;
+
+	if (!shouldRenderNotes(post)) {
+		return null;
+	}
+
+	const { basics } = post;
+	const { event, note } = basics;
+
+	return (
+		<TextCard title='Notes' icon={iconTypes.note} heading={event} text={note} />
+	);
+};
+
+const scheduleDefaultText = 'It looks like Andrew neglected to fill out a schedule for this day. How typical. You can presume he is going to be on the computer all day.';
+
+const Schedule: React.FC<BasicsProps> = (props) => {
+	const { post } = props;
+	const { basics } = post;
+	const { schedule, dayTypes } = basics;
+
+	const defaultText = (!schedule && (!dayTypes || !dayTypes.length)) ? scheduleDefaultText : '';
+
+	return (
+		<TextCard title='Schedule' icon={iconTypes.calendar} text={schedule} defaultText={defaultText}>
+			<TagList margin={spacing.medium.top} tags={dayTypes} />
+		</TextCard>
+	);
+};
+
+const locationDefaultText = 'Where in the world is Andrew? He didn\'t take the time to add his location. Typical.';
+
+const Location: React.FC<BasicsProps> = (props) => {
+	const { post } = props;
+	const { basics } = post;
+	const { location } = basics;
+
+	return (
+		<TextCard title='Location' icon={iconTypes.compassLarge} heading={location} defaultText={locationDefaultText} />
+	);
+};
+

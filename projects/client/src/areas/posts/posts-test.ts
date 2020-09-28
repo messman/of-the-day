@@ -12,7 +12,7 @@ export const postsTestData: IPost[] = [
 
 		basics: {
 			event: 'Halfway Point',
-			note: 'Halfway there - isn\'t that crazy? Though really, with how my budget\'s been going, I\'m in a better position than I thought,',
+			note: 'Halfway there - isn\'t that crazy? Though really, with how my budget\'s been going, I\'m in a better position than I thought.',
 			location: 'Wells, Maine',
 			schedule: 'Do some stuff; play some ping pong; work on my daily affirmations',
 			dayTypes: ['Work', 'Play'],

@@ -7,6 +7,7 @@ import { boolean, text } from '@storybook/addon-knobs';
 import { RegularText } from '../symbol/text';
 import { CardGroup } from './card-group';
 import { CardFlow } from './card-flow';
+import { TextCard } from './card-presets';
 
 export default { title: 'Core/Card' };
 
@@ -40,15 +41,15 @@ export const TestCardFlow = decorate('Card Flow', () => {
 
 	return (
 		<div>
-			<CardFlow useVerticalMargin={true}>
+			<CardFlow useAutoVerticalMargin={true}>
 				<Card1 />
 			</CardFlow>
-			<CardFlow useVerticalMargin={true}>
+			<CardFlow useAutoVerticalMargin={true}>
 				<Card1 />
 				<Card2 />
 				<Card3 />
 			</CardFlow>
-			<CardFlow useVerticalMargin={true}>
+			<CardFlow useAutoVerticalMargin={true}>
 				<Card1 />
 				<Card3 />
 			</CardFlow>
@@ -77,6 +78,20 @@ export const TestCardGroup = decorate('Card Group', () => {
 				<Card3 />
 			</CardGroup>
 		</div>
+	);
+});
+
+export const TestTextCard = decorate('Text Card', () => {
+
+	const title = text('Title', 'Title');
+	const heading = text('Heading', 'Heading');
+	const cardText = text('Text', 'This is some text.');
+	const defaultText = text('Default Text', 'Looks like there is nothing here.');
+
+	return (
+		<CardGroup title='Text Card'>
+			<TextCard title={title} heading={heading} text={cardText} defaultText={defaultText} icon={iconTypes.note} />
+		</CardGroup>
 	);
 });
 
