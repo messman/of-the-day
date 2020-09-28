@@ -2,7 +2,7 @@ import * as React from 'react';
 import { tStyled, tCss } from '@/core/style/styled';
 import { defaultFontSize, FontWeight, ThemePickColor } from '../style/theme';
 import { SpacingProps, Spacing } from '../layout/common';
-import { LayoutBreakpoint } from '@/services/layout/window-layout';
+import { LayoutBreakpoint, lineBreakpoint } from '@/services/layout/window-layout';
 import { useWindowLayout } from '@messman/react-common';
 
 export interface TextProps extends SpacingProps {
@@ -10,6 +10,8 @@ export interface TextProps extends SpacingProps {
 	fontWeight?: string | number | null;
 	isItalic?: boolean;
 	color?: ThemePickColor;
+	/** Defaults to true. */
+	isMaxLineLength?: boolean;
 }
 
 
@@ -18,6 +20,7 @@ interface BaseTextProps extends SpacingProps {
 	$fontWeight?: string | number | null;
 	$isItalic?: boolean;
 	$color?: ThemePickColor;
+	$isMaxLineLength?: boolean;
 }
 
 const italicStyle = tCss`
@@ -34,6 +37,7 @@ export const BaseText = tStyled(Spacing) <BaseTextProps>`
 	${p => p.$fontWeight && ('font-weight: ' + p.$fontWeight + ';')}
 	${p => p.$isItalic && italicStyle}
 	${p => p.$color && ('color: ' + p.$color(p.theme.color) + ';')}
+	${p => (p.$isMaxLineLength === undefined || !!p.$isMaxLineLength) && ('max-width: ' + lineBreakpoint + ';')}
 `;
 
 export function createTextComponent(asElement: keyof JSX.IntrinsicElements, defaultFontSize: string, defaultFontWeight: number | string, defaultColor: ThemePickColor) {
@@ -52,10 +56,11 @@ export function createTextComponent(asElement: keyof JSX.IntrinsicElements, defa
 	return component;
 }
 
+// Defaults for headings: 2, 1.5, 1.17, 1, ....
 export enum FontSize {
-	heading1 = '2rem',
-	heading2 = '1.5rem',
-	heading3 = '1.2rem',
+	heading1 = '2.2rem',
+	heading2 = '1.7rem',
+	heading3 = '1.25rem',
 	textRegular = '1rem',
 	textSmall = '.875rem'
 }

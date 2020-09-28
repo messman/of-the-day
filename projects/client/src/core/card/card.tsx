@@ -1,11 +1,10 @@
-import { LayoutBreakpoint } from '@/services/layout/window-layout';
-import { FlexRow, useWindowLayout } from '@messman/react-common';
+import { FlexColumn, FlexRow } from '@messman/react-common';
 import * as React from 'react';
 import { Spacing, spacing } from '../layout/common';
 import { borderRadiusStyle, borderRadiusValue } from '../style/common';
 import { tStyled } from '../style/styled';
 import { Icon, SVGIconType } from '../symbol/icon';
-import { FontSize, Heading1 } from '../symbol/text';
+import { FontSize, Heading2 } from '../symbol/text';
 
 interface CardProps {
 	title: string;
@@ -15,21 +14,22 @@ interface CardProps {
 export const Card: React.FC<CardProps> = (props) => {
 	const { title, icon, children } = props;
 
-	const { widthBreakpoint } = useWindowLayout();
 	let iconRender: JSX.Element | null = null;
-	if (icon && widthBreakpoint >= LayoutBreakpoint.mobileRegular) {
+	if (icon) {
 		iconRender = (
-			<Icon type={icon} height={FontSize.heading1} fillColor={c => c.textHeading1} />
+			<Heading2>
+				<Icon type={icon} height={FontSize.heading2} fillColor={c => c.textHeading2} />
+			</Heading2>
 		);
 	}
 
 	return (
-		<Container>
+		<CardContainer>
 			<ColorHeader />
 			<Background>
 				<FlexRow justifyContent='space-between'>
-					<Heading1>{title}</Heading1>
-					<Heading1>{iconRender}</Heading1>
+					<Heading2>{title}</Heading2>
+					{iconRender}
 				</FlexRow>
 				<Spacing show={!!children} margin={spacing.large.top}>
 					<Spacing margin={spacing.medium.bottom}>
@@ -37,11 +37,11 @@ export const Card: React.FC<CardProps> = (props) => {
 					</Spacing>
 				</Spacing>
 			</Background>
-		</Container>
+		</CardContainer>
 	);
 };
 
-const Container = tStyled.div`
+export const CardContainer = tStyled(FlexColumn)`
 	position: relative;
 	${borderRadiusStyle}
 	overflow: hidden;
@@ -49,6 +49,7 @@ const Container = tStyled.div`
 `;
 
 const Background = tStyled.div`
+	flex: 1;
 	background-color: ${p => p.theme.color.bgComponent1};
 	border: 1px solid ${p => p.theme.color.bgComponent3};
 	border-top: none;

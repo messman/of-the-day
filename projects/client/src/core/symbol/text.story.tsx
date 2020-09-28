@@ -9,7 +9,7 @@ export default { title: 'Core/Symbol/Text' };
 
 export const TestTextWithIcons = decorate('Text', () => {
 
-	const iconType = iconTypes.alert;
+	const iconType = iconTypes.activity;
 
 	return (
 		<>
