@@ -15,31 +15,31 @@ export const TestTextWithIcons = decorate('Text', () => {
 		<>
 			<Padding>
 				<Heading1 isInline={true}>
-					<SpacedIcon type={iconType} height={FontSize.heading1} fillColor={c => c.accent} />
+					<SpacedIcon type={iconType} height={FontSize.heading1} fillColor={c => c.accentAgainstDark} />
 					Heading 1
 				</Heading1>
 			</Padding>
 			<Padding>
 				<Heading2 isInline={true}>
-					<SpacedIcon type={iconType} height={FontSize.heading2} fillColor={c => c.accent} />
+					<SpacedIcon type={iconType} height={FontSize.heading2} fillColor={c => c.accentAgainstDark} />
 					Heading 2
 				</Heading2>
 			</Padding>
 			<Padding>
 				<Heading3 isInline={true}>
-					<SpacedIcon type={iconType} height={FontSize.heading3} fillColor={c => c.accent} />
+					<SpacedIcon type={iconType} height={FontSize.heading3} fillColor={c => c.accentAgainstDark} />
 					Heading 3
 				</Heading3>
 			</Padding>
 			<Padding>
 				<RegularText isInline={true}>
-					<SpacedIcon type={iconType} height={FontSize.textRegular} fillColor={c => c.accent} />
+					<SpacedIcon type={iconType} height={FontSize.textRegular} fillColor={c => c.accentAgainstDark} />
 					Regular Text
 					</RegularText>
 			</Padding>
 			<Padding>
 				<SmallText isInline={true}>
-					<SpacedIcon type={iconType} height={FontSize.textSmall} fillColor={c => c.accent} />
+					<SpacedIcon type={iconType} height={FontSize.textSmall} fillColor={c => c.accentAgainstDark} />
 					Small Text
 				</SmallText>
 			</Padding>

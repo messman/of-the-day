@@ -99,5 +99,5 @@ export const BadText = tStyled.p`
 
 export const ImportantText = tStyled.p`
 	${textBoxStyle}
-	background-color: ${p => p.theme.color.accent};
+	background-color: ${p => p.theme.color.accentAgainstDark};
 `;

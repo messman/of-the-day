@@ -76,7 +76,7 @@ interface PostsHeaderEmptySpaceProps {
 
 const PostsHeaderEmptySpace = tStyled.div<PostsHeaderEmptySpaceProps>`
 	height: ${p => p.dataHeightPixels}px;
-	background-color: ${p => p.theme.color.backgroundA};
+	background-color: ${p => p.theme.color.bg1};
 `;
 
 interface PostsHeaderContainerProps {
@@ -86,8 +86,8 @@ interface PostsHeaderContainerProps {
 const PostsHeaderContainer = tStyled(FlexRow) <PostsHeaderContainerProps>`
 	position: relative;
 	padding: ${spacing.small.vertical};
-	background-color: ${p => p.theme.color.backgroundA};
-	border-bottom: 1px solid ${p => p.isSticking ? p.theme.color.backgroundC : 'transparent'};
+	background-color: ${p => p.theme.color.bg1};
+	border-bottom: 1px solid ${p => p.isSticking ? p.theme.color.bgComponent1 : 'transparent'};
 `;
 
 const PostsHeaderCenterContainer = tStyled(FlexRow)`
@@ -168,7 +168,7 @@ const ClickableIcon: React.FC<ClickableIconProps> = (props) => {
 
 	return (
 		<InnerClickableIcon onClick={onIconClick} isDisabled={isDisabled} >
-			<Icon type={type} height={FontSize.heading2} fillColor={c => isDisabled ? c.textDisabled : c.accent} />
+			<Icon type={type} height={FontSize.heading2} fillColor={c => isDisabled ? c.textDisabled : c.accentAgainstDark} />
 		</InnerClickableIcon>
 	);
 };

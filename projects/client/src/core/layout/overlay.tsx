@@ -17,7 +17,7 @@ export const Overlay: React.FC<OverlayProps> = (props) => {
 
 	const backdropProps: OverlayAbsoluteBackdropProps = {
 		isActive: isActive,
-		backgroundColor: backdropColor || theme.color.backgroundA,
+		backgroundColor: backdropColor || theme.color.bg1,
 		backdropOpacity: backdropOpacity || 1
 	};
 

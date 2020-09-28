@@ -70,7 +70,7 @@ export const spacing = {
 	/** For vertical flow. 1rem / 16px. */
 	medium: createSpacing('1rem'),
 	/** For section separation. 3rem / 48px. */
-	large: createSpacing('3rem'),
+	large: createSpacing('2.5rem'),
 	/** For large screen space. 5rem / 80px. */
 	grand: createSpacing('5rem'),
 };

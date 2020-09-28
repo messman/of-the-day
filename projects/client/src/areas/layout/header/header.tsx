@@ -39,8 +39,8 @@ export const Header: React.FC = () => {
 					</div>
 				</FlexRow>
 				<Spacing textAlign='center' margin={textTopMargin}>
-					<RegularText color={c => c.headerText}>A place for Andrew to share things</RegularText>
-					<RegularText color={c => c.headerText} margin={spacing.nudge.top}>until he runs out of money.</RegularText>
+					<RegularText color={c => c.textOverAccent}>A place for Andrew to share things</RegularText>
+					<RegularText color={c => c.textOverAccent} margin={spacing.nudge.top}>until he runs out of money.</RegularText>
 				</Spacing>
 			</Spacing>
 			<HeaderShadow />
@@ -58,7 +58,7 @@ const HeaderBoldText = tStyled.div<HeaderBoldTextProps>`
 	line-height: ${p => p.dataFontSize};
 	font-size: ${p => p.dataFontSize};
 	font-weight: ${FontWeight.extraBold};
-	color: ${p => p.theme.color.headerText};
+	color: ${p => p.theme.color.textOverAccent};
 `;
 
 const Parent = tStyled(FlexRow)`
@@ -66,7 +66,7 @@ const Parent = tStyled(FlexRow)`
 	overflow: hidden;
 	flex: none;
 	min-height: 70vh;
-	background: ${p => p.theme.color.headerBackground};
+	background: ${p => p.theme.color.accentGradient};
 `;
 
 const headerImageDataUrl = require('@/static/images/header-background.png').default as string;
@@ -90,5 +90,5 @@ const HeaderShadow = tStyled.div`
 	left: -5rem;
 	right: -5rem;
 	bottom: 0;
-	box-shadow: inset 0 0 1rem 0px ${p => p.theme.color.darkShadow};
+	box-shadow: inset 0 0 1rem 0px ${p => p.theme.color.bgComponentShadow1};
 `;

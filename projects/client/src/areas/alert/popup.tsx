@@ -81,7 +81,7 @@ export const Popup: React.FC = (props) => {
 };
 
 const PopupBody = tStyled(Flex)`
-	background-color: ${p => p.theme.color.backgroundB};
+	background-color: ${p => p.theme.color.bg2};
 	${borderRadiusStyle};
 	padding: ${spacing.small.value};
 	cursor: pointer;

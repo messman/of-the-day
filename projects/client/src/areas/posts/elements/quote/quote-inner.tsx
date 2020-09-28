@@ -76,7 +76,7 @@ export const InnerMultiQuote: React.FC<QuoteProps> = (props) => {
 
 const Divider = tStyled.div`
 	width: ${separatorThickness};
-	background-color: ${p => p.theme.color.backgroundC};
+	background-color: ${p => p.theme.color.bgComponent1};
 `;
 
 const MultiQuoteWidthControlContainer = tStyled(FlexColumn)`
@@ -102,7 +102,7 @@ const MultiQuotePiece: React.FC<MultiQuotePieceProps> = (props) => {
 		const voiceLabel = voice + ':';
 		voiceRender = (
 			<LineMaxWidth>
-				<RegularText color={c => c.textDistinct} margin={spacing.small.bottom}>{voiceLabel}</RegularText>
+				<RegularText margin={spacing.small.bottom}>{voiceLabel}</RegularText>
 			</LineMaxWidth>
 		);
 	}

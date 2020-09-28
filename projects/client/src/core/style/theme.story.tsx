@@ -15,9 +15,9 @@ export const TestTheme = decorate('Theme', () => {
 	return (
 		<>
 			<div>
-				<TextSizesColorBox backgroundColor={theme.color.backgroundA} />
-				<TextSizesColorBox backgroundColor={theme.color.backgroundB} />
-				<TextSizesColorBox backgroundColor={theme.color.backgroundC} />
+				<TextSizesColorBox backgroundColor={theme.color.bg1} />
+				<TextSizesColorBox backgroundColor={theme.color.bg2} />
+				<TextSizesColorBox backgroundColor={theme.color.bgComponent1} />
 			</div>
 			<TextColorBox backgroundColor={theme.color.error}>Error</TextColorBox>
 			<TextColorBox backgroundColor={theme.color.warning}>Warning</TextColorBox>

@@ -146,7 +146,7 @@ const TextContainer = tStyled.div<HeightContainerProps>`
 	line-height: ${p => p.dataHeight};
 	font-size: ${p => p.dataHeight};
 	font-weight: ${FontWeight.extraBold};
-	color: ${p => p.theme.color.headerText};
+	color: ${p => p.theme.color.textOverAccent};
 `;
 
 const TextHeightContainer = tStyled.div<HeightContainerProps>`
@@ -178,7 +178,7 @@ export const HeaderIconAnimation: React.FC<HeaderIconAnimationProps> = (props) =
 		const { item, key, props } = transition;
 
 		const iconRender = item ? (
-			<Icon type={item} height='100%' fillColor={c => c.headerText} />
+			<Icon type={item} height='100%' fillColor={c => c.textOverAccent} />
 		) : null;
 
 		return (
@@ -228,7 +228,7 @@ const IconBackground = tStyled.div<IconBackgroundProps>`
 	height: 100%;
 	border-radius: ${p => p.borderRadiusValue};
 	overflow: hidden;
-	background-color: ${p => p.theme.color.backgroundA};
+	background-color: ${p => p.theme.color.bg1};
 `;
 
 interface IconHeightContainerProps {

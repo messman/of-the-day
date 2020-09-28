@@ -31,7 +31,7 @@ export const Basics: React.FC<BasicsProps> = (props) => {
 			<TextContainer key='notes' flex={flex}>
 				<Heading2 margin={titleMargin}>Notes</Heading2>
 				<LineMaxWidth>
-					<RegularText fontWeight={FontWeight.bold} show={event} margin={textMargin} color={c => c.textDistinct}>{event}</RegularText>
+					<RegularText fontWeight={FontWeight.bold} show={event} margin={textMargin} color={c => c.textHeading3}>{event}</RegularText>
 					<RegularText show={note} margin={textMargin}>{note}</RegularText>
 				</LineMaxWidth>
 			</TextContainer>
@@ -54,7 +54,7 @@ export const Basics: React.FC<BasicsProps> = (props) => {
 		rightRender = (
 			<TextContainer key='location' flex={flex}>
 				<Heading2 margin={titleMargin}>Location</Heading2>
-				<RegularText fontWeight={FontWeight.bold} color={c => c.textDistinct}>{location}</RegularText>
+				<RegularText fontWeight={FontWeight.bold} color={c => c.textHeading3}>{location}</RegularText>
 			</TextContainer>
 		);
 	}

@@ -54,7 +54,7 @@ const UpperMenuBarCenter = tStyled(FlexColumn)`
 
 const UpperMenuBarContainer = tStyled(FlexRow)`
 	position: relative;
-	background-color: ${p => p.theme.color.backgroundB};
+	background-color: ${p => p.theme.color.bg2};
 	width: ${upperMenuBarMaxWidth};
 	height: ${upperMenuBarContentHeightPixels}px;
 	${borderRadiusStyle}
@@ -117,7 +117,7 @@ const UpperStickyMenuBarAbsolute = tStyled(animated.div)`
 
 const UpperStickyMenuBarColor = tStyled.div`
 	height: ${upperMenuBarHeightPixels.color}px;
-	background-color: ${p => p.theme.color.accent};
+	background-color: ${p => p.theme.color.accentAgainstDark};
 	cursor: pointer;
 `;
 
@@ -128,8 +128,8 @@ const UpperStickyMenuBarCenter = tStyled.div`
 	position: absolute;
 	height: ${upperMenuBarContentHeightPixels}px;
 	width: 100%;
-	background-color: ${p => p.theme.color.backgroundA};
-	border-bottom: 1px solid ${p => p.theme.color.backgroundC};
+	background-color: ${p => p.theme.color.bg1};
+	border-bottom: 1px solid ${p => p.theme.color.bgComponent1};
 `;
 
 const UpperStickyMenuBarContainer = tStyled(FlexRow)`
@@ -165,5 +165,5 @@ export const LowerMenuBar: React.FC<UpperLowerMenuBarProps> = (props) => {
 
 const LowerMenuBarContainer = tStyled(FlexRow)`
 	position: relative;
-	background-color: ${p => p.theme.color.backgroundB};
+	background-color: ${p => p.theme.color.bg2};
 `;

@@ -8,7 +8,7 @@ interface DynamicTagProps {
 
 const defaultTag: DynamicTagProps = {
 	foregroundColor: c => c.tagForeground,
-	backgroundColor: c => c.accent
+	backgroundColor: c => c.accentAgainstDark
 };
 
 const commonTagProps: { [key: string]: DynamicTagProps; } = {

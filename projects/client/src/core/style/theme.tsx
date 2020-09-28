@@ -11,66 +11,66 @@ export interface Theme {
 }
 
 export interface ThemeColor {
-	/** Primary background. */
-	backgroundA: string,
-	/** Secondary version of background, used for layout components. */
-	backgroundB: string,
-	/** Tertiary version of background, used for UI components. */
-	backgroundC: string,
+	/** Main application background. */
+	bg1: string;
+	/** Secondary version of background - used for contrast against the first. */
+	bg2: string;
 
-	darkShadow: string,
+	/** Background used for components. */
+	bgComponent1: string;
+	bgComponent2: string;
+	bgComponent3: string;
 
-	headerBackground: string,
-	headerText: string,
+	bgComponentShadow1: string;
+	bgComponentShadow2: string;
 
-	accent: string,
+	accentGradient: string;
+	accentAgainstDark: string;
+	textOverAccent: string;
 
-	textDistinct: string;
-	textHeading1: string,
-	textHeading3: string,
-	textRegular: string,
-	textInactive: string,
+	textHeading1: string;
+	textHeading2: string;
+	textHeading3: string;
+	textRegular: string;
+	textInactive: string;
 	/** Does not need to conform to accessibility standards. */
-	textDisabled: string,
-	textLink: string,
-
-	buttonActionText: string,
-	buttonActionBackground: string,
+	textDisabled: string;
+	textLink: string;
 
 	tagForeground: string;
-	tagNSFWForeground: string,
-	tagNSFWBackground: string,
-	tagTopForeground: string,
-	tagTopBackground: string,
+	tagNSFWForeground: string;
+	tagNSFWBackground: string;
+	tagTopForeground: string;
+	tagTopBackground: string;
 
 	/** Color used for warning information. */
-	warning: string,
+	warning: string;
 	/** Color used for error information. */
-	error: string,
+	error: string;
 	/** Color used for success information. */
-	success: string,
+	success: string;
 }
 
 const gray = {
-	black: '#171717',
-	white: '#F8F8F8',
-	dark: {
-		background: '#171717'
-	}
+	dark1: '#121212',
+	dark2: '#171717',
+
+	light1: '#F8F8F8',
+	light2: '#F8F8F8'
 };
 
-const gray2 = {
-	s0: '#171717',
-	s1: '#26262C',
-	s2: '#262626',
-	s3: '#404040',
-	s4: '#666666',
-	s5: '#999999',
-	s6: '#BFBFBF',
-	s7: '#DEDEDE',
-	s8: '#E6E6E6',
-	s9: '#FFFFFF',
-};
+// const gray2 = {
+// 	s0: '#171717',
+// 	s1: '#26262C',
+// 	s2: '#262626',
+// 	s3: '#404040',
+// 	s4: '#666666',
+// 	s5: '#999999',
+// 	s6: '#BFBFBF',
+// 	s7: '#DEDEDE',
+// 	s8: '#E6E6E6',
+// 	s9: '#FFFFFF',
+// };
 
 // const blue = {
 // 	s0: '#040D10',
@@ -100,27 +100,14 @@ const gray2 = {
 // };
 
 const commonColor: Partial<ThemeColor> = {
-	tagNSFWForeground: gray.white,
+	tagNSFWForeground: gray.light1,
 	tagNSFWBackground: '#A63446',
-	tagTopForeground: gray.black,
+	tagTopForeground: gray.dark1,
 	tagTopBackground: '#FFC03D',
 
 	warning: '#DC965A',
 	error: '#A63446',
 	success: '#4B7F52',
-};
-
-const purple = {
-	dark: {
-		base: '#5C59CD',
-		text: '#E5E5EA',
-		bodyText: '#9D9DAC',
-		textOnBase: '#E5E5EA',
-		headerBackground: 'linear-gradient(-52deg, #6047C4 0%, #5955D1 50%, #4768CD 100%)',
-		background: '#26262C',
-		backgroundContrast: '#2C2C3B',
-		textInactive: '#9190A4',
-	},
 };
 
 const purpleDarkTheme: Theme = {
@@ -129,28 +116,27 @@ const purpleDarkTheme: Theme = {
 	color: {
 		...(commonColor as ThemeColor),
 
-		backgroundA: gray.dark.background,
-		backgroundB: purple.dark.background,
-		backgroundC: purple.dark.backgroundContrast,
-		darkShadow: '#111',
+		bg1: gray.dark1,
+		bg2: gray.dark2,
+		bgComponent1: '#1B1B1D',
+		bgComponent2: '#202022',
+		bgComponent3: '#2B2B2C',
+		bgComponentShadow1: '#0A0A0A',
+		bgComponentShadow2: '#171717',
 
-		headerBackground: purple.dark.headerBackground,
-		headerText: purple.dark.textOnBase,
+		accentGradient: 'linear-gradient(-52deg, #6047C4 0%, #5955D1 50%, #4768CD 100%)',
+		accentAgainstDark: '#7875D7',
+		textOverAccent: '#DFDFEA',
 
-		accent: purple.dark.base,
+		textHeading1: '#D4D4DD',
+		textHeading2: '#C7C7D5',
+		textHeading3: '#B9B9CE',
+		textRegular: '#ABABB7',
+		textInactive: '#9190A4',
+		textDisabled: '#9190A4',
+		textLink: '#7875D7',
 
-		textDistinct: gray.white,
-		textHeading1: purple.dark.text,
-		textHeading3: purple.dark.text,
-		textRegular: purple.dark.bodyText,
-		textInactive: purple.dark.textInactive,
-		textDisabled: gray2.s5,
-		textLink: purple.dark.base,
-
-		buttonActionText: purple.dark.textOnBase,
-		buttonActionBackground: purple.dark.base,
-
-		tagForeground: purple.dark.textOnBase,
+		tagForeground: '#DFDFEA',
 	}
 };
 
@@ -336,7 +322,7 @@ export const GlobalStyles = createGlobalStyle<ThemeProps<Theme>>`
 	}
 
 	body {
-		background-color: ${p => p.theme.color.backgroundA};
+		background-color: ${p => p.theme.color.bg1};
 		color: ${p => p.theme.color.textRegular};
 	}
 

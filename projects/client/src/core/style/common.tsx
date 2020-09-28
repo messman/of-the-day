@@ -9,7 +9,7 @@ export const borderRadiusStyle = tCss`
 `;
 
 export const mediaBoxShadowStyle = tCss`
-	box-shadow: 0px 3px 15px 5px ${p => p.theme.color.darkShadow};
+	box-shadow: 0px 3px 15px 5px ${p => p.theme.color.bgComponentShadow1};
 `;
 
 export const separatorThickness = '3px';
@@ -29,6 +29,6 @@ export const SeeMoreButton = tStyled.button`
 	padding: ${spacing.medium.value} ${spacing.large.value};
 	${borderRadiusStyle};
 	border: none;
-	color: ${p => p.theme.color.buttonActionText};
-	background-color: ${p => p.theme.color.buttonActionBackground};
+	color: ${p => p.theme.color.textOverAccent};
+	background-color: ${p => p.theme.color.accentGradient};
 `;
