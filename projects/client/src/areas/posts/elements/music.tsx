@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { IPostMusic } from 'oftheday-shared';
-import { RegularText, Heading2 } from '@/core/symbol/text';
+import { RegularText, Heading2, Heading3 } from '@/core/symbol/text';
 import { spacing, Spacing, LineMaxWidth } from '@/core/layout/common';
 import { YouTubeVideoFrame } from './video';
 import { TagList } from './tag';
@@ -37,8 +37,8 @@ export const Music: React.FC<MusicProps> = (props) => {
 		<>
 			<Heading2 margin={spacing.small.bottom}>Music</Heading2>
 			<Spacing margin={spacing.large.bottom}>
-				<Heading2 isItalic={true}>{title}</Heading2>
-				<Heading2>{artist}</Heading2>
+				<Heading3 isItalic={true}>{title}</Heading3>
+				<Heading3>{artist}</Heading3>
 				{yearSuffix}
 			</Spacing>
 		</>

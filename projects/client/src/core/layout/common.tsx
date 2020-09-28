@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { tStyled, tCss } from '../style/styled';
+import { tStyled, tCss, StyledFC } from '../style/styled';
 import { StyledComponent } from 'styled-components';
 import { Theme, ThemePickColor } from '../style/theme';
 import { LayoutBreakpoint, lineBreakpoint } from '@/services/layout/window-layout';
@@ -114,8 +114,8 @@ export interface SpacingProps {
 	backgroundColor?: ThemePickColor;
 }
 
-export const Spacing: React.FC<SpacingProps> = (props) => {
-	const { className, children, show, margin, padding, textAlign, isRelative, isInline, backgroundColor } = props;
+export const Spacing: StyledFC<SpacingProps> = (props) => {
+	const { className, as, children, show, margin, padding, textAlign, isRelative, isInline, backgroundColor } = props;
 
 	if ((show !== undefined) && (!show || !children)) {
 		return null;
@@ -124,6 +124,7 @@ export const Spacing: React.FC<SpacingProps> = (props) => {
 	return (
 		<InternalSpacing
 			className={className}
+			as={as}
 			dataMargin={margin}
 			dataPadding={padding}
 			dataTextAlign={textAlign}

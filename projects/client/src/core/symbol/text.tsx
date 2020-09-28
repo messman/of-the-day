@@ -31,7 +31,6 @@ export const BaseText = tStyled(Spacing) <BaseTextProps>`
 	}
 
 	${p => p.$fontSize && ('font-size: ' + p.$fontSize + ';')}
-	${p => p.$fontSize && ('line-height: ' + p.$fontSize + ';')}
 	${p => p.$fontWeight && ('font-weight: ' + p.$fontWeight + ';')}
 	${p => p.$isItalic && italicStyle}
 	${p => p.$color && ('color: ' + p.$color(p.theme.color) + ';')}
@@ -75,10 +74,7 @@ export const FontSizeManager: React.FC = (props) => {
 	// As we shift into larger responsive screen sizes, increase font size.
 	React.useEffect(() => {
 		let fontSize = defaultFontSize;
-		if (widthBreakpoint >= LayoutBreakpoint.wide) {
-			fontSize = '20px';
-		}
-		else if (widthBreakpoint >= LayoutBreakpoint.tablet) {
+		if (widthBreakpoint >= LayoutBreakpoint.desktop) {
 			fontSize = '18px';
 		}
 		document.documentElement.style.fontSize = fontSize;

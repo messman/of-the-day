@@ -37,6 +37,7 @@ export interface ThemeColor {
 	buttonActionText: string,
 	buttonActionBackground: string,
 
+	tagForeground: string;
 	tagNSFWForeground: string,
 	tagNSFWBackground: string,
 	tagTopForeground: string,
@@ -112,7 +113,10 @@ const commonColor: Partial<ThemeColor> = {
 const purple = {
 	dark: {
 		base: '#5C59CD',
-		text: '#D4D3E7',
+		text: '#E5E5EA',
+		bodyText: '#9D9DAC',
+		textOnBase: '#E5E5EA',
+		headerBackground: 'linear-gradient(-52deg, #6047C4 0%, #5955D1 50%, #4768CD 100%)',
 		background: '#26262C',
 		backgroundContrast: '#2C2C3B',
 		textInactive: '#9190A4',
@@ -130,21 +134,23 @@ const purpleDarkTheme: Theme = {
 		backgroundC: purple.dark.backgroundContrast,
 		darkShadow: '#111',
 
-		headerBackground: purple.dark.base,
-		headerText: purple.dark.text,
+		headerBackground: purple.dark.headerBackground,
+		headerText: purple.dark.textOnBase,
 
 		accent: purple.dark.base,
 
 		textDistinct: gray.white,
 		textHeading1: purple.dark.text,
 		textHeading3: purple.dark.text,
-		textRegular: purple.dark.text,
+		textRegular: purple.dark.bodyText,
 		textInactive: purple.dark.textInactive,
 		textDisabled: gray2.s5,
 		textLink: purple.dark.base,
 
-		buttonActionText: gray.white,
+		buttonActionText: purple.dark.textOnBase,
 		buttonActionBackground: purple.dark.base,
+
+		tagForeground: purple.dark.textOnBase,
 	}
 };
 

@@ -63,10 +63,10 @@ const HeaderBoldText = tStyled.div<HeaderBoldTextProps>`
 
 const Parent = tStyled(FlexRow)`
 	position: relative;
-	background-color: ${p => p.theme.color.headerBackground};
 	overflow: hidden;
 	flex: none;
 	min-height: 70vh;
+	background: ${p => p.theme.color.headerBackground};
 `;
 
 const headerImageDataUrl = require('@/static/images/header-background.png').default as string;
@@ -82,15 +82,6 @@ const HeaderImage = tStyled.div`
 	background-position: center;
 	opacity: .13;
 `;
-
-// export const HeaderImageOverlay = tStyled.div`
-// 	position: absolute;
-// 	margin: 0;
-// 	padding: 0;
-// 	width: 100%;
-// 	height: 100%;
-// 	background-image: radial-gradient(circle farthest-side at center, ${p => p.theme.color.headerBackground} 20%, transparent 100%);
-// `;
 
 const HeaderShadow = tStyled.div`
 	flex: none;
