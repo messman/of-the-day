@@ -1,7 +1,7 @@
 import { LayoutBreakpoint } from '@/services/layout/window-layout';
 import { useWindowLayout } from '@messman/react-common';
 import * as React from 'react';
-import { ApplicationMaxWidth, Spacing, spacing } from '../layout/common';
+import { Spacing, spacing } from '../layout/common';
 import { tStyled } from '../style/styled';
 
 import { Heading1 } from '../symbol/text';
@@ -35,14 +35,12 @@ export const CardGroup: React.FC<CardGroupProps> = (props) => {
 
 	return (
 		<Background>
-			<ApplicationMaxWidth>
-				<Spacing padding={groupSpacing.vertical}>
-					{titleRender}
-					<CardFlow>
-						{children}
-					</CardFlow>
-				</Spacing>
-			</ApplicationMaxWidth>
+			<Spacing padding={groupSpacing.vertical}>
+				{titleRender}
+				<CardFlow>
+					{children}
+				</CardFlow>
+			</Spacing>
 		</Background>
 	);
 };

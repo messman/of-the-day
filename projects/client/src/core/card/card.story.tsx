@@ -6,6 +6,7 @@ import { iconTypes } from '../symbol/icon';
 import { boolean, text } from '@storybook/addon-knobs';
 import { RegularText } from '../symbol/text';
 import { CardGroup } from './card-group';
+import { CardFlow } from './card-flow';
 
 export default { title: 'Core/Card' };
 
@@ -31,6 +32,26 @@ export const TestCard = decorate('Card', () => {
 					{textContentRender}
 				</Card>
 			</Spacing>
+		</div>
+	);
+});
+
+export const TestCardFlow = decorate('Card Flow', () => {
+
+	return (
+		<div>
+			<CardFlow useVerticalMargin={true}>
+				<Card1 />
+			</CardFlow>
+			<CardFlow useVerticalMargin={true}>
+				<Card1 />
+				<Card2 />
+				<Card3 />
+			</CardFlow>
+			<CardFlow useVerticalMargin={true}>
+				<Card1 />
+				<Card3 />
+			</CardFlow>
 		</div>
 	);
 });
@@ -83,7 +104,7 @@ const Card2: React.FC = () => {
 
 const Card3: React.FC = () => {
 	return (
-		<Card title='Card 3' icon={iconTypes.calendar}>
+		<Card title='Card 3' icon={iconTypes.music}>
 			<RegularText>
 				Here's a medium amount of content for Card 3. There's less content here than on some of the other cards, but there's also more
 				here than on other cards.

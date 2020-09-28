@@ -1,18 +1,15 @@
 import { LayoutBreakpoint } from '@/services/layout/window-layout';
 import { FlexRow, useWindowLayout } from '@messman/react-common';
 import * as React from 'react';
-import { Spacing, spacing } from '../layout/common';
+import { ApplicationMaxWidth, Spacing, spacing } from '../layout/common';
 import { tStyled } from '../style/styled';
 import { CardContainer } from './card';
 
-export interface CardFlowProps {
-}
+export function useCardFlowSpacing(numberOfChildren?: number): [boolean, Spacing] {
 
-export const CardFlow: React.FC<CardFlowProps> = (props) => {
-	const { children } = props;
+	numberOfChildren = numberOfChildren || 0;
 
 	const { widthBreakpoint } = useWindowLayout();
-	const numberOfChildren = React.Children.count(children);
 
 	/*
 		Logic below is based on layout breakpoints and trying to keep the math
@@ -49,39 +46,45 @@ export const CardFlow: React.FC<CardFlowProps> = (props) => {
 		isRow = false;
 	}
 
-	if (!isRow) {
-		return (
-			<Column $spacing={spacingBetween.value}>
-				{children}
-			</Column>
-		);
-	}
-	return (
-		<Row $spacing={spacingBetween.value}>
-			{children}
-		</Row>
-	);
-
-};
-
-interface ColumnProps {
-	$spacing: string;
+	return [isRow, spacingBetween];
 }
 
-const Column = tStyled.div<ColumnProps>`
-	margin: 0 ${p => p.$spacing};
+export interface CardFlowProps {
+	useVerticalMargin?: boolean;
+}
+
+export const CardFlow: React.FC<CardFlowProps> = (props) => {
+	const { useVerticalMargin, children } = props;
+
+	const numberOfChildren = React.Children.count(children);
+	const [isRow, spacingBetween] = useCardFlowSpacing(numberOfChildren);
+
+	const FlowElement = isRow ? Row : Column;
+
+	return (
+		<ApplicationMaxWidth>
+			<FlowElement $spacing={spacingBetween.value} $useVerticalMargin={useVerticalMargin || false}>
+				{children}
+			</FlowElement>
+		</ApplicationMaxWidth>
+	);
+};
+
+interface RowColumnProps {
+	$spacing: string;
+	$useVerticalMargin: boolean;
+}
+
+const Column = tStyled.div<RowColumnProps>`
+	margin: ${p => p.$useVerticalMargin ? p.$spacing : 0} ${p => p.$spacing};
 
 	${CardContainer} + ${CardContainer} {
 		margin-top: ${p => p.$spacing};
 	}
 `;
 
-interface RowProps {
-	$spacing: string;
-}
-
-const Row = tStyled(FlexRow) <RowProps>`
-	margin: 0 ${p => p.$spacing};
+const Row = tStyled(FlexRow) <RowColumnProps>`
+	margin: ${p => p.$useVerticalMargin ? p.$spacing : 0} ${p => p.$spacing};
 
 	${CardContainer} {
 		margin-left: ${p => p.$spacing}; 
