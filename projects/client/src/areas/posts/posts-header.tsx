@@ -87,7 +87,7 @@ const PostsHeaderContainer = tStyled(FlexRow) <PostsHeaderContainerProps>`
 	position: relative;
 	padding: ${spacing.small.vertical};
 	background-color: ${p => p.theme.color.bg1};
-	border-bottom: 1px solid ${p => p.isSticking ? p.theme.color.bgComponent1 : 'transparent'};
+	border-bottom: 1px solid ${p => p.isSticking ? p.theme.color.bgComponent3 : 'transparent'};
 `;
 
 const PostsHeaderCenterContainer = tStyled(FlexRow)`

@@ -13,11 +13,14 @@ export const QuoteAttribution: React.FC<QuoteProps> = (props) => {
 		return null;
 	}
 
+	let isLinkFirst = false;
 	let sourceRender: JSX.Element | string = null!;
 	if (sourceLink) {
+		isLinkFirst = true;
 		sourceRender = <OutLink href={sourceLink}>{source}</OutLink>;
 	}
 	else {
+		isLinkFirst = false;
 		sourceRender = source;
 	}
 
@@ -26,16 +29,22 @@ export const QuoteAttribution: React.FC<QuoteProps> = (props) => {
 	const singleVoice = bVoice ? null : (aVoice || null);
 	if (singleVoice) {
 		if (sourceRender) {
+			isLinkFirst = false;
 			attributionRender = <>{singleVoice}, {sourceRender}</>;
 		}
 		else {
+			isLinkFirst = false;
 			attributionRender = singleVoice;
 		}
 	}
 
+	const dashPrefix = isLinkFirst ? null : (
+		<>&mdash;&#8288;&nbsp;&#8288;</>
+	);
+
 	return (
 		<Right margin={spacing.small.top}>
-			<RegularText isMaxLineLength={false}>&mdash;&#8288;&nbsp;&#8288;{attributionRender}</RegularText>
+			<RegularText isMaxLineLength={false}>{dashPrefix}{attributionRender}</RegularText>
 		</Right>
 	);
 };

@@ -7,7 +7,6 @@ import { CardContainer } from './card';
 
 export function findNumberOfChildren(children: React.ReactNode): number {
 	return React.Children.toArray(children).filter((child) => {
-		console.log(child, React.isValidElement(child));
 		return !!child;
 	}).length;
 }
@@ -15,9 +14,6 @@ export function findNumberOfChildren(children: React.ReactNode): number {
 export function useCardFlowSpacing(numberOfChildren?: number): [boolean, Spacing] {
 
 	numberOfChildren = numberOfChildren || 0;
-
-	console.log({ numberOfChildren });
-
 	const { widthBreakpoint } = useWindowLayout();
 
 	/*

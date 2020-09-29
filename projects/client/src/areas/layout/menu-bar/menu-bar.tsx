@@ -4,7 +4,7 @@ import { Flex, FlexColumn, FlexRow } from '@messman/react-common';
 import { borderRadiusStyle } from '@/core/style/common';
 import { MenuBarItems } from './menu-bar-items';
 import { useSpring, animated } from 'react-spring';
-import { Spacing, spacing } from '@/core/layout/common';
+import { spacing } from '@/core/layout/common';
 import { Icon, iconTypes } from '@/core/symbol/icon';
 import { FreeText } from '@/core/symbol/text';
 import { FontWeight } from '@/core/style/theme';
@@ -35,13 +35,11 @@ export const UpperMenuBar: React.FC<UpperLowerMenuBarProps> = (props) => {
 	// Add in the upper menu bar content (links, etc)
 	// Note that in the upper menu bar, height of the container is set explicitly. We don't need padding.
 	return (
-		<Spacing>
-			<UpperMenuBarCenter flex='none' justifyContent='center' alignItems='center'>
-				<UpperMenuBarContainer flex='none'>
-					<MenuBarItems isUpper={true} onPathClick={onPathClick} />
-				</UpperMenuBarContainer>
-			</UpperMenuBarCenter>
-		</Spacing>
+		<UpperMenuBarCenter flex='none' justifyContent='center' alignItems='center'>
+			<UpperMenuBarContainer flex='none'>
+				<MenuBarItems isUpper={true} onPathClick={onPathClick} />
+			</UpperMenuBarContainer>
+		</UpperMenuBarCenter>
 	);
 };
 
@@ -50,6 +48,7 @@ const UpperMenuBarCenter = tStyled(FlexColumn)`
 	height: 0;
 	overflow: visible;
 	z-index: 1;
+	margin-bottom: calc(${upperMenuBarHeightPixels.content}px / 2);
 `;
 
 const UpperMenuBarContainer = tStyled(FlexRow)`
@@ -61,7 +60,7 @@ const UpperMenuBarContainer = tStyled(FlexRow)`
 	overflow: hidden;
 `;
 
-export interface UpperMenuBarProps {
+export interface UpperStickyMenuBarProps {
 	isMobileWidth: boolean;
 	isDesktopWidth: boolean;
 	isShowing: boolean;
@@ -69,7 +68,7 @@ export interface UpperMenuBarProps {
 	onPathClick: () => void;
 }
 
-export const UpperStickyMenuBar: React.FC<UpperMenuBarProps> = (props) => {
+export const UpperStickyMenuBar: React.FC<UpperStickyMenuBarProps> = (props) => {
 	const { isShowing, isMobileWidth, isDesktopWidth, onScrollToTop, onPathClick } = props;
 
 	const springProps = useSpring({ top: isShowing ? '0px' : `-${upperMenuBarHeightPixels.total}px` });
@@ -129,7 +128,7 @@ const UpperStickyMenuBarCenter = tStyled.div`
 	height: ${upperMenuBarContentHeightPixels}px;
 	width: 100%;
 	background-color: ${p => p.theme.color.bg1};
-	border-bottom: 1px solid ${p => p.theme.color.bgComponent1};
+	border-bottom: 1px solid ${p => p.theme.color.bgComponent3};
 `;
 
 const UpperStickyMenuBarContainer = tStyled(FlexRow)`

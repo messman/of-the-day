@@ -120,7 +120,7 @@ const purpleDarkTheme: Theme = {
 		bg2: gray.dark2,
 		bgComponent1: '#1B1B1D',
 		bgComponent2: '#202022',
-		bgComponent3: '#2B2B2C',
+		bgComponent3: '#252527',
 		bgComponentShadow1: '#0A0A0A',
 		bgComponentShadow2: '#171717',
 

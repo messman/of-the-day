@@ -105,8 +105,8 @@ export const Layout: React.FC<LayoutProps> = (props) => {
 			/>
 			<ScrollContainer ref={scrollContainerRef}>
 				<Header />
-				<UpperMenuBar isMobileWidth={isAnyMobileWidth} onPathClick={onScrollToSticky} />
 				<div ref={elementIntersectRef} />
+				<UpperMenuBar isMobileWidth={isAnyMobileWidth} onPathClick={onScrollToSticky} />
 				<RouteContainer>
 					<Switch>
 						<Route exact path={routes.posts.path}>
@@ -145,6 +145,6 @@ const LayoutContainer = tStyled(FlexColumn)`
 `;
 
 const RouteContainer = tStyled.div`
-	margin: ${spacing.grand.vertical};
+	margin: ${spacing.grand.bottom};
 	min-height: 100vh;
 `;

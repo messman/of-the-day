@@ -50,6 +50,7 @@ export const CardContainer = tStyled(FlexColumn)`
 const Background = tStyled.div`
 	flex: 1;
 	background-color: ${p => p.theme.color.bgComponent1};
+	border: 1px solid ${p => p.theme.color.bgComponent3};
 	border-top: none;
 	padding: ${spacing.medium.value};
 	border-bottom-left-radius: ${borderRadiusValue};
