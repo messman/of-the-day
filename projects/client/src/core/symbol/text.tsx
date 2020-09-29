@@ -42,10 +42,10 @@ export const BaseText = tStyled(Spacing) <BaseTextProps>`
 
 export function createTextComponent(asElement: keyof JSX.IntrinsicElements, defaultFontSize: string, defaultFontWeight: number | string, defaultColor: ThemePickColor) {
 	const component: React.FC<TextProps> = (props) => {
-		const { fontSize, fontWeight, isItalic, color, ...otherProps } = props;
+		const { fontSize, fontWeight, isItalic, isMaxLineLength, color, ...otherProps } = props;
 
 		return (
-			<BaseText $fontSize={fontSize} $fontWeight={fontWeight} $isItalic={isItalic} $color={color} forwardedAs={asElement} {...otherProps as unknown} />
+			<BaseText $fontSize={fontSize} $fontWeight={fontWeight} $isItalic={isItalic} $isMaxLineLength={isMaxLineLength} $color={color} forwardedAs={asElement} {...otherProps as unknown} />
 		);
 	};
 	component.defaultProps = {
@@ -58,9 +58,9 @@ export function createTextComponent(asElement: keyof JSX.IntrinsicElements, defa
 
 // Defaults for headings: 2, 1.5, 1.17, 1, ....
 export enum FontSize {
-	heading1 = '2.2rem',
-	heading2 = '1.7rem',
-	heading3 = '1.25rem',
+	heading1 = '2rem',
+	heading2 = '1.5rem',
+	heading3 = '1.17rem',
 	textRegular = '1rem',
 	textSmall = '.875rem'
 }
@@ -70,7 +70,8 @@ export const Heading1 = createTextComponent('h1', FontSize.heading1, FontWeight.
 export const Heading2 = createTextComponent('h2', FontSize.heading2, FontWeight.bold, c => c.textHeading3);
 export const Heading3 = createTextComponent('h3', FontSize.heading3, FontWeight.bold, c => c.textHeading3);
 export const RegularText = createTextComponent('p', FontSize.textRegular, FontWeight.medium, c => c.textRegular);
-export const SmallText = createTextComponent('small', FontSize.textSmall, FontWeight.medium, c => c.textRegular);
+// Don't use 'small' here because it is inline and we want block by default.
+export const SmallText = createTextComponent('div', FontSize.textSmall, FontWeight.medium, c => c.textRegular);
 
 export const FontSizeManager: React.FC = (props) => {
 	const windowLayout = useWindowLayout();

@@ -1,11 +1,11 @@
 // Handles the rendering of a quote.
 
 import * as React from 'react';
-import { Heading2 } from '@/core/symbol/text';
 import { IPostQuote } from 'oftheday-shared';
-import { spacing, LayoutAlign } from '@/core/layout/common';
-import { ElementRoot } from '../../post';
 import { InnerQuote, InnerSingleQuote } from './quote-inner';
+import { CardFlow } from '@/core/card/card-flow';
+import { Card } from '@/core/card/card';
+import { iconTypes } from '@/core/symbol/icon';
 
 export interface MusicQuoteProps {
 	lyric: string;
@@ -48,12 +48,11 @@ export const Quote: React.FC<QuoteProps> = (props) => {
 	}
 
 	return (
-		<ElementRoot>
-			<LayoutAlign>
-				<Heading2 margin={spacing.medium.bottom}>Quote</Heading2>
-			</LayoutAlign>
-			<InnerQuote quote={quote} />
-		</ElementRoot>
+		<CardFlow>
+			<Card title='Quote' icon={iconTypes.quote}>
+				<InnerQuote quote={quote} />
+			</Card>
+		</CardFlow>
 	);
 };
 

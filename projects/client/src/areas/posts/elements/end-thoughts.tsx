@@ -1,6 +1,8 @@
 import * as React from 'react';
-import { IPostEndThoughts, IPostCustom } from 'oftheday-shared';
-import { Custom } from './custom';
+import { IPostEndThoughts } from 'oftheday-shared';
+import { CardFlow } from '@/core/card/card-flow';
+import { TextCard } from '@/core/card/card-presets';
+import { iconTypes } from '@/core/symbol/icon';
 
 export interface EndThoughtsProps {
 	endThoughts: IPostEndThoughts;
@@ -14,16 +16,9 @@ export const EndThoughts: React.FC<EndThoughtsProps> = (props) => {
 		return null;
 	}
 
-	const custom: IPostCustom = {
-		title: 'End-of-day Thoughts',
-		value: value,
-		link: '',
-		linkText: '',
-		hiddenValue: '',
-		previewLink: false
-	};
-
 	return (
-		<Custom custom={custom} />
+		<CardFlow useAutoVerticalMargin={true}>
+			<TextCard title='End-of-day Thoughts' icon={iconTypes.thought} text={value} />
+		</CardFlow>
 	);
 };

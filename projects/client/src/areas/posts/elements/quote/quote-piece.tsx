@@ -2,7 +2,7 @@ import * as React from 'react';
 import { iconTypes, Icon } from '@/core/symbol/icon';
 import { FontSize, RegularText } from '@/core/symbol/text';
 import { Spacing, spacing } from '@/core/layout/common';
-import { TextAlign, borderRadiusStyle, mediaBoxShadowStyle } from '@/core/style/common';
+import { TextAlign, borderRadiusStyle } from '@/core/style/common';
 import { tStyled } from '@/core/style/styled';
 import { lineBreakpoint } from '@/services/layout/window-layout';
 
@@ -39,11 +39,11 @@ export interface QuoteBackgroundProps {
 }
 
 const QuoteBackground = tStyled.div<QuoteBackgroundProps>`
-	background-color: ${p => p.theme.color.bg2};
+	background-color: ${p => p.theme.color.bgComponent2};
+	border: 1px solid ${p => p.theme.color.bgComponent3};
 	padding: ${spacing.medium.value};
 	position: relative;
 	${borderRadiusStyle}
-	${mediaBoxShadowStyle}
 `;
 
 const LineMaxWidthCenter = tStyled.div`

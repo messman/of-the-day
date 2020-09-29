@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { QuoteProps } from './quote';
 import { RegularText } from '@/core/symbol/text';
-import { Spacing, spacing, LineMaxWidth } from '@/core/layout/common';
+import { Spacing, spacing } from '@/core/layout/common';
 import { FlexRow, FlexColumn } from '@messman/react-common';
 import { QuoteAttribution } from './quote-attribution';
 import { QuotePiece } from './quote-piece';
@@ -76,7 +76,7 @@ export const InnerMultiQuote: React.FC<QuoteProps> = (props) => {
 
 const Divider = tStyled.div`
 	width: ${separatorThickness};
-	background-color: ${p => p.theme.color.bgComponent1};
+	background-color: ${p => p.theme.color.bgComponent3};
 `;
 
 const MultiQuoteWidthControlContainer = tStyled(FlexColumn)`
@@ -101,9 +101,7 @@ const MultiQuotePiece: React.FC<MultiQuotePieceProps> = (props) => {
 	if (voice) {
 		const voiceLabel = voice + ':';
 		voiceRender = (
-			<LineMaxWidth>
-				<RegularText margin={spacing.small.bottom}>{voiceLabel}</RegularText>
-			</LineMaxWidth>
+			<RegularText margin={spacing.small.bottom}>{voiceLabel}</RegularText>
 		);
 	}
 

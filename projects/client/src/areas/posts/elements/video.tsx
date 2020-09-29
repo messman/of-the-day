@@ -2,12 +2,12 @@ import * as React from 'react';
 import { tStyled } from '@/core/style/styled';
 import { IPostVideo } from 'oftheday-shared';
 import { spacing, Spacing } from '@/core/layout/common';
-import { RegularText, SmallText, Heading2 } from '@/core/symbol/text';
+import { RegularText, SmallText, Heading3 } from '@/core/symbol/text';
 import { TagList } from './tag';
 import { ActionLink } from '@/core/link';
-import { ElementRoot } from '../post';
-import { SeeMoreButton, borderRadiusStyle, mediaBoxShadowStyle } from '@/core/style/common';
-import { MediaSplit } from '@/core/layout/media-split';
+import { SeeMoreButton, borderRadiusStyle } from '@/core/style/common';
+import { Card } from '@/core/card/card';
+import { iconTypes } from '@/core/symbol/icon';
 
 export interface VideoProps {
 	video: IPostVideo;
@@ -39,28 +39,20 @@ export const Video: React.FC<VideoProps> = (props) => {
 		);
 	}
 
-	const titleRender = (
-		<>
-			<Heading2 margin={spacing.small.bottom}>Video</Heading2>
-			<Spacing margin={spacing.large.bottom}>
+	return (
+		<Card title='Video' icon={iconTypes.video}>
+			<Spacing margin={spacing.medium.bottom}>
 				<VideoTitle title={title} originalTitle={originalTitle} />
 			</Spacing>
-		</>
-	);
-
-	const splitRender = (
-		<SeeMoreButton>See All Video</SeeMoreButton>
-	);
-
-	return (
-		<ElementRoot>
-			<MediaSplit isLeft={false} titleRender={titleRender} mediaRender={internalVideoRender} splitRender={splitRender}>
-				<TagList margin={spacing.medium.bottom} tags={tagStrings} />
-				<RegularText show={description}>
-					{description}
-				</RegularText>
-			</MediaSplit>
-		</ElementRoot>
+			<TagList margin={spacing.medium.vertical} tags={tagStrings} />
+			<RegularText margin={spacing.medium.vertical} show={description}>
+				{description}
+			</RegularText>
+			<Spacing margin={spacing.large.vertical}>
+				{internalVideoRender}
+			</Spacing>
+			<SeeMoreButton>See All Video</SeeMoreButton>
+		</Card>
 	);
 };
 
@@ -93,7 +85,7 @@ const VideoTitle: React.FC<VideoTitleProps> = (props) => {
 
 	return (
 		<>
-			<Heading2>{titleToShow}</Heading2>
+			<Heading3>{titleToShow}</Heading3>
 			{originalTitleWarningRender}
 		</>
 	);
@@ -126,9 +118,6 @@ const VideoContainer = tStyled.div`
 	height: 0;
 	padding-bottom: 56%;
 
-	overflow: hidden;
-	${borderRadiusStyle};
-	${mediaBoxShadowStyle};
 
 	iframe {
 		position: absolute;
@@ -136,5 +125,8 @@ const VideoContainer = tStyled.div`
 		left: 0;
 		width: 100%;
 		height: 100%;
+
+		overflow: hidden;
+		${borderRadiusStyle};
 	}
 `;

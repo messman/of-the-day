@@ -9,7 +9,8 @@ import { EndThoughts } from './elements/end-thoughts';
 import { Custom } from './elements/custom';
 import { DayOff } from './elements/day-off';
 import { tStyled } from '@/core/style/styled';
-import { spacing, ApplicationMaxWidth, Spacing } from '@/core/layout/common';
+import { spacing } from '@/core/layout/common';
+import { CardFlow } from '@/core/card/card-flow';
 
 interface PostProps {
 	isActive?: boolean;
@@ -30,10 +31,12 @@ export const Post: React.FC<PostProps> = (props) => {
 	else {
 		render = (
 			<>
-				<Basics post={post} />
 				<EndThoughts endThoughts={post.endThoughts} />
-				<Music music={post.music} />
-				<Video video={post.video} />
+				<Basics post={post} />
+				<CardFlow>
+					<Music music={post.music} />
+					<Video video={post.video} />
+				</CardFlow>
 				<Image image={post.image} />
 				<Quote quote={post.quote} />
 				<Custom custom={post.custom} />
@@ -45,21 +48,6 @@ export const Post: React.FC<PostProps> = (props) => {
 		<PostRoot>
 			{render}
 		</PostRoot>
-	);
-};
-
-const ElementMaxWidthContainer = tStyled(ApplicationMaxWidth)`
-`;
-
-export const ElementRoot: React.FC = (props) => {
-	const { children } = props;
-	let finalMargin = `${spacing.grand.value} ${spacing.medium.value}`;
-	return (
-		<ElementMaxWidthContainer>
-			<Spacing margin={finalMargin}>
-				{children}
-			</Spacing>
-		</ElementMaxWidthContainer>
 	);
 };
 

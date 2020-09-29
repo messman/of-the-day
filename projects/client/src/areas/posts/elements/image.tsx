@@ -1,12 +1,14 @@
 import * as React from 'react';
 import { IPostImage } from 'oftheday-shared';
-import { spacing } from '@/core/layout/common';
-import { RegularText, Heading2 } from '@/core/symbol/text';
+import { Spacing, spacing } from '@/core/layout/common';
+import { RegularText } from '@/core/symbol/text';
 import { tStyled } from '@/core/style/styled';
 import { OutLink } from '@/core/link';
-import { ElementRoot } from '../post';
-import { MediaSplit } from '@/core/layout/media-split';
-import { borderRadiusStyle, mediaBoxShadowStyle } from '@/core/style/common';
+import { borderRadiusStyle } from '@/core/style/common';
+import { CardFlow } from '@/core/card/card-flow';
+import { Card } from '@/core/card/card';
+import { iconTypes } from '@/core/symbol/icon';
+import { LayoutBreakpoint } from '@/services/layout/window-layout';
 
 export interface ImageProps {
 	image: IPostImage;
@@ -32,30 +34,26 @@ export const Image: React.FC<ImageProps> = (props) => {
 
 	// TODO - add accessibility for image.
 
-	const titleRender = (
-		<Heading2 margin={spacing.medium.bottom}>Image</Heading2>
-	);
-
-	const mediaRender = (
-		<a href={link} target='_blank' rel="noreferrer noopener" title='Click to open in a new tab'>
-			<ConstrainedImage src={link} />
-		</a>
-	);
-
 	return (
-		<ElementRoot>
-			<MediaSplit isLeft={true} titleRender={titleRender} mediaRender={mediaRender}>
+		<CardFlow useAutoVerticalMargin={true}>
+			<Card title='Image' icon={iconTypes.image}>
+
 				<RegularText show={description} margin={spacing.small.top}>{description}</RegularText>
 				<RegularText show={sourceRender} margin={spacing.nudge.top}>From {sourceRender}</RegularText>
-			</MediaSplit>
-		</ElementRoot>
+				<Spacing margin={spacing.large.top}>
+
+					<a href={link} target='_blank' rel="noreferrer noopener" title='Click to open in a new tab'>
+						<ConstrainedImage src={link} />
+					</a>
+				</Spacing>
+			</Card>
+		</CardFlow>
 	);
 };
 
 const ConstrainedImage = tStyled.img`
-	max-width: 100%;
+	max-width: ${LayoutBreakpoint.tablet}px;
 	max-height: 80vh;
 
 	${borderRadiusStyle};
-	${mediaBoxShadowStyle};
 `;

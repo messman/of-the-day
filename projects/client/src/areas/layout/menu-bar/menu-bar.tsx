@@ -54,7 +54,7 @@ const UpperMenuBarCenter = tStyled(FlexColumn)`
 
 const UpperMenuBarContainer = tStyled(FlexRow)`
 	position: relative;
-	background-color: ${p => p.theme.color.bg2};
+	background-color: ${p => p.theme.color.bgComponent2};
 	width: ${upperMenuBarMaxWidth};
 	height: ${upperMenuBarContentHeightPixels}px;
 	${borderRadiusStyle}
@@ -117,7 +117,7 @@ const UpperStickyMenuBarAbsolute = tStyled(animated.div)`
 
 const UpperStickyMenuBarColor = tStyled.div`
 	height: ${upperMenuBarHeightPixels.color}px;
-	background-color: ${p => p.theme.color.accentAgainstDark};
+	background: ${p => p.theme.color.accentGradient};
 	cursor: pointer;
 `;
 

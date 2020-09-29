@@ -35,7 +35,7 @@ export const QuoteAttribution: React.FC<QuoteProps> = (props) => {
 
 	return (
 		<Right margin={spacing.small.top}>
-			<RegularText>&mdash;&#8288;&nbsp;&#8288;{attributionRender}</RegularText>
+			<RegularText isMaxLineLength={false}>&mdash;&#8288;&nbsp;&#8288;{attributionRender}</RegularText>
 		</Right>
 	);
 };

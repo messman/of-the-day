@@ -2,16 +2,16 @@
 
 import * as React from 'react';
 import { IPostMusic } from 'oftheday-shared';
-import { RegularText, Heading2, Heading3 } from '@/core/symbol/text';
-import { spacing, Spacing, LineMaxWidth } from '@/core/layout/common';
+import { RegularText, Heading3 } from '@/core/symbol/text';
+import { spacing, Spacing, } from '@/core/layout/common';
 import { YouTubeVideoFrame } from './video';
 import { TagList } from './tag';
 import { tStyled } from '@/core/style/styled';
 import { OutLink } from '@/core/link';
 import { MusicQuote } from './quote/quote';
-import { ElementRoot } from '../post';
 import { SeeMoreButton } from '@/core/style/common';
-import { MediaSplit } from '@/core/layout/media-split';
+import { Card } from '@/core/card/card';
+import { iconTypes } from '@/core/symbol/icon';
 
 interface MusicProps {
 	music: IPostMusic;
@@ -33,46 +33,33 @@ export const Music: React.FC<MusicProps> = (props) => {
 
 	const yearSuffix = year ? <RegularText margin={spacing.nudge.top}>{year}</RegularText> : <></>;
 
-	const titleRender = (
-		<>
-			<Heading2 margin={spacing.small.bottom}>Music</Heading2>
-			<Spacing margin={spacing.large.bottom}>
+	const embedRender: JSX.Element = useYouTube ? <YouTubeVideoFrame url={youTubeLink} /> : <SpotifyEmbedFrame url={spotifyLink} />;
+
+	return (
+		<Card title='Music' icon={iconTypes.music}>
+			<Spacing margin={spacing.medium.bottom}>
 				<Heading3 isItalic={true}>{title}</Heading3>
 				<Heading3>{artist}</Heading3>
 				{yearSuffix}
 			</Spacing>
-		</>
-	);
+			<TagList margin={spacing.medium.vertical} tags={tagStrings} />
+			<RegularText margin={spacing.medium.vertical} show={description}>
+				{description}
+			</RegularText>
+			<Spacing margin={spacing.medium.vertical}>
 
-	const splitRender = (
-		<>
-			<Spacing show={quote} margin={spacing.large.bottom}>
+				<MusicOutLinks music={music} />
+			</Spacing>
+			<Spacing margin={spacing.large.vertical}>
+				{embedRender}
+			</Spacing>
+			<Spacing show={quote} margin={spacing.large.vertical}>
 				<MusicQuote lyric={quote} />
 			</Spacing>
 			<SeeMoreButton>See All Music</SeeMoreButton>
-		</>
-	);
-
-	const embedRender: JSX.Element = useYouTube ? <YouTubeVideoFrame url={youTubeLink} /> : <SpotifyEmbedFrame url={spotifyLink} />;
-
-
-
-	return (
-		<ElementRoot>
-			<MediaSplit isLeft={true} titleRender={titleRender} mediaRender={embedRender} splitRender={splitRender}>
-				<TagList margin={spacing.medium.bottom} tags={tagStrings} />
-				<LineMaxWidth>
-					<RegularText margin={spacing.medium.bottom} show={description}>
-						{description}
-					</RegularText>
-				</LineMaxWidth>
-				<MusicOutLinks music={music} />
-			</MediaSplit>
-		</ElementRoot>
+		</Card>
 	);
 };
-
-
 
 interface SpotifyEmbedFrameProps {
 	url: string;

@@ -18,7 +18,7 @@ export const Basics: React.FC<BasicsProps> = (props) => {
 	const notes = shouldRenderNotes(post) ? <Notes post={post} /> : null;
 
 	return (
-		<CardFlow>
+		<CardFlow useAutoVerticalMargin={true}>
 			{notes}
 			<Schedule post={post} />
 			<Location post={post} />
