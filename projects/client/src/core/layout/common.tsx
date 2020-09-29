@@ -47,15 +47,15 @@ function createSpacing(value: string): Spacing {
 }
 
 export const spacing = {
-	/** For separation of lines of text. .1875rem / 3px. */
+	/** For separation of lines of text. .1875rem */
 	nudge: createSpacing('.1875rem'),
-	/** For edges against a small screen. .625rem / 10px. */
+	/** For edges against a small screen. .5rem */
 	small: createSpacing('.5rem'),
-	/** For vertical flow. 1rem / 16px. */
+	/** For vertical flow. .875rem */
 	medium: createSpacing('.875rem'),
-	/** For section separation. 3rem / 48px. */
+	/** For section separation. 2.2rem */
 	large: createSpacing('2.2rem'),
-	/** For large screen space. 5rem / 80px. */
+	/** For large screen space. 4.5rem */
 	grand: createSpacing('4.5rem'),
 };
 
