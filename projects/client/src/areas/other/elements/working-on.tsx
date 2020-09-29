@@ -1,12 +1,15 @@
 import * as React from 'react';
 import { IOther } from 'oftheday-shared';
-import { spacing, Spacing } from '@/core/layout/common';
 import { OutLink } from '@/core/link';
-import { RegularText, Heading2 } from '@/core/symbol/text';
+import { RegularText } from '@/core/symbol/text';
+import { Card } from '@/core/card/card';
+import { iconTypes } from '@/core/symbol/icon';
 
 export interface WorkingOnProps {
 	other: IOther;
 }
+
+const title = `What I'm Working On`;
 
 export const WorkingOn: React.FC<WorkingOnProps> = (props) => {
 	const { other } = props;
@@ -34,9 +37,8 @@ export const WorkingOn: React.FC<WorkingOnProps> = (props) => {
 	}
 
 	return (
-		<Spacing margin={spacing.medium.value}>
-			<Heading2>What I'm working on</Heading2>
+		<Card title={title} icon={iconTypes.screen}>
 			<RegularText>{render}</RegularText>
-		</Spacing>
+		</Card>
 	);
 };

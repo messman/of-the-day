@@ -1,12 +1,15 @@
 import * as React from 'react';
 import { IOther } from 'oftheday-shared';
 import { OutLink } from '@/core/link';
-import { RegularText, Heading2 } from '@/core/symbol/text';
-import { spacing, Spacing } from '@/core/layout/common';
+import { RegularText } from '@/core/symbol/text';
+import { Card } from '@/core/card/card';
+import { iconTypes } from '@/core/symbol/icon';
 
 export interface LookingForwardProps {
 	other: IOther;
 }
+
+const title = `What's Ahead`;
 
 export const LookingForward: React.FC<LookingForwardProps> = (props) => {
 	const { other } = props;
@@ -34,11 +37,8 @@ export const LookingForward: React.FC<LookingForwardProps> = (props) => {
 	}
 
 	return (
-		<Spacing margin={spacing.medium.value}>
-			<Heading2>
-				What I'm looking forward to
-			</Heading2>
+		<Card title={title} icon={iconTypes.calendar}>
 			<RegularText>{render}</RegularText>
-		</Spacing>
+		</Card>
 	);
 };

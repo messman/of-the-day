@@ -1,9 +1,11 @@
 import * as React from 'react';
 import { IOther } from 'oftheday-shared';
 import { Spacing, spacing } from '@/core/layout/common';
-import { iconTypes, Icon } from '@/core/symbol/icon';
+import { iconTypes, Icon, SVGIconType } from '@/core/symbol/icon';
 import { RegularText, FontSize } from '@/core/symbol/text';
-import { tStyled } from '@/core/style/styled';
+import { CardGroup } from '@/core/card/card-group';
+import { Card } from '@/core/card/card';
+import { ThemePickColor } from '@/core/style/theme';
 
 export interface ChecklistProps {
 	other: IOther;
@@ -11,40 +13,48 @@ export interface ChecklistProps {
 
 export const Checklist: React.FC<ChecklistProps> = (props) => {
 	const { other } = props;
-	const { checklistDone, checklistToDo } = other;
-
-	const safeChecklistDone = checklistDone || [];
-	const safeChecklistToDo = checklistToDo || [];
-	if (!safeChecklistDone.length && !safeChecklistToDo.length) {
-		return null;
-	}
-
-	const { horizontal } = spacing.medium;
+	const { checklistToDo, checklistDone } = other;
 
 	return (
-		<Spacing margin={horizontal}>
-			<InnerChecklist isDone={true} items={safeChecklistDone} />
-			<InnerChecklist isDone={false} items={safeChecklistToDo} />
-		</Spacing>
+		<CardGroup title='Goals' isAutoAlternateBackground={true}>
+			<InnerChecklist
+				title='Top To-Do Items'
+				icon={iconTypes.todoIncomplete}
+				items={checklistToDo}
+				itemsIcon={iconTypes.todoIncomplete}
+				itemsIconColor={c => c.textDisabled}
+			/>
+			<InnerChecklist
+				title='Completed Items'
+				icon={iconTypes.todoComplete}
+				items={checklistDone}
+				itemsIcon={iconTypes.todoComplete}
+				itemsIconColor={c => c.success}
+			/>
+		</CardGroup>
 	);
 };
 
 interface InnerChecklistProps {
-	items: string[],
-	isDone: boolean;
+	title: string;
+	icon: SVGIconType;
+	items: string[];
+	itemsIcon: SVGIconType;
+	itemsIconColor: ThemePickColor;
 }
 
 const InnerChecklist: React.FC<InnerChecklistProps> = (props) => {
-	const { items, isDone } = props;
+	const { title, icon, items, itemsIcon, itemsIconColor } = props;
 
+	if (!items || !items.length) {
+		return null;
+	}
 
 	const itemsRender = items.map((item) => {
-		const iconType = isDone ? iconTypes.todoComplete : iconTypes.todoIncomplete;
-
 		return (
 			<RegularText key={item}>
 				<Spacing isInline={true} margin={spacing.small.right}>
-					<Icon type={iconType} fillColor={c => isDone ? c.success : c.textDisabled} height={FontSize.textRegular} />
+					<Icon type={itemsIcon} fillColor={itemsIconColor} height={FontSize.textRegular} />
 				</Spacing>
 				{item}
 			</RegularText>
@@ -52,13 +62,8 @@ const InnerChecklist: React.FC<InnerChecklistProps> = (props) => {
 	});
 
 	return (
-		<List>
+		<Card title={title} icon={icon}>
 			{itemsRender}
-		</List>
+		</Card>
 	);
 };
-
-const List = tStyled.div`
-	margin-bottom: ${spacing.small.value};
-	margin-top: 0;
-`;

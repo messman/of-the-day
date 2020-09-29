@@ -71,7 +71,7 @@ const Location: React.FC<BasicsProps> = (props) => {
 	const { location } = basics;
 
 	return (
-		<TextCard title='Location' icon={iconTypes.compassLarge} heading={location} defaultText={locationDefaultText} />
+		<TextCard title='Location' icon={iconTypes.compass} heading={location} defaultText={locationDefaultText} />
 	);
 };
 

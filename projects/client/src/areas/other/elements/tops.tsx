@@ -1,7 +1,10 @@
 import * as React from 'react';
 import { IOther, IOtherCount } from 'oftheday-shared';
-import { spacing, Spacing } from '@/core/layout/common';
-import { RegularText, Heading2 } from '@/core/symbol/text';
+import { RegularText, Heading3 } from '@/core/symbol/text';
+import { CardGroup } from '@/core/card/card-group';
+import { iconTypes, SVGIconType } from '@/core/symbol/icon';
+import { Card } from '@/core/card/card';
+import { spacing } from '@/core/layout/common';
 
 export interface TopsProps {
 	other: IOther;
@@ -15,35 +18,40 @@ export const Tops: React.FC<TopsProps> = (props) => {
 	}
 
 	return (
-		<>
-			<Top label='Artists' count={topArtists} />
-			<Top label='Day Types' count={topDayTypes} />
-			<Top label='Locations' count={topLocations} />
-		</>
+		<CardGroup title='Trends'>
+			<Top title='Music Artists' count={topArtists} icon={iconTypes.music} />
+			<Top title='Day Tags' count={topDayTypes} icon={iconTypes.calendar} />
+			<Top title='Locations' count={topLocations} icon={iconTypes.compass} />
+		</CardGroup>
 	);
 };
 
 interface TopProps {
-	label: string;
+	title: string;
 	count: IOtherCount[] | undefined;
+	icon: SVGIconType;
 }
 
 const Top: React.FC<TopProps> = (props) => {
-	const { label, count } = props;
+	const { title, count, icon } = props;
 	if (!count || !count.length) {
 		return null;
 	}
 
-	const countsText = count.map((item) => {
-		return `${item.text} (${item.count})`;
-	}).join(', ');
+	const [firstCount, ...otherCounts] = count;
 
-	const { horizontal } = spacing.medium;
+	const countsText = otherCounts.map((count) => {
+		return <RegularText margin={spacing.medium.top}>{createCountText(count)}</RegularText>;
+	});
 
 	return (
-		<Spacing margin={horizontal}>
-			<Heading2>{label}</Heading2>
-			<RegularText>{countsText}</RegularText>
-		</Spacing>
+		<Card title={title} icon={icon}>
+			<Heading3>{createCountText(firstCount)}</Heading3>
+			{countsText}
+		</Card>
 	);
 };
+
+function createCountText(count: IOtherCount): string {
+	return `${count.text} (${count.count})`;
+}

@@ -18,7 +18,7 @@ export const EndThoughts: React.FC<EndThoughtsProps> = (props) => {
 
 	return (
 		<CardFlow useAutoVerticalMargin={true}>
-			<TextCard title='End-of-day Thoughts' icon={iconTypes.thought} text={value} />
+			<TextCard title='End-Of-Day Thoughts' icon={iconTypes.thought} text={value} />
 		</CardFlow>
 	);
 };
