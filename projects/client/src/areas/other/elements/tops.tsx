@@ -41,17 +41,17 @@ const Top: React.FC<TopProps> = (props) => {
 	const [firstCount, ...otherCounts] = count;
 
 	const countsText = otherCounts.map((count) => {
-		return <RegularText margin={spacing.medium.top}>{createCountText(count)}</RegularText>;
+		return <RegularText isMaxLineLength={false} textAlign='center' margin={spacing.medium.top}>{createCountText(count)}</RegularText>;
 	});
 
 	return (
 		<Card title={title} icon={icon}>
-			<Heading3>{createCountText(firstCount)}</Heading3>
+			<Heading3 isMaxLineLength={false} textAlign='center'>{createCountText(firstCount)}</Heading3>
 			{countsText}
 		</Card>
 	);
 };
 
-function createCountText(count: IOtherCount): string {
-	return `${count.text} (${count.count})`;
+function createCountText(count: IOtherCount): JSX.Element {
+	return <>{count.text} &middot; {count.count}</>;
 }
