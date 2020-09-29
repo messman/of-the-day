@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { themes, useLocalStorageTheme } from '@/core/style/theme';
-import { Providers } from '@/entry/wrapper';
+import { TestProviders } from '@/entry/wrapper';
 import { select, withKnobs } from '@storybook/addon-knobs';
 
 export interface StoryComponent {
@@ -11,7 +11,7 @@ export interface StoryComponent {
 	};
 }
 
-export function decorate(name: string, Component: React.FC) {
+export function decorate(name: string, entry: string | null, Component: React.FC) {
 
 	/*
 		Some funky stuff is required here.
@@ -34,9 +34,11 @@ export function decorate(name: string, Component: React.FC) {
 
 	const decorator = (story: () => JSX.Element) => {
 		return (
-			<TestWrapper>
-				{story()}
-			</TestWrapper>
+			<TestProviders entry={entry || undefined}>
+				<InnerTestWrapper>
+					{story()}
+				</InnerTestWrapper>
+			</TestProviders>
 		);
 	};
 
@@ -46,16 +48,6 @@ export function decorate(name: string, Component: React.FC) {
 		decorators: [decorator, withKnobs]
 	};
 	return storyComponent;
-};
-
-const TestWrapper: React.FC = (props) => {
-	return (
-		<Providers>
-			<InnerTestWrapper>
-				{props.children}
-			</InnerTestWrapper>
-		</Providers>
-	);
 };
 
 const InnerTestWrapper: React.FC = (props) => {

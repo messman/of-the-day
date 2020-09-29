@@ -7,7 +7,7 @@ import { postsTestData } from './posts-test';
 
 export default { title: 'Areas/Posts/Post' };
 
-export const Posts = decorate('Post', () => {
+export const Posts = decorate('Post', null, () => {
 
 	const postIndex = number('Post Index', 0, { min: 0, max: postsTestData.length - 1 });
 	const post = postsTestData[postIndex];

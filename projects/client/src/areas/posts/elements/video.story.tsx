@@ -6,7 +6,7 @@ import { Video } from './video';
 
 export default { title: 'Areas/Posts/Elements/Videos' };
 
-export const TestVideo = decorate('Video', () => {
+export const TestVideo = decorate('Video', null, () => {
 
 	const title = text('Title', 'Bing Bang Boom');
 	const originalTitle = text('Original Title', 'Hilarious! Bing | Bang | Boom ON FX NETWORK');

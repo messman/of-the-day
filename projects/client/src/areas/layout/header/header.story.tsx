@@ -4,23 +4,8 @@ import { Header } from './header';
 
 export default { title: 'Areas/Layout/Header/Header' };
 
-export const TestHeader = decorate('Header', () => {
+export const TestHeader = decorate('Header', null, () => {
 	return (
 		<Header />
 	);
 });
-
-// export const TestHeaderImageOverlay = decorate('Image Overlay', () => {
-// 	return (
-// 		<TextContainer>
-// 			<HeaderImageOverlay />
-// 		</TextContainer>
-// 	);
-// });
-
-// const TextContainer = tStyled.div`
-// 	height: 20rem;
-// 	position: relative;
-// 	background-color: #333;
-// 	border: 1px solid red;
-// `;

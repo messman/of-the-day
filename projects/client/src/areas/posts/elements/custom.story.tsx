@@ -6,7 +6,7 @@ import { Custom } from './custom';
 
 export default { title: 'Areas/Posts/Elements/Custom' };
 
-export const TestCustomText = decorate('Custom Text', () => {
+export const TestCustomText = decorate('Custom Text', null, () => {
 
 	const custom: IPostCustom = {
 		title: text('Title', 'My Custom Title'),
@@ -22,7 +22,7 @@ export const TestCustomText = decorate('Custom Text', () => {
 	);
 });
 
-export const TestCustomTextLink = decorate('Custom Text & Link', () => {
+export const TestCustomTextLink = decorate('Custom Text & Link', null, () => {
 
 	const custom: IPostCustom = {
 		title: text('Title', 'My Custom Title'),
@@ -38,7 +38,7 @@ export const TestCustomTextLink = decorate('Custom Text & Link', () => {
 	);
 });
 
-export const TestCustomTextHidden = decorate('Custom Text & Hidden', () => {
+export const TestCustomTextHidden = decorate('Custom Text & Hidden', null, () => {
 
 	const custom: IPostCustom = {
 		title: text('Title', 'My Custom Title'),
@@ -54,7 +54,7 @@ export const TestCustomTextHidden = decorate('Custom Text & Hidden', () => {
 	);
 });
 
-export const TestCustomAll = decorate('Custom All', () => {
+export const TestCustomAll = decorate('Custom All', null, () => {
 
 	const custom: IPostCustom = {
 		title: text('Title', 'My Custom Title'),

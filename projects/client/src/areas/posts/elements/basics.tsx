@@ -14,7 +14,6 @@ export const Basics: React.FC<BasicsProps> = (props) => {
 	const { post } = props;
 
 	// Pull out logic check so that the CardFlow counts the right number of children.
-	// Could have also passed a specific number prop.
 	const notes = shouldRenderNotes(post) ? <Notes post={post} /> : null;
 
 	return (

@@ -9,7 +9,7 @@ import { Layout } from './layout';
 
 export default { title: 'Areas/Layout/Layout' };
 
-export const TestMockLayout = decorate('Mock Layout', () => {
+export const TestMockLayout = decorate('Mock Layout', null, () => {
 	return (
 		<Layout
 			Posts={MockPosts}
@@ -20,7 +20,7 @@ export const TestMockLayout = decorate('Mock Layout', () => {
 	);
 });
 
-export const TestRealLayout = decorate('Real Layout', () => {
+export const TestRealLayout = decorate('Real Layout', null, () => {
 	return (
 		<Layout
 			Posts={Posts}

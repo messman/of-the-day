@@ -4,10 +4,11 @@ import { MockArchive, MockAbout, MockPosts } from '@/areas/layout/layout-mock';
 import { Layout } from '@/areas/layout/layout';
 import { Other, OtherProps } from './other';
 import { IOther } from 'oftheday-shared';
+import { routes } from '@/services/nav/routing';
 
 export default { title: 'Areas/Other/Other' };
 
-export const OtherLayout = decorate('Other', () => {
+export const OtherLayout = decorate('Other', routes.other.path, () => {
 	return (
 		<Layout
 			Posts={MockPosts}

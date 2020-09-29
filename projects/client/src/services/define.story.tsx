@@ -6,7 +6,7 @@ import { tStyled } from '@/core/style/styled';
 
 export default { title: 'Services/Define' };
 
-export const TestDefine = decorate('Define', () => {
+export const TestDefine = decorate('Define', null, () => {
 
 	console.log(DEFINE);
 

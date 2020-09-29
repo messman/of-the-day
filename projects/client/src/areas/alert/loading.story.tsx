@@ -6,7 +6,7 @@ import { Loading } from './loading';
 
 export default { title: 'Areas/Alert/Loading' };
 
-export const TestLoading = decorate('Loading', () => {
+export const TestLoading = decorate('Loading', null, () => {
 
 	const isShowing = boolean('Is Showing', true);
 

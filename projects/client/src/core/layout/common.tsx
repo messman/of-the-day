@@ -3,6 +3,7 @@ import { tStyled, tCss, StyledFC } from '../style/styled';
 import { StyledComponent } from 'styled-components';
 import { Theme, ThemePickColor } from '../style/theme';
 import { LayoutBreakpoint, lineBreakpoint } from '@/services/layout/window-layout';
+import { useWindowLayout } from '@messman/react-common';
 
 export const ApplicationMaxWidth = tStyled.div`
 	max-width: ${LayoutBreakpoint.max}px;
@@ -12,6 +13,16 @@ export const ApplicationMaxWidth = tStyled.div`
 export const LineMaxWidth = tStyled.div`
 	max-width: ${lineBreakpoint};
 `;
+
+export function useResponsiveEdgeSpacing(): Spacing {
+
+	const { widthBreakpoint } = useWindowLayout();
+
+	if (widthBreakpoint <= LayoutBreakpoint.mobileLarge) {
+		return spacing.medium;
+	}
+	return spacing.large;
+}
 
 export interface Spacing {
 	value: string;

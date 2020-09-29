@@ -7,7 +7,7 @@ import { spacing } from '../layout/common';
 
 export default { title: 'Core/Symbol/Text' };
 
-export const TestTextWithIcons = decorate('Text', () => {
+export const TestTextWithIcons = decorate('Text', null, () => {
 
 	const iconType = iconTypes.activity;
 

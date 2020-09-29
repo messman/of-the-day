@@ -7,7 +7,7 @@ import { LayoutBreakpoint, isInvalidLayout } from './window-layout';
 
 export default { title: 'Services/Layout/Window Layout' };
 
-export const TestWindowLayout = decorate('Window Layout', () => {
+export const TestWindowLayout = decorate('Window Layout', null, () => {
 
 	const windowLayout = useWindowLayout();
 	let invalid: JSX.Element | null = null;

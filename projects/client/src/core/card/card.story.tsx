@@ -11,7 +11,7 @@ import { TextCard } from './card-presets';
 
 export default { title: 'Core/Card' };
 
-export const TestCard = decorate('Card', () => {
+export const TestCard = decorate('Card', null, () => {
 
 	const title = text('Card Title', 'Card Title');
 	const textContent = text('Text Content', '');
@@ -37,7 +37,7 @@ export const TestCard = decorate('Card', () => {
 	);
 });
 
-export const TestCardFlow = decorate('Card Flow', () => {
+export const TestCardFlow = decorate('Card Flow', null, () => {
 
 	return (
 		<div>
@@ -57,7 +57,7 @@ export const TestCardFlow = decorate('Card Flow', () => {
 	);
 });
 
-export const TestCardGroup = decorate('Card Group', () => {
+export const TestCardGroup = decorate('Card Group', null, () => {
 
 	const groupTitle = text('Group Title', 'Group Title');
 	const useAlternateBackground = boolean('Use Alternate Background', false);
@@ -81,7 +81,7 @@ export const TestCardGroup = decorate('Card Group', () => {
 	);
 });
 
-export const TestTextCard = decorate('Text Card', () => {
+export const TestTextCard = decorate('Text Card', null, () => {
 
 	const title = text('Title', 'Title');
 	const heading = text('Heading', 'Heading');

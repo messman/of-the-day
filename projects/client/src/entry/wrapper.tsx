@@ -3,7 +3,6 @@ import { InvalidCheck } from '@/areas/alert/invalid';
 import { Popup, PopupProvider } from '@/areas/alert/popup';
 import { ThemeProvider } from '@/core/style/theme';
 import { PostResponseProvider } from '@/services/data/data';
-import { DEFINE } from '@/services/define';
 import { MemoryRouter, BrowserRouter } from 'react-router-dom';
 import { WindowLayoutProvider, WindowDimensionsProvider, FlexRoot, DocumentVisibilityProvider } from '@messman/react-common';
 import { FontSizeManager } from '@/core/symbol/text';
@@ -19,28 +18,53 @@ export const Wrapper: React.FC = (props) => {
 	);
 };
 
-export const Providers: React.FC = (props) => {
+export interface TextProvidersProps {
+	entry?: string;
+}
 
-	const Router: React.ElementType = DEFINE.isStorybook ? MemoryRouter : BrowserRouter;
+export const TestProviders: React.FC<TextProvidersProps> = (props) => {
+	const { entry } = props;
+
+	const initialEntries = entry ? [entry] : undefined;
+	const initialIndex = entry ? 0 : undefined;
+	return (
+		<MemoryRouter initialEntries={initialEntries} initialIndex={initialIndex}>
+			<InnerProviders>
+				{props.children}
+			</InnerProviders>
+		</MemoryRouter>
+	);
+};
+
+const Providers: React.FC = (props) => {
+	return (
+		<BrowserRouter>
+			<InnerProviders>
+				{props.children}
+			</InnerProviders>
+		</BrowserRouter>
+	);
+};
+
+
+const InnerProviders: React.FC = (props) => {
 
 	return (
-		<Router>
-			<DocumentVisibilityProvider>
-				<ThemeProvider>
-					<WindowDimensionsProvider>
-						<WindowLayoutProvider lowerBreakpoints={lowerBreakpoints}>
-							<FontSizeManager>
-								<PopupProvider>
-									<PostResponseProvider>
-										{props.children}
-									</PostResponseProvider>
-								</PopupProvider>
-							</FontSizeManager>
-						</WindowLayoutProvider>
-					</WindowDimensionsProvider>
-				</ThemeProvider>
-			</DocumentVisibilityProvider>
-		</Router>
+		<DocumentVisibilityProvider>
+			<ThemeProvider>
+				<WindowDimensionsProvider>
+					<WindowLayoutProvider lowerBreakpoints={lowerBreakpoints}>
+						<FontSizeManager>
+							<PopupProvider>
+								<PostResponseProvider>
+									{props.children}
+								</PostResponseProvider>
+							</PopupProvider>
+						</FontSizeManager>
+					</WindowLayoutProvider>
+				</WindowDimensionsProvider>
+			</ThemeProvider>
+		</DocumentVisibilityProvider>
 	);
 };
 

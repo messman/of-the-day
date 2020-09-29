@@ -6,7 +6,7 @@ import { PopupType, usePopup } from './popup';
 
 export default { title: 'Areas/Alert/Popup' };
 
-export const TestPopup = decorate('Popup', () => {
+export const TestPopup = decorate('Popup', null, () => {
 
 	// Just get the setter.
 	const setPopupData = usePopup()[1];

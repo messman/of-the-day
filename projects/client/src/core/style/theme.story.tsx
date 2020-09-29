@@ -8,7 +8,7 @@ import { spacing } from '../layout/common';
 
 export default { title: 'Core/Style/Theme' };
 
-export const TestTheme = decorate('Theme', () => {
+export const TestTheme = decorate('Theme', null, () => {
 
 	const theme = useCurrentTheme();
 

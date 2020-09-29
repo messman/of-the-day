@@ -4,10 +4,11 @@ import { MockOther, MockArchive, MockAbout } from '@/areas/layout/layout-mock';
 import { Layout } from '@/areas/layout/layout';
 import { Posts, PostsProps } from './posts';
 import { postsTestData } from './posts-test';
+import { routes } from '@/services/nav/routing';
 
 export default { title: 'Areas/Posts/Posts' };
 
-export const PostsLayout = decorate('Posts', () => {
+export const PostsLayout = decorate('Posts', routes.posts.path, () => {
 	return (
 		<Layout
 			Posts={TestPosts}

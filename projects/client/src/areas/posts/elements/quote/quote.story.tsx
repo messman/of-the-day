@@ -7,7 +7,7 @@ import { IPostQuote } from 'oftheday-shared';
 
 export default { title: 'Areas/Posts/Elements/Quotes' };
 
-export const TestMusicQuote = decorate('Music Quote', () => {
+export const TestMusicQuote = decorate('Music Quote', null, () => {
 
 	const lyric = text('lyric', 'Cause it feels so empty without me');
 
@@ -18,7 +18,7 @@ export const TestMusicQuote = decorate('Music Quote', () => {
 	);
 });
 
-export const TestSingleQuote = decorate('Single Quote', () => {
+export const TestSingleQuote = decorate('Single Quote', null, () => {
 	const a = text('a', 'Get to steppin!');
 	const aVoice = text('aVoice', 'Mike Boogie');
 	const source = text('source', 'Big Brother');
@@ -41,7 +41,7 @@ export const TestSingleQuote = decorate('Single Quote', () => {
 	);
 });
 
-export const TestAnonymousVoicesQuote = decorate('Anonymous Voices Quote', () => {
+export const TestAnonymousVoicesQuote = decorate('Anonymous Voices Quote', null, () => {
 	const a = text('a', 'Get to steppin! This is the first part.');
 	const b = text('b', 'I hear ya! This is the second part.');
 	const source = text('source', 'Big Brother');
@@ -64,7 +64,7 @@ export const TestAnonymousVoicesQuote = decorate('Anonymous Voices Quote', () =>
 	);
 });
 
-export const TestVoicesQuote = decorate('Voices Quote', () => {
+export const TestVoicesQuote = decorate('Voices Quote', null, () => {
 	const a = text('a', 'Get to steppin! This is the first part.');
 	const aVoice = text('aVoice', 'My sister');
 	const b = text('b', 'I hear ya! This is the second part.');
@@ -89,7 +89,7 @@ export const TestVoicesQuote = decorate('Voices Quote', () => {
 	);
 });
 
-export const TestLongVoicesQuote = decorate('Long Voices Quote', () => {
+export const TestLongVoicesQuote = decorate('Long Voices Quote', null, () => {
 	const a = text('a', 'Get to steppin! This is the first part. You can see as I continue typing in here, everything should still look good. How is it?');
 	const aVoice = text('aVoice', 'Jeremy, as he hands me a glass of cool water that I plan to take a sip of immediately');
 	const b = text('b', 'Looks good to me! I can also continue to type in here and it ends up looking just fine. Nothing too crazy. Line break logic is difficult.');

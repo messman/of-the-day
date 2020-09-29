@@ -6,7 +6,7 @@ import { decorate } from '@/test/decorate';
 
 export default { title: 'Areas/Alert/Invalid' };
 
-export const TestInvalid = decorate('Invalid', () => {
+export const TestInvalid = decorate('Invalid', null, () => {
 
 	// Set up knobs.
 	const isForceAlertMessages = boolean('Force Alert Messages', false, 'Build Alert');
