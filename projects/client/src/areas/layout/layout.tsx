@@ -109,7 +109,6 @@ export const Layout: React.FC<LayoutProps> = (props) => {
 				<div ref={elementIntersectRef} />
 				<RouteContainer>
 					<Switch>
-
 						<Route exact path={routes.posts.path}>
 							<Posts
 								rootElement={scrollContainerElement}
@@ -146,6 +145,6 @@ const LayoutContainer = tStyled(FlexColumn)`
 `;
 
 const RouteContainer = tStyled.div`
-	margin: ${spacing.large.top};
+	margin: ${spacing.grand.vertical};
 	min-height: 100vh;
 `;

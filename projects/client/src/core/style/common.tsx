@@ -2,13 +2,12 @@ import { tCss, tStyled } from '@/core/style/styled';
 import { spacing } from '../layout/common';
 import { FontSize } from '../symbol/text';
 
-/** Border-radius style. .375rem. */
-export const borderRadiusValue: string = '.375rem';
+export const borderRadiusValue: string = '.3rem';
 export const borderRadiusStyle = tCss`
 	border-radius: ${borderRadiusValue};
 `;
 
-export const separatorThickness = '3px';
+export const separatorThickness = '2px';
 
 export interface TextAlignProps {
 	dataAlign: 'left' | 'right' | 'center';

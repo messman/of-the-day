@@ -39,13 +39,13 @@ export const spacing = {
 	/** For separation of lines of text. .1875rem / 3px. */
 	nudge: createSpacing('.1875rem'),
 	/** For edges against a small screen. .625rem / 10px. */
-	small: createSpacing('.625rem'),
+	small: createSpacing('.5rem'),
 	/** For vertical flow. 1rem / 16px. */
-	medium: createSpacing('1rem'),
+	medium: createSpacing('.875rem'),
 	/** For section separation. 3rem / 48px. */
-	large: createSpacing('2.5rem'),
+	large: createSpacing('2.2rem'),
 	/** For large screen space. 5rem / 80px. */
-	grand: createSpacing('5rem'),
+	grand: createSpacing('4.5rem'),
 };
 
 export interface DividerProps {

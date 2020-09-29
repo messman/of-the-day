@@ -1,7 +1,7 @@
 import { FlexColumn, FlexRow } from '@messman/react-common';
 import * as React from 'react';
 import { Spacing, spacing } from '../layout/common';
-import { borderRadiusStyle, borderRadiusValue } from '../style/common';
+import { borderRadiusValue } from '../style/common';
 import { tStyled } from '../style/styled';
 import { Icon, SVGIconType } from '../symbol/icon';
 import { FontSize, Heading2 } from '../symbol/text';
@@ -32,7 +32,7 @@ export const Card: React.FC<CardProps> = (props) => {
 					{iconRender}
 				</FlexRow>
 				<Spacing show={!!children} margin={spacing.large.top}>
-					<Spacing margin={spacing.medium.bottom}>
+					<Spacing margin={spacing.small.bottom}>
 						{children}
 					</Spacing>
 				</Spacing>
@@ -43,7 +43,6 @@ export const Card: React.FC<CardProps> = (props) => {
 
 export const CardContainer = tStyled(FlexColumn)`
 	position: relative;
-	${borderRadiusStyle}
 	overflow: hidden;
 	box-shadow: 0 2px 8px 0 ${p => p.theme.color.bgComponentShadow1};
 `;
@@ -51,7 +50,6 @@ export const CardContainer = tStyled(FlexColumn)`
 const Background = tStyled.div`
 	flex: 1;
 	background-color: ${p => p.theme.color.bgComponent1};
-	border: 1px solid ${p => p.theme.color.bgComponent3};
 	border-top: none;
 	padding: ${spacing.medium.value};
 	border-bottom-left-radius: ${borderRadiusValue};

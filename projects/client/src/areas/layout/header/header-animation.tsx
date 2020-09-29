@@ -4,6 +4,7 @@ import { tStyled } from '@/core/style/styled';
 import { Icon, iconTypes, SVGIconType } from '@/core/symbol/icon';
 import { FontWeight } from '@/core/style/theme';
 import { spacing } from '@/core/layout/common';
+import { borderRadiusStyle } from '@/core/style/common';
 
 export interface HeaderAnimationState {
 	entity: HeaderAnimationEntity | null;
@@ -158,12 +159,11 @@ const TextHeightContainer = tStyled.div<HeightContainerProps>`
 export interface HeaderIconAnimationProps {
 	titleHeight: string;
 	subtitleHeight: string;
-	borderRadiusValue: string;
 	animationState: HeaderAnimationState;
 }
 
 export const HeaderIconAnimation: React.FC<HeaderIconAnimationProps> = (props) => {
-	const { animationState, titleHeight, subtitleHeight, borderRadiusValue } = props;
+	const { animationState, titleHeight, subtitleHeight } = props;
 	const { entity } = animationState;
 	const icon = entity?.icon || null;
 
@@ -183,7 +183,7 @@ export const HeaderIconAnimation: React.FC<HeaderIconAnimationProps> = (props) =
 
 		return (
 			<IconAnimationContainer key={key} style={props}>
-				<IconPaddingWrapper borderRadiusValue={borderRadiusValue}>
+				<IconPaddingWrapper>
 					{iconRender}
 				</IconPaddingWrapper>
 			</IconAnimationContainer>
@@ -192,7 +192,7 @@ export const HeaderIconAnimation: React.FC<HeaderIconAnimationProps> = (props) =
 
 	return (
 		<IconHeightContainer titleHeight={titleHeight} subtitleHeight={subtitleHeight}>
-			<IconBackground borderRadiusValue={borderRadiusValue}>
+			<IconBackground>
 				{transitionRender}
 			</IconBackground>
 		</IconHeightContainer>
@@ -208,25 +208,23 @@ const IconAnimationContainer = tStyled(animated.div)`
 `;
 
 interface IconPaddingWrapperProps {
-	borderRadiusValue: string;
 }
 
 const IconPaddingWrapper = tStyled.div<IconPaddingWrapperProps>`
 	position: relative;
 	width: 100%;
 	height: 100%;
-	padding: ${p => p.borderRadiusValue};
+	padding: ${spacing.medium.value};
 `;
 
 interface IconBackgroundProps {
-	borderRadiusValue: string;
 }
 
 const IconBackground = tStyled.div<IconBackgroundProps>`
 	position: relative;
 	width: 100%;
 	height: 100%;
-	border-radius: ${p => p.borderRadiusValue};
+	${borderRadiusStyle}
 	overflow: hidden;
 	background-color: ${p => p.theme.color.bg1};
 `;

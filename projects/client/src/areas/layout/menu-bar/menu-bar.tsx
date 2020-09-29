@@ -35,7 +35,7 @@ export const UpperMenuBar: React.FC<UpperLowerMenuBarProps> = (props) => {
 	// Add in the upper menu bar content (links, etc)
 	// Note that in the upper menu bar, height of the container is set explicitly. We don't need padding.
 	return (
-		<Spacing padding={spacing.medium.bottom}>
+		<Spacing>
 			<UpperMenuBarCenter flex='none' justifyContent='center' alignItems='center'>
 				<UpperMenuBarContainer flex='none'>
 					<MenuBarItems isUpper={true} onPathClick={onPathClick} />

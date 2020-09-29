@@ -58,9 +58,9 @@ export function createTextComponent(asElement: keyof JSX.IntrinsicElements, defa
 
 // Defaults for headings: 2, 1.5, 1.17, 1, ....
 export enum FontSize {
-	heading1 = '2rem',
-	heading2 = '1.5rem',
-	heading3 = '1.17rem',
+	heading1 = '1.8rem',
+	heading2 = '1.4rem',
+	heading3 = '1.15rem',
 	textRegular = '1rem',
 	textSmall = '.875rem'
 }
