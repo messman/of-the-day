@@ -6,17 +6,16 @@ import { tStyled } from '@/core/style/styled';
 import { LayoutBreakpoint } from '@/services/layout/window-layout';
 import { FontWeight } from '@/core/style/theme';
 import { HeaderIconAnimation, HeaderSubtitleAnimation, useHeaderAnimationState } from './header-animation';
-import { borderRadiusValue } from '@/core/style/common';
 
-export function useHeaderDimensions(): [string, string, string] {
+export function useHeaderDimensions(): [string, string] {
 	const { widthBreakpoint } = useWindowLayout();
 	if (widthBreakpoint >= LayoutBreakpoint.desktop) {
-		return ['5rem', '4rem', '.9rem'];
+		return ['5rem', '4rem'];
 	}
 	else if (widthBreakpoint >= LayoutBreakpoint.mobileLarge) {
-		return ['4rem', '3rem', '.6rem'];
+		return ['4rem', '3rem'];
 	}
-	return ['2.3rem', '1.8rem', borderRadiusValue];
+	return ['2.3rem', '1.8rem'];
 }
 
 export const Header: React.FC = () => {
@@ -39,8 +38,8 @@ export const Header: React.FC = () => {
 					</div>
 				</FlexRow>
 				<Spacing textAlign='center' margin={textTopMargin}>
-					<RegularText color={c => c.textOverAccent}>A place for Andrew to share things</RegularText>
-					<RegularText color={c => c.textOverAccent} margin={spacing.nudge.top}>until he runs out of money.</RegularText>
+					<RegularText color={c => c.textDistinctOnAccent}>A place for Andrew to share things</RegularText>
+					<RegularText color={c => c.textDistinctOnAccent} margin={spacing.nudge.top}>until he runs out of money.</RegularText>
 				</Spacing>
 			</Spacing>
 			<HeaderShadow />
@@ -58,7 +57,7 @@ const HeaderBoldText = tStyled.div<HeaderBoldTextProps>`
 	line-height: ${p => p.dataFontSize};
 	font-size: ${p => p.dataFontSize};
 	font-weight: ${FontWeight.extraBold};
-	color: ${p => p.theme.color.textOverAccent};
+	color: ${p => p.theme.color.textDistinctOnAccent};
 `;
 
 const Parent = tStyled(FlexRow)`
@@ -90,5 +89,5 @@ const HeaderShadow = tStyled.div`
 	left: -5rem;
 	right: -5rem;
 	bottom: 0;
-	box-shadow: inset 0 0 1rem 0px ${p => p.theme.color.bgComponentShadow1};
+	box-shadow: inset 0 0 8px 0 ${p => p.theme.color.accentGradientFillShadow};
 `;

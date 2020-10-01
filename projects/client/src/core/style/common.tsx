@@ -24,6 +24,6 @@ export const SeeMoreButton = tStyled.button`
 	padding: ${spacing.medium.value} ${spacing.large.value};
 	${borderRadiusStyle};
 	border: none;
-	color: ${p => p.theme.color.textOverAccent};
+	color: ${p => p.theme.color.textDistinctOnAccent};
 	background: ${p => p.theme.color.accentGradient};
 `;

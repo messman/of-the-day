@@ -168,7 +168,7 @@ const ClickableIcon: React.FC<ClickableIconProps> = (props) => {
 
 	return (
 		<InnerClickableIcon onClick={onIconClick} isDisabled={isDisabled} >
-			<Icon type={type} height={FontSize.heading2} fillColor={c => isDisabled ? c.textDisabled : c.accentAgainstDark} />
+			<Icon type={type} height={FontSize.heading2} fillColor={c => isDisabled ? c.textDisabled : c.textAccentOnBackground} />
 		</InnerClickableIcon>
 	);
 };

@@ -147,7 +147,7 @@ const TextContainer = tStyled.div<HeightContainerProps>`
 	line-height: ${p => p.dataHeight};
 	font-size: ${p => p.dataHeight};
 	font-weight: ${FontWeight.extraBold};
-	color: ${p => p.theme.color.textOverAccent};
+	color: ${p => p.theme.color.textDistinctOnAccent};
 `;
 
 const TextHeightContainer = tStyled.div<HeightContainerProps>`
@@ -178,7 +178,7 @@ export const HeaderIconAnimation: React.FC<HeaderIconAnimationProps> = (props) =
 		const { item, key, props } = transition;
 
 		const iconRender = item ? (
-			<Icon type={item} height='100%' fillColor={c => c.textOverAccent} />
+			<Icon type={item} height='100%' fillColor={c => c.textDistinctOnAccent} />
 		) : null;
 
 		return (
@@ -192,9 +192,8 @@ export const HeaderIconAnimation: React.FC<HeaderIconAnimationProps> = (props) =
 
 	return (
 		<IconHeightContainer titleHeight={titleHeight} subtitleHeight={subtitleHeight}>
-			<IconBackground>
-				{transitionRender}
-			</IconBackground>
+			<IconBackground />
+			{transitionRender}
 		</IconHeightContainer>
 	);
 };
@@ -221,12 +220,14 @@ interface IconBackgroundProps {
 }
 
 const IconBackground = tStyled.div<IconBackgroundProps>`
-	position: relative;
+	position: absolute;
+	top: 0;
+	left: 0;
 	width: 100%;
 	height: 100%;
 	${borderRadiusStyle}
-	overflow: hidden;
-	background-color: ${p => p.theme.color.bg1};
+	background-color: ${p => p.theme.color.accentGradientFill};
+	box-shadow: 0 0 8px 0 ${p => p.theme.color.accentGradientFillShadow};
 `;
 
 interface IconHeightContainerProps {
@@ -235,6 +236,7 @@ interface IconHeightContainerProps {
 }
 
 const IconHeightContainer = tStyled.div<IconHeightContainerProps>`
+	position: relative;
 	width: calc(${p => p.titleHeight} + ${p => p.subtitleHeight});
 	height: calc(${p => p.titleHeight} + ${p => p.subtitleHeight});
 	margin-right: ${spacing.medium.value};

@@ -57,6 +57,8 @@ const UpperMenuBarContainer = tStyled(FlexRow)`
 	width: ${upperMenuBarMaxWidth};
 	height: ${upperMenuBarContentHeightPixels}px;
 	${borderRadiusStyle}
+	border: 1px solid ${p => p.theme.color.bgComponent3};
+	box-shadow: 0 2px 6px 0 ${p => p.theme.color.bgComponentShadow1};
 	overflow: hidden;
 `;
 

@@ -1,7 +1,6 @@
 import { FlexColumn, FlexRow } from '@messman/react-common';
 import * as React from 'react';
 import { Spacing, spacing } from '../layout/common';
-import { borderRadiusValue } from '../style/common';
 import { tStyled } from '../style/styled';
 import { Icon, SVGIconType } from '../symbol/icon';
 import { FontSize, Heading2 } from '../symbol/text';
@@ -53,8 +52,6 @@ const Background = tStyled.div`
 	border: 1px solid ${p => p.theme.color.bgComponent3};
 	border-top: none;
 	padding: ${spacing.medium.value};
-	border-bottom-left-radius: ${borderRadiusValue};
-	border-bottom-right-radius: ${borderRadiusValue};
 `;
 
 const ColorHeader = tStyled.div`

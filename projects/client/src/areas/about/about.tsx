@@ -1,11 +1,10 @@
-import { Card } from '@/core/card/card';
 import { Spacing, spacing, useResponsiveEdgeSpacing } from '@/core/layout/common';
 import { OutLink } from '@/core/link';
 import { tStyled } from '@/core/style/styled';
-import { iconTypes } from '@/core/symbol/icon';
 import { Heading1, Heading2, RegularText } from '@/core/symbol/text';
 import { LayoutBreakpoint } from '@/services/layout/window-layout';
 import * as React from 'react';
+import { Settings } from './settings';
 
 export interface AboutProps {
 
@@ -18,9 +17,7 @@ export const About: React.FC<AboutProps> = () => {
 	return (
 		<AboutContainer>
 			<Spacing margin={edgeSpacing.horizontal}>
-				<Card title='Settings' icon={iconTypes.gear}>
-					<p>Settings</p>
-				</Card>
+				<Settings />
 				<Spacing margin={edgeSpacing.top}>
 					<div>
 						<Title>About</Title>

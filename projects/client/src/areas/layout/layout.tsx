@@ -4,7 +4,7 @@ import { Posts, PostsProps } from '@/areas/posts/posts';
 import { Other, OtherProps } from '@/areas/other/other';
 import { Archive, ArchiveProps } from '@/areas/archive/archive';
 import { LowerMenuBar, UpperMenuBar, upperMenuBarHeightPixels, UpperStickyMenuBar } from './menu-bar/menu-bar';
-import { Switch, Route, useLocation, useHistory } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import { routes } from '@/services/nav/routing';
 import { tStyled } from '@/core/style/styled';
 import { createThreshold, FlexColumn, useElementIntersect, useStateDOM, useWindowLayout } from '@messman/react-common';
@@ -49,10 +49,6 @@ const scrollToStickyOptions: IScrollIntoViewOptions = {
 
 export const Layout: React.FC<LayoutProps> = (props) => {
 	const { Posts, Other, Archive, About } = props;
-
-	const location = useLocation();
-	const history = useHistory();
-	console.log({ history, location });
 
 	const windowLayout = useWindowLayout();
 	const isAnyMobileWidth = windowLayout.widthBreakpoint <= LayoutBreakpoint.mobileLarge;

@@ -20,13 +20,29 @@ export interface ThemeColor {
 	bgComponent1: string;
 	bgComponent2: string;
 	bgComponent3: string;
-
 	bgComponentShadow1: string;
-	bgComponentShadow2: string;
 
+
+	/** The gradient of the accent. */
 	accentGradient: string;
-	accentAgainstDark: string;
-	textOverAccent: string;
+	/**
+	 * Used specifically for a fill on top of the accent gradient, with a shadow.
+	 */
+	accentGradientFill: string;
+	accentGradientFillShadow: string;
+	/**
+	 * The accent color, on the background. May be lighter on dark themes and darker on light themes,
+	 * but not to the same extent as the text version.
+	 */
+	accentFillOnBackground: string;
+	/**
+	 * The accent color, used for text, on the background. May be lighter on dark themes and darker on light themes.
+	 */
+	textAccentOnBackground: string;
+	/** Text that is distinct on top of the accent color. */
+	textDistinctOnAccent: string;
+	/** Text that is still readable on top of the accent color, but just barely. */
+	textSubtleOnAccent: string;
 
 	textHeading1: string;
 	textHeading2: string;
@@ -37,11 +53,12 @@ export interface ThemeColor {
 	textDisabled: string;
 	textLink: string;
 
-	tagForeground: string;
 	tagNSFWForeground: string;
 	tagNSFWBackground: string;
 	tagTopForeground: string;
 	tagTopBackground: string;
+
+	settingsSelection: string;
 
 	/** Color used for warning information. */
 	warning: string;
@@ -52,52 +69,12 @@ export interface ThemeColor {
 }
 
 const gray = {
-	dark1: '#121212',
-	dark2: '#171717',
+	dark1: '#0F0F0F',
+	dark2: '#141414',
 
-	light1: '#F8F8F8',
-	light2: '#F8F8F8'
+	light1: '#F7F7F7',
+	light2: '#F0F0F0'
 };
-
-// const gray2 = {
-// 	s0: '#171717',
-// 	s1: '#26262C',
-// 	s2: '#262626',
-// 	s3: '#404040',
-// 	s4: '#666666',
-// 	s5: '#999999',
-// 	s6: '#BFBFBF',
-// 	s7: '#DEDEDE',
-// 	s8: '#E6E6E6',
-// 	s9: '#FFFFFF',
-// };
-
-// const blue = {
-// 	s0: '#040D10',
-// 	s1: '#08191F',
-// 	s2: '#184B5E',
-// 	s3: '#1C586D',
-// 	s4: '#24718D',
-// 	s5: '#5CAECB',
-// 	s6: '#D7EDF5',
-// 	s7: '#D6E0E3',
-// 	s8: '#E7EEF0',
-// 	s9: '#F4F7F8',
-// };
-
-// const yellow: Scale = {
-// 	base: '#F1C262',
-// 	s0: '#211600',
-// 	s1: '#2C1E00',
-// 	s2: '#362400',
-// 	s3: '#5C3D00',
-// 	s4: '#916202',
-// 	s5: '#C49535',
-// 	s6: '#EABB5B',
-// 	s7: '#FFD891',
-// 	s8: '#FFEBC3',
-// 	s9: '#FFF6E4',
-// };
 
 const commonColor: Partial<ThemeColor> = {
 	tagNSFWForeground: gray.light1,
@@ -105,6 +82,7 @@ const commonColor: Partial<ThemeColor> = {
 	tagTopForeground: gray.dark1,
 	tagTopBackground: '#FFC03D',
 
+	settingsSelection: '#55D170',
 	warning: '#DC965A',
 	error: '#A63446',
 	success: '#4B7F52',
@@ -119,14 +97,17 @@ const purpleDarkTheme: Theme = {
 		bg1: gray.dark1,
 		bg2: gray.dark2,
 		bgComponent1: '#1B1B1D',
-		bgComponent2: '#202022',
-		bgComponent3: '#252527',
+		bgComponent2: '#232325',
+		bgComponent3: '#2A2A2C',
 		bgComponentShadow1: '#0A0A0A',
-		bgComponentShadow2: '#171717',
 
-		accentGradient: 'linear-gradient(-52deg, #6047C4 0%, #5955D1 50%, #4768CD 100%)',
-		accentAgainstDark: '#7875D7',
-		textOverAccent: '#DFDFEA',
+		accentGradient: 'linear-gradient(134deg, #6551C7 0%, #5955D1 39%, #5955D1 58%, #3948BA 100%)',
+		accentGradientFill: '#5955D1',
+		accentGradientFillShadow: '#3430A1',
+		accentFillOnBackground: '#7673E2',
+		textAccentOnBackground: '#7F7CE8',
+		textDistinctOnAccent: '#DFDFEA',
+		textSubtleOnAccent: gray.dark1,
 
 		textHeading1: '#D4D4DD',
 		textHeading2: '#C7C7D5',
@@ -134,171 +115,167 @@ const purpleDarkTheme: Theme = {
 		textRegular: '#ABABB7',
 		textInactive: '#9190A4',
 		textDisabled: '#9190A4',
-		textLink: '#7875D7',
-
-		tagForeground: '#DFDFEA',
+		textLink: '#7F7CE8',
 	}
 };
 
-// const grayDarkTheme: Theme = {
-// 	colorName: 'Gray',
-// 	isLightMode: false,
-// 	color: {
-// 		...(commonColor as ThemeColor),
+const purpleLightTheme: Theme = {
+	colorName: 'Purple',
+	isLightMode: true,
+	color: {
+		...(commonColor as ThemeColor),
 
-// 		backgroundA: gray.s0,
-// 		backgroundB: gray.s1,
-// 		backgroundC: gray.s2,
-// 		darkShadow: '#111',
+		bg1: gray.light1,
+		bg2: gray.light2,
+		bgComponent1: '#E5E5E6',
+		bgComponent2: '#DDDDDF',
+		bgComponent3: '#D5D5D7',
+		bgComponentShadow1: 'rgba(211,211,211,0.50)',
 
-// 		headerBackground: gray.s4,
-// 		headerText: gray.s5,
+		accentGradient: 'linear-gradient(134deg, #6551C7 0%, #5955D1 39%, #5955D1 58%, #3948BA 100%)',
+		accentGradientFill: '#5955D1',
+		accentGradientFillShadow: '#3430A1',
+		accentFillOnBackground: '#5955D1',
+		textAccentOnBackground: '#534FC3',
+		textDistinctOnAccent: '#DFDFEA',
+		textSubtleOnAccent: '#DFDFEA',
 
-// 		primary: gray.s4,
-// 		secondary: gray.s4,
+		textHeading1: '#22222A',
+		textHeading2: '#292938',
+		textHeading3: '#2F2F46',
+		textRegular: '#494955',
+		textInactive: '#5D5C70',
+		textDisabled: '#5D5C70',
+		textLink: '#534FC3'
+	}
+};
 
-// 		textDistinct: gray.s9,
-// 		textTitle: gray.s7,
-// 		textSubtitle: gray.s7,
-// 		textRegular: gray.s6,
-// 		textDisabled: gray.s5,
-// 		textLink: gray.s6,
+const yellowDarkTheme: Theme = {
+	colorName: 'Yellow',
+	isLightMode: false,
+	color: {
+		...(commonColor as ThemeColor),
 
-// 		buttonActionText: gray.s0,
-// 		buttonActionBackground: gray.s4,
-// 	}
-// };
+		bg1: gray.dark1,
+		bg2: gray.dark2,
+		bgComponent1: '#1D1C1B',
+		bgComponent2: '#252423',
+		bgComponent3: '#2C2C2A',
+		bgComponentShadow1: '#0A0A0A',
 
-// const blueLightTheme: Theme = {
-// 	colorName: 'Blue',
-// 	isLightMode: true,
-// 	color: {
-// 		...grayLightTheme.color,
+		accentGradient: 'linear-gradient(-45deg, #CD9240 0%, #F5B83D 38%, #F5B83D 65%, #F8CF7C 100%)',
+		accentGradientFill: '#F5B83D',
+		accentGradientFillShadow: '#CA9325',
+		accentFillOnBackground: '#F5B83D',
+		textAccentOnBackground: '#F7CA6F',
+		textDistinctOnAccent: gray.dark1,
+		textSubtleOnAccent: '#46371A',
 
-// 		backgroundA: blue.s9,
-// 		backgroundB: blue.s8,
-// 		backgroundC: blue.s7,
-// 		darkShadow: gray.s6,
+		textHeading1: '#DDD8D4',
+		textHeading2: '#D5D0C7',
+		textHeading3: '#CEC7B9',
+		textRegular: '#B6B3AC',
+		textInactive: '#948F84',
+		textDisabled: '#948F84',
+		textLink: '#F7CA6F',
+	}
+};
 
-// 		headerBackground: blue.s5,
-// 		headerText: blue.s3,
+const yellowLightTheme: Theme = {
+	colorName: 'Yellow',
+	isLightMode: true,
+	color: {
+		...(commonColor as ThemeColor),
 
-// 		primary: blue.s5,
-// 		secondary: blue.s5,
+		bg1: gray.light1,
+		bg2: gray.light2,
+		bgComponent1: '#E6E6E5',
+		bgComponent2: '#DFDEDD',
+		bgComponent3: '#D7D6D5',
+		bgComponentShadow1: 'rgba(211,211,211,0.50)',
 
-// 		textDistinct: gray.s0,
-// 		textTitle: gray.s2,
-// 		textSubtitle: gray.s2,
-// 		textRegular: gray.s4,
-// 		textDisabled: gray.s5,
-// 		textLink: blue.s4,
+		accentGradient: 'linear-gradient(-45deg, #EBA749 0%, #F5B83D 38%, #F5B83D 65%, #F8CF7C 100%)',
+		accentGradientFill: '#F5B83D',
+		accentGradientFillShadow: '#CA9325',
+		accentFillOnBackground: '#F5B83D',
+		textAccentOnBackground: '#82601B',
+		textDistinctOnAccent: gray.dark1,
+		textSubtleOnAccent: '#624B1B',
 
-// 		buttonActionText: gray.s9,
-// 		buttonActionBackground: blue.s5,
-// 	}
-// };
+		textHeading1: '#2A2622',
+		textHeading2: '#383329',
+		textHeading3: '#463F2F',
+		textRegular: '#54514A',
+		textInactive: '#81765F',
+		textDisabled: '#81765F',
+		textLink: '#82601B'
+	}
+};
 
-// const blueDarkTheme: Theme = {
-// 	colorName: 'Blue',
-// 	isLightMode: false,
-// 	color: {
-// 		...grayDarkTheme.color,
+const redDarkTheme: Theme = {
+	colorName: 'Red',
+	isLightMode: false,
+	color: {
+		...(commonColor as ThemeColor),
 
-// 		backgroundA: blue.s0,
-// 		backgroundB: blue.s1,
-// 		backgroundC: blue.s2,
-// 		darkShadow: '#111',
+		bg1: gray.dark1,
+		bg2: gray.dark2,
+		bgComponent1: '#1D1B1B',
+		bgComponent2: '#252323',
+		bgComponent3: '#2C2A2B',
+		bgComponentShadow1: '#0A0A0A',
 
-// 		headerBackground: blue.s5,
-// 		headerText: blue.s7,
+		accentGradient: 'linear-gradient(135deg, #E078A4 0%, #CB697A 37%, #CB697A 65%, #DA5856 100%)',
+		accentGradientFill: '#CB697A',
+		accentGradientFillShadow: '#A04454',
+		accentFillOnBackground: '#CB697A',
+		textAccentOnBackground: '#DC697D',
+		textDistinctOnAccent: gray.dark1,
+		textSubtleOnAccent: gray.dark1,
 
-// 		primary: blue.s5,
-// 		secondary: blue.s5,
+		textHeading1: '#DDD4D5',
+		textHeading2: '#D5C7C9',
+		textHeading3: '#CEB9BC',
+		textRegular: '#B7ABAD',
+		textInactive: '#A49093',
+		textDisabled: '#A49093',
+		textLink: '#DC697D',
+	}
+};
 
-// 		textDistinct: gray.s9,
-// 		textTitle: gray.s7,
-// 		textSubtitle: gray.s7,
-// 		textRegular: gray.s6,
-// 		textDisabled: gray.s5,
-// 		textLink: gray.s6,
+const redLightTheme: Theme = {
+	colorName: 'Red',
+	isLightMode: true,
+	color: {
+		...(commonColor as ThemeColor),
 
-// 		buttonActionText: gray.s0,
-// 		buttonActionBackground: blue.s5,
-// 	}
-// };
+		bg1: gray.light1,
+		bg2: gray.light2,
+		bgComponent1: '#E6E5E5',
+		bgComponent2: '#DFDDDD',
+		bgComponent3: '#D7D5D5',
+		bgComponentShadow1: 'rgba(211,211,211,0.50)',
 
+		accentGradient: 'linear-gradient(135deg, #E078A4 0%, #CB697A 37%, #CB697A 65%, #DA5856 100%)',
+		accentGradientFill: '#CB697A',
+		accentGradientFillShadow: '#A04454',
+		accentFillOnBackground: '#CB697A',
+		textAccentOnBackground: '#984553',
+		textDistinctOnAccent: gray.dark1,
+		textSubtleOnAccent: '#361414',
 
-// 
-// const darkTheme: Theme = {
-// 	name: 'dark',
-// 	color: {
-// 		backgroundA: common.dark,
-// 		backgroundB: common.darkP1,
-// 		backgroundC: common.darkP2,
-// 		shadow: '#111',
-
-// 		headerSpecialBackground: common.yellow,
-// 		headerSpecialText: common.light,
-
-// 		primary: common.yellow,
-// 		secondary: common.yellow,
-
-// 		textTitle: common.light,
-// 		textSubtitle: common.light,
-// 		textRegular: common.mediumP1,
-// 		textSubtle: common.medium,
-// 		textDisabled: common.mediumM1,
-// 		textDistinct: common.light,
-// 		textLink: common.yellow,
-
-// 		buttonActionText: common.dark,
-// 		buttonActionBackground: common.green,
-
-// 		tagNSFW: '#A63446',
-// 		tagTop: '#FFC03D',
-// 		tagLight: common.light,
-// 		tagDark: common.dark,
-
-// 		warning: '#DC965A',
-// 		error: '#A63446',
-// 		success: '#4B7F52',
-// 	},
-// };
-
-// 
-// const lightTheme: Theme = {
-// 	...darkTheme,
-// 	name: 'light',
-// 	color: {
-// 		...darkTheme.color,
-
-// 		// Overrides
-// 		backgroundA: common.light,
-// 		backgroundB: common.lightM1,
-// 		backgroundC: common.lightM2,
-// 		shadow: '#DDD',
-
-// 		headerSpecialBackground: common.green,
-// 		headerSpecialText: common.light,
-
-// 		primary: common.green,
-// 		secondary: common.green,
-
-// 		textTitle: common.dark,
-// 		textSubtitle: common.dark,
-// 		textRegular: common.mediumM1,
-// 		textSubtle: common.medium,
-// 		textDisabled: common.mediumP1,
-// 		textDistinct: common.dark,
-// 		textLink: common.green,
-
-// 		buttonActionText: common.light,
-// 		buttonActionBackground: common.yellow,
-// 	}
-// };
+		textHeading1: '#2A2224',
+		textHeading2: '#38292C',
+		textHeading3: '#462F33',
+		textRegular: '#55494B',
+		textInactive: '#705C5F',
+		textDisabled: '#705C5F',
+		textLink: '#984553'
+	}
+};
 
 // Index is stored in LocalStorage
-export const themes: Theme[] = [purpleDarkTheme];
+export const themes: Theme[] = [purpleDarkTheme, purpleLightTheme, yellowDarkTheme, yellowLightTheme, redDarkTheme, redLightTheme];
 const defaultThemeIndex = 0;
 
 export type ThemePick<T> = (t: Theme) => T;
