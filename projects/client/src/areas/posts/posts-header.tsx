@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { tStyled } from '@/core/style/styled';
 import { IPost, IPostDayReference } from 'oftheday-shared';
-import { FontSize } from '@/core/symbol/text';
-import { TextAlign } from '@/core/style/common';
+import { FontSize, Heading1, SmallText } from '@/core/symbol/text';
 import { FlexRow, Sticky, useSticky, useWindowLayout } from '@messman/react-common';
 import { Icon, iconTypes, SVGIconType } from '@/core/symbol/icon';
 import { spacing } from '@/core/layout/common';
@@ -105,7 +104,7 @@ const PostDayTitle: React.FC<PostDayTitle> = (props) => {
 	const { widthBreakpoint } = useWindowLayout();
 
 	let dayReferenceRender: JSX.Element | null = null;
-	if (dayReference !== IPostDayReference.other) {
+	if (widthBreakpoint >= LayoutBreakpoint.mobileRegular && dayReference !== IPostDayReference.other) {
 		const dayReferenceText = dayReferencesText[IPostDayReference[dayReference] as keyof typeof IPostDayReference];
 		dayReferenceRender = <>{dayReferenceText}&nbsp;&middot;&nbsp;</>;
 	}
@@ -113,42 +112,40 @@ const PostDayTitle: React.FC<PostDayTitle> = (props) => {
 	// Mobile
 	let titleFontSize = FontSize.heading3;
 	let subtitleFontSize = FontSize.textSmall;
-	if (widthBreakpoint >= LayoutBreakpoint.tablet) {
+	let minContainerWidth = '120px';
+	if (widthBreakpoint >= LayoutBreakpoint.mobileRegular) {
 		titleFontSize = FontSize.heading2;
 		subtitleFontSize = FontSize.textRegular;
-	}
-	else if (widthBreakpoint >= LayoutBreakpoint.mobileRegular) {
-		titleFontSize = FontSize.heading2;
-		subtitleFontSize = FontSize.textRegular;
+		minContainerWidth = '180px';
 	}
 
 	return (
-		<TextAlign dataAlign='center'>
-			<PostDaySubtitleText fontSize={subtitleFontSize}>{dayReferenceRender}Day {dayNumber}</PostDaySubtitleText>
-			<PostDayTitleText fontSize={titleFontSize}>{dateText}</PostDayTitleText>
-		</TextAlign>
+		<PostDayTitleContainer minContainerWidth={minContainerWidth}>
+			<SmallText
+				fontSize={subtitleFontSize}
+				fontWeight={FontWeight.medium}
+				color={c => c.textInactive}
+				margin={spacing.nudge.bottom}
+			>
+				{dayReferenceRender}Day {dayNumber}
+			</SmallText>
+			<Heading1
+				fontSize={titleFontSize}
+				fontWeight={FontWeight.bold}
+			>
+				{dateText}
+			</Heading1>
+		</PostDayTitleContainer>
 	);
 };
 
-interface PostDayTitleTextProps {
-	fontSize: string;
+interface PostDayTitleContainerProps {
+	minContainerWidth: string;
 }
 
-const PostDayTitleText = tStyled.div<PostDayTitleTextProps>`
-	font-size: ${p => p.fontSize};
-	font-weight: ${FontWeight.bold};
-	color: ${p => p.theme.color.textHeading1};
-`;
-
-interface PostDaySubtitleTextProps {
-	fontSize: string;
-}
-
-const PostDaySubtitleText = tStyled.div<PostDaySubtitleTextProps>`
-	font-size: ${p => p.fontSize};
-	font-weight: ${FontWeight.medium};
-	color: ${p => p.theme.color.textInactive};
-	margin: ${spacing.nudge.bottom};
+const PostDayTitleContainer = tStyled.div<PostDayTitleContainerProps>`
+	min-width: ${p => p.minContainerWidth};
+	text-align: center;
 `;
 
 interface ClickableIconProps {
