@@ -53,12 +53,12 @@ const UpperMenuBarCenter = tStyled(FlexColumn)`
 
 const UpperMenuBarContainer = tStyled(FlexRow)`
 	position: relative;
-	background-color: ${p => p.theme.color.bgComponent2};
+	background-color: ${p => p.theme.color.bgComponent1};
 	width: ${upperMenuBarMaxWidth};
 	height: ${upperMenuBarContentHeightPixels}px;
 	${borderRadiusStyle}
 	border: 1px solid ${p => p.theme.color.bgComponent3};
-	box-shadow: 0 2px 6px 0 ${p => p.theme.color.bgComponentShadow1};
+	box-shadow: 0 3px 6px 0 ${p => p.theme.color.bgComponentShadow1};
 	overflow: hidden;
 `;
 
@@ -167,4 +167,5 @@ export const LowerMenuBar: React.FC<UpperLowerMenuBarProps> = (props) => {
 const LowerMenuBarContainer = tStyled(FlexRow)`
 	position: relative;
 	background-color: ${p => p.theme.color.bg2};
+	border: 1px solid ${p => p.theme.color.bgComponent3};
 `;

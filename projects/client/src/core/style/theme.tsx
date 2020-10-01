@@ -109,12 +109,12 @@ const purpleDarkTheme: Theme = {
 		textDistinctOnAccent: '#DFDFEA',
 		textSubtleOnAccent: gray.dark1,
 
-		textHeading1: '#D4D4DD',
-		textHeading2: '#C7C7D5',
-		textHeading3: '#B9B9CE',
-		textRegular: '#ABABB7',
-		textInactive: '#9190A4',
-		textDisabled: '#9190A4',
+		textHeading1: '#D7D7DA',
+		textHeading2: '#CBCBD1',
+		textHeading3: '#BEBEC9',
+		textRegular: '#ADADB5',
+		textInactive: '#98989C',
+		textDisabled: '#98989C',
 		textLink: '#7F7CE8',
 	}
 };
@@ -140,12 +140,12 @@ const purpleLightTheme: Theme = {
 		textDistinctOnAccent: '#DFDFEA',
 		textSubtleOnAccent: '#DFDFEA',
 
-		textHeading1: '#22222A',
-		textHeading2: '#292938',
-		textHeading3: '#2F2F46',
-		textRegular: '#494955',
-		textInactive: '#5D5C70',
-		textDisabled: '#5D5C70',
+		textHeading1: '#242428',
+		textHeading2: '#2D2D34',
+		textHeading3: '#353540',
+		textRegular: '#4C4C52',
+		textInactive: '#646468',
+		textDisabled: '#646468',
 		textLink: '#534FC3'
 	}
 };
@@ -159,7 +159,7 @@ const yellowDarkTheme: Theme = {
 		bg1: gray.dark1,
 		bg2: gray.dark2,
 		bgComponent1: '#1D1C1B',
-		bgComponent2: '#252423',
+		bgComponent2: '#242423',
 		bgComponent3: '#2C2C2A',
 		bgComponentShadow1: '#0A0A0A',
 
@@ -171,12 +171,12 @@ const yellowDarkTheme: Theme = {
 		textDistinctOnAccent: gray.dark1,
 		textSubtleOnAccent: '#46371A',
 
-		textHeading1: '#DDD8D4',
-		textHeading2: '#D5D0C7',
-		textHeading3: '#CEC7B9',
-		textRegular: '#B6B3AC',
-		textInactive: '#948F84',
-		textDisabled: '#948F84',
+		textHeading1: '#DAD8D7',
+		textHeading2: '#D0CFCC',
+		textHeading3: '#C8C5BF',
+		textRegular: '#B3B2AF',
+		textInactive: '#8D8D8B',
+		textDisabled: '#8D8D8B',
 		textLink: '#F7CA6F',
 	}
 };
@@ -202,12 +202,12 @@ const yellowLightTheme: Theme = {
 		textDistinctOnAccent: gray.dark1,
 		textSubtleOnAccent: '#624B1B',
 
-		textHeading1: '#2A2622',
-		textHeading2: '#383329',
-		textHeading3: '#463F2F',
-		textRegular: '#54514A',
-		textInactive: '#81765F',
-		textDisabled: '#81765F',
+		textHeading1: '#282624',
+		textHeading2: '#33312E',
+		textHeading3: '#403C35',
+		textRegular: '#52504C',
+		textInactive: '#72716E',
+		textDisabled: '#72716E',
 		textLink: '#82601B'
 	}
 };
@@ -221,7 +221,7 @@ const redDarkTheme: Theme = {
 		bg1: gray.dark1,
 		bg2: gray.dark2,
 		bgComponent1: '#1D1B1B',
-		bgComponent2: '#252323',
+		bgComponent2: '#242323',
 		bgComponent3: '#2C2A2B',
 		bgComponentShadow1: '#0A0A0A',
 
@@ -233,12 +233,12 @@ const redDarkTheme: Theme = {
 		textDistinctOnAccent: gray.dark1,
 		textSubtleOnAccent: gray.dark1,
 
-		textHeading1: '#DDD4D5',
-		textHeading2: '#D5C7C9',
-		textHeading3: '#CEB9BC',
-		textRegular: '#B7ABAD',
-		textInactive: '#A49093',
-		textDisabled: '#A49093',
+		textHeading1: '#DAD7D7',
+		textHeading2: '#D0CCCD',
+		textHeading3: '#C8BFC0',
+		textRegular: '#B4AEAF',
+		textInactive: '#979596',
+		textDisabled: '#979596',
 		textLink: '#DC697D',
 	}
 };
@@ -264,12 +264,12 @@ const redLightTheme: Theme = {
 		textDistinctOnAccent: gray.dark1,
 		textSubtleOnAccent: '#361414',
 
-		textHeading1: '#2A2224',
-		textHeading2: '#38292C',
-		textHeading3: '#462F33',
-		textRegular: '#55494B',
-		textInactive: '#705C5F',
-		textDisabled: '#705C5F',
+		textHeading1: '#282425',
+		textHeading2: '#332E2F',
+		textHeading3: '#403537',
+		textRegular: '#524C4D',
+		textInactive: '#686465',
+		textDisabled: '#686465',
 		textLink: '#984553'
 	}
 };
