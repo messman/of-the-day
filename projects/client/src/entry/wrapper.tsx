@@ -1,12 +1,13 @@
 import * as React from 'react';
 import { InvalidCheck } from '@/areas/alert/invalid';
-import { Popup, PopupProvider } from '@/areas/alert/popup';
 import { ThemeProvider } from '@/core/style/theme';
 import { PostResponseProvider } from '@/services/data/data';
 import { MemoryRouter, BrowserRouter } from 'react-router-dom';
 import { WindowLayoutProvider, WindowDimensionsProvider, FlexRoot, DocumentVisibilityProvider } from '@messman/react-common';
 import { FontSizeManager } from '@/core/symbol/text';
 import { lowerBreakpoints } from '@/services/layout/window-layout';
+import { Popup, PopupProvider } from '@/services/data/data-error';
+import { OverlayPortalRoot } from '@/core/overlay/overlay';
 
 export const Wrapper: React.FC = (props) => {
 	return (
@@ -52,17 +53,20 @@ const InnerProviders: React.FC = (props) => {
 	return (
 		<DocumentVisibilityProvider>
 			<ThemeProvider>
-				<WindowDimensionsProvider>
-					<WindowLayoutProvider lowerBreakpoints={lowerBreakpoints}>
-						<FontSizeManager>
-							<PopupProvider>
-								<PostResponseProvider>
-									{props.children}
-								</PostResponseProvider>
-							</PopupProvider>
-						</FontSizeManager>
-					</WindowLayoutProvider>
-				</WindowDimensionsProvider>
+				<OverlayPortalRoot>
+
+					<WindowDimensionsProvider>
+						<WindowLayoutProvider lowerBreakpoints={lowerBreakpoints}>
+							<FontSizeManager>
+								<PopupProvider>
+									<PostResponseProvider>
+										{props.children}
+									</PostResponseProvider>
+								</PopupProvider>
+							</FontSizeManager>
+						</WindowLayoutProvider>
+					</WindowDimensionsProvider>
+				</OverlayPortalRoot>
 			</ThemeProvider>
 		</DocumentVisibilityProvider>
 	);

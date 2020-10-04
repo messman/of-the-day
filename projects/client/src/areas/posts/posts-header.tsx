@@ -7,6 +7,7 @@ import { Icon, iconTypes, SVGIconType } from '@/core/symbol/icon';
 import { spacing } from '@/core/layout/common';
 import { LayoutBreakpoint } from '@/services/layout/window-layout';
 import { FontWeight } from '@/core/style/theme';
+import { PostsSelectionOverlay } from './posts-selection-overlay';
 
 export interface PostsHeaderProps {
 	rootElement: HTMLElement | null;
@@ -18,7 +19,7 @@ export interface PostsHeaderProps {
 	onScrollTop: () => void;
 }
 
-const dayReferencesText: Record<keyof typeof IPostDayReference, string> = {
+export const dayReferencesText: Record<keyof typeof IPostDayReference, string> = {
 	other: '',
 	tomorrow: 'Tomorrow',
 	today: 'Today',
@@ -35,8 +36,20 @@ export const PostsHeader: React.FC<PostsHeaderProps> = (props) => {
 
 	const post = posts[activePostIndex];
 
-	function onClickCalendar() {
+	const [isChoosingPostFromOverlay, setIsChoosingPostFromOverlay] = React.useState(false);
 
+	function onClickCalendar() {
+		setIsChoosingPostFromOverlay(true);
+	}
+	function onClickCalendarArchives() {
+		onCloseOverlay();
+	}
+	function onClickCalendarPost(newActivePostIndex: number) {
+		onCloseOverlay();
+		onPostChosen(newActivePostIndex);
+	}
+	function onCloseOverlay() {
+		setIsChoosingPostFromOverlay(false);
 	}
 
 	const hasEarlierPost = activePostIndex < posts.length - 1;
@@ -54,18 +67,28 @@ export const PostsHeader: React.FC<PostsHeaderProps> = (props) => {
 	}
 
 	return (
-		<Sticky isSticky={true} output={stickyOutput} zIndex={1} >
-			<PostsHeaderEmptySpace dataHeightPixels={offsetPixels} />
-			<PostsHeaderContainer isSticking={isAtFirst} flex='none' justifyContent='center'>
-				<PostsHeaderCenterContainer justifyContent='space-evenly' alignItems='center'>
-					<ClickableIcon type={iconTypes.calendar} isDisabled={false} onClick={onClickCalendar} />
-					<ClickableIcon type={iconTypes.left} isDisabled={!hasEarlierPost} onClick={onClickEarlierPost} />
-					<PostDayTitle post={post} />
-					<ClickableIcon type={iconTypes.right} isDisabled={!hasLaterPost} onClick={onClickLaterPost} />
-					<ClickableIcon type={iconTypes.top} isDisabled={!isAtFirst} onClick={onClickTop} />
-				</PostsHeaderCenterContainer>
-			</PostsHeaderContainer>
-		</Sticky>
+		<>
+			<Sticky isSticky={true} output={stickyOutput} zIndex={1} >
+				<PostsHeaderEmptySpace dataHeightPixels={offsetPixels} />
+				<PostsHeaderContainer isSticking={isAtFirst} flex='none' justifyContent='center'>
+					<PostsHeaderCenterContainer justifyContent='space-evenly' alignItems='center'>
+						<ClickableIcon type={iconTypes.calendar} isDisabled={false} onClick={onClickCalendar} />
+						<ClickableIcon type={iconTypes.left} isDisabled={!hasEarlierPost} onClick={onClickEarlierPost} />
+						<PostDayTitle post={post} />
+						<ClickableIcon type={iconTypes.right} isDisabled={!hasLaterPost} onClick={onClickLaterPost} />
+						<ClickableIcon type={iconTypes.top} isDisabled={!isAtFirst} onClick={onClickTop} />
+					</PostsHeaderCenterContainer>
+				</PostsHeaderContainer>
+			</Sticky>
+			<PostsSelectionOverlay
+				activePostIndex={activePostIndex}
+				posts={posts}
+				isActive={isChoosingPostFromOverlay}
+				onArchivesChosen={onClickCalendarArchives}
+				onPostChosen={onClickCalendarPost}
+				onSetInactive={onCloseOverlay}
+			/>
+		</>
 	);
 };
 

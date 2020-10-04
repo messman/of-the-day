@@ -116,7 +116,7 @@ const ItemButton = tStyled.button<MenuBarInnerItemProps>`
 	border: none;
 	cursor: ${p => p.isDisabled ? 'not-allowed' : 'pointer'};
 	padding: ${spacing.small.value};
-	margin: ${p => p.isUpper ? 'none' : spacing.nudge.value};
+	margin: ${p => p.isUpper ? '0' : spacing.nudge.value};
 
 	outline: none;
   	box-shadow: none;

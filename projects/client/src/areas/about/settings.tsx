@@ -68,6 +68,7 @@ const ThemeControlRow: React.FC<ThemeControlRowProps> = (props) => {
 
 		return (
 			<ThemeControlChoice
+				key={option.index}
 				choiceTheme={option.theme}
 				isChosen={option.index === activeThemeIndex}
 				onChooseTheme={onClick}

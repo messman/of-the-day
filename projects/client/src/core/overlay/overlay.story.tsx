@@ -2,14 +2,14 @@ import * as React from 'react';
 import { RegularText } from '@/core/symbol/text';
 import { decorate } from '@/test/decorate';
 import { boolean, button, select, text } from '@storybook/addon-knobs';
-import { PopupType, usePopup } from './popup';
+import { Popup, PopupType, usePopup } from '@/services/data/data-error';
 
-export default { title: 'Areas/Alert/Popup' };
+export default { title: 'Core/Popup' };
 
 export const TestPopup = decorate('Popup', null, () => {
 
 	// Just get the setter.
-	const setPopupData = usePopup()[1];
+	const [popupData, setPopupData] = usePopup();
 
 	const [timesRefreshed, setTimesRefreshed] = React.useState(0);
 	function onDataRefresh() {
@@ -41,9 +41,22 @@ export const TestPopup = decorate('Popup', null, () => {
 		});
 	});
 
+	const popupDataRender = popupData ? (
+		<>
+			<p>title: {popupData.title}</p>
+			<p>text: {popupData.text}</p>
+		</>
+	) : null;
+
 	return (
-		<RegularText>
-			Here is some background text. Times refreshed: {timesRefreshed.toString()}
-		</RegularText>
+		<Popup>
+
+			<RegularText>
+				<p>
+					Here is some background text. Times refreshed: {timesRefreshed.toString()}
+				</p>
+				{popupDataRender}
+			</RegularText>
+		</Popup>
 	);
 });

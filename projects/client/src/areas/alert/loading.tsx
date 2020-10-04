@@ -1,12 +1,11 @@
 import * as React from 'react';
-import { Overlay } from '@/core/layout/overlay';
 import { spacing } from '@/core/layout/common';
 import { keyframes, tStyled } from '@/core/style/styled';
 import { RegularText, Heading2 } from '@/core/symbol/text';
 import { CONSTANT } from '@/services/constant';
-import { PopupType, usePopup } from './popup';
 import { Icon, iconTypes } from '@/core/symbol/icon';
-import { Flex, FlexColumn } from '@messman/react-common';
+import { Flex, FlexColumn, Overlay } from '@messman/react-common';
+import { PopupType, usePopup } from '@/services/data/data-error';
 
 export interface LoadingProps {
 	isLoading: boolean;
@@ -78,7 +77,7 @@ export const Loading: React.FC<LoadingProps> = (props) => {
 	}, [isLoading, error]);
 
 	return (
-		<Overlay isActive={isLoading} backdropOpacity={1} component={loadingBody}>
+		<Overlay isActive={isLoading} backdropOpacity={1} component={loadingBody} backdropColor='transparent'>
 			{props.children}
 		</Overlay>
 	);

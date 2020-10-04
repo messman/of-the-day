@@ -1,10 +1,9 @@
 import * as React from 'react';
-import { Overlay } from '@/core/layout/overlay';
 import { spacing } from '@/core/layout/common';
 import { tStyled } from '@/core/style/styled';
 import { Icon, iconTypes } from '@/core/symbol/icon';
 import { SmallText, FontSize, Heading2, RegularText } from '@/core/symbol/text';
-import { FlexColumn, Flex } from '@messman/react-common';
+import { FlexColumn, Flex, Overlay } from '@messman/react-common';
 import { borderRadiusStyle } from '@/core/style/common';
 
 export enum PopupType {
@@ -74,7 +73,7 @@ export const Popup: React.FC = (props) => {
 	}
 
 	return (
-		<Overlay isActive={!!popupData} backdropOpacity={.4} component={popupBody}>
+		<Overlay isActive={!!popupData} backdropOpacity={.4} component={popupBody} backdropColor='transparent'>
 			{props.children}
 		</Overlay>
 	);
