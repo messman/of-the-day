@@ -26,19 +26,22 @@ interface TagContainerProps {
 	backgroundColor: string;
 }
 
+const negativeTopMargin = `-${spacing.small.value} 0 0 0`;
+
 const TagContainer = tStyled.div<TagContainerProps>`
 	${borderRadiusStyle};
 	display: inline-block;
 	padding: ${spacing.nudge.value} ${spacing.small.value};
-	margin-left: 0;
+	margin-top: ${spacing.small.value};
+	margin-right: ${spacing.small.value};
 	white-space: nowrap;
 	border: none;
 	font-size: ${FontSize.textSmall};
 	color: ${p => p.foregroundColor};
 	background-color: ${p => p.backgroundColor};
 
-	& + & {
-		margin-left: ${spacing.small.value};
+	&:last-child {
+		margin-right: 0;
 	}
 `;
 
@@ -66,8 +69,10 @@ export const TagList: React.FC<TagListProps> = (props) => {
 	});
 
 	return (
-		<Spacing show={tags.length} margin={margin} >
-			{tagsRender}
+		<Spacing show={tags.length} margin={margin}>
+			<Spacing margin={negativeTopMargin}>
+				{tagsRender}
+			</Spacing>
 		</Spacing>
 	);
 };

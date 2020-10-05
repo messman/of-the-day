@@ -85,7 +85,6 @@ const Divider = tStyled.div`
 
 const MultiQuoteWidthControlContainer = tStyled(FlexColumn)`
 	max-width: min(${LayoutBreakpoint.desktop}px, 100%);
-	min-width: 20rem;
 `;
 
 const MarginFlexColumn = tStyled(FlexColumn)`
@@ -126,6 +125,6 @@ const MultiQuotePiece: React.FC<MultiQuotePieceProps> = (props) => {
 };
 
 const QuoteSpacing = tStyled.div`
-	width: 5rem;
+	width: 3rem;
 	flex: 0 0 auto;
 `;
