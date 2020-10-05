@@ -24,18 +24,20 @@ export const Card: React.FC<CardProps> = (props) => {
 
 	return (
 		<CardContainer>
-			<ColorHeader />
-			<Background>
-				<FlexRow justifyContent='space-between'>
-					<Heading2>{title}</Heading2>
-					{iconRender}
-				</FlexRow>
-				<Spacing show={!!children} margin={spacing.large.top}>
-					<Spacing margin={spacing.small.bottom}>
-						{children}
+			<BoxShadow>
+				<ColorHeader />
+				<Background>
+					<FlexRow justifyContent='space-between'>
+						<Heading2>{title}</Heading2>
+						{iconRender}
+					</FlexRow>
+					<Spacing show={!!children} margin={spacing.large.top}>
+						<Spacing margin={spacing.small.bottom}>
+							{children}
+						</Spacing>
 					</Spacing>
-				</Spacing>
-			</Background>
+				</Background>
+			</BoxShadow>
 		</CardContainer>
 	);
 };
@@ -43,6 +45,9 @@ export const Card: React.FC<CardProps> = (props) => {
 export const CardContainer = tStyled(FlexColumn)`
 	position: relative;
 	overflow: hidden;
+`;
+
+const BoxShadow = tStyled(FlexColumn)`
 	box-shadow: 0 2px 8px 0 ${p => p.theme.color.bgComponentShadow1};
 `;
 

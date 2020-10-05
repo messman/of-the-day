@@ -1,11 +1,11 @@
 // Handles the rendering of a quote.
 
 import * as React from 'react';
-import { IPostQuote } from 'oftheday-shared';
+import { IPost, IPostQuote } from 'oftheday-shared';
 import { InnerQuote, InnerSingleQuote } from './quote-inner';
-import { CardFlow } from '@/core/card/card-flow';
 import { Card } from '@/core/card/card';
 import { iconTypes } from '@/core/symbol/icon';
+import { createPostsElement, PostsElement } from '../elements-common';
 
 export interface MusicQuoteProps {
 	lyric: string;
@@ -35,24 +35,23 @@ export const MusicQuote: React.FC<MusicQuoteProps> = (props) => {
 };
 
 
-export interface QuoteProps {
-	quote: IPostQuote;
+function shouldRenderQuote(post: IPost): boolean {
+	return !!post.quote.a;
 }
 
 /** Displays the quote as a top-level post element section. */
-export const Quote: React.FC<QuoteProps> = (props) => {
-	const { quote } = props;
-	const { a } = quote;
-	if (!a) {
+export const Quote = createPostsElement((props) => {
+	const { post } = props;
+
+	if (!shouldRenderQuote(post)) {
 		return null;
 	}
 
-	return (
-		<CardFlow>
-			<Card title='Quote' icon={iconTypes.quote}>
-				<InnerQuote quote={quote} />
-			</Card>
-		</CardFlow>
-	);
-};
+	const { quote } = post;
 
+	return (
+		<Card title='Quote' icon={iconTypes.quote}>
+			<InnerQuote quote={quote} />
+		</Card>
+	);
+}, PostsElement.quote, shouldRenderQuote);

@@ -1,17 +1,13 @@
 import * as React from 'react';
-import { IPostCustom } from 'oftheday-shared';
+import { IPost } from 'oftheday-shared';
 import { spacing, Spacing } from '@/core/layout/common';
 import { RegularText, SmallText } from '@/core/symbol/text';
 import { OutLink, ActionLink } from '@/core/link';
 import { tStyled } from '@/core/style/styled';
 import { borderRadiusStyle } from '@/core/style/common';
-import { CardFlow } from '@/core/card/card-flow';
 import { Card } from '@/core/card/card';
 import { iconTypes } from '@/core/symbol/icon';
-
-export interface CustomProps {
-	custom: IPostCustom;
-}
+import { createPostsElement, PostsElement } from './elements-common';
 
 /*
 	Possible things in this section:
@@ -25,15 +21,22 @@ export interface CustomProps {
 	- Recommended Media (Movie, Show) (link)
 */
 
-export const Custom: React.FC<CustomProps> = (props) => {
-	const { custom } = props;
-	const { value, title, link, linkText, hiddenValue } = custom;
+function shouldRenderCustom(post: IPost): boolean {
+	const { custom } = post;
+	return !!custom.value && !!custom.title;
+}
+
+export const Custom = createPostsElement((props) => {
+	const { post } = props;
 
 	const [isShowingHiddenValue, setIsShowingHiddenValue] = React.useState(false);
 
-	if (!value || !title) {
+	if (!shouldRenderCustom(post)) {
 		return null;
 	}
+
+	const { custom } = post;
+	const { value, title, link, linkText, hiddenValue } = custom;
 
 	function onClick() {
 		setIsShowingHiddenValue((p) => {
@@ -44,30 +47,26 @@ export const Custom: React.FC<CustomProps> = (props) => {
 	const revealText = isShowingHiddenValue ? 'Hide' : 'Reveal';
 
 	return (
-		<CardFlow useAutoVerticalMargin={true}>
-			<Card title={title} icon={iconTypes.speech}>
-				<RegularText show={link} margin={spacing.medium.top}>
-					<OutLink href={link}>{linkText}</OutLink>
-				</RegularText>
-				<RegularText margin={spacing.medium.top}>
-					{value}
-				</RegularText>
-				<SmallText show={hiddenValue} margin={spacing.medium.top}>
-					<ActionLink onClick={onClick}>{revealText}</ActionLink>
-				</SmallText>
-				<Spacing show={hiddenValue && isShowingHiddenValue} margin={spacing.small.top}>
-					<HiddenArea>
-						<RegularText>
-							{hiddenValue}
-						</RegularText>
-					</HiddenArea>
-				</Spacing>
-			</Card>
-		</CardFlow>
+		<Card title={title} icon={iconTypes.speech}>
+			<RegularText show={link} margin={spacing.medium.top}>
+				<OutLink href={link}>{linkText}</OutLink>
+			</RegularText>
+			<RegularText margin={spacing.medium.top}>
+				{value}
+			</RegularText>
+			<SmallText show={hiddenValue} margin={spacing.medium.top}>
+				<ActionLink onClick={onClick}>{revealText}</ActionLink>
+			</SmallText>
+			<Spacing show={hiddenValue && isShowingHiddenValue} margin={spacing.small.top}>
+				<HiddenArea>
+					<RegularText>
+						{hiddenValue}
+					</RegularText>
+				</HiddenArea>
+			</Spacing>
+		</Card>
 	);
-};
-
-
+}, PostsElement.custom, shouldRenderCustom);
 
 const HiddenArea = tStyled.div`
 	padding: ${spacing.medium.value};

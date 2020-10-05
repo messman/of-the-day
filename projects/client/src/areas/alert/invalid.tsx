@@ -111,9 +111,10 @@ const InvalidCenter: React.FC<InvalidCenterProps> = (props) => {
 	const [firstMessage, ...otherMessages] = props.messages;
 
 	// Other messages become regular text.
-	const otherMessagesText = otherMessages.map((m) => {
+	const otherMessagesText = otherMessages.map((m, i) => {
+		const key = `${i}_${m}`;
 		return (
-			<RegularText key={m}>{m}</RegularText>
+			<RegularText key={key}>{m}</RegularText>
 		);
 	});
 

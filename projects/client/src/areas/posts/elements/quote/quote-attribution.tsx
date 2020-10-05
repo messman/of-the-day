@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { QuoteProps } from './quote';
 import { RegularText } from '@/core/symbol/text';
 import { Spacing, spacing } from '@/core/layout/common';
 import { OutLink } from '@/core/link';
 import { tStyled } from '@/core/style/styled';
+import { InnerQuoteProps } from './quote-inner';
 
-export const QuoteAttribution: React.FC<QuoteProps> = (props) => {
+export const QuoteAttribution: React.FC<InnerQuoteProps> = (props) => {
 	const { quote } = props;
 	const { source, sourceLink, aVoice, bVoice } = quote;
 

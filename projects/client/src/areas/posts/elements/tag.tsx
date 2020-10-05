@@ -8,16 +8,15 @@ import { createTagProps } from './tag-definitions';
 
 
 export interface TagProps extends TagContainerProps {
-	value?: string;
+	value: string;
 }
 
 export const Tag: React.FC<TagProps> = (props) => {
 	const { value, backgroundColor, foregroundColor } = props;
-	const valueRender = value || '';
 
 	return (
 		<TagContainer backgroundColor={backgroundColor} foregroundColor={foregroundColor}>
-			{valueRender}
+			{value}
 		</TagContainer>
 	);
 };
@@ -57,17 +56,17 @@ export const TagList: React.FC<TagListProps> = (props) => {
 		return createTagProps(tags, theme);
 	}, [tags, theme]);
 
-	const tagsRender = tagProps.map((tagProps, i) => {
+	const tagsRender = tagProps.map((tagProps) => {
 		return (
 			<Tag
-				key={tagProps.value || i}
+				key={tagProps.value}
 				{...tagProps}
 			/>
 		);
 	});
 
 	return (
-		<Spacing margin={margin} >
+		<Spacing show={tags.length} margin={margin} >
 			{tagsRender}
 		</Spacing>
 	);

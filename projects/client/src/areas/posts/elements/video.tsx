@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { tStyled } from '@/core/style/styled';
-import { IPostVideo } from 'oftheday-shared';
+import { IPost } from 'oftheday-shared';
 import { spacing, Spacing } from '@/core/layout/common';
 import { RegularText, SmallText, Heading3 } from '@/core/symbol/text';
 import { TagList } from './tag';
@@ -8,24 +8,27 @@ import { ActionLink } from '@/core/link';
 import { SeeMoreButton, borderRadiusStyle } from '@/core/style/common';
 import { Card } from '@/core/card/card';
 import { iconTypes } from '@/core/symbol/icon';
+import { createPostsElement, PostsElement } from './elements-common';
 
-export interface VideoProps {
-	video: IPostVideo;
+function shouldRenderVideo(post: IPost): boolean {
+	const { video } = post;
+	const { title, description, link, isRemoved } = video;
+	return !!title && (!!link || isRemoved) && (!!description || isRemoved);
 }
 
-export const Video: React.FC<VideoProps> = (props) => {
-	const { video } = props;
-	const { title, originalTitle, description, link, isTop, isNSFW, tags, isRemoved } = video;
+export const Video = createPostsElement((props) => {
+	const { post } = props;
+	const { video } = post;
 
-	// Required properties:
-	if (!title || (!link && !isRemoved) || (!description && !isRemoved)) {
-		return null;
-	}
+	const { title, originalTitle, description, link, isTop, isNSFW, tags, isRemoved } = video;
 
 	const tagStrings = React.useMemo(() => {
 		return ([isTop ? 'top' : '', isNSFW ? 'NSFW' : '', ...tags]).filter(x => !!x);
 	}, [tags, isTop, isNSFW]);
 
+	if (!shouldRenderVideo(post)) {
+		return null;
+	}
 
 	let internalVideoRender: JSX.Element = null!;
 	if (isRemoved) {
@@ -54,7 +57,7 @@ export const Video: React.FC<VideoProps> = (props) => {
 			<SeeMoreButton>See All Video</SeeMoreButton>
 		</Card>
 	);
-};
+}, PostsElement.video, shouldRenderVideo);
 
 export interface VideoTitleProps {
 	title: string;

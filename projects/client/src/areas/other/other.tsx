@@ -7,6 +7,7 @@ import { WorkingOn } from './elements/working-on';
 import { Miles } from './elements/miles';
 import { Tops } from './elements/tops';
 import { CardGroup } from '@/core/card/card-group';
+import { EqualCardFlow } from '@/core/card/card-flow';
 
 export interface OtherProps {
 	overrideOther?: IOther;
@@ -21,8 +22,10 @@ export const Other: React.FC<OtherProps> = (props) => {
 	return (
 		<Spacing margin={spacing.medium.vertical}>
 			<CardGroup title='Plans' isAutoAlternateBackground={true}>
-				<WorkingOn other={other} />
-				<LookingForward other={other} />
+				<EqualCardFlow>
+					<WorkingOn other={other} />
+					<LookingForward other={other} />
+				</EqualCardFlow>
 			</CardGroup>
 			<Checklist other={other} />
 			<Tops other={other} />

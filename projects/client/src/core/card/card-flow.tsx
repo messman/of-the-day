@@ -11,68 +11,56 @@ export function findNumberOfChildren(children: React.ReactNode): number {
 	}).length;
 }
 
-function useIsRow(numberOfChildren?: number): boolean {
-
-	numberOfChildren = numberOfChildren || 0;
+export function useMaximumRowChildren(): number {
 	const { widthBreakpoint } = useWindowLayout();
-
-	if (numberOfChildren <= 1) {
-		return false;
-	}
-
 	/*
 		Logic below is based on layout breakpoints and trying to keep the math
 		such that the cards inside will get a reasonable amount of space (larger
 		than the minimum mobile width, at least)
 	*/
-	let isRow: boolean = null!;
-	if (widthBreakpoint <= LayoutBreakpoint.mobileLarge) {
-		// Mobile - always column.
-		isRow = false;
-	}
-	else if (widthBreakpoint <= LayoutBreakpoint.tablet) {
-		isRow = false;
+	if (widthBreakpoint <= LayoutBreakpoint.tablet) {
+		return 1;
 	}
 	else if (widthBreakpoint <= LayoutBreakpoint.desktop) {
-		isRow = numberOfChildren <= 2;
+		return 2;
 	}
-	else if (widthBreakpoint <= LayoutBreakpoint.wide) {
-		isRow = numberOfChildren <= 3;
-	}
-	else if (widthBreakpoint <= LayoutBreakpoint.max) {
-		isRow = true;
-	}
-	return isRow;
+	// Else	
+	return 3;
 }
 
-export interface CardFlowProps {
+export interface EqualCardFlowProps {
 	useAutoVerticalMargin?: boolean;
 }
 
-export const CardFlow: React.FC<CardFlowProps> = (props) => {
+/**
+ * Card Flow strategy where having more children to render than is supported will result in each child 
+ * using its own row.
+ */
+export const EqualCardFlow: React.FC<EqualCardFlowProps> = (props) => {
 	const { useAutoVerticalMargin, children } = props;
 
+	const maximumRowChildren = useMaximumRowChildren();
 	const numberOfChildren = findNumberOfChildren(children);
-	const isRow = useIsRow(numberOfChildren);
+	const useFlexRow = numberOfChildren > 1 && numberOfChildren <= maximumRowChildren;
 	const spacingBetween = useResponsiveEdgeSpacing();
 
-	const FlowElement = isRow ? Row : Column;
+	const FlowElement = useFlexRow ? RowCardFlow : ColumnCardFlow;
 
 	return (
 		<ApplicationMaxWidth>
-			<FlowElement $spacing={spacingBetween.value} $useVerticalMargin={useAutoVerticalMargin || false}>
+			<FlowElement $spacing={spacingBetween.value} $useVerticalMargin={useAutoVerticalMargin}>
 				{children}
 			</FlowElement>
 		</ApplicationMaxWidth>
 	);
 };
 
-interface RowColumnProps {
+export interface RowColumnCardFlowProps {
 	$spacing: string;
-	$useVerticalMargin: boolean;
+	$useVerticalMargin?: boolean;
 }
 
-const Column = tStyled.div<RowColumnProps>`
+export const ColumnCardFlow = tStyled.div<RowColumnCardFlowProps>`
 	margin: ${p => p.$useVerticalMargin ? p.$spacing : 0} ${p => p.$spacing};
 
 	${CardContainer} + ${CardContainer} {
@@ -80,7 +68,7 @@ const Column = tStyled.div<RowColumnProps>`
 	}
 `;
 
-const Row = tStyled(FlexRow) <RowColumnProps>`
+export const RowCardFlow = tStyled(FlexRow) <RowColumnCardFlowProps>`
 	margin: ${p => p.$useVerticalMargin ? p.$spacing : 0} ${p => p.$spacing};
 
 	${CardContainer} {

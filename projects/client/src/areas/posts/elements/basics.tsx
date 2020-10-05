@@ -4,36 +4,19 @@ import { spacing } from '@/core/layout/common';
 import { TagList } from './tag';
 import { iconTypes } from '@/core/symbol/icon';
 import { TextCard } from '@/core/card/card-presets';
-import { CardFlow } from '@/core/card/card-flow';
+import { createPostsElement, PostsElement } from './elements-common';
 
 export interface BasicsProps {
 	post: IPost;
 }
 
-export const Basics: React.FC<BasicsProps> = (props) => {
-	const { post } = props;
-
-	// Pull out logic check so that the CardFlow counts the right number of children.
-	const notes = shouldRenderNotes(post) ? <Notes post={post} /> : null;
-
-	return (
-		<CardFlow useAutoVerticalMargin={true}>
-			{notes}
-			<Schedule post={post} />
-			<Location post={post} />
-		</CardFlow>
-	);
-};
-
-function shouldRenderNotes(post: IPost) {
+function shouldRenderNotes(post: IPost): boolean {
 	const { basics } = post;
-	const { event, note } = basics;
-	return event || note;
+	return !!basics.event || !!basics.note;
 }
 
-const Notes: React.FC<BasicsProps> = (props) => {
+export const Notes = createPostsElement((props) => {
 	const { post } = props;
-
 	if (!shouldRenderNotes(post)) {
 		return null;
 	}
@@ -44,33 +27,45 @@ const Notes: React.FC<BasicsProps> = (props) => {
 	return (
 		<TextCard title='Notes' icon={iconTypes.note} heading={event} text={note} />
 	);
-};
+}, PostsElement.notes, shouldRenderNotes);
 
-const scheduleDefaultText = 'It looks like Andrew neglected to fill out a schedule for this day. How typical. You can presume he is going to be on the computer all day.';
 
-const Schedule: React.FC<BasicsProps> = (props) => {
+function shouldRenderSchedule(post: IPost): boolean {
+	const { basics } = post;
+	return !!basics.schedule || !!(basics.dayTypes && basics.dayTypes.length);
+}
+
+export const Schedule = createPostsElement((props) => {
 	const { post } = props;
+	if (!shouldRenderSchedule(post)) {
+		return null;
+	}
+
 	const { basics } = post;
 	const { schedule, dayTypes } = basics;
 
-	const defaultText = (!schedule && (!dayTypes || !dayTypes.length)) ? scheduleDefaultText : '';
-
 	return (
-		<TextCard title='Schedule' icon={iconTypes.calendar} text={schedule} defaultText={defaultText}>
+		<TextCard title='Schedule' icon={iconTypes.calendar} text={schedule}>
 			<TagList margin={spacing.medium.top} tags={dayTypes} />
 		</TextCard>
 	);
-};
+}, PostsElement.schedule, shouldRenderSchedule);
 
-const locationDefaultText = 'Where in the world is Andrew? He didn\'t take the time to add his location. Typical.';
+function shouldRenderLocation(post: IPost): boolean {
+	const { basics } = post;
+	return !!basics.location;
+}
 
-const Location: React.FC<BasicsProps> = (props) => {
+export const Location = createPostsElement((props) => {
 	const { post } = props;
+	if (!shouldRenderLocation(post)) {
+		return null;
+	}
+
 	const { basics } = post;
 	const { location } = basics;
 
 	return (
-		<TextCard title='Location' icon={iconTypes.compass} heading={location} defaultText={locationDefaultText} />
+		<TextCard title='Location' icon={iconTypes.compass} heading={location} />
 	);
-};
-
+}, PostsElement.location, shouldRenderLocation);

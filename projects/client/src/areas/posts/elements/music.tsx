@@ -1,7 +1,6 @@
 // Handles the music component rendering.
 
 import * as React from 'react';
-import { IPostMusic } from 'oftheday-shared';
 import { RegularText, Heading3 } from '@/core/symbol/text';
 import { spacing, Spacing, } from '@/core/layout/common';
 import { YouTubeVideoFrame } from './video';
@@ -12,22 +11,26 @@ import { MusicQuote } from './quote/quote';
 import { SeeMoreButton } from '@/core/style/common';
 import { Card } from '@/core/card/card';
 import { iconTypes } from '@/core/symbol/icon';
+import { IPost, IPostMusic } from 'oftheday-shared';
+import { createPostsElement, PostsElement } from './elements-common';
 
-interface MusicProps {
-	music: IPostMusic;
+function shouldRenderMusic(post: IPost): boolean {
+	const { music } = post;
+	const { title, artist, spotifyLink, geniusLink, youTubeLink } = music;
+	return !!title && !!artist && !!spotifyLink && !!geniusLink && !!youTubeLink;
 }
 
-export const Music: React.FC<MusicProps> = (props) => {
-	const { music } = props;
+export const Music = createPostsElement((props) => {
+	const { post } = props;
+	const { music } = post;
 
-	const { title, artist, description, isTop, isNSFW, tags, spotifyLink, geniusLink, youTubeLink, useYouTube, quote, year } = music;
+	const { title, artist, description, isTop, isNSFW, tags, spotifyLink, youTubeLink, useYouTube, quote, year } = music;
 
 	const tagStrings = React.useMemo(() => {
 		return ([isTop ? 'Top' : '', isNSFW ? 'NSFW' : '', ...tags]).filter(x => !!x);
 	}, [tags, isTop, isNSFW]);
 
-	// Required properties:
-	if (!title || !artist || !spotifyLink || !geniusLink || !youTubeLink) {
+	if (!shouldRenderMusic(post)) {
 		return null;
 	}
 
@@ -59,7 +62,7 @@ export const Music: React.FC<MusicProps> = (props) => {
 			<SeeMoreButton>See All Music</SeeMoreButton>
 		</Card>
 	);
-};
+}, PostsElement.music, shouldRenderMusic);
 
 interface SpotifyEmbedFrameProps {
 	url: string;
@@ -86,6 +89,10 @@ const EmbedContainer = tStyled.div`
 		width: 100%;
 	}
 `;
+
+interface MusicProps {
+	music: IPostMusic;
+}
 
 const MusicOutLinks: React.FC<MusicProps> = (props) => {
 	const { spotifyLink, youTubeLink, geniusLink } = props.music;

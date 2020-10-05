@@ -1,26 +1,28 @@
 import * as React from 'react';
-import { IPostImage } from 'oftheday-shared';
+import { IPost } from 'oftheday-shared';
 import { Spacing, spacing } from '@/core/layout/common';
 import { RegularText } from '@/core/symbol/text';
 import { tStyled } from '@/core/style/styled';
 import { OutLink } from '@/core/link';
 import { borderRadiusStyle } from '@/core/style/common';
-import { CardFlow } from '@/core/card/card-flow';
 import { Card } from '@/core/card/card';
 import { iconTypes } from '@/core/symbol/icon';
 import { LayoutBreakpoint } from '@/services/layout/window-layout';
+import { createPostsElement, PostsElement } from './elements-common';
 
-export interface ImageProps {
-	image: IPostImage;
+function shouldRenderImage(post: IPost): boolean {
+	const { image } = post;
+	return !!image.link;
 }
 
-export const Image: React.FC<ImageProps> = (props) => {
-	const { image } = props;
-	const { link, description, source, sourceLink } = image;
-
-	if (!link) {
+export const Image = createPostsElement((props) => {
+	const { post } = props;
+	if (!shouldRenderImage(post)) {
 		return null;
 	}
+
+	const { image } = post;
+	const { link, description, source, sourceLink } = image;
 
 	let sourceRender: JSX.Element | string | null = null;
 	if (source) {
@@ -35,23 +37,22 @@ export const Image: React.FC<ImageProps> = (props) => {
 	// TODO - add accessibility for image.
 
 	return (
-		<CardFlow useAutoVerticalMargin={true}>
-			<Card title='Image' icon={iconTypes.image}>
+		<Card title='Image' icon={iconTypes.image}>
 
-				<RegularText show={description} margin={spacing.small.top}>{description}</RegularText>
-				<RegularText show={sourceRender} margin={spacing.nudge.top}>From {sourceRender}</RegularText>
-				<Spacing margin={spacing.large.top}>
+			<RegularText show={description} margin={spacing.small.top}>{description}</RegularText>
+			<RegularText show={sourceRender} margin={spacing.nudge.top}>From {sourceRender}</RegularText>
+			<Spacing margin={spacing.large.top}>
 
-					<a href={link} target='_blank' rel="noreferrer noopener" title='Click to open in a new tab'>
-						<ConstrainedImage src={link} />
-					</a>
-				</Spacing>
-			</Card>
-		</CardFlow>
+				<a href={link} target='_blank' rel="noreferrer noopener" title='Click to open in a new tab'>
+					<ConstrainedImage src={link} />
+				</a>
+			</Spacing>
+		</Card>
 	);
-};
+}, PostsElement.image, shouldRenderImage);
 
 const ConstrainedImage = tStyled.img`
+	width: 100%;
 	max-width: ${LayoutBreakpoint.tablet}px;
 	max-height: 80vh;
 

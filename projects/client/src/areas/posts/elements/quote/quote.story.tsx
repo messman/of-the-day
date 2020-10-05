@@ -3,7 +3,7 @@ import { decorate } from '@/test/decorate';
 import { text, boolean } from '@storybook/addon-knobs';
 import { MusicQuote, Quote } from './quote';
 import { spacing, Spacing } from '@/core/layout/common';
-import { IPostQuote } from 'oftheday-shared';
+import { IPost, IPostQuote } from 'oftheday-shared';
 
 export default { title: 'Areas/Posts/Elements/Quotes' };
 
@@ -25,18 +25,18 @@ export const TestSingleQuote = decorate('Single Quote', null, () => {
 	const useSourceLink = boolean('use source link', true);
 	const sourceLink = useSourceLink ? 'https://google.com' : '';
 
-	const quote: IPostQuote = {
+	const post = createPostFromQuote({
 		a: a,
 		aVoice: aVoice,
 		b: '',
 		bVoice: '',
 		source: source,
 		sourceLink: sourceLink
-	};
+	});
 
 	return (
 		<Spacing margin={spacing.medium.value}>
-			<Quote quote={quote} />
+			<Quote post={post} />
 		</Spacing>
 	);
 });
@@ -48,18 +48,18 @@ export const TestAnonymousVoicesQuote = decorate('Anonymous Voices Quote', null,
 	const useSourceLink = boolean('use source link', true);
 	const sourceLink = useSourceLink ? 'https://google.com' : '';
 
-	const quote: IPostQuote = {
+	const post = createPostFromQuote({
 		a: a,
 		aVoice: '',
 		b: b,
 		bVoice: '',
 		source: source,
 		sourceLink: sourceLink
-	};
+	});
 
 	return (
 		<Spacing margin={spacing.medium.value}>
-			<Quote quote={quote} />
+			<Quote post={post} />
 		</Spacing>
 	);
 });
@@ -73,18 +73,18 @@ export const TestVoicesQuote = decorate('Voices Quote', null, () => {
 	const useSourceLink = boolean('use source link', true);
 	const sourceLink = useSourceLink ? 'https://google.com' : '';
 
-	const quote: IPostQuote = {
+	const post = createPostFromQuote({
 		a: a,
 		aVoice: aVoice,
 		b: b,
 		bVoice: bVoice,
 		source: source,
 		sourceLink: sourceLink
-	};
+	});
 
 	return (
 		<Spacing margin={spacing.medium.value}>
-			<Quote quote={quote} />
+			<Quote post={post} />
 		</Spacing>
 	);
 });
@@ -98,18 +98,24 @@ export const TestLongVoicesQuote = decorate('Long Voices Quote', null, () => {
 	const useSourceLink = boolean('use source link', true);
 	const sourceLink = useSourceLink ? 'https://google.com' : '';
 
-	const quote: IPostQuote = {
+	const post = createPostFromQuote({
 		a: a,
 		aVoice: aVoice,
 		b: b,
 		bVoice: bVoice,
 		source: source,
 		sourceLink: sourceLink
-	};
+	});
 
 	return (
 		<Spacing margin={spacing.medium.value}>
-			<Quote quote={quote} />
+			<Quote post={post} />
 		</Spacing>
 	);
 });
+
+function createPostFromQuote(quote: IPostQuote): IPost {
+	return {
+		quote: quote
+	} as unknown as IPost;
+}

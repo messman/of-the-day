@@ -1,19 +1,12 @@
 import * as React from 'react';
 import { IPost } from 'oftheday-shared';
-import { Basics } from './elements/basics';
-import { Music } from './elements/music';
-import { Video } from './elements/video';
-import { Quote } from './elements/quote/quote';
-import { Image } from './elements/image';
-import { EndThoughts } from './elements/end-thoughts';
-import { Custom } from './elements/custom';
 import { DayOff } from './elements/day-off';
 import { tStyled } from '@/core/style/styled';
 import { spacing } from '@/core/layout/common';
-import { CardFlow } from '@/core/card/card-flow';
+import { ContextGroup } from './elements/group-context';
+import { ShareGroup } from './elements/group-share';
 
 interface PostProps {
-	isActive?: boolean;
 	post: IPost;
 }
 
@@ -31,15 +24,8 @@ export const Post: React.FC<PostProps> = (props) => {
 	else {
 		render = (
 			<>
-				<EndThoughts endThoughts={post.endThoughts} />
-				<Basics post={post} />
-				<CardFlow>
-					<Music music={post.music} />
-					<Video video={post.video} />
-				</CardFlow>
-				<Image image={post.image} />
-				<Quote quote={post.quote} />
-				<Custom custom={post.custom} />
+				<ContextGroup post={post} />
+				<ShareGroup post={post} />
 			</>
 		);
 	}

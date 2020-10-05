@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { QuoteProps } from './quote';
 import { RegularText } from '@/core/symbol/text';
 import { Spacing, spacing } from '@/core/layout/common';
 import { FlexRow, FlexColumn } from '@messman/react-common';
@@ -8,9 +7,14 @@ import { QuotePiece } from './quote-piece';
 import { LayoutBreakpoint } from '@/services/layout/window-layout';
 import { tStyled } from '@/core/style/styled';
 import { separatorThickness } from '@/core/style/common';
+import { IPostQuote } from 'oftheday-shared';
+
+export interface InnerQuoteProps {
+	quote: IPostQuote;
+}
 
 /** Controls the inner content of the quote based on quote properties. */
-export const InnerQuote: React.FC<QuoteProps> = (props) => {
+export const InnerQuote: React.FC<InnerQuoteProps> = (props) => {
 	const { quote } = props;
 	const { a, b } = quote;
 
@@ -28,7 +32,7 @@ export const InnerQuote: React.FC<QuoteProps> = (props) => {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-export const InnerSingleQuote: React.FC<QuoteProps> = (props) => {
+export const InnerSingleQuote: React.FC<InnerQuoteProps> = (props) => {
 	const { quote } = props;
 	const { a } = quote;
 
@@ -50,7 +54,7 @@ const SingleQuoteWidthControlContainer = tStyled(FlexColumn)`
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-export const InnerMultiQuote: React.FC<QuoteProps> = (props) => {
+export const InnerMultiQuote: React.FC<InnerQuoteProps> = (props) => {
 	const { quote } = props;
 	const { a, aVoice, b, bVoice } = quote;
 

@@ -5,6 +5,7 @@ import { CardGroup } from '@/core/card/card-group';
 import { iconTypes, SVGIconType } from '@/core/symbol/icon';
 import { Card } from '@/core/card/card';
 import { spacing } from '@/core/layout/common';
+import { EqualCardFlow } from '@/core/card/card-flow';
 
 export interface TopsProps {
 	other: IOther;
@@ -19,9 +20,11 @@ export const Tops: React.FC<TopsProps> = (props) => {
 
 	return (
 		<CardGroup title='Trends'>
-			<Top title='Music Artists' count={topArtists} icon={iconTypes.music} />
-			<Top title='Day Tags' count={topDayTypes} icon={iconTypes.calendar} />
-			<Top title='Locations' count={topLocations} icon={iconTypes.compass} />
+			<EqualCardFlow>
+				<Top title='Music Artists' count={topArtists} icon={iconTypes.music} />
+				<Top title='Day Tags' count={topDayTypes} icon={iconTypes.calendar} />
+				<Top title='Locations' count={topLocations} icon={iconTypes.compass} />
+			</EqualCardFlow>
 		</CardGroup>
 	);
 };

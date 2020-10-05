@@ -5,7 +5,6 @@ import { Spacing, spacing } from '../layout/common';
 import { tStyled } from '../style/styled';
 
 import { Heading1 } from '../symbol/text';
-import { CardFlow } from './card-flow';
 
 export interface CardGroupProps {
 	title?: string | null;
@@ -37,9 +36,7 @@ export const CardGroup: React.FC<CardGroupProps> = (props) => {
 		<Background>
 			<Spacing padding={groupSpacing.vertical}>
 				{titleRender}
-				<CardFlow>
-					{children}
-				</CardFlow>
+				{children}
 			</Spacing>
 		</Background>
 	);

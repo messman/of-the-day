@@ -6,7 +6,7 @@ import { iconTypes } from '../symbol/icon';
 import { boolean, text } from '@storybook/addon-knobs';
 import { RegularText } from '../symbol/text';
 import { CardGroup } from './card-group';
-import { CardFlow } from './card-flow';
+import { EqualCardFlow } from './card-flow';
 import { TextCard } from './card-presets';
 
 export default { title: 'Core/Card' };
@@ -41,18 +41,18 @@ export const TestCardFlow = decorate('Card Flow', null, () => {
 
 	return (
 		<div>
-			<CardFlow useAutoVerticalMargin={true}>
+			<EqualCardFlow useAutoVerticalMargin={true}>
 				<Card1 />
-			</CardFlow>
-			<CardFlow useAutoVerticalMargin={true}>
+			</EqualCardFlow>
+			<EqualCardFlow useAutoVerticalMargin={true}>
 				<Card1 />
 				<Card2 />
 				<Card3 />
-			</CardFlow>
-			<CardFlow useAutoVerticalMargin={true}>
+			</EqualCardFlow>
+			<EqualCardFlow useAutoVerticalMargin={true}>
 				<Card1 />
 				<Card3 />
-			</CardFlow>
+			</EqualCardFlow>
 		</div>
 	);
 });
@@ -66,16 +66,22 @@ export const TestCardGroup = decorate('Card Group', null, () => {
 	return (
 		<div>
 			<CardGroup title={groupTitle} isAlternateBackground={useAlternateBackground} isAutoAlternateBackground={useAutoAlternateBackground}>
-				<Card1 />
+				<EqualCardFlow>
+					<Card1 />
+				</EqualCardFlow>
 			</CardGroup>
 			<CardGroup title={groupTitle} isAlternateBackground={useAlternateBackground} isAutoAlternateBackground={useAutoAlternateBackground}>
-				<Card1 />
-				<Card2 />
-				<Card3 />
+				<EqualCardFlow>
+					<Card1 />
+					<Card2 />
+					<Card3 />
+				</EqualCardFlow>
 			</CardGroup>
 			<CardGroup title={groupTitle} isAlternateBackground={useAlternateBackground} isAutoAlternateBackground={useAutoAlternateBackground}>
-				<Card1 />
-				<Card3 />
+				<EqualCardFlow>
+					<Card1 />
+					<Card3 />
+				</EqualCardFlow>
 			</CardGroup>
 		</div>
 	);

@@ -6,6 +6,7 @@ import { RegularText, FontSize } from '@/core/symbol/text';
 import { CardGroup } from '@/core/card/card-group';
 import { Card } from '@/core/card/card';
 import { ThemePickColor } from '@/core/style/theme';
+import { EqualCardFlow } from '@/core/card/card-flow';
 
 export interface ChecklistProps {
 	other: IOther;
@@ -17,20 +18,22 @@ export const Checklist: React.FC<ChecklistProps> = (props) => {
 
 	return (
 		<CardGroup title='Goals' isAutoAlternateBackground={true}>
-			<InnerChecklist
-				title='Top To-Do Items'
-				icon={iconTypes.todoIncomplete}
-				items={checklistToDo}
-				itemsIcon={iconTypes.todoIncomplete}
-				itemsIconColor={c => c.textDisabled}
-			/>
-			<InnerChecklist
-				title='Completed Items'
-				icon={iconTypes.todoComplete}
-				items={checklistDone}
-				itemsIcon={iconTypes.todoComplete}
-				itemsIconColor={c => c.success}
-			/>
+			<EqualCardFlow>
+				<InnerChecklist
+					title='Top To-Do Items'
+					icon={iconTypes.todoIncomplete}
+					items={checklistToDo}
+					itemsIcon={iconTypes.todoIncomplete}
+					itemsIconColor={c => c.textDisabled}
+				/>
+				<InnerChecklist
+					title='Completed Items'
+					icon={iconTypes.todoComplete}
+					items={checklistDone}
+					itemsIcon={iconTypes.todoComplete}
+					itemsIconColor={c => c.success}
+				/>
+			</EqualCardFlow>
 		</CardGroup>
 	);
 };
@@ -50,9 +53,11 @@ const InnerChecklist: React.FC<InnerChecklistProps> = (props) => {
 		return null;
 	}
 
-	const itemsRender = items.map((item) => {
+	const itemsRender = items.map((item, i) => {
+
+		const key = `${i}_${item}`;
 		return (
-			<RegularText key={item}>
+			<RegularText key={key}>
 				<Spacing isInline={true} margin={spacing.small.right}>
 					<Icon type={itemsIcon} fillColor={itemsIconColor} height={FontSize.textRegular} />
 				</Spacing>
