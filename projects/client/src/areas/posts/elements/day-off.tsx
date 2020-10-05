@@ -13,11 +13,13 @@ export const DayOff: React.FC<DayOffProps> = (props) => {
 
 	return (
 		<ApplicationMaxWidth>
-			<Spacing margin={spacing.large.value} textAlign='center'>
-				<Heading2 isMaxLineLength={false} margin={spacing.medium.bottom}>Day Off</Heading2>
-				<RegularText margin='auto'>
-					{messageText}
-				</RegularText>
+			<Spacing margin={spacing.grand.top}>
+				<Spacing margin={spacing.large.value} textAlign='center'>
+					<Heading2 isMaxLineLength={false} margin={spacing.medium.bottom}>Day Off</Heading2>
+					<RegularText margin='auto'>
+						{messageText}
+					</RegularText>
+				</Spacing>
 			</Spacing>
 		</ApplicationMaxWidth>
 	);

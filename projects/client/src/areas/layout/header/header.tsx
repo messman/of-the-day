@@ -7,20 +7,20 @@ import { LayoutBreakpoint } from '@/services/layout/window-layout';
 import { FontWeight } from '@/core/style/theme';
 import { HeaderIconAnimation, HeaderSubtitleAnimation, useHeaderAnimationState } from './header-animation';
 
-export function useHeaderDimensions(): [string, string] {
+export function useHeaderDimensions(): [string, string, string] {
 	const { widthBreakpoint } = useWindowLayout();
 	if (widthBreakpoint >= LayoutBreakpoint.desktop) {
-		return ['5rem', '4rem'];
+		return ['5rem', '4rem', spacing.large.value];
 	}
 	else if (widthBreakpoint >= LayoutBreakpoint.mobileLarge) {
-		return ['4rem', '3rem'];
+		return ['4rem', '3rem', spacing.medium.value];
 	}
-	return ['2.3rem', '1.8rem'];
+	return ['2.3rem', '1.8rem', spacing.medium.value];
 }
 
 export const Header: React.FC = () => {
 
-	const [titleHeight, subtitleHeight] = useHeaderDimensions();
+	const [titleHeight, subtitleHeight, rightMargin] = useHeaderDimensions();
 	const topBottomMargin = `${titleHeight} 0`;
 	const textTopMargin = `${subtitleHeight} 0 0 0`;
 
@@ -31,15 +31,15 @@ export const Header: React.FC = () => {
 			<HeaderImage />
 			<Spacing textAlign='center' margin={topBottomMargin}>
 				<FlexRow>
-					<HeaderIconAnimation animationState={animationState} titleHeight={titleHeight} subtitleHeight={subtitleHeight} />
+					<HeaderIconAnimation animationState={animationState} titleHeight={titleHeight} subtitleHeight={subtitleHeight} rightMargin={rightMargin} />
 					<div>
 						<HeaderSubtitleAnimation animationState={animationState} height={subtitleHeight} />
 						<HeaderBoldText dataFontSize={titleHeight}>Of The Day</HeaderBoldText>
 					</div>
 				</FlexRow>
 				<Spacing textAlign='center' margin={textTopMargin}>
-					<RegularText color={c => c.textDistinctOnAccent}>A place for Andrew to share things</RegularText>
-					<RegularText color={c => c.textDistinctOnAccent} margin={spacing.nudge.top}>until he runs out of money.</RegularText>
+					<RegularText isMaxLineLength={false} color={c => c.textDistinctOnAccent}>A place for Andrew to share things</RegularText>
+					<RegularText isMaxLineLength={false} color={c => c.textDistinctOnAccent} margin={spacing.nudge.top}>until he runs out of money.</RegularText>
 				</Spacing>
 			</Spacing>
 			<HeaderShadow />

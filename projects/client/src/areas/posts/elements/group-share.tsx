@@ -90,7 +90,7 @@ export const ShareGroup: React.FC<PostProps> = (props) => {
 	}
 
 	return (
-		<CardGroup>
+		<CardGroup isAutoAlternateBackground={true}>
 			<ApplicationMaxWidth>
 				{cardFlowRender}
 			</ApplicationMaxWidth>

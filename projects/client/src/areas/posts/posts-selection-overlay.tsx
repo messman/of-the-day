@@ -48,7 +48,7 @@ export const PostsSelectionOverlay: React.FC<PostsSelectionOverlayProps> = (prop
 			<ScrollFlexColumn>
 				{postsRender}
 				<Spacing margin={spacing.medium.value}>
-					<SeeMoreButton onClick={onArchivesChosen}>View The Archives</SeeMoreButton>
+					<SeeMoreButton onClick={onArchivesChosen}>See Archive</SeeMoreButton>
 				</Spacing>
 			</ScrollFlexColumn>
 			<FooterActionLink onClick={onSetInactive}>Cancel</FooterActionLink>

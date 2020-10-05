@@ -159,11 +159,12 @@ const TextHeightContainer = tStyled.div<HeightContainerProps>`
 export interface HeaderIconAnimationProps {
 	titleHeight: string;
 	subtitleHeight: string;
+	rightMargin: string;
 	animationState: HeaderAnimationState;
 }
 
 export const HeaderIconAnimation: React.FC<HeaderIconAnimationProps> = (props) => {
-	const { animationState, titleHeight, subtitleHeight } = props;
+	const { animationState, titleHeight, subtitleHeight, rightMargin } = props;
 	const { entity } = animationState;
 	const icon = entity?.icon || null;
 
@@ -191,7 +192,7 @@ export const HeaderIconAnimation: React.FC<HeaderIconAnimationProps> = (props) =
 	});
 
 	return (
-		<IconHeightContainer titleHeight={titleHeight} subtitleHeight={subtitleHeight}>
+		<IconHeightContainer titleHeight={titleHeight} subtitleHeight={subtitleHeight} rightMargin={rightMargin}>
 			<IconBackground />
 			{transitionRender}
 		</IconHeightContainer>
@@ -233,11 +234,12 @@ const IconBackground = tStyled.div<IconBackgroundProps>`
 interface IconHeightContainerProps {
 	titleHeight: string;
 	subtitleHeight: string;
+	rightMargin: string;
 }
 
 const IconHeightContainer = tStyled.div<IconHeightContainerProps>`
 	position: relative;
 	width: calc(${p => p.titleHeight} + ${p => p.subtitleHeight});
 	height: calc(${p => p.titleHeight} + ${p => p.subtitleHeight});
-	margin-right: ${spacing.medium.value};
+	margin-right: ${p => p.rightMargin};
 `;
