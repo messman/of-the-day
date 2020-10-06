@@ -44,11 +44,11 @@ export const Card: React.FC<CardProps> = (props) => {
 
 export const CardContainer = tStyled(FlexColumn)`
 	position: relative;
-	overflow: hidden;
 `;
 
 const BoxShadow = tStyled(FlexColumn)`
 	box-shadow: 0 2px 8px 0 ${p => p.theme.color.bgComponentShadow1};
+	overflow: hidden;
 `;
 
 const Background = tStyled.div`
@@ -61,6 +61,6 @@ const Background = tStyled.div`
 
 const ColorHeader = tStyled.div`
 	width: 100%;
-	height: 6px;
+	height: 4px;
 	background: ${p => p.theme.color.accentGradient};
 `;

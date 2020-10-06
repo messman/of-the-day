@@ -1,6 +1,7 @@
 import { Spacing, spacing, useResponsiveEdgeSpacing } from '@/core/layout/common';
 import { OutLink } from '@/core/link';
 import { tStyled } from '@/core/style/styled';
+import { Icon, iconTypes } from '@/core/symbol/icon';
 import { Heading1, Heading2, RegularText } from '@/core/symbol/text';
 import { LayoutBreakpoint } from '@/services/layout/window-layout';
 import * as React from 'react';
@@ -32,7 +33,7 @@ export const About: React.FC<AboutProps> = () => {
 						<Subtitle>Of The Day</Subtitle>
 						<Paragraph>
 							Of The Day is a way for family, friends, and coworkers to stay informed about what I'm up to, as well as a way for me to
-							share things that are important to me. Above all, it acts as a pseudo-journal of my time. It's an important project for me
+							share things that are important to me. Above all, Of The Day acts as a pseudo-journal of my time. It's an important project for me
 							regardless of whether anyone other than myself ever reads it.
 						</Paragraph>
 					</div>
@@ -47,21 +48,25 @@ export const About: React.FC<AboutProps> = () => {
 						<Paragraph>
 							Songs are handpicked out of my personal Spotify playlists. The main criteria for a song is that I like it and want to listen to it;
 							I do not add songs solely because of their message or lyrics or how well they fit with a certain day. However, I do try to make sure my
-							selections are varied and enjoyable by almost any audience. The song selection process is always enjoyable.
+							selections are varied and enjoyable by almost any audience. The song selection process is enjoyable, because I am passionate about music and
+							pride myself in enjoying a relatively wide range of music.
 						</Paragraph>
 						<Paragraph>
 							Videos are from deep dives into my decade-long YouTube viewing history. Like with songs, I try to vary the content of videos to hit different areas,
-							like education or comedy. I reject more videos than I accept, because I audit the video to ensure it is as appropriate for my family as it is for my
+							like education or comedy. I also try to mix in newer videos with older ones.
+							I reject more videos than I accept, because I audit the video to ensure it is as appropriate for my family as it is for my
 							close friends.
 						</Paragraph>
-						<Subtitle>Will you add song X or video Y?</Subtitle>
+						<Subtitle>Will you add a certain song or video that I like?</Subtitle>
 						<Paragraph>
-							Only if I am willing to put my name behind that song or video. Some songs or videos, even if they are my favorites, do not make the cut as appropriate
-							or shareable.
+							I appreciate and welcome all suggestions for songs and videos. It means a lot that people care enough to offer up items that are important to them.
+							However, I will only accept suggestions if I am willing to put my name behind that suggestion as something shareable.
+							Some songs or videos, even if they are my favorites, do not make the cut as shareable.
 						</Paragraph>
 						<Subtitle>How many people view this page?</Subtitle>
 						<Paragraph>
-							I don't check!
+							I don't check the statistics, and I don't care to. I know that a significant portion of my family checks this site, as
+							they let me know when they like the things I share.
 						</Paragraph>
 						<Subtitle>How much time do you put into this project?</Subtitle>
 						<Paragraph>
@@ -70,6 +75,7 @@ export const About: React.FC<AboutProps> = () => {
 						<Subtitle>Will you add likes and comments?</Subtitle>
 						<Paragraph>
 							For now, no. I think they would be cool additions, but I would prefer to let the dust settle on this project for awhile.
+							I am also opposed to this site becoming too much like a social media site, as that is not its purpose.
 						</Paragraph>
 					</div>
 					<div>
@@ -105,6 +111,9 @@ export const About: React.FC<AboutProps> = () => {
 					</div>
 					<div>
 						<Title>Contact</Title>
+						<Paragraph>
+							<Icon type={iconTypes.creator} height={spacing.grand.value} fillColor={c => c.accentFillOnBackground} />
+						</Paragraph>
 						<Paragraph>
 							I am <OutLink href='https://andrewmessier.com'>Andrew Messier</OutLink>.
 						</Paragraph>

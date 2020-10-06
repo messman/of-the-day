@@ -37,6 +37,7 @@ export const iconTypes = {
 	note: require('@/static/icons/note.svg').default as SVGIconType,
 	speech: require('@/static/icons/speech.svg').default as SVGIconType,
 	bicycling: require('@/static/icons/bicycling.svg').default as SVGIconType,
+	creator: require('@/static/icons/creator.svg').default as SVGIconType,
 };
 
 export interface IconProps {
