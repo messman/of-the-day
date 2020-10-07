@@ -3,12 +3,13 @@ import { ActionLink } from '@/core/link';
 import { OverlayBox } from '@/core/overlay/overlay';
 import { ManagedOverlayBoxProps } from '@/services/overlay/overlay-manager';
 import { FlexColumn, FlexRow } from '@messman/react-common';
-import { IArchiveFilter, cloneFilter, IPostElementType, keysOfFilterRange, IArchiveFilterRange, keysOfFilterSort, IArchiveFilterSort } from 'oftheday-shared';
+import { IArchiveFilter, cloneFilter, IPostElementType, keysOfFilterRange, IArchiveFilterRange, keysOfFilterSort, IArchiveFilterSort, isFilterValid } from 'oftheday-shared';
 import { tStyled } from '@/core/style/styled';
 import { Spacing, spacing } from '@/core/layout/common';
-import { Heading3 } from '@/core/symbol/text';
+import { FontSize, Heading3, RegularText } from '@/core/symbol/text';
 import { Checkbox, OpenSelect, OpenSelectOption } from './filter-overlay-forms';
 import { archiveFilterModifiersForDisplay, archiveFilterRangeForDisplay, archiveFilterSortForDisplay, isOnlyMusicTypeSelected, matchToPreset, postElementTypeForDisplay } from '../filter-common';
+import { Icon, iconTypes } from '@/core/symbol/icon';
 
 export interface FilterOverlayProps extends ManagedOverlayBoxProps {
 	filter: IArchiveFilter;
@@ -91,6 +92,15 @@ export const FilterOverlay: React.FC<FilterOverlayProps> = (props) => {
 		onFilterWorkingCopyChanged(newFilter);
 	}
 
+	const invalidWarning = !isFilterValid(filterWorkingCopy) ? (
+		<RegularText isMaxLineLength={false} textAlign='center' margin={spacing.medium.value}>
+			<Spacing isInline={true} margin={spacing.small.right}>
+				<Icon type={iconTypes.alert} fillColor={c => c.warning} height={FontSize.textRegular} />
+			</Spacing>
+			This won't return anything.
+		</RegularText>
+	) : null;
+
 
 	return (
 		<OverlayBox
@@ -100,6 +110,11 @@ export const FilterOverlay: React.FC<FilterOverlayProps> = (props) => {
 			isSetInactiveOnBackdropClick={false}
 		>
 			<ScrollFlexColumn>
+				<Spacing margin={spacing.medium.bottom}>
+					<RegularText>
+						Notes, schedules, locations, and end-of-day thoughts are not accessible in the archive.
+					</RegularText>
+				</Spacing>
 				<Spacing margin={spacing.large.bottom}>
 					<Heading3>See</Heading3>
 					<Spacing margin={spacing.small.top}>
@@ -149,6 +164,7 @@ export const FilterOverlay: React.FC<FilterOverlayProps> = (props) => {
 					</Spacing>
 				</Spacing>
 			</ScrollFlexColumn>
+			{invalidWarning}
 			<Footer>
 				<FooterActionLink onClick={onSetInactive}>Cancel</FooterActionLink>
 				<FooterActionLink onClick={onSubmit}>Submit</FooterActionLink>
@@ -159,7 +175,7 @@ export const FilterOverlay: React.FC<FilterOverlayProps> = (props) => {
 
 const ScrollFlexColumn = tStyled(FlexColumn)`
 	overflow-y: auto;
-	margin: ${spacing.medium.value};
+	padding: ${spacing.medium.value};
 `;
 
 const Footer = tStyled(FlexRow)`
