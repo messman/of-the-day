@@ -11,8 +11,8 @@ import { MusicQuote } from './quote/quote';
 import { SeeMoreButton } from '@/core/style/common';
 import { Card } from '@/core/card/card';
 import { iconTypes } from '@/core/symbol/icon';
-import { IPost, IPostMusic } from 'oftheday-shared';
-import { createPostsElement, PostsElement } from './elements-common';
+import { IPost, IPostElementType, IPostMusic } from 'oftheday-shared';
+import { createPostsElement } from './elements-common';
 
 function shouldRenderMusic(post: IPost): boolean {
 	const { music } = post;
@@ -62,7 +62,7 @@ export const Music = createPostsElement((props) => {
 			<SeeMoreButton>See All Music</SeeMoreButton>
 		</Card>
 	);
-}, PostsElement.music, shouldRenderMusic);
+}, IPostElementType.music, shouldRenderMusic);
 
 interface SpotifyEmbedFrameProps {
 	url: string;

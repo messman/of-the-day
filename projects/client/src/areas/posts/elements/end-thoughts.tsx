@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { IPost } from 'oftheday-shared';
+import { IPost, IPostElementType } from 'oftheday-shared';
 import { TextCard } from '@/core/card/card-presets';
 import { iconTypes } from '@/core/symbol/icon';
-import { createPostsElement, PostsElement } from './elements-common';
+import { createPostsElement } from './elements-common';
 
 export interface EndThoughtsProps {
 	post: IPost;
@@ -26,4 +26,4 @@ export const EndThoughts = createPostsElement((props) => {
 	return (
 		<TextCard title='End-Of-Day Thoughts' icon={iconTypes.thought} text={value} />
 	);
-}, PostsElement.endThoughts, shouldRenderEndThoughts);
+}, IPostElementType.endThoughts, shouldRenderEndThoughts);

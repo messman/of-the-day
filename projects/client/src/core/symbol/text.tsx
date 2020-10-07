@@ -27,10 +27,15 @@ const italicStyle = tCss`
 	font-style: italic;
 `;
 
+// EM value may be font-specific!
+const iconTextOffsetStyle = tCss`
+	margin-top: .1em;
+`;
+
 export const BaseText = tStyled(Spacing) <BaseTextProps>`
 	/* EM value may be font-specific! */
 	svg {
-		margin-top: .1em;
+		${iconTextOffsetStyle}
 	}
 
 	${p => p.$fontSize && ('font-size: ' + p.$fontSize + ';')}

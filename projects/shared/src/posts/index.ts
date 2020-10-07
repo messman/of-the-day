@@ -1,4 +1,5 @@
 import { IMeta } from '../meta';
+import { enumKeys } from '../utility';
 
 export interface IPostReactionSummary {
 	emoji: string[];
@@ -9,6 +10,19 @@ export interface IPostResponse {
 	meta: IMeta;
 	posts: IPost[];
 }
+
+export enum IPostElementType {
+	notes,
+	schedule,
+	location,
+	endThoughts,
+	music,
+	video,
+	image,
+	quote,
+	custom
+}
+export const keysOfIPostElementType = enumKeys(IPostElementType);
 
 export interface IPost {
 	date: string;

@@ -1,11 +1,11 @@
 // Handles the rendering of a quote.
 
 import * as React from 'react';
-import { IPost, IPostQuote } from 'oftheday-shared';
+import { IPost, IPostElementType, IPostQuote } from 'oftheday-shared';
 import { InnerQuote, InnerSingleQuote } from './quote-inner';
 import { Card } from '@/core/card/card';
 import { iconTypes } from '@/core/symbol/icon';
-import { createPostsElement, PostsElement } from '../elements-common';
+import { createPostsElement } from '../elements-common';
 
 export interface MusicQuoteProps {
 	lyric: string;
@@ -54,4 +54,4 @@ export const Quote = createPostsElement((props) => {
 			<InnerQuote quote={quote} />
 		</Card>
 	);
-}, PostsElement.quote, shouldRenderQuote);
+}, IPostElementType.quote, shouldRenderQuote);

@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { IPost } from 'oftheday-shared';
+import { IPost, IPostElementType } from 'oftheday-shared';
 import { spacing } from '@/core/layout/common';
 import { TagList } from './tag';
 import { iconTypes } from '@/core/symbol/icon';
 import { TextCard } from '@/core/card/card-presets';
-import { createPostsElement, PostsElement } from './elements-common';
+import { createPostsElement } from './elements-common';
 
 export interface BasicsProps {
 	post: IPost;
@@ -27,7 +27,7 @@ export const Notes = createPostsElement((props) => {
 	return (
 		<TextCard title='Notes' icon={iconTypes.note} heading={event} text={note} />
 	);
-}, PostsElement.notes, shouldRenderNotes);
+}, IPostElementType.notes, shouldRenderNotes);
 
 
 function shouldRenderSchedule(post: IPost): boolean {
@@ -49,7 +49,7 @@ export const Schedule = createPostsElement((props) => {
 			<TagList margin={spacing.medium.top} tags={dayTypes} />
 		</TextCard>
 	);
-}, PostsElement.schedule, shouldRenderSchedule);
+}, IPostElementType.schedule, shouldRenderSchedule);
 
 function shouldRenderLocation(post: IPost): boolean {
 	const { basics } = post;
@@ -68,4 +68,4 @@ export const Location = createPostsElement((props) => {
 	return (
 		<TextCard title='Location' icon={iconTypes.compass} heading={location} />
 	);
-}, PostsElement.location, shouldRenderLocation);
+}, IPostElementType.location, shouldRenderLocation);

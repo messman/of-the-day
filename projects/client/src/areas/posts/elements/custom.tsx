@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IPost } from 'oftheday-shared';
+import { IPost, IPostElementType } from 'oftheday-shared';
 import { spacing, Spacing } from '@/core/layout/common';
 import { RegularText, SmallText } from '@/core/symbol/text';
 import { OutLink, ActionLink } from '@/core/link';
@@ -7,7 +7,7 @@ import { tStyled } from '@/core/style/styled';
 import { borderRadiusStyle } from '@/core/style/common';
 import { Card } from '@/core/card/card';
 import { iconTypes } from '@/core/symbol/icon';
-import { createPostsElement, PostsElement } from './elements-common';
+import { createPostsElement } from './elements-common';
 
 /*
 	Possible things in this section:
@@ -66,7 +66,7 @@ export const Custom = createPostsElement((props) => {
 			</Spacing>
 		</Card>
 	);
-}, PostsElement.custom, shouldRenderCustom);
+}, IPostElementType.custom, shouldRenderCustom);
 
 const HiddenArea = tStyled.div`
 	padding: ${spacing.medium.value};

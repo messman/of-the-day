@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { tStyled } from '@/core/style/styled';
-import { IPost } from 'oftheday-shared';
+import { IPost, IPostElementType } from 'oftheday-shared';
 import { spacing, Spacing } from '@/core/layout/common';
 import { RegularText, SmallText, Heading3 } from '@/core/symbol/text';
 import { TagList } from './tag';
@@ -8,7 +8,7 @@ import { ActionLink } from '@/core/link';
 import { SeeMoreButton, borderRadiusStyle } from '@/core/style/common';
 import { Card } from '@/core/card/card';
 import { iconTypes } from '@/core/symbol/icon';
-import { createPostsElement, PostsElement } from './elements-common';
+import { createPostsElement } from './elements-common';
 
 function shouldRenderVideo(post: IPost): boolean {
 	const { video } = post;
@@ -57,7 +57,7 @@ export const Video = createPostsElement((props) => {
 			<SeeMoreButton>See All Video</SeeMoreButton>
 		</Card>
 	);
-}, PostsElement.video, shouldRenderVideo);
+}, IPostElementType.video, shouldRenderVideo);
 
 export interface VideoTitleProps {
 	title: string;
