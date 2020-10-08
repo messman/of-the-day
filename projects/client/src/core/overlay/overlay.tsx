@@ -12,6 +12,7 @@ import { ManagedOverlayBoxProps } from '@/services/overlay/overlay-manager';
 export interface OverlayBoxProps extends ManagedOverlayBoxProps {
 	headerTitle: string;
 	isSetInactiveOnBackdropClick?: boolean;
+	isMaxHeight?: boolean;
 }
 
 // Custom duration so we can make it short and snappy.
@@ -22,7 +23,7 @@ const springZIndex = 5;
 
 export const OverlayBox: React.FC<OverlayBoxProps> = (props) => {
 
-	const { isActive, onSetInactive, headerTitle, isSetInactiveOnBackdropClick, children } = props;
+	const { isActive, onSetInactive, headerTitle, isSetInactiveOnBackdropClick, isMaxHeight, children } = props;
 
 	function onBackdropClick() {
 		if (isSetInactiveOnBackdropClick) {
@@ -60,12 +61,13 @@ export const OverlayBox: React.FC<OverlayBoxProps> = (props) => {
 		}
 	});
 
+	const boxFlex = isMaxHeight ? '1' : 'none';
 	return (
 		<OverlayPortal>
 			<OverlayBackdrop style={springPropsBackdrop} onClick={onBackdropClick} />
 			<OverlayComponentContainer style={springPropsComponentContainer}>
 				<FlexColumn alignItems='center' justifyContent='space-evenly'>
-					<BoxContainer flex='none'>
+					<BoxContainer flex={boxFlex}>
 						<OverlayTitleContainer>
 							<Heading2>{headerTitle}</Heading2>
 						</OverlayTitleContainer>

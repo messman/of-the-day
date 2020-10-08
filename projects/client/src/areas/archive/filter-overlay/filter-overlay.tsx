@@ -86,8 +86,9 @@ export const FilterOverlay: React.FC<FilterOverlayProps> = (props) => {
 			onSetInactive={onSetInactive}
 			headerTitle='Filter'
 			isSetInactiveOnBackdropClick={false}
+			isMaxHeight={true}
 		>
-			<TabHeaderContainer>
+			<TabHeaderContainer flex='none'>
 				<HighlightBar position='bottom' index={tabIndex} count={2} />
 				<MenuBarItem
 					title='Presets'
@@ -104,11 +105,11 @@ export const FilterOverlay: React.FC<FilterOverlayProps> = (props) => {
 					padding={tabPadding}
 				/>
 			</TabHeaderContainer>
-			<ScrollFlexColumn>
+			<ScrollFlexColumn flex='1'>
 				{tabContent}
 			</ScrollFlexColumn>
 			{invalidWarning}
-			<Footer>
+			<Footer flex='none'>
 				<FooterActionLink onClick={onSetInactive}>Cancel</FooterActionLink>
 				<FooterActionLink onClick={onSubmit}>Submit</FooterActionLink>
 			</Footer>

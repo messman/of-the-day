@@ -4,9 +4,9 @@ import { decorate } from '@/test/decorate';
 import { boolean, button, select, text } from '@storybook/addon-knobs';
 import { Popup, PopupType, usePopup } from '@/services/data/data-error';
 
-export default { title: 'Core/Popup' };
+export default { title: 'Core/Overlay' };
 
-export const TestPopup = decorate('Popup', null, () => {
+export const TestPopup = decorate('Overlay', null, () => {
 
 	// Just get the setter.
 	const [popupData, setPopupData] = usePopup();
