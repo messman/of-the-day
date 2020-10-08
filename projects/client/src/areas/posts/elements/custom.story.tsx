@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { decorate } from '@/test/decorate';
 import { text } from '@storybook/addon-knobs';
-import { IPost, IPostCustom } from 'oftheday-shared';
+import { IPostCustom } from 'oftheday-shared';
 import { Custom } from './custom';
 
 export default { title: 'Areas/Posts/Elements/Custom' };
 
 export const TestCustomText = decorate('Custom Text', null, () => {
 
-	const post = createPostFromCustom({
+	const custom = wrapPartialCustom({
 		title: text('Title', 'My Custom Title'),
 		value: text('Value', 'Here is the text that becomes the value of the custom section. We can write quite a bit in here. This is a pretty useful section overall.'),
 		link: '',
@@ -18,13 +18,13 @@ export const TestCustomText = decorate('Custom Text', null, () => {
 	});
 
 	return (
-		<Custom post={post} />
+		<Custom value={custom} />
 	);
 });
 
 export const TestCustomTextLink = decorate('Custom Text & Link', null, () => {
 
-	const post = createPostFromCustom({
+	const custom = wrapPartialCustom({
 		title: text('Title', 'My Custom Title'),
 		value: text('Value', 'Here is the text that becomes the value of the custom section. We can write quite a bit in here. This is a pretty useful section overall.'),
 		link: 'https://google.com',
@@ -34,13 +34,13 @@ export const TestCustomTextLink = decorate('Custom Text & Link', null, () => {
 	});
 
 	return (
-		<Custom post={post} />
+		<Custom value={custom} />
 	);
 });
 
 export const TestCustomTextHidden = decorate('Custom Text & Hidden', null, () => {
 
-	const post = createPostFromCustom({
+	const custom = wrapPartialCustom({
 		title: text('Title', 'My Custom Title'),
 		value: text('Value', 'Here is the text that becomes the value of the custom section. We can write quite a bit in here. This is a pretty useful section overall.'),
 		link: '',
@@ -50,13 +50,13 @@ export const TestCustomTextHidden = decorate('Custom Text & Hidden', null, () =>
 	});
 
 	return (
-		<Custom post={post} />
+		<Custom value={custom} />
 	);
 });
 
 export const TestCustomAll = decorate('Custom All', null, () => {
 
-	const post = createPostFromCustom({
+	const custom = wrapPartialCustom({
 		title: text('Title', 'My Custom Title'),
 		value: text('Value', 'Here is the text that becomes the value of the custom section. We can write quite a bit in here. This is a pretty useful section overall.'),
 		link: 'https://google.com',
@@ -66,12 +66,24 @@ export const TestCustomAll = decorate('Custom All', null, () => {
 	});
 
 	return (
-		<Custom post={post} />
+		<Custom value={custom} />
 	);
 });
 
-function createPostFromCustom(custom: IPostCustom): IPost {
+const defaultCustom: IPostCustom = {
+	title: '',
+	value: '',
+	link: '',
+	linkText: '',
+	hiddenValue: '',
+	previewLink: false,
+	isTop: true,
+	isNSFW: true
+};
+
+function wrapPartialCustom(custom: Partial<IPostCustom>): IPostCustom {
 	return {
-		custom: custom
-	} as unknown as IPost;
+		...defaultCustom,
+		...custom
+	};
 }

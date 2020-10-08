@@ -1,5 +1,5 @@
 import { spacing } from '@/core/layout/common';
-import { borderRadiusStyle } from '@/core/style/common';
+import { borderRadiusStyle, formTransitionStyle, HighlightBar } from '@/core/style/common';
 import { tStyled } from '@/core/style/styled';
 import { FontSize, RegularText } from '@/core/symbol/text';
 import { FlexRow } from '@messman/react-common';
@@ -66,7 +66,7 @@ const CheckboxIndicator = tStyled.span<CheckboxIndicatorProps>`
 	border: 1px solid ${p => p.$isChecked ? p.theme.color.accentFillOnBackground : p.theme.color.textAccentOnBackground};
 	background-color: ${p => p.$isChecked ? p.theme.color.accentFillOnBackground : 'transparent'};
 	${borderRadiusStyle}
-	transition: all .1s linear;
+	${formTransitionStyle}
 	transition-property: border-color, background-color;
 `;
 
@@ -102,7 +102,6 @@ export const OpenSelect: React.FC<OpenSelectProps> = (props) => {
 				$isDisabled={isDisabled}
 				onClick={onClick}
 			>
-				<OpenOptionIndicator $isSelected={isSelected} $isDisabled={isDisabled} />
 				<RegularText
 					isMaxLineLength={false}
 					textAlign='center'
@@ -118,6 +117,7 @@ export const OpenSelect: React.FC<OpenSelectProps> = (props) => {
 
 	return (
 		<SelectContainer>
+			<HighlightBar position='left' index={selectedIndex} count={options.length} />
 			{optionsRender}
 		</SelectContainer>
 	);
@@ -139,23 +139,12 @@ interface OpenOptionProps {
 }
 
 const OpenOption = tStyled.div<OpenOptionProps>`
-	position: relative;
 	cursor: ${p => (p.$isSelected || p.$isDisabled) ? 'not-allowed' : 'pointer'};
 	background-color: transparent;
 
 	& + & {
 		border: 1px solid ${p => p.theme.color.bgComponent3};
 	}
-`;
-
-const OpenOptionIndicator = tStyled.div<OpenOptionProps>`
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 6px;
-	border-radius: 3px;
-	height: 100%;
-	background-color: ${p => p.$isSelected ? p.theme.color.accentFillOnBackground : 'transparent'};
 `;
 
 const regularTextOptionSpacing = `${spacing.medium.value} ${spacing.large.value}`;

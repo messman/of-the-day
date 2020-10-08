@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { decorate } from '@/test/decorate';
 import { text, boolean } from '@storybook/addon-knobs';
-import { IPost, IPostVideo } from 'oftheday-shared';
+import { IPostVideo } from 'oftheday-shared';
 import { Video } from './video';
 
 export default { title: 'Areas/Posts/Elements/Videos' };
@@ -14,7 +14,7 @@ export const TestVideo = decorate('Video', null, () => {
 	const isRemoved = boolean('Is Removed', false);
 	const hasTags = boolean('Has Tags', true);
 
-	const post = createPostFromVideo({
+	const video: IPostVideo = {
 		title: title,
 		originalTitle: originalTitle,
 		description: description,
@@ -23,15 +23,9 @@ export const TestVideo = decorate('Video', null, () => {
 		tags: hasTags ? ['Educational', 'Music'] : [],
 		isRemoved: isRemoved,
 		link: 'https://youtu.be/sFkLbj789OQ'
-	});
+	};
 
 	return (
-		<Video post={post} />
+		<Video value={video} />
 	);
 });
-
-function createPostFromVideo(video: IPostVideo): IPost {
-	return {
-		video: video
-	} as unknown as IPost;
-}

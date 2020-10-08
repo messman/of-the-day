@@ -3,8 +3,7 @@ import { OutLink } from '@/core/link';
 import { borderRadiusStyle } from '@/core/style/common';
 import { tStyled } from '@/core/style/styled';
 import { FontSize, RegularText } from '@/core/symbol/text';
-import { LayoutBreakpoint } from '@/services/layout/window-layout';
-import { FlexColumn, FlexRow, useWindowLayout } from '@messman/react-common';
+import { FlexColumn, FlexRow } from '@messman/react-common';
 import { filterPresets, IArchiveFilter, IArchiveFilterPreset } from 'oftheday-shared';
 import * as React from 'react';
 import { archiveFilterPresetForDisplay } from './filter-common';
@@ -16,8 +15,6 @@ export interface FilterPresetsProps {
 
 export const FilterPresets: React.FC<FilterPresetsProps> = (props) => {
 	const { selectedFilter, onClickPreset } = props;
-
-	const { widthBreakpoint } = useWindowLayout();
 
 	function onClick(filterPreset: IArchiveFilterPreset): () => void {
 		return function () {
@@ -70,21 +67,6 @@ export const FilterPresets: React.FC<FilterPresetsProps> = (props) => {
 			</Spacing>
 		</>
 	);
-
-	if (widthBreakpoint >= LayoutBreakpoint.mobileLarge) {
-		return (
-			<FlexRow justifyContent='space-evenly' flex='none'>
-				<VerticalPresetButtonContainer flex='none'>
-					{allTopPresetButton}
-					{allMusicPresetButton}
-				</VerticalPresetButtonContainer>
-				<VerticalPresetButtonContainer flex='none'>
-					{randomWeekPresetButton}
-					{allVideoPresetButton}
-				</VerticalPresetButtonContainer>
-			</FlexRow>
-		);
-	}
 
 	return (
 		<FlexRow justifyContent='center' flex='none'>

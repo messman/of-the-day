@@ -169,6 +169,9 @@ const BreakSpan = tStyled.span`
 
 /** Sets the preset for a filter if it matches any of the presets. */
 export function matchToPreset(filter: IArchiveFilter): void {
+	if (filter.preset !== undefined) {
+		return;
+	}
 	const filterPresetKeys = Object.keys(filterPresets);
 	for (let i = 0; i < filterPresetKeys.length; i++) {
 		const filterPreset = filterPresets[filterPresetKeys[i] as keyof typeof IArchiveFilterPreset];

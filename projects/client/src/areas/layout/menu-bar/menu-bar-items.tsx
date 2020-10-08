@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { tCss, tStyled } from '@/core/style/styled';
+import { tStyled } from '@/core/style/styled';
 import { routes } from '@/services/nav/routing';
 import { RegularText } from '@/core/symbol/text';
 import { useHistory, useLocation, matchPath } from 'react-router-dom';
 import { FlexRow } from '@messman/react-common';
 import { spacing } from '@/core/layout/common';
+import { formTransitionStyle, HighlightBar } from '@/core/style/common';
 
 export interface MenuBarItemsProps {
 	isUpper: boolean;
@@ -39,18 +40,15 @@ export const MenuBarItems: React.FC<MenuBarItemsProps> = (props) => {
 			key={route.name}
 			title={route.name}
 			isDisabled={false}
-			isUpper={isUpper}
+			padding={isUpper ? null : spacing.medium.value}
 			isActive={isActive}
 			onClick={onClick}
 		/>;
 	});
 
-	const percentWidth = (1 / length) * 100;
-	const percentLeft = percentWidth * activeIndex;
-
 	return (
 		<MenuBarItemsContainer>
-			<MenuBarActiveLine isUpper={isUpper} percentLeft={percentLeft} percentWidth={percentWidth} />
+			<HighlightBar position={isUpper ? 'bottom' : 'top'} index={activeIndex} count={length} />
 			{items}
 		</MenuBarItemsContainer>
 	);
@@ -60,43 +58,20 @@ const MenuBarItemsContainer = tStyled(FlexRow)`
 	position: relative;
 `;
 
-
-const transitionStyle = tCss`
-	transition: all .2s linear;
-`;
-
-interface MenuBarActiveLineProps {
-	isUpper: boolean;
-	percentLeft: number;
-	percentWidth: number;
-}
-
-const MenuBarActiveLine = tStyled.div<MenuBarActiveLineProps>`
-	position: absolute;
-	left: ${p => p.percentLeft}%;
-	width: ${p => p.percentWidth}%;
-	${p => p.isUpper ? 'bottom' : 'top'}: 0;
-	height: 4px;
-	border-radius: 2px;
-	background-color: ${p => p.theme.color.accentFillOnBackground};
-	${transitionStyle}
-	transition-property: left;
-`;
-
-interface MenuBarItemProps {
+export interface MenuBarItemProps {
 	title: string;
 	isDisabled: boolean;
-	isUpper: boolean;
+	padding?: string | null;
 	isActive: boolean;
 	onClick: () => void;
 }
 
-const MenuBarItem: React.FC<MenuBarItemProps> = (props) => {
-	const { isDisabled, isUpper, isActive, title, onClick } = props;
+export const MenuBarItem: React.FC<MenuBarItemProps> = (props) => {
+	const { isDisabled, padding, isActive, title, onClick } = props;
 
 	return (
-		<ItemButton onClick={onClick} isUpper={isUpper} isActive={isActive} isDisabled={isDisabled} disabled={isDisabled}>
-			<ItemButtonText isUpper={isUpper} isActive={isActive} isDisabled={isDisabled}>
+		<ItemButton onClick={onClick} $padding={padding} isActive={isActive} isDisabled={isDisabled} disabled={isDisabled}>
+			<ItemButtonText $padding={padding} isActive={isActive} isDisabled={isDisabled}>
 				{title}
 			</ItemButtonText>
 		</ItemButton>
@@ -104,7 +79,7 @@ const MenuBarItem: React.FC<MenuBarItemProps> = (props) => {
 };
 
 interface MenuBarInnerItemProps {
-	isUpper: boolean;
+	$padding?: string | null;
 	isDisabled: boolean;
 	isActive: boolean;
 }
@@ -115,8 +90,7 @@ const ItemButton = tStyled.button<MenuBarInnerItemProps>`
 	background-color: transparent;
 	border: none;
 	cursor: ${p => p.isDisabled ? 'not-allowed' : 'pointer'};
-	padding: ${spacing.small.value};
-	margin: ${p => p.isUpper ? '0' : spacing.nudge.value};
+	padding: ${p => p.$padding || '0'};
 
 	outline: none;
   	box-shadow: none;
@@ -124,6 +98,6 @@ const ItemButton = tStyled.button<MenuBarInnerItemProps>`
 
 const ItemButtonText = tStyled(RegularText) <MenuBarInnerItemProps>`
 	color: ${p => p.isActive ? p.theme.color.textRegular : p.theme.color.textInactive};
-	${transitionStyle}
+	${formTransitionStyle}
 	transition-property: color;
 `;
