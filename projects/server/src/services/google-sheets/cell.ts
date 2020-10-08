@@ -63,6 +63,20 @@ export function createRange(from: Cell, to: Cell): Range {
 	return range;
 }
 
+/**
+ * Returns a function that can be used to safely pass row numbers.
+ * The start row number will be used to correctly index in the array.
+ */
+export function rowsFrom(startRowNumber: number): (rowNumber: number) => number {
+	return function (rowNumber: number) {
+		return rowNumber - startRowNumber;
+	};
+}
+
+/**
+ * Returns a function that can be used to safely pass column letters.
+ * The start column letter will be used to correctly index in the array.
+ */
 export function columnsFrom(startColumnLetter: string): (columnLetter: string) => number {
 	const startColumnNumber = columnNumber(startColumnLetter);
 	return function (columnLetter: string) {

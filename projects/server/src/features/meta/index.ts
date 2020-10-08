@@ -6,7 +6,7 @@ import { IMeta } from 'oftheday-shared';
 export const metaRange = createCell('Read_Meta', 'B', 2).toRange('B', 7);
 
 /** Takes in rows where each value in Meta is the first column of each row. */
-export function mapMetaFromRows(rows: any[][]): IMeta {
+export function parseMeta(rows: any[][]): IMeta {
 
 	// Each row is a single column with our values.
 	return {

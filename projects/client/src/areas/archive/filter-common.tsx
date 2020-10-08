@@ -40,7 +40,7 @@ export const archiveFilterSortForDisplay: Record<keyof typeof IArchiveFilterSort
 	dayIncreasing: 'By Day (Increasing)',
 	dayDecreasing: 'By Day (Decreasing)',
 	random: 'Randomly',
-	musicArtistIncreasing: 'By Music Artist, Increasing',
+	musicArtistIncreasing: 'By Music Artist',
 };
 
 interface FilterDescriptor {

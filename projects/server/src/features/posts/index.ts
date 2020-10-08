@@ -1,13 +1,10 @@
-import { createCell } from '../../services/google-sheets/cell';
 import { IPostResponse, IPost, IPostDayReference } from 'oftheday-shared';
 import { SheetsService } from '../../services/google-sheets/sheets-service';
 import { getDayNumber } from '../../services/time';
-import { parsePost } from './parse';
-import { metaRange, mapMetaFromRows } from '../meta';
+import { postsColumnStop, parsePost, postsBaseFromCell } from './parse';
+import { metaRange, parseMeta } from '../meta';
 import { log } from '../../services/util';
 
-/** Where the Posts sheet's data actually starts. Cloned and offset to get start of range. */
-const postsBaseFromCell = createCell('Read_Posts', 'A', 3);
 const recentDaysToReturn = 7;
 
 export async function getRecentPosts(sheetsService: SheetsService, includeTomorrow: boolean): Promise<IPostResponse> {
@@ -29,7 +26,7 @@ export async function getPosts(sheetsService: SheetsService, includeTomorrow: bo
 
 		const postsFromCell = postsBaseFromCell.clone();
 		postsFromCell.row += rowOffset;
-		const postsRange = postsFromCell.toRangeAdditive('BA', extraRows);
+		const postsRange = postsFromCell.toRangeAdditive(postsColumnStop, extraRows);
 
 		const ranges = [postsRange, metaRange];
 		const values = await sheetsService.batchGet(ranges);
@@ -70,7 +67,7 @@ export async function getPosts(sheetsService: SheetsService, includeTomorrow: bo
 		// 1 - Meta
 		{
 			const metaRecords = values[1];
-			postResponse.meta = mapMetaFromRows(metaRecords);
+			postResponse.meta = parseMeta(metaRecords);
 		}
 
 		return postResponse;

@@ -1,16 +1,22 @@
-import { IPost, IPostReactionSummary, IPostDayReference } from 'oftheday-shared';
+
 import { stringAt, tryParseInt } from '../../services/primitives';
-import { columnsFrom } from '../../services/google-sheets/cell';
+import { columnsFrom, createCell } from '../../services/google-sheets/cell';
 import { keepTruthy } from '../../services/util';
+import { IPost, IPostDayReference } from 'oftheday-shared';
+
+export const postsColumnStart = 'A';
+export const postsColumnStop = 'BG';
+/** Where the Posts sheet's data actually starts. Cloned and offset to get start of range. */
+export const postsBaseFromCell = createCell('Read_Posts', postsColumnStart, 3);
 
 export function parsePost(row: any[], dayReference: IPostDayReference): IPost {
-	const col = columnsFrom('A');
+	const col = columnsFrom(postsColumnStart);
 	function stringAtCol(columnLetter: string): string {
 		return stringAt(row, col(columnLetter));
 	}
 
 	return {
-		date: stringAtCol('A'),
+		date: stringAtCol(postsColumnStart),
 		dateText: stringAtCol('B'),
 		dayNumber: tryParseInt(stringAtCol('C'), -1),
 		dayReference: dayReference,
@@ -23,11 +29,9 @@ export function parsePost(row: any[], dayReference: IPostDayReference): IPost {
 			location: stringAtCol('I'),
 			schedule: stringAtCol('J'),
 			dayTypes: keepTruthy(stringAtCol('K'), stringAtCol('L')),
-			reactionSummary: createEmptyReactionSummary()
 		},
 		endThoughts: {
 			value: stringAtCol('M'),
-			reactionSummary: createEmptyReactionSummary()
 		},
 		music: {
 			title: stringAtCol('N'),
@@ -42,7 +46,6 @@ export function parsePost(row: any[], dayReference: IPostDayReference): IPost {
 			geniusLink: stringAtCol('Y'),
 			description: stringAtCol('Z'),
 			quote: stringAtCol('AA'),
-			reactionSummary: createEmptyReactionSummary()
 		},
 		video: {
 			title: stringAtCol('AB'),
@@ -53,7 +56,6 @@ export function parsePost(row: any[], dayReference: IPostDayReference): IPost {
 			isNSFW: !!stringAtCol('AG'),
 			isTop: !!stringAtCol('AH'),
 			tags: keepTruthy(stringAtCol('AI'), stringAtCol('AJ'), stringAtCol('AK')),
-			reactionSummary: createEmptyReactionSummary()
 		},
 		quote: {
 			a: stringAtCol('AL'),
@@ -62,30 +64,26 @@ export function parsePost(row: any[], dayReference: IPostDayReference): IPost {
 			bVoice: stringAtCol('AO'),
 			source: stringAtCol('AP'),
 			sourceLink: stringAtCol('AQ'),
-			reactionSummary: createEmptyReactionSummary()
+			isNSFW: !!stringAtCol('AR'),
+			isTop: !!stringAtCol('AS'),
 		},
 		image: {
-			link: stringAtCol('AR'),
-			description: stringAtCol('AS'),
-			source: stringAtCol('AT'),
-			sourceLink: stringAtCol('AU'),
-			reactionSummary: createEmptyReactionSummary()
+			link: stringAtCol('AT'),
+			description: stringAtCol('AU'),
+			source: stringAtCol('AV'),
+			sourceLink: stringAtCol('AW'),
+			isNSFW: !!stringAtCol('AX'),
+			isTop: !!stringAtCol('AY'),
 		},
 		custom: {
-			title: stringAtCol('AV'),
-			value: stringAtCol('AW'),
-			link: stringAtCol('AX'),
-			linkText: stringAtCol('AY'),
-			previewLink: !!stringAtCol('AZ'),
-			hiddenValue: stringAtCol('BA'),
-			reactionSummary: createEmptyReactionSummary()
+			title: stringAtCol('AZ'),
+			value: stringAtCol('BA'),
+			link: stringAtCol('BB'),
+			linkText: stringAtCol('BC'),
+			previewLink: !!stringAtCol('BD'),
+			hiddenValue: stringAtCol('BE'),
+			isNSFW: !!stringAtCol('BF'),
+			isTop: !!stringAtCol(postsColumnStop),
 		}
-	};
-}
-
-function createEmptyReactionSummary(): IPostReactionSummary {
-	return {
-		emoji: [],
-		replies: 0
 	};
 }

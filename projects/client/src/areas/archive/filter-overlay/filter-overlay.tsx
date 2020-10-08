@@ -14,6 +14,8 @@ import { Icon, iconTypes } from '@/core/symbol/icon';
 export interface FilterOverlayProps extends ManagedOverlayBoxProps {
 	filter: IArchiveFilter;
 	onFilterSubmit: (filter: IArchiveFilter) => void;
+	isShowingPresets: boolean;
+	onShowingPresetsChange: (isShowingPresets: boolean) => void;
 }
 
 export const FilterOverlay: React.FC<FilterOverlayProps> = (props) => {
@@ -37,6 +39,51 @@ export const FilterOverlay: React.FC<FilterOverlayProps> = (props) => {
 		matchToPreset(newFilter);
 		setFilterWorkingCopy(newFilter);
 	}
+
+	const invalidWarning = !isFilterValid(filterWorkingCopy) ? (
+		<RegularText isMaxLineLength={false} textAlign='center' margin={spacing.medium.value}>
+			<Spacing isInline={true} margin={spacing.small.right}>
+				<Icon type={iconTypes.alert} fillColor={c => c.warning} height={FontSize.textRegular} />
+			</Spacing>
+			This won't return anything.
+		</RegularText>
+	) : null;
+
+	return (
+		<OverlayBox
+			isActive={isActive}
+			onSetInactive={onSetInactive}
+			headerTitle='Filter'
+			isSetInactiveOnBackdropClick={false}
+		>
+			<TabHeaderContainer>
+
+			</TabHeaderContainer>
+			<FilterOverlayAdvanced
+				filterWorkingCopy={filterWorkingCopy}
+				onFilterWorkingCopyChanged={onFilterWorkingCopyChanged}
+			/>
+			{invalidWarning}
+			<Footer>
+				<FooterActionLink onClick={onSetInactive}>Cancel</FooterActionLink>
+				<FooterActionLink onClick={onSubmit}>Submit</FooterActionLink>
+			</Footer>
+		</OverlayBox>
+	);
+};
+
+const TabHeaderContainer = tStyled.div`
+	position: relative;
+`;
+
+interface FilterOverlayTabProps {
+	filterWorkingCopy: IArchiveFilter;
+	onFilterWorkingCopyChanged: (newFilter: IArchiveFilter) => void;
+}
+
+const FilterOverlayAdvanced: React.FC<FilterOverlayTabProps> = (props) => {
+
+	const { filterWorkingCopy, onFilterWorkingCopyChanged } = props;
 
 	function onTypeChange(type: IPostElementType): (value: boolean) => void {
 		return function (value: boolean) {
@@ -92,84 +139,62 @@ export const FilterOverlay: React.FC<FilterOverlayProps> = (props) => {
 		onFilterWorkingCopyChanged(newFilter);
 	}
 
-	const invalidWarning = !isFilterValid(filterWorkingCopy) ? (
-		<RegularText isMaxLineLength={false} textAlign='center' margin={spacing.medium.value}>
-			<Spacing isInline={true} margin={spacing.small.right}>
-				<Icon type={iconTypes.alert} fillColor={c => c.warning} height={FontSize.textRegular} />
-			</Spacing>
-			This won't return anything.
-		</RegularText>
-	) : null;
-
-
 	return (
-		<OverlayBox
-			isActive={isActive}
-			onSetInactive={onSetInactive}
-			headerTitle='Filter'
-			isSetInactiveOnBackdropClick={false}
-		>
-			<ScrollFlexColumn>
-				<Spacing margin={spacing.medium.bottom}>
-					<RegularText>
-						Notes, schedules, locations, and end-of-day thoughts are not accessible in the archive.
+		<ScrollFlexColumn>
+			<Spacing margin={spacing.medium.bottom}>
+				<RegularText>
+					Notes, schedules, locations, and end-of-day thoughts are not accessible in the archive.
 					</RegularText>
+			</Spacing>
+			<Spacing margin={spacing.large.bottom}>
+				<Heading3>See</Heading3>
+				<Spacing margin={spacing.small.top}>
+					<Checkbox value={filterWorkingCopy.types.music} onValueChange={onTypeChange(IPostElementType.music)}>{postElementTypeForDisplay.music}</Checkbox>
 				</Spacing>
-				<Spacing margin={spacing.large.bottom}>
-					<Heading3>See</Heading3>
-					<Spacing margin={spacing.small.top}>
-						<Checkbox value={filterWorkingCopy.types.music} onValueChange={onTypeChange(IPostElementType.music)}>{postElementTypeForDisplay.music}</Checkbox>
-					</Spacing>
-					<Spacing margin={spacing.small.top}>
-						<Checkbox value={filterWorkingCopy.types.video} onValueChange={onTypeChange(IPostElementType.video)}>{postElementTypeForDisplay.video}</Checkbox>
-					</Spacing>
-					<Spacing margin={spacing.small.top}>
-						<Checkbox value={filterWorkingCopy.types.image} onValueChange={onTypeChange(IPostElementType.image)}>{postElementTypeForDisplay.image}</Checkbox>
-					</Spacing>
-					<Spacing margin={spacing.small.top}>
-						<Checkbox value={filterWorkingCopy.types.quote} onValueChange={onTypeChange(IPostElementType.quote)}>{postElementTypeForDisplay.quote}</Checkbox>
-					</Spacing>
-					<Spacing margin={spacing.small.top}>
-						<Checkbox value={filterWorkingCopy.types.custom} onValueChange={onTypeChange(IPostElementType.custom)}>{postElementTypeForDisplay.custom}</Checkbox>
-					</Spacing>
+				<Spacing margin={spacing.small.top}>
+					<Checkbox value={filterWorkingCopy.types.video} onValueChange={onTypeChange(IPostElementType.video)}>{postElementTypeForDisplay.video}</Checkbox>
 				</Spacing>
-				<Spacing margin={spacing.large.bottom}>
-					<Heading3>With</Heading3>
-					<Spacing margin={spacing.small.top}>
-						<Checkbox value={filterWorkingCopy.modifiers.includeOnlyWithTopTag} onValueChange={onTopTagModifierChange}>{archiveFilterModifiersForDisplay.includeOnlyWithTopTag}</Checkbox>
-					</Spacing>
-					<Spacing margin={spacing.small.top}>
-						<Checkbox value={filterWorkingCopy.modifiers.excludeWithNSFWTag} onValueChange={onNSFWTagModifierChange}>{archiveFilterModifiersForDisplay.excludeWithNSFWTag}</Checkbox>
-					</Spacing>
+				<Spacing margin={spacing.small.top}>
+					<Checkbox value={filterWorkingCopy.types.image} onValueChange={onTypeChange(IPostElementType.image)}>{postElementTypeForDisplay.image}</Checkbox>
 				</Spacing>
-				<Spacing margin={spacing.large.bottom}>
-					<Heading3>For</Heading3>
-					<Spacing margin={spacing.small.top}>
+				<Spacing margin={spacing.small.top}>
+					<Checkbox value={filterWorkingCopy.types.quote} onValueChange={onTypeChange(IPostElementType.quote)}>{postElementTypeForDisplay.quote}</Checkbox>
+				</Spacing>
+				<Spacing margin={spacing.small.top}>
+					<Checkbox value={filterWorkingCopy.types.custom} onValueChange={onTypeChange(IPostElementType.custom)}>{postElementTypeForDisplay.custom}</Checkbox>
+				</Spacing>
+			</Spacing>
+			<Spacing margin={spacing.large.bottom}>
+				<Heading3>With</Heading3>
+				<Spacing margin={spacing.small.top}>
+					<Checkbox value={filterWorkingCopy.modifiers.includeOnlyWithTopTag} onValueChange={onTopTagModifierChange}>{archiveFilterModifiersForDisplay.includeOnlyWithTopTag}</Checkbox>
+				</Spacing>
+				<Spacing margin={spacing.small.top}>
+					<Checkbox value={filterWorkingCopy.modifiers.excludeWithNSFWTag} onValueChange={onNSFWTagModifierChange}>{archiveFilterModifiersForDisplay.excludeWithNSFWTag}</Checkbox>
+				</Spacing>
+			</Spacing>
+			<Spacing margin={spacing.large.bottom}>
+				<Heading3>For</Heading3>
+				<Spacing margin={spacing.small.top}>
 
-						<OpenSelect
-							options={rangeOptions}
-							selectedIndex={filterWorkingCopy.range}
-							onSelectedIndexChange={onRangeChange}
-						/>
-					</Spacing>
+					<OpenSelect
+						options={rangeOptions}
+						selectedIndex={filterWorkingCopy.range}
+						onSelectedIndexChange={onRangeChange}
+					/>
 				</Spacing>
-				<Spacing margin={spacing.large.bottom}>
-					<Heading3>Sorted</Heading3>
-					<Spacing margin={spacing.small.top}>
-						<OpenSelect
-							options={sortOptions}
-							selectedIndex={filterWorkingCopy.sort}
-							onSelectedIndexChange={onSortChange}
-						/>
-					</Spacing>
+			</Spacing>
+			<Spacing margin={spacing.large.bottom}>
+				<Heading3>Sorted</Heading3>
+				<Spacing margin={spacing.small.top}>
+					<OpenSelect
+						options={sortOptions}
+						selectedIndex={filterWorkingCopy.sort}
+						onSelectedIndexChange={onSortChange}
+					/>
 				</Spacing>
-			</ScrollFlexColumn>
-			{invalidWarning}
-			<Footer>
-				<FooterActionLink onClick={onSetInactive}>Cancel</FooterActionLink>
-				<FooterActionLink onClick={onSubmit}>Submit</FooterActionLink>
-			</Footer>
-		</OverlayBox>
+			</Spacing>
+		</ScrollFlexColumn>
 	);
 };
 

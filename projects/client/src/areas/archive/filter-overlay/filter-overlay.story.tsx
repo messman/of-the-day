@@ -5,6 +5,8 @@ import { FilterOverlay } from './filter-overlay';
 import { defaultInvalidFilter, IArchiveFilter, isFilterSemanticallyEqual, isFilterSortSemanticallyEqual } from 'oftheday-shared';
 import { RegularText } from '@/core/symbol/text';
 import { FilterDescription } from '../filter-common';
+import { spacing, Spacing } from '@/core/layout/common';
+import { FilterPresets } from '../filter-presets';
 
 export default { title: 'Areas/Archive/Filter Overlay' };
 
@@ -24,7 +26,7 @@ export const TestFilterOverlay = decorate('Filter Overlay', null, () => {
 			setRequests(p => p + 1);
 			setRenders(p => p + 1);
 		}
-		if (!isSortEqual) {
+		else if (!isSortEqual) {
 			setRenders(p => p + 1);
 		}
 
@@ -48,12 +50,23 @@ export const TestFilterOverlay = decorate('Filter Overlay', null, () => {
 			<RegularText>
 				Renders: {renders}
 			</RegularText>
-			<FilterDescription filter={filter} />
+			<Spacing margin={spacing.large.vertical}>
+
+				<FilterDescription filter={filter} />
+			</Spacing>
+			<Spacing margin={spacing.large.vertical}>
+				<FilterPresets
+					selectedFilter={filter}
+					onClickPreset={onSetFilter}
+				/>
+			</Spacing>
 			<FilterOverlay
 				isActive={isOverlayOpen}
 				onSetInactive={onCloseOverlay}
 				onFilterSubmit={onSetFilter}
 				filter={filter}
+				isShowingPresets={false}
+				onShowingPresetsChange={() => { }}
 			/>
 		</>
 	);
