@@ -1,29 +1,13 @@
 import * as React from 'react';
-import { IPost, IPostElementType } from 'oftheday-shared';
+import { IPostElementType, IPostEndThoughts, isValidPostElement } from 'oftheday-shared';
 import { TextCard } from '@/core/card/card-presets';
 import { iconTypes } from '@/core/symbol/icon';
 import { createPostsElement } from './elements-common';
 
-export interface EndThoughtsProps {
-	post: IPost;
-}
-
-function shouldRenderEndThoughts(post: IPost): boolean {
-	const { endThoughts } = post;
-	return !!endThoughts.value;
-}
-
-export const EndThoughts = createPostsElement((props) => {
-	const { post } = props;
-
-	if (!shouldRenderEndThoughts(post)) {
-		return null;
-	}
-
-	const { endThoughts } = post;
-	const { value } = endThoughts;
+export const EndThoughts = createPostsElement<IPostEndThoughts>((props) => {
+	const { value } = props.value!;
 
 	return (
 		<TextCard title='End-Of-Day Thoughts' icon={iconTypes.thought} text={value} />
 	);
-}, IPostElementType.endThoughts, shouldRenderEndThoughts);
+}, IPostElementType.endThoughts, isValidPostElement.endThoughts);

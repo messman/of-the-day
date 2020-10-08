@@ -1,11 +1,11 @@
 import { IPost, IPostElementType, keysOfIPostElementType } from '../posts';
 import { enumKeys } from '../utility';
 
-export interface IArchiveFilterRequest {
+export interface IArchiveRequest {
 	filter: IArchiveFilter;
 }
 
-export interface IArchiveFilterResponse {
+export interface IArchiveResponse {
 	posts: IPost[];
 }
 

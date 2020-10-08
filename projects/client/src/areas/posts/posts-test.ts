@@ -16,11 +16,9 @@ export const postsTestData: IPost[] = [
 			location: 'Wells, Maine',
 			schedule: 'Do some stuff; play some ping pong; work on my daily affirmations',
 			dayTypes: ['Work', 'Play'],
-			reactionSummary: { emoji: [], replies: 0 }
 		},
 		endThoughts: {
 			value: 'The day was good! It was a good time doing this and that; I really enjoyed the part where I did Y and Z together.',
-			reactionSummary: { emoji: [], replies: 0 }
 		},
 		music: {
 			title: 'This is America',
@@ -35,7 +33,6 @@ export const postsTestData: IPost[] = [
 			isNSFW: true,
 			isTop: true,
 			tags: ['Hello', 'That Is Right!'],
-			reactionSummary: { emoji: [], replies: 0 }
 		},
 		video: {
 			title: 'Cornbread | Basics with Babish',
@@ -43,17 +40,17 @@ export const postsTestData: IPost[] = [
 			description: '\'Binging with Babish\' is a great cooking channel on YouTube. As a person who enjoys making and eating cornbread, I was very interested to see the different ways it can be made. (Links to recipes are in the video description.) The cornbread I make is more similar to the northern style.',
 			link: 'https://youtu.be/Bpu0TIXzI1w',
 			isNSFW: false,
-			isRemoved: false,
 			isTop: false,
+			isRemoved: false,
 			tags: ['Holy Granola', 'You Better Believe It'],
-			reactionSummary: { emoji: [], replies: 0 }
 		},
 		image: {
 			description: 'A shot of my dog. I got this shot when I was out late at night.',
 			link: 'https://drscdn.500px.org/photo/1019496186/m%3D900/v2?sig=a21d2c3833b5997ba905355f1b6961dbf59e3a19739fa97a10ecea93191c02ed',
 			source: 'Google',
 			sourceLink: 'https://google.com',
-			reactionSummary: { emoji: [], replies: 0 }
+			isNSFW: false,
+			isTop: false,
 		},
 		quote: {
 			a: 'I have a rule that I never think of anything negative when I\'m running.',
@@ -62,7 +59,8 @@ export const postsTestData: IPost[] = [
 			bVoice: 'Stephen Colbert',
 			source: 'The Late Show with Stephen Colbert',
 			sourceLink: 'https://youtu.be/yeFk2709fgY?t=612',
-			reactionSummary: { emoji: [], replies: 0 }
+			isNSFW: false,
+			isTop: false,
 		},
 		custom: {
 			title: 'Joke',
@@ -71,7 +69,8 @@ export const postsTestData: IPost[] = [
 			linkText: '',
 			link: '',
 			previewLink: false,
-			reactionSummary: { emoji: [], replies: 0 }
+			isNSFW: false,
+			isTop: false,
 		}
 	},
 	{
@@ -89,11 +88,9 @@ export const postsTestData: IPost[] = [
 			note: '',
 			schedule: 'Do some stuff; go on a walk around X; talk to Y',
 			dayTypes: ['Relaxation', 'Adventure'],
-			reactionSummary: { emoji: [], replies: 0 }
 		},
 		endThoughts: {
 			value: '',
-			reactionSummary: { emoji: [], replies: 0 }
 		},
 		music: {
 			title: 'Armor',
@@ -108,7 +105,6 @@ export const postsTestData: IPost[] = [
 			isNSFW: false,
 			isTop: true,
 			tags: ['Turn It Up', 'F The Patriarchy'],
-			reactionSummary: { emoji: [], replies: 0 }
 		},
 		video: {
 			title: 'MacGruber: Sensitivity Training',
@@ -119,14 +115,14 @@ export const postsTestData: IPost[] = [
 			isRemoved: false,
 			isTop: false,
 			tags: ['Fun', 'Impressive'],
-			reactionSummary: { emoji: [], replies: 0 }
 		},
 		image: {
 			description: 'A boat.',
 			link: 'https://drscdn.500px.org/photo/1019496202/m%3D900/v2?sig=a8a2e58478162534eb4635c7ca1a792e245d20f2602446b633d664eae06059d2',
 			source: 'Google',
 			sourceLink: 'https://google.com',
-			reactionSummary: { emoji: [], replies: 0 }
+			isNSFW: false,
+			isTop: false,
 		},
 		quote: {
 			a: 'It is only by knowing yourself that you can be yourself.',
@@ -135,7 +131,8 @@ export const postsTestData: IPost[] = [
 			bVoice: '',
 			source: '',
 			sourceLink: '',
-			reactionSummary: { emoji: [], replies: 0 }
+			isNSFW: false,
+			isTop: false,
 		},
 		custom: {
 			title: 'Shower Thought',
@@ -144,7 +141,8 @@ export const postsTestData: IPost[] = [
 			linkText: '',
 			link: '',
 			previewLink: false,
-			reactionSummary: { emoji: [], replies: 0 }
+			isNSFW: false,
+			isTop: false,
 		}
 	},
 	{
@@ -162,11 +160,9 @@ export const postsTestData: IPost[] = [
 			note: '',
 			schedule: '',
 			dayTypes: [],
-			reactionSummary: { emoji: [], replies: 0 }
 		},
 		endThoughts: {
 			value: '',
-			reactionSummary: { emoji: [], replies: 0 }
 		},
 		music: {
 			title: '',
@@ -181,7 +177,6 @@ export const postsTestData: IPost[] = [
 			isNSFW: false,
 			isTop: false,
 			tags: [],
-			reactionSummary: { emoji: [], replies: 0 }
 		},
 		video: {
 			title: '',
@@ -192,14 +187,14 @@ export const postsTestData: IPost[] = [
 			isRemoved: false,
 			isTop: false,
 			tags: [],
-			reactionSummary: { emoji: [], replies: 0 }
 		},
 		image: {
 			description: '',
 			link: '',
 			source: '',
 			sourceLink: '',
-			reactionSummary: { emoji: [], replies: 0 }
+			isNSFW: false,
+			isTop: false,
 		},
 		quote: {
 			a: '',
@@ -208,7 +203,8 @@ export const postsTestData: IPost[] = [
 			bVoice: '',
 			source: '',
 			sourceLink: '',
-			reactionSummary: { emoji: [], replies: 0 }
+			isNSFW: false,
+			isTop: false,
 		},
 		custom: {
 			title: '',
@@ -217,7 +213,8 @@ export const postsTestData: IPost[] = [
 			linkText: '',
 			link: '',
 			previewLink: false,
-			reactionSummary: { emoji: [], replies: 0 }
+			isNSFW: false,
+			isTop: false,
 		}
 	},
 	{
@@ -235,11 +232,9 @@ export const postsTestData: IPost[] = [
 			location: 'Colorado Springs, Colorado',
 			schedule: 'Drive over to Colorado Springs to see what has changed in the past 5 years; Stop by some of my old common hangout spots and see some friends.',
 			dayTypes: ['Relaxation', 'Adventure'],
-			reactionSummary: { emoji: [], replies: 0 }
 		},
 		endThoughts: {
 			value: '',
-			reactionSummary: { emoji: [], replies: 0 }
 		},
 		music: {
 			title: 'Dirty Deeds Done Dirt Cheap',
@@ -254,7 +249,6 @@ export const postsTestData: IPost[] = [
 			isNSFW: true,
 			isTop: true,
 			tags: ['Turn It Up'],
-			reactionSummary: { emoji: [], replies: 0 }
 		},
 		video: {
 			title: '',
@@ -265,14 +259,14 @@ export const postsTestData: IPost[] = [
 			isRemoved: false,
 			isTop: false,
 			tags: [],
-			reactionSummary: { emoji: [], replies: 0 }
 		},
 		image: {
 			description: '',
 			link: '',
 			source: '',
 			sourceLink: '',
-			reactionSummary: { emoji: [], replies: 0 }
+			isNSFW: false,
+			isTop: false,
 		},
 		quote: {
 			a: 'Listen. Strange women lying in ponds distributing swords is no basis for a system of government. Supreme executive power derives from a mandate from the masses, not from some farcical aquatic ceremony.',
@@ -281,7 +275,8 @@ export const postsTestData: IPost[] = [
 			bVoice: '',
 			source: 'Monty Python and the Holy Grail',
 			sourceLink: '',
-			reactionSummary: { emoji: [], replies: 0 }
+			isNSFW: false,
+			isTop: false,
 		},
 		custom: {
 			title: 'Recommendation',
@@ -290,7 +285,8 @@ export const postsTestData: IPost[] = [
 			linkText: 'The Social Dilemma | Netflix',
 			link: 'https://www.netflix.com/title/81254224',
 			previewLink: false,
-			reactionSummary: { emoji: [], replies: 0 }
+			isNSFW: false,
+			isTop: false,
 		}
 	}
 

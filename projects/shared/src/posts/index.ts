@@ -4,6 +4,7 @@ import { enumKeys } from '../utility';
 export interface IPostResponse {
 	meta: IMeta;
 	posts: IPost[];
+	dayNumber: number;
 }
 
 export enum IPostElementType {
@@ -26,13 +27,21 @@ export interface IPost {
 	dayReference: IPostDayReference;
 	isDayOff: boolean;
 	dayOffMessage: string;
-	basics: IPostBasics;
-	endThoughts: IPostEndThoughts;
-	music: IPostMusic;
-	video: IPostVideo;
-	quote: IPostQuote;
-	image: IPostImage;
-	custom: IPostCustom;
+	basics?: IPostBasics;
+	endThoughts?: IPostEndThoughts;
+	music?: IPostMusic;
+	video?: IPostVideo;
+	quote?: IPostQuote;
+	image?: IPostImage;
+	custom?: IPostCustom;
+}
+
+export interface IPostTopElement {
+	isTop: boolean;
+}
+
+export interface IPostNSFWElement {
+	isNSFW: boolean;
 }
 
 export enum IPostDayReference {
@@ -54,12 +63,10 @@ export interface IPostEndThoughts {
 	value: string;
 }
 
-export interface IPostMusic {
+export interface IPostMusic extends IPostTopElement, IPostNSFWElement {
 	title: string;
 	artist: string;
 	year: number;
-	isNSFW: boolean;
-	isTop: boolean;
 	tags: string[];
 	spotifyLink: string;
 	youTubeLink: string;
@@ -69,44 +76,36 @@ export interface IPostMusic {
 	quote: string;
 }
 
-export interface IPostVideo {
+export interface IPostVideo extends IPostTopElement, IPostNSFWElement {
 	title: string;
 	originalTitle: string;
 	link: string;
 	description: string;
 	isRemoved: boolean;
-	isNSFW: boolean;
-	isTop: boolean;
 	tags: string[];
 }
 
-export interface IPostQuote {
+export interface IPostQuote extends IPostTopElement, IPostNSFWElement {
 	a: string;
 	aVoice: string;
 	b: string;
 	bVoice: string;
 	source: string;
 	sourceLink: string;
-	isNSFW: boolean;
-	isTop: boolean;
 }
 
-export interface IPostImage {
+export interface IPostImage extends IPostTopElement, IPostNSFWElement {
 	link: string;
 	description: string;
 	source: string;
 	sourceLink: string;
-	isNSFW: boolean;
-	isTop: boolean;
 }
 
-export interface IPostCustom {
+export interface IPostCustom extends IPostTopElement, IPostNSFWElement {
 	title: string;
 	value: string;
 	hiddenValue: string;
 	link: string;
 	linkText: string;
 	previewLink: boolean;
-	isNSFW: boolean;
-	isTop: boolean;
 }

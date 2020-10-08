@@ -1,22 +1,26 @@
-import { IPost, IPostElementType } from 'oftheday-shared';
+import { IPostElementType } from 'oftheday-shared';
 import * as React from 'react';
 
-export interface PostsElementProps {
-	post: IPost;
+export interface PostsElementProps<T> {
+	value: T;
 }
 
-export interface PostsElementFC extends React.FC<PostsElementProps> {
+export interface PostsElementFC<T> extends React.FC<PostsElementProps<T | undefined>> {
 	element: IPostElementType;
-	shouldRender: (post: IPost) => boolean;
-	renderOrNull: (post: IPost) => JSX.Element | null;
+	unwrap: (value: T | undefined) => JSX.Element | null;
 }
 
-export function createPostsElement(Component: React.FC<PostsElementProps>, element: IPostElementType, shouldRender: (post: IPost) => boolean): PostsElementFC {
-	const elementFC = Component as PostsElementFC;
-	elementFC.element = element;
-	elementFC.shouldRender = shouldRender;
-	elementFC.renderOrNull = (post) => {
-		return shouldRender(post) ? <Component post={post} /> : null;
-	};
-	return elementFC;
+export function createPostsElement<T>(Component: React.FC<PostsElementProps<T>>, element: IPostElementType, validator: (value: T | undefined) => boolean): PostsElementFC<T> {
+	function unwrap(value: T | undefined) {
+		if (validator(value)) {
+			return <Component value={value!} />;
+		}
+		return null;
+	}
+	const fc = ((props: PostsElementProps<T | undefined>) => {
+		return unwrap(props.value);
+	}) as unknown as PostsElementFC<T>;
+	fc.element = element;
+	fc.unwrap = unwrap;
+	return fc;
 }

@@ -11,28 +11,15 @@ import { MusicQuote } from './quote/quote';
 import { SeeMoreButton } from '@/core/style/common';
 import { Card } from '@/core/card/card';
 import { iconTypes } from '@/core/symbol/icon';
-import { IPost, IPostElementType, IPostMusic } from 'oftheday-shared';
+import { IPostElementType, IPostMusic, isValidPostElement } from 'oftheday-shared';
 import { createPostsElement } from './elements-common';
 
-function shouldRenderMusic(post: IPost): boolean {
-	const { music } = post;
-	const { title, artist, spotifyLink, geniusLink, youTubeLink } = music;
-	return !!title && !!artist && !!spotifyLink && !!geniusLink && !!youTubeLink;
-}
-
-export const Music = createPostsElement((props) => {
-	const { post } = props;
-	const { music } = post;
-
-	const { title, artist, description, isTop, isNSFW, tags, spotifyLink, youTubeLink, useYouTube, quote, year } = music;
+export const Music = createPostsElement<IPostMusic>((props) => {
+	const { title, artist, description, isTop, isNSFW, tags, spotifyLink, youTubeLink, useYouTube, quote, year } = props.value;
 
 	const tagStrings = React.useMemo(() => {
 		return ([isTop ? 'Top' : '', isNSFW ? 'NSFW' : '', ...tags]).filter(x => !!x);
 	}, [tags, isTop, isNSFW]);
-
-	if (!shouldRenderMusic(post)) {
-		return null;
-	}
 
 	const yearSuffix = year ? <RegularText margin={spacing.nudge.top}>{year}</RegularText> : <></>;
 
@@ -50,8 +37,7 @@ export const Music = createPostsElement((props) => {
 				{description}
 			</RegularText>
 			<Spacing margin={spacing.medium.vertical}>
-
-				<MusicOutLinks music={music} />
+				<MusicOutLinks music={props.value} />
 			</Spacing>
 			<Spacing margin={spacing.large.vertical}>
 				{embedRender}
@@ -62,7 +48,7 @@ export const Music = createPostsElement((props) => {
 			<SeeMoreButton>See All Music</SeeMoreButton>
 		</Card>
 	);
-}, IPostElementType.music, shouldRenderMusic);
+}, IPostElementType.music, isValidPostElement.music);
 
 interface SpotifyEmbedFrameProps {
 	url: string;

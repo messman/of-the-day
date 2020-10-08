@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IPost, IPostElementType } from 'oftheday-shared';
+import { IPostImage, IPostElementType, isValidPostElement } from 'oftheday-shared';
 import { Spacing, spacing } from '@/core/layout/common';
 import { RegularText } from '@/core/symbol/text';
 import { tStyled } from '@/core/style/styled';
@@ -10,19 +10,8 @@ import { iconTypes } from '@/core/symbol/icon';
 import { LayoutBreakpoint } from '@/services/layout/window-layout';
 import { createPostsElement } from './elements-common';
 
-function shouldRenderImage(post: IPost): boolean {
-	const { image } = post;
-	return !!image.link;
-}
-
-export const Image = createPostsElement((props) => {
-	const { post } = props;
-	if (!shouldRenderImage(post)) {
-		return null;
-	}
-
-	const { image } = post;
-	const { link, description, source, sourceLink } = image;
+export const Image = createPostsElement<IPostImage>((props) => {
+	const { link, description, source, sourceLink } = props.value;
 
 	let sourceRender: JSX.Element | string | null = null;
 	if (source) {
@@ -49,7 +38,7 @@ export const Image = createPostsElement((props) => {
 			</Spacing>
 		</Card>
 	);
-}, IPostElementType.image, shouldRenderImage);
+}, IPostElementType.image, isValidPostElement.image);
 
 const ConstrainedImage = tStyled.img`
 	width: 100%;

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IPost } from 'oftheday-shared';
+import { IPost, IPostCustom, IPostImage, IPostMusic, IPostQuote, IPostVideo } from 'oftheday-shared';
 import { CardGroup } from '@/core/card/card-group';
 import { ColumnCardFlow, useMaximumRowChildren } from '@/core/card/card-flow';
 import { CardContainer } from '@/core/card/card';
@@ -28,62 +28,49 @@ export const ShareGroup: React.FC<PostProps> = (props) => {
 		// Easy case - render as each item on its own row.
 		cardFlowRender = (
 			<ColumnCardFlow $spacing={spacingBetween.value}>
-				<Music post={post} />
-				<Video post={post} />
-				<Image post={post} />
-				<Quote post={post} />
-				<Custom post={post} />
+				<Music value={post.music} />
+				<Video value={post.video} />
+				<Image value={post.image} />
+				<Quote value={post.quote} />
+				<Custom value={post.custom} />
 			</ColumnCardFlow>
 		);
 	}
 	else {
-		const leftColumn: PostsElementFC[] = [];
-		const rightColumn: PostsElementFC[] = [];
+		const music: ComponentTuple<IPostMusic> = [Music, post.music];
+		const video: ComponentTuple<IPostVideo> = [Video, post.video];
+		const image: ComponentTuple<IPostImage> = [Image, post.image];
+		const quote: ComponentTuple<IPostQuote> = [Quote, post.quote];
+		const custom: ComponentTuple<IPostCustom> = [Custom, post.custom];
 
-		let nonNullCounter = 0;
-		// The larger components are split up first.
-		[Music, Video, Image].forEach((Component) => {
-			if (nonNullCounter % 2 === 0) {
-				leftColumn.push(Component);
-			}
-			else {
-				rightColumn.push(Component);
-			}
+		const hasQuoteAndCustom = !!post.quote && !!post.custom;
 
-			if (Component.shouldRender(post)) {
-				nonNullCounter++;
-			}
-		});
+		const leftColumn: ComponentTuple<any>[] = [];
+		const rightColumn: ComponentTuple<any>[] = [];
 
-		// If we've rendered 0 or 2 of the larger components, split the quote and custom.
-		// Otherwise, combine them to achieve better balance.
-		// If this were higher-stakes, we'd actually record heights, etc.
-		const splitSmallerPieces = nonNullCounter % 2 === 0;
-		if (nonNullCounter % 2 === 0) {
-			leftColumn.push(Quote);
-			leftColumn.push(Quote);
-		}
-
-		[Quote, Custom].forEach((Component) => {
-			if (nonNullCounter % 2 === 0) {
-				leftColumn.push(Component);
-			}
-			else {
-				rightColumn.push(Component);
-			}
-
-			if (Component.shouldRender(post) && splitSmallerPieces) {
-				nonNullCounter++;
+		[music, video, image, quote, custom].forEach((tuple) => {
+			const value = tuple[1];
+			if (value) {
+				if (hasQuoteAndCustom && tuple === custom && leftColumn.length === rightColumn.length) {
+					// Special case - we are rendering both quote and custom, the quote has already been placed, and the columns are roughly equal.
+					// Because the custom and quote components are both small, in this case, put the custom in the same column as the quote.
+					rightColumn.push(tuple);
+				}
+				else {
+					// Normal behavior - split amongst the columns.
+					const column = leftColumn.length === rightColumn.length ? leftColumn : rightColumn;
+					column.push(tuple);
+				}
 			}
 		});
 
 		cardFlowRender = (
 			<RowToColumnCardFlow $spacing={spacingBetween.value}>
 				<ColumnFromRowCardFlow $spacing={spacingBetween.value}>
-					<ShareGroupColumn post={post} postsElements={leftColumn} />
+					<ShareGroupColumn postsElements={leftColumn} />
 				</ColumnFromRowCardFlow>
 				<ColumnFromRowCardFlow $spacing={spacingBetween.value}>
-					<ShareGroupColumn post={post} postsElements={rightColumn} />
+					<ShareGroupColumn postsElements={rightColumn} />
 				</ColumnFromRowCardFlow>
 			</RowToColumnCardFlow>
 		);
@@ -98,16 +85,18 @@ export const ShareGroup: React.FC<PostProps> = (props) => {
 	);
 };
 
+type ComponentTuple<T> = [PostsElementFC<T>, T | undefined];
+
 interface ShareGroupColumnProps {
-	post: IPost;
-	postsElements: PostsElementFC[];
+	postsElements: ComponentTuple<any>[];
 }
 
 const ShareGroupColumn: React.FC<ShareGroupColumnProps> = (props) => {
-	const { post, postsElements } = props;
+	const { postsElements } = props;
 
-	let postsElementsRender = postsElements.map((Component) => {
-		return <Component post={post} key={Component.element} />;
+	let postsElementsRender = postsElements.map((tuple) => {
+		const [Component, value] = tuple;
+		return <Component value={value} key={Component.element} />;
 	});
 
 	return (

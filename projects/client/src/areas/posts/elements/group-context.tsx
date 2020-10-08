@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IPost } from 'oftheday-shared';
+import { IPost, isValidPostElement } from 'oftheday-shared';
 import { Notes, Schedule, Location } from './basics';
 import { CardGroup } from '@/core/card/card-group';
 import { EndThoughts } from './end-thoughts';
@@ -13,12 +13,17 @@ interface PostProps {
 export const ContextGroup: React.FC<PostProps> = (props) => {
 	const { post } = props;
 
-	const endThoughts = EndThoughts.renderOrNull(post);
-	const notes = Notes.renderOrNull(post);
-	const schedule = Schedule.renderOrNull(post);
-	const location = Location.renderOrNull(post);
+	const endThoughts = <EndThoughts value={post.endThoughts} />;
+	const notes = <Notes value={post.basics} />;
+	const schedule = <Schedule value={post.basics} />;
+	const location = <Location value={post.basics} />;
 
-	const numberOfChildrenToRender = [endThoughts, notes, schedule, location].filter(x => !!x).length;
+	const numberOfChildrenToRender = [
+		isValidPostElement.endThoughts(post.endThoughts),
+		isValidPostElement.note(post.basics),
+		isValidPostElement.schedule(post.basics),
+		isValidPostElement.location(post.basics)
+	].filter(x => !!x).length;
 	const maximumRowChildren = useMaximumRowChildren();
 	const spacingBetween = useResponsiveEdgeSpacing();
 

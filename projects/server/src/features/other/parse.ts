@@ -2,6 +2,7 @@
 import { stringAt, tryParseFloat, tryParseInt } from '../../services/primitives';
 import { createCell, rowsFrom } from '../../services/google-sheets/cell';
 import { IOther, IOtherCount } from 'oftheday-shared';
+import { notNull } from '../../services/util';
 
 const otherValueRowStart = 2;
 const otherValueRowStop = 13;
@@ -109,10 +110,6 @@ function parseAttachTop(other: IOther, topRows: any[][]): void {
 		countAt(16, 17),
 		countAt(18, otherTopRowStop),
 	].filter(notNull);
-}
-
-function notNull<T>(value: T | null): value is T {
-	return !!value;
 }
 
 function processCount(stringAt: (rowNumber: number) => string, startRowNumber: number, stopRowNumber: number): IOtherCount | null {

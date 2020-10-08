@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IPost, IPostElementType } from 'oftheday-shared';
+import { IPostCustom, IPostElementType, isValidPostElement } from 'oftheday-shared';
 import { spacing, Spacing } from '@/core/layout/common';
 import { RegularText, SmallText } from '@/core/symbol/text';
 import { OutLink, ActionLink } from '@/core/link';
@@ -21,22 +21,10 @@ import { createPostsElement } from './elements-common';
 	- Recommended Media (Movie, Show) (link)
 */
 
-function shouldRenderCustom(post: IPost): boolean {
-	const { custom } = post;
-	return !!custom.value && !!custom.title;
-}
-
-export const Custom = createPostsElement((props) => {
-	const { post } = props;
+export const Custom = createPostsElement<IPostCustom>((props) => {
+	const { value, title, link, linkText, hiddenValue } = props.value;
 
 	const [isShowingHiddenValue, setIsShowingHiddenValue] = React.useState(false);
-
-	if (!shouldRenderCustom(post)) {
-		return null;
-	}
-
-	const { custom } = post;
-	const { value, title, link, linkText, hiddenValue } = custom;
 
 	function onClick() {
 		setIsShowingHiddenValue((p) => {
@@ -66,7 +54,7 @@ export const Custom = createPostsElement((props) => {
 			</Spacing>
 		</Card>
 	);
-}, IPostElementType.custom, shouldRenderCustom);
+}, IPostElementType.custom, isValidPostElement.custom);
 
 const HiddenArea = tStyled.div`
 	padding: ${spacing.medium.value};
