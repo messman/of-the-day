@@ -134,6 +134,9 @@ function filterByTypeAndModifier(posts: IPost[], filter: IArchiveFilter): IPost[
 
 	return posts
 		.map<IPost | null>((post: IPost) => {
+			if (post.isDayOff) {
+				return null;
+			}
 
 			// Don't edit - copy.
 			// The below code is gross, but it works.

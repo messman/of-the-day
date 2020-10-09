@@ -1,4 +1,4 @@
-import { Spacing, spacing, useResponsiveEdgeSpacing } from '@/core/layout/common';
+import { spacing } from '@/core/layout/common';
 import { tStyled } from '@/core/style/styled';
 import { LayoutBreakpoint } from '@/services/layout/window-layout';
 import { defaultInvalidFilter, IArchiveFilter } from 'oftheday-shared';
@@ -8,12 +8,14 @@ import { ArchiveResults } from './archive-results';
 import { FilterOverlay } from './filter/filter-overlay/filter-overlay';
 
 export interface ArchiveProps {
-
+	offsetPixels: number;
+	rootElement: HTMLElement | null;
+	onScrollTop: () => void;
 }
 
-export const Archive: React.FC<ArchiveProps> = () => {
+export const Archive: React.FC<ArchiveProps> = (props) => {
+	const { rootElement, onScrollTop, offsetPixels } = props;
 
-	const edgeSpacing = useResponsiveEdgeSpacing();
 	const [filterState, setFilterState] = React.useState({
 		filter: defaultInvalidFilter,
 		hasFilterChangedOnce: false
@@ -33,6 +35,7 @@ export const Archive: React.FC<ArchiveProps> = () => {
 			};
 		});
 		onCloseOverlay();
+		onScrollTop();
 	}
 
 	function onOpenOverlay() {
@@ -56,15 +59,17 @@ export const Archive: React.FC<ArchiveProps> = () => {
 		render = (
 			<ArchiveResults
 				filter={filter}
+				onClickEditFilter={onOpenOverlay}
+				offsetPixels={offsetPixels}
+				rootElement={rootElement}
+				onScrollTop={onScrollTop}
 			/>
 		);
 	}
 
 	return (
 		<ArchiveContainer>
-			<Spacing margin={edgeSpacing.horizontal}>
-				{render}
-			</Spacing>
+			{render}
 			<FilterOverlay
 				isActive={isOverlayActive}
 				onSetInactive={onCloseOverlay}

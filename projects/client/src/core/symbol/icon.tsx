@@ -2,6 +2,7 @@ import * as React from 'react';
 import { tStyled, StyledFC } from '@/core/style/styled';
 import { ThemePickColor } from '../style/theme';
 import { css } from 'styled-components';
+import { FontSize } from './text';
 
 export type SVGIconType = React.FC<React.SVGAttributes<SVGElement>>;
 
@@ -93,4 +94,34 @@ const SVGWrapper = tStyled.span<SVGWrapperProps>`
 	fill: p.svgFill!(p.theme.color)
 })}
 	}
+`;
+
+export interface ClickableIconProps {
+	isDisabled: boolean;
+	onClick: () => void;
+	type: SVGIconType;
+}
+
+export const ClickableIcon: React.FC<ClickableIconProps> = (props) => {
+	const { isDisabled, onClick, type } = props;
+
+	function onIconClick() {
+		if (!isDisabled) {
+			onClick();
+		}
+	}
+
+	return (
+		<InnerClickableIcon onClick={onIconClick} isDisabled={isDisabled} >
+			<Icon type={type} height={FontSize.heading2} fillColor={c => isDisabled ? c.textDisabled : c.textAccentOnBackground} />
+		</InnerClickableIcon>
+	);
+};
+
+interface InnerClickableIconProps {
+	isDisabled: boolean;
+}
+
+const InnerClickableIcon = tStyled.span<InnerClickableIconProps>`
+	cursor: ${p => p.isDisabled ? 'not-allowed' : 'pointer'};
 `;

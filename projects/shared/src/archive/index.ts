@@ -47,7 +47,7 @@ export const keysOfFilterPreset = enumKeys(IArchiveFilterPreset);
 export enum IArchiveFilterSort {
 	dayIncreasing,
 	dayDecreasing,
-	random,
+	dayRandom,
 	musicArtistIncreasing,
 }
 export const keysOfFilterSort = enumKeys(IArchiveFilterSort);
@@ -140,7 +140,7 @@ function isFilterModifiersEqual(filterA: IArchiveFilter, filterB: IArchiveFilter
  * Does not compare sort or presets.
 */
 export function isFilterSortSemanticallyEqual(filterA: IArchiveFilter, filterB: IArchiveFilter): boolean {
-	return !!filterA && !!filterB && filterA.sort === filterB.sort && filterA.sort !== IArchiveFilterSort.random && filterB.sort !== IArchiveFilterSort.random;
+	return !!filterA && !!filterB && filterA.sort === filterB.sort && filterA.sort !== IArchiveFilterSort.dayRandom && filterB.sort !== IArchiveFilterSort.dayRandom;
 }
 
 /** Returns true if the filter would return any data. **/

@@ -1,4 +1,4 @@
-import { spacing } from '@/core/layout/common';
+import { Spacing, spacing, useResponsiveEdgeSpacing } from '@/core/layout/common';
 import { SeeMoreButton } from '@/core/style/common';
 import { tStyled } from '@/core/style/styled';
 import { Paragraph, Heading1 } from '@/core/symbol/text';
@@ -16,9 +16,10 @@ export const ArchiveInitial: React.FC<ArchiveInitialProps> = (props) => {
 
 	const { onClickPreset, onClickOverlayOpen } = props;
 
+	const edgeSpacing = useResponsiveEdgeSpacing();
 
 	return (
-		<>
+		<Spacing margin={edgeSpacing.horizontal}>
 			<Heading1>Archive</Heading1>
 			<Paragraph>
 				Choose a preset below or create a filter.
@@ -34,7 +35,7 @@ export const ArchiveInitial: React.FC<ArchiveInitialProps> = (props) => {
 				<Paragraph textAlign='center' isMaxLineLength={false}>Or</Paragraph>
 				<SeeMoreButton onClick={onClickOverlayOpen}>Create advanced filter</SeeMoreButton>
 			</ButtonsContainer>
-		</>
+		</Spacing>
 	);
 };
 

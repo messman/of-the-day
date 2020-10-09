@@ -111,16 +111,19 @@ export const Layout: React.FC<LayoutProps> = (props) => {
 					<Switch>
 						<Route exact path={routes.posts.path}>
 							<Posts
-								rootElement={scrollContainerElement}
 								isUpper={true}
 								offsetPixels={postHeaderOffset}
+								rootElement={scrollContainerElement}
 								onScrollTop={onScrollToSticky} />
 						</Route>
 						<Route path={routes.other.path}>
 							<Other />
 						</Route>
 						<Route path={routes.archive.path}>
-							<Archive />
+							<Archive
+								offsetPixels={postHeaderOffset}
+								rootElement={scrollContainerElement}
+								onScrollTop={onScrollToSticky} />
 						</Route>
 						<Route path={routes.about.path}>
 							<About />

@@ -37,9 +37,9 @@ export const archiveFilterPresetForDisplay: Record<keyof typeof IArchiveFilterPr
 };
 
 export const archiveFilterSortForDisplay: Record<keyof typeof IArchiveFilterSort, string> = {
-	dayIncreasing: 'By Day (Increasing)',
-	dayDecreasing: 'By Day (Decreasing)',
-	random: 'Randomly',
+	dayIncreasing: 'By Day - Increasing',
+	dayDecreasing: 'By Day - Decreasing',
+	dayRandom: 'By Day - Randomly',
 	musicArtistIncreasing: 'By Music Artist',
 };
 
@@ -92,7 +92,7 @@ function describeFilter(filter: IArchiveFilter): FilterDescriptor {
 
 	const sortText = archiveFilterSortForDisplay[IArchiveFilterSort[filter.sort] as keyof typeof IArchiveFilterSort];
 
-	const presetText = filter.preset ? archiveFilterPresetForDisplay[IArchiveFilterPreset[filter.preset] as keyof typeof IArchiveFilterPreset] : null;
+	const presetText = filter.preset !== undefined ? archiveFilterPresetForDisplay[IArchiveFilterPreset[filter.preset] as keyof typeof IArchiveFilterPreset] : null;
 
 	return {
 		types: typesAsText,
@@ -126,11 +126,11 @@ export const FilterDescription: React.FC<FilterDescriptionProps> = (props) => {
 	let start: JSX.Element = null!;
 	if (preset) {
 		start = (
-			<>
+			<div>
 				<BreakSpan>See </BreakSpan>
 				<BreakText fontWeight={FontWeight.extraBold}>{preset}</BreakText>
 				<BreakSpan>: </BreakSpan>
-			</>
+			</div>
 		);
 	}
 	else {

@@ -5,10 +5,10 @@ import { PostsHeader } from './posts-header';
 import { tStyled } from '@/core/style/styled';
 
 export interface PostsProps {
-	overridePosts?: IPost[];
-	rootElement: HTMLElement | null;
-	offsetPixels: number;
 	isUpper: boolean;
+	overridePosts?: IPost[];
+	offsetPixels: number;
+	rootElement: HTMLElement | null;
 	onScrollTop: () => void;
 }
 

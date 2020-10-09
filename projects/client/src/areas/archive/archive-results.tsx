@@ -1,18 +1,29 @@
-import { spacing, Spacing } from '@/core/layout/common';
+import { spacing, Spacing, useResponsiveEdgeSpacing } from '@/core/layout/common';
+import { ActionLink } from '@/core/link';
 import { tStyled } from '@/core/style/styled';
+import { FontWeight } from '@/core/style/theme';
+import { ClickableIcon, iconTypes } from '@/core/symbol/icon';
 import { RegularText } from '@/core/symbol/text';
 import { LayoutBreakpoint } from '@/services/layout/window-layout';
+import { Flex, FlexRow, Sticky, useSticky } from '@messman/react-common';
 import { IArchiveFilter, isFilterSemanticallyEqual, isFilterSortSemanticallyEqual } from 'oftheday-shared';
 import * as React from 'react';
+import { postsTestData } from '../posts/posts-test';
 import { FilterDescription } from './filter/filter-common';
+import { ArchiveResult } from './result/archive-result';
 
 export interface ArchiveResultsProps {
 	filter: IArchiveFilter;
+	onClickEditFilter: () => void;
+	offsetPixels: number;
+	rootElement: HTMLElement | null;
+	onScrollTop: () => void;
 }
 
 export const ArchiveResults: React.FC<ArchiveResultsProps> = (props) => {
 	const { filter } = props;
 
+	const edgeSpacing = useResponsiveEdgeSpacing();
 	const [localFilter, setLocalFilter] = React.useState(filter);
 	const [requests, setRequests] = React.useState(0);
 	const [renders, setRenders] = React.useState(0);
@@ -34,16 +45,36 @@ export const ArchiveResults: React.FC<ArchiveResultsProps> = (props) => {
 		}
 	}, [filter]);
 
+	console.log(requests, renders);
+
+	const posts = postsTestData;
+
+	const postsRender = posts.map((post) => {
+		return (
+			<ArchiveResult post={post} key={post.dayNumber} />
+		);
+	});
+
+	let postsCount: number | null = null;
+	let resultsCount: number | null = null;
+	if (posts) {
+		postsCount = posts.length;
+		resultsCount = 0;
+		posts.forEach((post) => {
+			resultsCount! += [post.music, post.video, post.image, post.quote, post.custom].filter((x) => !!x).length;
+		});
+	}
+
 	return (
 		<ArchiveContainer>
-			<RegularText>
-				Requests: {requests}
-			</RegularText>
-			<RegularText>
-				Renders: {renders}
-			</RegularText>
-			<Spacing margin={spacing.large.vertical}>
-				<FilterDescription filter={filter} />
+			<Spacing margin={edgeSpacing.horizontal}>
+				<Spacing margin={spacing.large.top}>
+					<FilterDescription filter={filter} />
+				</Spacing>
+			</Spacing>
+			<ArchiveResultsHeader {...props} resultsCount={resultsCount} postsCount={postsCount} />
+			<Spacing margin={edgeSpacing.horizontal}>
+				{postsRender}
 			</Spacing>
 		</ArchiveContainer>
 	);
@@ -52,4 +83,68 @@ export const ArchiveResults: React.FC<ArchiveResultsProps> = (props) => {
 const ArchiveContainer = tStyled.div`
 	max-width: ${LayoutBreakpoint.tablet}px;
 	margin: ${spacing.grand.value} auto;
+`;
+
+interface ArchiveResultsHeaderProps extends ArchiveResultsProps {
+	postsCount: number | null;
+	resultsCount: number | null;
+}
+
+export const ArchiveResultsHeader: React.FC<ArchiveResultsHeaderProps> = (props) => {
+	const { rootElement, onScrollTop, onClickEditFilter, offsetPixels, postsCount, resultsCount } = props;
+
+	const stickyOutput = useSticky({
+		rootElement: rootElement
+	});
+	const { isAtFirst } = stickyOutput;
+
+	return (
+		<>
+			<Sticky isSticky={true} output={stickyOutput} zIndex={1} >
+				<ArchiveResultsHeaderEmptySpace dataHeightPixels={offsetPixels} />
+				<ArchiveResultsHeaderContainer flex='none' justifyContent='space-between' alignItems='center'>
+					<Flex>
+						<Spacing margin={spacing.medium.left}>
+							<RegularText>
+								<RegularText isInline={true} fontWeight={FontWeight.bold}>{resultsCount}&nbsp;</RegularText>
+							Items,
+						</RegularText>
+							<RegularText>
+								<RegularText isInline={true} fontWeight={FontWeight.bold}>{postsCount}&nbsp;</RegularText>
+							Days
+						</RegularText>
+						</Spacing>
+					</Flex>
+					<Flex>
+						<Spacing textAlign='center'>
+							<ActionLink onClick={onClickEditFilter}>Edit Filter</ActionLink>
+						</Spacing>
+					</Flex>
+					<Flex>
+						<Spacing textAlign='right' margin={spacing.medium.right}>
+
+							<ClickableIcon type={iconTypes.top} isDisabled={!isAtFirst} onClick={onScrollTop} />
+						</Spacing>
+					</Flex>
+				</ArchiveResultsHeaderContainer>
+			</Sticky>
+			<Spacing margin={spacing.large.bottom} />
+		</>
+	);
+};
+
+interface ArchiveResultsHeaderEmptySpaceProps {
+	dataHeightPixels: number;
+}
+
+const ArchiveResultsHeaderEmptySpace = tStyled.div<ArchiveResultsHeaderEmptySpaceProps>`
+	height: ${p => p.dataHeightPixels}px;
+	background-color: ${p => p.theme.color.bg1};
+`;
+
+const ArchiveResultsHeaderContainer = tStyled(FlexRow)`
+	position: relative;
+	padding: ${spacing.small.vertical};
+	background-color: ${p => p.theme.color.bg1};
+	border-bottom: 1px solid ${p => p.theme.color.bgComponent3};
 `;

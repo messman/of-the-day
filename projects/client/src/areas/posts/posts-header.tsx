@@ -3,7 +3,7 @@ import { tStyled } from '@/core/style/styled';
 import { IPost, IPostDayReference } from 'oftheday-shared';
 import { FontSize, Heading1, SmallText } from '@/core/symbol/text';
 import { FlexRow, Sticky, useSticky, useWindowLayout } from '@messman/react-common';
-import { Icon, iconTypes, SVGIconType } from '@/core/symbol/icon';
+import { ClickableIcon, iconTypes } from '@/core/symbol/icon';
 import { spacing } from '@/core/layout/common';
 import { LayoutBreakpoint } from '@/services/layout/window-layout';
 import { FontWeight } from '@/core/style/theme';
@@ -169,34 +169,4 @@ interface PostDayTitleContainerProps {
 const PostDayTitleContainer = tStyled.div<PostDayTitleContainerProps>`
 	min-width: ${p => p.minContainerWidth};
 	text-align: center;
-`;
-
-interface ClickableIconProps {
-	isDisabled: boolean;
-	onClick: () => void;
-	type: SVGIconType;
-}
-
-const ClickableIcon: React.FC<ClickableIconProps> = (props) => {
-	const { isDisabled, onClick, type } = props;
-
-	function onIconClick() {
-		if (!isDisabled) {
-			onClick();
-		}
-	}
-
-	return (
-		<InnerClickableIcon onClick={onIconClick} isDisabled={isDisabled} >
-			<Icon type={type} height={FontSize.heading2} fillColor={c => isDisabled ? c.textDisabled : c.textAccentOnBackground} />
-		</InnerClickableIcon>
-	);
-};
-
-interface InnerClickableIconProps {
-	isDisabled: boolean;
-}
-
-const InnerClickableIcon = tStyled.span<InnerClickableIconProps>`
-	cursor: ${p => p.isDisabled ? 'not-allowed' : 'pointer'};
 `;
