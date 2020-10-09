@@ -23,6 +23,7 @@ export const TextAlign = tStyled.div<TextAlignProps>`
 `;
 
 export const SeeMoreButton = tStyled.button`
+	cursor: pointer;
 	display: block;
 	width: 100%;
 	font-size: ${FontSize.textRegular};

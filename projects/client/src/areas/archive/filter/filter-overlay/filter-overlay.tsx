@@ -15,15 +15,16 @@ import { FilterPresets } from '../filter-presets';
 import { MenuBarItem } from '@/areas/layout/menu-bar/menu-bar-items';
 
 export interface FilterOverlayProps extends ManagedOverlayBoxProps {
+	isShowingPresetsInitially: boolean;
 	filter: IArchiveFilter;
 	onFilterSubmit: (filter: IArchiveFilter) => void;
 }
 
 export const FilterOverlay: React.FC<FilterOverlayProps> = (props) => {
 
-	const { isActive, onSetInactive, filter, onFilterSubmit } = props;
+	const { isActive, onSetInactive, filter, onFilterSubmit, isShowingPresetsInitially } = props;
 
-	const [isShowingPresets, setIsShowingPresets] = React.useState(true);
+	const [isShowingPresets, setIsShowingPresets] = React.useState(isShowingPresetsInitially);
 
 	const [filterWorkingCopy, setFilterWorkingCopy] = React.useState(() => {
 		return cloneFilter(filter);

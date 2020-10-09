@@ -1,11 +1,11 @@
-import { spacing, Spacing } from '@/core/layout/common';
+import { Spacing, spacing, useResponsiveEdgeSpacing } from '@/core/layout/common';
 import { tStyled } from '@/core/style/styled';
-import { RegularText } from '@/core/symbol/text';
 import { LayoutBreakpoint } from '@/services/layout/window-layout';
-import { defaultInvalidFilter, IArchiveFilter, isFilterSemanticallyEqual, isFilterSortSemanticallyEqual } from 'oftheday-shared';
+import { defaultInvalidFilter, IArchiveFilter } from 'oftheday-shared';
 import * as React from 'react';
-import { FilterDescription } from './filter-common';
-import { FilterOverlay } from './filter-overlay/filter-overlay';
+import { ArchiveInitial } from './archive-initial';
+import { ArchiveResults } from './archive-results';
+import { FilterOverlay } from './filter/filter-overlay/filter-overlay';
 
 export interface ArchiveProps {
 
@@ -13,52 +13,64 @@ export interface ArchiveProps {
 
 export const Archive: React.FC<ArchiveProps> = () => {
 
-	const [filter, setFilter] = React.useState<IArchiveFilter>(defaultInvalidFilter);
-	const [isOverlayOpen, setIsOverlayOpen] = React.useState(false);
-	const [requests, setRequests] = React.useState(0);
-	const [renders, setRenders] = React.useState(0);
+	const edgeSpacing = useResponsiveEdgeSpacing();
+	const [filterState, setFilterState] = React.useState({
+		filter: defaultInvalidFilter,
+		hasFilterChangedOnce: false
+	});
+	const [isOverlayActive, setIsOverlayActive] = React.useState(false);
 
-	function onSetFilter(newFilter: IArchiveFilter) {
-		const isEqual = isFilterSemanticallyEqual(filter, newFilter);
-		const isSortEqual = isFilterSortSemanticallyEqual(filter, newFilter);
+	const { filter, hasFilterChangedOnce } = filterState;
 
-		setFilter(newFilter);
-		if (!isEqual) {
-			setRequests(p => p + 1);
-			setRenders(p => p + 1);
-		}
-		else if (!isSortEqual) {
-			setRenders(p => p + 1);
-		}
-
+	function onSetFilter(filter: IArchiveFilter) {
+		setFilterState((p) => {
+			if (p.filter === filter) {
+				return p;
+			}
+			return {
+				filter: filter,
+				hasFilterChangedOnce: true
+			};
+		});
 		onCloseOverlay();
 	}
 
 	function onOpenOverlay() {
-		setIsOverlayOpen(true);
+		setIsOverlayActive(true);
 	}
 
 	function onCloseOverlay() {
-		setIsOverlayOpen(false);
+		setIsOverlayActive(false);
+	}
+
+	let render: JSX.Element = null!;
+	if (!hasFilterChangedOnce) {
+		render = (
+			<ArchiveInitial
+				onClickPreset={onSetFilter}
+				onClickOverlayOpen={onOpenOverlay}
+			/>
+		);
+	}
+	else {
+		render = (
+			<ArchiveResults
+				filter={filter}
+			/>
+		);
 	}
 
 	return (
 		<ArchiveContainer>
-			<button onClick={onOpenOverlay}>Open overlay</button>
-			<RegularText>
-				Requests: {requests}
-			</RegularText>
-			<RegularText>
-				Renders: {renders}
-			</RegularText>
-			<Spacing margin={spacing.large.vertical}>
-				<FilterDescription filter={filter} />
+			<Spacing margin={edgeSpacing.horizontal}>
+				{render}
 			</Spacing>
 			<FilterOverlay
-				isActive={isOverlayOpen}
+				isActive={isOverlayActive}
 				onSetInactive={onCloseOverlay}
 				onFilterSubmit={onSetFilter}
 				filter={filter}
+				isShowingPresetsInitially={false}
 			/>
 		</ArchiveContainer>
 	);

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { cloneFilter, IPostElementType, keysOfFilterRange, IArchiveFilterRange, keysOfFilterSort, IArchiveFilterSort } from 'oftheday-shared';
 import { Spacing, spacing } from '@/core/layout/common';
-import { Heading3, RegularText } from '@/core/symbol/text';
+import { Heading3 } from '@/core/symbol/text';
 import { Checkbox, OpenSelect, OpenSelectOption } from './filter-overlay-forms';
 import { archiveFilterModifiersForDisplay, archiveFilterRangeForDisplay, archiveFilterSortForDisplay, isOnlyMusicTypeSelected, postElementTypeForDisplay } from '../filter-common';
 import { FilterOverlayTabProps } from './filter-overlay';
@@ -66,11 +66,6 @@ export const FilterOverlayAdvanced: React.FC<FilterOverlayTabProps> = (props) =>
 
 	return (
 		<>
-			<Spacing margin={spacing.medium.bottom}>
-				<RegularText>
-					Notes, schedules, locations, and end-of-day thoughts are not accessible in the archive.
-					</RegularText>
-			</Spacing>
 			<Spacing margin={spacing.large.bottom}>
 				<Heading3>See</Heading3>
 				<Spacing margin={spacing.small.top}>

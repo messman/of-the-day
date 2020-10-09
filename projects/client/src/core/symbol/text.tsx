@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { tStyled, tCss } from '@/core/style/styled';
 import { defaultFontSize, FontWeight, ThemePickColor } from '../style/theme';
-import { SpacingProps, Spacing } from '../layout/common';
+import { SpacingProps, Spacing, spacing } from '../layout/common';
 import { LayoutBreakpoint, lineBreakpoint } from '@/services/layout/window-layout';
 import { useWindowLayout } from '@messman/react-common';
 
@@ -93,6 +93,18 @@ export const FontSizeManager: React.FC = (props) => {
 
 	return <>{props.children}</>;
 };
+
+export const Title = tStyled(Heading1)`
+	margin-top: ${spacing.grand.value};
+`;
+
+export const Subtitle = tStyled(Heading2)`
+	margin-top: ${spacing.large.value};
+`;
+
+export const Paragraph = tStyled(RegularText)`
+	margin: ${spacing.medium.vertical};
+`;
 
 const textBoxStyle = tCss`
 	font-size: 1rem;

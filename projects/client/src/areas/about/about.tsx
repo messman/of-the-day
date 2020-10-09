@@ -2,7 +2,7 @@ import { Spacing, spacing, useResponsiveEdgeSpacing } from '@/core/layout/common
 import { OutLink } from '@/core/link';
 import { tStyled } from '@/core/style/styled';
 import { Icon, iconTypes } from '@/core/symbol/icon';
-import { Heading1, Heading2, RegularText } from '@/core/symbol/text';
+import { Title, Subtitle, Paragraph } from '@/core/symbol/text';
 import { LayoutBreakpoint } from '@/services/layout/window-layout';
 import * as React from 'react';
 import { Settings } from './settings';
@@ -133,16 +133,4 @@ export const About: React.FC<AboutProps> = () => {
 const AboutContainer = tStyled.div`
 	max-width: ${LayoutBreakpoint.tablet}px;
 	margin: ${spacing.grand.value} auto;
-`;
-
-const Title = tStyled(Heading1)`
-	margin-top: ${spacing.grand.value};
-`;
-
-const Subtitle = tStyled(Heading2)`
-	margin-top: ${spacing.large.value};
-`;
-
-const Paragraph = tStyled(RegularText)`
-	margin: ${spacing.medium.vertical};
 `;
