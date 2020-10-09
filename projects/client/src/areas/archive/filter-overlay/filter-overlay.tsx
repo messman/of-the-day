@@ -17,13 +17,13 @@ import { MenuBarItem } from '@/areas/layout/menu-bar/menu-bar-items';
 export interface FilterOverlayProps extends ManagedOverlayBoxProps {
 	filter: IArchiveFilter;
 	onFilterSubmit: (filter: IArchiveFilter) => void;
-	isShowingPresets: boolean;
-	onShowingPresetsChange: (isShowingPresets: boolean) => void;
 }
 
 export const FilterOverlay: React.FC<FilterOverlayProps> = (props) => {
 
-	const { isActive, onSetInactive, filter, onFilterSubmit, isShowingPresets, onShowingPresetsChange } = props;
+	const { isActive, onSetInactive, filter, onFilterSubmit } = props;
+
+	const [isShowingPresets, setIsShowingPresets] = React.useState(true);
 
 	const [filterWorkingCopy, setFilterWorkingCopy] = React.useState(() => {
 		return cloneFilter(filter);
@@ -48,7 +48,7 @@ export const FilterOverlay: React.FC<FilterOverlayProps> = (props) => {
 			<Spacing isInline={true} margin={spacing.small.right}>
 				<Icon type={iconTypes.alert} fillColor={c => c.warning} height={FontSize.textRegular} />
 			</Spacing>
-			This won't return anything.
+			The selected filter options won't return anything.
 		</RegularText>
 	) : null;
 
@@ -57,10 +57,15 @@ export const FilterOverlay: React.FC<FilterOverlayProps> = (props) => {
 	let tabContent: JSX.Element = null!;
 	if (isShowingPresets) {
 		tabContent = (
-			<FilterPresets
-				selectedFilter={filterWorkingCopy}
-				onClickPreset={onFilterWorkingCopyChanged}
-			/>
+			<>
+				<RegularText margin={spacing.medium.bottom} textAlign='center' isMaxLineLength={false}>
+					Select a preset, or choose the 'advanced' tab.
+			</RegularText>
+				<FilterPresets
+					selectedFilter={filterWorkingCopy}
+					onClickPreset={onFilterWorkingCopyChanged}
+				/>
+			</>
 		);
 	}
 	else {
@@ -73,11 +78,11 @@ export const FilterOverlay: React.FC<FilterOverlayProps> = (props) => {
 	}
 
 	function onPresetTabClick() {
-		onShowingPresetsChange(true);
+		setIsShowingPresets(true);
 	}
 
 	function onAdvancedTabClick() {
-		onShowingPresetsChange(false);
+		setIsShowingPresets(false);
 	}
 
 	return (

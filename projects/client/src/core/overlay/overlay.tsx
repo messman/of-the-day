@@ -109,7 +109,7 @@ const BoxContainer = tStyled(FlexColumn)`
 	position: relative;
 	width: calc(100% - (2 * ${spacing.medium.value}));
 	max-width: ${LayoutBreakpoint.mobileLarge}px;
-	max-height: 75vh;
+	max-height: min(90vh, ${LayoutBreakpoint.tablet}px);
 	margin: ${spacing.medium.value};
 	background-color: ${p => p.theme.color.bgComponent1};
 	${borderRadiusStyle};

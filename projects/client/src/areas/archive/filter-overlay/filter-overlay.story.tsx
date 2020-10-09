@@ -14,7 +14,6 @@ export const TestFilterOverlay = decorate('Filter Overlay', null, () => {
 
 	const [filter, setFilter] = React.useState<IArchiveFilter>(defaultInvalidFilter);
 	const [hasOpenedOverlayOnce, setHasOpenedOverlayOnce] = React.useState(false);
-	const [isShowingPresets, setIsShowingPresets] = React.useState(false);
 	const [isOverlayOpen, setIsOverlayOpen] = React.useState(true);
 	const [requests, setRequests] = React.useState(0);
 	const [renders, setRenders] = React.useState(0);
@@ -67,8 +66,6 @@ export const TestFilterOverlay = decorate('Filter Overlay', null, () => {
 				onSetInactive={onCloseOverlay}
 				onFilterSubmit={onSetFilter}
 				filter={filter}
-				isShowingPresets={isShowingPresets}
-				onShowingPresetsChange={setIsShowingPresets}
 			/>
 		</>
 	);
