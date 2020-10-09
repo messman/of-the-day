@@ -128,7 +128,7 @@ export const FilterDescription: React.FC<FilterDescriptionProps> = (props) => {
 		start = (
 			<>
 				<BreakSpan>See </BreakSpan>
-				<BreakText isInline={true} fontWeight={FontWeight.bold}>{preset}</BreakText>
+				<BreakText fontWeight={FontWeight.extraBold}>{preset}</BreakText>
 				<BreakSpan>: </BreakSpan>
 			</>
 		);
@@ -142,29 +142,28 @@ export const FilterDescription: React.FC<FilterDescriptionProps> = (props) => {
 	const modifierSection = modifiers ? (
 		<>
 			<BreakSpan>with </BreakSpan>
-			<BreakText isInline={true} fontWeight={FontWeight.bold}>{modifiers} </BreakText>
+			<BreakText fontWeight={FontWeight.bold}>{modifiers} </BreakText>
 		</>
 	) : null;
 
 	return (
-		<BreakText>
+		<div>
 			{start}
-			<BreakText isInline={true} fontWeight={FontWeight.bold}>{types} </BreakText>
+			<BreakText fontWeight={FontWeight.bold}>{types} </BreakText>
 			{modifierSection}
 			<BreakSpan>for </BreakSpan>
-			<BreakText isInline={true} fontWeight={FontWeight.bold}>{range} </BreakText>
+			<BreakText fontWeight={FontWeight.bold}>{range} </BreakText>
 			<BreakSpan>sorted </BreakSpan>
-			<BreakText isInline={true} fontWeight={FontWeight.bold}>{sort}</BreakText>
-		</BreakText>
+			<BreakText fontWeight={FontWeight.bold}>{sort}</BreakText>
+		</div>
 	);
 };
 
 const BreakText = tStyled(RegularText)`
-	white-space: pre-wrap;
+	display: inline;
 `;
 const BreakSpan = tStyled.span`
-	display: inline-block;
-	white-space: pre-wrap;
+	display: inline;
 `;
 
 /** Sets the preset for a filter if it matches any of the presets. */

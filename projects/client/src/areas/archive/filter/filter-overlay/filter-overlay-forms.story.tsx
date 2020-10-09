@@ -5,7 +5,7 @@ import { Checkbox, OpenSelect } from './filter-overlay-forms';
 import { spacing, Spacing } from '@/core/layout/common';
 import { RegularText } from '@/core/symbol/text';
 
-export default { title: 'Areas/Archive/Filter Overlay/Forms' };
+export default { title: 'Areas/Archive/Filter/Overlay/Forms' };
 
 export const TestCheckbox = decorate('Checkbox', null, () => {
 

@@ -7,7 +7,7 @@ import { RegularText } from '@/core/symbol/text';
 import { FilterDescription } from '../filter-common';
 import { spacing, Spacing } from '@/core/layout/common';
 
-export default { title: 'Areas/Archive/Filter Overlay' };
+export default { title: 'Areas/Archive/Filter/Overlay' };
 
 export const TestFilterOverlay = decorate('Filter Overlay', null, () => {
 
