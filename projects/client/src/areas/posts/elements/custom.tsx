@@ -37,8 +37,10 @@ export const Custom = createPostsElement<IPostCustom>((props) => {
 
 	const revealText = isShowingHiddenValue ? 'Hide' : 'Reveal';
 
+	const iconType = !!link ? iconTypes.link : iconTypes.speech;
+
 	return (
-		<Card title={title} icon={iconTypes.speech}>
+		<Card title={title} icon={iconType}>
 			<TagList margin={spacing.medium.vertical} tags={tagsStrings} />
 			<RegularText show={link} margin={spacing.medium.top}>
 				<OutLink href={link}>{linkText}</OutLink>

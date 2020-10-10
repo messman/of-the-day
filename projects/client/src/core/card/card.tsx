@@ -16,9 +16,7 @@ export const Card: React.FC<CardProps> = (props) => {
 	let iconRender: JSX.Element | null = null;
 	if (icon) {
 		iconRender = (
-			<Heading2>
-				<Icon type={icon} height={FontSize.heading2} fillColor={c => c.textHeading2} />
-			</Heading2>
+			<Icon type={icon} height={FontSize.heading1} fillColor={c => c.textHeading2} />
 		);
 	}
 
@@ -27,7 +25,7 @@ export const Card: React.FC<CardProps> = (props) => {
 			<BoxShadow>
 				<ColorHeader />
 				<Background>
-					<FlexRow justifyContent='space-between'>
+					<FlexRow justifyContent='space-between' alignItems='center'>
 						<Heading2>{title}</Heading2>
 						{iconRender}
 					</FlexRow>

@@ -115,7 +115,7 @@ const Card1: React.FC = () => {
 
 const Card2: React.FC = () => {
 	return (
-		<Card title='Card 2' icon={iconTypes.screen}>
+		<Card title='Card 2' icon={iconTypes.project}>
 			<RegularText>
 				Here's a little content for Card 2. There's less content here. Not very much at all.
 			</RegularText>

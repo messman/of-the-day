@@ -79,7 +79,7 @@ const HeaderImage = tStyled.div`
 	height: 100%;
 	background-image: url(${headerImageDataUrl});
 	background-position: center;
-	opacity: .13;
+	opacity: .1;
 `;
 
 const HeaderShadow = tStyled.div`

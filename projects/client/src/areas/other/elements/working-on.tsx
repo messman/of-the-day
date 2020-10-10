@@ -37,7 +37,7 @@ export const WorkingOn: React.FC<WorkingOnProps> = (props) => {
 	}
 
 	return (
-		<Card title={title} icon={iconTypes.screen}>
+		<Card title={title} icon={iconTypes.project}>
 			<RegularText>{render}</RegularText>
 		</Card>
 	);

@@ -35,7 +35,7 @@ let entities: HeaderAnimationEntity[] = [
 	},
 	{
 		text: 'Link',
-		icon: iconTypes.screen
+		icon: iconTypes.link
 	},
 	{
 		text: 'Image',
@@ -52,6 +52,10 @@ let entities: HeaderAnimationEntity[] = [
 	{
 		text: 'Activity',
 		icon: iconTypes.activity
+	},
+	{
+		text: 'Project',
+		icon: iconTypes.project
 	}
 ];
 function shuffle(array: any[]): void {
