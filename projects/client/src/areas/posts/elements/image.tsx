@@ -5,13 +5,13 @@ import { RegularText } from '@/core/symbol/text';
 import { tStyled } from '@/core/style/styled';
 import { OutLink } from '@/core/link';
 import { borderRadiusStyle } from '@/core/style/common';
-import { Card } from '@/core/card/card';
 import { iconTypes } from '@/core/symbol/icon';
 import { LayoutBreakpoint } from '@/services/layout/window-layout';
-import { createPostsElement } from './elements-common';
+import { createPostsElement, PostCard } from './elements-common';
 import { TagList, useTags } from './tag';
 
 export const Image = createPostsElement<IPostImage>((props) => {
+	const { isForArchive, archivePost } = props;
 	const { link, description, source, sourceLink, isNSFW, isTop } = props.value;
 
 	const tagsStrings = useTags(isTop, isNSFW);
@@ -29,7 +29,7 @@ export const Image = createPostsElement<IPostImage>((props) => {
 	// TODO - add accessibility for image.
 
 	return (
-		<Card title='Image' icon={iconTypes.image}>
+		<PostCard title='Image' icon={iconTypes.image} isForArchive={isForArchive} archivePost={archivePost}>
 			<TagList margin={spacing.medium.vertical} tags={tagsStrings} />
 			<RegularText show={description} margin={spacing.small.top}>{description}</RegularText>
 			<RegularText show={sourceRender} margin={spacing.nudge.top}>From {sourceRender}</RegularText>
@@ -39,7 +39,7 @@ export const Image = createPostsElement<IPostImage>((props) => {
 					<ConstrainedImage src={link} />
 				</a>
 			</Spacing>
-		</Card>
+		</PostCard>
 	);
 }, IPostElementType.image, isValidPostElement.image);
 

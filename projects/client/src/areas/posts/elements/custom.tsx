@@ -5,9 +5,8 @@ import { RegularText, SmallText } from '@/core/symbol/text';
 import { OutLink, ActionLink } from '@/core/link';
 import { tStyled } from '@/core/style/styled';
 import { borderRadiusStyle } from '@/core/style/common';
-import { Card } from '@/core/card/card';
 import { iconTypes } from '@/core/symbol/icon';
-import { createPostsElement } from './elements-common';
+import { createPostsElement, PostCard } from './elements-common';
 import { TagList, useTags } from './tag';
 
 /*
@@ -23,6 +22,7 @@ import { TagList, useTags } from './tag';
 */
 
 export const Custom = createPostsElement<IPostCustom>((props) => {
+	const { isForArchive, archivePost } = props;
 	const { value, title, link, linkText, hiddenValue, isTop, isNSFW } = props.value;
 
 	const tagsStrings = useTags(isTop, isNSFW);
@@ -40,7 +40,7 @@ export const Custom = createPostsElement<IPostCustom>((props) => {
 	const iconType = !!link ? iconTypes.link : iconTypes.speech;
 
 	return (
-		<Card title={title} icon={iconType}>
+		<PostCard title={title} icon={iconType} isForArchive={isForArchive} archivePost={archivePost}>
 			<TagList margin={spacing.medium.vertical} tags={tagsStrings} />
 			<RegularText show={link} margin={spacing.medium.top}>
 				<OutLink href={link}>{linkText}</OutLink>
@@ -58,7 +58,7 @@ export const Custom = createPostsElement<IPostCustom>((props) => {
 					</RegularText>
 				</HiddenArea>
 			</Spacing>
-		</Card>
+		</PostCard>
 	);
 }, IPostElementType.custom, isValidPostElement.custom);
 

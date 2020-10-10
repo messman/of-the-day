@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { tStyled } from '@/core/style/styled';
-import { IPost, IPostDayReference } from 'oftheday-shared';
+import { IPost } from 'oftheday-shared';
 import { FontSize, Heading1, SmallText } from '@/core/symbol/text';
 import { FlexRow, Sticky, useSticky, useWindowLayout } from '@messman/react-common';
 import { ClickableIcon, iconTypes } from '@/core/symbol/icon';
@@ -8,6 +8,7 @@ import { spacing } from '@/core/layout/common';
 import { LayoutBreakpoint } from '@/services/layout/window-layout';
 import { FontWeight } from '@/core/style/theme';
 import { PostsSelectionOverlay } from './posts-selection-overlay';
+import { getDayReferenceRender } from './post-common';
 
 export interface PostsHeaderProps {
 	rootElement: HTMLElement | null;
@@ -18,13 +19,6 @@ export interface PostsHeaderProps {
 	onPostChosen: (newActivePostIndex: number) => void;
 	onScrollTop: () => void;
 }
-
-export const dayReferencesText: Record<keyof typeof IPostDayReference, string> = {
-	other: '',
-	tomorrow: 'Tomorrow',
-	today: 'Today',
-	yesterday: 'Yesterday'
-};
 
 export const PostsHeader: React.FC<PostsHeaderProps> = (props) => {
 	const { rootElement, posts, offsetPixels, activePostIndex, onPostChosen, onScrollTop } = props;
@@ -127,9 +121,8 @@ const PostDayTitle: React.FC<PostDayTitle> = (props) => {
 	const { widthBreakpoint } = useWindowLayout();
 
 	let dayReferenceRender: JSX.Element | null = null;
-	if (widthBreakpoint >= LayoutBreakpoint.mobileRegular && dayReference !== IPostDayReference.other) {
-		const dayReferenceText = dayReferencesText[IPostDayReference[dayReference] as keyof typeof IPostDayReference];
-		dayReferenceRender = <>{dayReferenceText}&nbsp;&middot;&nbsp;</>;
+	if (widthBreakpoint >= LayoutBreakpoint.mobileRegular) {
+		dayReferenceRender = getDayReferenceRender(dayReference);
 	}
 
 	// Mobile

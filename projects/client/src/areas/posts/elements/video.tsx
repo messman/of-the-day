@@ -6,11 +6,11 @@ import { RegularText, SmallText, Heading3 } from '@/core/symbol/text';
 import { TagList, useTags } from './tag';
 import { ActionLink } from '@/core/link';
 import { SeeMoreButton, borderRadiusStyle } from '@/core/style/common';
-import { Card } from '@/core/card/card';
 import { iconTypes } from '@/core/symbol/icon';
-import { createPostsElement } from './elements-common';
+import { createPostsElement, PostCard } from './elements-common';
 
 export const Video = createPostsElement<IPostVideo>((props) => {
+	const { isForArchive, archivePost } = props;
 	const { description, link, isTop, isNSFW, tags, isRemoved } = props.value;
 
 	const tagsStrings = useTags(isTop, isNSFW, tags);
@@ -28,7 +28,7 @@ export const Video = createPostsElement<IPostVideo>((props) => {
 	}
 
 	return (
-		<Card title='Video' icon={iconTypes.video}>
+		<PostCard title='Video' icon={iconTypes.video} isForArchive={isForArchive} archivePost={archivePost}>
 			<Spacing margin={spacing.medium.bottom}>
 				<VideoTitle video={props.value} />
 			</Spacing>
@@ -40,7 +40,7 @@ export const Video = createPostsElement<IPostVideo>((props) => {
 				{internalVideoRender}
 			</Spacing>
 			<SeeMoreButton>See All Video</SeeMoreButton>
-		</Card>
+		</PostCard>
 	);
 }, IPostElementType.video, isValidPostElement.video);
 

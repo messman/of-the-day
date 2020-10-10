@@ -3,13 +3,13 @@ import { ActionLink } from '@/core/link';
 import { OverlayBox } from '@/core/overlay/overlay';
 import { ManagedOverlayBoxProps } from '@/services/overlay/overlay-manager';
 import { FlexColumn } from '@messman/react-common';
-import { IPost, IPostDayReference } from 'oftheday-shared';
+import { IPost } from 'oftheday-shared';
 import { tStyled } from '@/core/style/styled';
 import { Spacing, spacing } from '@/core/layout/common';
 import { SeeMoreButton } from '@/core/style/common';
-import { dayReferencesText } from './posts-header';
 import { ThemePickColor } from '@/core/style/theme';
 import { Heading3, RegularText } from '@/core/symbol/text';
+import { getDayReferenceRender } from './post-common';
 
 export interface PostsSelectionOverlayProps extends ManagedOverlayBoxProps {
 	activePostIndex: number;
@@ -76,12 +76,7 @@ const PostListItem: React.FC<PostListItemProps> = (props) => {
 	const { isActivePost, post, onClick } = props;
 	const { dayNumber, dateText, dayReference } = post;
 
-
-	let dayReferenceRender: JSX.Element | null = null;
-	if (dayReference !== IPostDayReference.other) {
-		const dayReferenceText = dayReferencesText[IPostDayReference[dayReference] as keyof typeof IPostDayReference];
-		dayReferenceRender = <>{dayReferenceText}&nbsp;&middot;&nbsp;</>;
-	}
+	const dayReferenceRender = getDayReferenceRender(dayReference);
 
 	const color: ThemePickColor = c => isActivePost ? c.textAccentOnBackground : c.textRegular;
 

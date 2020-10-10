@@ -3,9 +3,8 @@
 import * as React from 'react';
 import { IPostElementType, IPostQuote, isValidPostElement } from 'oftheday-shared';
 import { InnerQuote, InnerSingleQuote } from './quote-inner';
-import { Card } from '@/core/card/card';
 import { iconTypes } from '@/core/symbol/icon';
-import { createPostsElement } from '../elements-common';
+import { createPostsElement, PostCard } from '../elements-common';
 import { TagList, useTags } from '../tag';
 import { spacing } from '@/core/layout/common';
 
@@ -40,14 +39,15 @@ export const MusicQuote: React.FC<MusicQuoteProps> = (props) => {
 
 /** Displays the quote as a top-level post element section. */
 export const Quote = createPostsElement<IPostQuote>((props) => {
+	const { isForArchive, archivePost } = props;
 	const { isNSFW, isTop } = props.value;
 
 	const tagsStrings = useTags(isTop, isNSFW);
 
 	return (
-		<Card title='Quote' icon={iconTypes.quote}>
+		<PostCard title='Quote' icon={iconTypes.quote} isForArchive={isForArchive} archivePost={archivePost}>
 			<TagList margin={spacing.medium.vertical} tags={tagsStrings} />
 			<InnerQuote quote={props.value} />
-		</Card>
+		</PostCard>
 	);
 }, IPostElementType.quote, isValidPostElement.quote);

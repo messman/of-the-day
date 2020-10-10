@@ -3,20 +3,21 @@ import * as React from 'react';
 import { Spacing, spacing } from '../layout/common';
 import { tStyled } from '../style/styled';
 import { Icon, SVGIconType } from '../symbol/icon';
-import { FontSize, Heading2 } from '../symbol/text';
+import { FontSize, Heading2, RegularText } from '../symbol/text';
 
 export interface CardProps {
 	title: string;
+	subtitle?: JSX.Element | string | null;
 	icon: SVGIconType | null;
 }
 
 export const Card: React.FC<CardProps> = (props) => {
-	const { title, icon, children } = props;
+	const { title, subtitle, icon, children } = props;
 
 	let iconRender: JSX.Element | null = null;
 	if (icon) {
 		iconRender = (
-			<Icon type={icon} height={FontSize.heading1} fillColor={c => c.textHeading2} />
+			<Icon type={icon} height={FontSize.heading2} fillColor={c => c.textHeading2} />
 		);
 	}
 
@@ -29,6 +30,9 @@ export const Card: React.FC<CardProps> = (props) => {
 						<Heading2>{title}</Heading2>
 						{iconRender}
 					</FlexRow>
+					<Spacing show={!!subtitle} margin={spacing.nudge.top}>
+						<RegularText>{subtitle}</RegularText>
+					</Spacing>
 					<Spacing show={!!children} margin={spacing.large.top}>
 						<Spacing margin={spacing.small.bottom}>
 							{children}

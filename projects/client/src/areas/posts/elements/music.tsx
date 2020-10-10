@@ -9,12 +9,12 @@ import { tStyled } from '@/core/style/styled';
 import { OutLink } from '@/core/link';
 import { MusicQuote } from './quote/quote';
 import { SeeMoreButton } from '@/core/style/common';
-import { Card } from '@/core/card/card';
 import { iconTypes } from '@/core/symbol/icon';
 import { IPostElementType, IPostMusic, isValidPostElement } from 'oftheday-shared';
-import { createPostsElement } from './elements-common';
+import { createPostsElement, PostCard } from './elements-common';
 
 export const Music = createPostsElement<IPostMusic>((props) => {
+	const { isForArchive, archivePost } = props;
 	const { title, artist, description, isTop, isNSFW, tags, spotifyLink, youTubeLink, useYouTube, quote, year } = props.value;
 
 	const tagsStrings = useTags(isTop, isNSFW, tags);
@@ -24,7 +24,7 @@ export const Music = createPostsElement<IPostMusic>((props) => {
 	const embedRender: JSX.Element = useYouTube ? <YouTubeVideoFrame url={youTubeLink} /> : <SpotifyEmbedFrame url={spotifyLink} />;
 
 	return (
-		<Card title='Music' icon={iconTypes.music}>
+		<PostCard title='Music' icon={iconTypes.music} isForArchive={isForArchive} archivePost={archivePost}>
 			<Spacing margin={spacing.medium.bottom}>
 				<Heading3 isItalic={true}>{title}</Heading3>
 				<Heading3>{artist}</Heading3>
@@ -44,7 +44,7 @@ export const Music = createPostsElement<IPostMusic>((props) => {
 				<MusicQuote lyric={quote} />
 			</Spacing>
 			<SeeMoreButton>See All Music</SeeMoreButton>
-		</Card>
+		</PostCard>
 	);
 }, IPostElementType.music, isValidPostElement.music);
 

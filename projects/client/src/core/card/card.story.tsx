@@ -24,7 +24,7 @@ export const TestCard = decorate('Card', null, () => {
 	return (
 		<div>
 			<Spacing padding={padding}>
-				<Card title={title} icon={iconTypes.activity}>
+				<Card title={title} icon={iconTypes.calendar}>
 					{textContentRender}
 				</Card>
 			</Spacing>
@@ -34,6 +34,26 @@ export const TestCard = decorate('Card', null, () => {
 				</Card>
 			</Spacing>
 		</div>
+	);
+});
+
+export const TestCardSubtitle = decorate('Card Subtitle', null, () => {
+
+	const title = text('Card Title', 'Card Title');
+	const subtitle = text('Card Subtitle', 'Card Subtitle');
+	const textContent = text('Text Content', '');
+
+	const textContentRender = textContent ? (
+		<RegularText>{textContent}</RegularText>
+	) : null;
+
+	const padding = `${spacing.grand.value} ${spacing.medium.value}`;
+	return (
+		<Spacing padding={padding}>
+			<Card title={title} subtitle={subtitle} icon={iconTypes.calendar}>
+				{textContentRender}
+			</Card>
+		</Spacing>
 	);
 });
 
