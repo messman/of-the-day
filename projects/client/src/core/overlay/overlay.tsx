@@ -113,7 +113,7 @@ const BoxContainer = tStyled(FlexColumn)`
 	margin: ${spacing.medium.value};
 	background-color: ${p => p.theme.color.bgComponent1};
 	${borderRadiusStyle};
-	box-shadow: 0 2px 8px 2px ${p => p.theme.color.bgComponentShadow1};
+	box-shadow: 0 2px 3px 1px ${p => p.theme.color.bgComponentShadow1};
 	border: 1px solid ${p => p.theme.color.bgComponent3};
 	overflow: hidden;
 `;

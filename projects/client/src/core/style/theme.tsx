@@ -129,7 +129,7 @@ const purpleLightTheme: Theme = {
 		bg2: gray.light2,
 		bgComponent1: '#E5E5E6',
 		bgComponent2: '#DDDDDF',
-		bgComponent3: '#D5D5D7',
+		bgComponent3: '#CECED0',
 		bgComponentShadow1: 'rgba(211,211,211,0.50)',
 
 		accentGradient: 'linear-gradient(134deg, #6551C7 0%, #5955D1 39%, #5955D1 58%, #3948BA 100%)',
@@ -190,8 +190,8 @@ const yellowLightTheme: Theme = {
 		bg1: gray.light1,
 		bg2: gray.light2,
 		bgComponent1: '#E6E6E5',
-		bgComponent2: '#DFDEDD',
-		bgComponent3: '#D7D6D5',
+		bgComponent2: '#DEDEDE',
+		bgComponent3: '#D0CFCD',
 		bgComponentShadow1: 'rgba(211,211,211,0.50)',
 
 		accentGradient: 'linear-gradient(-45deg, #EBA749 0%, #F5B83D 38%, #F5B83D 65%, #F8CF7C 100%)',
@@ -252,8 +252,8 @@ const redLightTheme: Theme = {
 		bg1: gray.light1,
 		bg2: gray.light2,
 		bgComponent1: '#E6E5E5',
-		bgComponent2: '#DFDDDD',
-		bgComponent3: '#D7D5D5',
+		bgComponent2: '#DEDEDE',
+		bgComponent3: '#D0CDCE',
 		bgComponentShadow1: 'rgba(211,211,211,0.50)',
 
 		accentGradient: 'linear-gradient(135deg, #E078A4 0%, #CB697A 37%, #CB697A 65%, #DA5856 100%)',
