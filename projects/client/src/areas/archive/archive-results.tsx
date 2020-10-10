@@ -4,7 +4,6 @@ import { tStyled } from '@/core/style/styled';
 import { FontWeight } from '@/core/style/theme';
 import { ClickableIcon, iconTypes } from '@/core/symbol/icon';
 import { RegularText } from '@/core/symbol/text';
-import { LayoutBreakpoint } from '@/services/layout/window-layout';
 import { Flex, FlexRow, Sticky, useSticky } from '@messman/react-common';
 import { IArchiveFilter, isFilterSemanticallyEqual, isFilterSortSemanticallyEqual } from 'oftheday-shared';
 import * as React from 'react';
@@ -66,24 +65,17 @@ export const ArchiveResults: React.FC<ArchiveResultsProps> = (props) => {
 	}
 
 	return (
-		<ArchiveContainer>
-			<Spacing margin={edgeSpacing.horizontal}>
-				<Spacing margin={spacing.large.top}>
-					<FilterDescription filter={filter} />
-				</Spacing>
-			</Spacing>
+		<>
 			<ArchiveResultsHeader {...props} resultsCount={resultsCount} postsCount={postsCount} />
 			<Spacing margin={edgeSpacing.horizontal}>
+				<Spacing margin={spacing.large.vertical}>
+					<FilterDescription filter={filter} />
+				</Spacing>
 				{postsRender}
 			</Spacing>
-		</ArchiveContainer>
+		</>
 	);
 };
-
-const ArchiveContainer = tStyled.div`
-	max-width: ${LayoutBreakpoint.tablet}px;
-	margin: ${spacing.grand.value} auto;
-`;
 
 interface ArchiveResultsHeaderProps extends ArchiveResultsProps {
 	postsCount: number | null;

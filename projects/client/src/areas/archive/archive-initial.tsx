@@ -1,7 +1,7 @@
 import { Spacing, spacing, useResponsiveEdgeSpacing } from '@/core/layout/common';
 import { SeeMoreButton } from '@/core/style/common';
 import { tStyled } from '@/core/style/styled';
-import { Paragraph, Heading1 } from '@/core/symbol/text';
+import { Paragraph, Title } from '@/core/symbol/text';
 import { LayoutBreakpoint } from '@/services/layout/window-layout';
 import { IArchiveFilter } from 'oftheday-shared';
 import * as React from 'react';
@@ -20,7 +20,7 @@ export const ArchiveInitial: React.FC<ArchiveInitialProps> = (props) => {
 
 	return (
 		<Spacing margin={edgeSpacing.horizontal}>
-			<Heading1>Archive</Heading1>
+			<Title>Archive</Title>
 			<Paragraph>
 				Choose a preset below or create a filter.
 			</Paragraph>
