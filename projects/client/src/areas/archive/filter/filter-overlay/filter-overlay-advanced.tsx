@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { cloneFilter, IPostElementType, keysOfFilterRange, IArchiveFilterRange, keysOfFilterSort, IArchiveFilterSort } from 'oftheday-shared';
+import { cloneFilter, IPostElementType, keysOfFilterRange, IArchiveFilterRange, keysOfFilterSort, IArchiveFilterSort, IArchiveFilter } from 'oftheday-shared';
 import { Spacing, spacing } from '@/core/layout/common';
 import { Heading3 } from '@/core/symbol/text';
 import { Checkbox, OpenSelect, OpenSelectOption } from './filter-overlay-forms';
@@ -12,7 +12,7 @@ export const FilterOverlayAdvanced: React.FC<FilterOverlayTabProps> = (props) =>
 
 	function onTypeChange(type: IPostElementType): (value: boolean) => void {
 		return function (value: boolean) {
-			const newFilter = cloneFilter(filterWorkingCopy);
+			const newFilter = cloneFilterWithoutPreset(filterWorkingCopy);
 			const key = IPostElementType[type] as keyof typeof IPostElementType;
 			newFilter.types[key] = value;
 
@@ -25,12 +25,12 @@ export const FilterOverlayAdvanced: React.FC<FilterOverlayTabProps> = (props) =>
 	}
 
 	function onTopTagModifierChange(value: boolean) {
-		const newFilter = cloneFilter(filterWorkingCopy);
+		const newFilter = cloneFilterWithoutPreset(filterWorkingCopy);
 		newFilter.modifiers.includeOnlyWithTopTag = value;
 		onFilterWorkingCopyChanged(newFilter);
 	}
 	function onNSFWTagModifierChange(value: boolean) {
-		const newFilter = cloneFilter(filterWorkingCopy);
+		const newFilter = cloneFilterWithoutPreset(filterWorkingCopy);
 		newFilter.modifiers.excludeWithNSFWTag = value;
 		onFilterWorkingCopyChanged(newFilter);
 	}
@@ -43,7 +43,7 @@ export const FilterOverlayAdvanced: React.FC<FilterOverlayTabProps> = (props) =>
 	});
 
 	function onRangeChange(value: number) {
-		const newFilter = cloneFilter(filterWorkingCopy);
+		const newFilter = cloneFilterWithoutPreset(filterWorkingCopy);
 		newFilter.range = value as IArchiveFilterRange;
 		onFilterWorkingCopyChanged(newFilter);
 	}
@@ -59,7 +59,7 @@ export const FilterOverlayAdvanced: React.FC<FilterOverlayTabProps> = (props) =>
 	});
 
 	function onSortChange(value: number) {
-		const newFilter = cloneFilter(filterWorkingCopy);
+		const newFilter = cloneFilterWithoutPreset(filterWorkingCopy);
 		newFilter.sort = value as IArchiveFilterSort;
 		onFilterWorkingCopyChanged(newFilter);
 	}
@@ -117,3 +117,9 @@ export const FilterOverlayAdvanced: React.FC<FilterOverlayTabProps> = (props) =>
 		</>
 	);
 };
+
+function cloneFilterWithoutPreset(filter: IArchiveFilter): IArchiveFilter {
+	const clonedFilter = cloneFilter(filter);
+	clonedFilter.preset = undefined;
+	return clonedFilter;
+}

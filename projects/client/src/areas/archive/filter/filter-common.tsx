@@ -123,11 +123,12 @@ export const FilterDescription: React.FC<FilterDescriptionProps> = (props) => {
 
 	const { preset, types, modifiers, range, sort } = filterDescriptor;
 
+	const startText = 'Filter to ';
 	let start: JSX.Element = null!;
 	if (preset) {
 		start = (
 			<div>
-				<BreakSpan>See </BreakSpan>
+				<BreakSpan>{startText}</BreakSpan>
 				<BreakText fontWeight={FontWeight.extraBold}>{preset}</BreakText>
 				<BreakSpan>: </BreakSpan>
 			</div>
@@ -135,7 +136,7 @@ export const FilterDescription: React.FC<FilterDescriptionProps> = (props) => {
 	}
 	else {
 		start = (
-			<BreakSpan>See </BreakSpan>
+			<BreakSpan>{startText}</BreakSpan>
 		);
 	}
 

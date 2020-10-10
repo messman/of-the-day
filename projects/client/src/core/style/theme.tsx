@@ -113,8 +113,8 @@ const purpleDarkTheme: Theme = {
 		textHeading2: '#CBCBD1',
 		textHeading3: '#BEBEC9',
 		textRegular: '#ADADB5',
-		textInactive: '#98989C',
-		textDisabled: '#98989C',
+		textInactive: '#808080',
+		textDisabled: '#616161',
 		textLink: '#7F7CE8',
 	}
 };
@@ -144,8 +144,8 @@ const purpleLightTheme: Theme = {
 		textHeading2: '#2D2D34',
 		textHeading3: '#353540',
 		textRegular: '#4C4C52',
-		textInactive: '#646468',
-		textDisabled: '#646468',
+		textInactive: '#737373',
+		textDisabled: '#999999',
 		textLink: '#534FC3'
 	}
 };
@@ -175,8 +175,8 @@ const yellowDarkTheme: Theme = {
 		textHeading2: '#D0CFCC',
 		textHeading3: '#C8C5BF',
 		textRegular: '#B3B2AF',
-		textInactive: '#8D8D8B',
-		textDisabled: '#8D8D8B',
+		textInactive: '#808080',
+		textDisabled: '#616161',
 		textLink: '#F7CA6F',
 	}
 };
@@ -206,8 +206,8 @@ const yellowLightTheme: Theme = {
 		textHeading2: '#33312E',
 		textHeading3: '#403C35',
 		textRegular: '#52504C',
-		textInactive: '#72716E',
-		textDisabled: '#72716E',
+		textInactive: '#737373',
+		textDisabled: '#999999',
 		textLink: '#82601B'
 	}
 };
@@ -237,8 +237,8 @@ const redDarkTheme: Theme = {
 		textHeading2: '#D0CCCD',
 		textHeading3: '#C8BFC0',
 		textRegular: '#B4AEAF',
-		textInactive: '#979596',
-		textDisabled: '#979596',
+		textInactive: '#808080',
+		textDisabled: '#616161',
 		textLink: '#DC697D',
 	}
 };
@@ -268,8 +268,8 @@ const redLightTheme: Theme = {
 		textHeading2: '#332E2F',
 		textHeading3: '#403537',
 		textRegular: '#524C4D',
-		textInactive: '#686465',
-		textDisabled: '#686465',
+		textInactive: '#737373',
+		textDisabled: '#999999',
 		textLink: '#984553'
 	}
 };

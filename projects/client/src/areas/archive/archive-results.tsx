@@ -66,10 +66,17 @@ export const ArchiveResults: React.FC<ArchiveResultsProps> = (props) => {
 
 	return (
 		<>
-			<ArchiveResultsHeader {...props} resultsCount={resultsCount} postsCount={postsCount} />
+			<ArchiveResultsHeader {...props} resultsCount={resultsCount} />
 			<Spacing margin={edgeSpacing.horizontal}>
 				<Spacing margin={spacing.large.vertical}>
 					<FilterDescription filter={filter} />
+					<RegularText margin={spacing.medium.top}>
+						Showing
+					<RegularText isInline={true} fontWeight={FontWeight.bold}>&nbsp;{resultsCount}&nbsp;</RegularText>
+							items across
+								<RegularText isInline={true} fontWeight={FontWeight.bold}>&nbsp;{postsCount}&nbsp;</RegularText>
+							days
+						</RegularText>
 				</Spacing>
 				{postsRender}
 			</Spacing>
@@ -78,12 +85,11 @@ export const ArchiveResults: React.FC<ArchiveResultsProps> = (props) => {
 };
 
 interface ArchiveResultsHeaderProps extends ArchiveResultsProps {
-	postsCount: number | null;
 	resultsCount: number | null;
 }
 
 export const ArchiveResultsHeader: React.FC<ArchiveResultsHeaderProps> = (props) => {
-	const { rootElement, onScrollTop, onClickEditFilter, offsetPixels, postsCount, resultsCount } = props;
+	const { rootElement, onScrollTop, onClickEditFilter, offsetPixels, resultsCount } = props;
 
 	const stickyOutput = useSticky({
 		rootElement: rootElement
@@ -99,11 +105,7 @@ export const ArchiveResultsHeader: React.FC<ArchiveResultsHeaderProps> = (props)
 						<Spacing margin={spacing.medium.left}>
 							<RegularText>
 								<RegularText isInline={true} fontWeight={FontWeight.bold}>{resultsCount}&nbsp;</RegularText>
-							Items,
-						</RegularText>
-							<RegularText>
-								<RegularText isInline={true} fontWeight={FontWeight.bold}>{postsCount}&nbsp;</RegularText>
-							Days
+							Items
 						</RegularText>
 						</Spacing>
 					</Flex>
