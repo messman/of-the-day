@@ -5,7 +5,7 @@ import { keepTruthy } from '../../services/util';
 import { IPost, IPostBasics, IPostCustom, IPostDayReference, IPostEndThoughts, IPostImage, IPostMusic, IPostQuote, IPostVideo, isValidPostElement } from 'oftheday-shared';
 
 export const postsColumnStart = 'A';
-export const postsColumnStop = 'BG';
+export const postsColumnStop = 'BH';
 /** Where the Posts sheet's data actually starts. Clone and offset to get start of range. */
 export const postsBaseFromCell = createCell('Read_Posts', postsColumnStart, 3);
 
@@ -48,41 +48,42 @@ export function parsePost(row: any[], dayReference: IPostDayReference): IPost {
 			quote: stringAtCol('AA'),
 		}),
 		video: passVideo({
-			title: stringAtCol('AB'),
-			originalTitle: stringAtCol('AC'),
-			link: stringAtCol('AD'),
-			description: stringAtCol('AE'),
-			isRemoved: !!stringAtCol('AF'),
-			isNSFW: !!stringAtCol('AG'),
-			isTop: !!stringAtCol('AH'),
-			tags: keepTruthy(stringAtCol('AI'), stringAtCol('AJ'), stringAtCol('AK')),
+			customTitle: stringAtCol('AB'),
+			customTitleCreator: stringAtCol('AC'),
+			originalTitle: stringAtCol('AD'),
+			link: stringAtCol('AE'),
+			description: stringAtCol('AF'),
+			isRemoved: !!stringAtCol('AG'),
+			isNSFW: !!stringAtCol('AH'),
+			isTop: !!stringAtCol('AI'),
+			tags: keepTruthy(stringAtCol('AJ'), stringAtCol('AK'), stringAtCol('AL')),
 		}),
 		quote: passQuote({
-			a: stringAtCol('AL'),
-			aVoice: stringAtCol('AM'),
-			b: stringAtCol('AN'),
-			bVoice: stringAtCol('AO'),
-			source: stringAtCol('AP'),
-			sourceLink: stringAtCol('AQ'),
-			isNSFW: !!stringAtCol('AR'),
-			isTop: !!stringAtCol('AS'),
+			a: stringAtCol('AM'),
+			aVoice: stringAtCol('AN'),
+			b: stringAtCol('AO'),
+			bVoice: stringAtCol('AP'),
+			source: stringAtCol('AQ'),
+			sourceLink: stringAtCol('AR'),
+			isNSFW: !!stringAtCol('AS'),
+			isTop: !!stringAtCol('AT'),
 		}),
 		image: passImage({
-			link: stringAtCol('AT'),
-			description: stringAtCol('AU'),
-			source: stringAtCol('AV'),
-			sourceLink: stringAtCol('AW'),
-			isNSFW: !!stringAtCol('AX'),
-			isTop: !!stringAtCol('AY'),
+			link: stringAtCol('AU'),
+			description: stringAtCol('AV'),
+			source: stringAtCol('AW'),
+			sourceLink: stringAtCol('AX'),
+			isNSFW: !!stringAtCol('AY'),
+			isTop: !!stringAtCol('AZ'),
 		}),
 		custom: passCustom({
-			title: stringAtCol('AZ'),
-			value: stringAtCol('BA'),
-			link: stringAtCol('BB'),
-			linkText: stringAtCol('BC'),
-			previewLink: !!stringAtCol('BD'),
-			hiddenValue: stringAtCol('BE'),
-			isNSFW: !!stringAtCol('BF'),
+			title: stringAtCol('BA'),
+			value: stringAtCol('BBB'),
+			link: stringAtCol('BC'),
+			linkText: stringAtCol('BD'),
+			previewLink: !!stringAtCol('BE'),
+			hiddenValue: stringAtCol('BF'),
+			isNSFW: !!stringAtCol('BG'),
 			isTop: !!stringAtCol(postsColumnStop),
 		})
 	};

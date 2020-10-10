@@ -11,7 +11,7 @@ import { iconTypes } from '@/core/symbol/icon';
 import { createPostsElement } from './elements-common';
 
 export const Video = createPostsElement<IPostVideo>((props) => {
-	const { title, originalTitle, description, link, isTop, isNSFW, tags, isRemoved } = props.value;
+	const { description, link, isTop, isNSFW, tags, isRemoved } = props.value;
 
 	const tagsStrings = useTags(isTop, isNSFW, tags);
 
@@ -30,10 +30,10 @@ export const Video = createPostsElement<IPostVideo>((props) => {
 	return (
 		<Card title='Video' icon={iconTypes.video}>
 			<Spacing margin={spacing.medium.bottom}>
-				<VideoTitle title={title} originalTitle={originalTitle} />
+				<VideoTitle video={props.value} />
 			</Spacing>
 			<TagList margin={spacing.medium.vertical} tags={tagsStrings} />
-			<RegularText margin={spacing.medium.vertical} show={description}>
+			<RegularText margin={spacing.medium.vertical} show={description && !isRemoved}>
 				{description}
 			</RegularText>
 			<Spacing margin={spacing.large.vertical}>
@@ -44,37 +44,43 @@ export const Video = createPostsElement<IPostVideo>((props) => {
 	);
 }, IPostElementType.video, isValidPostElement.video);
 
-export interface VideoTitleProps {
-	title: string;
-	originalTitle: string;
+interface VideoTitleProps {
+	video: IPostVideo;
 }
 
 const VideoTitle: React.FC<VideoTitleProps> = (props) => {
-	const { title, originalTitle } = props;
-	const [isShowingOriginalTitle, setIsShowingOriginalTitle] = React.useState(false);
+	const { video } = props;
+	const { customTitle, customTitleCreator, originalTitle } = video;
 
-	const differentOriginalTitle = title === originalTitle ? '' : originalTitle;
+	// Original title must be truthy - custom title information is optional.
 
-	let originalTitleWarningRender: JSX.Element | null = null;
-	if (differentOriginalTitle && !isShowingOriginalTitle) {
+	const [isShowingOriginalTitle, setIsShowingOriginalTitle] = React.useState(() => {
+		// Show original title if we don't have a custom title.
+		return !customTitle;
+	});
 
-		function onClick() {
-			setIsShowingOriginalTitle(true);
-		}
-
-		originalTitleWarningRender = (
-			<Spacing margin={spacing.nudge.top}>
-				<SmallText>Title reworded by Andrew. <ActionLink onClick={onClick}>See original.</ActionLink></SmallText>
-			</Spacing>
+	if (isShowingOriginalTitle) {
+		return (
+			<Heading3>{originalTitle}</Heading3>
 		);
 	}
 
-	const titleToShow = isShowingOriginalTitle ? differentOriginalTitle : title;
+	const isCustomTitleDifferent = customTitle !== originalTitle;
+
+	function onClick() {
+		setIsShowingOriginalTitle(true);
+	}
+	const originalTitleLink = isCustomTitleDifferent ? (
+		<Spacing margin={spacing.nudge.top}>
+			<SmallText>Andrew customized this title. <ActionLink onClick={onClick}>See original.</ActionLink></SmallText>
+		</Spacing>
+	) : null;
 
 	return (
 		<>
-			<Heading3>{titleToShow}</Heading3>
-			{originalTitleWarningRender}
+			<Heading3>{customTitle}</Heading3>
+			<Heading3 show={customTitleCreator}>{customTitleCreator}</Heading3>
+			{originalTitleLink}
 		</>
 	);
 };

@@ -77,7 +77,11 @@ export interface IPostMusic extends IPostTopElement, IPostNSFWElement {
 }
 
 export interface IPostVideo extends IPostTopElement, IPostNSFWElement {
-	title: string;
+	/** May be unspecified. */
+	customTitle: string;
+	/** May be unspecified. */
+	customTitleCreator: string;
+	/** Required. */
 	originalTitle: string;
 	link: string;
 	description: string;

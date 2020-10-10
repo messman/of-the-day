@@ -32,8 +32,8 @@ function video(video: IPostVideo | undefined): boolean {
 	if (!video) {
 		return false;
 	}
-	const { title, description, link, isRemoved } = video;
-	return !!title && (!!link || isRemoved) && (!!description || isRemoved);
+	const { originalTitle, description, link, isRemoved } = video;
+	return !!originalTitle && (!!link || isRemoved) && (!!description || isRemoved);
 }
 
 function image(image: IPostImage | undefined): boolean {

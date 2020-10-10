@@ -35,7 +35,8 @@ export const postsTestData: IPost[] = [
 			tags: ['Hello', 'That Is Right!'],
 		},
 		video: {
-			title: 'Cornbread | Basics with Babish',
+			customTitle: 'Cornbread | Basics with Babish',
+			customTitleCreator: 'Binging With Babish',
 			originalTitle: 'Cornbread by by by Basics with Babish',
 			description: '\'Binging with Babish\' is a great cooking channel on YouTube. As a person who enjoys making and eating cornbread, I was very interested to see the different ways it can be made. (Links to recipes are in the video description.) The cornbread I make is more similar to the northern style.',
 			link: 'https://youtu.be/Bpu0TIXzI1w',
@@ -107,7 +108,8 @@ export const postsTestData: IPost[] = [
 			tags: ['Turn It Up', 'F The Patriarchy'],
 		},
 		video: {
-			title: 'MacGruber: Sensitivity Training',
+			customTitle: 'MacGruber: Sensitivity Training',
+			customTitleCreator: 'SNL',
 			originalTitle: 'MacGruber: Sensitivity Training - SNL',
 			description: 'MacGruber, one of my favorite recurring skits on SNL. These short skits would be interspersed throughout a single episode and leave me laughing after each one. The bomb could go off at any moment. (Also, relevant.)',
 			link: 'https://youtu.be/ZPNZv8J94uA',
@@ -179,7 +181,8 @@ export const postsTestData: IPost[] = [
 			tags: [],
 		},
 		video: {
-			title: '',
+			customTitle: '',
+			customTitleCreator: '',
 			originalTitle: '',
 			description: '',
 			link: '',
@@ -251,7 +254,8 @@ export const postsTestData: IPost[] = [
 			tags: ['Turn It Up'],
 		},
 		video: {
-			title: '',
+			customTitle: '',
+			customTitleCreator: '',
 			originalTitle: '',
 			description: '',
 			link: '',
