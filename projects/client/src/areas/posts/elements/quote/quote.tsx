@@ -6,6 +6,8 @@ import { InnerQuote, InnerSingleQuote } from './quote-inner';
 import { Card } from '@/core/card/card';
 import { iconTypes } from '@/core/symbol/icon';
 import { createPostsElement } from '../elements-common';
+import { TagList, useTags } from '../tag';
+import { spacing } from '@/core/layout/common';
 
 export interface MusicQuoteProps {
 	lyric: string;
@@ -38,8 +40,13 @@ export const MusicQuote: React.FC<MusicQuoteProps> = (props) => {
 
 /** Displays the quote as a top-level post element section. */
 export const Quote = createPostsElement<IPostQuote>((props) => {
+	const { isNSFW, isTop } = props.value;
+
+	const tagsStrings = useTags(isTop, isNSFW);
+
 	return (
 		<Card title='Quote' icon={iconTypes.quote}>
+			<TagList margin={spacing.medium.vertical} tags={tagsStrings} />
 			<InnerQuote quote={props.value} />
 		</Card>
 	);

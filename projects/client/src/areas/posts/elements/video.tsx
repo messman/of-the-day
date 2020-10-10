@@ -3,7 +3,7 @@ import { tStyled } from '@/core/style/styled';
 import { IPostElementType, IPostVideo, isValidPostElement } from 'oftheday-shared';
 import { spacing, Spacing } from '@/core/layout/common';
 import { RegularText, SmallText, Heading3 } from '@/core/symbol/text';
-import { TagList } from './tag';
+import { TagList, useTags } from './tag';
 import { ActionLink } from '@/core/link';
 import { SeeMoreButton, borderRadiusStyle } from '@/core/style/common';
 import { Card } from '@/core/card/card';
@@ -13,9 +13,7 @@ import { createPostsElement } from './elements-common';
 export const Video = createPostsElement<IPostVideo>((props) => {
 	const { title, originalTitle, description, link, isTop, isNSFW, tags, isRemoved } = props.value;
 
-	const tagStrings = React.useMemo(() => {
-		return ([isTop ? 'top' : '', isNSFW ? 'NSFW' : '', ...tags]).filter(x => !!x);
-	}, [tags, isTop, isNSFW]);
+	const tagsStrings = useTags(isTop, isNSFW, tags);
 
 	let internalVideoRender: JSX.Element = null!;
 	if (isRemoved) {
@@ -34,7 +32,7 @@ export const Video = createPostsElement<IPostVideo>((props) => {
 			<Spacing margin={spacing.medium.bottom}>
 				<VideoTitle title={title} originalTitle={originalTitle} />
 			</Spacing>
-			<TagList margin={spacing.medium.vertical} tags={tagStrings} />
+			<TagList margin={spacing.medium.vertical} tags={tagsStrings} />
 			<RegularText margin={spacing.medium.vertical} show={description}>
 				{description}
 			</RegularText>

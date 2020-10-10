@@ -45,6 +45,12 @@ const TagContainer = tStyled.div<TagContainerProps>`
 	}
 `;
 
+export function useTags(isTop: boolean, isNSFW: boolean, additionalTags?: string[]): string[] {
+	return React.useMemo(() => {
+		return ([isTop ? 'Top' : '', isNSFW ? 'NSFW' : '', ...(additionalTags || [])]).filter(x => !!x);
+	}, [isTop, isNSFW, additionalTags]);
+}
+
 export interface TagListProps {
 	margin?: string | null;
 	tags: string[];

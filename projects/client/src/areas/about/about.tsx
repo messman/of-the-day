@@ -80,40 +80,24 @@ export const About: React.FC<AboutProps> = () => {
 					</div>
 					<div>
 						<Title>Credits</Title>
-						<Subtitle>Design</Subtitle>
+						<Paragraph>Design, Content, and Development by Andrew Messier.</Paragraph>
+						<Paragraph>Thanks to all family, friends, and colleagues who helped me get here.</Paragraph>
+						<Subtitle>Tools</Subtitle>
 						<Paragraph>
-							Andrew.
-							</Paragraph>
-						<Paragraph>
-							(Also: Sketch, Noun Project.)
+							Designed with Sketch. Icons from the Noun Project (licensed).
 						</Paragraph>
-						<Subtitle>Content</Subtitle>
 						<Paragraph>
-							Andrew.
+							Content sourced from Spotify, YouTube, Google, and my personal photography.
 							</Paragraph>
 						<Paragraph>
-							(Also: Spotify, YouTube.)
-						</Paragraph>
-						<Subtitle>Development</Subtitle>
-						<Paragraph>
-							Andrew.
+							Development with React, TypeScript, styled-components, Webpack, Storybook, VS Code, and many more.
 							</Paragraph>
 						<Paragraph>
-							(Also: React, TypeScript, styled-components, Webpack, Storybook, VS Code.)
-						</Paragraph>
-						<Subtitle>Hosting</Subtitle>
-						<Paragraph>
-							Andrew.
-							</Paragraph>
-						<Paragraph>
-							(Also: Google Sheets, Heroku.)
+							Data hosted in Google Sheets so that I can update it from my phone. Code hosted through Heroku.
 						</Paragraph>
 					</div>
 					<div>
 						<Title>Contact</Title>
-						<Paragraph>
-							<Icon type={iconTypes.creator} height={spacing.grand.value} fillColor={c => c.accentFillOnBackground} />
-						</Paragraph>
 						<Paragraph>
 							I am <OutLink href='https://andrewmessier.com'>Andrew Messier</OutLink>.
 						</Paragraph>
@@ -124,6 +108,9 @@ export const About: React.FC<AboutProps> = () => {
 							See the code or file a bug on <OutLink href='https://github.com/messman/of-the-day'>GitHub</OutLink>.
 						</Paragraph>
 					</div>
+					<Spacing textAlign='center' margin={spacing.large.vertical}>
+						<Icon type={iconTypes.creator} height={spacing.grand.value} fillColor={c => c.textRegular} />
+					</Spacing>
 				</Spacing>
 			</Spacing>
 		</AboutContainer>

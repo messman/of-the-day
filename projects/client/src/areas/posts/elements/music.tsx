@@ -4,7 +4,7 @@ import * as React from 'react';
 import { RegularText, Heading3 } from '@/core/symbol/text';
 import { spacing, Spacing, } from '@/core/layout/common';
 import { YouTubeVideoFrame } from './video';
-import { TagList } from './tag';
+import { TagList, useTags } from './tag';
 import { tStyled } from '@/core/style/styled';
 import { OutLink } from '@/core/link';
 import { MusicQuote } from './quote/quote';
@@ -17,9 +17,7 @@ import { createPostsElement } from './elements-common';
 export const Music = createPostsElement<IPostMusic>((props) => {
 	const { title, artist, description, isTop, isNSFW, tags, spotifyLink, youTubeLink, useYouTube, quote, year } = props.value;
 
-	const tagStrings = React.useMemo(() => {
-		return ([isTop ? 'Top' : '', isNSFW ? 'NSFW' : '', ...tags]).filter(x => !!x);
-	}, [tags, isTop, isNSFW]);
+	const tagsStrings = useTags(isTop, isNSFW, tags);
 
 	const yearSuffix = year ? <RegularText margin={spacing.nudge.top}>{year}</RegularText> : <></>;
 
@@ -32,7 +30,7 @@ export const Music = createPostsElement<IPostMusic>((props) => {
 				<Heading3>{artist}</Heading3>
 				{yearSuffix}
 			</Spacing>
-			<TagList margin={spacing.medium.vertical} tags={tagStrings} />
+			<TagList margin={spacing.medium.vertical} tags={tagsStrings} />
 			<RegularText margin={spacing.medium.vertical} show={description}>
 				{description}
 			</RegularText>

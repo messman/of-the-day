@@ -9,9 +9,12 @@ import { Card } from '@/core/card/card';
 import { iconTypes } from '@/core/symbol/icon';
 import { LayoutBreakpoint } from '@/services/layout/window-layout';
 import { createPostsElement } from './elements-common';
+import { TagList, useTags } from './tag';
 
 export const Image = createPostsElement<IPostImage>((props) => {
-	const { link, description, source, sourceLink } = props.value;
+	const { link, description, source, sourceLink, isNSFW, isTop } = props.value;
+
+	const tagsStrings = useTags(isTop, isNSFW);
 
 	let sourceRender: JSX.Element | string | null = null;
 	if (source) {
@@ -27,7 +30,7 @@ export const Image = createPostsElement<IPostImage>((props) => {
 
 	return (
 		<Card title='Image' icon={iconTypes.image}>
-
+			<TagList margin={spacing.medium.vertical} tags={tagsStrings} />
 			<RegularText show={description} margin={spacing.small.top}>{description}</RegularText>
 			<RegularText show={sourceRender} margin={spacing.nudge.top}>From {sourceRender}</RegularText>
 			<Spacing margin={spacing.large.top}>

@@ -132,7 +132,7 @@ export const postsTestData: IPost[] = [
 			source: '',
 			sourceLink: '',
 			isNSFW: false,
-			isTop: false,
+			isTop: true,
 		},
 		custom: {
 			title: 'Shower Thought',
@@ -141,7 +141,7 @@ export const postsTestData: IPost[] = [
 			linkText: '',
 			link: '',
 			previewLink: false,
-			isNSFW: false,
+			isNSFW: true,
 			isTop: false,
 		}
 	},
@@ -275,7 +275,7 @@ export const postsTestData: IPost[] = [
 			bVoice: '',
 			source: 'Monty Python and the Holy Grail',
 			sourceLink: '',
-			isNSFW: false,
+			isNSFW: true,
 			isTop: false,
 		},
 		custom: {
@@ -286,7 +286,7 @@ export const postsTestData: IPost[] = [
 			link: 'https://www.netflix.com/title/81254224',
 			previewLink: false,
 			isNSFW: false,
-			isTop: false,
+			isTop: true,
 		}
 	}
 

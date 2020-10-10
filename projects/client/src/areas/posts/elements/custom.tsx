@@ -8,6 +8,7 @@ import { borderRadiusStyle } from '@/core/style/common';
 import { Card } from '@/core/card/card';
 import { iconTypes } from '@/core/symbol/icon';
 import { createPostsElement } from './elements-common';
+import { TagList, useTags } from './tag';
 
 /*
 	Possible things in this section:
@@ -22,7 +23,9 @@ import { createPostsElement } from './elements-common';
 */
 
 export const Custom = createPostsElement<IPostCustom>((props) => {
-	const { value, title, link, linkText, hiddenValue } = props.value;
+	const { value, title, link, linkText, hiddenValue, isTop, isNSFW } = props.value;
+
+	const tagsStrings = useTags(isTop, isNSFW);
 
 	const [isShowingHiddenValue, setIsShowingHiddenValue] = React.useState(false);
 
@@ -36,6 +39,7 @@ export const Custom = createPostsElement<IPostCustom>((props) => {
 
 	return (
 		<Card title={title} icon={iconTypes.speech}>
+			<TagList margin={spacing.medium.vertical} tags={tagsStrings} />
 			<RegularText show={link} margin={spacing.medium.top}>
 				<OutLink href={link}>{linkText}</OutLink>
 			</RegularText>
