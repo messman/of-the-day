@@ -4,7 +4,7 @@ import * as React from 'react';
 import { IPostElementType, IPostQuote, isValidPostElement } from 'oftheday-shared';
 import { InnerQuote, InnerSingleQuote } from './quote-inner';
 import { iconTypes } from '@/core/symbol/icon';
-import { createPostsElement, PostCard } from '../elements-common';
+import { createPostsElement, PostArchiveLinks, PostCard } from '../elements-common';
 import { TagList, useTags } from '../tag';
 import { spacing } from '@/core/layout/common';
 
@@ -46,8 +46,9 @@ export const Quote = createPostsElement<IPostQuote>((props) => {
 
 	return (
 		<PostCard title='Quote' icon={iconTypes.quote} isForArchive={isForArchive} archivePost={archivePost}>
-			<TagList margin={spacing.medium.vertical} tags={tagsStrings} />
+			<TagList margin={spacing.large.vertical} tags={tagsStrings} />
 			<InnerQuote quote={props.value} />
+			<PostArchiveLinks isForArchive={isForArchive} isTop={isTop} />
 		</PostCard>
 	);
 }, IPostElementType.quote, isValidPostElement.quote);

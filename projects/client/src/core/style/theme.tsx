@@ -73,14 +73,18 @@ const gray = {
 	dark2: '#141414',
 
 	light1: '#F7F7F7',
-	light2: '#F0F0F0'
+	light2: '#F0F0F0',
+};
+
+const color = {
+	darkTopBackground: '#CE9f3C',
+	lightTopBackground: '#FFC03D',
 };
 
 const commonColor: Partial<ThemeColor> = {
 	tagNSFWForeground: gray.light1,
 	tagNSFWBackground: '#A63446',
 	tagTopForeground: gray.dark1,
-	tagTopBackground: '#FFC03D',
 
 	settingsSelection: '#55D170',
 	warning: '#DC965A',
@@ -116,6 +120,8 @@ const purpleDarkTheme: Theme = {
 		textInactive: '#808080',
 		textDisabled: '#616161',
 		textLink: '#7F7CE8',
+
+		tagTopBackground: color.darkTopBackground
 	}
 };
 
@@ -146,7 +152,9 @@ const purpleLightTheme: Theme = {
 		textRegular: '#4C4C52',
 		textInactive: '#737373',
 		textDisabled: '#999999',
-		textLink: '#534FC3'
+		textLink: '#534FC3',
+
+		tagTopBackground: color.lightTopBackground
 	}
 };
 
@@ -178,6 +186,8 @@ const yellowDarkTheme: Theme = {
 		textInactive: '#808080',
 		textDisabled: '#616161',
 		textLink: '#F7CA6F',
+
+		tagTopBackground: color.darkTopBackground
 	}
 };
 
@@ -208,7 +218,9 @@ const yellowLightTheme: Theme = {
 		textRegular: '#52504C',
 		textInactive: '#737373',
 		textDisabled: '#999999',
-		textLink: '#82601B'
+		textLink: '#82601B',
+
+		tagTopBackground: color.lightTopBackground
 	}
 };
 
@@ -240,6 +252,8 @@ const redDarkTheme: Theme = {
 		textInactive: '#808080',
 		textDisabled: '#616161',
 		textLink: '#DC697D',
+
+		tagTopBackground: color.darkTopBackground
 	}
 };
 
@@ -270,7 +284,9 @@ const redLightTheme: Theme = {
 		textRegular: '#524C4D',
 		textInactive: '#737373',
 		textDisabled: '#999999',
-		textLink: '#984553'
+		textLink: '#984553',
+
+		tagTopBackground: color.lightTopBackground
 	}
 };
 

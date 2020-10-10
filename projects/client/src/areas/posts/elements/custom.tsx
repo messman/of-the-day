@@ -6,7 +6,7 @@ import { OutLink, ActionLink } from '@/core/link';
 import { tStyled } from '@/core/style/styled';
 import { borderRadiusStyle } from '@/core/style/common';
 import { iconTypes } from '@/core/symbol/icon';
-import { createPostsElement, PostCard } from './elements-common';
+import { createPostsElement, PostArchiveLinks, PostCard } from './elements-common';
 import { TagList, useTags } from './tag';
 
 /*
@@ -41,7 +41,7 @@ export const Custom = createPostsElement<IPostCustom>((props) => {
 
 	return (
 		<PostCard title={title} icon={iconType} isForArchive={isForArchive} archivePost={archivePost}>
-			<TagList margin={spacing.medium.vertical} tags={tagsStrings} />
+			<TagList margin={spacing.large.vertical} tags={tagsStrings} />
 			<RegularText show={link} margin={spacing.medium.top}>
 				<OutLink href={link}>{linkText}</OutLink>
 			</RegularText>
@@ -58,6 +58,7 @@ export const Custom = createPostsElement<IPostCustom>((props) => {
 					</RegularText>
 				</HiddenArea>
 			</Spacing>
+			<PostArchiveLinks isForArchive={isForArchive} isTop={isTop} />
 		</PostCard>
 	);
 }, IPostElementType.custom, isValidPostElement.custom);

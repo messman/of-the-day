@@ -7,7 +7,7 @@ import { OutLink } from '@/core/link';
 import { borderRadiusStyle } from '@/core/style/common';
 import { iconTypes } from '@/core/symbol/icon';
 import { LayoutBreakpoint } from '@/services/layout/window-layout';
-import { createPostsElement, PostCard } from './elements-common';
+import { createPostsElement, PostArchiveLinks, PostCard, ShowEmbeddedContent } from './elements-common';
 import { TagList, useTags } from './tag';
 
 export const Image = createPostsElement<IPostImage>((props) => {
@@ -30,15 +30,17 @@ export const Image = createPostsElement<IPostImage>((props) => {
 
 	return (
 		<PostCard title='Image' icon={iconTypes.image} isForArchive={isForArchive} archivePost={archivePost}>
-			<TagList margin={spacing.medium.vertical} tags={tagsStrings} />
+			<TagList margin={spacing.large.vertical} tags={tagsStrings} />
 			<RegularText show={description} margin={spacing.small.top}>{description}</RegularText>
 			<RegularText show={sourceRender} margin={spacing.nudge.top}>From {sourceRender}</RegularText>
 			<Spacing margin={spacing.large.top}>
-
-				<a href={link} target='_blank' rel="noreferrer noopener" title='Click to open in a new tab'>
-					<ConstrainedImage src={link} />
-				</a>
+				<ShowEmbeddedContent isForArchive={isForArchive}>
+					<a href={link} target='_blank' rel="noreferrer noopener" title='Click to open in a new tab'>
+						<ConstrainedImage src={link} />
+					</a>
+				</ShowEmbeddedContent>
 			</Spacing>
+			<PostArchiveLinks isForArchive={isForArchive} isTop={isTop} />
 		</PostCard>
 	);
 }, IPostElementType.image, isValidPostElement.image);

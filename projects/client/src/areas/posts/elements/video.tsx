@@ -5,9 +5,9 @@ import { spacing, Spacing } from '@/core/layout/common';
 import { RegularText, SmallText, Heading3 } from '@/core/symbol/text';
 import { TagList, useTags } from './tag';
 import { ActionLink } from '@/core/link';
-import { SeeMoreButton, borderRadiusStyle } from '@/core/style/common';
+import { borderRadiusStyle } from '@/core/style/common';
 import { iconTypes } from '@/core/symbol/icon';
-import { createPostsElement, PostCard } from './elements-common';
+import { createPostsElement, PostArchiveLinks, PostCard, ShowEmbeddedContent } from './elements-common';
 
 export const Video = createPostsElement<IPostVideo>((props) => {
 	const { isForArchive, archivePost } = props;
@@ -18,7 +18,7 @@ export const Video = createPostsElement<IPostVideo>((props) => {
 	let internalVideoRender: JSX.Element = null!;
 	if (isRemoved) {
 		internalVideoRender = (
-			<RegularText isItalic={true}>Unfortunately, this video is no longer available.</RegularText>
+			<RegularText isItalic={true}>Unfortunately, this video is no longer available on YouTube.</RegularText>
 		);
 	}
 	else {
@@ -32,14 +32,16 @@ export const Video = createPostsElement<IPostVideo>((props) => {
 			<Spacing margin={spacing.medium.bottom}>
 				<VideoTitle video={props.value} />
 			</Spacing>
-			<TagList margin={spacing.medium.vertical} tags={tagsStrings} />
+			<TagList margin={spacing.large.vertical} tags={tagsStrings} />
 			<RegularText margin={spacing.medium.vertical} show={description && !isRemoved}>
 				{description}
 			</RegularText>
-			<Spacing margin={spacing.large.vertical}>
-				{internalVideoRender}
+			<Spacing margin={spacing.large.top}>
+				<ShowEmbeddedContent isForArchive={isForArchive && !isRemoved}>
+					{internalVideoRender}
+				</ShowEmbeddedContent>
 			</Spacing>
-			<SeeMoreButton>See All Video</SeeMoreButton>
+			<PostArchiveLinks isForArchive={!!isForArchive} isVideo={true} isTop={isTop} />
 		</PostCard>
 	);
 }, IPostElementType.video, isValidPostElement.video);

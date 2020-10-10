@@ -30,7 +30,7 @@ export const Card: React.FC<CardProps> = (props) => {
 						<Heading2>{title}</Heading2>
 						{iconRender}
 					</FlexRow>
-					<Spacing show={!!subtitle} margin={spacing.nudge.top}>
+					<Spacing show={!!subtitle} margin={spacing.small.top}>
 						<RegularText>{subtitle}</RegularText>
 					</Spacing>
 					<Spacing show={!!children} margin={spacing.large.top}>

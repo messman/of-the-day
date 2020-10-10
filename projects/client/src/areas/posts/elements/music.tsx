@@ -8,10 +8,9 @@ import { TagList, useTags } from './tag';
 import { tStyled } from '@/core/style/styled';
 import { OutLink } from '@/core/link';
 import { MusicQuote } from './quote/quote';
-import { SeeMoreButton } from '@/core/style/common';
 import { iconTypes } from '@/core/symbol/icon';
 import { IPostElementType, IPostMusic, isValidPostElement } from 'oftheday-shared';
-import { createPostsElement, PostCard } from './elements-common';
+import { createPostsElement, PostArchiveLinks, PostCard, ShowEmbeddedContent } from './elements-common';
 
 export const Music = createPostsElement<IPostMusic>((props) => {
 	const { isForArchive, archivePost } = props;
@@ -30,20 +29,22 @@ export const Music = createPostsElement<IPostMusic>((props) => {
 				<Heading3>{artist}</Heading3>
 				{yearSuffix}
 			</Spacing>
-			<TagList margin={spacing.medium.vertical} tags={tagsStrings} />
+			<TagList margin={spacing.large.vertical} tags={tagsStrings} />
 			<RegularText margin={spacing.medium.vertical} show={description}>
 				{description}
 			</RegularText>
 			<Spacing margin={spacing.medium.vertical}>
 				<MusicOutLinks music={props.value} />
 			</Spacing>
-			<Spacing margin={spacing.large.vertical}>
-				{embedRender}
+			<Spacing margin={spacing.large.top}>
+				<ShowEmbeddedContent isForArchive={isForArchive}>
+					{embedRender}
+				</ShowEmbeddedContent>
 			</Spacing>
-			<Spacing show={quote} margin={spacing.large.vertical}>
+			<Spacing show={quote} margin={spacing.large.top}>
 				<MusicQuote lyric={quote} />
 			</Spacing>
-			<SeeMoreButton>See All Music</SeeMoreButton>
+			<PostArchiveLinks isForArchive={!!isForArchive} isMusic={true} isTop={isTop} />
 		</PostCard>
 	);
 }, IPostElementType.music, isValidPostElement.music);
