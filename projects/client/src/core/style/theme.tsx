@@ -220,9 +220,9 @@ const redDarkTheme: Theme = {
 
 		bg1: gray.dark1,
 		bg2: gray.dark2,
-		bgComponent1: '#1D1B1B',
-		bgComponent2: '#242323',
-		bgComponent3: '#2C2A2B',
+		bgComponent1: '#1C1C1C',
+		bgComponent2: '#242424',
+		bgComponent3: '#2C2C2C',
 		bgComponentShadow1: '#0A0A0A',
 
 		accentGradient: 'linear-gradient(135deg, #E078A4 0%, #CB697A 37%, #CB697A 65%, #DA5856 100%)',

@@ -45,7 +45,7 @@ export const CardContainer = tStyled(FlexColumn)`
 `;
 
 const BoxShadow = tStyled(FlexColumn)`
-	box-shadow: 0 2px 8px 0 ${p => p.theme.color.bgComponentShadow1};
+	box-shadow: 0 2px 8px 3px ${p => p.theme.color.bgComponentShadow1};
 	overflow: hidden;
 `;
 

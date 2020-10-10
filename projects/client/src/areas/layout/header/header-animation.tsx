@@ -68,7 +68,7 @@ shuffle(entities);
 entities = [baseEntity, ...entities];
 
 const delayOnBase = 4500;
-const delayOnBlank = 800;
+const delayOnBlank = 500;
 const delayOnEntity = 2500;
 
 export function useHeaderAnimationState(): HeaderAnimationState {
