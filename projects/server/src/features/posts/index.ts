@@ -6,6 +6,7 @@ import { metaRange, parseMeta } from '../meta';
 import { log } from '../../services/util';
 import { Range } from '../../services/google-sheets/cell';
 import { MemoryCache } from '../../services/memory';
+import { settings } from '../../env';
 
 const recentDaysToReturn = 7;
 
@@ -112,6 +113,8 @@ export function createPostsRange(latestDayNumber: number, daysToReturn: number |
 	postsFromCell.row += startRowOffset;
 	const range = postsFromCell.toRangeAdditive(postsColumnStop, rowsUntilStop);
 
-	log('debug', { latestDayNumber, daysToReturn, includeTomorrow, rowsUntilStop, range: range.toText() });
+	if (settings.isDev) {
+		log('debug', { latestDayNumber, daysToReturn, includeTomorrow, rowsUntilStop, range: range.toText() });
+	}
 	return range;
 }

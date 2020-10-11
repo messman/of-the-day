@@ -80,7 +80,7 @@ async function getAllPosts(sheetsService: SheetsService, memory: MemoryCache<IAr
 	const postsRange = createPostsRange(dayNumber, null, false);
 	const values = await sheetsService.get(postsRange);
 
-	const postRecords = values[0];
+	const postRecords = values;
 	const posts: IPost[] = [];
 	// Reverse so that most recent day is up top.
 	for (let i = postRecords.length; i >= 0; i--) {
@@ -88,11 +88,14 @@ async function getAllPosts(sheetsService: SheetsService, memory: MemoryCache<IAr
 		posts.push(parsePost(postRecords[i], IPostDayReference.other));
 	}
 
-	memory.setCacheItemValue({
-		dayNumber: dayNumber,
-		posts: posts
-	});
-	log('archive', memory.isCaching ? `new - caching for ${memory.cacheExpiration}ms` : 'new - not caching');
+	const isCaching = memory.isCaching && posts.length > 0;
+	if (isCaching) {
+		memory.setCacheItemValue({
+			dayNumber: dayNumber,
+			posts: posts
+		});
+	}
+	log('archive', isCaching ? `new - caching for ${memory.cacheExpiration}ms` : 'new - not caching');
 	return posts;
 }
 
@@ -141,15 +144,15 @@ function filterByTypeAndModifier(posts: IPost[], filter: IArchiveFilter): IPost[
 			// Don't edit - copy.
 			// The below code is gross, but it works.
 
-			let music = (types.music && post.music && (!modifiers.excludeWithNSFWTag || !post.music.isNSFW) && (!modifiers.includeOnlyWithTopTag || post.music.isTop)) ? post.music : undefined;
+			let music = (!!types.music && post.music && (!modifiers.excludeWithNSFWTag || !post.music.isNSFW) && (!modifiers.includeOnlyWithTopTag || post.music.isTop)) ? post.music : undefined;
 
-			let video = (types.video && post.video && (!modifiers.excludeWithNSFWTag || !post.video.isNSFW) && (!modifiers.includeOnlyWithTopTag || post.video.isTop)) ? post.video : undefined;
+			let video = (!!types.video && post.video && (!modifiers.excludeWithNSFWTag || !post.video.isNSFW) && (!modifiers.includeOnlyWithTopTag || post.video.isTop)) ? post.video : undefined;
 
-			let image = (types.image && post.image && (!modifiers.excludeWithNSFWTag || !post.image.isNSFW) && (!modifiers.includeOnlyWithTopTag || post.image.isTop)) ? post.image : undefined;
+			let image = (!!types.image && post.image && (!modifiers.excludeWithNSFWTag || !post.image.isNSFW) && (!modifiers.includeOnlyWithTopTag || post.image.isTop)) ? post.image : undefined;
 
-			let quote = (types.quote && post.quote && (!modifiers.excludeWithNSFWTag || !post.quote.isNSFW) && (!modifiers.includeOnlyWithTopTag || post.quote.isTop)) ? post.quote : undefined;
+			let quote = (!!types.quote && post.quote && (!modifiers.excludeWithNSFWTag || !post.quote.isNSFW) && (!modifiers.includeOnlyWithTopTag || post.quote.isTop)) ? post.quote : undefined;
 
-			let custom = (types.custom && post.custom && (!modifiers.excludeWithNSFWTag || !post.custom.isNSFW) && (!modifiers.includeOnlyWithTopTag || post.custom.isTop)) ? post.custom : undefined;
+			let custom = (!!types.custom && post.custom && (!modifiers.excludeWithNSFWTag || !post.custom.isNSFW) && (!modifiers.includeOnlyWithTopTag || post.custom.isTop)) ? post.custom : undefined;
 
 			if (music || video || image || quote || custom) {
 				return {

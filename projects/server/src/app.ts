@@ -1,5 +1,5 @@
 import { Application, Request, Response, NextFunction } from 'express';
-import { IPostResponse, IOtherResponse, IArchiveRequest, IArchiveResponse } from 'oftheday-shared';
+import { IPostResponse, IOtherResponse, IArchiveRequest, IArchiveResponse, IArchiveFilterRange, IArchiveFilterSort } from 'oftheday-shared';
 import { createSheetsService } from './services/google-sheets/sheets-service';
 import { getPosts, getRecentPosts, getRecentPostsIncludingTomorrow } from './features/posts';
 import { settings } from './env';
@@ -78,9 +78,12 @@ export function configureApp(app: Application): void {
 	});
 
 	app.post('/archive', async (req: Request<{}, any, IArchiveRequest>, response: Response<IArchiveResponse>, next: NextFunction) => {
-		const archiveRequest = req.body;
 		let serviceResponse: IArchiveResponse = null!;
 		try {
+			const archiveRequest = req.body;
+			if (!req.body || !req.body.filter) {
+				throw new Error('No valid body provided');
+			}
 			serviceResponse = await getArchive(sheetsService, archiveRequest, memoryArchive);
 		}
 		catch (e) {
@@ -89,6 +92,40 @@ export function configureApp(app: Application): void {
 		log('archive');
 		return response.json(serviceResponse);
 	});
+
+	if (settings.isDev) {
+		app.get('/archive-test', async (_: Request<{}, any, IArchiveRequest>, response: Response<IArchiveResponse>, next: NextFunction) => {
+			let serviceResponse: IArchiveResponse = null!;
+			try {
+				serviceResponse = await getArchive(sheetsService, {
+					filter: {
+						types: {
+							notes: false,
+							schedule: false,
+							location: false,
+							endThoughts: false,
+							music: true,
+							video: true,
+							image: true,
+							quote: true,
+							custom: true
+						},
+						modifiers: {
+							includeOnlyWithTopTag: false,
+							excludeWithNSFWTag: false,
+						},
+						range: IArchiveFilterRange.all,
+						sort: IArchiveFilterSort.dayDecreasing
+					}
+				}, memoryArchive);
+			}
+			catch (e) {
+				return next(e);
+			}
+			log('archive');
+			return response.json(serviceResponse);
+		});
+	}
 
 	app.get('/', async (_: Request, res: Response) => {
 		log('ready');
