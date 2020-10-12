@@ -9,8 +9,10 @@ export const CONSTANT = {
 	fetchMaxTimeout: seconds(36),
 	/** Time before max where an update is shown to the user to reassure them. */
 	fetchStillWaitingTimeout: seconds(15),
-	/** Time to wait since last successful fetch before either fetching again or restarting the application. */
+	/** Time to wait since last successful fetch before restarting the application. */
 	appRefreshTimeout: minutes(30),
+	/** Time to wait since last successful fetch before fetching again. */
+	staleDataTimeout: minutes(15),
 
 	elementSizeSmallThrottleTimeout: seconds(0),
 	elementSizeLargeThrottleTimeout: seconds(0),

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { InvalidCheck } from '@/areas/alert/invalid';
 import { ThemeProvider } from '@/core/style/theme';
-import { PostResponseProvider } from '@/services/data/data';
+import { DataProvider } from '@/services/data/data-context';
 import { MemoryRouter, BrowserRouter } from 'react-router-dom';
 import { WindowLayoutProvider, WindowDimensionsProvider, FlexRoot, DocumentVisibilityProvider } from '@messman/react-common';
 import { FontSizeManager } from '@/core/symbol/text';
@@ -54,14 +54,13 @@ const InnerProviders: React.FC = (props) => {
 		<DocumentVisibilityProvider>
 			<ThemeProvider>
 				<OverlayPortalRoot>
-
 					<WindowDimensionsProvider>
 						<WindowLayoutProvider lowerBreakpoints={lowerBreakpoints}>
 							<FontSizeManager>
 								<PopupProvider>
-									<PostResponseProvider>
+									<DataProvider>
 										{props.children}
-									</PostResponseProvider>
+									</DataProvider>
 								</PopupProvider>
 							</FontSizeManager>
 						</WindowLayoutProvider>
