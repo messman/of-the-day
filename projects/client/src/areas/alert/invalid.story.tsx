@@ -3,6 +3,7 @@ import { RegularText } from '@/core/symbol/text';
 import { boolean, text } from '@storybook/addon-knobs';
 import { InvalidCheck } from './invalid';
 import { decorate } from '@/test/decorate';
+import { FlexRoot } from '@messman/react-common';
 
 export default { title: 'Areas/Alert/Invalid' };
 
@@ -26,16 +27,19 @@ export const TestInvalid = decorate('Invalid', null, () => {
 	const isForceInvalidLayout = boolean('Force Invalid Layout', false);
 
 	return (
-		<InvalidCheck
-			forceAlertMessages={alertMessages}
-			isForceInternetExplorer={isForceInternetExplorer}
-			isForceInvalidLayout={isForceInvalidLayout}
-			error={null}
-		>
-			<div>
-				<ErrorThrower />
-			</div>
-		</InvalidCheck>
+		<FlexRoot flexDirection='column'>
+
+			<InvalidCheck
+				forceAlertMessages={alertMessages}
+				isForceInternetExplorer={isForceInternetExplorer}
+				isForceInvalidLayout={isForceInvalidLayout}
+				error={null}
+			>
+				<div>
+					<ErrorThrower />
+				</div>
+			</InvalidCheck>
+		</FlexRoot>
 	);
 });
 

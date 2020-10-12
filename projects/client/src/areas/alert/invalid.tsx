@@ -4,7 +4,7 @@ import { tStyled } from '@/core/style/styled';
 import { Icon, iconTypes } from '@/core/symbol/icon';
 import { SmallText, Heading2, RegularText, FontSize } from '@/core/symbol/text';
 import { CONSTANT } from '@/services/constant';
-import { useWindowLayout, Flex, FlexRow } from '@messman/react-common';
+import { useWindowLayout, FlexColumn } from '@messman/react-common';
 import { isInvalidLayout } from '@/services/layout/window-layout';
 
 export interface InvalidCheckProps {
@@ -77,7 +77,7 @@ const InvalidCheckParser: React.FC<InvalidCheckProps> = (props) => {
 		isAllowRefreshClick = true;
 	}
 	else if (props.error) {
-		invalidMessages = ['There was an unexpected error in the application', `We aren't sure what went wrong - but it might be a bug.`];
+		invalidMessages = ['There was an unexpected error.', 'It might caused by a bug.'];
 		isAllowRefreshClick = true;
 	}
 	else if (props.isForceInternetExplorer || /MSIE|Trident/.test(window.navigator.userAgent)) {
@@ -136,18 +136,19 @@ const InvalidCenter: React.FC<InvalidCenterProps> = (props) => {
 			- Inner Flex that is centered and is sized to its contents
 	*/
 	return (
-		<InvalidCenterWrapper alignItems='center' onClick={onClick}>
-			<Flex>
+		<InvalidCenterWrapper justifyContent='space-around' alignItems='center' onClick={onClick}>
+			<div>
 				<Icon type={iconTypes.alert} fillColor={c => c.error} height={FontSize.heading1} />
 				<Heading2 padding={spacing.medium.value}>{firstMessage}</Heading2>
 				{otherMessagesText}
 				{clickInstruction}
-			</Flex>
+			</div>
+			<div />
 		</InvalidCenterWrapper>
 	);
 };
 
-const InvalidCenterWrapper = tStyled(FlexRow)`
+const InvalidCenterWrapper = tStyled(FlexColumn)`
 	/* Pad to ensure the inner Flex content doesn't run up against the edge. */
 	padding: calc(${spacing.small.value} * 3);
 	text-align: center;
