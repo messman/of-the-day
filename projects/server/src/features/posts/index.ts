@@ -54,7 +54,7 @@ export async function getPosts(sheetsService: SheetsService, includeTomorrow: bo
 			const posts: IPost[] = [];
 			// Reverse so that most recent day (or tomorrow) is up top.
 			let dayReferenceIndex = includeTomorrow ? -1 : 0;
-			for (let i = postRecords.length; i >= 0; i--) {
+			for (let i = postRecords.length - 1; i >= 0; i--) {
 				let dayReference: IPostDayReference = null!;
 				switch (dayReferenceIndex) {
 					case -1:

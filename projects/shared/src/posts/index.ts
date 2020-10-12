@@ -94,15 +94,15 @@ export interface IPostQuote extends IPostTopElement, IPostNSFWElement {
 	aVoice: string;
 	b: string;
 	bVoice: string;
-	source: string;
+	sourceText: string;
 	sourceLink: string;
 }
 
 export interface IPostImage extends IPostTopElement, IPostNSFWElement {
 	link: string;
 	description: string;
-	source: string;
 	sourceLink: string;
+	sourceText: string;
 }
 
 export interface IPostCustom extends IPostTopElement, IPostNSFWElement {
@@ -111,5 +111,4 @@ export interface IPostCustom extends IPostTopElement, IPostNSFWElement {
 	hiddenValue: string;
 	link: string;
 	linkText: string;
-	previewLink: boolean;
 }

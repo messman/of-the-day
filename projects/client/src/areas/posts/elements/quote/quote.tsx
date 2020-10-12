@@ -26,7 +26,7 @@ export const MusicQuote: React.FC<MusicQuoteProps> = (props) => {
 		aVoice: null!,
 		b: null!,
 		bVoice: null!,
-		source: null!,
+		sourceText: null!,
 		sourceLink: null!,
 		isTop: false,
 		isNSFW: false

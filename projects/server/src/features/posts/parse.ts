@@ -5,7 +5,7 @@ import { keepTruthy } from '../../services/util';
 import { IPost, IPostBasics, IPostCustom, IPostDayReference, IPostEndThoughts, IPostImage, IPostMusic, IPostQuote, IPostVideo, isValidPostElement } from 'oftheday-shared';
 
 export const postsColumnStart = 'A';
-export const postsColumnStop = 'BH';
+export const postsColumnStop = 'BG';
 /** Where the Posts sheet's data actually starts. Clone and offset to get start of range. */
 export const postsBaseFromCell = createCell('Read_Posts', postsColumnStart, 3);
 
@@ -63,7 +63,7 @@ export function parsePost(row: any[], dayReference: IPostDayReference): IPost {
 			aVoice: stringAtCol('AN'),
 			b: stringAtCol('AO'),
 			bVoice: stringAtCol('AP'),
-			source: stringAtCol('AQ'),
+			sourceText: stringAtCol('AQ'),
 			sourceLink: stringAtCol('AR'),
 			isNSFW: !!stringAtCol('AS'),
 			isTop: !!stringAtCol('AT'),
@@ -71,8 +71,8 @@ export function parsePost(row: any[], dayReference: IPostDayReference): IPost {
 		image: passImage({
 			link: stringAtCol('AU'),
 			description: stringAtCol('AV'),
-			source: stringAtCol('AW'),
-			sourceLink: stringAtCol('AX'),
+			sourceLink: stringAtCol('AW'),
+			sourceText: stringAtCol('AX'),
 			isNSFW: !!stringAtCol('AY'),
 			isTop: !!stringAtCol('AZ'),
 		}),
@@ -81,9 +81,8 @@ export function parsePost(row: any[], dayReference: IPostDayReference): IPost {
 			value: stringAtCol('BBB'),
 			link: stringAtCol('BC'),
 			linkText: stringAtCol('BD'),
-			previewLink: !!stringAtCol('BE'),
-			hiddenValue: stringAtCol('BF'),
-			isNSFW: !!stringAtCol('BG'),
+			hiddenValue: stringAtCol('BE'),
+			isNSFW: !!stringAtCol('BF'),
 			isTop: !!stringAtCol(postsColumnStop),
 		})
 	};

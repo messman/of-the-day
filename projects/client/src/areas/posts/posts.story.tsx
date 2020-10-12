@@ -5,6 +5,7 @@ import { Layout } from '@/areas/layout/layout';
 import { Posts, PostsProps } from './posts';
 import { postsTestData } from './posts-test';
 import { routes } from '@/services/nav/routing';
+import { IPost } from 'oftheday-shared';
 
 export default { title: 'Areas/Posts/Posts' };
 
@@ -20,5 +21,10 @@ export const PostsLayout = decorate('Posts', routes.posts.path, () => {
 });
 
 const TestPosts: React.FC<PostsProps> = (props) => {
-	return <Posts overridePosts={postsTestData} {...props} />;
+
+	let overridePosts: IPost[] | undefined = postsTestData;
+	// Comment / uncomment below for testing with real data.
+	overridePosts = undefined;
+
+	return <Posts overridePosts={overridePosts} {...props} />;
 };

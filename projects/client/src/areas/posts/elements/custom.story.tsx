@@ -14,7 +14,6 @@ export const TestCustomText = decorate('Custom Text', null, () => {
 		link: '',
 		linkText: '',
 		hiddenValue: '',
-		previewLink: false
 	});
 
 	return (
@@ -30,7 +29,6 @@ export const TestCustomTextLink = decorate('Custom Text & Link', null, () => {
 		link: 'https://google.com',
 		linkText: text('Link Text', 'Facebook | Hungry Howie menu'),
 		hiddenValue: '',
-		previewLink: false
 	});
 
 	return (
@@ -46,7 +44,6 @@ export const TestCustomTextHidden = decorate('Custom Text & Hidden', null, () =>
 		link: '',
 		linkText: '',
 		hiddenValue: text('Hidden Value', 'Haha! Here is the hidden content!'),
-		previewLink: false
 	});
 
 	return (
@@ -62,7 +59,6 @@ export const TestCustomAll = decorate('Custom All', null, () => {
 		link: 'https://google.com',
 		linkText: text('Link Text', 'Facebook | Hungry Howie menu'),
 		hiddenValue: text('Hidden Value', 'Haha! Here is the hidden content!'),
-		previewLink: false
 	});
 
 	return (
@@ -76,7 +72,6 @@ const defaultCustom: IPostCustom = {
 	link: '',
 	linkText: '',
 	hiddenValue: '',
-	previewLink: false,
 	isTop: true,
 	isNSFW: true
 };

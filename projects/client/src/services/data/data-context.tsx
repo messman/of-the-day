@@ -117,18 +117,18 @@ function createResponseProvider<T>(ResponseContext: React.Context<PromiseOutput<
 
 		React.useEffect(() => {
 			if (!timer.isStarted && !promise.isStarted) {
-				if (lastCompleted === StalePromiseTimerComponent.timer) {
-					promise.reset({
-						isStarted: true
-					});
-				}
-				else {
+				if (lastCompleted === StalePromiseTimerComponent.promise) {
 					timer.reset({
 						isStarted: true
 					});
 				}
+				else if (documentVisibility && isAnyRouteActive) {
+					promise.reset({
+						isStarted: true
+					});
+				}
 			}
-		}, [promise, timer, lastCompleted, promiseFunc]);
+		}, [promise, timer, lastCompleted, documentVisibility, isAnyRouteActive]);
 
 		return (
 			<ResponseContext.Provider value={promiseTimer.promise}>

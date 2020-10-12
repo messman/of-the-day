@@ -48,7 +48,7 @@ export const postsTestData: IPost[] = [
 		image: {
 			description: 'A shot of my dog. I got this shot when I was out late at night.',
 			link: 'https://drscdn.500px.org/photo/1019496186/m%3D900/v2?sig=a21d2c3833b5997ba905355f1b6961dbf59e3a19739fa97a10ecea93191c02ed',
-			source: 'Google',
+			sourceText: 'Google',
 			sourceLink: 'https://google.com',
 			isNSFW: false,
 			isTop: false,
@@ -58,7 +58,7 @@ export const postsTestData: IPost[] = [
 			aVoice: 'Dr. Jill Biden',
 			b: 'Same here, though running itself is a negative thought for me, so I don\'t do it.',
 			bVoice: 'Stephen Colbert',
-			source: 'The Late Show with Stephen Colbert',
+			sourceText: 'The Late Show with Stephen Colbert',
 			sourceLink: 'https://youtu.be/yeFk2709fgY?t=612',
 			isNSFW: false,
 			isTop: false,
@@ -69,7 +69,6 @@ export const postsTestData: IPost[] = [
 			hiddenValue: 'He was just going through a stage.',
 			linkText: '',
 			link: '',
-			previewLink: false,
 			isNSFW: false,
 			isTop: false,
 		}
@@ -121,7 +120,7 @@ export const postsTestData: IPost[] = [
 		image: {
 			description: 'A boat.',
 			link: 'https://drscdn.500px.org/photo/1019496202/m%3D900/v2?sig=a8a2e58478162534eb4635c7ca1a792e245d20f2602446b633d664eae06059d2',
-			source: 'Google',
+			sourceText: 'Google',
 			sourceLink: 'https://google.com',
 			isNSFW: false,
 			isTop: false,
@@ -131,7 +130,7 @@ export const postsTestData: IPost[] = [
 			aVoice: '',
 			b: '',
 			bVoice: '',
-			source: '',
+			sourceText: '',
 			sourceLink: '',
 			isNSFW: false,
 			isTop: true,
@@ -142,7 +141,6 @@ export const postsTestData: IPost[] = [
 			hiddenValue: '',
 			linkText: '',
 			link: '',
-			previewLink: false,
 			isNSFW: true,
 			isTop: false,
 		}
@@ -194,7 +192,7 @@ export const postsTestData: IPost[] = [
 		image: {
 			description: '',
 			link: '',
-			source: '',
+			sourceText: '',
 			sourceLink: '',
 			isNSFW: false,
 			isTop: false,
@@ -204,7 +202,7 @@ export const postsTestData: IPost[] = [
 			aVoice: '',
 			b: '',
 			bVoice: '',
-			source: '',
+			sourceText: '',
 			sourceLink: '',
 			isNSFW: false,
 			isTop: false,
@@ -215,7 +213,6 @@ export const postsTestData: IPost[] = [
 			hiddenValue: '',
 			linkText: '',
 			link: '',
-			previewLink: false,
 			isNSFW: false,
 			isTop: false,
 		}
@@ -267,7 +264,7 @@ export const postsTestData: IPost[] = [
 		image: {
 			description: '',
 			link: '',
-			source: '',
+			sourceText: '',
 			sourceLink: '',
 			isNSFW: false,
 			isTop: false,
@@ -277,7 +274,7 @@ export const postsTestData: IPost[] = [
 			aVoice: 'Dennis, 37',
 			b: '',
 			bVoice: '',
-			source: 'Monty Python and the Holy Grail',
+			sourceText: 'Monty Python and the Holy Grail',
 			sourceLink: '',
 			isNSFW: true,
 			isTop: false,
@@ -288,7 +285,6 @@ export const postsTestData: IPost[] = [
 			hiddenValue: '',
 			linkText: 'The Social Dilemma | Netflix',
 			link: 'https://www.netflix.com/title/81254224',
-			previewLink: false,
 			isNSFW: false,
 			isTop: true,
 		}

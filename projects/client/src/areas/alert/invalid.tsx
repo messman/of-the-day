@@ -125,7 +125,7 @@ const InvalidCenter: React.FC<InvalidCenterProps> = (props) => {
 			window.location.reload();
 		};
 		clickInstruction = (
-			<SmallText padding={spacing.medium.value}>Click/tap here to reset the application if you believe this message is incorrect.</SmallText>
+			<SmallText padding={spacing.medium.value}>Click/tap here to refresh the application.</SmallText>
 		);
 	}
 

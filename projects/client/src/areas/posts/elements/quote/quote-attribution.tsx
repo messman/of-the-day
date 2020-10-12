@@ -7,9 +7,9 @@ import { InnerQuoteProps } from './quote-inner';
 
 export const QuoteAttribution: React.FC<InnerQuoteProps> = (props) => {
 	const { quote } = props;
-	const { source, sourceLink, aVoice, bVoice } = quote;
+	const { sourceText, sourceLink, aVoice, bVoice } = quote;
 
-	if (!source) {
+	if (!sourceText && !aVoice) {
 		return null;
 	}
 
@@ -17,11 +17,11 @@ export const QuoteAttribution: React.FC<InnerQuoteProps> = (props) => {
 	let sourceRender: JSX.Element | string = null!;
 	if (sourceLink) {
 		isLinkFirst = true;
-		sourceRender = <OutLink href={sourceLink}>{source}</OutLink>;
+		sourceRender = <OutLink href={sourceLink}>{sourceText}</OutLink>;
 	}
 	else {
 		isLinkFirst = false;
-		sourceRender = source;
+		sourceRender = sourceText;
 	}
 
 	let attributionRender: JSX.Element | string = sourceRender;

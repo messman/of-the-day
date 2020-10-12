@@ -61,6 +61,10 @@ const VideoTitle: React.FC<VideoTitleProps> = (props) => {
 		return !customTitle;
 	});
 
+	React.useEffect(() => {
+		setIsShowingOriginalTitle(false);
+	}, [video]);
+
 	if (isShowingOriginalTitle) {
 		return (
 			<Heading3>{originalTitle}</Heading3>
@@ -80,7 +84,7 @@ const VideoTitle: React.FC<VideoTitleProps> = (props) => {
 
 	return (
 		<>
-			<Heading3>{customTitle}</Heading3>
+			<Heading3 isItalic={true}>{customTitle}</Heading3>
 			<Heading3 show={customTitleCreator}>{customTitleCreator}</Heading3>
 			{originalTitleLink}
 		</>

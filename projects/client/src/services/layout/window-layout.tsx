@@ -21,5 +21,5 @@ export const lowerBreakpoints: number[] = [LayoutBreakpoint.min, LayoutBreakpoin
 
 export function isInvalidLayout(windowLayout: WindowLayout): boolean {
 	// If height is too small, it's invalid.
-	return windowLayout.heightBreakpoint <= LayoutBreakpoint.mobileLarge;
+	return windowLayout.heightBreakpoint <= LayoutBreakpoint.mobileRegular;
 }

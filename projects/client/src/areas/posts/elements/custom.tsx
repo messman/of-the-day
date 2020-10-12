@@ -35,6 +35,10 @@ export const Custom = createPostsElement<IPostCustom>((props) => {
 		});
 	}
 
+	React.useEffect(() => {
+		setIsShowingHiddenValue(false);
+	}, [props.value]);
+
 	const revealText = isShowingHiddenValue ? 'Hide' : 'Reveal';
 
 	const iconType = !!link ? iconTypes.link : iconTypes.speech;

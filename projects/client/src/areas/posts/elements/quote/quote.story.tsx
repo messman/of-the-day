@@ -21,14 +21,14 @@ export const TestMusicQuote = decorate('Music Quote', null, () => {
 export const TestSingleQuote = decorate('Single Quote', null, () => {
 	const a = text('a', 'Get to steppin!');
 	const aVoice = text('aVoice', 'Mike Boogie');
-	const source = text('source', 'Big Brother');
+	const sourceText = text('source', 'Big Brother');
 	const useSourceLink = boolean('use source link', true);
 	const sourceLink = useSourceLink ? 'https://google.com' : '';
 
 	const quote = wrapPartialQuote({
 		a: a,
 		aVoice: aVoice,
-		source: source,
+		sourceText: sourceText,
 		sourceLink: sourceLink
 	});
 
@@ -42,14 +42,14 @@ export const TestSingleQuote = decorate('Single Quote', null, () => {
 export const TestAnonymousVoicesQuote = decorate('Anonymous Voices Quote', null, () => {
 	const a = text('a', 'Get to steppin! This is the first part.');
 	const b = text('b', 'I hear ya! This is the second part.');
-	const source = text('source', 'Big Brother');
+	const sourceText = text('source', 'Big Brother');
 	const useSourceLink = boolean('use source link', true);
 	const sourceLink = useSourceLink ? 'https://google.com' : '';
 
 	const quote = wrapPartialQuote({
 		a: a,
 		b: b,
-		source: source,
+		sourceText: sourceText,
 		sourceLink: sourceLink
 	});
 
@@ -65,7 +65,7 @@ export const TestVoicesQuote = decorate('Voices Quote', null, () => {
 	const aVoice = text('aVoice', 'My sister');
 	const b = text('b', 'I hear ya! This is the second part.');
 	const bVoice = text('bVoice', 'My friend');
-	const source = text('source', 'Big Brother');
+	const sourceText = text('source', 'Big Brother');
 	const useSourceLink = boolean('use source link', true);
 	const sourceLink = useSourceLink ? 'https://google.com' : '';
 
@@ -74,7 +74,7 @@ export const TestVoicesQuote = decorate('Voices Quote', null, () => {
 		aVoice: aVoice,
 		b: b,
 		bVoice: bVoice,
-		source: source,
+		sourceText: sourceText,
 		sourceLink: sourceLink
 	});
 
@@ -90,7 +90,7 @@ export const TestLongVoicesQuote = decorate('Long Voices Quote', null, () => {
 	const aVoice = text('aVoice', 'Jeremy, as he hands me a glass of cool water that I plan to take a sip of immediately');
 	const b = text('b', 'Looks good to me! I can also continue to type in here and it ends up looking just fine. Nothing too crazy. Line break logic is difficult.');
 	const bVoice = text('bVoice', 'Me, trying my best to throw the glass of water out the window because I did not really want it');
-	const source = text('source', 'Big Brother');
+	const sourceText = text('source', 'Big Brother');
 	const useSourceLink = boolean('use source link', true);
 	const sourceLink = useSourceLink ? 'https://google.com' : '';
 
@@ -99,7 +99,7 @@ export const TestLongVoicesQuote = decorate('Long Voices Quote', null, () => {
 		aVoice: aVoice,
 		b: b,
 		bVoice: bVoice,
-		source: source,
+		sourceText: sourceText,
 		sourceLink: sourceLink
 	});
 
@@ -115,7 +115,7 @@ const defaultQuote: IPostQuote = {
 	aVoice: '',
 	b: '',
 	bVoice: '',
-	source: '',
+	sourceText: '',
 	sourceLink: '',
 	isTop: true,
 	isNSFW: true

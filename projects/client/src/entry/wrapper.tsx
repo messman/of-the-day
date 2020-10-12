@@ -6,7 +6,6 @@ import { MemoryRouter, BrowserRouter } from 'react-router-dom';
 import { WindowLayoutProvider, WindowDimensionsProvider, FlexRoot, DocumentVisibilityProvider } from '@messman/react-common';
 import { FontSizeManager } from '@/core/symbol/text';
 import { lowerBreakpoints } from '@/services/layout/window-layout';
-import { Popup, PopupProvider } from '@/services/data/data-error';
 import { OverlayPortalRoot } from '@/core/overlay/overlay';
 
 export const Wrapper: React.FC = (props) => {
@@ -57,11 +56,9 @@ const InnerProviders: React.FC = (props) => {
 					<WindowDimensionsProvider>
 						<WindowLayoutProvider lowerBreakpoints={lowerBreakpoints}>
 							<FontSizeManager>
-								<PopupProvider>
-									<DataProvider>
-										{props.children}
-									</DataProvider>
-								</PopupProvider>
+								<DataProvider>
+									{props.children}
+								</DataProvider>
 							</FontSizeManager>
 						</WindowLayoutProvider>
 					</WindowDimensionsProvider>
@@ -75,9 +72,7 @@ const UI: React.FC = (props) => {
 	return (
 		<FlexRoot flexDirection='column'>
 			<InvalidCheck error={null}>
-				<Popup>
-					{props.children}
-				</Popup>
+				{props.children}
 			</InvalidCheck>
 		</FlexRoot>
 	);

@@ -12,17 +12,17 @@ import { TagList, useTags } from './tag';
 
 export const Image = createPostsElement<IPostImage>((props) => {
 	const { isForArchive, archivePost } = props;
-	const { link, description, source, sourceLink, isNSFW, isTop } = props.value;
+	const { link, description, sourceText, sourceLink, isNSFW, isTop } = props.value;
 
 	const tagsStrings = useTags(isTop, isNSFW);
 
 	let sourceRender: JSX.Element | string | null = null;
-	if (source) {
+	if (sourceText) {
 		if (sourceLink) {
-			sourceRender = <OutLink href={sourceLink}>{source}</OutLink>;
+			sourceRender = <OutLink href={sourceLink}>{sourceText}</OutLink>;
 		}
 		else {
-			sourceRender = source;
+			sourceRender = sourceText;
 		}
 	}
 
