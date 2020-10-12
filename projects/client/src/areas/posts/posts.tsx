@@ -9,7 +9,6 @@ import { RegularText } from '@/core/symbol/text';
 
 export interface PostsProps {
 	isUpper: boolean;
-	overridePosts?: IPost[];
 	offsetPixels: number;
 	rootElement: HTMLElement | null;
 	onScrollTop: () => void;
@@ -19,12 +18,12 @@ const defaultPosts: IPost[] = [];
 
 export const Posts: React.FC<PostsProps> = (props) => {
 
-	const { overridePosts, rootElement, offsetPixels, isUpper, onScrollTop } = props;
+	const { rootElement, offsetPixels, isUpper, onScrollTop } = props;
 
 	const postPromise = usePostResponse();
 	const { data, error, isStarted } = postPromise;
 
-	const posts = overridePosts || data?.posts || defaultPosts;
+	const posts = data?.posts || defaultPosts;
 
 	const [activePostIndex, setActivePostIndex] = React.useState(0);
 	const activePost = posts[activePostIndex];
@@ -38,7 +37,7 @@ export const Posts: React.FC<PostsProps> = (props) => {
 		onScrollTop();
 	}
 
-	if (!overridePosts && (isStarted || error)) {
+	if (isStarted || error) {
 		return <DataLoad promise={postPromise} />;
 	}
 
@@ -46,7 +45,7 @@ export const Posts: React.FC<PostsProps> = (props) => {
 		return (
 			<Spacing margin={spacing.medium.horizontal}>
 				<Spacing margin={spacing.grand.top} textAlign='center'>
-					<RegularText>There are no posts.</RegularText>
+					<RegularText>There's nothing here.</RegularText>
 				</Spacing>
 			</Spacing>
 		);

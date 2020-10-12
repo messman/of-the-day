@@ -5,6 +5,7 @@ import { Icon, iconTypes, SVGIconType } from '@/core/symbol/icon';
 import { FontWeight } from '@/core/style/theme';
 import { spacing } from '@/core/layout/common';
 import { borderRadiusStyle } from '@/core/style/common';
+import { sortRandom } from '@/services/archive/sort';
 
 export interface HeaderAnimationState {
 	entity: HeaderAnimationEntity | null;
@@ -58,14 +59,7 @@ let entities: HeaderAnimationEntity[] = [
 		icon: iconTypes.project
 	}
 ];
-function shuffle(array: any[]): void {
-	for (let i = array.length - 1; i > 0; i--) {
-		const j = Math.floor(Math.random() * (i + 1));
-		[array[i], array[j]] = [array[j], array[i]];
-	}
-}
-shuffle(entities);
-entities = [baseEntity, ...entities];
+entities = [baseEntity, ...sortRandom(entities)];
 
 const delayOnBase = 4500;
 const delayOnBlank = 500;

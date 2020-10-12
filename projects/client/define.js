@@ -1,5 +1,10 @@
 module.exports = async function getDefine(isDevelopment, isStorybook) {
 
+	/////////////////////////////////////////////////
+	// TEST WITHOUT SERVER instead of with a production or development server
+	const testWithoutServer = true;
+	/////////////////////////////////////////////////
+
 	const buildTime = (new Date()).getTime();
 	const packageJson = require('./package.json');
 	const buildVersion = packageJson.version;
@@ -13,6 +18,7 @@ module.exports = async function getDefine(isDevelopment, isStorybook) {
 		buildTime: JSON.stringify(buildTime),
 		isDevelopment: JSON.stringify(isDevelopment),
 		isStorybook: JSON.stringify(isDevelopment && isStorybook),
+		isLocalData: JSON.stringify(isDevelopment && testWithoutServer),
 
 		// Overwritten by dev/prod builds
 		serverBase: JSON.stringify(null),

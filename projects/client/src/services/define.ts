@@ -8,6 +8,7 @@ export const DEFINE = {
 	buildTime: __DEFINE__.buildTime as number,
 	isDevelopment: __DEFINE__.isDevelopment as boolean,
 	isStorybook: __DEFINE__.isStorybook as boolean,
+	isLocalData: __DEFINE__.isLocalData as boolean,
 	serverBase: __DEFINE__.serverBase as string
 };
 

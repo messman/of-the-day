@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { IOther } from 'oftheday-shared';
 import { spacing, Spacing } from '@/core/layout/common';
 import { Checklist } from './elements/checklist';
 import { LookingForward } from './elements/looking-forward';
@@ -8,16 +7,19 @@ import { Miles } from './elements/miles';
 import { Tops } from './elements/tops';
 import { CardGroup } from '@/core/card/card-group';
 import { EqualCardFlow } from '@/core/card/card-flow';
+import { DataLoad } from '@/services/data/data-load';
+import { useOtherResponse } from '@/services/data/data-context';
 
-export interface OtherProps {
-	overrideOther?: IOther;
-}
+export const Other: React.FC = () => {
 
-export const Other: React.FC<OtherProps> = (props) => {
+	const otherPromise = useOtherResponse();
+	const { data, error, isStarted } = otherPromise;
 
-	const { overrideOther } = props;
+	const other = data?.other;
 
-	const other: IOther = overrideOther || {} as unknown as IOther;
+	if (isStarted || error || !other) {
+		return <DataLoad promise={otherPromise} />;
+	}
 
 	return (
 		<Spacing margin={spacing.medium.vertical}>

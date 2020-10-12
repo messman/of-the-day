@@ -8,15 +8,16 @@ import { ActionLink } from '@/core/link';
 
 export interface DataLoadProps {
 	promise: PromiseOutput<any>;
+	isInvalidData?: boolean;
 }
 
 const iconSize = '2.5rem';
 
 export const DataLoad: React.FC<DataLoadProps> = (props) => {
-	const { promise } = props;
+	const { promise, isInvalidData } = props;
 	const { isStarted, error } = promise;
 
-	if (!isStarted && !error) {
+	if (!isStarted && !error && !isInvalidData) {
 		return null;
 	}
 
@@ -32,7 +33,7 @@ export const DataLoad: React.FC<DataLoadProps> = (props) => {
 		);
 		text = 'Loading';
 	}
-	else if (error) {
+	else if (error || isInvalidData) {
 		icon = (
 			<div>
 				<Icon type={iconTypes.alert} fillColor={c => c.error} height={iconSize} />

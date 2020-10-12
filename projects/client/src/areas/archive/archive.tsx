@@ -1,7 +1,8 @@
 import { spacing } from '@/core/layout/common';
 import { tStyled } from '@/core/style/styled';
+import { useArchiveResponseContext } from '@/services/data/data-context';
 import { LayoutBreakpoint } from '@/services/layout/window-layout';
-import { defaultInvalidFilter, IArchiveFilter } from 'oftheday-shared';
+import { IArchiveFilter } from 'oftheday-shared';
 import * as React from 'react';
 import { ArchiveInitial } from './archive-initial';
 import { ArchiveResults } from './archive-results';
@@ -16,24 +17,15 @@ export interface ArchiveProps {
 export const Archive: React.FC<ArchiveProps> = (props) => {
 	const { rootElement, onScrollTop, offsetPixels } = props;
 
-	const [filterState, setFilterState] = React.useState({
-		filter: defaultInvalidFilter,
-		hasFilterChangedOnce: false
-	});
+	const { filter, applyFilter, promise } = useArchiveResponseContext();
+	const { data, error, isStarted } = promise;
+
 	const [isOverlayActive, setIsOverlayActive] = React.useState(false);
 
-	const { filter, hasFilterChangedOnce } = filterState;
-
-	function onSetFilter(filter: IArchiveFilter) {
-		setFilterState((p) => {
-			if (p.filter === filter) {
-				return p;
-			}
-			return {
-				filter: filter,
-				hasFilterChangedOnce: true
-			};
-		});
+	function onSetFilter(newFilter: IArchiveFilter) {
+		if (newFilter !== filter) {
+			applyFilter(newFilter);
+		}
 		onCloseOverlay();
 		onScrollTop();
 	}
@@ -47,7 +39,7 @@ export const Archive: React.FC<ArchiveProps> = (props) => {
 	}
 
 	let render: JSX.Element = null!;
-	if (!hasFilterChangedOnce) {
+	if (!data && !error && !isStarted) {
 		render = (
 			<ArchiveInitial
 				onClickPreset={onSetFilter}
@@ -59,6 +51,7 @@ export const Archive: React.FC<ArchiveProps> = (props) => {
 		render = (
 			<ArchiveResults
 				filter={filter}
+				promise={promise}
 				onClickEditFilter={onOpenOverlay}
 				offsetPixels={offsetPixels}
 				rootElement={rootElement}

@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { AboutProps } from '@/areas/about/about';
 import { PostsProps } from '@/areas/posts/posts';
-import { OtherProps } from '@/areas/other/other';
 import { ArchiveProps } from '@/areas/archive/archive';
 import { tStyled } from '@/core/style/styled';
 import { RegularText } from '@/core/symbol/text';
@@ -13,7 +12,7 @@ export const MockPosts: React.FC<PostsProps> = () => {
 	);
 };
 
-export const MockOther: React.FC<OtherProps> = () => {
+export const MockOther: React.FC = () => {
 	return (
 		<Area><RegularText>Other</RegularText></Area>
 	);

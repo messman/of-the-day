@@ -6,6 +6,10 @@ export const CONSTANT = {
 	fetchMinTimeout: seconds(.5),
 	/** Maximum time to wait for fetch response. */
 	fetchMaxTimeout: seconds(15),
+
+	/** Time that a local data promise should take. */
+	localDataFetchTime: seconds(2),
+
 	/** Time to wait since last successful fetch before restarting the application. */
 	appRefreshTimeout: minutes(30),
 	/** Time to wait since last successful fetch before fetching again. */

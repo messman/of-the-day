@@ -1,4 +1,5 @@
 import { IArchiveRequest, IArchiveResponse, IOtherResponse, IPostResponse } from 'oftheday-shared';
+import { sortPosts } from '../archive/sort';
 import { DEFINE } from '../define';
 import { hasParam } from '../nav/url';
 
@@ -13,7 +14,10 @@ export async function fetchOtherResponse(): Promise<IOtherResponse> {
 }
 
 export async function fetchArchiveResponse(request: IArchiveRequest): Promise<IArchiveResponse> {
-	return makeRequest('archive', request);
+	const response = await makeRequest<IArchiveResponse>('archive', request);
+	return {
+		posts: sortPosts(request.filter, response.posts)
+	};
 }
 
 async function makeRequest<T>(path: string, postData?: {}): Promise<T> {

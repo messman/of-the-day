@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { About, AboutProps } from '@/areas/about/about';
 import { Posts, PostsProps } from '@/areas/posts/posts';
-import { Other, OtherProps } from '@/areas/other/other';
+import { Other } from '@/areas/other/other';
 import { Archive, ArchiveProps } from '@/areas/archive/archive';
 import { LowerMenuBar, UpperMenuBar, upperMenuBarHeightPixels, UpperStickyMenuBar } from './menu-bar/menu-bar';
 import { Switch, Route } from 'react-router-dom';
@@ -28,7 +28,7 @@ export const ApplicationLayout: React.FC = () => {
 // Each component is passed as a component instead of an element so it's rendered further down the tree.
 interface LayoutProps {
 	Posts: React.FC<PostsProps>;
-	Other: React.FC<OtherProps>;
+	Other: React.FC;
 	Archive: React.FC<ArchiveProps>;
 	About: React.FC<AboutProps>;
 }

@@ -4,49 +4,63 @@ import { tStyled } from '@/core/style/styled';
 import { FontWeight } from '@/core/style/theme';
 import { ClickableIcon, iconTypes } from '@/core/symbol/icon';
 import { RegularText } from '@/core/symbol/text';
-import { Flex, FlexRow, Sticky, useSticky } from '@messman/react-common';
-import { IArchiveFilter, isFilterSemanticallyEqual, isFilterSortSemanticallyEqual } from 'oftheday-shared';
+import { DataLoad } from '@/services/data/data-load';
+import { Flex, FlexRow, PromiseOutput, Sticky, useSticky } from '@messman/react-common';
+import { IArchiveFilter, IArchiveResponse, IPost } from 'oftheday-shared';
 import * as React from 'react';
-import { postsTestData } from '../posts/posts-test';
 import { FilterDescription } from './filter/filter-common';
 import { ArchiveResult } from './result/archive-result';
 
 export interface ArchiveResultsProps {
 	filter: IArchiveFilter;
+	promise: PromiseOutput<IArchiveResponse>;
 	onClickEditFilter: () => void;
 	offsetPixels: number;
 	rootElement: HTMLElement | null;
 	onScrollTop: () => void;
 }
 
+interface PostsState {
+	posts: IPost[];
+	results: number;
+}
+
 export const ArchiveResults: React.FC<ArchiveResultsProps> = (props) => {
-	const { filter } = props;
+	const { filter, promise } = props;
+	const { data, isStarted, error } = promise;
 
 	const edgeSpacing = useResponsiveEdgeSpacing();
-	const [localFilter, setLocalFilter] = React.useState(filter);
-	const [requests, setRequests] = React.useState(0);
-	const [renders, setRenders] = React.useState(0);
+
+	const [postsState, setPostsState] = React.useState<PostsState>({
+		posts: [],
+		results: 0
+	});
 
 	React.useEffect(() => {
-		if (localFilter === filter) {
+		if (!data) {
+			setPostsState({
+				posts: [],
+				results: 0
+			});
 			return;
 		}
-		const isEqual = isFilterSemanticallyEqual(filter, localFilter);
-		const isSortEqual = isFilterSortSemanticallyEqual(filter, localFilter);
-		setLocalFilter(filter);
+		const { posts } = data;
+		let resultsCount = 0;
+		posts.forEach((post) => {
+			resultsCount! += [post.music, post.video, post.image, post.quote, post.custom].filter((x) => !!x).length;
+		});
 
-		if (!isEqual) {
-			setRequests(p => p + 1);
-			setRenders(p => p + 1);
-		}
-		else if (!isSortEqual) {
-			setRenders(p => p + 1);
-		}
-	}, [filter]);
+		setPostsState({
+			posts: posts,
+			results: resultsCount
+		});
+	}, [data]);
 
-	console.log(requests, renders);
+	if (isStarted || error) {
+		return <DataLoad promise={promise} />;
+	}
 
-	const posts = postsTestData;
+	const { posts, results } = postsState;
 
 	const postsRender = posts.map((post) => {
 		return (
@@ -54,27 +68,17 @@ export const ArchiveResults: React.FC<ArchiveResultsProps> = (props) => {
 		);
 	});
 
-	let postsCount: number | null = null;
-	let resultsCount: number | null = null;
-	if (posts) {
-		postsCount = posts.length;
-		resultsCount = 0;
-		posts.forEach((post) => {
-			resultsCount! += [post.music, post.video, post.image, post.quote, post.custom].filter((x) => !!x).length;
-		});
-	}
-
 	return (
 		<>
-			<ArchiveResultsHeader {...props} resultsCount={resultsCount} />
+			<ArchiveResultsHeader {...props} resultsCount={results} />
 			<Spacing margin={edgeSpacing.horizontal}>
 				<Spacing margin={spacing.large.vertical}>
 					<FilterDescription filter={filter} />
 					<RegularText margin={spacing.medium.top}>
 						Showing
-					<RegularText isInline={true} fontWeight={FontWeight.bold}>&nbsp;{resultsCount}&nbsp;</RegularText>
+					<RegularText isInline={true} fontWeight={FontWeight.bold}>&nbsp;{results}&nbsp;</RegularText>
 							items across
-								<RegularText isInline={true} fontWeight={FontWeight.bold}>&nbsp;{postsCount}&nbsp;</RegularText>
+								<RegularText isInline={true} fontWeight={FontWeight.bold}>&nbsp;{posts.length}&nbsp;</RegularText>
 							days
 						</RegularText>
 				</Spacing>

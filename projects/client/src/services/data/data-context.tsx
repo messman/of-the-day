@@ -1,10 +1,13 @@
 import * as React from 'react';
-import { defaultInvalidFilter, IArchiveFilter, IArchiveResponse, IOtherResponse, IPostResponse } from 'oftheday-shared';
+import { defaultInvalidFilter, IArchiveFilter, IArchiveResponse, IOtherResponse, IPostResponse, isFilterSemanticallyEqual, isFilterSortSemanticallyEqual } from 'oftheday-shared';
 import { clampPromise, PromiseOutput, StalePromiseTimerComponent, StalePromiseTimerOutput, useDocumentVisibility, usePromise, useStalePromiseTimer, useTruthyTimer } from '@messman/react-common';
 import { CONSTANT } from '../constant';
 import { matchPath, useLocation } from 'react-router-dom';
 import { Route, routes } from '../nav/routing';
 import { fetchArchiveResponse, fetchOtherResponse, fetchPostResponse } from './data-request';
+import { DEFINE } from '../define';
+import { archiveTestData, otherTestData, postsTestData } from '@/test/data';
+import { sortPosts } from '../archive/sort';
 
 /** Top-level data provider that holds our smaller providers. */
 export const DataProvider: React.FC = (props) => {
@@ -45,6 +48,21 @@ export interface ArchiveContext {
 }
 
 const ArchiveResponseContext = React.createContext<ArchiveContext>(null!);
+export const useArchiveResponseContext = () => React.useContext(ArchiveResponseContext);
+
+function localArchivePromiseFunc() {
+	return clampPromise<IArchiveResponse>(new Promise((resolve) => {
+		resolve(archiveTestData);
+	}), CONSTANT.localDataFetchTime, null);
+}
+
+function createArchivePromiseFunc(filter: IArchiveFilter) {
+	return async () => {
+		return await clampPromise(fetchArchiveResponse({
+			filter: filter
+		}), CONSTANT.fetchMinTimeout, CONSTANT.fetchMaxTimeout);
+	};
+}
 
 export const ArchiveContextProvider: React.FC = (props) => {
 
@@ -57,17 +75,50 @@ export const ArchiveContextProvider: React.FC = (props) => {
 
 	const context = React.useMemo<ArchiveContext>(() => {
 
-		function applyFilter() {
+		function applyFilter(newFilter: IArchiveFilter) {
+			setFilter(newFilter);
+
+			let promiseFunc: () => Promise<IArchiveResponse> = null!;
+			if (DEFINE.isLocalData) {
+				promiseFunc = localArchivePromiseFunc;
+			}
+			else {
+				let useShortCircuitPromise = false;
+
+				// We handle sorting on the client-side, not the server side. 
+				// Here's where we can 'short-circuit' to just re-sort the same data. 
+				if (promise.data) {
+					const currentPosts = promise.data.posts;
+					const isEqual = isFilterSemanticallyEqual(filter, newFilter);
+					if (isEqual) {
+						useShortCircuitPromise = true;
+						const isSortEqual = isFilterSortSemanticallyEqual(filter, newFilter);
+						if (isSortEqual) {
+							promiseFunc = () => {
+								return Promise.resolve({
+									posts: sortPosts(newFilter, currentPosts)
+								});
+							};
+						}
+						else {
+							promiseFunc = () => {
+								return Promise.resolve({
+									posts: currentPosts
+								});
+							};
+						}
+					}
+				}
+
+				if (!useShortCircuitPromise) {
+					promiseFunc = createArchivePromiseFunc(newFilter);
+				}
+			}
+
 			promise.reset({
 				isStarted: true,
-				promiseFunc: async () => {
-					return await clampPromise(fetchArchiveResponse({
-						filter: filter
-					}), CONSTANT.fetchMinTimeout, CONSTANT.fetchMaxTimeout);
-				}
+				promiseFunc: promiseFunc
 			});
-
-			setFilter(filter);
 		}
 
 		return {
@@ -138,13 +189,28 @@ function createResponseProvider<T>(ResponseContext: React.Context<PromiseOutput<
 	};
 }
 
+const postsPromiseFunc = !DEFINE.isLocalData ? fetchPostResponse : (
+	function () {
+		return clampPromise<IPostResponse>(new Promise((resolve) => {
+			resolve(postsTestData);
+		}), CONSTANT.localDataFetchTime, null);
+	}
+);
 
 const PostResponseContext = React.createContext<PromiseOutput<IPostResponse>>(null!);
 const postResponseActivePages = [routes.posts];
-const PostResponseProvider = createResponseProvider(PostResponseContext, fetchPostResponse, postResponseActivePages);
+const PostResponseProvider = createResponseProvider(PostResponseContext, postsPromiseFunc, postResponseActivePages);
 export const usePostResponse = () => React.useContext(PostResponseContext);
+
+const otherPromiseFunc = !DEFINE.isLocalData ? fetchOtherResponse : (
+	function () {
+		return clampPromise<IOtherResponse>(new Promise((resolve) => {
+			resolve(otherTestData);
+		}), CONSTANT.localDataFetchTime, null);
+	}
+);
 
 const OtherResponseContext = React.createContext<PromiseOutput<IOtherResponse>>(null!);
 const otherResponseActivePages = [routes.other];
-const OtherResponseProvider = createResponseProvider(OtherResponseContext, fetchOtherResponse, otherResponseActivePages);
-export const useOtherResponse = () => React.useContext(PostResponseContext);
+const OtherResponseProvider = createResponseProvider(OtherResponseContext, otherPromiseFunc, otherResponseActivePages);
+export const useOtherResponse = () => React.useContext(OtherResponseContext);
