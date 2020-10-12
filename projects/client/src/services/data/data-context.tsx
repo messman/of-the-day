@@ -96,14 +96,14 @@ export const ArchiveContextProvider: React.FC = (props) => {
 						if (isSortEqual) {
 							promiseFunc = () => {
 								return Promise.resolve({
-									posts: sortPosts(newFilter, currentPosts)
+									posts: currentPosts
 								});
 							};
 						}
 						else {
 							promiseFunc = () => {
 								return Promise.resolve({
-									posts: currentPosts
+									posts: sortPosts(newFilter, currentPosts)
 								});
 							};
 						}

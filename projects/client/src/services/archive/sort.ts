@@ -5,14 +5,22 @@ export function sortPosts(filter: IArchiveFilter, posts: IPost[]): IPost[] {
 	switch (filter.sort) {
 		case IArchiveFilterSort.dayDecreasing:
 			// This is already how posts are returned from the server.
-			return posts;
+			return posts.sort(sortByDayDecreasing);
 		case IArchiveFilterSort.dayIncreasing:
-			return posts.reverse();
+			return posts.sort(sortByDayIncreasing);
 		case IArchiveFilterSort.dayRandom:
 			return sortRandom(posts);
 		case IArchiveFilterSort.musicArtistIncreasing:
 			return posts.sort(sortByMusicArtistIncreasing);
 	}
+}
+
+function sortByDayDecreasing(a: IPost, b: IPost): number {
+	return b.dayNumber - a.dayNumber;
+}
+
+function sortByDayIncreasing(a: IPost, b: IPost): number {
+	return a.dayNumber - b.dayNumber;
 }
 
 function sortByMusicArtistIncreasing(a: IPost, b: IPost): number {

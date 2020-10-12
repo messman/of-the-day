@@ -42,6 +42,7 @@ export function configureApp(app: Application): void {
 	app.get('/posts', async (req: Request, response: Response<IPostResponse>, next: NextFunction) => {
 		const includeTomorrow = req.query['tomorrow'] == '1';
 
+		log('--- posts', includeTomorrow ? 'tomorrow' : '');
 		let serviceResponse: IPostResponse = null!;
 		try {
 			if (includeTomorrow) {
@@ -54,12 +55,12 @@ export function configureApp(app: Application): void {
 		catch (e) {
 			return next(e);
 		}
-		log('posts', includeTomorrow);
 		return response.json(serviceResponse);
 	});
 
 	app.get('/other', async (_: Request, response: Response<IOtherResponse>, next: NextFunction) => {
 
+		log('--- other');
 		let serviceResponse: IOtherResponse = null!;
 		try {
 			serviceResponse = await getOther(sheetsService);
@@ -67,7 +68,6 @@ export function configureApp(app: Application): void {
 		catch (e) {
 			return next(e);
 		}
-		log('other');
 		return response.json(serviceResponse);
 	});
 
@@ -79,6 +79,7 @@ export function configureApp(app: Application): void {
 
 	app.post('/archive', async (req: Request<{}, any, IArchiveRequest>, response: Response<IArchiveResponse>, next: NextFunction) => {
 		let serviceResponse: IArchiveResponse = null!;
+		log('--- archive');
 		try {
 			const archiveRequest = req.body;
 			if (!req.body || !req.body.filter) {
@@ -89,7 +90,6 @@ export function configureApp(app: Application): void {
 		catch (e) {
 			return next(e);
 		}
-		log('archive');
 		return response.json(serviceResponse);
 	});
 

@@ -12,10 +12,16 @@ app.use(express.urlencoded({ extended: false }));
 const allowedDomain = settings.isDev ? '*' : 'https://tidy.andrewmessier.com';
 
 console.log(settings.isDev ? 'Using open CORS settings for development' : `Restricting via CORS to '${allowedDomain}'`);
-app.use(function (_request: Request, response: Response, next: NextFunction) {
+app.use(function (request: Request, response: Response, next: NextFunction) {
 	response.header('Access-Control-Allow-Origin', allowedDomain);
 	response.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-	next();
+
+	if (request.method.toLowerCase() === 'options') {
+		response.send(200);
+	}
+	else {
+		next();
+	}
 });
 
 configureApp(app);

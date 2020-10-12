@@ -1,5 +1,5 @@
 export function log(...args: any[]): void {
-	console.log('>', ...args);
+	console.log('> ', new Date().toLocaleTimeString(), ...args);
 }
 
 const isTruthy = <T>(item: T) => { return !!item; };

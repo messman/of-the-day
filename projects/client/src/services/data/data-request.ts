@@ -28,6 +28,7 @@ async function makeRequest<T>(path: string, postData?: {}): Promise<T> {
 		let response: Response = null!;
 		if (postData) {
 			response = await fetch(url, {
+				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
 				},

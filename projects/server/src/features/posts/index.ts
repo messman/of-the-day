@@ -114,7 +114,7 @@ export function createPostsRange(latestDayNumber: number, daysToReturn: number |
 	const range = postsFromCell.toRangeAdditive(postsColumnStop, rowsUntilStop);
 
 	if (settings.isDev) {
-		log('debug', { latestDayNumber, daysToReturn, includeTomorrow, rowsUntilStop, range: range.toText() });
+		//log('debug', { latestDayNumber, daysToReturn, includeTomorrow, rowsUntilStop, range: range.toText() });
 	}
 	return range;
 }
