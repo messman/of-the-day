@@ -21,6 +21,7 @@ export interface ElementActionsProps {
 }
 
 export interface ElementActions {
+	isViewingArchive: boolean;
 	elementType: IPostElementType;
 	showTopFilterPreset: boolean;
 	youTubeLink: string | null;
@@ -38,6 +39,7 @@ export const ElementActions: React.FC<ElementActionsProps> = (props) => {
 
 	function onClick() {
 		setActions({
+			isViewingArchive: !!isViewingArchive,
 			elementType: elementType,
 			showTopFilterPreset: !!isTop,
 			youTubeLink: youTubeLink || null,
@@ -90,7 +92,7 @@ export const ElementActionsOverlay: React.FC = () => {
 
 	let innerRender: JSX.Element | null = null;
 	if (elementActions) {
-		const { elementType, showTopFilterPreset, spotifyLink, youTubeLink } = elementActions;
+		const { isViewingArchive, elementType, showTopFilterPreset, spotifyLink, youTubeLink } = elementActions;
 
 		function onElementTypeButtonClick() {
 			closeOverlay();
@@ -99,11 +101,11 @@ export const ElementActionsOverlay: React.FC = () => {
 		}
 		const elementTypeDisplay = postElementTypeForDisplay[IPostElementType[elementType] as keyof typeof IPostElementType];
 
-		const elementTypeFilterButton = (
+		const elementTypeFilterButton = !isViewingArchive ? (
 			<Button onClick={onElementTypeButtonClick} iconAfter={iconTypes.right} isSpecial={true}>
 				See Recent {elementTypeDisplay}
 			</Button>
-		);
+		) : null;
 
 		function onTopButtonClick() {
 			closeOverlay();
@@ -111,7 +113,7 @@ export const ElementActionsOverlay: React.FC = () => {
 			history.push(routes.archive.path);
 		}
 
-		const topFilterButton = showTopFilterPreset ? (
+		const topFilterButton = (showTopFilterPreset && !isViewingArchive) ? (
 			<Button onClick={onTopButtonClick} iconAfter={iconTypes.right} isSpecial={true}>
 				See All Top
 			</Button>

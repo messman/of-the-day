@@ -2,13 +2,14 @@ import * as React from 'react';
 import { tStyled } from '@/core/style/styled';
 import { IPostElementType, IPostVideo, isValidPostElement } from 'oftheday-shared';
 import { spacing, Spacing } from '@/core/layout/common';
-import { RegularText, SmallText, Heading3 } from '@/core/symbol/text';
+import { RegularText, SmallText, Heading3, FontSize } from '@/core/symbol/text';
 import { TagList, useTags } from './tag';
 import { ActionLink } from '@/core/link';
 import { iconTypes } from '@/core/symbol/icon';
-import { createPostsElement, PostArchiveLinks, PostCard, ShowEmbeddedContent } from './elements-common';
+import { createPostsElement, PostCard, ShowEmbeddedContent } from './elements-common';
 import { CardPadding } from '@/core/card/card';
 import { FontWeight } from '@/core/style/theme';
+import { ElementActions } from '../element-action-overlay';
 
 export const Video = createPostsElement<IPostVideo>((props) => {
 	const { isForArchive, archivePost } = props;
@@ -38,15 +39,15 @@ export const Video = createPostsElement<IPostVideo>((props) => {
 				<RegularText margin={spacing.small.vertical} show={description && !isRemoved}>
 					{description}
 				</RegularText>
+				<Spacing margin={spacing.large.vertical}>
+					<ElementActions isViewingArchive={isForArchive} elementType={IPostElementType.video} isTop={isTop} youTubeLink={!isRemoved ? link : undefined} />
+				</Spacing>
 			</CardPadding>
 			<Spacing margin={spacing.large.top}>
 				<ShowEmbeddedContent isForArchive={isForArchive && !isRemoved}>
 					{internalVideoRender}
 				</ShowEmbeddedContent>
 			</Spacing>
-			<CardPadding>
-				<PostArchiveLinks isForArchive={!!isForArchive} isVideo={true} isTop={isTop} />
-			</CardPadding>
 		</PostCard>
 	);
 }, IPostElementType.video, isValidPostElement.video);
@@ -82,8 +83,8 @@ const VideoTitle: React.FC<VideoTitleProps> = (props) => {
 		setIsShowingOriginalTitle(true);
 	}
 	const originalTitleLink = isCustomTitleDifferent ? (
-		<Spacing margin={spacing.nudge.top}>
-			<SmallText>Andrew customized this title. <ActionLink onClick={onClick}>See original.</ActionLink></SmallText>
+		<Spacing margin={spacing.small.top}>
+			<SmallText>Andrew customized this title. <SmallActionLink onClick={onClick}>See original.</SmallActionLink></SmallText>
 		</Spacing>
 	) : null;
 
@@ -95,6 +96,10 @@ const VideoTitle: React.FC<VideoTitleProps> = (props) => {
 		</>
 	);
 };
+
+const SmallActionLink = tStyled(ActionLink)`
+	font-size: ${FontSize.textSmall};
+`;
 
 const InlineBold = tStyled.span`
 	display: inline;

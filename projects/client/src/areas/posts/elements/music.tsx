@@ -1,7 +1,7 @@
 // Handles the music component rendering.
 
 import * as React from 'react';
-import { RegularText, Heading3 } from '@/core/symbol/text';
+import { RegularText, Heading3, SmallText } from '@/core/symbol/text';
 import { spacing, Spacing, } from '@/core/layout/common';
 import { YouTubeVideoFrame } from './video';
 import { TagList, useTags } from './tag';
@@ -29,8 +29,8 @@ export const Music = createPostsElement<IPostMusic>((props) => {
 				<Spacing margin={spacing.large.bottom}>
 					<Heading3>{title}</Heading3>
 					<Heading3 fontWeight={FontWeight.medium}>by <InlineBold>{artist}</InlineBold></Heading3>
+					<SmallText margin={spacing.small.top} show={year}>{year}</SmallText>
 				</Spacing>
-				<RegularText show={year}>{year}</RegularText>
 				<TagList margin={spacing.small.top} tags={tagsStrings} />
 				<RegularText margin={spacing.small.top} show={description}>
 					{description}
@@ -47,8 +47,10 @@ export const Music = createPostsElement<IPostMusic>((props) => {
 					{embedRender}
 				</ShowEmbeddedContent>
 			</Spacing>
-			<Spacing show={quote} margin={spacing.large.value}>
-				<MusicQuote lyric={quote} />
+			<Spacing show={quote} margin={spacing.large.top}>
+				<Spacing show={quote} margin={spacing.medium.value}>
+					<MusicQuote lyric={quote} />
+				</Spacing>
 			</Spacing>
 		</PostCard>
 	);
@@ -87,7 +89,7 @@ const EmbedContainer = tStyled.div`
 
 const LinksContainer = tStyled.div`
 	a {
-		margin-top: ${spacing.medium.value};
+		margin-top: ${spacing.large.value};
 		margin-right: ${spacing.medium.value};
 	}
 `;

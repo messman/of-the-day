@@ -38,7 +38,7 @@ export const InnerSingleQuote: React.FC<InnerQuoteProps> = (props) => {
 
 	return (
 		<FlexRow justifyContent='center'>
-			<SingleQuoteWidthControlContainer flex='none'>
+			<SingleQuoteWidthControlContainer>
 				<QuotePiece isLarge={true} text={a} align='center' />
 				<QuoteAttribution quote={quote} />
 			</SingleQuoteWidthControlContainer>

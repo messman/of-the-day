@@ -1,14 +1,13 @@
 import * as React from 'react';
 import { spacing, Spacing } from '@/core/layout/common';
 import { Checklist } from './elements/checklist';
-import { LookingForward } from './elements/looking-forward';
-import { WorkingOn } from './elements/working-on';
 import { Miles } from './elements/miles';
 import { Tops } from './elements/tops';
 import { CardGroup } from '@/core/card/card-group';
 import { EqualCardFlow } from '@/core/card/card-flow';
 import { DataLoad } from '@/services/data/data-load';
 import { useOtherResponse } from '@/services/data/data-context';
+import { LookingForward, WorkingOn } from './elements/plans';
 
 export const Other: React.FC = () => {
 

@@ -48,9 +48,9 @@ export const Custom = createPostsElement<IPostCustom>((props) => {
 		<PostCard title={title} icon={iconType} isForArchive={isForArchive} archivePost={archivePost}>
 			<CardPadding>
 				<TagList margin={spacing.large.vertical} tags={tagsStrings} />
-				<RegularText show={link} margin={spacing.medium.top}>
+				<Spacing show={link} margin={spacing.medium.top}>
 					<OutLink href={link}>{linkText}</OutLink>
-				</RegularText>
+				</Spacing>
 				<RegularText margin={spacing.medium.top}>
 					{value}
 				</RegularText>
