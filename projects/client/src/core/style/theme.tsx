@@ -72,7 +72,7 @@ const gray = {
 	dark1: '#0F0F0F',
 	dark2: '#141414',
 
-	light1: '#F7F7F7',
+	light1: '#F5F5F5',
 	light2: '#F0F0F0',
 };
 
@@ -133,9 +133,9 @@ const purpleLightTheme: Theme = {
 
 		bg1: gray.light1,
 		bg2: gray.light2,
-		bgComponent1: '#E5E5E6',
-		bgComponent2: '#DDDDDF',
-		bgComponent3: '#CECED0',
+		bgComponent1: '#E8E8E9',
+		bgComponent2: '#E0E0E1',
+		bgComponent3: '#D0D0D2',
 		bgComponentShadow1: 'rgba(211,211,211,0.50)',
 
 		accentGradient: 'linear-gradient(134deg, #6551C7 0%, #5955D1 39%, #5955D1 58%, #3948BA 100%)',
@@ -199,9 +199,9 @@ const yellowLightTheme: Theme = {
 
 		bg1: gray.light1,
 		bg2: gray.light2,
-		bgComponent1: '#E6E6E5',
-		bgComponent2: '#DEDEDE',
-		bgComponent3: '#D0CFCD',
+		bgComponent1: '#E9E8E8',
+		bgComponent2: '#E1E1E0',
+		bgComponent3: '#D2D1D0',
 		bgComponentShadow1: 'rgba(211,211,211,0.50)',
 
 		accentGradient: 'linear-gradient(-45deg, #EBA749 0%, #F5B83D 38%, #F5B83D 65%, #F8CF7C 100%)',
@@ -265,9 +265,9 @@ const redLightTheme: Theme = {
 
 		bg1: gray.light1,
 		bg2: gray.light2,
-		bgComponent1: '#E6E5E5',
-		bgComponent2: '#DEDEDE',
-		bgComponent3: '#D0CDCE',
+		bgComponent1: '#E9E8E8',
+		bgComponent2: '#E1E0E0',
+		bgComponent3: '#D2D0D0',
 		bgComponentShadow1: 'rgba(211,211,211,0.50)',
 
 		accentGradient: 'linear-gradient(135deg, #E078A4 0%, #CB697A 37%, #CB697A 65%, #DA5856 100%)',
@@ -324,6 +324,7 @@ export const GlobalStyles = createGlobalStyle<ThemeProps<Theme>>`
 		padding: 0;
 		height: 100%;
 		overscroll-behavior: none;
+		overflow: hidden;
 	}
 
 	* {

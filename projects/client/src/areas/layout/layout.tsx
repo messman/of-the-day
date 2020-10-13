@@ -148,6 +148,6 @@ const LayoutContainer = tStyled(FlexColumn)`
 `;
 
 const RouteContainer = tStyled.div`
-	margin: ${spacing.grand.bottom};
+	padding: ${spacing.grand.bottom};
 	min-height: 100vh;
 `;

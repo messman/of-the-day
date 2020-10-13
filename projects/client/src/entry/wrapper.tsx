@@ -30,7 +30,9 @@ export const TestProviders: React.FC<TextProvidersProps> = (props) => {
 	return (
 		<MemoryRouter initialEntries={initialEntries} initialIndex={initialIndex}>
 			<InnerProviders>
-				{props.children}
+				<InvalidCheck error={null}>
+					{props.children}
+				</InvalidCheck>
 			</InnerProviders>
 		</MemoryRouter>
 	);

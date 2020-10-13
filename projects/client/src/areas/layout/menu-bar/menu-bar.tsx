@@ -147,7 +147,7 @@ const UpperMenuStickyTitleClickContainer = tStyled.div`
 `;
 
 const SpacedIcon = tStyled(Icon)`
-	margin: ${spacing.nudge.right};
+	margin: ${spacing.small.right};
 `;
 
 export const LowerMenuBar: React.FC<UpperLowerMenuBarProps> = (props) => {
@@ -167,5 +167,5 @@ export const LowerMenuBar: React.FC<UpperLowerMenuBarProps> = (props) => {
 const LowerMenuBarContainer = tStyled(FlexRow)`
 	position: relative;
 	background-color: ${p => p.theme.color.bg2};
-	border: 1px solid ${p => p.theme.color.bgComponent3};
+	border-top: 1px solid ${p => p.theme.color.bgComponent3};
 `;

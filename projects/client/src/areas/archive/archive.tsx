@@ -75,7 +75,7 @@ export const Archive: React.FC<ArchiveProps> = (props) => {
 };
 
 const ArchiveContainer = tStyled.div`
-	max-width: ${LayoutBreakpoint.tablet}px;
+	max-width: ${LayoutBreakpoint.mobileLarge}px;
 	margin: auto;
 	margin-bottom: ${spacing.grand.value};
 `;
