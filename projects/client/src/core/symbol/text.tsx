@@ -63,9 +63,9 @@ export function createTextComponent(asElement: keyof JSX.IntrinsicElements, defa
 
 // Defaults for headings: 2, 1.5, 1.17, 1, ....
 export enum FontSize {
-	heading1 = '1.8rem',
-	heading2 = '1.4rem',
-	heading3 = '1.15rem',
+	heading1 = '2rem',
+	heading2 = '1.5rem',
+	heading3 = '1.17rem',
 	textRegular = '1rem',
 	textSmall = '.875rem'
 }
@@ -74,7 +74,7 @@ export const FreeText = createTextComponent('div', FontSize.textRegular, FontWei
 export const Heading1 = createTextComponent('h1', FontSize.heading1, FontWeight.bold, c => c.textHeading1);
 export const Heading2 = createTextComponent('h2', FontSize.heading2, FontWeight.bold, c => c.textHeading3);
 export const Heading3 = createTextComponent('h3', FontSize.heading3, FontWeight.bold, c => c.textHeading3);
-export const RegularText = createTextComponent('p', FontSize.textRegular, FontWeight.medium, c => c.textRegular);
+export const RegularText = createTextComponent('div', FontSize.textRegular, FontWeight.medium, c => c.textRegular);
 // Don't use 'small' here because it is inline and we want block by default.
 export const SmallText = createTextComponent('div', FontSize.textSmall, FontWeight.medium, c => c.textRegular);
 

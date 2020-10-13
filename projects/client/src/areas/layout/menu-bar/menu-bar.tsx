@@ -78,8 +78,8 @@ export const UpperStickyMenuBar: React.FC<UpperStickyMenuBarProps> = (props) => 
 	const topLeftTitle = isDesktopWidth ? (
 		<UpperMenuStickyTitleContainer alignItems='center'>
 			<UpperMenuStickyTitleClickContainer onClick={onScrollToTop}>
-				<FreeText isInline={true} fontSize={upperMenuBarTitleHeight} fontWeight={FontWeight.bold} color={c => c.textRegular}>
-					<SpacedIcon type={iconTypes.brand} height={upperMenuBarTitleHeight} fillColor={c => c.textRegular} />
+				<FreeText isInline={true} fontSize={upperMenuBarTitleHeight} fontWeight={FontWeight.bold} color={c => c.textHeading1}>
+					<SpacedIcon type={iconTypes.brand} height={upperMenuBarTitleHeight} fillColor={c => c.textHeading1} />
 					Of The Day
 				</FreeText>
 			</UpperMenuStickyTitleClickContainer>

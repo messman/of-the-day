@@ -24,7 +24,6 @@ export const Card: React.FC<CardProps> = (props) => {
 	return (
 		<CardContainer>
 			<BoxShadow>
-				<ColorHeader />
 				<Background>
 					<FlexRow justifyContent='space-between' alignItems='center'>
 						<Heading2>{title}</Heading2>
@@ -57,12 +56,11 @@ const Background = tStyled.div`
 	flex: 1;
 	background-color: ${p => p.theme.color.bgComponent1};
 	border: 1px solid ${p => p.theme.color.bgComponent3};
-	border-top: none;
 	padding: ${spacing.medium.value};
 `;
 
-const ColorHeader = tStyled.div`
-	width: 100%;
-	height: 4px;
-	background: ${p => p.theme.color.accentGradient};
-`;
+// const ColorHeader = tStyled.div`
+// 	width: 100%;
+// 	height: 4px;
+// 	background: ${p => p.theme.color.accentGradient};
+// `;
