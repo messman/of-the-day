@@ -28,7 +28,7 @@ const italicStyle = tCss`
 `;
 
 // EM value may be font-specific!
-const iconTextOffsetStyle = tCss`
+export const iconTextOffsetStyle = tCss`
 	margin-top: .1em;
 `;
 

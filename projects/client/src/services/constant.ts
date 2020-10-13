@@ -11,9 +11,9 @@ export const CONSTANT = {
 	localDataFetchTime: seconds(2),
 
 	/** Time to wait since last successful fetch before restarting the application. */
-	appRefreshTimeout: minutes(30),
+	appRefreshTimeout: minutes(60),
 	/** Time to wait since last successful fetch before fetching again. */
-	staleDataTimeout: minutes(15),
+	staleDataTimeout: minutes(20),
 };
 
 function seconds(seconds: number): number {

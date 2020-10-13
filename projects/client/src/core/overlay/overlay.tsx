@@ -67,7 +67,7 @@ export const OverlayBox: React.FC<OverlayBoxProps> = (props) => {
 			<OverlayBackdrop style={springPropsBackdrop} onClick={onBackdropClick} />
 			<OverlayComponentContainer style={springPropsComponentContainer}>
 				<FlexColumn alignItems='center' justifyContent='space-evenly'>
-					<BoxContainer flex={boxFlex}>
+					<BoxContainer flex={boxFlex} isMaxWidth={true}>
 						<OverlayTitleContainer>
 							<Heading2>{headerTitle}</Heading2>
 						</OverlayTitleContainer>
@@ -102,16 +102,20 @@ const OverlayComponentContainer = tStyled(animated.div)`
 	left: 0;
 	width: 100%;
 	height: 100%;
+	padding: ${spacing.medium.value};
 `;
 
-const BoxContainer = tStyled(FlexColumn)`
+interface BoxContainerProps {
+	isMaxWidth: boolean;
+}
+
+const BoxContainer = tStyled(FlexColumn) <BoxContainerProps>`
 	pointer-events: auto;
 	position: relative;
-	width: calc(100% - (2 * ${spacing.medium.value}));
+	${p => p.isMaxWidth ? 'width: 100%;' : ''}
 	max-width: ${LayoutBreakpoint.mobileLarge}px;
 	max-height: min(90vh, ${LayoutBreakpoint.tablet}px);
-	margin: ${spacing.medium.value};
-	background-color: ${p => p.theme.color.bgComponent1};
+	background-color: ${p => p.theme.color.bg2};
 	${borderRadiusStyle};
 	box-shadow: 0 2px 3px 1px ${p => p.theme.color.bgComponentShadow1};
 	border: 1px solid ${p => p.theme.color.bgComponent3};

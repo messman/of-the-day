@@ -48,7 +48,7 @@ export const InnerSingleQuote: React.FC<InnerQuoteProps> = (props) => {
 
 const SingleQuoteWidthControlContainer = tStyled(FlexColumn)`
 	max-width: min(${LayoutBreakpoint.tablet}px, 100%);
-	min-width: 15rem;
+	min-width: 12rem;
 `;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////

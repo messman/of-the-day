@@ -2,13 +2,15 @@
 import * as React from 'react';
 import { tStyled } from '@/core/style/styled';
 import { iconTypes, Icon } from './symbol/icon';
+import { FontSize } from './symbol/text';
 
 const BasicLink = tStyled.a`
 	margin: 0;
 
-	position: relative;
 	display: inline-block;
 	cursor: pointer;
+
+	font-size: ${FontSize.textRegular};
 
 	color: ${p => p.theme.color.textLink};
 	text-decoration: none;

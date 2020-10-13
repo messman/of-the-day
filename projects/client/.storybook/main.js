@@ -33,10 +33,13 @@ module.exports = {
 					{
 						loader: '@svgr/webpack',
 						options: {
+							replaceAttrValues: { '#000': 'currentColor' },
 							dimensions: false,
 							svgoConfig: {
 								plugins: {
-									removeViewBox: false
+									removeViewBox: false,
+									removeUselessStrokeAndFill: false,
+									removeUnknownsAndDefaults: false
 								}
 							}
 						}

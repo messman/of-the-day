@@ -97,7 +97,7 @@ const ItemButton = tStyled.button<MenuBarInnerItemProps>`
 `;
 
 const ItemButtonText = tStyled(RegularText) <MenuBarInnerItemProps>`
-	color: ${p => p.isActive ? p.theme.color.textRegular : p.theme.color.textInactive};
+	color: ${p => p.theme.color.textRegular};
 	${formTransitionStyle}
 	transition-property: color;
 `;

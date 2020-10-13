@@ -1,4 +1,4 @@
-import { Card } from '@/core/card/card';
+import { Card, CardPadding } from '@/core/card/card';
 import { Spacing, spacing } from '@/core/layout/common';
 import { borderRadiusStyle } from '@/core/style/common';
 import { tStyled } from '@/core/style/styled';
@@ -11,8 +11,10 @@ import * as React from 'react';
 export const Settings: React.FC = () => {
 	return (
 		<Card title='Settings' icon={iconTypes.gear}>
-			<Heading3 margin={spacing.medium.bottom}>Theme</Heading3>
-			<ThemeControl />
+			<CardPadding>
+				<Heading3 margin={spacing.medium.bottom}>Theme</Heading3>
+				<ThemeControl />
+			</CardPadding>
 		</Card>
 	);
 };

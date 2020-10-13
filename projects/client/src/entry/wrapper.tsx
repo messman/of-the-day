@@ -7,6 +7,7 @@ import { WindowLayoutProvider, WindowDimensionsProvider, FlexRoot, DocumentVisib
 import { FontSizeManager } from '@/core/symbol/text';
 import { lowerBreakpoints } from '@/services/layout/window-layout';
 import { OverlayPortalRoot } from '@/core/overlay/overlay';
+import { ElementActionsProvider } from '@/areas/posts/element-action-overlay';
 
 export const Wrapper: React.FC = (props) => {
 	return (
@@ -59,7 +60,9 @@ const InnerProviders: React.FC = (props) => {
 						<WindowLayoutProvider lowerBreakpoints={lowerBreakpoints}>
 							<FontSizeManager>
 								<DataProvider>
-									{props.children}
+									<ElementActionsProvider>
+										{props.children}
+									</ElementActionsProvider>
 								</DataProvider>
 							</FontSizeManager>
 						</WindowLayoutProvider>

@@ -3,7 +3,7 @@ import { tCss, tStyled } from '@/core/style/styled';
 import { spacing } from '../layout/common';
 import { FontSize } from '../symbol/text';
 
-export const borderRadiusValue: string = '.3rem';
+export const borderRadiusValue: string = '.25rem';
 export const borderRadiusStyle = tCss`
 	border-radius: ${borderRadiusValue};
 `;

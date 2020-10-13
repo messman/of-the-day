@@ -90,14 +90,15 @@ const VideoTitle: React.FC<VideoTitleProps> = (props) => {
 	return (
 		<>
 			<Heading3>{customTitle}</Heading3>
-			<Heading3 show={customTitleCreator} fontWeight={FontWeight.medium}>from <InlineHeading3>{customTitleCreator}</InlineHeading3></Heading3>
+			<Heading3 show={customTitleCreator} fontWeight={FontWeight.medium}>from <InlineBold>{customTitleCreator}</InlineBold></Heading3>
 			{originalTitleLink}
 		</>
 	);
 };
 
-const InlineHeading3 = tStyled(Heading3)`
+const InlineBold = tStyled.span`
 	display: inline;
+	font-weight: ${FontWeight.bold};
 `;
 
 export interface YouTubeVideoFrameProps {

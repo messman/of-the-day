@@ -13,6 +13,7 @@ import { LayoutBreakpoint } from '@/services/layout/window-layout';
 import { IScrollIntoViewOptions, IScrollToOptions } from 'seamless-scroll-polyfill/dist/esm/common';
 import { elementScrollTo, elementScrollIntoView } from 'seamless-scroll-polyfill';
 import { spacing } from '@/core/layout/common';
+import { ElementActionsOverlay } from '../posts/element-action-overlay';
 
 export const ApplicationLayout: React.FC = () => {
 	return (
@@ -132,6 +133,7 @@ export const Layout: React.FC<LayoutProps> = (props) => {
 				</RouteContainer>
 			</ScrollContainer>
 			<LowerMenuBar isMobileWidth={isAnyMobileWidth} onPathClick={onScrollToSticky} />
+			<ElementActionsOverlay />
 		</LayoutContainer>
 	);
 };

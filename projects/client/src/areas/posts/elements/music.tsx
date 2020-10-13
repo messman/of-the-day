@@ -10,13 +10,14 @@ import { OutLink } from '@/core/link';
 import { MusicQuote } from './quote/quote';
 import { iconTypes } from '@/core/symbol/icon';
 import { IPostElementType, IPostMusic, isValidPostElement } from 'oftheday-shared';
-import { createPostsElement, PostArchiveLinks, PostCard, ShowEmbeddedContent } from './elements-common';
+import { createPostsElement, PostCard, ShowEmbeddedContent } from './elements-common';
 import { FontWeight } from '@/core/style/theme';
 import { CardPadding } from '@/core/card/card';
+import { ElementActions } from '../element-action-overlay';
 
 export const Music = createPostsElement<IPostMusic>((props) => {
 	const { isForArchive, archivePost } = props;
-	const { title, artist, description, isTop, isNSFW, tags, spotifyLink, youTubeLink, useYouTube, quote, year } = props.value;
+	const { title, artist, description, isTop, isNSFW, tags, spotifyLink, youTubeLink, useYouTube, geniusLink, quote, year } = props.value;
 
 	const tagsStrings = useTags(isTop, isNSFW, tags);
 
@@ -27,34 +28,35 @@ export const Music = createPostsElement<IPostMusic>((props) => {
 			<CardPadding>
 				<Spacing margin={spacing.large.bottom}>
 					<Heading3>{title}</Heading3>
-					<Heading3 fontWeight={FontWeight.medium}>by <InlineHeading3>{artist}</InlineHeading3></Heading3>
+					<Heading3 fontWeight={FontWeight.medium}>by <InlineBold>{artist}</InlineBold></Heading3>
 				</Spacing>
 				<RegularText show={year}>{year}</RegularText>
-				<TagList margin={spacing.small.vertical} tags={tagsStrings} />
-				<RegularText margin={spacing.small.vertical} show={description}>
+				<TagList margin={spacing.small.top} tags={tagsStrings} />
+				<RegularText margin={spacing.small.top} show={description}>
 					{description}
 				</RegularText>
-				<Spacing margin={spacing.small.vertical}>
-					<MusicOutLinks music={props.value} />
-				</Spacing>
+				<LinksContainer>
+					<OutLink href={spotifyLink}>Spotify</OutLink>
+					<OutLink href={youTubeLink}>YouTube</OutLink>
+					<OutLink href={geniusLink}>Lyrics</OutLink>
+					<ElementActions isViewingArchive={isForArchive} elementType={IPostElementType.music} isTop={isTop} spotifyLink={spotifyLink} youTubeLink={youTubeLink} />
+				</LinksContainer>
 			</CardPadding>
 			<Spacing margin={spacing.large.top}>
 				<ShowEmbeddedContent isForArchive={isForArchive}>
 					{embedRender}
 				</ShowEmbeddedContent>
 			</Spacing>
-			<CardPadding>
-				<Spacing show={quote} margin={spacing.large.top}>
-					<MusicQuote lyric={quote} />
-				</Spacing>
-				<PostArchiveLinks isForArchive={!!isForArchive} isMusic={true} isTop={isTop} />
-			</CardPadding>
+			<Spacing show={quote} margin={spacing.large.value}>
+				<MusicQuote lyric={quote} />
+			</Spacing>
 		</PostCard>
 	);
 }, IPostElementType.music, isValidPostElement.music);
 
-const InlineHeading3 = tStyled(Heading3)`
+const InlineBold = tStyled.span`
 	display: inline;
+	font-weight: ${FontWeight.bold};
 `;
 
 interface SpotifyEmbedFrameProps {
@@ -83,29 +85,9 @@ const EmbedContainer = tStyled.div`
 	}
 `;
 
-interface MusicProps {
-	music: IPostMusic;
-}
-
-const MusicOutLinks: React.FC<MusicProps> = (props) => {
-	const { spotifyLink, youTubeLink, geniusLink } = props.music;
-	if (!spotifyLink || !youTubeLink || !geniusLink) {
-		return null;
+const LinksContainer = tStyled.div`
+	a {
+		margin-top: ${spacing.medium.value};
+		margin-right: ${spacing.medium.value};
 	}
-
-	const linkSpacing = spacing.medium.right;
-
-	return (
-		<div>
-			<RegularText isInline={true} margin={linkSpacing}>
-				<OutLink href={spotifyLink}>Spotify</OutLink>
-			</RegularText>
-			<RegularText isInline={true} margin={linkSpacing}>
-				<OutLink href={youTubeLink}>YouTube</OutLink>
-			</RegularText>
-			<RegularText isInline={true}>
-				<OutLink href={geniusLink}>Lyrics</OutLink>
-			</RegularText>
-		</div>
-	);
-};
+`;
