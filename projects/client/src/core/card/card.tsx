@@ -7,30 +7,40 @@ import { Icon, SVGIconType } from '../symbol/icon';
 import { FontSize, Heading2, RegularText } from '../symbol/text';
 
 export interface CardProps {
-	title: string;
+	title?: string | null;
 	subtitle?: JSX.Element | string | null;
-	icon: SVGIconType | null;
+	icon?: SVGIconType | null;
 }
 
 export const Card: React.FC<CardProps> = (props) => {
 	const { title, subtitle, icon, children } = props;
 
-	let iconRender: JSX.Element | null = null;
-	if (icon) {
-		iconRender = (
-			<Icon type={icon} height={FontSize.heading2} fillColor={c => c.textHeading2} />
+	let titleRender: JSX.Element | null = null;
+	if (title) {
+
+		let iconRender: JSX.Element | null = null;
+		if (icon) {
+			iconRender = (
+				<Icon type={icon} height={FontSize.heading2} fillColor={c => c.textHeading2} />
+			);
+		}
+
+		titleRender = (
+			<FlexRow justifyContent='space-between' alignItems='center'>
+				<Heading2>{title}</Heading2>
+				{iconRender}
+			</FlexRow>
 		);
 	}
+
+	const subtitleMarginTop = title && subtitle ? spacing.small.top : null;
 
 	return (
 		<CardContainer>
 			<Background>
 				<TopCardPadding>
-					<FlexRow justifyContent='space-between' alignItems='center'>
-						<Heading2>{title}</Heading2>
-						{iconRender}
-					</FlexRow>
-					<Spacing show={!!subtitle} margin={spacing.small.top}>
+					{titleRender}
+					<Spacing show={!!subtitle} margin={subtitleMarginTop}>
 						<RegularText>{subtitle}</RegularText>
 					</Spacing>
 				</TopCardPadding>

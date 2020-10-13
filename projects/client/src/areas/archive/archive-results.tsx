@@ -6,7 +6,7 @@ import { ClickableIcon, iconTypes } from '@/core/symbol/icon';
 import { RegularText } from '@/core/symbol/text';
 import { DataLoad } from '@/services/data/data-load';
 import { Flex, FlexRow, PromiseOutput, Sticky, useSticky } from '@messman/react-common';
-import { IArchiveFilter, IArchiveResponse, IPost } from 'oftheday-shared';
+import { IArchiveFilter, IArchiveResponse, IPost, keysOfIPostElementType } from 'oftheday-shared';
 import * as React from 'react';
 import { FilterDescription } from './filter/filter-common';
 import { ArchiveResult } from './result/archive-result';
@@ -36,6 +36,16 @@ export const ArchiveResults: React.FC<ArchiveResultsProps> = (props) => {
 		results: 0
 	});
 
+	const [isHidingTitles, setIsHidingTitles] = React.useState(false);
+
+	React.useEffect(() => {
+
+		const numberOfTypesInFilter = keysOfIPostElementType.filter((key) => {
+			return !!filter.types[key];
+		}).length;
+		setIsHidingTitles(numberOfTypesInFilter === 1);
+	}, [filter]);
+
 	React.useEffect(() => {
 		if (!data) {
 			setPostsState({
@@ -56,17 +66,19 @@ export const ArchiveResults: React.FC<ArchiveResultsProps> = (props) => {
 		});
 	}, [data]);
 
+	const { posts, results } = postsState;
+
+	const postsRender = React.useMemo(() => {
+		return posts.map((post) => {
+			return (
+				<ArchiveResult post={post} key={post.dayNumber} hideTitles={isHidingTitles} />
+			);
+		});
+	}, [posts, isHidingTitles]);
+
 	if (isStarted || error) {
 		return <DataLoad promise={promise} />;
 	}
-
-	const { posts, results } = postsState;
-
-	const postsRender = posts.map((post) => {
-		return (
-			<ArchiveResult post={post} key={post.dayNumber} />
-		);
-	});
 
 	return (
 		<>

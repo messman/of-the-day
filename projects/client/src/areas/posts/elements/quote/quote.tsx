@@ -4,10 +4,11 @@ import * as React from 'react';
 import { IPostElementType, IPostQuote, isValidPostElement } from 'oftheday-shared';
 import { InnerQuote, InnerSingleQuote } from './quote-inner';
 import { iconTypes } from '@/core/symbol/icon';
-import { createPostsElement, PostArchiveLinks, PostCard } from '../elements-common';
+import { createPostsElement, PostCard } from '../elements-common';
 import { TagList, useTags } from '../tag';
 import { Spacing, spacing } from '@/core/layout/common';
 import { CardPadding } from '@/core/card/card';
+import { ElementActions } from '../../element-action-overlay';
 
 export interface MusicQuoteProps {
 	lyric: string;
@@ -40,19 +41,21 @@ export const MusicQuote: React.FC<MusicQuoteProps> = (props) => {
 
 /** Displays the quote as a top-level post element section. */
 export const Quote = createPostsElement<IPostQuote>((props) => {
-	const { isForArchive, archivePost } = props;
+	const { isForArchive, hideTitle, archivePost } = props;
 	const { isNSFW, isTop } = props.value;
 
 	const tagsStrings = useTags(isTop, isNSFW);
 
 	return (
-		<PostCard title='Quote' icon={iconTypes.quote} isForArchive={isForArchive} archivePost={archivePost}>
+		<PostCard title='Quote' icon={iconTypes.quote} isForArchive={isForArchive} hideTitle={hideTitle} archivePost={archivePost}>
 			<CardPadding>
 				<TagList tags={tagsStrings} />
+				<Spacing show={!isForArchive} margin={spacing.large.top}>
+					<ElementActions isViewingArchive={isForArchive} elementType={IPostElementType.quote} isTop={isTop} />
+				</Spacing>
 				<Spacing margin={spacing.large.top}>
 					<InnerQuote quote={props.value} />
 				</Spacing>
-				<PostArchiveLinks isForArchive={isForArchive} isTop={isTop} />
 			</CardPadding>
 		</PostCard>
 	);

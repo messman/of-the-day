@@ -1,16 +1,14 @@
-import { Card, CardPadding, CardProps } from '@/core/card/card';
-import { spacing } from '@/core/layout/common';
-import { ActionLink } from '@/core/link';
-import { SeeMoreButton } from '@/core/style/common';
-import { tStyled } from '@/core/style/styled';
-import { LayoutBreakpoint } from '@/services/layout/window-layout';
-import { FlexRow, useWindowLayout } from '@messman/react-common';
+import { useScrollContainerElement } from '@/areas/layout/layout';
+import { Card, CardProps } from '@/core/card/card';
+import { useElementIntersect } from '@messman/react-common';
 import { IPost, IPostElementType } from 'oftheday-shared';
 import * as React from 'react';
+import { VideoContainer } from './video';
 
 export interface PostsElementProps<T> {
 	value: T;
 	isForArchive?: boolean;
+	hideTitle?: boolean;
 	archivePost?: IPost;
 }
 
@@ -21,7 +19,7 @@ export interface PostsElementFC<T> extends React.FC<PostsElementProps<T | undefi
 export function createPostsElement<T>(Component: React.FC<PostsElementProps<T>>, element: IPostElementType, validator: (value: T | undefined) => boolean): PostsElementFC<T> {
 	const fc = ((props: PostsElementProps<T | undefined>) => {
 		if (validator(props.value)) {
-			return <Component value={props.value!} isForArchive={props.isForArchive} archivePost={props.archivePost} />;
+			return <Component value={props.value!} isForArchive={props.isForArchive} hideTitle={props.hideTitle} archivePost={props.archivePost} />;
 		}
 		return null;
 	}) as unknown as PostsElementFC<T>;
@@ -31,11 +29,12 @@ export function createPostsElement<T>(Component: React.FC<PostsElementProps<T>>,
 
 export interface PostCardProps extends Omit<CardProps, 'subtitle'> {
 	isForArchive?: boolean;
+	hideTitle?: boolean;
 	archivePost?: IPost;
 }
 
 export const PostCard: React.FC<PostCardProps> = (props) => {
-	const { title, isForArchive, archivePost, icon, children } = props;
+	const { title, isForArchive, hideTitle, archivePost, icon, children } = props;
 
 	let subtitleRender: JSX.Element | null = null;
 	if (isForArchive && archivePost) {
@@ -44,9 +43,11 @@ export const PostCard: React.FC<PostCardProps> = (props) => {
 		subtitleRender = <>{date}&nbsp;&middot;&nbsp;Day {dayNumber}</>;
 	}
 
+	const optionalTitle = hideTitle ? null : title;
+
 	return (
 		<Card
-			title={title}
+			title={optionalTitle}
 			icon={icon}
 			subtitle={subtitleRender}
 		>
@@ -55,79 +56,49 @@ export const PostCard: React.FC<PostCardProps> = (props) => {
 	);
 };
 
-export interface PostArchiveLinksProps {
-	isForArchive?: boolean;
-	isMusic?: boolean;
-	isVideo?: boolean;
-	isTop: boolean;
+export interface EmbeddedContentRevealProps {
+	isRevealedOnMount: boolean;
 }
 
-export const PostArchiveLinks: React.FC<PostArchiveLinksProps> = (props) => {
-	const { isForArchive, isMusic, isVideo, isTop } = props;
+export const EmbeddedContentReveal: React.FC<EmbeddedContentRevealProps> = (props) => {
+	const { isRevealedOnMount, children } = props;
 
-	const { widthBreakpoint } = useWindowLayout();
-	if (isForArchive || (!isMusic && !isVideo && !isTop)) {
-		return null;
+	const [isRevealed, setIsRevealed] = React.useState(isRevealedOnMount);
+
+	if (isRevealed) {
+		return <>{children}</>;
 	}
 
-	const musicOrVideoButton = (isMusic || isVideo) ? (
-		<SeeMoreButton>See All {isMusic ? 'Music' : 'Video'}</SeeMoreButton>
-	) : null;
-
-	const topButton = isTop ? (
-		<SeeMoreTopButton>See All Top</SeeMoreTopButton>
-	) : null;
-
-	const ButtonContainer = widthBreakpoint >= LayoutBreakpoint.mobileLarge ? HorizontalButtonContainer : VerticalButtonContainer;
+	function onFirstIntersect() {
+		setIsRevealed(true);
+	}
 
 	return (
-		<ButtonContainer>
-			{musicOrVideoButton}
-			{topButton}
-		</ButtonContainer>
+		<InnerEmbeddedContentReveal onFirstIntersect={onFirstIntersect} />
 	);
 };
 
-const HorizontalButtonContainer = tStyled(FlexRow)`
-	margin-top: ${spacing.large.value};
-
-	${SeeMoreButton} + ${SeeMoreButton} {
-		margin-left: ${spacing.medium.value};
-	}
-`;
-
-const VerticalButtonContainer = tStyled.div`
-	margin-top: ${spacing.large.value};
-
-	${SeeMoreButton} + ${SeeMoreButton} {
-		margin-top: ${spacing.medium.value};
-	}
-`;
-
-const SeeMoreTopButton = tStyled(SeeMoreButton)`
-	color: ${p => p.theme.color.tagTopForeground};
-	background: ${p => p.theme.color.tagTopBackground};
-`;
-
-export interface ShowEmbeddedContentProps {
-	isForArchive?: boolean;
+interface InnerEmbeddedContentRevealProps {
+	onFirstIntersect: () => void;
 }
 
-export const ShowEmbeddedContent: React.FC<ShowEmbeddedContentProps> = (props) => {
-	const { isForArchive, children } = props;
+const InnerEmbeddedContentReveal: React.FC<InnerEmbeddedContentRevealProps> = (props) => {
+	const { onFirstIntersect } = props;
 
-	const [isHidden, setIsHidden] = React.useState(!!isForArchive);
+	const scrollContainerElement = useScrollContainerElement();
 
-	if (isHidden) {
-		function onClick() {
-			setIsHidden(false);
+	const elementIntersectRef = useElementIntersect({
+		rootMargin: `100px 0px 100px 0px`,
+		rootElement: scrollContainerElement
+	}, (intersect) => {
+		if (!intersect || !elementIntersectRef.current) {
+			return;
 		}
 
-		return (
-			<CardPadding>
-				<ActionLink onClick={onClick}>Show Embedded Content</ActionLink>
-			</CardPadding>
-		);
-	}
-	return <>{children}</>;
+		if (intersect.isIntersecting) {
+			onFirstIntersect();
+		}
+	});
+
+	return <VideoContainer ref={elementIntersectRef} />;
 };

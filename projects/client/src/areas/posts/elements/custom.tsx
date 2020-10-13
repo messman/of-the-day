@@ -6,9 +6,10 @@ import { OutLink, ActionLink } from '@/core/link';
 import { tStyled } from '@/core/style/styled';
 import { borderRadiusStyle } from '@/core/style/common';
 import { iconTypes } from '@/core/symbol/icon';
-import { createPostsElement, PostArchiveLinks, PostCard } from './elements-common';
+import { createPostsElement, PostCard } from './elements-common';
 import { TagList, useTags } from './tag';
 import { CardPadding } from '@/core/card/card';
+import { ElementActions } from '../element-action-overlay';
 
 /*
 	Possible things in this section:
@@ -23,7 +24,7 @@ import { CardPadding } from '@/core/card/card';
 */
 
 export const Custom = createPostsElement<IPostCustom>((props) => {
-	const { isForArchive, archivePost } = props;
+	const { isForArchive, hideTitle, archivePost } = props;
 	const { value, title, link, linkText, hiddenValue, isTop, isNSFW } = props.value;
 
 	const tagsStrings = useTags(isTop, isNSFW);
@@ -45,7 +46,7 @@ export const Custom = createPostsElement<IPostCustom>((props) => {
 	const iconType = !!link ? iconTypes.link : iconTypes.speech;
 
 	return (
-		<PostCard title={title} icon={iconType} isForArchive={isForArchive} archivePost={archivePost}>
+		<PostCard title={title} icon={iconType} isForArchive={isForArchive} hideTitle={hideTitle} archivePost={archivePost}>
 			<CardPadding>
 				<TagList margin={spacing.large.vertical} tags={tagsStrings} />
 				<Spacing show={link} margin={spacing.medium.top}>
@@ -64,7 +65,9 @@ export const Custom = createPostsElement<IPostCustom>((props) => {
 						</RegularText>
 					</HiddenArea>
 				</Spacing>
-				<PostArchiveLinks isForArchive={isForArchive} isTop={isTop} />
+				<Spacing show={!isForArchive} margin={spacing.large.top}>
+					<ElementActions isViewingArchive={isForArchive} elementType={IPostElementType.custom} isTop={isTop} />
+				</Spacing>
 			</CardPadding>
 		</PostCard>
 	);

@@ -6,13 +6,13 @@ import { RegularText, SmallText, Heading3, FontSize } from '@/core/symbol/text';
 import { TagList, useTags } from './tag';
 import { ActionLink } from '@/core/link';
 import { iconTypes } from '@/core/symbol/icon';
-import { createPostsElement, PostCard, ShowEmbeddedContent } from './elements-common';
+import { createPostsElement, PostCard, EmbeddedContentReveal } from './elements-common';
 import { CardPadding } from '@/core/card/card';
 import { FontWeight } from '@/core/style/theme';
 import { ElementActions } from '../element-action-overlay';
 
 export const Video = createPostsElement<IPostVideo>((props) => {
-	const { isForArchive, archivePost } = props;
+	const { isForArchive, hideTitle, archivePost } = props;
 	const { description, link, isTop, isNSFW, tags, isRemoved } = props.value;
 
 	const tagsStrings = useTags(isTop, isNSFW, tags);
@@ -30,7 +30,7 @@ export const Video = createPostsElement<IPostVideo>((props) => {
 	}
 
 	return (
-		<PostCard title='Video' icon={iconTypes.video} isForArchive={isForArchive} archivePost={archivePost}>
+		<PostCard title='Video' icon={iconTypes.video} isForArchive={isForArchive} hideTitle={hideTitle} archivePost={archivePost}>
 			<CardPadding>
 				<Spacing margin={spacing.large.bottom}>
 					<VideoTitle video={props.value} />
@@ -44,9 +44,9 @@ export const Video = createPostsElement<IPostVideo>((props) => {
 				</Spacing>
 			</CardPadding>
 			<Spacing margin={spacing.large.top}>
-				<ShowEmbeddedContent isForArchive={isForArchive && !isRemoved}>
+				<EmbeddedContentReveal isRevealedOnMount={!isForArchive || isRemoved}>
 					{internalVideoRender}
-				</ShowEmbeddedContent>
+				</EmbeddedContentReveal>
 			</Spacing>
 		</PostCard>
 	);
@@ -68,7 +68,7 @@ const VideoTitle: React.FC<VideoTitleProps> = (props) => {
 	});
 
 	React.useEffect(() => {
-		setIsShowingOriginalTitle(false);
+		setIsShowingOriginalTitle(!video.customTitle);
 	}, [video]);
 
 	if (isShowingOriginalTitle) {
@@ -127,7 +127,7 @@ export const YouTubeVideoFrame: React.FC<YouTubeVideoFrameProps> = (props) => {
 };
 
 /* The padding-bottom creates our aspect ratio. */
-const VideoContainer = tStyled.div`
+export const VideoContainer = tStyled.div`
 	position: relative;
 	width: 100%;
 	height: 0;

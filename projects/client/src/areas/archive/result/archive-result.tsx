@@ -11,20 +11,21 @@ import { CardContainer } from '@/core/card/card';
 
 export interface ArchiveResultProps {
 	post: IPost;
+	hideTitles: boolean;
 }
 
 export const ArchiveResult: React.FC<ArchiveResultProps> = (props) => {
-	const { post } = props;
+	const { post, hideTitles } = props;
 
 	const edgeSpacing = useResponsiveEdgeSpacing();
 
 	return (
 		<ArchiveResultContainer $spacing={edgeSpacing}>
-			<Music value={post.music} isForArchive={true} archivePost={post} />
-			<Video value={post.video} isForArchive={true} archivePost={post} />
-			<Image value={post.image} isForArchive={true} archivePost={post} />
-			<Quote value={post.quote} isForArchive={true} archivePost={post} />
-			<Custom value={post.custom} isForArchive={true} archivePost={post} />
+			<Music value={post.music} isForArchive={true} archivePost={post} hideTitle={hideTitles} />
+			<Video value={post.video} isForArchive={true} archivePost={post} hideTitle={hideTitles} />
+			<Image value={post.image} isForArchive={true} archivePost={post} hideTitle={hideTitles} />
+			<Quote value={post.quote} isForArchive={true} archivePost={post} hideTitle={hideTitles} />
+			<Custom value={post.custom} isForArchive={true} archivePost={post} hideTitle={hideTitles} />
 		</ArchiveResultContainer>
 	);
 };

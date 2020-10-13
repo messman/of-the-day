@@ -105,32 +105,34 @@ export const Layout: React.FC<LayoutProps> = (props) => {
 				onPathClick={onScrollToSticky}
 			/>
 			<ScrollContainer ref={scrollContainerRef}>
-				<Header />
-				<div ref={elementIntersectRef} />
-				<UpperMenuBar isMobileWidth={isAnyMobileWidth} onPathClick={onScrollToSticky} />
-				<RouteContainer>
-					<Switch>
-						<Route exact path={routes.posts.path}>
-							<Posts
-								isUpper={true}
-								offsetPixels={postHeaderOffset}
-								rootElement={scrollContainerElement}
-								onScrollTop={onScrollToSticky} />
-						</Route>
-						<Route path={routes.other.path}>
-							<Other />
-						</Route>
-						<Route path={routes.archive.path}>
-							<Archive
-								offsetPixels={postHeaderOffset}
-								rootElement={scrollContainerElement}
-								onScrollTop={onScrollToSticky} />
-						</Route>
-						<Route path={routes.about.path}>
-							<About />
-						</Route>
-					</Switch>
-				</RouteContainer>
+				<ScrollContainerElementContext.Provider value={scrollContainerElement}>
+					<Header />
+					<div ref={elementIntersectRef} />
+					<UpperMenuBar isMobileWidth={isAnyMobileWidth} onPathClick={onScrollToSticky} />
+					<RouteContainer>
+						<Switch>
+							<Route exact path={routes.posts.path}>
+								<Posts
+									isUpper={true}
+									offsetPixels={postHeaderOffset}
+									rootElement={scrollContainerElement}
+									onScrollTop={onScrollToSticky} />
+							</Route>
+							<Route path={routes.other.path}>
+								<Other />
+							</Route>
+							<Route path={routes.archive.path}>
+								<Archive
+									offsetPixels={postHeaderOffset}
+									rootElement={scrollContainerElement}
+									onScrollTop={onScrollToSticky} />
+							</Route>
+							<Route path={routes.about.path}>
+								<About />
+							</Route>
+						</Switch>
+					</RouteContainer>
+				</ScrollContainerElementContext.Provider>
 			</ScrollContainer>
 			<LowerMenuBar isMobileWidth={isAnyMobileWidth} onPathClick={onScrollToSticky} />
 			<ElementActionsOverlay />
@@ -153,3 +155,6 @@ const RouteContainer = tStyled.div`
 	padding: ${spacing.grand.bottom};
 	min-height: 100vh;
 `;
+
+const ScrollContainerElementContext = React.createContext<HTMLElement | null>(null);
+export const useScrollContainerElement = () => React.useContext(ScrollContainerElementContext);

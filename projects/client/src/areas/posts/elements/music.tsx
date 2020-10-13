@@ -10,13 +10,13 @@ import { OutLink } from '@/core/link';
 import { MusicQuote } from './quote/quote';
 import { iconTypes } from '@/core/symbol/icon';
 import { IPostElementType, IPostMusic, isValidPostElement } from 'oftheday-shared';
-import { createPostsElement, PostCard, ShowEmbeddedContent } from './elements-common';
+import { createPostsElement, PostCard, EmbeddedContentReveal } from './elements-common';
 import { FontWeight } from '@/core/style/theme';
 import { CardPadding } from '@/core/card/card';
 import { ElementActions } from '../element-action-overlay';
 
 export const Music = createPostsElement<IPostMusic>((props) => {
-	const { isForArchive, archivePost } = props;
+	const { isForArchive, hideTitle, archivePost } = props;
 	const { title, artist, description, isTop, isNSFW, tags, spotifyLink, youTubeLink, useYouTube, geniusLink, quote, year } = props.value;
 
 	const tagsStrings = useTags(isTop, isNSFW, tags);
@@ -24,7 +24,7 @@ export const Music = createPostsElement<IPostMusic>((props) => {
 	const embedRender: JSX.Element = useYouTube ? <YouTubeVideoFrame url={youTubeLink} /> : <SpotifyEmbedFrame url={spotifyLink} />;
 
 	return (
-		<PostCard title='Music' icon={iconTypes.music} isForArchive={isForArchive} archivePost={archivePost}>
+		<PostCard title='Music' icon={iconTypes.music} isForArchive={isForArchive} hideTitle={hideTitle} archivePost={archivePost}>
 			<CardPadding>
 				<Spacing margin={spacing.large.bottom}>
 					<Heading3>{title}</Heading3>
@@ -43,9 +43,9 @@ export const Music = createPostsElement<IPostMusic>((props) => {
 				</LinksContainer>
 			</CardPadding>
 			<Spacing margin={spacing.large.top}>
-				<ShowEmbeddedContent isForArchive={isForArchive}>
+				<EmbeddedContentReveal isRevealedOnMount={!isForArchive}>
 					{embedRender}
-				</ShowEmbeddedContent>
+				</EmbeddedContentReveal>
 			</Spacing>
 			<Spacing show={quote} margin={spacing.large.top}>
 				<Spacing show={quote} margin={spacing.medium.value}>

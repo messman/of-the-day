@@ -8,8 +8,8 @@ export default { title: 'Areas/Posts/Elements/Videos' };
 
 export const TestVideo = decorate('Video', null, () => {
 
-	const customTitle = text('Custom Title', 'Bing Bang Boom');
-	const customTitleCreator = text('Custom Title Creator', 'Those Guys');
+	const customTitle = text('Custom Title', '');
+	const customTitleCreator = text('Custom Title Creator', '');
 	const originalTitle = text('Original Title', 'Hilarious! Bing | Bang | Boom ON FX NETWORK');
 	const description = text('Description', 'Here is a great video I just saw the other day that shows this that and the other thing.');
 	const isRemoved = boolean('Is Removed', false);
