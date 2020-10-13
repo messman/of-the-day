@@ -2,7 +2,7 @@ import * as React from 'react';
 import { IOther } from 'oftheday-shared';
 import { OutLink } from '@/core/link';
 import { RegularText } from '@/core/symbol/text';
-import { Card } from '@/core/card/card';
+import { Card, CardPadding } from '@/core/card/card';
 import { iconTypes } from '@/core/symbol/icon';
 
 export interface WorkingOnProps {
@@ -38,7 +38,9 @@ export const WorkingOn: React.FC<WorkingOnProps> = (props) => {
 
 	return (
 		<Card title={title} icon={iconTypes.project}>
-			<RegularText>{render}</RegularText>
+			<CardPadding>
+				<RegularText>{render}</RegularText>
+			</CardPadding>
 		</Card>
 	);
 };

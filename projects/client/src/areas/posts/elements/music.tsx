@@ -11,6 +11,8 @@ import { MusicQuote } from './quote/quote';
 import { iconTypes } from '@/core/symbol/icon';
 import { IPostElementType, IPostMusic, isValidPostElement } from 'oftheday-shared';
 import { createPostsElement, PostArchiveLinks, PostCard, ShowEmbeddedContent } from './elements-common';
+import { FontWeight } from '@/core/style/theme';
+import { CardPadding } from '@/core/card/card';
 
 export const Music = createPostsElement<IPostMusic>((props) => {
 	const { isForArchive, archivePost } = props;
@@ -18,36 +20,42 @@ export const Music = createPostsElement<IPostMusic>((props) => {
 
 	const tagsStrings = useTags(isTop, isNSFW, tags);
 
-	const yearSuffix = year ? <RegularText margin={spacing.nudge.top}>{year}</RegularText> : <></>;
-
 	const embedRender: JSX.Element = useYouTube ? <YouTubeVideoFrame url={youTubeLink} /> : <SpotifyEmbedFrame url={spotifyLink} />;
 
 	return (
 		<PostCard title='Music' icon={iconTypes.music} isForArchive={isForArchive} archivePost={archivePost}>
-			<Spacing margin={spacing.medium.bottom}>
-				<Heading3 isItalic={true}>{title}</Heading3>
-				<Heading3>{artist}</Heading3>
-				{yearSuffix}
-			</Spacing>
-			<TagList margin={spacing.large.vertical} tags={tagsStrings} />
-			<RegularText margin={spacing.medium.vertical} show={description}>
-				{description}
-			</RegularText>
-			<Spacing margin={spacing.medium.vertical}>
-				<MusicOutLinks music={props.value} />
-			</Spacing>
+			<CardPadding>
+				<Spacing margin={spacing.large.bottom}>
+					<Heading3>{title}</Heading3>
+					<Heading3 fontWeight={FontWeight.medium}>by <InlineHeading3>{artist}</InlineHeading3></Heading3>
+				</Spacing>
+				<RegularText show={year}>{year}</RegularText>
+				<TagList margin={spacing.small.vertical} tags={tagsStrings} />
+				<RegularText margin={spacing.small.vertical} show={description}>
+					{description}
+				</RegularText>
+				<Spacing margin={spacing.small.vertical}>
+					<MusicOutLinks music={props.value} />
+				</Spacing>
+			</CardPadding>
 			<Spacing margin={spacing.large.top}>
 				<ShowEmbeddedContent isForArchive={isForArchive}>
 					{embedRender}
 				</ShowEmbeddedContent>
 			</Spacing>
-			<Spacing show={quote} margin={spacing.large.top}>
-				<MusicQuote lyric={quote} />
-			</Spacing>
-			<PostArchiveLinks isForArchive={!!isForArchive} isMusic={true} isTop={isTop} />
+			<CardPadding>
+				<Spacing show={quote} margin={spacing.large.top}>
+					<MusicQuote lyric={quote} />
+				</Spacing>
+				<PostArchiveLinks isForArchive={!!isForArchive} isMusic={true} isTop={isTop} />
+			</CardPadding>
 		</PostCard>
 	);
 }, IPostElementType.music, isValidPostElement.music);
+
+const InlineHeading3 = tStyled(Heading3)`
+	display: inline;
+`;
 
 interface SpotifyEmbedFrameProps {
 	url: string;

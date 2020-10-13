@@ -6,7 +6,8 @@ import { InnerQuote, InnerSingleQuote } from './quote-inner';
 import { iconTypes } from '@/core/symbol/icon';
 import { createPostsElement, PostArchiveLinks, PostCard } from '../elements-common';
 import { TagList, useTags } from '../tag';
-import { spacing } from '@/core/layout/common';
+import { Spacing, spacing } from '@/core/layout/common';
+import { CardPadding } from '@/core/card/card';
 
 export interface MusicQuoteProps {
 	lyric: string;
@@ -46,9 +47,13 @@ export const Quote = createPostsElement<IPostQuote>((props) => {
 
 	return (
 		<PostCard title='Quote' icon={iconTypes.quote} isForArchive={isForArchive} archivePost={archivePost}>
-			<TagList margin={spacing.large.vertical} tags={tagsStrings} />
-			<InnerQuote quote={props.value} />
-			<PostArchiveLinks isForArchive={isForArchive} isTop={isTop} />
+			<CardPadding>
+				<TagList tags={tagsStrings} />
+				<Spacing margin={spacing.large.top}>
+					<InnerQuote quote={props.value} />
+				</Spacing>
+				<PostArchiveLinks isForArchive={isForArchive} isTop={isTop} />
+			</CardPadding>
 		</PostCard>
 	);
 }, IPostElementType.quote, isValidPostElement.quote);

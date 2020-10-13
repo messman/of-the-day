@@ -4,7 +4,7 @@ import { Spacing, spacing } from '@/core/layout/common';
 import { iconTypes, Icon, SVGIconType } from '@/core/symbol/icon';
 import { RegularText, FontSize } from '@/core/symbol/text';
 import { CardGroup } from '@/core/card/card-group';
-import { Card } from '@/core/card/card';
+import { Card, CardPadding } from '@/core/card/card';
 import { ThemePickColor } from '@/core/style/theme';
 import { EqualCardFlow } from '@/core/card/card-flow';
 
@@ -68,7 +68,9 @@ const InnerChecklist: React.FC<InnerChecklistProps> = (props) => {
 
 	return (
 		<Card title={title} icon={icon}>
-			{itemsRender}
+			<CardPadding>
+				{itemsRender}
+			</CardPadding>
 		</Card>
 	);
 };

@@ -100,8 +100,8 @@ const purpleDarkTheme: Theme = {
 
 		bg1: gray.dark1,
 		bg2: gray.dark2,
-		bgComponent1: '#1B1B1D',
-		bgComponent2: '#232325',
+		bgComponent1: '#19191A',
+		bgComponent2: '#202022',
 		bgComponent3: '#2A2A2C',
 		bgComponentShadow1: '#0A0A0A',
 
@@ -113,12 +113,12 @@ const purpleDarkTheme: Theme = {
 		textDistinctOnAccent: '#DFDFEA',
 		textSubtleOnAccent: gray.dark1,
 
-		textHeading1: '#D7D7DA',
-		textHeading2: '#CBCBD1',
-		textHeading3: '#BEBEC9',
-		textRegular: '#ADADB5',
-		textInactive: '#808080',
-		textDisabled: '#616161',
+		textHeading1: '#DADADD',
+		textHeading2: '#D1D1D6',
+		textHeading3: '#C6C6CD',
+		textRegular: '#BDBDC1',
+		textInactive: '#8C8C8C',
+		textDisabled: '#666666',
 		textLink: '#7F7CE8',
 
 		tagTopBackground: color.darkTopBackground
@@ -149,7 +149,7 @@ const purpleLightTheme: Theme = {
 		textHeading1: '#242428',
 		textHeading2: '#2D2D34',
 		textHeading3: '#353540',
-		textRegular: '#4C4C52',
+		textRegular: '#3D3D42',
 		textInactive: '#737373',
 		textDisabled: '#999999',
 		textLink: '#534FC3',
@@ -166,9 +166,9 @@ const yellowDarkTheme: Theme = {
 
 		bg1: gray.dark1,
 		bg2: gray.dark2,
-		bgComponent1: '#1D1C1B',
-		bgComponent2: '#242423',
-		bgComponent3: '#2C2C2A',
+		bgComponent1: '#1A1A1A',
+		bgComponent2: '#212121',
+		bgComponent3: '#2B2B2B',
 		bgComponentShadow1: '#0A0A0A',
 
 		accentGradient: 'linear-gradient(-45deg, #CD9240 0%, #F5B83D 38%, #F5B83D 65%, #F8CF7C 100%)',
@@ -179,12 +179,12 @@ const yellowDarkTheme: Theme = {
 		textDistinctOnAccent: gray.dark1,
 		textSubtleOnAccent: '#46371A',
 
-		textHeading1: '#DAD8D7',
-		textHeading2: '#D0CFCC',
-		textHeading3: '#C8C5BF',
-		textRegular: '#B3B2AF',
-		textInactive: '#808080',
-		textDisabled: '#616161',
+		textHeading1: '#DCDBDB',
+		textHeading2: '#D5D4D2',
+		textHeading3: '#CCCAC7',
+		textRegular: '#C0BFBF',
+		textInactive: '#8C8C8C',
+		textDisabled: '#666666',
 		textLink: '#F7CA6F',
 
 		tagTopBackground: color.darkTopBackground
@@ -215,7 +215,7 @@ const yellowLightTheme: Theme = {
 		textHeading1: '#282624',
 		textHeading2: '#33312E',
 		textHeading3: '#403C35',
-		textRegular: '#52504C',
+		textRegular: '#41403E',
 		textInactive: '#737373',
 		textDisabled: '#999999',
 		textLink: '#82601B',
@@ -232,9 +232,9 @@ const redDarkTheme: Theme = {
 
 		bg1: gray.dark1,
 		bg2: gray.dark2,
-		bgComponent1: '#1C1C1C',
-		bgComponent2: '#242424',
-		bgComponent3: '#2C2C2C',
+		bgComponent1: '#1A1A1A',
+		bgComponent2: '#212121',
+		bgComponent3: '#2B2B2B',
 		bgComponentShadow1: '#0A0A0A',
 
 		accentGradient: 'linear-gradient(135deg, #E078A4 0%, #CB697A 37%, #CB697A 65%, #DA5856 100%)',
@@ -245,12 +245,12 @@ const redDarkTheme: Theme = {
 		textDistinctOnAccent: gray.dark1,
 		textSubtleOnAccent: gray.dark1,
 
-		textHeading1: '#DAD7D7',
-		textHeading2: '#D0CCCD',
-		textHeading3: '#C8BFC0',
-		textRegular: '#B4AEAF',
-		textInactive: '#808080',
-		textDisabled: '#616161',
+		textHeading1: '#DCDADB',
+		textHeading2: '#D2D0D0',
+		textHeading3: '#CCC7C8',
+		textRegular: '#C1BEBE',
+		textInactive: '#8C8C8C',
+		textDisabled: '#666666',
 		textLink: '#DC697D',
 
 		tagTopBackground: color.darkTopBackground
@@ -281,7 +281,7 @@ const redLightTheme: Theme = {
 		textHeading1: '#282425',
 		textHeading2: '#332E2F',
 		textHeading3: '#403537',
-		textRegular: '#524C4D',
+		textRegular: '#413E3F',
 		textInactive: '#737373',
 		textDisabled: '#999999',
 		textLink: '#984553',

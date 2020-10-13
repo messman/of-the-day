@@ -3,7 +3,7 @@ import { IOther, IOtherCount } from 'oftheday-shared';
 import { RegularText, Heading3 } from '@/core/symbol/text';
 import { CardGroup } from '@/core/card/card-group';
 import { iconTypes, SVGIconType } from '@/core/symbol/icon';
-import { Card } from '@/core/card/card';
+import { Card, CardPadding } from '@/core/card/card';
 import { spacing } from '@/core/layout/common';
 import { EqualCardFlow } from '@/core/card/card-flow';
 
@@ -49,8 +49,10 @@ const Top: React.FC<TopProps> = (props) => {
 
 	return (
 		<Card title={title} icon={icon}>
-			<Heading3 isMaxLineLength={false} textAlign='center'>{createCountText(firstCount)}</Heading3>
-			{countsText}
+			<CardPadding>
+				<Heading3 isMaxLineLength={false} textAlign='center'>{createCountText(firstCount)}</Heading3>
+				{countsText}
+			</CardPadding>
 		</Card>
 	);
 };

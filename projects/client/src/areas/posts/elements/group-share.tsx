@@ -1,9 +1,8 @@
 import * as React from 'react';
 import { IPost, IPostCustom, IPostImage, IPostMusic, IPostQuote, IPostVideo } from 'oftheday-shared';
-import { CardGroup } from '@/core/card/card-group';
 import { ColumnCardFlow, useMaximumRowChildren } from '@/core/card/card-flow';
 import { CardContainer } from '@/core/card/card';
-import { ApplicationMaxWidth, useResponsiveEdgeSpacing } from '@/core/layout/common';
+import { ApplicationMaxWidth, spacing, Spacing, useResponsiveEdgeSpacing } from '@/core/layout/common';
 import { Music } from './music';
 import { Video } from './video';
 import { Image } from './image';
@@ -77,11 +76,11 @@ export const ShareGroup: React.FC<PostProps> = (props) => {
 	}
 
 	return (
-		<CardGroup>
+		<Spacing margin={spacing.grand.top}>
 			<ApplicationMaxWidth>
 				{cardFlowRender}
 			</ApplicationMaxWidth>
-		</CardGroup>
+		</Spacing>
 	);
 };
 

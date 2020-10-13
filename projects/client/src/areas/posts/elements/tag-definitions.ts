@@ -1,9 +1,11 @@
 import { TagProps } from './tag';
 import { Theme, ThemePickColor } from '@/core/style/theme';
+import { iconTypes, SVGIconType } from '@/core/symbol/icon';
 
 interface DynamicTagProps {
 	foregroundColor: ThemePickColor;
 	backgroundColor: ThemePickColor;
+	icon?: SVGIconType;
 }
 
 const defaultTag: DynamicTagProps = {
@@ -18,7 +20,8 @@ const commonTagProps: { [key: string]: DynamicTagProps; } = {
 	},
 	top: {
 		foregroundColor: c => c.tagTopForeground,
-		backgroundColor: c => c.tagTopBackground
+		backgroundColor: c => c.tagTopBackground,
+		icon: iconTypes.tagTop
 	},
 	work: defaultTag,
 	relaxation: defaultTag,
@@ -45,6 +48,7 @@ export function createTagProps(tags: string[], theme: Theme): TagProps[] {
 			value: tag,
 			foregroundColor: dynamicTagProp.foregroundColor(themeColor),
 			backgroundColor: dynamicTagProp.backgroundColor(themeColor),
+			icon: dynamicTagProp.icon
 		};
 	});
 }

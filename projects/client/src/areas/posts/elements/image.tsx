@@ -4,11 +4,11 @@ import { Spacing, spacing } from '@/core/layout/common';
 import { RegularText } from '@/core/symbol/text';
 import { tStyled } from '@/core/style/styled';
 import { OutLink } from '@/core/link';
-import { borderRadiusStyle } from '@/core/style/common';
 import { iconTypes } from '@/core/symbol/icon';
 import { LayoutBreakpoint } from '@/services/layout/window-layout';
 import { createPostsElement, PostArchiveLinks, PostCard, ShowEmbeddedContent } from './elements-common';
 import { TagList, useTags } from './tag';
+import { CardPadding } from '@/core/card/card';
 
 export const Image = createPostsElement<IPostImage>((props) => {
 	const { isForArchive, archivePost } = props;
@@ -30,9 +30,11 @@ export const Image = createPostsElement<IPostImage>((props) => {
 
 	return (
 		<PostCard title='Image' icon={iconTypes.image} isForArchive={isForArchive} archivePost={archivePost}>
-			<TagList margin={spacing.large.vertical} tags={tagsStrings} />
-			<RegularText show={description} margin={spacing.small.top}>{description}</RegularText>
-			<RegularText show={sourceRender} margin={spacing.nudge.top}>From {sourceRender}</RegularText>
+			<CardPadding>
+				<TagList margin={spacing.small.vertical} tags={tagsStrings} />
+				<RegularText show={description} margin={spacing.small.top}>{description}</RegularText>
+				<RegularText show={sourceRender} margin={spacing.nudge.top}>From {sourceRender}</RegularText>
+			</CardPadding>
 			<Spacing margin={spacing.large.top}>
 				<ShowEmbeddedContent isForArchive={isForArchive}>
 					<a href={link} target='_blank' rel="noreferrer noopener" title='Click to open in a new tab'>
@@ -49,6 +51,4 @@ const ConstrainedImage = tStyled.img`
 	width: 100%;
 	max-width: ${LayoutBreakpoint.tablet}px;
 	max-height: 80vh;
-
-	${borderRadiusStyle};
 `;

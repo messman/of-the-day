@@ -5,9 +5,10 @@ import { spacing, Spacing } from '@/core/layout/common';
 import { RegularText, SmallText, Heading3 } from '@/core/symbol/text';
 import { TagList, useTags } from './tag';
 import { ActionLink } from '@/core/link';
-import { borderRadiusStyle } from '@/core/style/common';
 import { iconTypes } from '@/core/symbol/icon';
 import { createPostsElement, PostArchiveLinks, PostCard, ShowEmbeddedContent } from './elements-common';
+import { CardPadding } from '@/core/card/card';
+import { FontWeight } from '@/core/style/theme';
 
 export const Video = createPostsElement<IPostVideo>((props) => {
 	const { isForArchive, archivePost } = props;
@@ -29,19 +30,23 @@ export const Video = createPostsElement<IPostVideo>((props) => {
 
 	return (
 		<PostCard title='Video' icon={iconTypes.video} isForArchive={isForArchive} archivePost={archivePost}>
-			<Spacing margin={spacing.medium.bottom}>
-				<VideoTitle video={props.value} />
-			</Spacing>
-			<TagList margin={spacing.large.vertical} tags={tagsStrings} />
-			<RegularText margin={spacing.medium.vertical} show={description && !isRemoved}>
-				{description}
-			</RegularText>
+			<CardPadding>
+				<Spacing margin={spacing.large.bottom}>
+					<VideoTitle video={props.value} />
+				</Spacing>
+				<TagList margin={spacing.small.vertical} tags={tagsStrings} />
+				<RegularText margin={spacing.small.vertical} show={description && !isRemoved}>
+					{description}
+				</RegularText>
+			</CardPadding>
 			<Spacing margin={spacing.large.top}>
 				<ShowEmbeddedContent isForArchive={isForArchive && !isRemoved}>
 					{internalVideoRender}
 				</ShowEmbeddedContent>
 			</Spacing>
-			<PostArchiveLinks isForArchive={!!isForArchive} isVideo={true} isTop={isTop} />
+			<CardPadding>
+				<PostArchiveLinks isForArchive={!!isForArchive} isVideo={true} isTop={isTop} />
+			</CardPadding>
 		</PostCard>
 	);
 }, IPostElementType.video, isValidPostElement.video);
@@ -84,12 +89,16 @@ const VideoTitle: React.FC<VideoTitleProps> = (props) => {
 
 	return (
 		<>
-			<Heading3 isItalic={true}>{customTitle}</Heading3>
-			<Heading3 show={customTitleCreator}>{customTitleCreator}</Heading3>
+			<Heading3>{customTitle}</Heading3>
+			<Heading3 show={customTitleCreator} fontWeight={FontWeight.medium}>from <InlineHeading3>{customTitleCreator}</InlineHeading3></Heading3>
 			{originalTitleLink}
 		</>
 	);
 };
+
+const InlineHeading3 = tStyled(Heading3)`
+	display: inline;
+`;
 
 export interface YouTubeVideoFrameProps {
 	url: string;
@@ -127,6 +136,5 @@ const VideoContainer = tStyled.div`
 		height: 100%;
 
 		overflow: hidden;
-		${borderRadiusStyle};
 	}
 `;

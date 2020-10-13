@@ -1,10 +1,9 @@
 import * as React from 'react';
 import { IPost, isValidPostElement } from 'oftheday-shared';
 import { Notes, Schedule, Location } from './basics';
-import { CardGroup } from '@/core/card/card-group';
 import { EndThoughts } from './end-thoughts';
 import { ColumnCardFlow, RowCardFlow, useMaximumRowChildren } from '@/core/card/card-flow';
-import { ApplicationMaxWidth, Spacing, useResponsiveEdgeSpacing } from '@/core/layout/common';
+import { ApplicationMaxWidth, spacing, Spacing, useResponsiveEdgeSpacing } from '@/core/layout/common';
 
 interface PostProps {
 	post: IPost;
@@ -92,12 +91,11 @@ export const ContextGroup: React.FC<PostProps> = (props) => {
 		);
 	}
 
-
 	return (
-		<CardGroup isAutoAlternateBackground={true}>
+		<Spacing margin={spacing.grand.top}>
 			<ApplicationMaxWidth>
 				{cardFlowRender}
 			</ApplicationMaxWidth>
-		</CardGroup>
+		</Spacing>
 	);
 };

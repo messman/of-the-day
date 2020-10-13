@@ -3,6 +3,7 @@ import { IOther } from 'oftheday-shared';
 import { spacing, Spacing } from '@/core/layout/common';
 import { OutLink } from '@/core/link';
 import { Heading2 } from '@/core/symbol/text';
+import { CardPadding } from '@/core/card/card';
 
 export interface ListLinksProps {
 	other: IOther;
@@ -19,13 +20,15 @@ export const ListLinks: React.FC<ListLinksProps> = (props) => {
 
 	return (
 		<Spacing margin={horizontal}>
-			<Heading2>Content Links</Heading2>
-			<Spacing margin={spacing.nudge.top} show={spotifyLink}>
-				<OutLink href={spotifyLink}>Spotify Playlist</OutLink> of all songs
+			<CardPadding>
+				<Heading2>Content Links</Heading2>
+				<Spacing margin={spacing.nudge.top} show={spotifyLink}>
+					<OutLink href={spotifyLink}>Spotify Playlist</OutLink> of all songs
 			</Spacing>
-			<Spacing margin={spacing.nudge.top} show={youTubeLink}>
-				<OutLink href={youTubeLink}>YouTube Playlist</OutLink> of all videos
+				<Spacing margin={spacing.nudge.top} show={youTubeLink}>
+					<OutLink href={youTubeLink}>YouTube Playlist</OutLink> of all videos
 			</Spacing>
+			</CardPadding>
 		</Spacing>
 	);
 };

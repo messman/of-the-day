@@ -28,6 +28,6 @@ export const Location = createPostsElement<IPostBasics>((props) => {
 	const { location } = props.value!;
 
 	return (
-		<TextCard title='Location' icon={iconTypes.compass} heading={location} />
+		<TextCard title='Location' icon={iconTypes.compass} text={location} />
 	);
 }, IPostElementType.location, isValidPostElement.location);

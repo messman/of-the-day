@@ -107,7 +107,7 @@ export const postsTestData: IPostResponse = {
 			music: {
 				title: 'This is America',
 				artist: 'Childish Gambino',
-				year: 2016,
+				year: '2016',
 				spotifyLink: 'https://open.spotify.com/track/0b9oOr2ZgvyQu88wzixux9?si=XJ4XBBfQQ-m8FfcqOeWFgQ',
 				youTubeLink: 'https://youtu.be/VYOjWnS4cMY',
 				useYouTube: true,
@@ -176,7 +176,7 @@ export const postsTestData: IPostResponse = {
 			music: {
 				title: 'Armor',
 				artist: 'Sara Bareilles',
-				year: 2019,
+				year: '2019',
 				spotifyLink: 'https://open.spotify.com/track/4kO1W2nNKj6C9h5vm31sdX?si=c0qrhE6FR8-mxUUBgO1cLw',
 				youTubeLink: 'https://youtu.be/QkNym9S8uMw',
 				useYouTube: true,
@@ -254,7 +254,7 @@ export const postsTestData: IPostResponse = {
 			music: {
 				title: 'Dirty Deeds Done Dirt Cheap',
 				artist: 'AC/DC',
-				year: 2050,
+				year: '2050',
 				spotifyLink: 'https://open.spotify.com/track/2d4e45fmUnguxh6yqC7gNT?si=v69lcBmyTj-q8ja6kIIVjQ',
 				youTubeLink: 'https://youtu.be/UIE4UjBtx-o',
 				useYouTube: true,

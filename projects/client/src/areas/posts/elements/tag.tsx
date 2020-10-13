@@ -1,10 +1,12 @@
 import * as React from 'react';
 import { tStyled } from '@/core/style/styled';
 import { borderRadiusStyle } from '@/core/style/common';
-import { FontSize } from '@/core/symbol/text';
+import { FontSize, SmallText } from '@/core/symbol/text';
 import { spacing, Spacing } from '@/core/layout/common';
-import { useCurrentTheme } from '@/core/style/theme';
+import { FontWeight, useCurrentTheme } from '@/core/style/theme';
 import { createTagProps } from './tag-definitions';
+import { Icon, SVGIconType } from '@/core/symbol/icon';
+import { FlexRow } from '@messman/react-common';
 
 
 export interface TagProps extends TagContainerProps {
@@ -12,18 +14,32 @@ export interface TagProps extends TagContainerProps {
 }
 
 export const Tag: React.FC<TagProps> = (props) => {
-	const { value, backgroundColor, foregroundColor } = props;
+	const { value, backgroundColor, foregroundColor, icon } = props;
+
+	const iconRender = icon ? (
+		<PaddedIcon type={icon} height={FontSize.textSmall} fillColor={() => foregroundColor} />
+	) : null;
 
 	return (
 		<TagContainer backgroundColor={backgroundColor} foregroundColor={foregroundColor}>
-			{value}
+			<FlexRow alignItems='center'>
+				{iconRender}
+				<SmallText fontWeight={FontWeight.bold} color={() => foregroundColor}>
+					{value}
+				</SmallText>
+			</FlexRow>
 		</TagContainer>
 	);
 };
 
+const PaddedIcon = tStyled(Icon)`
+	margin-right: ${spacing.nudge.value};
+`;
+
 interface TagContainerProps {
 	foregroundColor: string;
 	backgroundColor: string;
+	icon?: SVGIconType;
 }
 
 const negativeTopMargin = `-${spacing.small.value} 0 0 0`;
@@ -36,8 +52,6 @@ const TagContainer = tStyled.div<TagContainerProps>`
 	margin-right: ${spacing.small.value};
 	white-space: nowrap;
 	border: none;
-	font-size: ${FontSize.textSmall};
-	color: ${p => p.foregroundColor};
 	background-color: ${p => p.backgroundColor};
 
 	&:last-child {

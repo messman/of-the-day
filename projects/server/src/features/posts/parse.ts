@@ -36,7 +36,7 @@ export function parsePost(row: any[], dayReference: IPostDayReference): IPost {
 		music: passMusic({
 			title: stringAtCol('N'),
 			artist: stringAtCol('O'),
-			year: tryParseInt(stringAtCol('P'), -1),
+			year: stringAtCol('P'),
 			isNSFW: !!stringAtCol('Q'),
 			isTop: !!stringAtCol('R'),
 			tags: keepTruthy(stringAtCol('S'), stringAtCol('T'), stringAtCol('U')),

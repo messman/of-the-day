@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { spacing } from '../layout/common';
 import { Heading3, RegularText } from '../symbol/text';
-import { CardProps, Card } from './card';
+import { CardProps, Card, CardPadding } from './card';
 
 export interface TextCardProps extends CardProps {
 	heading?: string | null;
@@ -36,9 +36,11 @@ export const TextCard: React.FC<TextCardProps> = (props) => {
 
 	return (
 		<Card title={title} icon={icon}>
-			{headingRender}
-			{finalTextRender}
-			{children}
+			<CardPadding>
+				{headingRender}
+				{finalTextRender}
+				{children}
+			</CardPadding>
 		</Card>
 	);
 };

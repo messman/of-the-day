@@ -66,7 +66,8 @@ export interface IPostEndThoughts {
 export interface IPostMusic extends IPostTopElement, IPostNSFWElement {
 	title: string;
 	artist: string;
-	year: number;
+	/** May hold multiple years for a cover. */
+	year: string;
 	tags: string[];
 	spotifyLink: string;
 	youTubeLink: string;

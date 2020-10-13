@@ -1,4 +1,4 @@
-import { Card, CardProps } from '@/core/card/card';
+import { Card, CardPadding, CardProps } from '@/core/card/card';
 import { spacing } from '@/core/layout/common';
 import { ActionLink } from '@/core/link';
 import { SeeMoreButton } from '@/core/style/common';
@@ -123,7 +123,11 @@ export const ShowEmbeddedContent: React.FC<ShowEmbeddedContentProps> = (props) =
 			setIsHidden(false);
 		}
 
-		return <ActionLink onClick={onClick}>Show Embedded Content</ActionLink>;
+		return (
+			<CardPadding>
+				<ActionLink onClick={onClick}>Show Embedded Content</ActionLink>
+			</CardPadding>
+		);
 	}
 	return <>{children}</>;
 };

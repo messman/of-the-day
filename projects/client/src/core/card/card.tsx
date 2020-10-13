@@ -1,6 +1,7 @@
 import { FlexColumn, FlexRow } from '@messman/react-common';
 import * as React from 'react';
 import { Spacing, spacing } from '../layout/common';
+import { borderRadiusStyle } from '../style/common';
 import { tStyled } from '../style/styled';
 import { Icon, SVGIconType } from '../symbol/icon';
 import { FontSize, Heading2, RegularText } from '../symbol/text';
@@ -23,8 +24,8 @@ export const Card: React.FC<CardProps> = (props) => {
 
 	return (
 		<CardContainer>
-			<BoxShadow>
-				<Background>
+			<Background>
+				<TopCardPadding>
 					<FlexRow justifyContent='space-between' alignItems='center'>
 						<Heading2>{title}</Heading2>
 						{iconRender}
@@ -32,13 +33,13 @@ export const Card: React.FC<CardProps> = (props) => {
 					<Spacing show={!!subtitle} margin={spacing.small.top}>
 						<RegularText>{subtitle}</RegularText>
 					</Spacing>
-					<Spacing show={!!children} margin={spacing.large.top}>
-						<Spacing margin={spacing.small.bottom}>
-							{children}
-						</Spacing>
+				</TopCardPadding>
+				<Spacing show={!!children} margin={spacing.large.top}>
+					<Spacing margin={spacing.medium.bottom}>
+						{children}
 					</Spacing>
-				</Background>
-			</BoxShadow>
+				</Spacing>
+			</Background>
 		</CardContainer>
 	);
 };
@@ -47,16 +48,22 @@ export const CardContainer = tStyled(FlexColumn)`
 	position: relative;
 `;
 
-const BoxShadow = tStyled(FlexColumn)`
-	box-shadow: 0 2px 3px 1px ${p => p.theme.color.bgComponentShadow1};
-	overflow: hidden;
-`;
-
 const Background = tStyled.div`
 	flex: 1;
+	box-shadow: 0 2px 4px 2px ${p => p.theme.color.bgComponentShadow1};
+	overflow: hidden;
 	background-color: ${p => p.theme.color.bgComponent1};
 	border: 1px solid ${p => p.theme.color.bgComponent3};
+	${borderRadiusStyle}
+`;
+
+export const CardPadding = tStyled.div`
+	padding: ${spacing.medium.horizontal};
+`;
+
+const TopCardPadding = tStyled.div`
 	padding: ${spacing.medium.value};
+	padding-bottom: 0;
 `;
 
 // const ColorHeader = tStyled.div`
