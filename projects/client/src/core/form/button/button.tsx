@@ -5,7 +5,7 @@ import { Icon, SVGIconType } from '@/core/symbol/icon';
 import { FontSize } from '@/core/symbol/text';
 import * as React from 'react';
 
-export interface ButtonProps extends Pick<React.HTMLAttributes<HTMLButtonElement>, 'onClick' | 'title'> {
+export interface ButtonProps extends Pick<React.HTMLAttributes<HTMLButtonElement>, 'onClick' | 'title' | 'className'> {
 	isDisabled?: boolean;
 	isSelected?: boolean;
 	isSpecial?: boolean;
@@ -14,13 +14,14 @@ export interface ButtonProps extends Pick<React.HTMLAttributes<HTMLButtonElement
 }
 
 export const Button: React.FC<ButtonProps> = (props) => {
-	const { isDisabled, isSelected, isSpecial, iconBefore, iconAfter, onClick, title, children } = props;
+	const { className, isDisabled, isSelected, isSpecial, iconBefore, iconAfter, onClick, title, children } = props;
 
 	const iconRenderBefore = iconBefore ? <LeftIcon type={iconBefore} height={FontSize.textRegular} /> : null;
 	const iconRenderAfter = iconAfter ? <RightIcon type={iconAfter} height={FontSize.textRegular} /> : null;
 
 	return (
 		<InnerButton
+			className={className}
 			disabled={!!isDisabled}
 			$isDisabled={!!isDisabled}
 			$isSelected={!!isSelected}

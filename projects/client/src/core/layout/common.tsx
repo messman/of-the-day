@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { tStyled, tCss, StyledFC } from '../style/styled';
-import { ThemePickColor } from '../style/theme';
+import { tStyled, StyledFC } from '../style/styled';
 import { LayoutBreakpoint, lineBreakpoint } from '@/services/layout/window-layout';
 import { useWindowLayout } from '@messman/react-common';
 
@@ -80,11 +79,10 @@ export interface SpacingProps {
 	textAlign?: string | null;
 	isRelative?: boolean;
 	isInline?: boolean;
-	backgroundColor?: ThemePickColor;
 }
 
 export const Spacing: StyledFC<SpacingProps> = (props) => {
-	const { className, as, children, show, margin, padding, textAlign, isRelative, isInline, backgroundColor } = props;
+	const { className, as, children, show, margin, padding, textAlign, isRelative, isInline } = props;
 
 	if ((show !== undefined) && (!show || !children)) {
 		return null;
@@ -94,44 +92,47 @@ export const Spacing: StyledFC<SpacingProps> = (props) => {
 		<InternalSpacing
 			className={className}
 			as={as}
-			dataMargin={margin}
-			dataPadding={padding}
-			dataTextAlign={textAlign}
-			isRelative={isRelative}
-			isInline={isInline}
-			dataBackgroundColor={backgroundColor}>
+			$margin={margin}
+			$padding={padding}
+			$isRelative={isRelative}
+			$isInline={isInline}
+			$textAlign={textAlign}
+		>
 			{children}
 		</InternalSpacing>
 	);
 };
 
 interface InternalSpacingProps {
-	dataMargin?: string | null;
-	dataPadding?: string | null;
-	isRelative?: boolean;
-	isInline?: boolean;
-	dataTextAlign?: string | null;
-	dataBackgroundColor?: ThemePickColor;
+	$margin?: string | null;
+	$padding?: string | null;
+	$isRelative?: boolean;
+	$isInline?: boolean;
+	$textAlign?: string | null;
 }
 
-const relativeStyle = tCss`
-	position: relative;
-`;
+export const InternalSpacing = tStyled.div.attrs((p: InternalSpacingProps) => {
+	const style: Partial<CSSStyleDeclaration> = {};
 
-const inlineBlockStyle = tCss`
-	display: inline-block;
-`;
+	if (p.$margin) {
+		style.margin = p.$margin;
+	}
+	if (p.$padding) {
+		style.order = p.$padding;
+	}
+	if (p.$isRelative) {
+		style.position = 'relative';
+	}
+	if (p.$isInline) {
+		style.display = 'inline-block';
+	}
+	if (p.$textAlign) {
+		style.textAlign = p.$textAlign;
+	}
 
-export const InternalSpacing = tStyled.div<InternalSpacingProps>`
+	return {
+		style: style
+	};
+})`
 	vertical-align: top;
-
-	${p => p.dataMargin && ('margin: ' + p.dataMargin + ';')}
-	${p => p.dataPadding && ('padding: ' + p.dataPadding + ';')}
-
-	${p => p.isRelative && relativeStyle}
-	${p => p.isInline && inlineBlockStyle}
-
-	${p => p.dataTextAlign && ('text-align: ' + p.dataTextAlign + ';')}
-
-	${p => p.dataBackgroundColor && ('background-color: ' + p.dataBackgroundColor(p.theme.color) + ';')}
 `;

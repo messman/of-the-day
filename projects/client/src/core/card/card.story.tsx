@@ -28,11 +28,6 @@ export const TestCard = decorate('Card', null, () => {
 					{textContentRender}
 				</Card>
 			</Spacing>
-			<Spacing padding={padding} backgroundColor={c => c.bg2}>
-				<Card title={title} icon={iconTypes.activity}>
-					{textContentRender}
-				</Card>
-			</Spacing>
 		</div>
 	);
 });

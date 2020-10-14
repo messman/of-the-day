@@ -1,7 +1,6 @@
+import { Button } from '@/core/form/button/button';
 import { spacing } from '@/core/layout/common';
-import { borderRadiusStyle } from '@/core/style/common';
 import { tStyled } from '@/core/style/styled';
-import { FontSize } from '@/core/symbol/text';
 import { filterPresets, IArchiveFilter, IArchiveFilterPreset } from 'oftheday-shared';
 import * as React from 'react';
 import { archiveFilterPresetForDisplay } from './filter-common';
@@ -21,48 +20,37 @@ export const FilterPresets: React.FC<FilterPresetsProps> = (props) => {
 	}
 
 	return (
-		<>
-			<PresetButton
-				$isSelected={selectedFilter?.preset === IArchiveFilterPreset.allTop}
+		<ButtonsContainer>
+			<Button
+				isSelected={selectedFilter?.preset === IArchiveFilterPreset.allTop}
 				onClick={onClick(IArchiveFilterPreset.allTop)}
 			>
 				{archiveFilterPresetForDisplay.allTop}
-			</PresetButton>
-			<PresetButton
-				$isSelected={selectedFilter?.preset === IArchiveFilterPreset.random7Days}
+			</Button>
+			<Button
+				isSelected={selectedFilter?.preset === IArchiveFilterPreset.random7Days}
 				onClick={onClick(IArchiveFilterPreset.random7Days)}
 			>
 				{archiveFilterPresetForDisplay.random7Days}
-			</PresetButton>
-			<PresetButton
-				$isSelected={selectedFilter?.preset === IArchiveFilterPreset.allMusic}
+			</Button>
+			<Button
+				isSelected={selectedFilter?.preset === IArchiveFilterPreset.allMusic}
 				onClick={onClick(IArchiveFilterPreset.allMusic)}
 			>
 				{archiveFilterPresetForDisplay.allMusic}
-			</PresetButton>
-			<PresetButton
-				$isSelected={selectedFilter?.preset === IArchiveFilterPreset.allVideo}
+			</Button>
+			<Button
+				isSelected={selectedFilter?.preset === IArchiveFilterPreset.allVideo}
 				onClick={onClick(IArchiveFilterPreset.allVideo)}
 			>
 				{archiveFilterPresetForDisplay.allVideo}
-			</PresetButton>
-		</>
+			</Button>
+		</ButtonsContainer>
 	);
 };
 
-interface PresetButtonProps {
-	$isSelected: boolean;
-}
-
-const PresetButton = tStyled.div<PresetButtonProps>`
-	text-align: center;
-	cursor: pointer;
-	display: block;
-	border: 1px solid ${p => p.$isSelected ? p.theme.color.textAccentOnBackground : p.theme.color.bgComponent3};
-	background-color: ${p => p.theme.color.bgComponent2};
-	${borderRadiusStyle}
-	margin-top: ${spacing.medium.value};
-	padding: ${spacing.medium.value} ${spacing.large.value};
-	font-size: ${FontSize.textRegular};
-	color: ${p => p.$isSelected ? p.theme.color.textAccentOnBackground : p.theme.color.textRegular};
+const ButtonsContainer = tStyled.div`
+	button + button {
+		margin-top: ${spacing.medium.value};
+	}
 `;
