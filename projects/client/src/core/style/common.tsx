@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { tCss, tStyled } from '@/core/style/styled';
+import { FlexColumn } from '@messman/react-common';
 
 export const borderRadiusValue: string = '.25rem';
 export const borderRadiusStyle = tCss`
@@ -64,4 +65,38 @@ const HighlightBarVertical = tStyled.div<HighlightBarInnerProps>`
 	width: ${highlightThickness}px;
 	top: ${p => p.$percentOffset}%;
 	transition-property: top;
+`;
+
+export interface EmptySpaceHackProps {
+	height: number;
+	showBackground?: boolean;
+}
+
+/**
+ * Prevents us being able to see between the cracks of the two stickies.
+ * Also functions as the marker for our scrolling.
+ */
+export const EmptySpaceHack = React.forwardRef<HTMLDivElement, EmptySpaceHackProps>((props, ref) => {
+	return (
+		<EmptySpaceContainer justifyContent='flex-end'>
+			<EmptySpace ref={ref} $height={props.height} $showBackground={!!props.showBackground} />
+		</EmptySpaceContainer>
+	);
+});
+
+const EmptySpaceContainer = tStyled(FlexColumn)`
+	height: 0;
+	width: 100%;
+`;
+
+interface EmptySpaceProps {
+	$height: number;
+	$showBackground: boolean;
+}
+
+const EmptySpace = tStyled.div<EmptySpaceProps>`
+	flex: none;
+	height: ${p => p.$height}px;
+	pointer-events: none;
+	background-color: ${p => p.$showBackground ? p.theme.color.bg1 : 'transparent'};
 `;

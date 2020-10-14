@@ -3,59 +3,68 @@ import { tStyled } from '@/core/style/styled';
 import { Flex, FlexColumn, FlexRow } from '@messman/react-common';
 import { borderRadiusStyle } from '@/core/style/common';
 import { MenuBarItems } from './menu-bar-items';
-import { useSpring, animated } from 'react-spring';
-import { spacing } from '@/core/layout/common';
+import { animated, useSpring } from 'react-spring';
 import { Icon, iconTypes } from '@/core/symbol/icon';
+import { FontSize, Heading2 } from '@/core/symbol/text';
+import { spacing } from '@/core/layout/common';
 import { FontWeight } from '@/core/style/theme';
-import { Heading1 } from '@/core/symbol/text';
 
-/** Use an explicit pixel height for the upper menu bar to be used for sticky. */
-const upperMenuBarContentHeightPixels = 50;
-const upperMenuBarColorHeightPixels = 8;
-export const upperMenuBarHeightPixels = {
-	content: upperMenuBarContentHeightPixels,
-	color: upperMenuBarColorHeightPixels,
-	total: upperMenuBarContentHeightPixels + upperMenuBarColorHeightPixels
-};
+export const upperMenuBarHeight = 50;
+export const stickyMenuBarColorHeight = 8;
+export const totalUpperStickyMenuBarHeight = upperMenuBarHeight + stickyMenuBarColorHeight;
 
-const upperMenuBarTitleHeight = '25px';
-const upperMenuBarMaxWidth = '500px';
+// Used so that we have enough space to render our title.
+const upperMenuCenterWidth = '500px';
 
-export interface UpperLowerMenuBarProps {
+
+export interface UpperMenuBarProps {
 	isMobileWidth: boolean;
 	onPathClick: () => void;
 }
 
-export const UpperMenuBar: React.FC<UpperLowerMenuBarProps> = (props) => {
+export const UpperMenuBar: React.FC<UpperMenuBarProps> = (props) => {
 	const { isMobileWidth, onPathClick } = props;
 	if (isMobileWidth) {
-		return null;
+		return (
+			<FakeStickyMenuBarColor />
+		);
 	}
 
 	// Add in the upper menu bar content (links, etc)
 	// Note that in the upper menu bar, height of the container is set explicitly. We don't need padding.
 	return (
-		<UpperMenuBarCenter flex='none' justifyContent='center' alignItems='center'>
-			<UpperMenuBarContainer flex='none'>
-				<MenuBarItems isUpper={true} onPathClick={onPathClick} />
-			</UpperMenuBarContainer>
-		</UpperMenuBarCenter>
+		<>
+			<UpperMenuBarCenter flex='none' justifyContent='center' alignItems='center'>
+				<UpperMenuBarContainer flex='none'>
+					<MenuBarItems isUpper={true} onPathClick={onPathClick} />
+				</UpperMenuBarContainer>
+			</UpperMenuBarCenter>
+			<FakeStickyMenuBarColor />
+			<FakeUpperMenuBar />
+		</>
 	);
 };
+
+const FakeStickyMenuBarColor = tStyled.div`
+	height: ${stickyMenuBarColorHeight}px;
+`;
+
+const FakeUpperMenuBar = tStyled.div`
+	height: ${upperMenuBarHeight}px;
+`;
 
 const UpperMenuBarCenter = tStyled(FlexColumn)`
 	position: relative;
 	height: 0;
 	overflow: visible;
 	z-index: 1;
-	margin-bottom: calc(${upperMenuBarHeightPixels.content}px / 2);
 `;
 
 const UpperMenuBarContainer = tStyled(FlexRow)`
 	position: relative;
 	background-color: ${p => p.theme.color.bgComponent1};
-	width: ${upperMenuBarMaxWidth};
-	height: ${upperMenuBarContentHeightPixels}px;
+	width: ${upperMenuCenterWidth};
+	height: ${upperMenuBarHeight}px;
 	${borderRadiusStyle}
 	border: 1px solid ${p => p.theme.color.bgComponent3};
 	box-shadow: 0 3px 6px 0 ${p => p.theme.color.bgComponentShadow1};
@@ -73,14 +82,12 @@ export interface UpperStickyMenuBarProps {
 export const UpperStickyMenuBar: React.FC<UpperStickyMenuBarProps> = (props) => {
 	const { isShowing, isMobileWidth, isDesktopWidth, onScrollToTop, onPathClick } = props;
 
-	const springProps = useSpring({ top: isShowing ? '0px' : `-${upperMenuBarHeightPixels.total}px` });
+	const springProps = useSpring({ top: isShowing ? '0px' : `-${totalUpperStickyMenuBarHeight}px` });
 
 	const topLeftTitle = isDesktopWidth ? (
 		<UpperMenuStickyTitleClickContainer onClick={onScrollToTop}>
-			<SpacedTitle>
-				<SpacedBrandIcon type={iconTypes.brand} height={upperMenuBarTitleHeight} fillColor={c => c.textHeading1} />
-				<span>Of The Day</span>
-			</SpacedTitle>
+			<SpacedBrandIcon type={iconTypes.brand} height={FontSize.heading2} fillColor={c => c.textHeading1} />
+			<SpacedTitle>Of The Day</SpacedTitle>
 		</UpperMenuStickyTitleClickContainer>
 	) : null;
 
@@ -115,7 +122,7 @@ const UpperStickyMenuBarAbsolute = tStyled(animated.div)`
 `;
 
 const UpperStickyMenuBarColor = tStyled.div`
-	height: ${upperMenuBarHeightPixels.color}px;
+	height: ${stickyMenuBarColorHeight}px;
 	background: ${p => p.theme.color.accentGradient};
 	cursor: pointer;
 `;
@@ -125,14 +132,14 @@ const UpperStickyMenuBarCenter = tStyled.div`
 	flex-direction: row;
 	justify-content: center;
 	position: absolute;
-	height: ${upperMenuBarContentHeightPixels}px;
+	height: ${upperMenuBarHeight}px;
 	width: 100%;
 	background-color: ${p => p.theme.color.bg1};
 	border-bottom: 1px solid ${p => p.theme.color.bgComponent3};
 `;
 
 const UpperStickyMenuBarContainer = tStyled(FlexRow)`
-	width: ${upperMenuBarMaxWidth};
+	width: ${upperMenuCenterWidth};
 `;
 
 const UpperMenuStickyTitleClickContainer = tStyled.div`
@@ -146,31 +153,10 @@ const UpperMenuStickyTitleClickContainer = tStyled.div`
 	font-weight: ${FontWeight.bold};
 `;
 
-const SpacedTitle = tStyled(Heading1)`
+const SpacedTitle = tStyled(Heading2)`
 	display: inline-block;
-	font-size: ${upperMenuBarTitleHeight};
 `;
 
 const SpacedBrandIcon = tStyled(Icon)`
 	margin: ${spacing.small.right};
-`;
-
-export const LowerMenuBar: React.FC<UpperLowerMenuBarProps> = (props) => {
-	const { isMobileWidth, onPathClick } = props;
-
-	if (!isMobileWidth) {
-		return null;
-	}
-
-	return (
-		<LowerMenuBarContainer flex='none'>
-			<MenuBarItems isUpper={false} onPathClick={onPathClick} />
-		</LowerMenuBarContainer>
-	);
-};
-
-const LowerMenuBarContainer = tStyled(FlexRow)`
-	position: relative;
-	background-color: ${p => p.theme.color.bg2};
-	border-top: 1px solid ${p => p.theme.color.bgComponent3};
 `;

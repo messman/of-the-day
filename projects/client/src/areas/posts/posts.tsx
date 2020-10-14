@@ -8,17 +8,15 @@ import { Spacing, spacing } from '@/core/layout/common';
 import { RegularText } from '@/core/symbol/text';
 
 export interface PostsProps {
-	isUpper: boolean;
 	offsetPixels: number;
 	rootElement: HTMLElement | null;
-	onScrollTop: () => void;
 }
 
 const defaultPosts: IPost[] = [];
 
 export const Posts: React.FC<PostsProps> = (props) => {
 
-	const { rootElement, offsetPixels, isUpper, onScrollTop } = props;
+	const { rootElement, offsetPixels } = props;
 
 	const postPromise = usePostResponse();
 	const { data, error, isStarted } = postPromise;
@@ -37,7 +35,6 @@ export const Posts: React.FC<PostsProps> = (props) => {
 
 	function onPostChosen(newActivePostIndex: number) {
 		setActivePostIndex(newActivePostIndex);
-		onScrollTop();
 	}
 
 	if (isStarted || error) {
@@ -59,11 +56,9 @@ export const Posts: React.FC<PostsProps> = (props) => {
 			<PostsHeader
 				rootElement={rootElement}
 				offsetPixels={offsetPixels}
-				isUpper={isUpper}
 				posts={posts}
 				activePostIndex={activePostIndex}
 				onPostChosen={onPostChosen}
-				onScrollTop={onScrollTop}
 			/>
 			<Post post={activePost} />
 		</>

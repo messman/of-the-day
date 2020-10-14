@@ -2,7 +2,7 @@ import { Button } from '@/core/form/button/button';
 import { Spacing, spacing, TextCenter, TopMargin, useResponsiveEdgeSpacing } from '@/core/layout/common';
 import { OutLink } from '@/core/link';
 import { tStyled } from '@/core/style/styled';
-import { Paragraph, RegularText, Title } from '@/core/symbol/text';
+import { Heading1, Paragraph, RegularText } from '@/core/symbol/text';
 import { useMeta } from '@/services/data/data-context';
 import { LayoutBreakpoint } from '@/services/layout/window-layout';
 import { IArchiveFilter } from 'oftheday-shared';
@@ -53,7 +53,7 @@ export const ArchiveInitial: React.FC<ArchiveInitialProps> = (props) => {
 
 	return (
 		<Spacing margin={edgeSpacing.horizontal}>
-			<Title>Archive</Title>
+			<Heading1>Archive</Heading1>
 			<Paragraph>
 				Choose a preset below or create a filter.
 			</Paragraph>

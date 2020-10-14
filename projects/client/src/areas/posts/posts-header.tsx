@@ -8,28 +8,36 @@ import { spacing, TopMargin } from '@/core/layout/common';
 import { LayoutBreakpoint } from '@/services/layout/window-layout';
 import { PostsSelectionOverlay } from './posts-selection-overlay';
 import { getDayReferenceRender } from './post-common';
+import { elementScrollIntoView } from 'seamless-scroll-polyfill';
+import { EmptySpaceHack } from '@/core/style/common';
 
 export interface PostsHeaderProps {
 	rootElement: HTMLElement | null;
 	offsetPixels: number;
-	isUpper: boolean;
 	activePostIndex: number;
 	posts: IPost[];
 	onPostChosen: (newActivePostIndex: number) => void;
-	onScrollTop: () => void;
 }
 
 export const PostsHeader: React.FC<PostsHeaderProps> = (props) => {
-	const { rootElement, posts, offsetPixels, activePostIndex, onPostChosen, onScrollTop } = props;
+	const { rootElement, posts, offsetPixels, activePostIndex, onPostChosen } = props;
 
 	const stickyOutput = useSticky({
-		rootElement: rootElement
+		rootElement: rootElement,
+		offsetPixels: offsetPixels,
 	});
 	const { isAtFirst } = stickyOutput;
 
 	const post = posts[activePostIndex];
 
 	const [isChoosingPostFromOverlay, setIsChoosingPostFromOverlay] = React.useState(false);
+
+	const elementIntersectRef = React.useRef<HTMLDivElement>(null!);
+	function scrollToHeader() {
+		if (isAtFirst) {
+			elementScrollIntoView(elementIntersectRef.current, {});
+		}
+	}
 
 	function onClickCalendar() {
 		setIsChoosingPostFromOverlay(true);
@@ -40,6 +48,7 @@ export const PostsHeader: React.FC<PostsHeaderProps> = (props) => {
 	function onClickCalendarPost(newActivePostIndex: number) {
 		onCloseOverlay();
 		onPostChosen(newActivePostIndex);
+		scrollToHeader();
 	}
 	function onCloseOverlay() {
 		setIsChoosingPostFromOverlay(false);
@@ -48,28 +57,27 @@ export const PostsHeader: React.FC<PostsHeaderProps> = (props) => {
 	const hasEarlierPost = activePostIndex < posts.length - 1;
 	function onClickEarlierPost() {
 		onPostChosen(activePostIndex + 1);
+		scrollToHeader();
 	}
 
 	const hasLaterPost = activePostIndex > 0;
 	function onClickLaterPost() {
 		onPostChosen(activePostIndex - 1);
-	}
-
-	function onClickTop() {
-		onScrollTop();
+		scrollToHeader();
 	}
 
 	return (
 		<>
-			<Sticky isSticky={true} output={stickyOutput} zIndex={1} >
-				<PostsHeaderEmptySpace dataHeightPixels={offsetPixels} />
+			<EmptySpaceHack ref={elementIntersectRef} height={offsetPixels} />
+			<Sticky isSticky={true} output={stickyOutput} zIndex={1}>
+				<EmptySpaceHack height={offsetPixels} showBackground={isAtFirst} />
 				<PostsHeaderContainer isSticking={isAtFirst} flex='none' justifyContent='center'>
 					<PostsHeaderCenterContainer justifyContent='space-evenly' alignItems='center'>
 						<ClickableIcon type={iconTypes.calendar} isDisabled={false} onClick={onClickCalendar} />
 						<ClickableIcon type={iconTypes.left} isDisabled={!hasEarlierPost} onClick={onClickEarlierPost} />
 						<PostDayTitle post={post} />
 						<ClickableIcon type={iconTypes.right} isDisabled={!hasLaterPost} onClick={onClickLaterPost} />
-						<ClickableIcon type={iconTypes.top} isDisabled={!isAtFirst} onClick={onClickTop} />
+						<ClickableIcon type={iconTypes.top} isDisabled={!isAtFirst} onClick={scrollToHeader} />
 					</PostsHeaderCenterContainer>
 				</PostsHeaderContainer>
 			</Sticky>
@@ -84,15 +92,6 @@ export const PostsHeader: React.FC<PostsHeaderProps> = (props) => {
 		</>
 	);
 };
-
-interface PostsHeaderEmptySpaceProps {
-	dataHeightPixels: number;
-}
-
-const PostsHeaderEmptySpace = tStyled.div<PostsHeaderEmptySpaceProps>`
-	height: ${p => p.dataHeightPixels}px;
-	background-color: ${p => p.theme.color.bg1};
-`;
 
 interface PostsHeaderContainerProps {
 	isSticking: boolean;

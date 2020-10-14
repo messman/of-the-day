@@ -3,11 +3,10 @@ import { About, AboutProps } from '@/areas/about/about';
 import { Posts, PostsProps } from '@/areas/posts/posts';
 import { Other } from '@/areas/other/other';
 import { Archive, ArchiveProps } from '@/areas/archive/archive';
-import { LowerMenuBar, UpperMenuBar, upperMenuBarHeightPixels, UpperStickyMenuBar } from './menu-bar/menu-bar';
 import { Switch, Route } from 'react-router-dom';
 import { routes } from '@/services/nav/routing';
 import { tStyled } from '@/core/style/styled';
-import { createThreshold, FlexColumn, useElementIntersect, useStateDOM, useWindowLayout } from '@messman/react-common';
+import { FlexColumn, useElementIntersect, useStateDOM, useWindowLayout } from '@messman/react-common';
 import { Header } from './header/header';
 import { LayoutBreakpoint } from '@/services/layout/window-layout';
 import { IScrollIntoViewOptions, IScrollToOptions } from 'seamless-scroll-polyfill/dist/esm/common';
@@ -15,6 +14,8 @@ import { elementScrollTo, elementScrollIntoView } from 'seamless-scroll-polyfill
 import { spacing } from '@/core/layout/common';
 import { ElementActionsOverlay } from '../posts/element-action-overlay';
 import { MetaMessaging } from '../alert/meta-messaging';
+import { LowerMenuBar } from './menu-bar/menu-bar-lower';
+import { stickyMenuBarColorHeight, totalUpperStickyMenuBarHeight, UpperMenuBar, UpperStickyMenuBar } from './menu-bar/menu-bar-upper';
 
 export const ApplicationLayout: React.FC = () => {
 	return (
@@ -34,8 +35,6 @@ interface LayoutProps {
 	Archive: React.FC<ArchiveProps>;
 	About: React.FC<AboutProps>;
 }
-
-const threshold = createThreshold();
 
 // seamless-scroll-polyfill used here to provide smooth scrolling for iOS Safari.
 const scrollToTopOptions: IScrollToOptions = {
@@ -69,18 +68,11 @@ export const Layout: React.FC<LayoutProps> = (props) => {
 	const [isShowingStickyMenuBar, setIsShowingStickyMenuBar] = React.useState(false);
 
 	// Mobile settings
-	let stickyMenuOffset = -upperMenuBarHeightPixels.color;
-	let postHeaderOffset = upperMenuBarHeightPixels.color;
-
-	if (!isAnyMobileWidth) {
-		stickyMenuOffset = 0 - (upperMenuBarHeightPixels.content / 2) - upperMenuBarHeightPixels.color;
-		postHeaderOffset = upperMenuBarHeightPixels.total;
-	}
+	const stickyOffsetPixels = isAnyMobileWidth ? stickyMenuBarColorHeight : totalUpperStickyMenuBarHeight;
 
 	const elementIntersectRef = useElementIntersect({
-		rootMargin: `${stickyMenuOffset}px 0px 0px 0px`,
+		rootMargin: `-${stickyMenuBarColorHeight}px 0px 0px 0px`,
 		rootElement: scrollContainerElement,
-		threshold: threshold
 	}, (intersect) => {
 		if (!intersect || !elementIntersectRef.current) {
 			return;
@@ -92,7 +84,7 @@ export const Layout: React.FC<LayoutProps> = (props) => {
 		elementScrollTo((scrollContainerRef.current as HTMLElement), scrollToTopOptions);
 	}
 
-	function onScrollToSticky() {
+	function scrollToTopSticky() {
 		elementScrollIntoView((elementIntersectRef.current as HTMLElement), scrollToStickyOptions);
 	}
 
@@ -103,31 +95,30 @@ export const Layout: React.FC<LayoutProps> = (props) => {
 				isDesktopWidth={isDesktopWidth}
 				isShowing={isShowingStickyMenuBar}
 				onScrollToTop={onScrollToTop}
-				onPathClick={onScrollToSticky}
+				onPathClick={scrollToTopSticky}
 			/>
 			<ScrollContainer ref={scrollContainerRef}>
 				<ScrollContainerElementContext.Provider value={scrollContainerElement}>
 					<Header />
 					<div ref={elementIntersectRef} />
-					<UpperMenuBar isMobileWidth={isAnyMobileWidth} onPathClick={onScrollToSticky} />
+					<UpperMenuBar isMobileWidth={isAnyMobileWidth} onPathClick={scrollToTopSticky} />
 					<RouteContainer>
 						<MetaMessaging>
 							<Switch>
 								<Route exact path={routes.posts.path}>
 									<Posts
-										isUpper={true}
-										offsetPixels={postHeaderOffset}
+										offsetPixels={stickyOffsetPixels}
 										rootElement={scrollContainerElement}
-										onScrollTop={onScrollToSticky} />
+									/>
 								</Route>
 								<Route path={routes.other.path}>
 									<Other />
 								</Route>
 								<Route path={routes.archive.path}>
 									<Archive
-										offsetPixels={postHeaderOffset}
+										offsetPixels={stickyOffsetPixels}
 										rootElement={scrollContainerElement}
-										onScrollTop={onScrollToSticky} />
+									/>
 								</Route>
 								<Route path={routes.about.path}>
 									<About />
@@ -137,7 +128,7 @@ export const Layout: React.FC<LayoutProps> = (props) => {
 					</RouteContainer>
 				</ScrollContainerElementContext.Provider>
 			</ScrollContainer>
-			<LowerMenuBar isMobileWidth={isAnyMobileWidth} onPathClick={onScrollToSticky} />
+			<LowerMenuBar isMobileWidth={isAnyMobileWidth} onPathClick={scrollToTopSticky} />
 			<ElementActionsOverlay />
 		</LayoutContainer>
 	);
@@ -155,7 +146,8 @@ const LayoutContainer = tStyled(FlexColumn)`
 `;
 
 const RouteContainer = tStyled.div`
-	padding: ${spacing.grand.bottom};
+	padding-top: ${spacing.medium.value};
+	padding-bottom: ${spacing.grand.value};
 	min-height: 100vh;
 `;
 

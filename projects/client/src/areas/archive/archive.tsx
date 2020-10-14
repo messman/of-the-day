@@ -1,9 +1,10 @@
-import { spacing } from '@/core/layout/common';
+import { EmptySpaceHack } from '@/core/style/common';
 import { tStyled } from '@/core/style/styled';
 import { useArchiveResponseContext } from '@/services/data/data-context';
 import { LayoutBreakpoint } from '@/services/layout/window-layout';
 import { IArchiveFilter } from 'oftheday-shared';
 import * as React from 'react';
+import { elementScrollIntoView } from 'seamless-scroll-polyfill';
 import { ArchiveInitial } from './archive-initial';
 import { ArchiveResults } from './archive-results';
 import { FilterOverlay } from './filter/filter-overlay/filter-overlay';
@@ -11,23 +12,27 @@ import { FilterOverlay } from './filter/filter-overlay/filter-overlay';
 export interface ArchiveProps {
 	offsetPixels: number;
 	rootElement: HTMLElement | null;
-	onScrollTop: () => void;
 }
 
 export const Archive: React.FC<ArchiveProps> = (props) => {
-	const { rootElement, onScrollTop, offsetPixels } = props;
+	const { rootElement, offsetPixels } = props;
 
 	const { filter, applyFilter, promise } = useArchiveResponseContext();
 	const { data, error, isStarted } = promise;
 
 	const [isOverlayActive, setIsOverlayActive] = React.useState(false);
 
+	const elementIntersectRef = React.useRef<HTMLDivElement>(null!);
+	function scrollToHeader() {
+		elementScrollIntoView(elementIntersectRef.current, {});
+	}
+
 	function onSetFilter(newFilter: IArchiveFilter) {
 		if (newFilter !== filter) {
 			applyFilter(newFilter);
 		}
 		onCloseOverlay();
-		onScrollTop();
+		scrollToHeader();
 	}
 
 	function onOpenOverlay() {
@@ -55,13 +60,14 @@ export const Archive: React.FC<ArchiveProps> = (props) => {
 				onClickEditFilter={onOpenOverlay}
 				offsetPixels={offsetPixels}
 				rootElement={rootElement}
-				onScrollTop={onScrollTop}
+				onScrollToHeader={scrollToHeader}
 			/>
 		);
 	}
 
 	return (
 		<ArchiveContainer>
+			<EmptySpaceHack ref={elementIntersectRef} height={offsetPixels} />
 			{render}
 			<FilterOverlay
 				isActive={isOverlayActive}
@@ -77,5 +83,4 @@ export const Archive: React.FC<ArchiveProps> = (props) => {
 const ArchiveContainer = tStyled.div`
 	max-width: ${LayoutBreakpoint.mobileLarge}px;
 	margin: auto;
-	margin-bottom: ${spacing.grand.value};
 `;

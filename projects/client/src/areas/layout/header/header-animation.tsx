@@ -133,7 +133,6 @@ export const HeaderSubtitleAnimation: React.FC<HeaderSubtitleAnimationProps> = (
 
 const TextAnimationContainer = tStyled(animated.div)`
 	position: absolute;
-	top: 0;
 	left: 0;
 `;
 

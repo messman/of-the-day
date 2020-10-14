@@ -1,7 +1,6 @@
 import { spacing } from '@/core/layout/common';
 import { borderRadiusStyle } from '@/core/style/common';
 import { tStyled } from '@/core/style/styled';
-import { FontWeight } from '@/core/style/theme';
 import { Paragraph } from '@/core/symbol/text';
 import { useMeta } from '@/services/data/data-context';
 import { LayoutBreakpoint } from '@/services/layout/window-layout';
@@ -14,7 +13,7 @@ export const MetaMessaging: React.FC<MetaMessagingProps> = (props) => {
 	const { children } = props;
 	const meta = useMeta();
 
-	if (!meta) {
+	if (!meta || ((!meta.shutdown || !meta.shutdown.length) && (!meta.error || !meta.error.length) && (!meta.important || !meta.important.length))) {
 		return <>{children}</>;
 	}
 
@@ -68,9 +67,9 @@ const MetaMessagingLines: React.FC<MetaMessagingLinesProps> = (props) => {
 	const textRender = text.map((line, i) => {
 		const key = i;
 		return (
-			<BoldParagraph key={key}>
+			<Paragraph key={key}>
 				{line}
-			</BoldParagraph>
+			</Paragraph>
 		);
 	});
 	return (
@@ -78,30 +77,27 @@ const MetaMessagingLines: React.FC<MetaMessagingLinesProps> = (props) => {
 	);
 };
 
-const BoldParagraph = tStyled(Paragraph)`
-	font-weight: ${FontWeight.bold};
-`;
-
 const TextBox = tStyled.div`
-	padding: ${spacing.large.value};
+	padding: ${spacing.medium.value};
 	margin: ${spacing.medium.horizontal};
 	${borderRadiusStyle};
+	background-color: ${p => p.theme.color.bgComponent1};
+	border: .5rem solid transparent;
 `;
 
 const BadTextBox = tStyled(TextBox)`
-	color: ${p => p.theme.color.textDistinctOnErrorFill};
-	background-color: ${p => p.theme.color.error};
+	color: ${p => p.theme.color.error};
+	border-color: ${p => p.theme.color.error};
 `;
 
 const ImportantTextBox = tStyled(TextBox)`
-	color: ${p => p.theme.color.textDistinctOnAccent};
-	background-color: ${p => p.theme.color.accentGradientFill};
+	color: ${p => p.theme.color.textAccentOnBackground};
+	border-color: ${p => p.theme.color.accentFillOnBackground};
 `;
 
 const MultiMessagingContainer = tStyled.div`
 	max-width: ${LayoutBreakpoint.tablet}px;
-	margin: auto;
-	margin-top: ${spacing.large.value};
+	margin: ${spacing.medium.value} auto;
 
 	${TextBox} + ${TextBox} {
 		margin-top: ${spacing.medium.value};

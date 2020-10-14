@@ -1,5 +1,6 @@
 import { spacing, Spacing, useResponsiveEdgeSpacing } from '@/core/layout/common';
 import { ActionLink, OutLink } from '@/core/link';
+import { EmptySpaceHack } from '@/core/style/common';
 import { tStyled } from '@/core/style/styled';
 import { ClickableIcon, iconTypes } from '@/core/symbol/icon';
 import { InlineWeight, Paragraph, RegularText } from '@/core/symbol/text';
@@ -17,7 +18,7 @@ export interface ArchiveResultsProps {
 	onClickEditFilter: () => void;
 	offsetPixels: number;
 	rootElement: HTMLElement | null;
-	onScrollTop: () => void;
+	onScrollToHeader: () => void;
 }
 
 interface PostsState {
@@ -133,17 +134,18 @@ interface ArchiveResultsHeaderProps extends ArchiveResultsProps {
 }
 
 export const ArchiveResultsHeader: React.FC<ArchiveResultsHeaderProps> = (props) => {
-	const { rootElement, onScrollTop, onClickEditFilter, offsetPixels, resultsCount } = props;
+	const { rootElement, onScrollToHeader, onClickEditFilter, offsetPixels, resultsCount } = props;
 
 	const stickyOutput = useSticky({
-		rootElement: rootElement
+		rootElement: rootElement,
+		offsetPixels: offsetPixels
 	});
 	const { isAtFirst } = stickyOutput;
 
 	return (
 		<>
 			<Sticky isSticky={true} output={stickyOutput} zIndex={1} >
-				<ArchiveResultsHeaderEmptySpace dataHeightPixels={offsetPixels} />
+				<EmptySpaceHack height={offsetPixels} showBackground={isAtFirst} />
 				<ArchiveResultsHeaderContainer flex='none' justifyContent='space-between' alignItems='center'>
 					<Flex>
 						<Spacing margin={spacing.medium.left}>
@@ -161,7 +163,7 @@ export const ArchiveResultsHeader: React.FC<ArchiveResultsHeaderProps> = (props)
 					<Flex>
 						<Spacing textAlign='right' margin={spacing.medium.right}>
 
-							<ClickableIcon type={iconTypes.top} isDisabled={!isAtFirst} onClick={onScrollTop} />
+							<ClickableIcon type={iconTypes.top} isDisabled={!isAtFirst} onClick={onScrollToHeader} />
 						</Spacing>
 					</Flex>
 				</ArchiveResultsHeaderContainer>
@@ -170,15 +172,6 @@ export const ArchiveResultsHeader: React.FC<ArchiveResultsHeaderProps> = (props)
 		</>
 	);
 };
-
-interface ArchiveResultsHeaderEmptySpaceProps {
-	dataHeightPixels: number;
-}
-
-const ArchiveResultsHeaderEmptySpace = tStyled.div<ArchiveResultsHeaderEmptySpaceProps>`
-	height: ${p => p.dataHeightPixels}px;
-	background-color: ${p => p.theme.color.bg1};
-`;
 
 const ArchiveResultsHeaderContainer = tStyled(FlexRow)`
 	position: relative;

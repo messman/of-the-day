@@ -142,5 +142,4 @@ export const About: React.FC<AboutProps> = () => {
 
 const AboutContainer = tStyled.div`
 	max-width: ${LayoutBreakpoint.tablet}px;
-	margin: ${spacing.grand.value} auto;
 `;

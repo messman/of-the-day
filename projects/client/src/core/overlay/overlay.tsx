@@ -55,7 +55,7 @@ export const OverlayBox: React.FC<OverlayBoxProps> = (props) => {
 				await next({ opacity: 1, immediate: false });
 			}
 			else {
-				await next({ opacity: 0, immediate: false });
+				await next({ opacity: 0, immediate: true });
 				await next({ zIndex: -1, immediate: true });
 			}
 		}
