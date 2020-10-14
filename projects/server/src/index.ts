@@ -26,6 +26,9 @@ app.use(function (request: Request, response: Response, next: NextFunction) {
 
 configureApp(app);
 
+// Host static files from this directory (relative to root of the node server, above dist)
+app.use(express.static('dist-client'));
+
 // 404 handler
 app.use(function (_request: Request, response: Response, _next: NextFunction) {
 	response.status(404).send('Not Found');

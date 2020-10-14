@@ -5,16 +5,16 @@ import { hasParam } from '../nav/url';
 
 export async function fetchPostResponse(): Promise<IPostResponse> {
 	const includeTomorrow = hasParam('tomorrow');
-	const path = includeTomorrow ? 'posts?tomorrow=1' : 'posts';
+	const path = includeTomorrow ? 'api/posts?tomorrow=1' : 'posts';
 	return makeRequest(path);
 }
 
 export async function fetchOtherResponse(): Promise<IOtherResponse> {
-	return makeRequest('other');
+	return makeRequest('api/other');
 }
 
 export async function fetchArchiveResponse(request: IArchiveRequest): Promise<IArchiveResponse> {
-	const response = await makeRequest<IArchiveResponse>('archive', request);
+	const response = await makeRequest<IArchiveResponse>('api/archive', request);
 	return {
 		posts: sortPosts(request.filter, response.posts)
 	};

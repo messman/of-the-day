@@ -11,7 +11,7 @@
 		"prepare-credentials": "node ./deploy/prepare-credentials.js",
 		"heroku-build": "bash ./deploy/deploy-build.sh",
 		"heroku-start": "node ./dist/index",
-		"clean": "trash dist"
+		"clean": "trash dist && trash dist-client"
 	},
 	"author": "Andrew Messier",
 	"license": "MIT",

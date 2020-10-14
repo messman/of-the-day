@@ -1,4 +1,4 @@
-import { Application, Request, Response, NextFunction } from 'express';
+import { Router, Application, Request, Response, NextFunction } from 'express';
 import { IPostResponse, IOtherResponse, IArchiveRequest, IArchiveResponse, IArchiveFilterRange, IArchiveFilterSort } from 'oftheday-shared';
 import { createSheetsService } from './services/google-sheets/sheets-service';
 import { getPosts, getRecentPosts, getRecentPostsIncludingTomorrow } from './features/posts';
@@ -11,11 +11,13 @@ import { log } from './services/util';
 
 export function configureApp(app: Application): void {
 
+	const router = Router();
+
 	const sheetId = settings.GOOGLE_SPREADSHEET_ID!;
 	const sheetsService = createSheetsService(settings.googleCredentials, sheetId);
 
 	if (settings.isDev) {
-		app.get('/posts-test', async (req: Request, response: Response<IPostResponse>, next: NextFunction) => {
+		router.get('/posts-test', async (req: Request, response: Response<IPostResponse>, next: NextFunction) => {
 			const includeTomorrow = req.query['tomorrow'] == '1';
 
 			let serviceResponse: IPostResponse = null!;
@@ -36,7 +38,7 @@ export function configureApp(app: Application): void {
 		expiration: minutes(2)
 	});
 
-	app.get('/posts', async (req: Request, response: Response<IPostResponse>, next: NextFunction) => {
+	router.get('/posts', async (req: Request, response: Response<IPostResponse>, next: NextFunction) => {
 		const includeTomorrow = req.query['tomorrow'] == '1';
 
 		log('--- posts', includeTomorrow ? 'tomorrow' : '');
@@ -61,7 +63,7 @@ export function configureApp(app: Application): void {
 		expiration: minutes(2)
 	});
 
-	app.get('/other', async (_: Request, response: Response<IOtherResponse>, next: NextFunction) => {
+	router.get('/other', async (_: Request, response: Response<IOtherResponse>, next: NextFunction) => {
 
 		log('--- other');
 		let serviceResponse: IOtherResponse = null!;
@@ -80,7 +82,7 @@ export function configureApp(app: Application): void {
 		expiration: minutes(10)
 	});
 
-	app.post('/archive', async (req: Request<{}, any, IArchiveRequest>, response: Response<IArchiveResponse>, next: NextFunction) => {
+	router.post('/archive', async (req: Request<{}, any, IArchiveRequest>, response: Response<IArchiveResponse>, next: NextFunction) => {
 		let serviceResponse: IArchiveResponse = null!;
 		log('--- archive');
 		try {
@@ -97,7 +99,7 @@ export function configureApp(app: Application): void {
 	});
 
 	if (settings.isDev) {
-		app.get('/archive-test', async (_: Request<{}, any, IArchiveRequest>, response: Response<IArchiveResponse>, next: NextFunction) => {
+		router.get('/archive-test', async (_: Request<{}, any, IArchiveRequest>, response: Response<IArchiveResponse>, next: NextFunction) => {
 			let serviceResponse: IArchiveResponse = null!;
 			try {
 				serviceResponse = await getArchive(sheetsService, {
@@ -130,8 +132,10 @@ export function configureApp(app: Application): void {
 		});
 	}
 
-	app.get('/', async (_: Request, res: Response) => {
+	router.get('/', async (_: Request, res: Response) => {
 		log('ready');
 		return res.json({ status: 'ready' });
 	});
+
+	app.use('/api', router);
 }
