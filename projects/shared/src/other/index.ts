@@ -9,11 +9,6 @@ export interface IOther {
 	workingOn: IOtherWorkingOn;
 	lookingForward: IOtherLookingForward;
 
-	spotifyLink: string;
-	youTubeLink: string;
-	imageAlbumLink: string;
-	imageAlbumLinkText: string;
-
 	milesByFoot: number;
 	milesByBicycle: number;
 

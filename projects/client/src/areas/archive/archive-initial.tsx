@@ -1,7 +1,9 @@
+import { Button } from '@/core/form/button/button';
 import { Spacing, spacing, useResponsiveEdgeSpacing } from '@/core/layout/common';
-import { SeeMoreButton } from '@/core/style/common';
+import { OutLink } from '@/core/link';
 import { tStyled } from '@/core/style/styled';
 import { Paragraph, Title } from '@/core/symbol/text';
+import { useMeta } from '@/services/data/data-context';
 import { LayoutBreakpoint } from '@/services/layout/window-layout';
 import { IArchiveFilter } from 'oftheday-shared';
 import * as React from 'react';
@@ -18,6 +20,31 @@ export const ArchiveInitial: React.FC<ArchiveInitialProps> = (props) => {
 
 	const edgeSpacing = useResponsiveEdgeSpacing();
 
+	const meta = useMeta();
+	let metaPlaylistRender: JSX.Element | null = null;
+	if (meta && (meta.spotifyLink || meta.youTubeLink)) {
+
+		const spotifyLinkRender = meta.spotifyLink ? (
+			<Paragraph textAlign='center' isMaxLineLength={false}>
+				See the <OutLink href={meta.spotifyLink}>Spotify Playlist</OutLink>
+			</Paragraph>
+		) : null;
+
+		const youTubeLinkRender = meta.youTubeLink ? (
+			<Paragraph textAlign='center' isMaxLineLength={false}>
+				See the <OutLink href={meta.youTubeLink}>YouTube Playlist</OutLink>
+			</Paragraph>
+		) : null;
+
+		metaPlaylistRender = (
+			<div>
+				<Paragraph textAlign='center' isMaxLineLength={false}>Or</Paragraph>
+				{spotifyLinkRender}
+				{youTubeLinkRender}
+			</div>
+		);
+	}
+
 	return (
 		<Spacing margin={edgeSpacing.horizontal}>
 			<Title>Archive</Title>
@@ -28,12 +55,12 @@ export const ArchiveInitial: React.FC<ArchiveInitialProps> = (props) => {
 				Notes, schedules, locations, and end-of-day thoughts are not accessible in the archive.
 			</Paragraph>
 			<ButtonsContainer>
-
 				<FilterPresets
 					onClickPreset={onClickPreset}
 				/>
 				<Paragraph textAlign='center' isMaxLineLength={false}>Or</Paragraph>
-				<SeeMoreButton onClick={onClickOverlayOpen}>Create advanced filter</SeeMoreButton>
+				<Button onClick={onClickOverlayOpen} isSpecial={true}>Create advanced filter</Button>
+				{metaPlaylistRender}
 			</ButtonsContainer>
 		</Spacing>
 	);

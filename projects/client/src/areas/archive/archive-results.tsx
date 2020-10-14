@@ -1,12 +1,13 @@
 import { spacing, Spacing, useResponsiveEdgeSpacing } from '@/core/layout/common';
-import { ActionLink } from '@/core/link';
+import { ActionLink, OutLink } from '@/core/link';
 import { tStyled } from '@/core/style/styled';
 import { FontWeight } from '@/core/style/theme';
 import { ClickableIcon, iconTypes } from '@/core/symbol/icon';
 import { RegularText } from '@/core/symbol/text';
+import { useMeta } from '@/services/data/data-context';
 import { DataLoad } from '@/services/data/data-load';
 import { Flex, FlexRow, PromiseOutput, Sticky, useSticky } from '@messman/react-common';
-import { IArchiveFilter, IArchiveResponse, IPost, keysOfIPostElementType } from 'oftheday-shared';
+import { IArchiveFilter, IArchiveResponse, IPost, IPostElementType, keysOfIPostElementType } from 'oftheday-shared';
 import * as React from 'react';
 import { FilterDescription } from './filter/filter-common';
 import { ArchiveResult } from './result/archive-result';
@@ -30,20 +31,27 @@ export const ArchiveResults: React.FC<ArchiveResultsProps> = (props) => {
 	const { data, isStarted, error } = promise;
 
 	const edgeSpacing = useResponsiveEdgeSpacing();
+	const meta = useMeta();
 
 	const [postsState, setPostsState] = React.useState<PostsState>({
 		posts: [],
 		results: 0
 	});
 
-	const [isHidingTitles, setIsHidingTitles] = React.useState(false);
+	const [singleElementType, setSingleElementType] = React.useState<IPostElementType | null>(null);
 
 	React.useEffect(() => {
 
-		const numberOfTypesInFilter = keysOfIPostElementType.filter((key) => {
+		const activeFilterTypes = keysOfIPostElementType.filter((key) => {
 			return !!filter.types[key];
-		}).length;
-		setIsHidingTitles(numberOfTypesInFilter === 1);
+		});
+		if (activeFilterTypes.length === 1) {
+			const activeFilterType = activeFilterTypes[0];
+			setSingleElementType(IPostElementType[activeFilterType]);
+		}
+		else {
+			setSingleElementType(null);
+		}
 	}, [filter]);
 
 	React.useEffect(() => {
@@ -71,13 +79,33 @@ export const ArchiveResults: React.FC<ArchiveResultsProps> = (props) => {
 	const postsRender = React.useMemo(() => {
 		return posts.map((post) => {
 			return (
-				<ArchiveResult post={post} key={post.dayNumber} hideTitles={isHidingTitles} />
+				<ArchiveResult post={post} key={post.dayNumber} hideTitles={singleElementType !== null} />
 			);
 		});
-	}, [posts, isHidingTitles]);
+	}, [posts, singleElementType]);
 
 	if (isStarted || error) {
 		return <DataLoad promise={promise} />;
+	}
+
+	let metaPlaylistRender: JSX.Element | null = null;
+	const isMusicOnly = singleElementType === IPostElementType.music;
+	const isVideoOnly = singleElementType === IPostElementType.video;
+	if (meta && ((isMusicOnly && meta.spotifyLink) || (isVideoOnly && meta.youTubeLink))) {
+		if (isMusicOnly) {
+			metaPlaylistRender = (
+				<RegularText margin={spacing.medium.top}>
+					You can view all songs on <OutLink href={meta.spotifyLink}>this Spotify Playlist</OutLink>.
+				</RegularText>
+			);
+		}
+		else {
+			metaPlaylistRender = (
+				<RegularText margin={spacing.medium.top}>
+					You can view all videos on <OutLink href={meta.youTubeLink}>this YouTube Playlist</OutLink>.
+				</RegularText>
+			);
+		}
 	}
 
 	return (
@@ -88,11 +116,12 @@ export const ArchiveResults: React.FC<ArchiveResultsProps> = (props) => {
 					<FilterDescription filter={filter} />
 					<RegularText margin={spacing.medium.top}>
 						Showing
-					<RegularText isInline={true} fontWeight={FontWeight.bold}>&nbsp;{results}&nbsp;</RegularText>
-							items across
+						<RegularText isInline={true} fontWeight={FontWeight.bold}>&nbsp;{results}&nbsp;</RegularText>
+						{results === 1 ? 'item' : 'items'} across
 								<RegularText isInline={true} fontWeight={FontWeight.bold}>&nbsp;{posts.length}&nbsp;</RegularText>
-							days
-						</RegularText>
+						{posts.length === 1 ? 'day' : 'days'}
+					</RegularText>
+					{metaPlaylistRender}
 				</Spacing>
 				{postsRender}
 			</Spacing>
@@ -121,8 +150,8 @@ export const ArchiveResultsHeader: React.FC<ArchiveResultsHeaderProps> = (props)
 						<Spacing margin={spacing.medium.left}>
 							<RegularText>
 								<RegularText isInline={true} fontWeight={FontWeight.bold}>{resultsCount}&nbsp;</RegularText>
-							Items
-						</RegularText>
+								{resultsCount === 1 ? 'item' : 'items'}
+							</RegularText>
 						</Spacing>
 					</Flex>
 					<Flex>

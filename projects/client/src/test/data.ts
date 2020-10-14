@@ -3,7 +3,9 @@ import { IArchiveResponse, IMeta, IOtherResponse, IPostDayReference, IPostRespon
 const meta: IMeta = {
 	important: ['Test of the important section'],
 	error: [],
-	shutdown: []
+	shutdown: [],
+	spotifyLink: 'https://andrewmessier.com',
+	youTubeLink: 'https://andrewmessier.com',
 };
 
 export const otherTestData: IOtherResponse = {
@@ -30,10 +32,6 @@ export const otherTestData: IOtherResponse = {
 			linkText: 'The Whale Project',
 			link: 'https://google.com',
 		},
-		spotifyLink: 'https://open.spotify.com/playlist/2PTdD08OlIVautOTP2okDj?si=20hM_FAnQhCW9Tc8zFuETw',
-		youTubeLink: 'https://www.youtube.com/playlist?list=PLW7t8_pP6P55XvLxnZWJ1o0X2TaY3aagu',
-		imageAlbumLink: '',
-		imageAlbumLinkText: '',
 		topArtists: [
 			{
 				text: 'Coldplay',

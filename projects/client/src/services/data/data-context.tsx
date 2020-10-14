@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { defaultInvalidFilter, IArchiveFilter, IArchiveResponse, IOtherResponse, IPostResponse, isFilterSemanticallyEqual, isFilterSortSemanticallyEqual } from 'oftheday-shared';
+import { defaultInvalidFilter, IArchiveFilter, IArchiveResponse, IMeta, IOtherResponse, IPostResponse, isFilterSemanticallyEqual, isFilterSortSemanticallyEqual } from 'oftheday-shared';
 import { clampPromise, PromiseOutput, StalePromiseTimerComponent, StalePromiseTimerOutput, useDocumentVisibility, usePromise, useStalePromiseTimer, useTruthyTimer } from '@messman/react-common';
 import { CONSTANT } from '../constant';
 import { matchPath, useLocation } from 'react-router-dom';
@@ -17,9 +17,11 @@ export const DataProvider: React.FC = (props) => {
 		<ApplicationRefreshTimer>
 			<PostResponseProvider>
 				<OtherResponseProvider>
-					<ArchiveContextProvider>
-						{children}
-					</ArchiveContextProvider>
+					<MetaResponseProvider>
+						<ArchiveContextProvider>
+							{children}
+						</ArchiveContextProvider>
+					</MetaResponseProvider>
 				</OtherResponseProvider>
 			</PostResponseProvider>
 		</ApplicationRefreshTimer>
@@ -211,6 +213,36 @@ const otherPromiseFunc = !DEFINE.isLocalData ? fetchOtherResponse : (
 );
 
 const OtherResponseContext = React.createContext<PromiseOutput<IOtherResponse>>(null!);
-const otherResponseActivePages = [routes.other];
+// The other response also fetches the meta information - so request it on all other pages.
+const otherResponseActivePages = [routes.other, routes.archive, routes.about];
 const OtherResponseProvider = createResponseProvider(OtherResponseContext, otherPromiseFunc, otherResponseActivePages);
 export const useOtherResponse = () => React.useContext(OtherResponseContext);
+
+const MetaResponseContext = React.createContext<IMeta | null>(null);
+const MetaResponseProvider: React.FC = (props) => {
+	const postPromise = usePostResponse();
+	const otherPromise = useOtherResponse();
+
+	const [meta, setMeta] = React.useState<IMeta | null>(null);
+
+	// TODO - ideally, instead of using these as change callbacks, you 
+	// would store a timestamp for the promise result so you always knew which was was 
+	// the more fresh response.
+	React.useEffect(() => {
+		if (postPromise.data) {
+			setMeta(postPromise.data.meta);
+		}
+	}, [postPromise.data]);
+	React.useEffect(() => {
+		if (otherPromise.data) {
+			setMeta(otherPromise.data.meta);
+		}
+	}, [otherPromise.data]);
+
+	return (
+		<MetaResponseContext.Provider value={meta}>
+			{props.children}
+		</MetaResponseContext.Provider>
+	);
+};
+export const useMeta = () => React.useContext(MetaResponseContext);

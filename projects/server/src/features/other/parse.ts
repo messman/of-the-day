@@ -5,7 +5,7 @@ import { IOther, IOtherCount } from 'oftheday-shared';
 import { notNull } from '../../services/util';
 
 const otherValueRowStart = 2;
-const otherValueRowStop = 13;
+const otherValueRowStop = 9;
 /** The range of our key-value responses. */
 export const otherValueRange = createCell('Read_Other', 'B', otherValueRowStart).toRange('B', otherValueRowStop);
 
@@ -51,11 +51,7 @@ function parseAttachValues(other: IOther, valueRows: any[][]): void {
 		linkText: stringAtRow(7)
 	};
 
-	other.spotifyLink = stringAtRow(8);
-	other.youTubeLink = stringAtRow(9);
-	other.imageAlbumLink = stringAtRow(10);
-	other.imageAlbumLinkText = stringAtRow(11);
-	other.milesByFoot = tryParseFloat(stringAtRow(12), 0, true);
+	other.milesByFoot = tryParseFloat(stringAtRow(8), 0, true);
 	other.milesByBicycle = tryParseFloat(stringAtRow(otherValueRowStop), 0, true);
 }
 
