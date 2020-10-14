@@ -5,6 +5,7 @@ deploy-*.txt
 
 node_modules
 dist
+dist-client
 build
 design
 npm-debug.log

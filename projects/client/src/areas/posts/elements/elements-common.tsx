@@ -62,43 +62,41 @@ export interface EmbeddedContentRevealProps {
 
 export const EmbeddedContentReveal: React.FC<EmbeddedContentRevealProps> = (props) => {
 	const { isRevealedOnMount, children } = props;
-
-	const [isRevealed, setIsRevealed] = React.useState(isRevealedOnMount);
-
-	if (isRevealed) {
+	if (isRevealedOnMount) {
 		return <>{children}</>;
 	}
-
-	function onFirstIntersect() {
-		setIsRevealed(true);
-	}
-
 	return (
-		<InnerEmbeddedContentReveal onFirstIntersect={onFirstIntersect} />
+		<InnerEmbeddedContentReveal>
+			{children}
+		</InnerEmbeddedContentReveal>
 	);
 };
 
-interface InnerEmbeddedContentRevealProps {
-	onFirstIntersect: () => void;
-}
+// Prove it's working by setting this to negative (or, start a video and then scroll away).
+const pixelsPastScrollElementForReveal = 400;
+const rootMargin = `${pixelsPastScrollElementForReveal}px 0px ${pixelsPastScrollElementForReveal}px 0px`;
 
-const InnerEmbeddedContentReveal: React.FC<InnerEmbeddedContentRevealProps> = (props) => {
-	const { onFirstIntersect } = props;
+const InnerEmbeddedContentReveal: React.FC = (props) => {
+	const [isRevealingContent, setIsRevealingContent] = React.useState(false);
 
 	const scrollContainerElement = useScrollContainerElement();
 
 	const elementIntersectRef = useElementIntersect({
-		rootMargin: `100px 0px 100px 0px`,
+		rootMargin: rootMargin,
 		rootElement: scrollContainerElement
 	}, (intersect) => {
 		if (!intersect || !elementIntersectRef.current) {
 			return;
 		}
-
-		if (intersect.isIntersecting) {
-			onFirstIntersect();
-		}
+		setIsRevealingContent(intersect.isIntersecting);
 	});
 
-	return <VideoContainer ref={elementIntersectRef} />;
+	const content = isRevealingContent ? <>{props.children}</> : <VideoContainer />;
+
+	return (
+		<>
+			<div ref={elementIntersectRef} />
+			{content}
+		</>
+	);
 };

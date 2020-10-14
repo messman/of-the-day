@@ -5,16 +5,16 @@ import { hasParam } from '../nav/url';
 
 export async function fetchPostResponse(): Promise<IPostResponse> {
 	const includeTomorrow = hasParam('tomorrow');
-	const path = includeTomorrow ? 'api/posts?tomorrow=1' : 'posts';
+	const path = includeTomorrow ? 'posts?tomorrow=1' : 'posts';
 	return makeRequest(path);
 }
 
 export async function fetchOtherResponse(): Promise<IOtherResponse> {
-	return makeRequest('api/other');
+	return makeRequest('other');
 }
 
 export async function fetchArchiveResponse(request: IArchiveRequest): Promise<IArchiveResponse> {
-	const response = await makeRequest<IArchiveResponse>('api/archive', request);
+	const response = await makeRequest<IArchiveResponse>('archive', request);
 	return {
 		posts: sortPosts(request.filter, response.posts)
 	};
@@ -22,7 +22,7 @@ export async function fetchArchiveResponse(request: IArchiveRequest): Promise<IA
 
 async function makeRequest<T>(path: string, postData?: {}): Promise<T> {
 
-	const url = `${DEFINE.serverBase}/${path}`;
+	const url = `${DEFINE.serverBase}/api/${path}`;
 
 	try {
 		let response: Response = null!;
