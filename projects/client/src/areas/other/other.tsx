@@ -8,13 +8,17 @@ import { EqualCardFlow } from '@/core/card/card-flow';
 import { DataLoad } from '@/services/data/data-load';
 import { useOtherResponse } from '@/services/data/data-context';
 import { LookingForward, WorkingOn } from './elements/plans';
+import { IOther } from 'oftheday-shared';
 
 export const Other: React.FC = () => {
 
 	const otherPromise = useOtherResponse();
 	const { data, error, isStarted } = otherPromise;
 
-	const other = data?.other;
+	let other: IOther | null = null;
+	if (data && (data.meta && !data.meta.shutdown.length)) {
+		other = data.other;
+	}
 
 	if (isStarted || error || !other) {
 		return <DataLoad promise={otherPromise} />;

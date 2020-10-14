@@ -110,29 +110,30 @@ export const Layout: React.FC<LayoutProps> = (props) => {
 					<Header />
 					<div ref={elementIntersectRef} />
 					<UpperMenuBar isMobileWidth={isAnyMobileWidth} onPathClick={onScrollToSticky} />
-					<MetaMessaging />
 					<RouteContainer>
-						<Switch>
-							<Route exact path={routes.posts.path}>
-								<Posts
-									isUpper={true}
-									offsetPixels={postHeaderOffset}
-									rootElement={scrollContainerElement}
-									onScrollTop={onScrollToSticky} />
-							</Route>
-							<Route path={routes.other.path}>
-								<Other />
-							</Route>
-							<Route path={routes.archive.path}>
-								<Archive
-									offsetPixels={postHeaderOffset}
-									rootElement={scrollContainerElement}
-									onScrollTop={onScrollToSticky} />
-							</Route>
-							<Route path={routes.about.path}>
-								<About />
-							</Route>
-						</Switch>
+						<MetaMessaging>
+							<Switch>
+								<Route exact path={routes.posts.path}>
+									<Posts
+										isUpper={true}
+										offsetPixels={postHeaderOffset}
+										rootElement={scrollContainerElement}
+										onScrollTop={onScrollToSticky} />
+								</Route>
+								<Route path={routes.other.path}>
+									<Other />
+								</Route>
+								<Route path={routes.archive.path}>
+									<Archive
+										offsetPixels={postHeaderOffset}
+										rootElement={scrollContainerElement}
+										onScrollTop={onScrollToSticky} />
+								</Route>
+								<Route path={routes.about.path}>
+									<About />
+								</Route>
+							</Switch>
+						</MetaMessaging>
 					</RouteContainer>
 				</ScrollContainerElementContext.Provider>
 			</ScrollContainer>

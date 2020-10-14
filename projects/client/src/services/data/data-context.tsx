@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { defaultInvalidFilter, IArchiveFilter, IArchiveResponse, IMeta, IOtherResponse, IPostResponse, isFilterSemanticallyEqual, isFilterSortSemanticallyEqual } from 'oftheday-shared';
+import { defaultInvalidFilter, IArchiveFilter, IArchiveResponse, IMeta, IOtherResponse, IPostResponse, IResponseWithMeta, isFilterSemanticallyEqual, isFilterSortSemanticallyEqual } from 'oftheday-shared';
 import { clampPromise, PromiseOutput, StalePromiseTimerComponent, StalePromiseTimerOutput, useDocumentVisibility, usePromise, useStalePromiseTimer, useTruthyTimer } from '@messman/react-common';
 import { CONSTANT } from '../constant';
 import { matchPath, useLocation } from 'react-router-dom';
@@ -150,7 +150,7 @@ function useIsAnyRouteActive(routesSubset: Route[]): boolean {
 	}, [location.pathname]);
 }
 
-function createResponseProvider<T>(ResponseContext: React.Context<PromiseOutput<T>>, responseFunc: () => Promise<T>, routes: Route[]): React.FC {
+function createResponseProvider<T extends IResponseWithMeta>(ResponseContext: React.Context<PromiseOutput<T>>, responseFunc: () => Promise<T>, routes: Route[]): React.FC {
 	return (props) => {
 		const documentVisibility = useDocumentVisibility();
 		const isAnyRouteActive = useIsAnyRouteActive(routes);
@@ -171,6 +171,9 @@ function createResponseProvider<T>(ResponseContext: React.Context<PromiseOutput<
 		React.useEffect(() => {
 			if (!timer.isStarted && !promise.isStarted) {
 				if (lastCompleted === StalePromiseTimerComponent.promise) {
+					if (promise.data && promise.data.meta && promise.data.meta.shutdown && promise.data.meta.shutdown.length) {
+						return;
+					}
 					timer.reset({
 						isStarted: true
 					});
@@ -223,21 +226,16 @@ const MetaResponseProvider: React.FC = (props) => {
 	const postPromise = usePostResponse();
 	const otherPromise = useOtherResponse();
 
-	const [meta, setMeta] = React.useState<IMeta | null>(null);
-
-	// TODO - ideally, instead of using these as change callbacks, you 
-	// would store a timestamp for the promise result so you always knew which was was 
-	// the more fresh response.
-	React.useEffect(() => {
-		if (postPromise.data) {
-			setMeta(postPromise.data.meta);
-		}
-	}, [postPromise.data]);
-	React.useEffect(() => {
-		if (otherPromise.data) {
-			setMeta(otherPromise.data.meta);
-		}
-	}, [otherPromise.data]);
+	/*
+		Special setup here. We want to use the more recent meta from either of the two responses.
+		However, we don't want to hold the more recent one in state, 
+		because if we just got a new response then we can expect our components to re-render
+		and we want this meta to be available immediately on the same render.
+		So instead of using state and effects - we will just run our logic every time.
+		Ideally we'd be checking more information than this - using end time of promises instead of start time,
+		etc.
+	*/
+	const meta = postPromise.data?.meta || otherPromise.data?.meta || null;
 
 	return (
 		<MetaResponseContext.Provider value={meta}>

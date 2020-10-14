@@ -7,15 +7,20 @@ import { useMeta } from '@/services/data/data-context';
 import { LayoutBreakpoint } from '@/services/layout/window-layout';
 import * as React from 'react';
 
-export const MetaMessaging: React.FC = () => {
+export interface MetaMessagingProps {
+}
+
+export const MetaMessaging: React.FC<MetaMessagingProps> = (props) => {
+	const { children } = props;
 	const meta = useMeta();
 
 	if (!meta) {
-		return null;
+		return <>{children}</>;
 	}
 
 	const { important, error, shutdown } = meta;
 
+	let showChildren = false;
 	let shutdownRender: JSX.Element | null = null;
 	let errorRender: JSX.Element | null = null;
 	let importantRender: JSX.Element | null = null;
@@ -28,6 +33,7 @@ export const MetaMessaging: React.FC = () => {
 		);
 	}
 	else {
+		showChildren = true;
 		errorRender = (error && error.length) ? (
 			<BadTextBox>
 				<MetaMessagingLines text={error} />
@@ -42,11 +48,14 @@ export const MetaMessaging: React.FC = () => {
 	}
 
 	return (
-		<MultiMessagingContainer>
-			{shutdownRender}
-			{errorRender}
-			{importantRender}
-		</MultiMessagingContainer>
+		<>
+			<MultiMessagingContainer>
+				{shutdownRender}
+				{errorRender}
+				{importantRender}
+			</MultiMessagingContainer>
+			{showChildren ? children : null}
+		</>
 	);
 };
 

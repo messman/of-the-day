@@ -1,7 +1,6 @@
-import { IMeta } from '../meta';
+import { IResponseWithMeta } from '../base';
 
-export interface IOtherResponse {
-	meta: IMeta;
+export interface IOtherResponse extends IResponseWithMeta {
 	other: IOther;
 }
 

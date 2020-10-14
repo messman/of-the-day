@@ -1,3 +1,4 @@
+export * from './base';
 export * from './archive';
 export * from './meta';
 export * from './other';

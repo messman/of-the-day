@@ -1,8 +1,7 @@
-import { IMeta } from '../meta';
+import { IResponseWithMeta } from '../base';
 import { enumKeys } from '../utility';
 
-export interface IPostResponse {
-	meta: IMeta;
+export interface IPostResponse extends IResponseWithMeta {
 	posts: IPost[];
 	dayNumber: number;
 }

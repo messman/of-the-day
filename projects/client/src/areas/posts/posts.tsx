@@ -23,7 +23,10 @@ export const Posts: React.FC<PostsProps> = (props) => {
 	const postPromise = usePostResponse();
 	const { data, error, isStarted } = postPromise;
 
-	const posts = data?.posts || defaultPosts;
+	let posts: IPost[] = defaultPosts;
+	if (data && data.meta && !data.meta.shutdown.length) {
+		posts = data.posts;
+	}
 
 	const [activePostIndex, setActivePostIndex] = React.useState(0);
 	const activePost = posts[activePostIndex];
