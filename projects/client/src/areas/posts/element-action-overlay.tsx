@@ -73,7 +73,12 @@ export const ElementActionsProvider: React.FC = (props) => {
 	);
 };
 
-export const ElementActionsOverlay: React.FC = () => {
+export interface ElementActionsOverlayProps {
+	onSelectedFilter: () => void;
+}
+
+export const ElementActionsOverlay: React.FC<ElementActionsOverlayProps> = (props) => {
+	const { onSelectedFilter } = props;
 
 	const [elementActions, setElementActions] = useElementActions();
 	const { applyFilter } = useArchiveResponseContext();
@@ -97,6 +102,7 @@ export const ElementActionsOverlay: React.FC = () => {
 		function onElementTypeButtonClick() {
 			closeOverlay();
 			applyFilter(createFilterForElementType(elementType));
+			onSelectedFilter();
 			history.push(routes.archive.path);
 		}
 		const elementTypeDisplay = postElementTypeForDisplay[IPostElementType[elementType] as keyof typeof IPostElementType];
@@ -110,6 +116,7 @@ export const ElementActionsOverlay: React.FC = () => {
 		function onTopButtonClick() {
 			closeOverlay();
 			applyFilter(filterPresets.recentTop);
+			onSelectedFilter();
 			history.push(routes.archive.path);
 		}
 

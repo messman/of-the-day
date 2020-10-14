@@ -88,6 +88,10 @@ export const Layout: React.FC<LayoutProps> = (props) => {
 		elementScrollIntoView((elementIntersectRef.current as HTMLElement), scrollToStickyOptions);
 	}
 
+	function onSelectedFilter() {
+		scrollToTopSticky();
+	}
+
 	return (
 		<LayoutContainer>
 			<UpperStickyMenuBar
@@ -129,7 +133,7 @@ export const Layout: React.FC<LayoutProps> = (props) => {
 				</ScrollContainerElementContext.Provider>
 			</ScrollContainer>
 			<LowerMenuBar isMobileWidth={isAnyMobileWidth} onPathClick={scrollToTopSticky} />
-			<ElementActionsOverlay />
+			<ElementActionsOverlay onSelectedFilter={onSelectedFilter} />
 		</LayoutContainer>
 	);
 };
