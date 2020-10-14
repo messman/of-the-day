@@ -10,8 +10,8 @@ export default { title: 'Areas/Archive/Filter' };
 export const TestFilterOverlay = decorate('Filter Description', null, () => {
 
 	const filters: IArchiveFilter[] = [
-		filterPresets.allTop,
-		filterPresets.allMusic,
+		filterPresets.recentTop,
+		filterPresets.recentMusic,
 		filterPresets.random7Days,
 		{
 			types: {

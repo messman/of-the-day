@@ -38,9 +38,9 @@ export const keysOfFilterRange = enumKeys(IArchiveFilterRange);
 
 export enum IArchiveFilterPreset {
 	random7Days,
-	allTop,
-	allMusic,
-	allVideo,
+	recentTop,
+	recentMusic,
+	recentVideo,
 }
 export const keysOfFilterPreset = enumKeys(IArchiveFilterPreset);
 
@@ -216,7 +216,7 @@ export const filterPresets: Record<keyof typeof IArchiveFilterPreset, IArchiveFi
 		sort: IArchiveFilterSort.dayIncreasing,
 		preset: IArchiveFilterPreset.random7Days
 	},
-	allTop: {
+	recentTop: {
 		types: {
 			notes: false,
 			schedule: false,
@@ -232,11 +232,11 @@ export const filterPresets: Record<keyof typeof IArchiveFilterPreset, IArchiveFi
 			includeOnlyWithTopTag: true,
 			excludeWithNSFWTag: false
 		},
-		range: IArchiveFilterRange.all,
+		range: IArchiveFilterRange.last93Days,
 		sort: IArchiveFilterSort.dayDecreasing,
-		preset: IArchiveFilterPreset.allTop
+		preset: IArchiveFilterPreset.recentTop
 	},
-	allMusic: {
+	recentMusic: {
 		types: {
 			notes: false,
 			schedule: false,
@@ -252,11 +252,11 @@ export const filterPresets: Record<keyof typeof IArchiveFilterPreset, IArchiveFi
 			includeOnlyWithTopTag: false,
 			excludeWithNSFWTag: false
 		},
-		range: IArchiveFilterRange.all,
+		range: IArchiveFilterRange.last93Days,
 		sort: IArchiveFilterSort.dayDecreasing,
-		preset: IArchiveFilterPreset.allMusic
+		preset: IArchiveFilterPreset.recentMusic
 	},
-	allVideo: {
+	recentVideo: {
 		types: {
 			notes: false,
 			schedule: false,
@@ -272,8 +272,8 @@ export const filterPresets: Record<keyof typeof IArchiveFilterPreset, IArchiveFi
 			includeOnlyWithTopTag: false,
 			excludeWithNSFWTag: false
 		},
-		range: IArchiveFilterRange.all,
+		range: IArchiveFilterRange.last93Days,
 		sort: IArchiveFilterSort.dayDecreasing,
-		preset: IArchiveFilterPreset.allVideo
+		preset: IArchiveFilterPreset.recentVideo
 	}
 };

@@ -36,7 +36,8 @@ const ApplicationRefreshTimer: React.FC = (props) => {
 		isStarted: true,
 		timeout: CONSTANT.appRefreshTimeout,
 	}, documentVisibility, () => {
-		window.location.reload();
+		// After we reach our timeout, reload location.
+		window.location.replace('/');
 	});
 
 	return <>{props.children}</>;

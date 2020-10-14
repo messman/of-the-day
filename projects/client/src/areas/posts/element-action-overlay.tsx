@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { FlexColumn, setClipboard } from '@messman/react-common';
-import { filterPresets, IArchiveFilter, IArchiveFilterRange, IArchiveFilterSort, IPostElementType } from 'oftheday-shared';
+import { cloneFilter, filterPresets, IArchiveFilter, IPostElementType } from 'oftheday-shared';
 import { OverlayBox } from '@/core/overlay/overlay';
 import { tStyled } from '@/core/style/styled';
 import { spacing } from '@/core/layout/common';
@@ -109,13 +109,13 @@ export const ElementActionsOverlay: React.FC = () => {
 
 		function onTopButtonClick() {
 			closeOverlay();
-			applyFilter(filterPresets.allTop);
+			applyFilter(filterPresets.recentTop);
 			history.push(routes.archive.path);
 		}
 
 		const topFilterButton = (showTopFilterPreset && !isViewingArchive) ? (
 			<Button onClick={onTopButtonClick} iconAfter={iconTypes.right} isSpecial={true}>
-				See All Top
+				See Recent Top Items
 			</Button>
 		) : null;
 
@@ -171,25 +171,19 @@ export const ElementActionsOverlay: React.FC = () => {
 };
 
 function createFilterForElementType(elementType: IPostElementType): IArchiveFilter {
-	return {
-		types: {
-			notes: false,
-			schedule: false,
-			location: false,
-			endThoughts: false,
-			music: elementType === IPostElementType.music,
-			video: elementType === IPostElementType.video,
-			image: elementType === IPostElementType.image,
-			quote: elementType === IPostElementType.quote,
-			custom: elementType === IPostElementType.custom
-		},
-		modifiers: {
-			excludeWithNSFWTag: false,
-			includeOnlyWithTopTag: false,
-		},
-		range: IArchiveFilterRange.last31Days,
-		sort: IArchiveFilterSort.dayDecreasing
-	};
+	if (elementType === IPostElementType.music) {
+		return filterPresets.recentMusic;
+	}
+	else if (elementType === IPostElementType.video) {
+		return filterPresets.recentVideo;
+	}
+	else {
+		const filter = cloneFilter(filterPresets.recentVideo);
+		filter.types.video = false;
+		filter.types[IPostElementType[elementType] as keyof typeof IPostElementType] = true;
+		filter.preset = undefined;
+		return filter;
+	}
 }
 
 const ButtonsContainer = tStyled.div`

@@ -31,9 +31,9 @@ export const archiveFilterRangeForDisplay: Record<keyof typeof IArchiveFilterRan
 
 export const archiveFilterPresetForDisplay: Record<keyof typeof IArchiveFilterPreset, string> = {
 	random7Days: 'Random Week',
-	allTop: 'All Top Items',
-	allMusic: 'All Music',
-	allVideo: 'All Video',
+	recentTop: 'Recent Top Items',
+	recentMusic: 'Recent Music',
+	recentVideo: 'Recent Video',
 };
 
 export const archiveFilterSortForDisplay: Record<keyof typeof IArchiveFilterSort, string> = {

@@ -22,10 +22,10 @@ export const FilterPresets: React.FC<FilterPresetsProps> = (props) => {
 	return (
 		<ButtonsContainer>
 			<Button
-				isSelected={selectedFilter?.preset === IArchiveFilterPreset.allTop}
-				onClick={onClick(IArchiveFilterPreset.allTop)}
+				isSelected={selectedFilter?.preset === IArchiveFilterPreset.recentTop}
+				onClick={onClick(IArchiveFilterPreset.recentTop)}
 			>
-				{archiveFilterPresetForDisplay.allTop}
+				{archiveFilterPresetForDisplay.recentTop}
 			</Button>
 			<Button
 				isSelected={selectedFilter?.preset === IArchiveFilterPreset.random7Days}
@@ -34,16 +34,16 @@ export const FilterPresets: React.FC<FilterPresetsProps> = (props) => {
 				{archiveFilterPresetForDisplay.random7Days}
 			</Button>
 			<Button
-				isSelected={selectedFilter?.preset === IArchiveFilterPreset.allMusic}
-				onClick={onClick(IArchiveFilterPreset.allMusic)}
+				isSelected={selectedFilter?.preset === IArchiveFilterPreset.recentMusic}
+				onClick={onClick(IArchiveFilterPreset.recentMusic)}
 			>
-				{archiveFilterPresetForDisplay.allMusic}
+				{archiveFilterPresetForDisplay.recentMusic}
 			</Button>
 			<Button
-				isSelected={selectedFilter?.preset === IArchiveFilterPreset.allVideo}
-				onClick={onClick(IArchiveFilterPreset.allVideo)}
+				isSelected={selectedFilter?.preset === IArchiveFilterPreset.recentVideo}
+				onClick={onClick(IArchiveFilterPreset.recentVideo)}
 			>
-				{archiveFilterPresetForDisplay.allVideo}
+				{archiveFilterPresetForDisplay.recentVideo}
 			</Button>
 		</ButtonsContainer>
 	);
