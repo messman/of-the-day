@@ -1,11 +1,18 @@
 import { IOtherResponse } from 'oftheday-shared';
 import { SheetsService } from '../../services/google-sheets/sheets-service';
+import { MemoryCache } from '../../services/memory';
 import { log } from '../../services/util';
 import { parseMeta, metaRange } from '../meta';
 import { otherChecklistRange, otherTopRange, otherValueRange, parseOther } from './parse';
 
-export async function getOther(sheetsService: SheetsService): Promise<IOtherResponse> {
+export async function getOther(sheetsService: SheetsService, memory: MemoryCache<IOtherResponse>): Promise<IOtherResponse> {
 	try {
+		const hit = memory.registerHit();
+		if (hit.cacheItemValue) {
+			log('other', `cached - ${hit.timeRemainingInCache}ms remaining`);
+			return hit.cacheItemValue;
+		}
+
 		const ranges = [otherValueRange, otherChecklistRange, otherTopRange, metaRange];
 		const values = await sheetsService.batchGet(ranges);
 
@@ -24,6 +31,9 @@ export async function getOther(sheetsService: SheetsService): Promise<IOtherResp
 			const metaRecords = values[3];
 			response.meta = parseMeta(metaRecords);
 		}
+
+		memory.setCacheItemValue(response);
+		log('other', memory.isCaching ? `new - caching for ${memory.cacheExpiration}ms` : 'new - not caching');
 
 		return response;
 	}

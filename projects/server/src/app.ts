@@ -7,10 +7,7 @@ import { getOther } from './features/other';
 import { createMemoryCache, MemoryCache } from './services/memory';
 import { minutes } from './services/time';
 import { getArchive, IArchiveCache } from './features/archive';
-
-function log(...args: any[]): void {
-	console.log('>', ...args);
-}
+import { log } from './services/util';
 
 export function configureApp(app: Application): void {
 
@@ -36,7 +33,7 @@ export function configureApp(app: Application): void {
 	// Create a memory cache for the recent posts.
 	const memoryPosts: MemoryCache<IPostResponse> = createMemoryCache({
 		isCaching: true,
-		expiration: minutes(1.5)
+		expiration: minutes(2)
 	});
 
 	app.get('/posts', async (req: Request, response: Response<IPostResponse>, next: NextFunction) => {
@@ -58,12 +55,18 @@ export function configureApp(app: Application): void {
 		return response.json(serviceResponse);
 	});
 
+	// Create a memory cache for the other information.
+	const memoryOther: MemoryCache<IOtherResponse> = createMemoryCache({
+		isCaching: true,
+		expiration: minutes(2)
+	});
+
 	app.get('/other', async (_: Request, response: Response<IOtherResponse>, next: NextFunction) => {
 
 		log('--- other');
 		let serviceResponse: IOtherResponse = null!;
 		try {
-			serviceResponse = await getOther(sheetsService);
+			serviceResponse = await getOther(sheetsService, memoryOther);
 		}
 		catch (e) {
 			return next(e);
