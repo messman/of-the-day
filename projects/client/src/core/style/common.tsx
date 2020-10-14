@@ -1,7 +1,5 @@
 import * as React from 'react';
 import { tCss, tStyled } from '@/core/style/styled';
-import { spacing } from '../layout/common';
-import { FontSize } from '../symbol/text';
 
 export const borderRadiusValue: string = '.25rem';
 export const borderRadiusStyle = tCss`
@@ -12,26 +10,6 @@ export const separatorThickness = '2px';
 
 export const formTransitionStyle = tCss`
 	transition: all .15s linear;
-`;
-
-export interface TextAlignProps {
-	dataAlign: 'left' | 'right' | 'center';
-}
-
-export const TextAlign = tStyled.div<TextAlignProps>`
-	text-align: ${p => p.dataAlign || 'left'};
-`;
-
-export const SeeMoreButton = tStyled.button`
-	cursor: pointer;
-	display: block;
-	width: 100%;
-	font-size: ${FontSize.textRegular};
-	padding: ${spacing.medium.value} ${spacing.large.value};
-	${borderRadiusStyle};
-	border: none;
-	color: ${p => p.theme.color.textDistinctOnAccent};
-	background: ${p => p.theme.color.accentGradient};
 `;
 
 export interface HighlightBarProps {

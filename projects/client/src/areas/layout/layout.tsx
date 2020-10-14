@@ -14,6 +14,7 @@ import { IScrollIntoViewOptions, IScrollToOptions } from 'seamless-scroll-polyfi
 import { elementScrollTo, elementScrollIntoView } from 'seamless-scroll-polyfill';
 import { spacing } from '@/core/layout/common';
 import { ElementActionsOverlay } from '../posts/element-action-overlay';
+import { MetaMessaging } from '../alert/meta-messaging';
 
 export const ApplicationLayout: React.FC = () => {
 	return (
@@ -109,6 +110,7 @@ export const Layout: React.FC<LayoutProps> = (props) => {
 					<Header />
 					<div ref={elementIntersectRef} />
 					<UpperMenuBar isMobileWidth={isAnyMobileWidth} onPathClick={onScrollToSticky} />
+					<MetaMessaging />
 					<RouteContainer>
 						<Switch>
 							<Route exact path={routes.posts.path}>

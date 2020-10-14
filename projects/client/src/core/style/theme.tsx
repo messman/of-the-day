@@ -64,6 +64,8 @@ export interface ThemeColor {
 	warning: string;
 	/** Color used for error information. */
 	error: string;
+	/** Color used for error text on top of the error fill color. */
+	textDistinctOnErrorFill: string;
 	/** Color used for success information. */
 	success: string;
 }
@@ -89,6 +91,7 @@ const commonColor: Partial<ThemeColor> = {
 	settingsSelection: '#55D170',
 	warning: '#DC965A',
 	error: '#A63446',
+	textDistinctOnErrorFill: '#E6DBDD',
 	success: '#4B7F52',
 };
 

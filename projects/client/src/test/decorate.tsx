@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { themes, useLocalStorageTheme } from '@/core/style/theme';
-import { TestProviders } from '@/entry/wrapper';
+import { TestWrapper } from '@/entry/wrapper';
 import { select, withKnobs } from '@storybook/addon-knobs';
 
 export interface StoryComponent {
@@ -34,11 +34,11 @@ export function decorate(name: string, entry: string | null, Component: React.FC
 
 	const decorator = (story: () => JSX.Element) => {
 		return (
-			<TestProviders entry={entry || undefined}>
+			<TestWrapper entry={entry || undefined}>
 				<InnerTestWrapper>
 					{story()}
 				</InnerTestWrapper>
-			</TestProviders>
+			</TestWrapper>
 		);
 	};
 

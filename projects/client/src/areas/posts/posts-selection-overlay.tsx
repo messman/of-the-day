@@ -6,10 +6,11 @@ import { FlexColumn } from '@messman/react-common';
 import { IPost } from 'oftheday-shared';
 import { tStyled } from '@/core/style/styled';
 import { Spacing, spacing } from '@/core/layout/common';
-import { SeeMoreButton } from '@/core/style/common';
 import { ThemePickColor } from '@/core/style/theme';
 import { Heading3, RegularText } from '@/core/symbol/text';
 import { getDayReferenceRender } from './post-common';
+import { Button } from '@/core/form/button/button';
+import { iconTypes } from '@/core/symbol/icon';
 
 export interface PostsSelectionOverlayProps extends ManagedOverlayBoxProps {
 	activePostIndex: number;
@@ -48,7 +49,7 @@ export const PostsSelectionOverlay: React.FC<PostsSelectionOverlayProps> = (prop
 			<ScrollFlexColumn>
 				{postsRender}
 				<Spacing margin={spacing.medium.value}>
-					<SeeMoreButton onClick={onArchivesChosen}>See Archive</SeeMoreButton>
+					<Button onClick={onArchivesChosen} iconAfter={iconTypes.right} isSpecial={true}>See Archive</Button>
 				</Spacing>
 			</ScrollFlexColumn>
 			<FooterActionLink onClick={onSetInactive}>Cancel</FooterActionLink>

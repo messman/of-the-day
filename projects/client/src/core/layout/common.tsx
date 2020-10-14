@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { tStyled, tCss, StyledFC } from '../style/styled';
-import { StyledComponent } from 'styled-components';
-import { Theme, ThemePickColor } from '../style/theme';
+import { ThemePickColor } from '../style/theme';
 import { LayoutBreakpoint, lineBreakpoint } from '@/services/layout/window-layout';
 import { useWindowLayout } from '@messman/react-common';
 
@@ -72,20 +71,6 @@ export const VerticalDivider = tStyled.div<DividerProps>`
 	flex: none;
 	width: ${p => p.dataSpacing};
 `;
-
-/** Returns a new component that has the specified padding value. */
-export function addPadding<T extends StyledComponent<any, Theme, {}, never>>(component: T, padding: string) {
-	return tStyled(component)`
-		padding: ${padding};
-	`;
-}
-
-/** Returns a new component that has the specified margin value. */
-export function addMargin<T extends StyledComponent<any, Theme, {}, never>>(component: T, margin: string) {
-	return tStyled(component)`
-		margin: ${margin};
-	`;
-}
 
 export interface SpacingProps {
 	className?: string;

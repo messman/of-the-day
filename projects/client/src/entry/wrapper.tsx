@@ -11,36 +11,6 @@ import { ElementActionsProvider } from '@/areas/posts/element-action-overlay';
 
 export const Wrapper: React.FC = (props) => {
 	return (
-		<Providers>
-			<UI>
-				{props.children}
-			</UI>
-		</Providers>
-	);
-};
-
-export interface TextProvidersProps {
-	entry?: string;
-}
-
-export const TestProviders: React.FC<TextProvidersProps> = (props) => {
-	const { entry } = props;
-
-	const initialEntries = entry ? [entry] : undefined;
-	const initialIndex = entry ? 0 : undefined;
-	return (
-		<MemoryRouter initialEntries={initialEntries} initialIndex={initialIndex}>
-			<InnerProviders>
-				<InvalidCheck error={null}>
-					{props.children}
-				</InvalidCheck>
-			</InnerProviders>
-		</MemoryRouter>
-	);
-};
-
-const Providers: React.FC = (props) => {
-	return (
 		<BrowserRouter>
 			<InnerProviders>
 				{props.children}
@@ -49,6 +19,23 @@ const Providers: React.FC = (props) => {
 	);
 };
 
+export interface TextProvidersProps {
+	entry?: string;
+}
+
+export const TestWrapper: React.FC<TextProvidersProps> = (props) => {
+	const { entry } = props;
+
+	const initialEntries = entry ? [entry] : undefined;
+	const initialIndex = entry ? 0 : undefined;
+	return (
+		<MemoryRouter initialEntries={initialEntries} initialIndex={initialIndex}>
+			<InnerProviders>
+				{props.children}
+			</InnerProviders>
+		</MemoryRouter>
+	);
+};
 
 const InnerProviders: React.FC = (props) => {
 
@@ -59,26 +46,20 @@ const InnerProviders: React.FC = (props) => {
 					<WindowDimensionsProvider>
 						<WindowLayoutProvider lowerBreakpoints={lowerBreakpoints}>
 							<FontSizeManager>
-								<DataProvider>
-									<ElementActionsProvider>
-										{props.children}
-									</ElementActionsProvider>
-								</DataProvider>
+								<FlexRoot flexDirection='column'>
+									<InvalidCheck error={null}>
+										<DataProvider>
+											<ElementActionsProvider>
+												{props.children}
+											</ElementActionsProvider>
+										</DataProvider>
+									</InvalidCheck>
+								</FlexRoot>
 							</FontSizeManager>
 						</WindowLayoutProvider>
 					</WindowDimensionsProvider>
 				</OverlayPortalRoot>
 			</ThemeProvider>
 		</DocumentVisibilityProvider>
-	);
-};
-
-const UI: React.FC = (props) => {
-	return (
-		<FlexRoot flexDirection='column'>
-			<InvalidCheck error={null}>
-				{props.children}
-			</InvalidCheck>
-		</FlexRoot>
 	);
 };

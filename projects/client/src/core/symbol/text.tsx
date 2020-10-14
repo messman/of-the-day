@@ -105,22 +105,3 @@ export const Subtitle = tStyled(Heading2)`
 export const Paragraph = tStyled(RegularText)`
 	margin: ${spacing.medium.vertical};
 `;
-
-const textBoxStyle = tCss`
-	font-size: 1rem;
-	font-weight: 300;
-	margin: 0;
-	margin-top: 1.2rem;
-	padding: .5rem;
-	padding-bottom: 2rem;
-`;
-
-export const BadText = tStyled.p`
-	${textBoxStyle}
-	background-color: ${p => p.theme.color.warning};
-`;
-
-export const ImportantText = tStyled.p`
-	${textBoxStyle}
-	background-color: ${p => p.theme.color.textAccentOnBackground};
-`;
