@@ -2,6 +2,7 @@ import express = require('express');
 import { NextFunction, Request, Response } from 'express';
 import { configureApp } from './app';
 import { settings } from './env';
+import * as path from 'path';
 
 const port = process.env.PORT || 8000;
 
@@ -28,6 +29,17 @@ configureApp(app);
 
 // Host static files from this directory (relative to root of the node server, above dist)
 app.use(express.static('dist-client'));
+
+// React catch-all to serve the index file when app refreshes or navigates to client-side.
+app.use(function (request: Request, response: Response, next: NextFunction) {
+	const isPathValidForFallthrough = request.url.indexOf('.') === -1;
+	if (isPathValidForFallthrough) {
+		response.sendFile(path.join(__dirname, '../dist-client/index.html'));
+	}
+	else {
+		next();
+	}
+});
 
 // 404 handler
 app.use(function (_request: Request, response: Response, _next: NextFunction) {

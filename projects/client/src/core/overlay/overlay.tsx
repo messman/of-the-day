@@ -114,7 +114,7 @@ const BoxContainer = tStyled(FlexColumn) <BoxContainerProps>`
 	position: relative;
 	${p => p.isMaxWidth ? 'width: 100%;' : ''}
 	max-width: ${LayoutBreakpoint.mobileLarge}px;
-	max-height: min(90vh, ${LayoutBreakpoint.tablet}px);
+	max-height: min(80vh, ${LayoutBreakpoint.tablet}px);
 	background-color: ${p => p.theme.color.bg2};
 	${borderRadiusStyle};
 	box-shadow: 0 2px 3px 1px ${p => p.theme.color.bgComponentShadow1};

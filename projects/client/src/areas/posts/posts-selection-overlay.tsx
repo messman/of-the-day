@@ -5,11 +5,9 @@ import { ManagedOverlayBoxProps } from '@/services/overlay/overlay-manager';
 import { FlexColumn } from '@messman/react-common';
 import { IPost } from 'oftheday-shared';
 import { tStyled } from '@/core/style/styled';
-import { Spacing, spacing, TopMargin } from '@/core/layout/common';
+import { spacing, TopMargin } from '@/core/layout/common';
 import { Heading3, RegularText } from '@/core/symbol/text';
 import { getDayReferenceRender } from './post-common';
-import { Button } from '@/core/form/button/button';
-import { iconTypes } from '@/core/symbol/icon';
 
 export interface PostsSelectionOverlayProps extends ManagedOverlayBoxProps {
 	activePostIndex: number;
@@ -20,7 +18,7 @@ export interface PostsSelectionOverlayProps extends ManagedOverlayBoxProps {
 
 export const PostsSelectionOverlay: React.FC<PostsSelectionOverlayProps> = (props) => {
 
-	const { isActive, onSetInactive, activePostIndex, posts, onPostChosen, onArchivesChosen } = props;
+	const { isActive, onSetInactive, activePostIndex, posts, onPostChosen } = props;
 
 	const postsRender = posts.map((post, index) => {
 
@@ -47,9 +45,6 @@ export const PostsSelectionOverlay: React.FC<PostsSelectionOverlayProps> = (prop
 		>
 			<ScrollFlexColumn>
 				{postsRender}
-				<Spacing margin={spacing.medium.value}>
-					<Button onClick={onArchivesChosen} iconAfter={iconTypes.right} isSpecial={true}>See Archive</Button>
-				</Spacing>
 			</ScrollFlexColumn>
 			<FooterActionLink onClick={onSetInactive}>Cancel</FooterActionLink>
 		</OverlayBox>
