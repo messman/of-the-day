@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { IArchiveFilter, isFilterValid, keysOfIPostElementType, IArchiveFilterRange, IArchiveFilterPreset, IArchiveFilterSort, IPostElementType, IArchiveFilterModifier, isFilterExactlyEqual, filterPresets } from 'oftheday-shared';
-import { RegularText } from '@/core/symbol/text';
-import { FontWeight } from '@/core/style/theme';
-import { tStyled } from '@/core/style/styled';
+import { InlineWeight, RegularText } from '@/core/symbol/text';
+import { LineMaxWidth } from '@/core/layout/common';
 
 export const postElementTypeForDisplay: Record<keyof typeof IPostElementType, string> = {
 	notes: 'Notes',
@@ -124,48 +123,45 @@ export const FilterDescription: React.FC<FilterDescriptionProps> = (props) => {
 	const { preset, types, modifiers, range, sort } = filterDescriptor;
 
 	const startText = 'Filter to ';
-	let start: JSX.Element = null!;
+	let newlineStart: JSX.Element | null = null!;
+	let start: JSX.Element | null = null!;
 	if (preset) {
-		start = (
-			<div>
-				<BreakSpan>{startText}</BreakSpan>
-				<BreakText fontWeight={FontWeight.extraBold}>{preset}</BreakText>
-				<BreakSpan>: </BreakSpan>
-			</div>
+		newlineStart = (
+			<RegularText>
+				<span>{startText}</span>
+				<InlineWeight.Bold>"{preset}"</InlineWeight.Bold>
+				<span>: </span>
+			</RegularText>
 		);
 	}
 	else {
 		start = (
-			<BreakSpan>{startText}</BreakSpan>
+			<span>{startText}</span>
 		);
 	}
 
 	const modifierSection = modifiers ? (
 		<>
-			<BreakSpan>with </BreakSpan>
-			<BreakText fontWeight={FontWeight.bold}>{modifiers} </BreakText>
+			<span>with </span>
+			<InlineWeight.Bold>{modifiers} </InlineWeight.Bold>
 		</>
 	) : null;
 
 	return (
-		<div>
-			{start}
-			<BreakText fontWeight={FontWeight.bold}>{types} </BreakText>
-			{modifierSection}
-			<BreakSpan>for </BreakSpan>
-			<BreakText fontWeight={FontWeight.bold}>{range} </BreakText>
-			<BreakSpan>sorted </BreakSpan>
-			<BreakText fontWeight={FontWeight.bold}>{sort}</BreakText>
-		</div>
+		<LineMaxWidth>
+			{newlineStart}
+			<div>
+				{start}
+				<InlineWeight.Bold>{types} </InlineWeight.Bold>
+				{modifierSection}
+				<span>for </span>
+				<InlineWeight.Bold>{range} </InlineWeight.Bold>
+				<span>sorted </span>
+				<InlineWeight.Bold>{sort}</InlineWeight.Bold>
+			</div>
+		</LineMaxWidth>
 	);
 };
-
-const BreakText = tStyled(RegularText)`
-	display: inline;
-`;
-const BreakSpan = tStyled.span`
-	display: inline;
-`;
 
 /** Sets the preset for a filter if it matches any of the presets. */
 export function matchToPreset(filter: IArchiveFilter): void {

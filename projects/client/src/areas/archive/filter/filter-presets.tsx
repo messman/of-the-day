@@ -50,7 +50,7 @@ export const FilterPresets: React.FC<FilterPresetsProps> = (props) => {
 };
 
 const ButtonsContainer = tStyled.div`
-	button + button {
+	${Button} + ${Button} {
 		margin-top: ${spacing.medium.value};
 	}
 `;

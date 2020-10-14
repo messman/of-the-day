@@ -187,12 +187,11 @@ function createFilterForElementType(elementType: IPostElementType): IArchiveFilt
 }
 
 const ButtonsContainer = tStyled.div`
-
-	button {
+	${Button} {
 		width: 100%;
 	}
 
-	button + button {
+	${Button} + ${Button} {
 		margin-top: ${spacing.medium.value};
 	}
 `;

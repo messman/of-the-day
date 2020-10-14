@@ -107,11 +107,10 @@ export const TestTextCard = decorate('Text Card', null, () => {
 	const title = text('Title', 'Title');
 	const heading = text('Heading', 'Heading');
 	const cardText = text('Text', 'This is some text.');
-	const defaultText = text('Default Text', 'Looks like there is nothing here.');
 
 	return (
 		<CardGroup title='Text Card'>
-			<TextCard title={title} heading={heading} text={cardText} defaultText={defaultText} icon={iconTypes.note} />
+			<TextCard title={title} heading={heading} text={cardText} icon={iconTypes.note} />
 		</CardGroup>
 	);
 });

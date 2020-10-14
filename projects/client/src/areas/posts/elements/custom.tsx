@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { IPostCustom, IPostElementType, isValidPostElement } from 'oftheday-shared';
-import { spacing, Spacing } from '@/core/layout/common';
+import { spacing, Spacing, TopMargin } from '@/core/layout/common';
 import { RegularText, SmallText } from '@/core/symbol/text';
 import { OutLink, ActionLink } from '@/core/link';
 import { tStyled } from '@/core/style/styled';
@@ -45,6 +45,14 @@ export const Custom = createPostsElement<IPostCustom>((props) => {
 
 	const iconType = !!link ? iconTypes.link : iconTypes.speech;
 
+	const revealButton = hiddenValue ? (
+		<TopMargin.Medium>
+			<SmallText>
+				<ActionLink onClick={onClick}>{revealText}</ActionLink>
+			</SmallText>
+		</TopMargin.Medium>
+	) : null;
+
 	return (
 		<PostCard title={title} icon={iconType} isForArchive={isForArchive} hideTitle={hideTitle} archivePost={archivePost}>
 			<CardPadding>
@@ -52,12 +60,10 @@ export const Custom = createPostsElement<IPostCustom>((props) => {
 				<Spacing show={link} margin={spacing.medium.top}>
 					<OutLink href={link}>{linkText}</OutLink>
 				</Spacing>
-				<RegularText margin={spacing.medium.top}>
+				<TopMargin.Medium>
 					{value}
-				</RegularText>
-				<SmallText show={hiddenValue} margin={spacing.medium.top}>
-					<ActionLink onClick={onClick}>{revealText}</ActionLink>
-				</SmallText>
+				</TopMargin.Medium>
+				{revealButton}
 				<Spacing show={hiddenValue && isShowingHiddenValue} margin={spacing.small.top}>
 					<HiddenArea>
 						<RegularText>

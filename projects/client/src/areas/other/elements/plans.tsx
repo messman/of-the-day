@@ -4,6 +4,25 @@ import { OutLink } from '@/core/link';
 import { RegularText } from '@/core/symbol/text';
 import { Card, CardPadding } from '@/core/card/card';
 import { iconTypes, SVGIconType } from '@/core/symbol/icon';
+import { CardGroup } from '@/core/card/card-group';
+import { EqualCardFlow } from '@/core/card/card-flow';
+
+export interface PlansProps {
+	other: IOther;
+}
+
+export const Plans: React.FC<PlansProps> = (props) => {
+	const { other } = props;
+
+	return (
+		<CardGroup title='Plans' isAutoAlternateBackground={true}>
+			<EqualCardFlow>
+				<WorkingOn other={other} />
+				<LookingForward other={other} />
+			</EqualCardFlow>
+		</CardGroup>
+	);
+};
 
 export interface LookingForwardProps {
 	other: IOther;

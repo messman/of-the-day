@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { IOther } from 'oftheday-shared';
-import { Spacing, spacing } from '@/core/layout/common';
+import { Spacing, TopMargin } from '@/core/layout/common';
 import { Heading3, RegularText } from '@/core/symbol/text';
 import { CardGroup } from '@/core/card/card-group';
 import { Card, CardPadding } from '@/core/card/card';
@@ -23,19 +23,24 @@ export const Miles: React.FC<MilesProps> = (props) => {
 			<EqualCardFlow>
 				<Card title='Walking/Running' icon={iconTypes.activity}>
 					<CardPadding>
-
 						<Spacing textAlign='center'>
-							<Heading3 isMaxLineLength={false}>{milesByFoot} miles</Heading3>
-							<RegularText isMaxLineLength={false} margin={spacing.medium.top}>As reported by Apple Watch.</RegularText>
-							<RegularText isMaxLineLength={false} margin={spacing.nudge.top}>Goal: 500 miles, then 500 more.</RegularText>
+							<Heading3>{milesByFoot} miles</Heading3>
+							<TopMargin.Medium>
+								<RegularText>As reported by Apple Watch.</RegularText>
+							</TopMargin.Medium>
+							<TopMargin.Nudge>
+								<RegularText>Goal: 500 miles, then 500 more.</RegularText>
+							</TopMargin.Nudge>
 						</Spacing>
 					</CardPadding>
 				</Card>
 				<Card title='Bicycling' icon={iconTypes.bicycling}>
 					<CardPadding>
 						<Spacing textAlign='center'>
-							<Heading3 isMaxLineLength={false}>{milesByBicycle} miles</Heading3>
-							<RegularText isMaxLineLength={false} margin={spacing.medium.top}>As reported by Apple Watch.</RegularText>
+							<Heading3>{milesByBicycle} miles</Heading3>
+							<TopMargin.Medium>
+								<RegularText>As reported by Apple Watch.</RegularText>
+							</TopMargin.Medium>
 						</Spacing>
 					</CardPadding>
 				</Card>

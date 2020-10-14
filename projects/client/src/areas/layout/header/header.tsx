@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { RegularText } from '@/core/symbol/text';
 import { FlexRow, useWindowLayout } from '@messman/react-common';
-import { spacing, Spacing } from '@/core/layout/common';
+import { spacing, Spacing, TopMargin } from '@/core/layout/common';
 import { tStyled } from '@/core/style/styled';
 import { LayoutBreakpoint } from '@/services/layout/window-layout';
 import { FontWeight } from '@/core/style/theme';
@@ -37,15 +37,24 @@ export const Header: React.FC = () => {
 						<HeaderBoldText dataFontSize={titleHeight}>Of The Day</HeaderBoldText>
 					</div>
 				</FlexRow>
-				<Spacing textAlign='center' margin={textTopMargin}>
-					<RegularText isMaxLineLength={false} color={c => c.textDistinctOnAccent}>A place for Andrew to share things</RegularText>
-					<RegularText isMaxLineLength={false} color={c => c.textDistinctOnAccent} margin={spacing.nudge.top}>until he runs out of money.</RegularText>
+				<Spacing margin={textTopMargin}>
+					<TextSubtitleOnAccent>
+						<RegularText>A place for Andrew to share things</RegularText>
+						<TopMargin.Nudge>
+							<RegularText>until he runs out of money.</RegularText>
+						</TopMargin.Nudge>
+					</TextSubtitleOnAccent>
 				</Spacing>
 			</Spacing>
 			<HeaderShadow />
 		</Parent>
 	);
 };
+
+const TextSubtitleOnAccent = tStyled.div`
+	text-align: center;
+	color: ${p => p.theme.color.textDistinctOnAccent};
+`;
 
 interface HeaderBoldTextProps {
 	dataFontSize: string;

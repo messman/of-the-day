@@ -331,11 +331,11 @@ export const GlobalStyles = createGlobalStyle<ThemeProps<Theme>>`
 		-webkit-transform: translate3d(0,0,0);
 		-webkit-perspective: 1000;
 		overflow: hidden;
+		font-weight: ${FontWeight.medium};
 	}
 
 	* {
 		font-family: 'Montserrat', sans-serif;
-		font-weight: ${FontWeight.medium};
 		vertical-align: top;
 		box-sizing: border-box;
 		-webkit-text-size-adjust: 100%;
@@ -344,6 +344,16 @@ export const GlobalStyles = createGlobalStyle<ThemeProps<Theme>>`
 
 	h1, h2, h3, h4, h5, h6, p {
 		margin: 0;
+	}
+
+	h1 {
+		color: ${p => p.theme.color.textHeading1};
+	}
+	h2 {
+		color: ${p => p.theme.color.textHeading2};
+	}
+	h3, h4, h5, h6 {
+		color: ${p => p.theme.color.textHeading3};
 	}
 `;
 

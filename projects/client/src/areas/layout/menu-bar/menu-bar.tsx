@@ -6,8 +6,8 @@ import { MenuBarItems } from './menu-bar-items';
 import { useSpring, animated } from 'react-spring';
 import { spacing } from '@/core/layout/common';
 import { Icon, iconTypes } from '@/core/symbol/icon';
-import { FreeText } from '@/core/symbol/text';
 import { FontWeight } from '@/core/style/theme';
+import { Heading1 } from '@/core/symbol/text';
 
 /** Use an explicit pixel height for the upper menu bar to be used for sticky. */
 const upperMenuBarContentHeightPixels = 50;
@@ -76,14 +76,12 @@ export const UpperStickyMenuBar: React.FC<UpperStickyMenuBarProps> = (props) => 
 	const springProps = useSpring({ top: isShowing ? '0px' : `-${upperMenuBarHeightPixels.total}px` });
 
 	const topLeftTitle = isDesktopWidth ? (
-		<UpperMenuStickyTitleContainer alignItems='center'>
-			<UpperMenuStickyTitleClickContainer onClick={onScrollToTop}>
-				<FreeText isInline={true} fontSize={upperMenuBarTitleHeight} fontWeight={FontWeight.bold} color={c => c.textHeading1}>
-					<SpacedIcon type={iconTypes.brand} height={upperMenuBarTitleHeight} fillColor={c => c.textHeading1} />
-					Of The Day
-				</FreeText>
-			</UpperMenuStickyTitleClickContainer>
-		</UpperMenuStickyTitleContainer>
+		<UpperMenuStickyTitleClickContainer onClick={onScrollToTop}>
+			<SpacedTitle>
+				<SpacedBrandIcon type={iconTypes.brand} height={upperMenuBarTitleHeight} fillColor={c => c.textHeading1} />
+				<span>Of The Day</span>
+			</SpacedTitle>
+		</UpperMenuStickyTitleClickContainer>
 	) : null;
 
 	// Create the content for when the bar is sticky.
@@ -137,16 +135,23 @@ const UpperStickyMenuBarContainer = tStyled(FlexRow)`
 	width: ${upperMenuBarMaxWidth};
 `;
 
-const UpperMenuStickyTitleContainer = tStyled(FlexRow)`
+const UpperMenuStickyTitleClickContainer = tStyled.div`
 	height: 100%;
 	margin-left: ${spacing.medium.value};
-`;
-
-const UpperMenuStickyTitleClickContainer = tStyled.div`
+	display: inline-flex;
+	flex-direction: row;
+	justify-content: left;
+	align-items: center;
 	cursor: pointer;
+	font-weight: ${FontWeight.bold};
 `;
 
-const SpacedIcon = tStyled(Icon)`
+const SpacedTitle = tStyled(Heading1)`
+	display: inline-block;
+	font-size: ${upperMenuBarTitleHeight};
+`;
+
+const SpacedBrandIcon = tStyled(Icon)`
 	margin: ${spacing.small.right};
 `;
 

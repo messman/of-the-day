@@ -104,7 +104,7 @@ const MultiQuotePiece: React.FC<MultiQuotePieceProps> = (props) => {
 	if (voice) {
 		const voiceLabel = voice + ':';
 		voiceRender = (
-			<RegularText margin={spacing.small.bottom}>{voiceLabel}</RegularText>
+			<VoiceText>{voiceLabel}</VoiceText>
 		);
 	}
 
@@ -127,4 +127,8 @@ const MultiQuotePiece: React.FC<MultiQuotePieceProps> = (props) => {
 const QuoteSpacing = tStyled.div`
 	width: 3rem;
 	flex: 0 0 auto;
+`;
+
+const VoiceText = tStyled(RegularText)`
+	margin-bottom: ${spacing.small.value};
 `;

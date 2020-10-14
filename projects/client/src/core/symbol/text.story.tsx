@@ -14,31 +14,31 @@ export const TestTextWithIcons = decorate('Text', null, () => {
 	return (
 		<>
 			<Padding>
-				<Heading1 isInline={true}>
+				<Heading1>
 					<SpacedIcon type={iconType} height={FontSize.heading1} fillColor={c => c.textAccentOnBackground} />
 					Heading 1
 				</Heading1>
 			</Padding>
 			<Padding>
-				<Heading2 isInline={true}>
+				<Heading2>
 					<SpacedIcon type={iconType} height={FontSize.heading2} fillColor={c => c.textAccentOnBackground} />
 					Heading 2
 				</Heading2>
 			</Padding>
 			<Padding>
-				<Heading3 isInline={true}>
+				<Heading3>
 					<SpacedIcon type={iconType} height={FontSize.heading3} fillColor={c => c.textAccentOnBackground} />
 					Heading 3
 				</Heading3>
 			</Padding>
 			<Padding>
-				<RegularText isInline={true}>
+				<RegularText>
 					<SpacedIcon type={iconType} height={FontSize.textRegular} fillColor={c => c.textAccentOnBackground} />
 					Regular Text
 					</RegularText>
 			</Padding>
 			<Padding>
-				<SmallText isInline={true}>
+				<SmallText>
 					<SpacedIcon type={iconType} height={FontSize.textSmall} fillColor={c => c.textAccentOnBackground} />
 					Small Text
 				</SmallText>

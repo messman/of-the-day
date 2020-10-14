@@ -69,7 +69,7 @@ const TextColorBox: React.FC<ColorBoxProps> = (props) => {
 	return (
 		<div>
 			<LongColorBox backgroundColor={props.backgroundColor} />
-			<RegularText isInline={true}>{props.children}</RegularText>
+			<RegularText>{props.children}</RegularText>
 		</div>
 	);
 };

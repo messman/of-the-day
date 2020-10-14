@@ -11,6 +11,15 @@ export const ApplicationMaxWidth = tStyled.div`
 export const LineMaxWidth = tStyled.div`
 	max-width: ${lineBreakpoint};
 `;
+export const LineMaxWidthCenter = tStyled.div`
+	max-width: ${lineBreakpoint};
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+`;
+export const TextCenter = tStyled.div`
+	text-align: center;
+`;
 
 export function useResponsiveEdgeSpacing(): Spacing {
 
@@ -55,6 +64,34 @@ export const spacing = {
 	large: createSpacing('2.2rem'),
 	/** For large screen space. 4.5rem */
 	grand: createSpacing('4.5rem'),
+};
+
+const TopMarginNudge = tStyled.div`
+	margin-top: ${spacing.nudge.value};
+`;
+
+const TopMarginSmall = tStyled.div`
+	margin-top: ${spacing.small.value};
+`;
+
+const TopMarginMedium = tStyled.div`
+	margin-top: ${spacing.medium.value};
+`;
+
+const TopMarginLarge = tStyled.div`
+	margin-top: ${spacing.large.value};
+`;
+
+const TopMarginGrand = tStyled.div`
+	margin-top: ${spacing.grand.value};
+`;
+
+export const TopMargin = {
+	Nudge: TopMarginNudge,
+	Small: TopMarginSmall,
+	Medium: TopMarginMedium,
+	Large: TopMarginLarge,
+	Grand: TopMarginGrand
 };
 
 export interface DividerProps {
@@ -118,7 +155,7 @@ export const InternalSpacing = tStyled.div.attrs((p: InternalSpacingProps) => {
 		style.margin = p.$margin;
 	}
 	if (p.$padding) {
-		style.order = p.$padding;
+		style.padding = p.$padding;
 	}
 	if (p.$isRelative) {
 		style.position = 'relative';

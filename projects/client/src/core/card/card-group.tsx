@@ -22,12 +22,11 @@ export const CardGroup: React.FC<CardGroupProps> = (props) => {
 	const titleMargin = `0 auto ${groupSpacing.value} auto`;
 
 	const titleRender = title ? (
-		<Heading1
-			textAlign='center'
-			margin={titleMargin}
-		>
-			{title}
-		</Heading1>
+		<Spacing textAlign='center' margin={titleMargin}>
+			<Heading1>
+				{title}
+			</Heading1>
+		</Spacing>
 	) : null;
 
 	const Background = isAutoAlternateBackground ? AutoAlternatingBackground : (isAlternateBackground ? AlternateBackground : UnchangedBackground);

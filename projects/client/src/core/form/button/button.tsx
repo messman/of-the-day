@@ -1,11 +1,11 @@
 import { spacing } from '@/core/layout/common';
 import { borderRadiusStyle } from '@/core/style/common';
-import { tCss, tStyled } from '@/core/style/styled';
+import { StyledFCProps, tCss, tStyled } from '@/core/style/styled';
 import { Icon, SVGIconType } from '@/core/symbol/icon';
 import { FontSize } from '@/core/symbol/text';
 import * as React from 'react';
 
-export interface ButtonProps extends Pick<React.HTMLAttributes<HTMLButtonElement>, 'onClick' | 'title' | 'className'> {
+export interface ButtonProps extends Pick<React.HTMLAttributes<HTMLButtonElement>, 'onClick' | 'title'> {
 	isDisabled?: boolean;
 	isSelected?: boolean;
 	isSpecial?: boolean;
@@ -13,7 +13,7 @@ export interface ButtonProps extends Pick<React.HTMLAttributes<HTMLButtonElement
 	iconAfter?: SVGIconType;
 }
 
-export const Button: React.FC<ButtonProps> = (props) => {
+export const Button = tStyled((props: StyledFCProps<ButtonProps>) => {
 	const { className, isDisabled, isSelected, isSpecial, iconBefore, iconAfter, onClick, title, children } = props;
 
 	const iconRenderBefore = iconBefore ? <LeftIcon type={iconBefore} height={FontSize.textRegular} /> : null;
@@ -36,7 +36,7 @@ export const Button: React.FC<ButtonProps> = (props) => {
 			</FlexSpan>
 		</InnerButton>
 	);
-};
+})``;
 
 const FlexSpan = tStyled.span`
 	display: inline-flex;

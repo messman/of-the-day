@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { spacing } from '@/core/layout/common';
+import { spacing, TextCenter, TopMargin } from '@/core/layout/common';
 import { tStyled } from '@/core/style/styled';
 import { Icon, iconTypes } from '@/core/symbol/icon';
-import { SmallText, Heading2, RegularText, FontSize } from '@/core/symbol/text';
+import { SmallText, Heading2, FontSize, Paragraph } from '@/core/symbol/text';
 import { CONSTANT } from '@/services/constant';
 import { useWindowLayout, FlexColumn } from '@messman/react-common';
 import { isInvalidLayout } from '@/services/layout/window-layout';
@@ -114,7 +114,9 @@ const InvalidCenter: React.FC<InvalidCenterProps> = (props) => {
 	const otherMessagesText = otherMessages.map((m, i) => {
 		const key = `${i}_${m}`;
 		return (
-			<RegularText key={key}>{m}</RegularText>
+			<TextCenter>
+				<Paragraph key={key}>{m}</Paragraph>
+			</TextCenter>
 		);
 	});
 
@@ -125,7 +127,9 @@ const InvalidCenter: React.FC<InvalidCenterProps> = (props) => {
 			window.location.reload();
 		};
 		clickInstruction = (
-			<SmallText padding={spacing.medium.value}>Click/tap here to refresh the application.</SmallText>
+			<TopMargin.Medium>
+				<SmallText>Click/tap here to refresh the application.</SmallText>
+			</TopMargin.Medium>
 		);
 	}
 
@@ -139,7 +143,9 @@ const InvalidCenter: React.FC<InvalidCenterProps> = (props) => {
 		<InvalidCenterWrapper justifyContent='space-around' alignItems='center' onClick={onClick}>
 			<div>
 				<Icon type={iconTypes.alert} fillColor={c => c.error} height={FontSize.heading1} />
-				<Heading2 padding={spacing.medium.value}>{firstMessage}</Heading2>
+				<TopMargin.Medium>
+					<Heading2>{firstMessage}</Heading2>
+				</TopMargin.Medium>
 				{otherMessagesText}
 				{clickInstruction}
 			</div>
@@ -150,6 +156,6 @@ const InvalidCenter: React.FC<InvalidCenterProps> = (props) => {
 
 const InvalidCenterWrapper = tStyled(FlexColumn)`
 	/* Pad to ensure the inner Flex content doesn't run up against the edge. */
-	padding: calc(${spacing.small.value} * 3);
+	padding: ${spacing.medium.value};
 	text-align: center;
 `;

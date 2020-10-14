@@ -5,7 +5,7 @@ import { ManagedOverlayBoxProps } from '@/services/overlay/overlay-manager';
 import { FlexColumn, FlexRow } from '@messman/react-common';
 import { IArchiveFilter, cloneFilter, isFilterValid } from 'oftheday-shared';
 import { tStyled } from '@/core/style/styled';
-import { Spacing, spacing } from '@/core/layout/common';
+import { Spacing, spacing, TextCenter, TopMargin } from '@/core/layout/common';
 import { FontSize, RegularText } from '@/core/symbol/text';
 import { matchToPreset } from '../filter-common';
 import { Icon, iconTypes } from '@/core/symbol/icon';
@@ -45,12 +45,12 @@ export const FilterOverlay: React.FC<FilterOverlayProps> = (props) => {
 	}
 
 	const invalidWarning = !isFilterValid(filterWorkingCopy) ? (
-		<RegularText isMaxLineLength={false} textAlign='center' margin={spacing.medium.value}>
+		<FooterWarning>
 			<Spacing isInline={true} margin={spacing.small.right}>
 				<Icon type={iconTypes.alert} fillColor={c => c.warning} height={FontSize.textRegular} />
 			</Spacing>
 			The selected filter options won't return anything.
-		</RegularText>
+		</FooterWarning>
 	) : null;
 
 	const tabPadding = spacing.medium.value;
@@ -59,13 +59,15 @@ export const FilterOverlay: React.FC<FilterOverlayProps> = (props) => {
 	if (isShowingPresets) {
 		tabContent = (
 			<>
-				<RegularText margin={spacing.medium.bottom} textAlign='center' isMaxLineLength={false}>
-					Select a preset, or choose the 'advanced' tab.
-			</RegularText>
-				<FilterPresets
-					selectedFilter={filterWorkingCopy}
-					onClickPreset={onFilterWorkingCopyChanged}
-				/>
+				<TextCenter>
+					<RegularText>Select a preset, or choose the 'advanced' tab.</RegularText>
+				</TextCenter>
+				<TopMargin.Medium>
+					<FilterPresets
+						selectedFilter={filterWorkingCopy}
+						onClickPreset={onFilterWorkingCopyChanged}
+					/>
+				</TopMargin.Medium>
 			</>
 		);
 	}
@@ -126,6 +128,7 @@ export const FilterOverlay: React.FC<FilterOverlayProps> = (props) => {
 
 const TabHeaderContainer = tStyled(FlexRow)`
 	position: relative;
+	border-bottom: 1px solid ${p => p.theme.color.bgComponent3};
 `;
 
 export interface FilterOverlayTabProps {
@@ -144,6 +147,12 @@ const Footer = tStyled(FlexRow)`
 
 const FooterActionLink = tStyled(ActionLink)`
 	flex: 1;
+	text-align: center;
+	padding: ${spacing.medium.value};
+`;
+
+const FooterWarning = tStyled(RegularText)`
+	border-top: 1px solid ${p => p.theme.color.bgComponent3};
 	text-align: center;
 	padding: ${spacing.medium.value};
 `;

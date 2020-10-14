@@ -5,8 +5,7 @@ import { ManagedOverlayBoxProps } from '@/services/overlay/overlay-manager';
 import { FlexColumn } from '@messman/react-common';
 import { IPost } from 'oftheday-shared';
 import { tStyled } from '@/core/style/styled';
-import { Spacing, spacing } from '@/core/layout/common';
-import { ThemePickColor } from '@/core/style/theme';
+import { Spacing, spacing, TopMargin } from '@/core/layout/common';
 import { Heading3, RegularText } from '@/core/symbol/text';
 import { getDayReferenceRender } from './post-common';
 import { Button } from '@/core/form/button/button';
@@ -79,15 +78,23 @@ const PostListItem: React.FC<PostListItemProps> = (props) => {
 
 	const dayReferenceRender = getDayReferenceRender(dayReference);
 
-	const color: ThemePickColor = c => isActivePost ? c.textAccentOnBackground : c.textRegular;
-
 	return (
 		<PostListItemContainer onClick={onClick} isActivePost={isActivePost}>
-			<Heading3 margin={spacing.nudge.bottom} color={color}>{dateText}</Heading3>
-			<RegularText margin={spacing.nudge.bottom} color={color}>{dayReferenceRender}Day {dayNumber}</RegularText>
+			<ActiveHeading isActivePost={isActivePost}>{dateText}</ActiveHeading>
+			<TopMargin.Nudge>
+				<RegularText>{dayReferenceRender}Day {dayNumber}</RegularText>
+			</TopMargin.Nudge>
 		</PostListItemContainer>
 	);
 };
+
+interface ActiveHeadingProps {
+	isActivePost: boolean;
+}
+
+const ActiveHeading = tStyled(Heading3) <ActiveHeadingProps>`
+	color: ${p => p.isActivePost ? p.theme.color.textAccentOnBackground : p.theme.color.textRegular};
+`;
 
 interface PostListItemContainerProps {
 	isActivePost: boolean;
@@ -99,6 +106,8 @@ const PostListItemContainer = tStyled.div<PostListItemContainerProps>`
 	border-top: 1px solid ${p => p.theme.color.bgComponent3};
 	border-left: none;
 	border-right: none;
+
+	color: ${p => p.isActivePost ? p.theme.color.textAccentOnBackground : p.theme.color.textRegular};
 
 	&:first-child {
 		border-top: none;

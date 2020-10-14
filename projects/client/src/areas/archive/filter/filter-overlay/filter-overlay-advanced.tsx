@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { cloneFilter, IPostElementType, keysOfFilterRange, IArchiveFilterRange, keysOfFilterSort, IArchiveFilterSort, IArchiveFilter } from 'oftheday-shared';
-import { Spacing, spacing } from '@/core/layout/common';
+import { spacing, TopMargin } from '@/core/layout/common';
 import { Heading3 } from '@/core/symbol/text';
 import { Checkbox, OpenSelect, OpenSelectOption } from './filter-overlay-forms';
 import { archiveFilterModifiersForDisplay, archiveFilterRangeForDisplay, archiveFilterSortForDisplay, isOnlyMusicTypeSelected, postElementTypeForDisplay } from '../filter-common';
 import { FilterOverlayTabProps } from './filter-overlay';
+import { tStyled } from '@/core/style/styled';
 
 export const FilterOverlayAdvanced: React.FC<FilterOverlayTabProps> = (props) => {
 
@@ -66,57 +67,52 @@ export const FilterOverlayAdvanced: React.FC<FilterOverlayTabProps> = (props) =>
 
 	return (
 		<>
-			<Spacing margin={spacing.large.bottom}>
+			<div>
 				<Heading3>See</Heading3>
-				<Spacing margin={spacing.small.top}>
+				<CheckboxesContainer>
 					<Checkbox value={filterWorkingCopy.types.music} onValueChange={onTypeChange(IPostElementType.music)}>{postElementTypeForDisplay.music}</Checkbox>
-				</Spacing>
-				<Spacing margin={spacing.small.top}>
 					<Checkbox value={filterWorkingCopy.types.video} onValueChange={onTypeChange(IPostElementType.video)}>{postElementTypeForDisplay.video}</Checkbox>
-				</Spacing>
-				<Spacing margin={spacing.small.top}>
 					<Checkbox value={filterWorkingCopy.types.image} onValueChange={onTypeChange(IPostElementType.image)}>{postElementTypeForDisplay.image}</Checkbox>
-				</Spacing>
-				<Spacing margin={spacing.small.top}>
 					<Checkbox value={filterWorkingCopy.types.quote} onValueChange={onTypeChange(IPostElementType.quote)}>{postElementTypeForDisplay.quote}</Checkbox>
-				</Spacing>
-				<Spacing margin={spacing.small.top}>
 					<Checkbox value={filterWorkingCopy.types.custom} onValueChange={onTypeChange(IPostElementType.custom)}>{postElementTypeForDisplay.custom}</Checkbox>
-				</Spacing>
-			</Spacing>
-			<Spacing margin={spacing.large.bottom}>
+				</CheckboxesContainer>
+			</div>
+			<TopMargin.Large>
 				<Heading3>With</Heading3>
-				<Spacing margin={spacing.small.top}>
+				<CheckboxesContainer>
 					<Checkbox value={filterWorkingCopy.modifiers.includeOnlyWithTopTag} onValueChange={onTopTagModifierChange}>{archiveFilterModifiersForDisplay.includeOnlyWithTopTag}</Checkbox>
-				</Spacing>
-				<Spacing margin={spacing.small.top}>
 					<Checkbox value={filterWorkingCopy.modifiers.excludeWithNSFWTag} onValueChange={onNSFWTagModifierChange}>{archiveFilterModifiersForDisplay.excludeWithNSFWTag}</Checkbox>
-				</Spacing>
-			</Spacing>
-			<Spacing margin={spacing.large.bottom}>
+				</CheckboxesContainer>
+			</TopMargin.Large>
+			<TopMargin.Large>
 				<Heading3>For</Heading3>
-				<Spacing margin={spacing.small.top}>
-
+				<TopMargin.Small>
 					<OpenSelect
 						options={rangeOptions}
 						selectedIndex={filterWorkingCopy.range}
 						onSelectedIndexChange={onRangeChange}
 					/>
-				</Spacing>
-			</Spacing>
-			<Spacing margin={spacing.large.bottom}>
+				</TopMargin.Small>
+			</TopMargin.Large>
+			<TopMargin.Large>
 				<Heading3>Sorted</Heading3>
-				<Spacing margin={spacing.small.top}>
+				<TopMargin.Small>
 					<OpenSelect
 						options={sortOptions}
 						selectedIndex={filterWorkingCopy.sort}
 						onSelectedIndexChange={onSortChange}
 					/>
-				</Spacing>
-			</Spacing>
+				</TopMargin.Small>
+			</TopMargin.Large>
 		</>
 	);
 };
+
+const CheckboxesContainer = tStyled.div`
+	${Checkbox} + ${Checkbox} {
+		margin-top: ${spacing.small.value};
+	}
+`;
 
 function cloneFilterWithoutPreset(filter: IArchiveFilter): IArchiveFilter {
 	const clonedFilter = cloneFilter(filter);

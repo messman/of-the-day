@@ -3,7 +3,7 @@ import { PromiseOutput } from '@messman/react-common';
 import { keyframes, tStyled } from '@/core/style/styled';
 import { Icon, iconTypes } from '@/core/symbol/icon';
 import { RegularText } from '@/core/symbol/text';
-import { Spacing, spacing } from '@/core/layout/common';
+import { Spacing, spacing, TopMargin } from '@/core/layout/common';
 import { ActionLink } from '@/core/link';
 
 export interface DataLoadProps {
@@ -45,19 +45,21 @@ export const DataLoad: React.FC<DataLoadProps> = (props) => {
 			window.location.reload();
 		}
 		actionLink = (
-			<RegularText isMaxLineLength={false} margin={spacing.medium.top}>
-				<ActionLink onClick={onRefreshClick}>Refresh</ActionLink>
-			</RegularText>
+			<TopMargin.Medium>
+				<RegularText>
+					<ActionLink onClick={onRefreshClick}>Refresh</ActionLink>
+				</RegularText>
+			</TopMargin.Medium>
 		);
 	}
 
 	return (
 		<Spacing margin={spacing.medium.horizontal}>
 			<Spacing margin={spacing.grand.top} textAlign='center'>
-				<Spacing margin={spacing.medium.vertical}>
-					{icon}
-				</Spacing>
-				<RegularText isMaxLineLength={false} margin={spacing.medium.value}>{text}</RegularText>
+				{icon}
+				<TopMargin.Medium>
+					<RegularText>{text}</RegularText>
+				</TopMargin.Medium>
 				{actionLink}
 			</Spacing>
 		</Spacing>

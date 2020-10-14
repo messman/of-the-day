@@ -68,13 +68,19 @@ const MetaMessagingLines: React.FC<MetaMessagingLinesProps> = (props) => {
 	const textRender = text.map((line, i) => {
 		const key = i;
 		return (
-			<Paragraph fontWeight={FontWeight.bold} key={key}>{line}</Paragraph>
+			<BoldParagraph key={key}>
+				{line}
+			</BoldParagraph>
 		);
 	});
 	return (
 		<>{textRender}</>
 	);
 };
+
+const BoldParagraph = tStyled(Paragraph)`
+	font-weight: ${FontWeight.bold};
+`;
 
 const TextBox = tStyled.div`
 	padding: ${spacing.large.value};

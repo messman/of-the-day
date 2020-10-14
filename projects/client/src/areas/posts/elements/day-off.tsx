@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ApplicationMaxWidth, Spacing, spacing } from '@/core/layout/common';
+import { ApplicationMaxWidth, LineMaxWidthCenter, Spacing, spacing } from '@/core/layout/common';
 import { Heading2, RegularText } from '@/core/symbol/text';
 
 export interface DayOffProps {
@@ -15,10 +15,12 @@ export const DayOff: React.FC<DayOffProps> = (props) => {
 		<ApplicationMaxWidth>
 			<Spacing margin={spacing.grand.top}>
 				<Spacing margin={spacing.large.value} textAlign='center'>
-					<Heading2 isMaxLineLength={false} margin={spacing.medium.bottom}>Day Off</Heading2>
-					<RegularText margin='auto'>
-						{messageText}
-					</RegularText>
+					<Heading2>Day Off</Heading2>
+					<LineMaxWidthCenter>
+						<RegularText>
+							{messageText}
+						</RegularText>
+					</LineMaxWidthCenter>
 				</Spacing>
 			</Spacing>
 		</ApplicationMaxWidth>

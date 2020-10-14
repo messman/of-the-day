@@ -1,14 +1,13 @@
 import * as React from 'react';
 import { tStyled } from '@/core/style/styled';
 import { IPostElementType, IPostVideo, isValidPostElement } from 'oftheday-shared';
-import { spacing, Spacing } from '@/core/layout/common';
-import { RegularText, SmallText, Heading3, FontSize } from '@/core/symbol/text';
+import { LineMaxWidth, spacing, Spacing, TopMargin } from '@/core/layout/common';
+import { RegularText, SmallText, Heading3, FontSize, InlineWeight } from '@/core/symbol/text';
 import { TagList, useTags } from './tag';
 import { ActionLink } from '@/core/link';
 import { iconTypes } from '@/core/symbol/icon';
 import { createPostsElement, PostCard, EmbeddedContentReveal } from './elements-common';
 import { CardPadding } from '@/core/card/card';
-import { FontWeight } from '@/core/style/theme';
 import { ElementActions } from '../element-action-overlay';
 
 export const Video = createPostsElement<IPostVideo>((props) => {
@@ -20,7 +19,7 @@ export const Video = createPostsElement<IPostVideo>((props) => {
 	let internalVideoRender: JSX.Element = null!;
 	if (isRemoved) {
 		internalVideoRender = (
-			<RegularText isItalic={true}>Unfortunately, this video is no longer available on YouTube.</RegularText>
+			<RegularText>Unfortunately, this video is no longer available to view.</RegularText>
 		);
 	}
 	else {
@@ -29,6 +28,16 @@ export const Video = createPostsElement<IPostVideo>((props) => {
 		);
 	}
 
+	const descriptionRender = (description && !isRemoved) ? (
+		<TopMargin.Small>
+			<LineMaxWidth>
+				<RegularText>
+					{description}
+				</RegularText>
+			</LineMaxWidth>
+		</TopMargin.Small>
+	) : null;
+
 	return (
 		<PostCard title='Video' icon={iconTypes.video} isForArchive={isForArchive} hideTitle={hideTitle} archivePost={archivePost}>
 			<CardPadding>
@@ -36,9 +45,7 @@ export const Video = createPostsElement<IPostVideo>((props) => {
 					<VideoTitle video={props.value} />
 				</Spacing>
 				<TagList margin={spacing.small.vertical} tags={tagsStrings} />
-				<RegularText margin={spacing.small.vertical} show={description && !isRemoved}>
-					{description}
-				</RegularText>
+				{descriptionRender}
 				<Spacing margin={spacing.large.vertical}>
 					<ElementActions isViewingArchive={isForArchive} elementType={IPostElementType.video} isTop={isTop} youTubeLink={!isRemoved ? link : undefined} />
 				</Spacing>
@@ -88,10 +95,14 @@ const VideoTitle: React.FC<VideoTitleProps> = (props) => {
 		</Spacing>
 	) : null;
 
+	const customTitleCreatorRender = customTitleCreator ? (
+		<Heading3><InlineWeight.Medium>from</InlineWeight.Medium> {customTitleCreator}</Heading3>
+	) : null;
+
 	return (
 		<>
 			<Heading3>{customTitle}</Heading3>
-			<Heading3 show={customTitleCreator} fontWeight={FontWeight.medium}>from <InlineBold>{customTitleCreator}</InlineBold></Heading3>
+			{customTitleCreatorRender}
 			{originalTitleLink}
 		</>
 	);
@@ -99,11 +110,6 @@ const VideoTitle: React.FC<VideoTitleProps> = (props) => {
 
 const SmallActionLink = tStyled(ActionLink)`
 	font-size: ${FontSize.textSmall};
-`;
-
-const InlineBold = tStyled.span`
-	display: inline;
-	font-weight: ${FontWeight.bold};
 `;
 
 export interface YouTubeVideoFrameProps {

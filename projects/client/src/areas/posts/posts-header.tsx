@@ -4,9 +4,8 @@ import { IPost } from 'oftheday-shared';
 import { FontSize, Heading1, SmallText } from '@/core/symbol/text';
 import { FlexRow, Sticky, useSticky, useWindowLayout } from '@messman/react-common';
 import { ClickableIcon, iconTypes } from '@/core/symbol/icon';
-import { spacing } from '@/core/layout/common';
+import { spacing, TopMargin } from '@/core/layout/common';
 import { LayoutBreakpoint } from '@/services/layout/window-layout';
-import { FontWeight } from '@/core/style/theme';
 import { PostsSelectionOverlay } from './posts-selection-overlay';
 import { getDayReferenceRender } from './post-common';
 
@@ -137,23 +136,35 @@ const PostDayTitle: React.FC<PostDayTitle> = (props) => {
 
 	return (
 		<PostDayTitleContainer minContainerWidth={minContainerWidth}>
-			<SmallText
-				fontSize={subtitleFontSize}
-				fontWeight={FontWeight.medium}
-				color={c => c.textInactive}
-				margin={spacing.nudge.bottom}
-			>
-				{dayReferenceRender}Day {dayNumber}
-			</SmallText>
-			<Heading1
-				fontSize={titleFontSize}
-				fontWeight={FontWeight.bold}
-			>
-				{dateText}
-			</Heading1>
+			<FreeSmallText fontSize={subtitleFontSize}>{dayReferenceRender}Day {dayNumber}</FreeSmallText>
+			<TopMargin.Nudge>
+				<FreeHeading1 fontSize={titleFontSize}>{dateText}</FreeHeading1>
+			</TopMargin.Nudge>
 		</PostDayTitleContainer>
 	);
 };
+
+interface FreeTextProps {
+	fontSize: string;
+}
+
+const FreeSmallText = tStyled(SmallText).attrs((props: FreeTextProps) => {
+	const style: Partial<CSSStyleDeclaration> = {};
+	style.fontSize = props.fontSize;
+	return {
+		style
+	};
+})`
+	color: ${p => p.theme.color.textInactive};
+`;
+
+const FreeHeading1 = tStyled(Heading1).attrs((props: FreeTextProps) => {
+	const style: Partial<CSSStyleDeclaration> = {};
+	style.fontSize = props.fontSize;
+	return {
+		style
+	};
+})``;
 
 interface PostDayTitleContainerProps {
 	minContainerWidth: string;

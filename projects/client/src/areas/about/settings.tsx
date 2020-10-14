@@ -1,5 +1,5 @@
 import { Card, CardPadding } from '@/core/card/card';
-import { Spacing, spacing } from '@/core/layout/common';
+import { Spacing, spacing, TopMargin } from '@/core/layout/common';
 import { borderRadiusStyle } from '@/core/style/common';
 import { tStyled } from '@/core/style/styled';
 import { Theme, themes, useLocalStorageTheme } from '@/core/style/theme';
@@ -12,8 +12,10 @@ export const Settings: React.FC = () => {
 	return (
 		<Card title='Settings' icon={iconTypes.gear}>
 			<CardPadding>
-				<Heading3 margin={spacing.medium.bottom}>Theme</Heading3>
-				<ThemeControl />
+				<Heading3>Theme</Heading3>
+				<TopMargin.Medium>
+					<ThemeControl />
+				</TopMargin.Medium>
 			</CardPadding>
 		</Card>
 	);

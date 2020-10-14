@@ -1,6 +1,6 @@
 import { spacing } from '@/core/layout/common';
 import { borderRadiusStyle, formTransitionStyle, HighlightBar } from '@/core/style/common';
-import { tStyled } from '@/core/style/styled';
+import { StyledFCProps, tStyled } from '@/core/style/styled';
 import { FontSize, RegularText } from '@/core/symbol/text';
 import { FlexRow } from '@messman/react-common';
 import * as React from 'react';
@@ -10,25 +10,29 @@ export interface CheckboxProps {
 	onValueChange: (value: boolean) => void;
 }
 
-export const Checkbox: React.FC<CheckboxProps> = (props) => {
-	const { value, onValueChange, children } = props;
+export const Checkbox = tStyled((props: StyledFCProps<CheckboxProps>) => {
+	const { value, onValueChange, children, className } = props;
 
 	function onChange(e: React.ChangeEvent<HTMLInputElement>) {
 		onValueChange(e.target.checked);
 	}
 
 	return (
-		<CheckboxLabel>
+		<CheckboxLabel className={className}>
 			<CheckboxInput type='checkbox' checked={value} onChange={onChange} />
 			<FlexRow alignItems='center'>
 				<CheckboxIndicator $isChecked={value} />
-				<RegularText isInline={true}>
+				<InlineRegularText>
 					{children}
-				</RegularText>
+				</InlineRegularText>
 			</FlexRow>
 		</CheckboxLabel>
 	);
-};
+})``;
+
+const InlineRegularText = tStyled.div`
+	display: inline-block;
+`;
 
 const CheckboxLabel = tStyled.label`
 	display: block;
@@ -103,10 +107,6 @@ export const OpenSelect: React.FC<OpenSelectProps> = (props) => {
 				onClick={onClick}
 			>
 				<RegularText
-					isMaxLineLength={false}
-					textAlign='center'
-					padding={regularTextOptionSpacing}
-					color={c => isSelected ? c.textAccentOnBackground : (isDisabled ? c.textDisabled : c.textRegular)}
 				>
 					{value}
 				</RegularText>
@@ -138,13 +138,17 @@ interface OpenOptionProps {
 	$isDisabled: boolean;
 }
 
+const regularTextOptionSpacing = `${spacing.medium.value} ${spacing.large.value}`;
+
 const OpenOption = tStyled.div<OpenOptionProps>`
-	cursor: ${p => (p.$isSelected || p.$isDisabled) ? 'not-allowed' : 'pointer'};
+	text-align: center;
 	background-color: transparent;
+	padding: ${regularTextOptionSpacing};
+
+	cursor: ${p => (p.$isSelected || p.$isDisabled) ? 'not-allowed' : 'pointer'};
+	color: ${p => p.$isSelected ? p.theme.color.textAccentOnBackground : (p.$isDisabled ? p.theme.color.textDisabled : p.theme.color.textRegular)};
 
 	& + & {
 		border: 1px solid ${p => p.theme.color.bgComponent3};
 	}
 `;
-
-const regularTextOptionSpacing = `${spacing.medium.value} ${spacing.large.value}`;

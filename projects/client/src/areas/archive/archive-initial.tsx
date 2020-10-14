@@ -1,8 +1,8 @@
 import { Button } from '@/core/form/button/button';
-import { Spacing, spacing, useResponsiveEdgeSpacing } from '@/core/layout/common';
+import { Spacing, spacing, TextCenter, TopMargin, useResponsiveEdgeSpacing } from '@/core/layout/common';
 import { OutLink } from '@/core/link';
 import { tStyled } from '@/core/style/styled';
-import { Paragraph, Title } from '@/core/symbol/text';
+import { Paragraph, RegularText, Title } from '@/core/symbol/text';
 import { useMeta } from '@/services/data/data-context';
 import { LayoutBreakpoint } from '@/services/layout/window-layout';
 import { IArchiveFilter } from 'oftheday-shared';
@@ -25,23 +25,29 @@ export const ArchiveInitial: React.FC<ArchiveInitialProps> = (props) => {
 	if (meta && (meta.spotifyLink || meta.youTubeLink)) {
 
 		const spotifyLinkRender = meta.spotifyLink ? (
-			<Paragraph textAlign='center' isMaxLineLength={false}>
-				See the <OutLink href={meta.spotifyLink}>Spotify Playlist</OutLink>
-			</Paragraph>
+			<TopMargin.Medium>
+				<RegularText>
+					See the <OutLink href={meta.spotifyLink}>Spotify Playlist</OutLink>
+				</RegularText>
+			</TopMargin.Medium>
 		) : null;
 
 		const youTubeLinkRender = meta.youTubeLink ? (
-			<Paragraph textAlign='center' isMaxLineLength={false}>
-				See the <OutLink href={meta.youTubeLink}>YouTube Playlist</OutLink>
-			</Paragraph>
+			<TopMargin.Medium>
+				<RegularText>
+					See the <OutLink href={meta.youTubeLink}>YouTube Playlist</OutLink>
+				</RegularText>
+			</TopMargin.Medium>
 		) : null;
 
 		metaPlaylistRender = (
-			<div>
-				<Paragraph textAlign='center' isMaxLineLength={false}>Or</Paragraph>
+			<TextCenter>
+				<TopMargin.Medium>
+					<RegularText>Or</RegularText>
+				</TopMargin.Medium>
 				{spotifyLinkRender}
 				{youTubeLinkRender}
-			</div>
+			</TextCenter>
 		);
 	}
 
@@ -58,8 +64,14 @@ export const ArchiveInitial: React.FC<ArchiveInitialProps> = (props) => {
 				<FilterPresets
 					onClickPreset={onClickPreset}
 				/>
-				<Paragraph textAlign='center' isMaxLineLength={false}>Or</Paragraph>
-				<Button onClick={onClickOverlayOpen} isSpecial={true}>Create advanced filter</Button>
+				<TextCenter>
+					<TopMargin.Medium>
+						<RegularText>Or</RegularText>
+					</TopMargin.Medium>
+				</TextCenter>
+				<TopMargin.Medium>
+					<Button onClick={onClickOverlayOpen} isSpecial={true}>Create advanced filter</Button>
+				</TopMargin.Medium>
 				{metaPlaylistRender}
 			</ButtonsContainer>
 		</Spacing>

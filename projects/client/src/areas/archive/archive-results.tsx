@@ -1,9 +1,8 @@
 import { spacing, Spacing, useResponsiveEdgeSpacing } from '@/core/layout/common';
 import { ActionLink, OutLink } from '@/core/link';
 import { tStyled } from '@/core/style/styled';
-import { FontWeight } from '@/core/style/theme';
 import { ClickableIcon, iconTypes } from '@/core/symbol/icon';
-import { RegularText } from '@/core/symbol/text';
+import { InlineWeight, Paragraph, RegularText } from '@/core/symbol/text';
 import { useMeta } from '@/services/data/data-context';
 import { DataLoad } from '@/services/data/data-load';
 import { Flex, FlexRow, PromiseOutput, Sticky, useSticky } from '@messman/react-common';
@@ -94,16 +93,16 @@ export const ArchiveResults: React.FC<ArchiveResultsProps> = (props) => {
 	if (meta && ((isMusicOnly && meta.spotifyLink) || (isVideoOnly && meta.youTubeLink))) {
 		if (isMusicOnly) {
 			metaPlaylistRender = (
-				<RegularText margin={spacing.medium.top}>
+				<Paragraph>
 					You can view all songs on <OutLink href={meta.spotifyLink}>this Spotify Playlist</OutLink>.
-				</RegularText>
+				</Paragraph>
 			);
 		}
 		else {
 			metaPlaylistRender = (
-				<RegularText margin={spacing.medium.top}>
+				<Paragraph>
 					You can view all videos on <OutLink href={meta.youTubeLink}>this YouTube Playlist</OutLink>.
-				</RegularText>
+				</Paragraph>
 			);
 		}
 	}
@@ -114,13 +113,13 @@ export const ArchiveResults: React.FC<ArchiveResultsProps> = (props) => {
 			<Spacing margin={edgeSpacing.horizontal}>
 				<Spacing margin={spacing.large.vertical}>
 					<FilterDescription filter={filter} />
-					<RegularText margin={spacing.medium.top}>
-						Showing
-						<RegularText isInline={true} fontWeight={FontWeight.bold}>&nbsp;{results}&nbsp;</RegularText>
-						{results === 1 ? 'item' : 'items'} across
-								<RegularText isInline={true} fontWeight={FontWeight.bold}>&nbsp;{posts.length}&nbsp;</RegularText>
-						{posts.length === 1 ? 'day' : 'days'}
-					</RegularText>
+					<Paragraph>
+						<span>Showing </span>
+						<InlineWeight.Bold>{results} </InlineWeight.Bold>
+						<span>{results === 1 ? 'item' : 'items'} across </span>
+						<InlineWeight.Bold>{posts.length} </InlineWeight.Bold>
+						<span>{posts.length === 1 ? 'day' : 'days'}</span>
+					</Paragraph>
 					{metaPlaylistRender}
 				</Spacing>
 				{postsRender}
@@ -149,8 +148,8 @@ export const ArchiveResultsHeader: React.FC<ArchiveResultsHeaderProps> = (props)
 					<Flex>
 						<Spacing margin={spacing.medium.left}>
 							<RegularText>
-								<RegularText isInline={true} fontWeight={FontWeight.bold}>{resultsCount}&nbsp;</RegularText>
-								{resultsCount === 1 ? 'item' : 'items'}
+								<InlineWeight.Bold>{resultsCount} </InlineWeight.Bold>
+								<span>{resultsCount === 1 ? 'item' : 'items'}</span>
 							</RegularText>
 						</Spacing>
 					</Flex>

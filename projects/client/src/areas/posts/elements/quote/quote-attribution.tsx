@@ -44,7 +44,7 @@ export const QuoteAttribution: React.FC<InnerQuoteProps> = (props) => {
 
 	return (
 		<Right margin={spacing.small.top}>
-			<RegularText isMaxLineLength={false}>{dashPrefix}{attributionRender}</RegularText>
+			<RegularText>{dashPrefix}{attributionRender}</RegularText>
 		</Right>
 	);
 };

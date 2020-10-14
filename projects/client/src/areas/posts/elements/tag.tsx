@@ -8,9 +8,11 @@ import { createTagProps } from './tag-definitions';
 import { Icon, SVGIconType } from '@/core/symbol/icon';
 import { FlexRow } from '@messman/react-common';
 
-
-export interface TagProps extends TagContainerProps {
+export interface TagProps {
 	value: string;
+	foregroundColor: string;
+	backgroundColor: string;
+	icon?: SVGIconType;
 }
 
 export const Tag: React.FC<TagProps> = (props) => {
@@ -21,25 +23,30 @@ export const Tag: React.FC<TagProps> = (props) => {
 	) : null;
 
 	return (
-		<TagContainer backgroundColor={backgroundColor} foregroundColor={foregroundColor}>
+		<TagContainer backgroundColor={backgroundColor}>
 			<FlexRow alignItems='center'>
 				{iconRender}
-				<SmallText fontWeight={FontWeight.bold} color={() => foregroundColor}>
-					{value}
-				</SmallText>
+				<TagText foregroundColor={foregroundColor}>{value}</TagText>
 			</FlexRow>
 		</TagContainer>
 	);
 };
+
+interface TagTextProps {
+	foregroundColor: string;
+}
+
+const TagText = tStyled(SmallText) <TagTextProps>`
+	font-weight: ${FontWeight.bold};
+	color: ${p => p.foregroundColor};
+`;
 
 const PaddedIcon = tStyled(Icon)`
 	margin-right: ${spacing.nudge.value};
 `;
 
 interface TagContainerProps {
-	foregroundColor: string;
 	backgroundColor: string;
-	icon?: SVGIconType;
 }
 
 const negativeTopMargin = `-${spacing.small.value} 0 0 0`;

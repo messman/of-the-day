@@ -1,65 +1,20 @@
 import * as React from 'react';
-import { tStyled, tCss } from '@/core/style/styled';
-import { defaultFontSize, FontWeight, ThemePickColor } from '../style/theme';
-import { SpacingProps, Spacing, spacing } from '../layout/common';
+import { tStyled } from '@/core/style/styled';
+import { defaultFontSize, FontWeight } from '../style/theme';
+import { spacing } from '../layout/common';
 import { LayoutBreakpoint, lineBreakpoint } from '@/services/layout/window-layout';
 import { useWindowLayout } from '@messman/react-common';
-
-export interface TextProps extends SpacingProps {
-	fontSize?: string | null;
-	fontWeight?: string | number | null;
-	isItalic?: boolean;
-	color?: ThemePickColor;
-	/** Defaults to true. */
-	isMaxLineLength?: boolean;
-}
-
-
-interface BaseTextProps extends SpacingProps {
-	$fontSize?: string | null;
-	$fontWeight?: string | number | null;
-	$isItalic?: boolean;
-	$color?: ThemePickColor;
-	$isMaxLineLength?: boolean;
-}
-
-const italicStyle = tCss`
-	font-style: italic;
-`;
+import { css } from 'styled-components';
 
 // EM value may be font-specific!
-export const iconTextOffsetStyle = tCss`
-	margin-top: .1em;
-`;
+const baseTextStyle = css`
+	margin: 0;
+	padding: 0;
 
-export const BaseText = tStyled(Spacing) <BaseTextProps>`
-	/* EM value may be font-specific! */
 	svg {
-		${iconTextOffsetStyle}
+		margin-top: .1em;
 	}
-
-	${p => p.$fontSize && ('font-size: ' + p.$fontSize + ';')}
-	${p => p.$fontWeight && ('font-weight: ' + p.$fontWeight + ';')}
-	${p => p.$isItalic && italicStyle}
-	${p => p.$color && ('color: ' + p.$color(p.theme.color) + ';')}
-	${p => (p.$isMaxLineLength === undefined || !!p.$isMaxLineLength) && ('max-width: ' + lineBreakpoint + ';')}
 `;
-
-export function createTextComponent(asElement: keyof JSX.IntrinsicElements, defaultFontSize: string, defaultFontWeight: number | string, defaultColor: ThemePickColor) {
-	const component: React.FC<TextProps> = (props) => {
-		const { fontSize, fontWeight, isItalic, isMaxLineLength, color, ...otherProps } = props;
-
-		return (
-			<BaseText $fontSize={fontSize} $fontWeight={fontWeight} $isItalic={isItalic} $isMaxLineLength={isMaxLineLength} $color={color} forwardedAs={asElement} {...otherProps as unknown} />
-		);
-	};
-	component.defaultProps = {
-		fontSize: defaultFontSize,
-		fontWeight: defaultFontWeight,
-		color: defaultColor
-	};
-	return component;
-}
 
 // Defaults for headings: 2, 1.5, 1.17, 1, ....
 export enum FontSize {
@@ -70,13 +25,66 @@ export enum FontSize {
 	textSmall = '.875rem'
 }
 
-export const FreeText = createTextComponent('div', FontSize.textRegular, FontWeight.medium, c => c.textRegular);
-export const Heading1 = createTextComponent('h1', FontSize.heading1, FontWeight.bold, c => c.textHeading1);
-export const Heading2 = createTextComponent('h2', FontSize.heading2, FontWeight.bold, c => c.textHeading3);
-export const Heading3 = createTextComponent('h3', FontSize.heading3, FontWeight.bold, c => c.textHeading3);
-export const RegularText = createTextComponent('div', FontSize.textRegular, FontWeight.medium, c => c.textRegular);
-// Don't use 'small' here because it is inline and we want block by default.
-export const SmallText = createTextComponent('div', FontSize.textSmall, FontWeight.medium, c => c.textRegular);
+export const Heading1 = tStyled.h1`
+	${baseTextStyle};
+	font-size: ${FontSize.heading1};
+	font-weight: ${FontWeight.bold};
+	color: ${p => p.theme.color.textHeading1};
+`;
+
+export const Heading2 = tStyled.h2`
+	${baseTextStyle};
+	font-size: ${FontSize.heading2};
+	font-weight: ${FontWeight.bold};
+`;
+
+export const Heading3 = tStyled.h3`
+	${baseTextStyle};
+	font-size: ${FontSize.heading3};
+	font-weight: ${FontWeight.bold};
+`;
+
+export const RegularText = tStyled.div`
+	${baseTextStyle};
+	font-size: ${FontSize.textRegular};
+	font-weight: ${FontWeight.medium};
+`;
+
+export const SmallText = tStyled.div`
+	${baseTextStyle};
+	font-size: ${FontSize.textSmall};
+	font-weight: ${FontWeight.medium};
+`;
+
+export interface InlineWeightProps {
+	fontWeight: FontWeight;
+}
+
+export const InlineItalic = tStyled.span`
+	display: inline;
+	font-style: italic;
+`;
+
+const InlineMedium = tStyled.span`
+	display: inline;
+	font-weight: ${FontWeight.medium};
+`;
+
+const InlineBold = tStyled.span`
+	display: inline;
+	font-weight: ${FontWeight.bold};
+`;
+
+const InlineExtraBold = tStyled.span`
+	display: inline;
+	font-weight: ${FontWeight.extraBold};
+`;
+
+export const InlineWeight = {
+	Medium: InlineMedium,
+	Bold: InlineBold,
+	ExtraBold: InlineExtraBold
+};
 
 export const FontSizeManager: React.FC = (props) => {
 	const windowLayout = useWindowLayout();
@@ -104,4 +112,5 @@ export const Subtitle = tStyled(Heading2)`
 
 export const Paragraph = tStyled(RegularText)`
 	margin: ${spacing.medium.vertical};
+	max-width: ${lineBreakpoint};
 `;

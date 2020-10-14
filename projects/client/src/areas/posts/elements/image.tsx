@@ -33,8 +33,12 @@ export const Image = createPostsElement<IPostImage>((props) => {
 		<PostCard title='Image' icon={iconTypes.image} isForArchive={isForArchive} hideTitle={hideTitle} archivePost={archivePost}>
 			<CardPadding>
 				<TagList margin={spacing.small.vertical} tags={tagsStrings} />
-				<RegularText show={description} margin={spacing.small.top}>{description}</RegularText>
-				<RegularText show={sourceRender} margin={spacing.nudge.top}>From {sourceRender}</RegularText>
+				<Spacing show={description} margin={spacing.small.top}>
+					<RegularText>{description}</RegularText>
+				</Spacing>
+				<Spacing show={sourceRender} margin={spacing.nudge.top}>
+					<RegularText>From {sourceRender}</RegularText>
+				</Spacing>
 				<Spacing show={!isForArchive} margin={spacing.large.top}>
 					<ElementActions isViewingArchive={isForArchive} elementType={IPostElementType.image} isTop={isTop} />
 				</Spacing>
