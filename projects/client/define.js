@@ -28,7 +28,7 @@ module.exports = async function getDefine(isDevelopment, isStorybook) {
 		DEFINE.serverBase = JSON.stringify('http://192.168.1.2:8000');
 	}
 	else {
-		DEFINE.fetchUrl = JSON.stringify('https://agm-of-the-day-server.herokuapp.com');
+		DEFINE.serverBase = JSON.stringify('https://agm-of-the-day-server.herokuapp.com');
 	}
 
 	return DEFINE;
