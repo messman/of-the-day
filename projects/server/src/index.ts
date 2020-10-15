@@ -10,7 +10,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-const allowedDomain = settings.isDev ? '*' : 'https://tidy.andrewmessier.com';
+const allowedDomain = settings.isDev ? '*' : 'https://oftheday.andrewmessier.com';
 
 console.log(settings.isDev ? 'Using open CORS settings for development' : `Restricting via CORS to '${allowedDomain}'`);
 app.use(function (request: Request, response: Response, next: NextFunction) {
