@@ -327,9 +327,6 @@ export const GlobalStyles = createGlobalStyle<ThemeProps<Theme>>`
 		padding: 0;
 		height: 100%;
 		overscroll-behavior: none;
-		-webkit-transform: translateZ(0px);
-		-webkit-transform: translate3d(0,0,0);
-		-webkit-perspective: 1000;
 		overflow: hidden;
 		font-weight: ${FontWeight.medium};
 	}

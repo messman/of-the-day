@@ -8,6 +8,7 @@ import { Icon, iconTypes } from '@/core/symbol/icon';
 import { FontSize, Heading2 } from '@/core/symbol/text';
 import { spacing } from '@/core/layout/common';
 import { FontWeight } from '@/core/style/theme';
+import { isUsingFirefoxFingerprintProtection } from '@/services/feature';
 
 export const upperMenuBarHeight = 50;
 export const stickyMenuBarColorHeight = 8;
@@ -82,7 +83,7 @@ export interface UpperStickyMenuBarProps {
 export const UpperStickyMenuBar: React.FC<UpperStickyMenuBarProps> = (props) => {
 	const { isShowing, isMobileWidth, isDesktopWidth, onScrollToTop, onPathClick } = props;
 
-	const springProps = useSpring({ top: isShowing ? '0px' : `-${totalUpperStickyMenuBarHeight}px` });
+	const springProps = useSpring({ top: isShowing ? '0px' : `-${totalUpperStickyMenuBarHeight}px`, immediate: isUsingFirefoxFingerprintProtection });
 
 	const topLeftTitle = isDesktopWidth ? (
 		<UpperMenuStickyTitleClickContainer onClick={onScrollToTop}>

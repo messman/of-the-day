@@ -109,7 +109,7 @@ export const FilterOverlayAdvanced: React.FC<FilterOverlayTabProps> = (props) =>
 };
 
 const CheckboxesContainer = tStyled.div`
-	${Checkbox} + ${Checkbox} {
+	${Checkbox} {
 		margin-top: ${spacing.small.value};
 	}
 `;
