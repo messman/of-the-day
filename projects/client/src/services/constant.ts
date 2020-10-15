@@ -11,9 +11,12 @@ export const CONSTANT = {
 	localDataFetchTime: seconds(2),
 
 	/** Time to wait since last successful fetch before restarting the application. */
-	appRefreshTimeout: minutes(60),
-	/** Time to wait since last successful fetch before fetching again. */
-	staleDataTimeout: minutes(20),
+	appRefreshTimeout: minutes(55),
+	/**
+	 * Time to wait since last successful fetch before fetching again.
+	 * Caution: should be shorter than app refresh timeout, and longer than videos!
+	*/
+	staleDataTimeout: minutes(30),
 };
 
 function seconds(seconds: number): number {
