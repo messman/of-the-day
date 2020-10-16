@@ -78,7 +78,7 @@ export function parsePost(row: any[], dayReference: IPostDayReference): IPost {
 		}),
 		custom: passCustom({
 			title: stringAtCol('BA'),
-			value: stringAtCol('BBB'),
+			value: stringAtCol('BB'),
 			link: stringAtCol('BC'),
 			linkText: stringAtCol('BD'),
 			hiddenValue: stringAtCol('BE'),
