@@ -102,6 +102,10 @@ export const FontSizeManager: React.FC = (props) => {
 	return <>{props.children}</>;
 };
 
+/*
+	Versions of the text components above, with default margins.
+*/
+
 export const Title = tStyled(Heading1)`
 	margin-top: ${spacing.grand.value};
 `;

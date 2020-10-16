@@ -28,6 +28,13 @@ export const DataProvider: React.FC = (props) => {
 	);
 };
 
+/**
+ * Refreshes the application after a certain amount of time,
+ * once the application is visible.
+ * Used to re-download HTML from the server. On iOS Safari, if the site
+ * is on the home screen as an app, it won't ever automatically refresh otherwise
+ * (and the user can't make it refresh).
+*/
 const ApplicationRefreshTimer: React.FC = (props) => {
 
 	const documentVisibility = useDocumentVisibility();
@@ -37,12 +44,17 @@ const ApplicationRefreshTimer: React.FC = (props) => {
 		timeout: CONSTANT.appRefreshTimeout,
 	}, documentVisibility, () => {
 		// After we reach our timeout, reload location.
+		// TODO - keep the URL params on the end.
 		window.location.replace('/');
 	});
 
 	return <>{props.children}</>;
 };
 
+/*
+	Archive Context - controls the filter that is used for the archive.
+	When a new filter is set (from anywhere), it requests the data for the filter.
+*/
 
 export interface ArchiveContext {
 	promise: PromiseOutput<IArchiveResponse>;
@@ -97,6 +109,7 @@ export const ArchiveContextProvider: React.FC = (props) => {
 						useShortCircuitPromise = true;
 						const isSortEqual = isFilterSortSemanticallyEqual(filter, newFilter);
 						if (isSortEqual) {
+							// Sort is equal, return the same.
 							promiseFunc = () => {
 								return Promise.resolve({
 									posts: currentPosts
@@ -104,6 +117,7 @@ export const ArchiveContextProvider: React.FC = (props) => {
 							};
 						}
 						else {
+							// Sort is unequal, re-sort.
 							promiseFunc = () => {
 								return Promise.resolve({
 									posts: sortPosts(newFilter, currentPosts)
@@ -139,6 +153,7 @@ export const ArchiveContextProvider: React.FC = (props) => {
 	);
 };
 
+/** Returns true if any of the routes are the current route. */
 function useIsAnyRouteActive(routesSubset: Route[]): boolean {
 	const location = useLocation();
 	return React.useMemo(() => {
@@ -151,6 +166,7 @@ function useIsAnyRouteActive(routesSubset: Route[]): boolean {
 	}, [location.pathname]);
 }
 
+/** Creates a React Provider that automatically refreshes itself after a certain time and also automatically fires the request when the correct page is active. */
 function createResponseProvider<T extends IResponseWithMeta>(ResponseContext: React.Context<PromiseOutput<T>>, responseFunc: () => Promise<T>, routes: Route[]): React.FC {
 	return (props) => {
 		const documentVisibility = useDocumentVisibility();
@@ -222,6 +238,10 @@ const otherResponseActivePages = [routes.other, routes.archive, routes.about];
 const OtherResponseProvider = createResponseProvider(OtherResponseContext, otherPromiseFunc, otherResponseActivePages);
 export const useOtherResponse = () => React.useContext(OtherResponseContext);
 
+/*
+	The Posts and Other responses both contain Meta information.
+	This provider collects the meta from either one and makes it available.
+*/
 const MetaResponseContext = React.createContext<IMeta | null>(null);
 const MetaResponseProvider: React.FC = (props) => {
 	const postPromise = usePostResponse();

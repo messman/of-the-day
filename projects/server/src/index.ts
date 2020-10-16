@@ -4,14 +4,15 @@ import { configureApp } from './app';
 import { settings } from './env';
 import * as path from 'path';
 
+// Use the process port (for heroku).
 const port = process.env.PORT || 8000;
 
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// Cors setup
 const allowedDomain = settings.isDev ? '*' : 'https://oftheday.andrewmessier.com';
-
 console.log(settings.isDev ? 'Using open CORS settings for development' : `Restricting via CORS to '${allowedDomain}'`);
 app.use(function (request: Request, response: Response, next: NextFunction) {
 	response.header('Access-Control-Allow-Origin', allowedDomain);
@@ -25,6 +26,7 @@ app.use(function (request: Request, response: Response, next: NextFunction) {
 	}
 });
 
+// Set up API.
 configureApp(app);
 
 // Host static files from this directory (relative to root of the node server, above dist)

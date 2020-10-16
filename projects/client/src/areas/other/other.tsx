@@ -8,6 +8,9 @@ import { useOtherResponse } from '@/services/data/data-context';
 import { Plans } from './elements/plans';
 import { IOther } from 'oftheday-shared';
 
+/**
+ * Top-level layout component for the 'Info' page.
+*/
 export const Other: React.FC = () => {
 
 	const otherPromise = useOtherResponse();

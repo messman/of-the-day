@@ -19,6 +19,12 @@ export interface PostsHeaderProps {
 	onPostChosen: (newActivePostIndex: number) => void;
 }
 
+/**
+ * The sticky header for the Posts section. Moves down the page as the user scrolls.
+ * Tricky, because the top menu bar iis also scrolling, so we need to offset correctly.
+ * 
+ * Has buttons to move between the posts (days), open the posts overlay, and scroll to top.
+ */
 export const PostsHeader: React.FC<PostsHeaderProps> = (props) => {
 	const { rootElement, posts, offsetPixels, activePostIndex, onPostChosen } = props;
 
@@ -123,7 +129,10 @@ const PostDayTitle: React.FC<PostDayTitle> = (props) => {
 		dayReferenceRender = getDayReferenceRender(dayReference);
 	}
 
-	// Mobile
+	/*
+		Modify the sizes here so that the title and subtitle fit
+		without pushing the buttons on either side.
+	*/
 	let titleFontSize = FontSize.heading3;
 	let subtitleFontSize = FontSize.textSmall;
 	let minContainerWidth = '120px';

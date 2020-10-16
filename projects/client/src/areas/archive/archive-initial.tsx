@@ -14,6 +14,10 @@ export interface ArchiveInitialProps {
 	onClickOverlayOpen: () => void;
 }
 
+/**
+ * Component to show the initial view of the Archive page, before the user has chosen a filter / 
+ * received archive data.
+ */
 export const ArchiveInitial: React.FC<ArchiveInitialProps> = (props) => {
 
 	const { onClickPreset, onClickOverlayOpen } = props;

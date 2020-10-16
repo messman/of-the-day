@@ -1,5 +1,12 @@
 import { IPostBasics, IPostCustom, IPostEndThoughts, IPostImage, IPostMusic, IPostQuote, IPostVideo } from '.';
 
+/*
+	Below are the validators for each subsection of a post.
+	These validators help determine if:
+	- the data from the back end is valid (server)
+	- the data is complete enough to render (client)
+*/
+
 function note(basics: IPostBasics | undefined): boolean {
 	return !!basics && (!!basics.event || !!basics.note);
 }

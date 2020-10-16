@@ -16,6 +16,9 @@ export interface PostsElementFC<T> extends React.FC<PostsElementProps<T | undefi
 	element: IPostElementType;
 }
 
+/**
+ * Creates a component that only displays if the props are correctly validated (present).
+ */
 export function createPostsElement<T>(Component: React.FC<PostsElementProps<T>>, element: IPostElementType, validator: (value: T | undefined) => boolean): PostsElementFC<T> {
 	const fc = ((props: PostsElementProps<T | undefined>) => {
 		if (validator(props.value)) {
@@ -33,6 +36,10 @@ export interface PostCardProps extends Omit<CardProps, 'subtitle'> {
 	archivePost?: IPost;
 }
 
+/**
+ * Specific type of card that is used for post elements.
+ * Hides the title under certain circumstances (archive + only type being displayed).
+*/
 export const PostCard: React.FC<PostCardProps> = (props) => {
 	const { title, isForArchive, hideTitle, archivePost, icon, children } = props;
 

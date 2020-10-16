@@ -20,6 +20,11 @@ export interface FilterOverlayProps extends ManagedOverlayBoxProps {
 	onFilterSubmit: (filter: IArchiveFilter) => void;
 }
 
+/**
+ * Overlay to edit the filter choice.
+ * Contains two tabs - one for selecting a preset and another for fine-tuning the filter
+ * to choose the types (music, video, etc), range, sort, etc.
+ */
 export const FilterOverlay: React.FC<FilterOverlayProps> = (props) => {
 
 	const { isActive, onSetInactive, filter, onFilterSubmit, isShowingPresetsInitially } = props;

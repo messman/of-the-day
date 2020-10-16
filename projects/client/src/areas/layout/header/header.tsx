@@ -7,6 +7,10 @@ import { LayoutBreakpoint } from '@/services/layout/window-layout';
 import { FontWeight } from '@/core/style/theme';
 import { HeaderIconAnimation, HeaderSubtitleAnimation, useHeaderAnimationState } from './header-animation';
 
+/**
+ * Returns different values for [title height, subtitle height, margin]
+ * based on the width of the page, so that the header fits in correctly.
+ */
 export function useHeaderDimensions(): [string, string, string] {
 	const { widthBreakpoint } = useWindowLayout();
 	if (widthBreakpoint >= LayoutBreakpoint.desktop) {

@@ -10,6 +10,9 @@ export interface FilterPresetsProps {
 	onClickPreset: (filter: IArchiveFilter) => void;
 }
 
+/**
+ * Holds some common buttons for selecting common presets.
+ */
 export const FilterPresets: React.FC<FilterPresetsProps> = (props) => {
 	const { selectedFilter, onClickPreset } = props;
 

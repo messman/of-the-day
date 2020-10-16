@@ -10,6 +10,9 @@ import { createPostsElement, PostCard, EmbeddedContentReveal } from './elements-
 import { CardPadding } from '@/core/card/card';
 import { ElementActions } from '../element-action-overlay';
 
+/**
+ * Displays the video card. Shows title, description, tags, video iframe, etc.
+ */
 export const Video = createPostsElement<IPostVideo>((props) => {
 	const { isForArchive, hideTitle, archivePost } = props;
 	const { description, link, isTop, isNSFW, tags, isRemoved } = props.value;

@@ -32,6 +32,7 @@ export const OverlayBox: React.FC<OverlayBoxProps> = (props) => {
 	}
 
 	// Props for inner components - animated opacity, but instant z-index.
+	// z-index is what makes the components visible.
 	const springPropsBackdrop = useSpring({
 		config: { duration: springDuration },
 		from: { opacity: 0, zIndex: 0 },
@@ -55,6 +56,8 @@ export const OverlayBox: React.FC<OverlayBoxProps> = (props) => {
 				await next({ opacity: 1, immediate: false });
 			}
 			else {
+				// Note, here on the hide, we do opacity immediately.
+				// This is because the content inside of the overlay may already disappear immediately.
 				await next({ opacity: 0, immediate: true });
 				await next({ zIndex: -1, immediate: true });
 			}
@@ -127,6 +130,11 @@ export const [OverlayPortalRootIdProvider, useOverlayPortalRootIdProvider] = cre
 export interface OverlayPortalProps {
 }
 
+/**
+ * Each overlay gets its own portal. That portal goes to the portal root, which is
+ * added by React into the tree near the application root.
+ * Yes, not great practice.
+*/
 export const OverlayPortal: React.FC<OverlayPortalProps> = (props) => {
 
 	const rootElement = useOverlayPortalRootElement();
@@ -152,6 +160,10 @@ export const OverlayPortal: React.FC<OverlayPortalProps> = (props) => {
 
 const [OverlayPortalRootElementProvider, useOverlayPortalRootElement] = createContextConsumer<HTMLElement | null>();
 
+/** 
+ * Creates a div that all the overlays will portal into.
+ * The div is behind the main application, so the overlay will need z-index to become visible.
+ **/
 export const OverlayPortalRoot: React.FC = (props) => {
 	const { children } = props;
 

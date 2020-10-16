@@ -9,6 +9,13 @@ import * as React from 'react';
 export interface MetaMessagingProps {
 }
 
+/**
+ * Messaging blocks that might show at the top of the screen with information.
+ * Data comes from the meta object, which is returned in requests.
+ * So, the content will flash onto the screen after the request completes.
+ * Not ideal, but oh well.
+ * In shutdown mode, the children are not rendered - the app is effectively shut down.
+ */
 export const MetaMessaging: React.FC<MetaMessagingProps> = (props) => {
 	const { children } = props;
 	const meta = useMeta();

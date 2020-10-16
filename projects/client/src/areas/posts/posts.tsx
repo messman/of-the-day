@@ -14,6 +14,9 @@ export interface PostsProps {
 
 const defaultPosts: IPost[] = [];
 
+/**
+ * Top-level layout piece. Handles rendering the posts response (the Week section).
+ * */
 export const Posts: React.FC<PostsProps> = (props) => {
 
 	const { rootElement, offsetPixels } = props;

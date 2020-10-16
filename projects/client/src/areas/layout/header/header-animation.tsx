@@ -7,6 +7,10 @@ import { spacing } from '@/core/layout/common';
 import { borderRadiusStyle } from '@/core/style/common';
 import { sortRandom } from '@/services/archive/sort';
 
+/*
+	Holds the animating header components (subtitle and icon).
+*/
+
 export interface HeaderAnimationState {
 	entity: HeaderAnimationEntity | null;
 }
@@ -59,12 +63,15 @@ let entities: HeaderAnimationEntity[] = [
 		icon: iconTypes.project
 	}
 ];
+// Sort our entities on page load so it's different each time.
 entities = [baseEntity, ...sortRandom(entities)];
 
+// Our settings for the timing of the animations.
 const delayOnBase = 4500;
 const delayOnBlank = 500;
 const delayOnEntity = 2500;
 
+// Changes the chosen entity ('Music' and its icon, for example) with a timeout.
 export function useHeaderAnimationState(): HeaderAnimationState {
 	const [entityState, setEntityState] = React.useState({
 		isBlank: false,
@@ -106,6 +113,7 @@ export const HeaderSubtitleAnimation: React.FC<HeaderSubtitleAnimationProps> = (
 	const { entity } = animationState;
 	const text = entity?.text || '';
 
+	// Use opacity on in and out. Come in from top, out from bottom.
 	const transitions = useTransition(text, null, {
 		initial: { opacity: 1, top: `0rem` },
 		from: { opacity: 0, top: `-${height}` },

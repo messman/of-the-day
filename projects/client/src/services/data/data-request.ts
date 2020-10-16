@@ -3,6 +3,10 @@ import { sortPosts } from '../archive/sort';
 import { DEFINE } from '../define';
 import { hasParam } from '../nav/url';
 
+/*
+	Holds the actual requests to the server, using fetch.
+*/
+
 export async function fetchPostResponse(): Promise<IPostResponse> {
 	const includeTomorrow = hasParam('tomorrow');
 	const path = includeTomorrow ? 'posts?tomorrow=1' : 'posts';
@@ -23,7 +27,6 @@ export async function fetchArchiveResponse(request: IArchiveRequest): Promise<IA
 async function makeRequest<T>(path: string, postData?: {}): Promise<T> {
 
 	const url = `${DEFINE.serverBase}/api/${path}`;
-
 	try {
 		let response: Response = null!;
 		if (postData) {

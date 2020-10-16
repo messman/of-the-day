@@ -10,6 +10,7 @@ interface PostProps {
 	post: IPost;
 }
 
+/** Shows a post. Renders all the subcomponents (elements). */
 export const Post: React.FC<PostProps> = (props) => {
 	const { post } = props;
 

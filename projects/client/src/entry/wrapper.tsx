@@ -9,6 +9,10 @@ import { lowerBreakpoints } from '@/services/layout/window-layout';
 import { OverlayPortalRoot } from '@/core/overlay/overlay';
 import { ElementActionsProvider } from '@/areas/posts/element-action-overlay';
 
+/*
+	Holds all of our providers that pass data down the render tree.
+*/
+
 export const Wrapper: React.FC = (props) => {
 	return (
 		<BrowserRouter>

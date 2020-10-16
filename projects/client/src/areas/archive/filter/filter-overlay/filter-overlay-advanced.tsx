@@ -7,6 +7,10 @@ import { archiveFilterModifiersForDisplay, archiveFilterRangeForDisplay, archive
 import { FilterOverlayTabProps } from './filter-overlay';
 import { tStyled } from '@/core/style/styled';
 
+/**
+ * The 'Advanced' tab UI for the filter overlay, which has controls for choosing
+ * the exact types and range and sort for the filter.
+*/
 export const FilterOverlayAdvanced: React.FC<FilterOverlayTabProps> = (props) => {
 
 	const { filterWorkingCopy, onFilterWorkingCopyChanged } = props;

@@ -53,6 +53,7 @@ const baseWebpackOptions = {
 				]
 			},
 			{
+				// IF YOU CHANGE THIS SECTION, also update the storybook config.
 				test: /\.svg$/,
 				use: [
 					{
@@ -62,6 +63,7 @@ const baseWebpackOptions = {
 							dimensions: false,
 							svgoConfig: {
 								plugins: {
+									// Stops colors and heights from being removed.
 									removeViewBox: false,
 									removeUselessStrokeAndFill: false,
 									removeUnknownsAndDefaults: false

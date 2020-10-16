@@ -28,6 +28,9 @@ export interface ElementActions {
 	spotifyLink: string | null;
 }
 
+/**
+ * Renders an action link that opens the global Element Actions Overlay.
+ */
 export const ElementActions: React.FC<ElementActionsProps> = (props) => {
 	const { isViewingArchive, elementType, isTop, youTubeLink, spotifyLink } = props;
 
@@ -77,6 +80,10 @@ export interface ElementActionsOverlayProps {
 	onSelectedFilter: () => void;
 }
 
+/**
+ * Overlay that can be opened from any post element card (Music, Video, etc) with actions.
+ * Can copy links or move to the archive.
+*/
 export const ElementActionsOverlay: React.FC<ElementActionsOverlayProps> = (props) => {
 	const { onSelectedFilter } = props;
 

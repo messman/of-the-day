@@ -9,6 +9,9 @@ interface PostProps {
 	post: IPost;
 }
 
+/**
+ * Shows the notes, schedule, end thoughts, and location.
+ */
 export const ContextGroup: React.FC<PostProps> = (props) => {
 	const { post } = props;
 

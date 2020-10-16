@@ -26,6 +26,9 @@ interface PostsState {
 	results: number;
 }
 
+/**
+ * Shows the results view for the archives, including the header and description.
+ */
 export const ArchiveResults: React.FC<ArchiveResultsProps> = (props) => {
 	const { filter, promise } = props;
 	const { data, isStarted, error } = promise;
@@ -40,8 +43,9 @@ export const ArchiveResults: React.FC<ArchiveResultsProps> = (props) => {
 
 	const [singleElementType, setSingleElementType] = React.useState<IPostElementType | null>(null);
 
+	// When we get a new filter, figure out if it's a filter that only has one type of element (music, video) selected.
+	// If so, we can hide titles in the cards to remove redundancy.
 	React.useEffect(() => {
-
 		const activeFilterTypes = keysOfIPostElementType.filter((key) => {
 			return !!filter.types[key];
 		});
@@ -54,6 +58,7 @@ export const ArchiveResults: React.FC<ArchiveResultsProps> = (props) => {
 		}
 	}, [filter]);
 
+	// When we get new data, update our counts of how many total sub-components (cards) will render.
 	React.useEffect(() => {
 		if (!data) {
 			setPostsState({
@@ -76,6 +81,8 @@ export const ArchiveResults: React.FC<ArchiveResultsProps> = (props) => {
 
 	const { posts, results } = postsState;
 
+	// I'm not sure yet if this is a good idea or something that will cause a bug.
+	// but, only re-render our posts (there could be hundreds) if those posts really change.
 	const postsRender = React.useMemo(() => {
 		return posts.map((post) => {
 			return (
@@ -88,6 +95,7 @@ export const ArchiveResults: React.FC<ArchiveResultsProps> = (props) => {
 		return <DataLoad promise={promise} />;
 	}
 
+	// When we get the meta information (it is loaded during requests) we can update with links to playlists.
 	let metaPlaylistRender: JSX.Element | null = null;
 	const isMusicOnly = singleElementType === IPostElementType.music;
 	const isVideoOnly = singleElementType === IPostElementType.video;
@@ -133,6 +141,10 @@ interface ArchiveResultsHeaderProps extends ArchiveResultsProps {
 	resultsCount: number | null;
 }
 
+/**
+ * Header for the archive results. Sticky, so it scrolls with the screen.
+ * Shows the number of items, a button to scroll to top, and a button to edit the filter.
+ */
 export const ArchiveResultsHeader: React.FC<ArchiveResultsHeaderProps> = (props) => {
 	const { rootElement, onScrollToHeader, onClickEditFilter, offsetPixels, resultsCount } = props;
 

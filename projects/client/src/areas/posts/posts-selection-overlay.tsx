@@ -16,12 +16,14 @@ export interface PostsSelectionOverlayProps extends ManagedOverlayBoxProps {
 	onArchivesChosen: () => void;
 }
 
+/**
+ * Allows the user to choose which day of the week they want to view. Highlights the current day.
+ */
 export const PostsSelectionOverlay: React.FC<PostsSelectionOverlayProps> = (props) => {
 
 	const { isActive, onSetInactive, activePostIndex, posts, onPostChosen } = props;
 
 	const postsRender = posts.map((post, index) => {
-
 		function onClickPost() {
 			onPostChosen(index);
 		}

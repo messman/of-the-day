@@ -14,9 +14,13 @@ export interface ArchiveProps {
 	rootElement: HTMLElement | null;
 }
 
+/**
+ * Top-level layout component for the Archive page.
+ */
 export const Archive: React.FC<ArchiveProps> = (props) => {
 	const { rootElement, offsetPixels } = props;
 
+	// Get the promise for the archive request, which uses the filter.
 	const { filter, applyFilter, promise } = useArchiveResponseContext();
 	const { data, error, isStarted } = promise;
 

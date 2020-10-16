@@ -14,6 +14,9 @@ import { createPostsElement, PostCard, EmbeddedContentReveal } from './elements-
 import { CardPadding } from '@/core/card/card';
 import { ElementActions } from '../element-action-overlay';
 
+/**
+ * A Music card. Shows title, artist, year, YouTube video, tags, etc.
+ */
 export const Music = createPostsElement<IPostMusic>((props) => {
 	const { isForArchive, hideTitle, archivePost } = props;
 	const { title, artist, description, isTop, isNSFW, tags, spotifyLink, youTubeLink, useYouTube, geniusLink, quote, year } = props.value;

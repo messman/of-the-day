@@ -3,6 +3,10 @@ import { IArchiveFilter, isFilterValid, keysOfIPostElementType, IArchiveFilterRa
 import { InlineWeight, RegularText } from '@/core/symbol/text';
 import { LineMaxWidth } from '@/core/layout/common';
 
+/*
+	Holds text for enums for rendering UI.
+*/
+
 export const postElementTypeForDisplay: Record<keyof typeof IPostElementType, string> = {
 	notes: 'Notes',
 	schedule: 'Schedules',
@@ -50,6 +54,9 @@ interface FilterDescriptor {
 	sort: string;
 }
 
+/**
+ * Creates a text version of the filter for feedback to the user.
+ */
 function describeFilter(filter: IArchiveFilter): FilterDescriptor {
 
 	const typesAsTextArray = keysOfIPostElementType
@@ -106,6 +113,9 @@ export interface FilterDescriptionProps {
 	filter: IArchiveFilter;
 }
 
+/**
+ * Creates the UI interpretation of the filter description.
+ */
 export const FilterDescription: React.FC<FilterDescriptionProps> = (props) => {
 	const { filter } = props;
 

@@ -11,23 +11,22 @@ import { log } from './services/util';
 
 export function configureApp(app: Application): void {
 
+	// Route into the '/api/' path
 	const router = Router();
 
 	const sheetId = settings.GOOGLE_SPREADSHEET_ID!;
 	const sheetsService = createSheetsService(settings.googleCredentials, sheetId);
 
 	if (settings.isDev) {
-		router.get('/posts-test', async (req: Request, response: Response<IPostResponse>, next: NextFunction) => {
-			const includeTomorrow = req.query['tomorrow'] == '1';
-
+		router.get('/posts-test', async (_req: Request, response: Response<IPostResponse>, next: NextFunction) => {
 			let serviceResponse: IPostResponse = null!;
 			try {
-				serviceResponse = await getPosts(sheetsService, includeTomorrow, 14, 10);
+				serviceResponse = await getPosts(sheetsService, false, 14, 10);
 			}
 			catch (e) {
 				return next(e);
 			}
-			log('posts-test', includeTomorrow);
+			log('posts-test');
 			return response.json(serviceResponse);
 		});
 	}
@@ -39,6 +38,7 @@ export function configureApp(app: Application): void {
 	});
 
 	router.get('/posts', async (req: Request, response: Response<IPostResponse>, next: NextFunction) => {
+		// ...?tomorrow=1
 		const includeTomorrow = req.query['tomorrow'] == '1';
 
 		log('--- posts', includeTomorrow ? 'tomorrow' : '');

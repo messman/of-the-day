@@ -23,6 +23,12 @@ export interface UpperMenuBarProps {
 	onPathClick: () => void;
 }
 
+/**
+ * The upper menu bar that shows between the header and the layout content.
+ * Only shows on larger screens - but we show 'fake' content underneath 
+ * to act as a margin and leave space for the the top 'sticky' menu bar appears,
+ * so that the sticky menu bar doesn't cover up any real content.
+ */
 export const UpperMenuBar: React.FC<UpperMenuBarProps> = (props) => {
 	const { isMobileWidth, onPathClick } = props;
 	if (isMobileWidth) {
@@ -80,9 +86,14 @@ export interface UpperStickyMenuBarProps {
 	onPathClick: () => void;
 }
 
+/**
+ * The menu bar that only appears on large screens, after the user has scrolled past the always-showing upper menu bar.
+ * 'sticky' because it is fixed to the top of the screen. Animates in from above. 
+ */
 export const UpperStickyMenuBar: React.FC<UpperStickyMenuBarProps> = (props) => {
 	const { isShowing, isMobileWidth, isDesktopWidth, onScrollToTop, onPathClick } = props;
 
+	// If firefox with the fingerprinting protection (which disables some JS APIs), we can't animate.
 	const springProps = useSpring({ top: isShowing ? '0px' : `-${totalUpperStickyMenuBarHeight}px`, immediate: isUsingFirefoxFingerprintProtection });
 
 	const topLeftTitle = isDesktopWidth ? (

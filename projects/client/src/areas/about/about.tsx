@@ -12,6 +12,9 @@ export interface AboutProps {
 
 }
 
+/**
+ * Top-level layout component for the 'About' page.
+ */
 export const About: React.FC<AboutProps> = () => {
 
 	const edgeSpacing = useResponsiveEdgeSpacing();

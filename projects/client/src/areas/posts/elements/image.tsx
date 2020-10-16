@@ -11,6 +11,9 @@ import { TagList, useTags } from './tag';
 import { CardPadding } from '@/core/card/card';
 import { ElementActions } from '../element-action-overlay';
 
+/**
+ * Image card. Shows, you know, an image.
+ */
 export const Image = createPostsElement<IPostImage>((props) => {
 	const { isForArchive, hideTitle, archivePost } = props;
 	const { link, description, sourceText, sourceLink, isNSFW, isTop } = props.value;

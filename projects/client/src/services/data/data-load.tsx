@@ -6,6 +6,10 @@ import { RegularText } from '@/core/symbol/text';
 import { Spacing, spacing, TopMargin } from '@/core/layout/common';
 import { ActionLink } from '@/core/link';
 
+/*
+	Shows a loading indicator or an error message for a promise.
+*/
+
 export interface DataLoadProps {
 	promise: PromiseOutput<any>;
 	isInvalidData?: boolean;

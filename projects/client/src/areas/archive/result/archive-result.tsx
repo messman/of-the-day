@@ -14,6 +14,10 @@ export interface ArchiveResultProps {
 	hideTitles: boolean;
 }
 
+/**
+ * Like a Post rendering, but only shows the valid archive elements (no notes, schedule, etc)
+ * and shows them in 'archive mode', where links to archives are hidden and titles are potentially hidden too.
+ */
 export const ArchiveResult: React.FC<ArchiveResultProps> = (props) => {
 	const { post, hideTitles } = props;
 

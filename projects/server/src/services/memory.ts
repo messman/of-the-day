@@ -1,3 +1,7 @@
+/*
+	In-memory cache that also reports stats.
+*/
+
 export interface MemoryCacheInput {
 	isCaching: boolean;
 	expiration: number;

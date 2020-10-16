@@ -1,18 +1,24 @@
 import { IPost, IPostElementType, keysOfIPostElementType } from '../posts';
 import { enumKeys } from '../utility';
 
+/** Request data for a filter archive request. */
 export interface IArchiveRequest {
 	filter: IArchiveFilter;
 }
 
+/** Archive response. */
 export interface IArchiveResponse {
 	posts: IPost[];
 }
 
 export interface IArchiveFilter {
+	/** Types/elements/subsections to return of a post. */
 	types: IArchiveTypeSwitches;
+	/** Modifiers (booleans) */
 	modifiers: IArchiveFilterModifierSwitches;
+	/** Time range. */
 	range: IArchiveFilterRange;
+	/** Sort options. */
 	sort: IArchiveFilterSort;
 	preset?: IArchiveFilterPreset;
 }
@@ -28,6 +34,7 @@ export const keysOfFilterModifier = enumKeys(IArchiveFilterModifier);
 export type IArchiveFilterModifierSwitches = Record<keyof typeof IArchiveFilterModifier, boolean>;
 
 export enum IArchiveFilterRange {
+	/** A random week, but those 7 days are all adjacent. */
 	random7Days,
 	last7Days,
 	last31Days,
@@ -101,7 +108,8 @@ export function isFilterSemanticallyEqual(filterA: IArchiveFilter, filterB: IArc
 		return false;
 	}
 
-	// Compare range
+	// Compare range.
+	// But, if it's a random range, Technically the filters aren't equal. Random is random.
 	if (filterA.range !== filterB.range || filterA.range === IArchiveFilterRange.random7Days || filterB.range === IArchiveFilterRange.random7Days) {
 		return false;
 	}
@@ -177,7 +185,6 @@ export const defaultInvalidFilter: IArchiveFilter = {
 };
 
 export function cloneFilter(filter: IArchiveFilter): IArchiveFilter {
-
 	const types: IArchiveTypeSwitches = {} as unknown as IArchiveTypeSwitches;
 	keysOfIPostElementType.forEach((type) => {
 		types[type] = filter.types[type];

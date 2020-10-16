@@ -16,6 +16,10 @@ interface PostProps {
 	post: IPost;
 }
 
+/** 
+ * Arranges the Music, Video, Image, Quote, and Custom components.
+ * Logic inside tries to arrange the components for best viewing.
+ */
 export const ShareGroup: React.FC<PostProps> = (props) => {
 	const { post } = props;
 

@@ -1,25 +1,43 @@
 # Of The Day
 
-A single page application I came up with to provide updates to the people in my life who are interested in what I'm doing with my year of adventure.
+A blog-style web application from Andrew Messier to track his time off from work.
+Time off started on March 25, 2020.
+
+## Status
+
+- Version 2: published October 14, 2020. Stable. See lower sections for discussion of what's left to do.
 
 ## Features
 
-The page is connected to a Google Sheet that I load from using the Google Sheets API.
-The Google Sheet has a row for each day and some additional pages for other storage like key-value pairs and checklist items.
+- "Weekly" page - shows my schedule, notes, thoughts, etc for the most recent 7 days, as well as any music, videos, quotes, articles, etc that I share during those days.
+- "Info" page - shows aggregate information (such as my total miles run or my most commonly-shared musical artist) and planning (short-term and long-term).
+- "Archive" page - searches through past days to show shared music, videos, quotes, articles, etc.
+- "About" page - explains the application, my plans, and allows for changing the theme.
 
-I'm able to update the Google Sheet from my phone or computer. Google Sheets as a CMS is a great option when I need the ability to update instantly, on-the-go, and for free for a site where users access the data in a read-only fashion.
+## Tech
 
-## Technologies
+### Data / Server
 
-This project got me back into design, React, and `styled-components`. It'd been a while since I worked with those, and getting it all right took up most of the time.
+Data is hosted in... Google Sheets! Data is retrieved with Node using the Google Sheets API.
 
-- Client
-	- React / Webpack / `npm`
-	- `styled-components` for css-in-js
-	- TypeScript
-	- FontAwesome for the icons
-	- Microsoft Azure static directory deploy
-- Server
-	- .NET
-	- Google Sheets API
-	- Microsoft Azure Functions (serverless)
+Decision to use Google Sheets was based on this reasoning:
+- This is a small project where one person is updating the data.
+- That person wants to update the data from their computer or phone without hassle.
+- Free, please.
+
+By using Google Sheets, I save time setting up the 'edit' side of the database. I can also check the database easily whenever I like to fix issues. Individual sections of data are in different pages.
+
+The server uses TypeScript, Node, and Express. It hosts the front-end code statically. Deployment is through Heroku and Cloudflare.
+
+See more information on the [server README](./server/README.md).
+
+### Client / Design
+
+Design is hard. I'm happier with the desktop design than the mobile design. Design was through Sketch. Symbols come from the Noun Project (licensed account).
+
+Front-end was fun. React (with React-Router), TypeScript, Webpack (with a custom builder application I wrote), a custom React UI library I wrote, and styled-components.
+
+## Future Work
+
+- Refine the mobile experience (tighter)
+- Clean up and optimize code (for example - styled-components performance, react-spring performance)

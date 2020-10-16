@@ -48,9 +48,15 @@ const scrollToStickyOptions: IScrollIntoViewOptions = {
 	inline: 'nearest'
 };
 
+/**
+ * The beating heart of the application.
+ * Controls the routing for the pages of the app.
+ */
 export const Layout: React.FC<LayoutProps> = (props) => {
+	// Our page layout components.
 	const { Posts, Other, Archive, About } = props;
 
+	// Get the window layout so we can make decisions about the menu bar based on window width.
 	const windowLayout = useWindowLayout();
 	const isAnyMobileWidth = windowLayout.widthBreakpoint <= LayoutBreakpoint.mobileLarge;
 	const isDesktopWidth = windowLayout.widthBreakpoint >= LayoutBreakpoint.desktop;
@@ -67,9 +73,16 @@ export const Layout: React.FC<LayoutProps> = (props) => {
 	const [scrollContainerRef, scrollContainerElement] = useStateDOM();
 	const [isShowingStickyMenuBar, setIsShowingStickyMenuBar] = React.useState(false);
 
-	// Mobile settings
+	/**
+	 * The height that the sticky upper menu bar (which appears on larger screens after the 
+	 * user scrolls to a certain point) takes up. We need our other sticky headers (the archive
+	 * header, the posts header) to be offset by that height so the headers don't overlap.
+	 * But even on smaller screens, we still show a tiny 'color bar' that has some height.
+	 */
 	const stickyOffsetPixels = isAnyMobileWidth ? stickyMenuBarColorHeight : totalUpperStickyMenuBarHeight;
 
+	// Lets us know when we've passed the point on the screen where we should show
+	// the sticky upper menu bar.
 	const elementIntersectRef = useElementIntersect({
 		rootMargin: `-${stickyMenuBarColorHeight}px 0px 0px 0px`,
 		rootElement: scrollContainerElement,

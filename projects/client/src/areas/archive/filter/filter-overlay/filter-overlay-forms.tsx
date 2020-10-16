@@ -10,6 +10,7 @@ export interface CheckboxProps {
 	onValueChange: (value: boolean) => void;
 }
 
+// Surround with styled-components so that we can refer to this component in other CSS blocks.
 export const Checkbox = tStyled((props: StyledFCProps<CheckboxProps>) => {
 	const { value, onValueChange, children, className } = props;
 
