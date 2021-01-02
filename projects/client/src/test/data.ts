@@ -282,6 +282,38 @@ export const postsTestData: IPostResponse = {
 				isNSFW: false,
 				isTop: true,
 			}
+		},
+		{
+			date: '08/23/2020',
+			dateText: 'Sun, Aug 23',
+			dayNumber: 452,
+			dayReference: IPostDayReference.other,
+
+			isDayOff: false,
+			dayOffMessage: '',
+
+			basics: {
+				event: 'James\' Birthday',
+				note: 'Happy Birthday to James! I hope you have an awesome time with the family!',
+				location: 'Colorado Springs, Colorado',
+				schedule: 'Drive over to Colorado Springs to see what has changed in the past 5 years; Stop by some of my old common hangout spots and see some friends.',
+				dayTypes: ['Relaxation', 'Adventure'],
+			},
+			music: {
+				title: 'Dirty Deeds Done Dirt Cheap',
+				artist: 'AC/DC',
+				year: '2050',
+				spotifyLink: 'https://open.spotify.com/track/2d4e45fmUnguxh6yqC7gNT?si=v69lcBmyTj-q8ja6kIIVjQ',
+				youTubeLink: 'https://youtu.be/UIE4UjBtx-o',
+				useYouTube: true,
+				geniusLink: 'https://genius.com/Ac-dc-dirty-deeds-done-dirt-cheap-lyrics',
+				description: `A classic. Performing some dishonest acts at a fair and reasonable price.`,
+				quote: 'Neckties, contracts, high voltage!',
+				isNSFW: true,
+				isTop: true,
+				tags: ['Turn It Up'],
+			},
+
 		}
 	]
 };

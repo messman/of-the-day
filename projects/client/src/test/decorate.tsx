@@ -2,6 +2,7 @@ import * as React from 'react';
 import { themes, useLocalStorageTheme } from '@/core/style/theme';
 import { TestWrapper } from '@/entry/wrapper';
 import { select, withKnobs } from '@storybook/addon-knobs';
+import { tStyled } from '@/core/style/styled';
 
 export interface StoryComponent {
 	(): JSX.Element;
@@ -68,5 +69,13 @@ const InnerTestWrapper: React.FC = (props) => {
 		}
 	}, [selectedThemeIndex]);
 
-	return <>{props.children}</>;
+	return (
+		<ScrollContainer>
+			{props.children}
+		</ScrollContainer>
+	);
 };
+
+const ScrollContainer = tStyled.div`
+	overflow-y: auto;
+`;

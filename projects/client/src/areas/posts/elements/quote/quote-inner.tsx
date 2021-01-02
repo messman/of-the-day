@@ -113,7 +113,7 @@ const MultiQuotePiece: React.FC<MultiQuotePieceProps> = (props) => {
 	const rightRender = isSecondVoice ? null : <QuoteSpacing />;
 
 	return (
-		<FlexRow justifyContent={justify}>
+		<FlexRow justifyContent={justify} flex='none'>
 			{leftRender}
 			<div>
 				{voiceRender}

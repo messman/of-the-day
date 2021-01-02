@@ -2,7 +2,7 @@ module.exports = async function getDefine(isDevelopment, isStorybook) {
 
 	/////////////////////////////////////////////////
 	// TEST WITHOUT SERVER instead of with a production or development server
-	const testWithoutServer = false;
+	const testWithoutServer = true;
 	/////////////////////////////////////////////////
 
 	const buildTime = (new Date()).getTime();
@@ -25,7 +25,7 @@ module.exports = async function getDefine(isDevelopment, isStorybook) {
 	};
 
 	if (isDevelopment) {
-		DEFINE.serverBase = JSON.stringify('http://192.168.1.2:8000');
+		DEFINE.serverBase = JSON.stringify('http://192.168.86.114:8000');
 	}
 	else {
 		DEFINE.serverBase = JSON.stringify('https://oftheday.andrewmessier.com');
