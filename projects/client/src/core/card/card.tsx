@@ -14,32 +14,13 @@ export interface CardProps {
 
 export const Card: React.FC<CardProps> = (props) => {
 	const { title, subtitle, icon, children } = props;
-
-	let titleRender: JSX.Element | null = null;
-	if (title) {
-
-		let iconRender: JSX.Element | null = null;
-		if (icon) {
-			iconRender = (
-				<Icon type={icon} height={FontSize.heading2} fillColor={c => c.textHeading2} />
-			);
-		}
-
-		titleRender = (
-			<FlexRow justifyContent='space-between' alignItems='center'>
-				<Heading2>{title}</Heading2>
-				{iconRender}
-			</FlexRow>
-		);
-	}
-
 	const subtitleMarginTop = title && subtitle ? spacing.small.top : null;
 
 	return (
 		<CardContainer>
 			<Background>
 				<TopCardPadding>
-					{titleRender}
+					<Title title={title} icon={icon} />
 					<Spacing show={!!subtitle} margin={subtitleMarginTop}>
 						<RegularText>{subtitle}</RegularText>
 					</Spacing>
@@ -76,8 +57,40 @@ const TopCardPadding = tStyled.div`
 	padding-bottom: 0;
 `;
 
-// const ColorHeader = tStyled.div`
-// 	width: 100%;
-// 	height: 4px;
-// 	background: ${p => p.theme.color.accentGradient};
-// `;
+interface TitleProps {
+	title?: string | null;
+	icon?: SVGIconType | null;
+}
+
+const Title: React.FC<TitleProps> = (props) => {
+	const { title, icon } = props;
+	if (!title) {
+		return null;
+	}
+
+	const iconRender = icon ? (
+		<Icon type={icon} height={FontSize.heading2} fillColor={c => c.textHeading2} />
+	) : null;
+
+	return (
+		<FlexRow justifyContent='space-between' alignItems='center'>
+			<Heading2>{title}</Heading2>
+			{iconRender}
+		</FlexRow>
+	);
+};
+
+export const SubtleCard: React.FC<CardProps> = (props) => {
+	const { title, children } = props;
+
+	return (
+		<CardContainer>
+			<TopCardPadding>
+				<Title title={title} />
+			</TopCardPadding>
+			<Spacing show={!!children} margin={spacing.small.top}>
+				{children}
+			</Spacing>
+		</CardContainer>
+	);
+};
