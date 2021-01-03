@@ -2,7 +2,7 @@ module.exports = async function getDefine(isDevelopment, isStorybook) {
 
 	/////////////////////////////////////////////////
 	// TEST WITHOUT SERVER instead of with a production or development server
-	const testWithoutServer = true;
+	const testWithoutServer = false;
 	/////////////////////////////////////////////////
 
 	const buildTime = (new Date()).getTime();

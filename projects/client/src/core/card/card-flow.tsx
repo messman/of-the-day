@@ -29,7 +29,6 @@ export function useMaximumRowChildren(): number {
 }
 
 export interface EqualCardFlowProps {
-	useAutoVerticalMargin?: boolean;
 }
 
 /**
@@ -37,7 +36,7 @@ export interface EqualCardFlowProps {
  * using its own row.
  */
 export const EqualCardFlow: React.FC<EqualCardFlowProps> = (props) => {
-	const { useAutoVerticalMargin, children } = props;
+	const { children } = props;
 
 	const maximumRowChildren = useMaximumRowChildren();
 	const numberOfChildren = findNumberOfChildren(children);
@@ -48,7 +47,7 @@ export const EqualCardFlow: React.FC<EqualCardFlowProps> = (props) => {
 
 	return (
 		<ApplicationMaxWidth>
-			<FlowElement $spacing={spacingBetween.value} $useVerticalMargin={useAutoVerticalMargin}>
+			<FlowElement $spacing={spacingBetween.value}>
 				{children}
 			</FlowElement>
 		</ApplicationMaxWidth>
@@ -57,19 +56,20 @@ export const EqualCardFlow: React.FC<EqualCardFlowProps> = (props) => {
 
 export interface RowColumnCardFlowProps {
 	$spacing: string;
-	$useVerticalMargin?: boolean;
 }
 
+/** Adds spacing between cards, in a column flow. */
 export const ColumnCardFlow = tStyled.div<RowColumnCardFlowProps>`
-	margin: ${p => p.$useVerticalMargin ? p.$spacing : 0} ${p => p.$spacing};
+	margin: 0 ${p => p.$spacing};
 
 	${CardContainer} + ${CardContainer} {
 		margin-top: ${p => p.$spacing};
 	}
 `;
 
+/** Adds spacing between cards, in a row flow. */
 export const RowCardFlow = tStyled(FlexRow) <RowColumnCardFlowProps>`
-	margin: ${p => p.$useVerticalMargin ? p.$spacing : 0} ${p => p.$spacing};
+	margin: 0 ${p => p.$spacing};
 
 	${CardContainer} {
 		margin-left: ${p => p.$spacing}; 

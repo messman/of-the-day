@@ -56,15 +56,15 @@ export const TestCardFlow = decorate('Card Flow', null, () => {
 
 	return (
 		<div>
-			<EqualCardFlow useAutoVerticalMargin={true}>
+			<EqualCardFlow>
 				<Card1 />
 			</EqualCardFlow>
-			<EqualCardFlow useAutoVerticalMargin={true}>
+			<EqualCardFlow>
 				<Card1 />
 				<Card2 />
 				<Card3 />
 			</EqualCardFlow>
-			<EqualCardFlow useAutoVerticalMargin={true}>
+			<EqualCardFlow>
 				<Card1 />
 				<Card3 />
 			</EqualCardFlow>

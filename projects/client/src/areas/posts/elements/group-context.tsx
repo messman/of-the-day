@@ -1,9 +1,10 @@
 import * as React from 'react';
-import { IPost, isValidPostElement } from 'oftheday-shared';
+import { IPost } from 'oftheday-shared';
 import { Notes, Schedule, Location } from './basics';
 import { EndThoughts } from './end-thoughts';
-import { ColumnCardFlow, RowCardFlow, useMaximumRowChildren } from '@/core/card/card-flow';
+import { ColumnCardFlow, useMaximumRowChildren } from '@/core/card/card-flow';
 import { ApplicationMaxWidth, spacing, Spacing, useResponsiveEdgeSpacing } from '@/core/layout/common';
+import { Flex, FlexRow } from '@messman/react-common';
 
 interface PostProps {
 	post: IPost;
@@ -15,99 +16,29 @@ interface PostProps {
 export const ContextGroup: React.FC<PostProps> = (props) => {
 	const { post } = props;
 
-	const endThoughts = <EndThoughts value={post.endThoughts} />;
-	const notes = <Notes value={post.basics} />;
-	const schedule = <Schedule value={post.basics} />;
-	const location = <Location value={post.basics} />;
-
-	const numberOfChildrenToRender = [
-		isValidPostElement.endThoughts(post.endThoughts),
-		isValidPostElement.note(post.basics),
-		isValidPostElement.schedule(post.basics),
-		isValidPostElement.location(post.basics)
-	].filter(x => !!x).length;
 	const maximumRowChildren = Math.min(useMaximumRowChildren(), 2);
 	const spacingBetween = useResponsiveEdgeSpacing();
 
-	if (numberOfChildrenToRender < 1) {
-		return null;
-	}
+	const isCentered = maximumRowChildren === 1;
+	const centeredLeftFlex = isCentered ? null : <Flex />;
+	const centeredRightFlex = isCentered ? null : <Flex />;
 
-	let cardFlowRender: JSX.Element = null!;
-	if (maximumRowChildren === 1) {
-		// Easy case - render as each item on its own row.
-		// Applies for smaller screens.
-		cardFlowRender = (
-			<ColumnCardFlow $spacing={spacingBetween.value}>
-				{endThoughts}
-				{notes}
-				{schedule}
-				{location}
-			</ColumnCardFlow>
-		);
-	}
-	else {
-		/*
-			Cases:
-			- 1 or 3 to render, can fit 2
-			- 2 or 4 to render, can fit 2
-		*/
-
-
-		if (numberOfChildrenToRender <= maximumRowChildren) {
-			// Easy case - just render all of them in the row and it sorts itself out.
-			cardFlowRender = (
-				<RowCardFlow $spacing={spacingBetween.value}>
-					{endThoughts}
-					{notes}
-					{schedule}
-					{location}
-				</RowCardFlow>
-			);
-		}
-		else if (numberOfChildrenToRender === 3) {
-			// Hard case - 3 children, more children than the maximum for one row.
-			// Either the End Thoughts or the Notes belongs on its own row.
-			const ownRowChild = endThoughts || notes;
-			const sameRowChild = endThoughts ? notes : null;
-			cardFlowRender = (
-				<>
-					<RowCardFlow $spacing={spacingBetween.value}>
-						{ownRowChild}
-					</RowCardFlow>
-					<Spacing margin={spacingBetween.top}>
-						<RowCardFlow $spacing={spacingBetween.value}>
-							{sameRowChild}
-							{schedule}
-							{location}
-						</RowCardFlow>
-					</Spacing>
-				</>
-			);
-		}
-		else if (numberOfChildrenToRender === 4) {
-			// Rendering all children - do two rows by two columns.
-			cardFlowRender = (
-				<>
-					<RowCardFlow $spacing={spacingBetween.value}>
-						{endThoughts}
-						{notes}
-					</RowCardFlow>
-					<Spacing margin={spacingBetween.top}>
-						<RowCardFlow $spacing={spacingBetween.value}>
-							{schedule}
-							{location}
-						</RowCardFlow>
-					</Spacing>
-				</>
-			);
-		}
-	}
 
 	return (
 		<Spacing margin={spacing.large.top}>
 			<ApplicationMaxWidth>
-				{cardFlowRender}
+				<FlexRow>
+					{centeredLeftFlex}
+					<Flex flex='3'>
+						<ColumnCardFlow $spacing={spacingBetween.value}>
+							<EndThoughts value={post.endThoughts} />
+							<Notes value={post.basics} />
+							<Schedule value={post.basics} />
+							<Location value={post.basics} />
+						</ColumnCardFlow>
+					</Flex>
+					{centeredRightFlex}
+				</FlexRow>
 			</ApplicationMaxWidth>
 		</Spacing>
 	);
