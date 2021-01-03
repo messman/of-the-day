@@ -1,6 +1,6 @@
 {
 	"name": "agm-of-the-day-server-heroku-deploy",
-	"version": "2.0.1",
+	"version": "2.0.2",
 	"description": "A package.json file used exclusively for heroku deployment of the API. It does not cover any source code.",
 	"scripts": {
 		"build": "cd projects/server && npm run heroku-build",
