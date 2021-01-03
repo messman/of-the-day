@@ -54,7 +54,12 @@ export const ShareGroup: React.FC<PostProps> = (props) => {
 		[music, video, image, quote, custom].forEach((tuple) => {
 			const value = tuple[1];
 			if (value) {
-				if (hasQuoteAndCustom && tuple === custom && leftColumn.length === rightColumn.length) {
+				if (!hasQuoteAndCustom && (tuple === quote || tuple === custom) && leftColumn.length === 1) {
+					// Special case - we have only one of [music, video, image] and one of [quote, custom].
+					// Since they are radically different heights, combine them into one column.
+					leftColumn.push(tuple);
+				}
+				else if (hasQuoteAndCustom && tuple === custom && leftColumn.length === rightColumn.length) {
 					// Special case - we are rendering both quote and custom, the quote has already been placed, and the columns are roughly equal.
 					// Because the custom and quote components are both small, in this case, put the custom in the same column as the quote.
 					rightColumn.push(tuple);
@@ -67,14 +72,27 @@ export const ShareGroup: React.FC<PostProps> = (props) => {
 			}
 		});
 
+		const leftColumnRender = leftColumn.length ? (
+			<ColumnFromRowCardFlow flex='3' $spacing={spacingBetween.value}>
+				<ShareGroupColumn postsElements={leftColumn} />
+			</ColumnFromRowCardFlow>
+		) : null;
+
+		const rightColumnRender = rightColumn.length ? (
+			<ColumnFromRowCardFlow flex='3' $spacing={spacingBetween.value}>
+				<ShareGroupColumn postsElements={rightColumn} />
+			</ColumnFromRowCardFlow>
+		) : null;
+
+		const centeredLeftFlex = rightColumnRender ? null : <Flex />;
+		const centeredRightFlex = rightColumnRender ? null : <Flex />;
+
 		cardFlowRender = (
 			<RowToColumnCardFlow $spacing={spacingBetween.value}>
-				<ColumnFromRowCardFlow $spacing={spacingBetween.value}>
-					<ShareGroupColumn postsElements={leftColumn} />
-				</ColumnFromRowCardFlow>
-				<ColumnFromRowCardFlow $spacing={spacingBetween.value}>
-					<ShareGroupColumn postsElements={rightColumn} />
-				</ColumnFromRowCardFlow>
+				{centeredLeftFlex}
+				{leftColumnRender}
+				{rightColumnRender}
+				{centeredRightFlex}
 			</RowToColumnCardFlow>
 		);
 	}

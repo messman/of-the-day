@@ -26,7 +26,7 @@ export const ContextGroup: React.FC<PostProps> = (props) => {
 		isValidPostElement.schedule(post.basics),
 		isValidPostElement.location(post.basics)
 	].filter(x => !!x).length;
-	const maximumRowChildren = useMaximumRowChildren();
+	const maximumRowChildren = Math.min(useMaximumRowChildren(), 2);
 	const spacingBetween = useResponsiveEdgeSpacing();
 
 	if (numberOfChildrenToRender < 1) {
@@ -36,6 +36,7 @@ export const ContextGroup: React.FC<PostProps> = (props) => {
 	let cardFlowRender: JSX.Element = null!;
 	if (maximumRowChildren === 1) {
 		// Easy case - render as each item on its own row.
+		// Applies for smaller screens.
 		cardFlowRender = (
 			<ColumnCardFlow $spacing={spacingBetween.value}>
 				{endThoughts}
@@ -45,57 +46,66 @@ export const ContextGroup: React.FC<PostProps> = (props) => {
 			</ColumnCardFlow>
 		);
 	}
-	else if (numberOfChildrenToRender <= maximumRowChildren) {
-		// Easy case - just render all of them in the row and it sorts itself out.
-		cardFlowRender = (
-			<RowCardFlow $spacing={spacingBetween.value}>
-				{endThoughts}
-				{notes}
-				{schedule}
-				{location}
-			</RowCardFlow>
-		);
-	}
-	else if (numberOfChildrenToRender === 3) {
-		// Hard case - 3 children, more children than the maximum for one row.
-		// Either the End Thoughts or the Notes belongs on its own row.
-		const ownRowChild = endThoughts || notes;
-		const sameRowChild = endThoughts ? notes : null;
-		cardFlowRender = (
-			<>
-				<RowCardFlow $spacing={spacingBetween.value}>
-					{ownRowChild}
-				</RowCardFlow>
-				<Spacing margin={spacingBetween.top}>
-					<RowCardFlow $spacing={spacingBetween.value}>
-						{sameRowChild}
-						{schedule}
-						{location}
-					</RowCardFlow>
-				</Spacing>
-			</>
-		);
-	}
-	else if (numberOfChildrenToRender === 4) {
-		// Rendering all children - do two rows by two columns.
-		cardFlowRender = (
-			<>
+	else {
+		/*
+			Cases:
+			- 1 or 3 to render, can fit 2
+			- 2 or 4 to render, can fit 2
+		*/
+
+
+		if (numberOfChildrenToRender <= maximumRowChildren) {
+			// Easy case - just render all of them in the row and it sorts itself out.
+			cardFlowRender = (
 				<RowCardFlow $spacing={spacingBetween.value}>
 					{endThoughts}
 					{notes}
+					{schedule}
+					{location}
 				</RowCardFlow>
-				<Spacing margin={spacingBetween.top}>
+			);
+		}
+		else if (numberOfChildrenToRender === 3) {
+			// Hard case - 3 children, more children than the maximum for one row.
+			// Either the End Thoughts or the Notes belongs on its own row.
+			const ownRowChild = endThoughts || notes;
+			const sameRowChild = endThoughts ? notes : null;
+			cardFlowRender = (
+				<>
 					<RowCardFlow $spacing={spacingBetween.value}>
-						{schedule}
-						{location}
+						{ownRowChild}
 					</RowCardFlow>
-				</Spacing>
-			</>
-		);
+					<Spacing margin={spacingBetween.top}>
+						<RowCardFlow $spacing={spacingBetween.value}>
+							{sameRowChild}
+							{schedule}
+							{location}
+						</RowCardFlow>
+					</Spacing>
+				</>
+			);
+		}
+		else if (numberOfChildrenToRender === 4) {
+			// Rendering all children - do two rows by two columns.
+			cardFlowRender = (
+				<>
+					<RowCardFlow $spacing={spacingBetween.value}>
+						{endThoughts}
+						{notes}
+					</RowCardFlow>
+					<Spacing margin={spacingBetween.top}>
+						<RowCardFlow $spacing={spacingBetween.value}>
+							{schedule}
+							{location}
+						</RowCardFlow>
+					</Spacing>
+				</>
+			);
+		}
 	}
 
 	return (
-		<Spacing margin={spacing.grand.top}>
+		<Spacing margin={spacing.large.top}>
 			<ApplicationMaxWidth>
 				{cardFlowRender}
 			</ApplicationMaxWidth>

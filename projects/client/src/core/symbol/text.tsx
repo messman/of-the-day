@@ -93,7 +93,7 @@ export const FontSizeManager: React.FC = (props) => {
 	// As we shift into larger responsive screen sizes, increase font size.
 	React.useEffect(() => {
 		let fontSize = defaultFontSize;
-		if (widthBreakpoint >= LayoutBreakpoint.desktop) {
+		if (widthBreakpoint >= LayoutBreakpoint.wide) {
 			fontSize = '18px';
 		}
 		document.documentElement.style.fontSize = fontSize;
