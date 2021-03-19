@@ -3,7 +3,7 @@ import { InvalidCheck } from '@/areas/alert/invalid';
 import { ThemeProvider } from '@/core/style/theme';
 import { DataProvider } from '@/services/data/data-context';
 import { MemoryRouter, BrowserRouter } from 'react-router-dom';
-import { WindowLayoutProvider, WindowDimensionsProvider, FlexRoot, DocumentVisibilityProvider } from '@messman/react-common';
+import { WindowMediaLayoutProvider, FlexRoot, DocumentVisibilityProvider } from '@messman/react-common';
 import { FontSizeManager } from '@/core/symbol/text';
 import { lowerBreakpoints } from '@/services/layout/window-layout';
 import { OverlayPortalRoot } from '@/core/overlay/overlay';
@@ -47,21 +47,19 @@ const InnerProviders: React.FC = (props) => {
 		<DocumentVisibilityProvider>
 			<ThemeProvider>
 				<OverlayPortalRoot>
-					<WindowDimensionsProvider>
-						<WindowLayoutProvider lowerBreakpoints={lowerBreakpoints}>
-							<FontSizeManager>
-								<FlexRoot flexDirection='column'>
-									<InvalidCheck error={null}>
-										<DataProvider>
-											<ElementActionsProvider>
-												{props.children}
-											</ElementActionsProvider>
-										</DataProvider>
-									</InvalidCheck>
-								</FlexRoot>
-							</FontSizeManager>
-						</WindowLayoutProvider>
-					</WindowDimensionsProvider>
+					<WindowMediaLayoutProvider lowerBreakpoints={lowerBreakpoints} breakpointUnit='px'>
+						<FontSizeManager>
+							<FlexRoot flexDirection='column'>
+								<InvalidCheck error={null}>
+									<DataProvider>
+										<ElementActionsProvider>
+											{props.children}
+										</ElementActionsProvider>
+									</DataProvider>
+								</InvalidCheck>
+							</FlexRoot>
+						</FontSizeManager>
+					</WindowMediaLayoutProvider>
 				</OverlayPortalRoot>
 			</ThemeProvider>
 		</DocumentVisibilityProvider>

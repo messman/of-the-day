@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { tStyled, StyledFC } from '../style/styled';
 import { LayoutBreakpoint, lineBreakpoint } from '@/services/layout/window-layout';
-import { useWindowLayout } from '@messman/react-common';
+import { useWindowMediaLayout } from '@messman/react-common';
 
 export const ApplicationMaxWidth = tStyled.div`
 	max-width: ${LayoutBreakpoint.max}px;
@@ -23,7 +23,7 @@ export const TextCenter = tStyled.div`
 
 export function useResponsiveEdgeSpacing(): Spacing {
 
-	const { widthBreakpoint } = useWindowLayout();
+	const { widthBreakpoint } = useWindowMediaLayout();
 
 	if (widthBreakpoint <= LayoutBreakpoint.mobileLarge) {
 		return spacing.medium;

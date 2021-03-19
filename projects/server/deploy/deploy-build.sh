@@ -5,6 +5,7 @@ set -eou
 # Script executed to prepare for production deploy.
 # Run from server project folder's package.json (working directory will be that folder).
 echo 'Install & Prune'
+npm uninstall oftheday-shared
 npm install
 npm prune
 
@@ -29,6 +30,7 @@ npm run build
 # Build client project
 echo 'Build Client Project'
 cd ../client
+npm uninstall oftheday-shared
 npm install
 npm install ../shared/$SHARED_PATH --no-save
 npm run production

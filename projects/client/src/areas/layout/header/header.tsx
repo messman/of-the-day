@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { RegularText } from '@/core/symbol/text';
-import { FlexRow, useWindowLayout } from '@messman/react-common';
+import { FlexRow, useWindowMediaLayout } from '@messman/react-common';
 import { spacing, Spacing, TopMargin } from '@/core/layout/common';
 import { tStyled } from '@/core/style/styled';
 import { LayoutBreakpoint } from '@/services/layout/window-layout';
@@ -12,7 +12,7 @@ import { HeaderIconAnimation, HeaderSubtitleAnimation, useHeaderAnimationState }
  * based on the width of the page, so that the header fits in correctly.
  */
 export function useHeaderDimensions(): [string, string, string] {
-	const { widthBreakpoint } = useWindowLayout();
+	const { widthBreakpoint } = useWindowMediaLayout();
 	if (widthBreakpoint >= LayoutBreakpoint.desktop) {
 		return ['5rem', '4rem', spacing.large.value];
 	}

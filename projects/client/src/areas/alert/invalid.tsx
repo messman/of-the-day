@@ -4,7 +4,7 @@ import { tStyled } from '@/core/style/styled';
 import { Icon, iconTypes } from '@/core/symbol/icon';
 import { SmallText, Heading2, FontSize, Paragraph } from '@/core/symbol/text';
 import { CONSTANT } from '@/services/constant';
-import { useWindowLayout, FlexColumn } from '@messman/react-common';
+import { useWindowMediaLayout, FlexColumn } from '@messman/react-common';
 import { isInvalidLayout } from '@/services/layout/window-layout';
 
 export interface InvalidCheckProps {
@@ -64,7 +64,7 @@ export class InvalidCheck extends React.Component<InvalidCheckProps, InvalidChec
 const InvalidCheckParser: React.FC<InvalidCheckProps> = (props) => {
 
 	// Get our layout info so we can check its validity.
-	const windowLayout = useWindowLayout();
+	const windowLayout = useWindowMediaLayout();
 
 	let invalidMessages: string[] = [];
 	let isAllowRefreshClick = false;

@@ -19,14 +19,14 @@ const customViewports = {
 		name: 'Mobile Regular (iPhone X)',
 		styles: {
 			width: '375px',
-			height: '568px',
+			height: '812px',
 		},
 	},
-	iPhone8Plus: {
-		name: 'iPhone 8 Plus',
+	iPhone11: {
+		name: 'iPhone 11',
 		styles: {
 			width: '414px',
-			height: '736px',
+			height: '896px',
 		},
 	},
 	mobileLarge: {
@@ -74,6 +74,7 @@ const customViewports = {
 };
 
 addParameters({
+	layout: 'fullscreen',
 	options: {
 		showRoots: true,
 	},

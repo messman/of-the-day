@@ -1,7 +1,7 @@
 const path = require("path");
 const getDefine = require('../define');
-const webpack = require("webpack");
-const createStyledComponentsTransformer = require("typescript-plugin-styled-components").default;
+const webpack = require('webpack');
+const updateWebpackConfig = require('../webpack-common');
 
 // https://storybook.js.org/docs/configurations/typescript-config/
 module.exports = {
@@ -14,53 +14,14 @@ module.exports = {
 
 		const DEFINE = await getDefine(true, true);
 
-		config.module.rules = [];
-		config.module.rules.push(
-			{
-				test: /\.(ts|tsx)$/,
-				use: [
-					{
-						loader: require.resolve('ts-loader'),
-						options: {
-							getCustomTransformers: () => ({ before: [createStyledComponentsTransformer()] })
-						}
-					}
-				],
-			},
-			{
-				test: /\.svg$/,
-				use: [
-					{
-						loader: '@svgr/webpack',
-						options: {
-							replaceAttrValues: { '#000': 'currentColor' },
-							dimensions: false,
-							svgoConfig: {
-								plugins: {
-									removeViewBox: false,
-									removeUselessStrokeAndFill: false,
-									removeUnknownsAndDefaults: false
-								}
-							}
-						}
-					}
-				]
-			},
-			{
-				test: /\.(png|jpg|gif)$/i,
-				use: [
-					{
-						loader: 'url-loader'
-					}
-				]
-			});
+		updateWebpackConfig(config, true, true);
+
 		config.resolve.extensions.push('.ts', '.tsx');
 
 		// Taken from regular webpack build
 		config.resolve.alias['@'] = path.resolve(__dirname, '../src');
 
 		config.plugins.push(new webpack.DefinePlugin({ __DEFINE__: DEFINE }));
-
 		//console.dir(config, { depth: null });
 
 		return config;

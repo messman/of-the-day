@@ -6,7 +6,7 @@ import { Archive, ArchiveProps } from '@/areas/archive/archive';
 import { Switch, Route } from 'react-router-dom';
 import { routes } from '@/services/nav/routing';
 import { tStyled } from '@/core/style/styled';
-import { FlexColumn, useElementIntersect, useStateDOM, useWindowLayout } from '@messman/react-common';
+import { FlexColumn, useElementIntersect, useStateDOM, useWindowMediaLayout } from '@messman/react-common';
 import { Header } from './header/header';
 import { LayoutBreakpoint } from '@/services/layout/window-layout';
 import { IScrollIntoViewOptions, IScrollToOptions } from 'seamless-scroll-polyfill/dist/esm/common';
@@ -57,7 +57,7 @@ export const Layout: React.FC<LayoutProps> = (props) => {
 	const { Posts, Other, Archive, About } = props;
 
 	// Get the window layout so we can make decisions about the menu bar based on window width.
-	const windowLayout = useWindowLayout();
+	const windowLayout = useWindowMediaLayout();
 	const isAnyMobileWidth = windowLayout.widthBreakpoint <= LayoutBreakpoint.mobileLarge;
 	const isDesktopWidth = windowLayout.widthBreakpoint >= LayoutBreakpoint.desktop;
 

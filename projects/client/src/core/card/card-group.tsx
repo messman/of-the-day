@@ -1,5 +1,5 @@
 import { LayoutBreakpoint } from '@/services/layout/window-layout';
-import { useWindowLayout } from '@messman/react-common';
+import { useWindowMediaLayout } from '@messman/react-common';
 import * as React from 'react';
 import { Spacing, spacing } from '../layout/common';
 import { tStyled } from '../style/styled';
@@ -16,7 +16,7 @@ export interface CardGroupProps {
 export const CardGroup: React.FC<CardGroupProps> = (props) => {
 
 	const { title, isAlternateBackground, isAutoAlternateBackground, children } = props;
-	const { widthBreakpoint } = useWindowLayout();
+	const { widthBreakpoint } = useWindowMediaLayout();
 	const groupSpacing = widthBreakpoint <= LayoutBreakpoint.mobileLarge ? spacing.large : spacing.grand;
 
 	const titleMargin = `0 auto ${groupSpacing.value} auto`;

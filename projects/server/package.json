@@ -4,7 +4,6 @@
 	"description": "An api for the of-the-day project.",
 	"main": "dist/index.js",
 	"scripts": {
-		"link": "npm link oftheday-shared",
 		"build": "tsc",
 		"start": "PORT=8000 NODE_ENV=dev node ./dist/index",
 		"build-start": "npm run clean && npm run build && npm run start",
@@ -17,16 +16,17 @@
 	"license": "MIT",
 	"dependencies": {
 		"express": "^4.17.1",
-		"googleapis": "^59.0.0",
-		"luxon": "^1.25.0",
-		"node-fetch": "^2.6.1"
+		"googleapis": "^68.0.0",
+		"luxon": "^1.26.0",
+		"node-fetch": "^2.6.1",
+		"oftheday-shared": "file:../shared"
 	},
 	"devDependencies": {
-		"@types/express": "^4.17.8",
-		"@types/luxon": "^1.25.0",
-		"@types/node": "^12.12.67",
-		"@types/node-fetch": "^2.5.7",
-		"trash-cli": "^3.1.0",
-		"typescript": "^3.9.7"
+		"@types/express": "^4.17.11",
+		"@types/luxon": "^1.26.2",
+		"@types/node": "^14.14.35",
+		"@types/node-fetch": "^2.5.8",
+		"trash-cli": "^4.0.0",
+		"typescript": "^4.2.3"
 	}
 }

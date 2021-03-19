@@ -3,7 +3,7 @@ import { tStyled } from '@/core/style/styled';
 import { defaultFontSize, FontWeight } from '../style/theme';
 import { spacing } from '../layout/common';
 import { LayoutBreakpoint, lineBreakpoint } from '@/services/layout/window-layout';
-import { useWindowLayout } from '@messman/react-common';
+import { useWindowMediaLayout } from '@messman/react-common';
 import { css } from 'styled-components';
 
 // EM value may be font-specific!
@@ -87,7 +87,7 @@ export const InlineWeight = {
 };
 
 export const FontSizeManager: React.FC = (props) => {
-	const windowLayout = useWindowLayout();
+	const windowLayout = useWindowMediaLayout();
 	const { widthBreakpoint } = windowLayout;
 
 	// As we shift into larger responsive screen sizes, increase font size.

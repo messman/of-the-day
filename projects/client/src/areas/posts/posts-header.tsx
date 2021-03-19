@@ -2,7 +2,7 @@ import * as React from 'react';
 import { tStyled } from '@/core/style/styled';
 import { IPost } from 'oftheday-shared';
 import { FontSize, Heading1, SmallText } from '@/core/symbol/text';
-import { FlexRow, Sticky, useSticky, useWindowLayout } from '@messman/react-common';
+import { FlexRow, Sticky, useSticky, useWindowMediaLayout } from '@messman/react-common';
 import { ClickableIcon, iconTypes } from '@/core/symbol/icon';
 import { spacing, TopMargin } from '@/core/layout/common';
 import { LayoutBreakpoint } from '@/services/layout/window-layout';
@@ -122,7 +122,7 @@ const PostDayTitle: React.FC<PostDayTitle> = (props) => {
 	const { post } = props;
 	const { dayReference, dateText, dayNumber } = post;
 
-	const { widthBreakpoint } = useWindowLayout();
+	const { widthBreakpoint } = useWindowMediaLayout();
 
 	let dayReferenceRender: JSX.Element | null = null;
 	if (widthBreakpoint >= LayoutBreakpoint.mobileRegular) {

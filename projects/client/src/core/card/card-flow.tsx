@@ -1,5 +1,5 @@
 import { LayoutBreakpoint } from '@/services/layout/window-layout';
-import { FlexRow, useWindowLayout } from '@messman/react-common';
+import { FlexRow, useWindowMediaLayout } from '@messman/react-common';
 import * as React from 'react';
 import { ApplicationMaxWidth, useResponsiveEdgeSpacing } from '../layout/common';
 import { tStyled } from '../style/styled';
@@ -12,7 +12,7 @@ export function findNumberOfChildren(children: React.ReactNode): number {
 }
 
 export function useMaximumRowChildren(): number {
-	const { widthBreakpoint } = useWindowLayout();
+	const { widthBreakpoint } = useWindowMediaLayout();
 	/*
 		Logic below is based on layout breakpoints and trying to keep the math
 		such that the cards inside will get a reasonable amount of space (larger
