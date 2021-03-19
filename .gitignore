@@ -1,7 +1,7 @@
 # root
-TODO.txt
-NOTES.txt
-deploy-*.txt
+todo*.txt
+notes*.txt
+deploy*.txt
 
 node_modules
 dist
