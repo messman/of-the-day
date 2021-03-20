@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { RegularText } from '@/core/symbol/text';
-import { Spacing, spacing } from '@/core/layout/common';
+import { Block, Spacing } from '@/core/layout/common';
 import { FlexRow, FlexColumn } from '@messman/react-common';
 import { QuoteAttribution } from './quote-attribution';
 import { QuotePiece } from './quote-piece';
-import { LayoutBreakpoint } from '@/services/layout/window-layout';
+import { LayoutBreakpointRem } from '@/services/layout/window-layout';
 import { tStyled } from '@/core/style/styled';
 import { separatorThickness } from '@/core/style/common';
 import { IPostQuote } from 'oftheday-shared';
@@ -47,7 +47,7 @@ export const InnerSingleQuote: React.FC<InnerQuoteProps> = (props) => {
 };
 
 const SingleQuoteWidthControlContainer = tStyled(FlexColumn)`
-	max-width: min(${LayoutBreakpoint.tablet}px, 100%);
+	max-width: min(${LayoutBreakpointRem.d40}rem, 100%);
 	min-width: 12rem;
 `;
 
@@ -58,7 +58,7 @@ export const InnerMultiQuote: React.FC<InnerQuoteProps> = (props) => {
 	const { quote } = props;
 	const { a, aVoice, b, bVoice } = quote;
 
-	const gapSpacing = bVoice ? spacing.large : spacing.medium;
+	const GapSpacing = bVoice ? Block.Elf24 : Block.Dog16;
 
 	return (
 		<FlexRow justifyContent='center'>
@@ -67,7 +67,7 @@ export const InnerMultiQuote: React.FC<InnerQuoteProps> = (props) => {
 					<Divider />
 					<MarginFlexColumn>
 						<MultiQuotePiece text={a} voice={aVoice} isSecondVoice={false} />
-						<Spacing margin={gapSpacing.top} />
+						<GapSpacing />
 						<MultiQuotePiece text={b} voice={bVoice} isSecondVoice={true} />
 					</MarginFlexColumn>
 					<Divider />
@@ -84,11 +84,11 @@ const Divider = tStyled.div`
 `;
 
 const MultiQuoteWidthControlContainer = tStyled(FlexColumn)`
-	max-width: min(${LayoutBreakpoint.desktop}px, 100%);
+	max-width: min(${LayoutBreakpointRem.f60}rem, 100%);
 `;
 
 const MarginFlexColumn = tStyled(FlexColumn)`
-	margin: ${spacing.small.value};
+	margin: ${Spacing.bat08};
 `;
 
 interface MultiQuotePieceProps {
@@ -130,5 +130,5 @@ const QuoteSpacing = tStyled.div`
 `;
 
 const VoiceText = tStyled(RegularText)`
-	margin-bottom: ${spacing.small.value};
+	margin-bottom: ${Spacing.dog16};
 `;

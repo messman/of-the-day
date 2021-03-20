@@ -3,7 +3,7 @@ import { PromiseOutput } from '@messman/react-common';
 import { keyframes, tStyled } from '@/core/style/styled';
 import { Icon, iconTypes } from '@/core/symbol/icon';
 import { RegularText } from '@/core/symbol/text';
-import { Spacing, spacing, TopMargin } from '@/core/layout/common';
+import { Block, Spacing } from '@/core/layout/common';
 import { ActionLink } from '@/core/link';
 
 /*
@@ -49,26 +49,29 @@ export const DataLoad: React.FC<DataLoadProps> = (props) => {
 			window.location.reload();
 		}
 		actionLink = (
-			<TopMargin.Medium>
+			<>
+				<Block.Dog16 />
 				<RegularText>
 					<ActionLink onClick={onRefreshClick}>Refresh</ActionLink>
 				</RegularText>
-			</TopMargin.Medium>
+			</>
 		);
 	}
 
 	return (
-		<Spacing margin={spacing.medium.horizontal}>
-			<Spacing margin={spacing.grand.top} textAlign='center'>
-				{icon}
-				<TopMargin.Medium>
-					<RegularText>{text}</RegularText>
-				</TopMargin.Medium>
-				{actionLink}
-			</Spacing>
-		</Spacing>
+		<DataLoadContainer>
+			{icon}
+			<Block.Dog16 />
+			<RegularText>{text}</RegularText>
+			{actionLink}
+		</DataLoadContainer>
 	);
 };
+
+const DataLoadContainer = tStyled.div`
+	text-align: center;
+	margin: ${Spacing.fan32} ${Spacing.dog16}
+`;
 
 const spin = keyframes`
 	0% { 

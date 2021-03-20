@@ -1,5 +1,5 @@
 import { Button } from '@/core/form/button/button';
-import { spacing } from '@/core/layout/common';
+import { Spacing } from '@/core/layout/common';
 import { tStyled } from '@/core/style/styled';
 import { filterPresets, IArchiveFilter, IArchiveFilterPreset } from 'oftheday-shared';
 import * as React from 'react';
@@ -54,6 +54,6 @@ export const FilterPresets: React.FC<FilterPresetsProps> = (props) => {
 
 const ButtonsContainer = tStyled.div`
 	${Button} + ${Button} {
-		margin-top: ${spacing.medium.value};
+		margin-top: ${Spacing.dog16};
 	}
 `;

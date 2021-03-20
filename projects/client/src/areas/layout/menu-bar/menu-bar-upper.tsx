@@ -6,7 +6,7 @@ import { MenuBarItems } from './menu-bar-items';
 import { animated, useSpring } from 'react-spring';
 import { Icon, iconTypes } from '@/core/symbol/icon';
 import { FontSize, Heading2 } from '@/core/symbol/text';
-import { spacing } from '@/core/layout/common';
+import { Spacing } from '@/core/layout/common';
 import { FontWeight } from '@/core/style/theme';
 import { isUsingFirefoxFingerprintProtection } from '@/services/feature';
 
@@ -15,7 +15,7 @@ export const stickyMenuBarColorHeight = 8;
 export const totalUpperStickyMenuBarHeight = upperMenuBarHeight + stickyMenuBarColorHeight;
 
 // Used so that we have enough space to render our title.
-const upperMenuCenterWidth = '500px';
+const upperMenuCenterWidth = '360px';
 
 
 export interface UpperMenuBarProps {
@@ -156,7 +156,7 @@ const UpperStickyMenuBarContainer = tStyled(FlexRow)`
 
 const UpperMenuStickyTitleClickContainer = tStyled.div`
 	height: 100%;
-	margin-left: ${spacing.medium.value};
+	margin-left: ${Spacing.dog16};
 	display: inline-flex;
 	flex-direction: row;
 	justify-content: left;
@@ -170,5 +170,5 @@ const SpacedTitle = tStyled(Heading2)`
 `;
 
 const SpacedBrandIcon = tStyled(Icon)`
-	margin: ${spacing.small.right};
+	margin-right: ${Spacing.dog16};
 `;

@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { RegularText } from '@/core/symbol/text';
 import { FlexRow, useWindowMediaLayout } from '@messman/react-common';
-import { spacing, Spacing, TopMargin } from '@/core/layout/common';
+import { Spacing, Block } from '@/core/layout/common';
 import { tStyled } from '@/core/style/styled';
-import { LayoutBreakpoint } from '@/services/layout/window-layout';
+import { LayoutBreakpointRem } from '@/services/layout/window-layout';
 import { FontWeight } from '@/core/style/theme';
 import { HeaderIconAnimation, HeaderSubtitleAnimation, useHeaderAnimationState } from './header-animation';
 
@@ -13,27 +13,24 @@ import { HeaderIconAnimation, HeaderSubtitleAnimation, useHeaderAnimationState }
  */
 export function useHeaderDimensions(): [string, string, string] {
 	const { widthBreakpoint } = useWindowMediaLayout();
-	if (widthBreakpoint >= LayoutBreakpoint.desktop) {
-		return ['5rem', '4rem', spacing.large.value];
+	if (widthBreakpoint >= LayoutBreakpointRem.f60) {
+		return ['5rem', '4rem', Spacing.elf24];
 	}
-	else if (widthBreakpoint >= LayoutBreakpoint.mobileLarge) {
-		return ['4rem', '3rem', spacing.medium.value];
+	else if (widthBreakpoint >= LayoutBreakpointRem.d40) {
+		return ['4rem', '3rem', Spacing.dog16];
 	}
-	return ['2.3rem', '1.8rem', spacing.medium.value];
+	return ['2.3rem', '1.8rem', Spacing.dog16];
 }
 
 export const Header: React.FC = () => {
 
 	const [titleHeight, subtitleHeight, rightMargin] = useHeaderDimensions();
-	const topBottomMargin = `${titleHeight} 0`;
-	const textTopMargin = `${subtitleHeight} 0 0 0`;
-
 	const animationState = useHeaderAnimationState();
 
 	return (
 		<Parent justifyContent='center' alignItems='center'>
 			<HeaderImage />
-			<Spacing textAlign='center' margin={topBottomMargin}>
+			<TextCenter>
 				<FlexRow>
 					<HeaderIconAnimation animationState={animationState} titleHeight={titleHeight} subtitleHeight={subtitleHeight} rightMargin={rightMargin} />
 					<div>
@@ -41,21 +38,22 @@ export const Header: React.FC = () => {
 						<HeaderBoldText dataFontSize={titleHeight}>Of The Day</HeaderBoldText>
 					</div>
 				</FlexRow>
-				<Spacing margin={textTopMargin}>
-					<TextSubtitleOnAccent>
-						<RegularText>A place for Andrew to share things</RegularText>
-						<TopMargin.Nudge>
-							<RegularText>until he runs out of money.</RegularText>
-						</TopMargin.Nudge>
-					</TextSubtitleOnAccent>
-				</Spacing>
-			</Spacing>
+				<Block.Elf24 />
+				<TextSubtitleOnAccent>
+					<RegularText>A place for Andrew to share things.</RegularText>
+				</TextSubtitleOnAccent>
+			</TextCenter>
 			<HeaderShadow />
 		</Parent>
 	);
 };
 
-const TextSubtitleOnAccent = tStyled.div`
+const TextCenter = tStyled.div`
+	text-align: center;
+	margin: 
+`;
+
+const TextSubtitleOnAccent = tStyled(RegularText)`
 	text-align: center;
 	color: ${p => p.theme.color.textDistinctOnAccent};
 `;

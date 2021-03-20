@@ -5,7 +5,7 @@ import { ManagedOverlayBoxProps } from '@/services/overlay/overlay-manager';
 import { FlexColumn, FlexRow } from '@messman/react-common';
 import { IArchiveFilter, cloneFilter, isFilterValid } from 'oftheday-shared';
 import { tStyled } from '@/core/style/styled';
-import { Spacing, spacing, TextCenter, TopMargin } from '@/core/layout/common';
+import { Spacing, Block } from '@/core/layout/common';
 import { FontSize, RegularText } from '@/core/symbol/text';
 import { matchToPreset } from '../filter-common';
 import { Icon, iconTypes } from '@/core/symbol/icon';
@@ -51,28 +51,23 @@ export const FilterOverlay: React.FC<FilterOverlayProps> = (props) => {
 
 	const invalidWarning = !isFilterValid(filterWorkingCopy) ? (
 		<FooterWarning>
-			<Spacing isInline={true} margin={spacing.small.right}>
-				<Icon type={iconTypes.alert} fillColor={c => c.warning} height={FontSize.textRegular} />
-			</Spacing>
+			<SpacedIcon type={iconTypes.alert} fillColor={c => c.warning} height={FontSize.textRegular} />
 			The selected filter options won't return anything.
 		</FooterWarning>
 	) : null;
 
-	const tabPadding = spacing.medium.value;
+	const tabPadding = Spacing.dog16;
 	const tabIndex = isShowingPresets ? 0 : 1;
 	let tabContent: JSX.Element = null!;
 	if (isShowingPresets) {
 		tabContent = (
 			<>
-				<TextCenter>
-					<RegularText>Select a preset, or choose the 'advanced' tab.</RegularText>
-				</TextCenter>
-				<TopMargin.Medium>
-					<FilterPresets
-						selectedFilter={filterWorkingCopy}
-						onClickPreset={onFilterWorkingCopyChanged}
-					/>
-				</TopMargin.Medium>
+				<CenteredRegularText>Select a preset, or choose the 'advanced' tab.</CenteredRegularText>
+				<Block.Dog16 />
+				<FilterPresets
+					selectedFilter={filterWorkingCopy}
+					onClickPreset={onFilterWorkingCopyChanged}
+				/>
 			</>
 		);
 	}
@@ -143,7 +138,7 @@ export interface FilterOverlayTabProps {
 
 const ScrollFlexColumn = tStyled(FlexColumn)`
 	overflow-y: auto;
-	padding: ${spacing.medium.value};
+	padding: ${Spacing.dog16};
 `;
 
 const Footer = tStyled(FlexRow)`
@@ -153,11 +148,20 @@ const Footer = tStyled(FlexRow)`
 const FooterActionLink = tStyled(ActionLink)`
 	flex: 1;
 	text-align: center;
-	padding: ${spacing.medium.value};
+	padding: ${Spacing.dog16};
 `;
 
 const FooterWarning = tStyled(RegularText)`
 	border-top: 1px solid ${p => p.theme.color.bgComponent3};
 	text-align: center;
-	padding: ${spacing.medium.value};
+	padding: ${Spacing.dog16};
+`;
+
+const CenteredRegularText = tStyled(RegularText)`
+	text-align: center;
+`;
+
+const SpacedIcon = tStyled(Icon)`
+	display: inline-block;
+	margin-right: ${Spacing.bat08};
 `;

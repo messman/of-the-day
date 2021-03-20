@@ -5,7 +5,7 @@ import { ManagedOverlayBoxProps } from '@/services/overlay/overlay-manager';
 import { FlexColumn } from '@messman/react-common';
 import { IPost } from 'oftheday-shared';
 import { tStyled } from '@/core/style/styled';
-import { spacing, TopMargin } from '@/core/layout/common';
+import { Spacing, Block } from '@/core/layout/common';
 import { Heading3, RegularText } from '@/core/symbol/text';
 import { getDayReferenceRender } from './post-common';
 
@@ -58,7 +58,7 @@ const ScrollFlexColumn = tStyled(FlexColumn)`
 `;
 
 const FooterActionLink = tStyled(ActionLink)`
-	padding: ${spacing.medium.value};
+	padding: ${Spacing.dog16};
 	border-top: 1px solid ${p => p.theme.color.bgComponent3};
 	text-align: center;
 `;
@@ -78,9 +78,8 @@ const PostListItem: React.FC<PostListItemProps> = (props) => {
 	return (
 		<PostListItemContainer onClick={onClick} isActivePost={isActivePost}>
 			<ActiveHeading isActivePost={isActivePost}>{dateText}</ActiveHeading>
-			<TopMargin.Nudge>
-				<RegularText>{dayReferenceRender}Day {dayNumber}</RegularText>
-			</TopMargin.Nudge>
+			<Block.Ant04 />
+			<RegularText>{dayReferenceRender}Day {dayNumber}</RegularText>
 		</PostListItemContainer>
 	);
 };
@@ -99,7 +98,7 @@ interface PostListItemContainerProps {
 
 const PostListItemContainer = tStyled.div<PostListItemContainerProps>`
 	cursor: ${p => p.isActivePost ? 'not-allowed' : 'pointer'};
-	padding: ${spacing.medium.value};
+	padding: ${Spacing.dog16};
 	border-top: 1px solid ${p => p.theme.color.bgComponent3};
 	border-left: none;
 	border-right: none;

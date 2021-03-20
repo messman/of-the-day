@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { TopMargin } from '../layout/common';
+import { Block } from '../layout/common';
 import { Heading3, RegularText } from '../symbol/text';
 import { CardProps, Card, CardPadding, SubtleCard } from './card';
 
@@ -18,11 +18,12 @@ export const TextCard: React.FC<TextCardProps> = (props) => {
 	) : null;
 
 	const textRender = text ? (
-		<TopMargin.Medium>
+		<>
+			<Block.Dog16 />
 			<RegularText>
 				{text}
 			</RegularText>
-		</TopMargin.Medium>
+		</>
 	) : null;
 
 	return (
@@ -46,11 +47,12 @@ export const SubtleTextCard: React.FC<TextCardProps> = (props) => {
 	) : null;
 
 	const textRender = text ? (
-		<TopMargin.Small>
+		<>
+			<Block.Bat08 />
 			<RegularText>
 				{text}
 			</RegularText>
-		</TopMargin.Small>
+		</>
 	) : null;
 
 	return (

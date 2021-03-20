@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { tStyled } from '@/core/style/styled';
 import { IPostElementType, IPostVideo, isValidPostElement } from 'oftheday-shared';
-import { LineMaxWidth, spacing, Spacing, TopMargin } from '@/core/layout/common';
+import { Block } from '@/core/layout/common';
 import { RegularText, SmallText, Heading3, FontSize, InlineWeight } from '@/core/symbol/text';
 import { TagList, useTags } from './tag';
 import { ActionLink } from '@/core/link';
@@ -9,6 +9,7 @@ import { iconTypes } from '@/core/symbol/icon';
 import { createPostsElement, PostCard, EmbeddedContentReveal } from './elements-common';
 import { CardPadding } from '@/core/card/card';
 import { ElementActions } from '../element-action-overlay';
+import { lineBreakpoint } from '@/services/layout/window-layout';
 
 /**
  * Displays the video card. Shows title, description, tags, video iframe, etc.
@@ -22,7 +23,7 @@ export const Video = createPostsElement<IPostVideo>((props) => {
 	let internalVideoRender: JSX.Element = null!;
 	if (isRemoved) {
 		internalVideoRender = (
-			<RegularText>Unfortunately, this video is no longer available to view.</RegularText>
+			<RegularText>This video was removed from YouTube or made private.</RegularText>
 		);
 	}
 	else {
@@ -32,32 +33,29 @@ export const Video = createPostsElement<IPostVideo>((props) => {
 	}
 
 	const descriptionRender = (description && !isRemoved) ? (
-		<TopMargin.Small>
-			<LineMaxWidth>
-				<RegularText>
-					{description}
-				</RegularText>
-			</LineMaxWidth>
-		</TopMargin.Small>
+		<>
+			<Block.Bat08 />
+			<RegularTextMaxWidth>
+				{description}
+			</RegularTextMaxWidth>
+		</>
 	) : null;
 
 	return (
 		<PostCard title='Video' icon={iconTypes.video} isForArchive={isForArchive} hideTitle={hideTitle} archivePost={archivePost}>
 			<CardPadding>
-				<Spacing margin={spacing.large.bottom}>
-					<VideoTitle video={props.value} />
-				</Spacing>
-				<TagList margin={spacing.small.vertical} tags={tagsStrings} />
+				<Block.Elf24 />
+				<VideoTitle video={props.value} />
+				<TagList tags={tagsStrings} />
 				{descriptionRender}
-				<Spacing margin={spacing.large.vertical}>
-					<ElementActions isViewingArchive={isForArchive} elementType={IPostElementType.video} isTop={isTop} youTubeLink={!isRemoved ? link : undefined} />
-				</Spacing>
+				<Block.Elf24 />
+				<ElementActions isViewingArchive={isForArchive} elementType={IPostElementType.video} isTop={isTop} youTubeLink={!isRemoved ? link : undefined} />
+				<Block.Elf24 />
 			</CardPadding>
-			<Spacing margin={spacing.large.top}>
-				<EmbeddedContentReveal isRevealedOnMount={!isForArchive || isRemoved}>
-					{internalVideoRender}
-				</EmbeddedContentReveal>
-			</Spacing>
+			<Block.Elf24 />
+			<EmbeddedContentReveal isRevealedOnMount={!isForArchive || isRemoved}>
+				{internalVideoRender}
+			</EmbeddedContentReveal>
 		</PostCard>
 	);
 }, IPostElementType.video, isValidPostElement.video);
@@ -93,9 +91,10 @@ const VideoTitle: React.FC<VideoTitleProps> = (props) => {
 		setIsShowingOriginalTitle(true);
 	}
 	const originalTitleLink = isCustomTitleDifferent ? (
-		<Spacing margin={spacing.small.top}>
+		<>
+			<Block.Bat08 />
 			<SmallText>Andrew customized this title. <SmallActionLink onClick={onClick}>See original.</SmallActionLink></SmallText>
-		</Spacing>
+		</>
 	) : null;
 
 	const customTitleCreatorRender = customTitleCreator ? (
@@ -152,4 +151,8 @@ export const VideoContainer = tStyled.div`
 
 		overflow: hidden;
 	}
+`;
+
+const RegularTextMaxWidth = tStyled(RegularText)`
+	max-width: ${lineBreakpoint};
 `;

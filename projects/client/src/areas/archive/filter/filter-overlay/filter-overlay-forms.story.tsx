@@ -2,7 +2,7 @@
 import * as React from 'react';
 import { decorate } from '@/test/decorate';
 import { Checkbox, OpenSelect } from './filter-overlay-forms';
-import { spacing, Spacing } from '@/core/layout/common';
+import { Block, Margin } from '@/core/layout/common';
 import { RegularText } from '@/core/symbol/text';
 
 export default { title: 'Areas/Archive/Filter/Overlay/Forms' };
@@ -12,9 +12,9 @@ export const TestCheckbox = decorate('Checkbox', null, () => {
 	const [isChecked, setIsChecked] = React.useState(false);
 
 	return (
-		<Spacing margin={spacing.large.value}>
+		<Margin.Dog16>
 			<Checkbox value={isChecked} onValueChange={setIsChecked}>Testing, here!</Checkbox>
-		</Spacing>
+		</Margin.Dog16>
 	);
 });
 
@@ -38,16 +38,13 @@ const options = [
 ];
 
 export const TestSelect = decorate('Select', null, () => {
-
 	const [selected, setIsSelected] = React.useState(0);
 
-
 	return (
-		<Spacing margin={spacing.large.value}>
+		<Margin.Dog16>
 			<OpenSelect options={options} selectedIndex={selected} onSelectedIndexChange={setIsSelected} />
-			<Spacing margin={spacing.large.top}>
-				<RegularText>{options[selected].value}</RegularText>
-			</Spacing>
-		</Spacing>
+			<Block.Dog16 />
+			<RegularText>{options[selected].value}</RegularText>
+		</Margin.Dog16>
 	);
 });

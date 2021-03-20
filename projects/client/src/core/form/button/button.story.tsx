@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { decorate } from '@/test/decorate';
-import { Spacing, spacing } from '@/core/layout/common';
+import { Margin } from '@/core/layout/common';
 import { text } from '@storybook/addon-knobs';
 import { RegularText } from '@/core/symbol/text';
 import { Button } from './button';
@@ -20,20 +20,20 @@ export const TestButton = decorate('Button', null, () => {
 		});
 	}
 
-	const space = spacing.medium.value;
+	const ExampleMargin = Margin.Dog16;
 
 	return (
 		<div>
 			<RegularText>Counter: {counter.toString()}</RegularText>
-			<Spacing margin={space}>
+			<ExampleMargin>
 				<Button
 					onClick={onClick}
 					title={buttonText}
 				>
 					{buttonText}
 				</Button>
-			</Spacing>
-			<Spacing margin={space}>
+			</ExampleMargin>
+			<ExampleMargin>
 				<Button
 					onClick={onClick}
 					title={buttonText}
@@ -41,8 +41,8 @@ export const TestButton = decorate('Button', null, () => {
 				>
 					{buttonText}
 				</Button>
-			</Spacing>
-			<Spacing margin={space}>
+			</ExampleMargin>
+			<ExampleMargin>
 				<Button
 					onClick={onClick}
 					title={buttonText}
@@ -51,8 +51,8 @@ export const TestButton = decorate('Button', null, () => {
 				>
 					{buttonText}
 				</Button>
-			</Spacing>
-			<Spacing margin={space}>
+			</ExampleMargin>
+			<ExampleMargin>
 				<Button
 					onClick={onClick}
 					title={buttonText}
@@ -60,8 +60,8 @@ export const TestButton = decorate('Button', null, () => {
 				>
 					{buttonText}
 				</Button>
-			</Spacing>
-			<Spacing margin={space}>
+			</ExampleMargin>
+			<ExampleMargin>
 				<Button
 					onClick={onClick}
 					title={buttonText}
@@ -69,8 +69,8 @@ export const TestButton = decorate('Button', null, () => {
 				>
 					{buttonText}
 				</Button>
-			</Spacing>
-			<Spacing margin={space}>
+			</ExampleMargin>
+			<ExampleMargin>
 				<Button
 					onClick={onClick}
 					title={buttonText}
@@ -79,8 +79,8 @@ export const TestButton = decorate('Button', null, () => {
 				>
 					{buttonText}
 				</Button>
-			</Spacing>
-			<Spacing margin={space}>
+			</ExampleMargin>
+			<ExampleMargin>
 				<Button
 					onClick={onClick}
 					title={buttonText}
@@ -88,9 +88,9 @@ export const TestButton = decorate('Button', null, () => {
 				>
 					{buttonText}
 				</Button>
-			</Spacing>
+			</ExampleMargin>
 
-			<Spacing margin={space}>
+			<ExampleMargin>
 				<Button
 					onClick={onClick}
 					title={buttonText}
@@ -99,9 +99,9 @@ export const TestButton = decorate('Button', null, () => {
 				>
 					{buttonText}
 				</Button>
-			</Spacing>
+			</ExampleMargin>
 
-			<Spacing margin={space}>
+			<ExampleMargin>
 				<Button
 					onClick={onClick}
 					title={buttonText}
@@ -110,7 +110,7 @@ export const TestButton = decorate('Button', null, () => {
 				>
 					{buttonText}
 				</Button>
-			</Spacing>
+			</ExampleMargin>
 		</div>
 	);
 });

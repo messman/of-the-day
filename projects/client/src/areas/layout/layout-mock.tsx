@@ -12,12 +12,6 @@ export const MockPosts: React.FC<PostsProps> = () => {
 	);
 };
 
-export const MockOther: React.FC = () => {
-	return (
-		<Area><RegularText>Other</RegularText></Area>
-	);
-};
-
 export const MockArchive: React.FC<ArchiveProps> = () => {
 	return (
 		<Area><RegularText>Archive</RegularText></Area>

@@ -1,7 +1,7 @@
 import { EmptySpaceHack } from '@/core/style/common';
 import { tStyled } from '@/core/style/styled';
 import { useArchiveResponseContext } from '@/services/data/data-context';
-import { LayoutBreakpoint } from '@/services/layout/window-layout';
+import { LayoutBreakpointRem } from '@/services/layout/window-layout';
 import { IArchiveFilter } from 'oftheday-shared';
 import * as React from 'react';
 import { elementScrollIntoView } from 'seamless-scroll-polyfill';
@@ -85,6 +85,6 @@ export const Archive: React.FC<ArchiveProps> = (props) => {
 };
 
 const ArchiveContainer = tStyled.div`
-	max-width: ${LayoutBreakpoint.mobileLarge}px;
+	max-width: ${LayoutBreakpointRem.d40}px;
 	margin: auto;
 `;

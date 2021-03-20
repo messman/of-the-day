@@ -1,4 +1,4 @@
-import { spacing, Spacing, useResponsiveEdgeSpacing } from '@/core/layout/common';
+import { Block, Spacing } from '@/core/layout/common';
 import { ActionLink, OutLink } from '@/core/link';
 import { EmptySpaceHack } from '@/core/style/common';
 import { tStyled } from '@/core/style/styled';
@@ -33,7 +33,6 @@ export const ArchiveResults: React.FC<ArchiveResultsProps> = (props) => {
 	const { filter, promise } = props;
 	const { data, isStarted, error } = promise;
 
-	const edgeSpacing = useResponsiveEdgeSpacing();
 	const meta = useMeta();
 
 	const [postsState, setPostsState] = React.useState<PostsState>({
@@ -119,23 +118,27 @@ export const ArchiveResults: React.FC<ArchiveResultsProps> = (props) => {
 	return (
 		<>
 			<ArchiveResultsHeader {...props} resultsCount={results} />
-			<Spacing margin={edgeSpacing.horizontal}>
-				<Spacing margin={spacing.large.vertical}>
-					<FilterDescription filter={filter} />
-					<Paragraph>
-						<span>Showing </span>
-						<InlineWeight.Bold>{results} </InlineWeight.Bold>
-						<span>{results === 1 ? 'item' : 'items'} across </span>
-						<InlineWeight.Bold>{posts.length} </InlineWeight.Bold>
-						<span>{posts.length === 1 ? 'day' : 'days'}</span>
-					</Paragraph>
-					{metaPlaylistRender}
-				</Spacing>
+			<ArchiveResultsContainer>
+				<FilterDescription filter={filter} />
+				<Paragraph>
+					<span>Showing </span>
+					<InlineWeight.Bold>{results} </InlineWeight.Bold>
+					<span>{results === 1 ? 'item' : 'items'} across </span>
+					<InlineWeight.Bold>{posts.length} </InlineWeight.Bold>
+					<span>{posts.length === 1 ? 'day' : 'days'}</span>
+				</Paragraph>
+				{metaPlaylistRender}
+				<Block.Elf24 />
 				{postsRender}
-			</Spacing>
+			</ArchiveResultsContainer>
 		</>
 	);
 };
+
+const ArchiveResultsContainer = tStyled.div`
+	margin: 0 ${Spacing.dog16};
+	margin-top: ${Spacing.elf24};
+`;
 
 interface ArchiveResultsHeaderProps extends ArchiveResultsProps {
 	resultsCount: number | null;
@@ -160,34 +163,44 @@ export const ArchiveResultsHeader: React.FC<ArchiveResultsHeaderProps> = (props)
 				<EmptySpaceHack height={offsetPixels} showBackground={isAtFirst} />
 				<ArchiveResultsHeaderContainer flex='none' justifyContent='space-between' alignItems='center'>
 					<Flex>
-						<Spacing margin={spacing.medium.left}>
-							<RegularText>
-								<InlineWeight.Bold>{resultsCount} </InlineWeight.Bold>
-								<span>{resultsCount === 1 ? 'item' : 'items'}</span>
-							</RegularText>
-						</Spacing>
+						<LeftResultsCountText>
+							<InlineWeight.Bold>{resultsCount} </InlineWeight.Bold>
+							<span>{resultsCount === 1 ? 'item' : 'items'}</span>
+						</LeftResultsCountText>
 					</Flex>
 					<Flex>
-						<Spacing textAlign='center'>
+						<TextCenter>
 							<ActionLink onClick={onClickEditFilter}>Edit Filter</ActionLink>
-						</Spacing>
+						</TextCenter>
 					</Flex>
 					<Flex>
-						<Spacing textAlign='right' margin={spacing.medium.right}>
-
+						<RightScrollIconContainer>
 							<ClickableIcon type={iconTypes.top} isDisabled={!isAtFirst} onClick={onScrollToHeader} />
-						</Spacing>
+						</RightScrollIconContainer>
 					</Flex>
 				</ArchiveResultsHeaderContainer>
 			</Sticky>
-			<Spacing margin={spacing.large.bottom} />
+			<Block.Elf24 />
 		</>
 	);
 };
 
 const ArchiveResultsHeaderContainer = tStyled(FlexRow)`
 	position: relative;
-	padding: ${spacing.small.vertical};
+	padding: ${Spacing.bat08} 0;
 	background-color: ${p => p.theme.color.bg1};
 	border-bottom: 1px solid ${p => p.theme.color.bgComponent3};
+`;
+
+const LeftResultsCountText = tStyled(RegularText)`
+	margin-left: ${Spacing.dog16};
+`;
+
+const TextCenter = tStyled.div`
+	text-align: center;
+`;
+
+const RightScrollIconContainer = tStyled.div`
+	text-align: right;
+	margin-right: ${Spacing.dog16};
 `;

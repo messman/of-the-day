@@ -1,4 +1,4 @@
-import { spacing } from '@/core/layout/common';
+import { Spacing } from '@/core/layout/common';
 import { borderRadiusStyle, formTransitionStyle, HighlightBar } from '@/core/style/common';
 import { StyledFCProps, tStyled } from '@/core/style/styled';
 import { FontSize, RegularText } from '@/core/symbol/text';
@@ -41,7 +41,7 @@ const CheckboxLabel = tStyled.label`
 	border: 1px solid ${p => p.theme.color.bgComponent3};
 	background-color: ${p => p.theme.color.bgComponent2};
 	${borderRadiusStyle}
-	padding: ${spacing.small.value};
+	padding: ${Spacing.bat08};
 	cursor: pointer;
 	user-select: none;
 `;
@@ -65,8 +65,8 @@ const CheckboxIndicator = tStyled.span<CheckboxIndicatorProps>`
 	display: inline-block;
 	width: ${FontSize.textRegular};
 	height: ${FontSize.textRegular};
-	margin-left: ${spacing.nudge.value};
-	margin-right: ${spacing.medium.value};
+	margin-left: ${Spacing.ant04};
+	margin-right: ${Spacing.dog16};
 	box-sizing: content-box;
 	border: 1px solid ${p => p.$isChecked ? p.theme.color.accentFillOnBackground : p.theme.color.textAccentOnBackground};
 	background-color: ${p => p.$isChecked ? p.theme.color.accentFillOnBackground : 'transparent'};
@@ -139,7 +139,7 @@ interface OpenOptionProps {
 	$isDisabled: boolean;
 }
 
-const regularTextOptionSpacing = `${spacing.medium.value} ${spacing.large.value}`;
+const regularTextOptionSpacing = `${Spacing.dog16} ${Spacing.elf24}`;
 
 const OpenOption = tStyled.div<OpenOptionProps>`
 	text-align: center;

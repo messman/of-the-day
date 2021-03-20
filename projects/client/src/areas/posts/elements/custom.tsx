@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { IPostCustom, IPostElementType, isValidPostElement } from 'oftheday-shared';
-import { spacing, Spacing, TopMargin } from '@/core/layout/common';
+import { Spacing, Block } from '@/core/layout/common';
 import { RegularText, SmallText } from '@/core/symbol/text';
 import { OutLink, ActionLink } from '@/core/link';
 import { tStyled } from '@/core/style/styled';
@@ -41,46 +41,61 @@ export const Custom = createPostsElement<IPostCustom>((props) => {
 		setIsShowingHiddenValue(false);
 	}, [props.value]);
 
+	const linkRender = link ? (
+		<>
+			<Block.Dog16 />
+			<OutLink href={link}>{linkText}</OutLink>
+		</>
+	) : null;
+
 	const revealText = isShowingHiddenValue ? 'Hide' : 'Reveal';
 
 	const iconType = !!link ? iconTypes.link : iconTypes.speech;
 
 	const revealButton = hiddenValue ? (
-		<TopMargin.Medium>
+		<>
+			<Block.Dog16 />
 			<SmallText>
 				<ActionLink onClick={onClick}>{revealText}</ActionLink>
 			</SmallText>
-		</TopMargin.Medium>
+		</>
+	) : null;
+
+	const hiddenValueRender = (hiddenValue && isShowingHiddenValue) ? (
+		<>
+			<Block.Bat08 />
+			<HiddenArea>
+				<RegularText>
+					{hiddenValue}
+				</RegularText>
+			</HiddenArea>
+		</>
+	) : null;
+
+	const elementActionsRender = (!isForArchive) ? (
+		<>
+			<Block.Elf24 />
+			<ElementActions isViewingArchive={isForArchive} elementType={IPostElementType.custom} isTop={isTop} />
+		</>
 	) : null;
 
 	return (
 		<PostCard title={title} icon={iconType} isForArchive={isForArchive} hideTitle={hideTitle} archivePost={archivePost}>
 			<CardPadding>
-				<TagList margin={spacing.large.vertical} tags={tagsStrings} />
-				<Spacing show={link} margin={spacing.medium.top}>
-					<OutLink href={link}>{linkText}</OutLink>
-				</Spacing>
-				<TopMargin.Medium>
-					{value}
-				</TopMargin.Medium>
+				<TagList tags={tagsStrings} />
+				{linkRender}
+				<Block.Dog16 />
+				{value}
 				{revealButton}
-				<Spacing show={hiddenValue && isShowingHiddenValue} margin={spacing.small.top}>
-					<HiddenArea>
-						<RegularText>
-							{hiddenValue}
-						</RegularText>
-					</HiddenArea>
-				</Spacing>
-				<Spacing show={!isForArchive} margin={spacing.large.top}>
-					<ElementActions isViewingArchive={isForArchive} elementType={IPostElementType.custom} isTop={isTop} />
-				</Spacing>
+				{hiddenValueRender}
+				{elementActionsRender}
 			</CardPadding>
 		</PostCard>
 	);
 }, IPostElementType.custom, isValidPostElement.custom);
 
 const HiddenArea = tStyled.div`
-	padding: ${spacing.medium.value};
+	padding: ${Spacing.dog16};
 	background-color: ${p => p.theme.color.bgComponent2};
 	border: 1px solid ${p => p.theme.color.bgComponent3};
 	${borderRadiusStyle}

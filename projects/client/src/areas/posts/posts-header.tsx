@@ -4,8 +4,8 @@ import { IPost } from 'oftheday-shared';
 import { FontSize, Heading1, SmallText } from '@/core/symbol/text';
 import { FlexRow, Sticky, useSticky, useWindowMediaLayout } from '@messman/react-common';
 import { ClickableIcon, iconTypes } from '@/core/symbol/icon';
-import { spacing, TopMargin } from '@/core/layout/common';
-import { LayoutBreakpoint } from '@/services/layout/window-layout';
+import { Spacing, Block } from '@/core/layout/common';
+import { LayoutBreakpointRem } from '@/services/layout/window-layout';
 import { PostsSelectionOverlay } from './posts-selection-overlay';
 import { getDayReferenceRender } from './post-common';
 import { elementScrollIntoView } from 'seamless-scroll-polyfill';
@@ -105,13 +105,13 @@ interface PostsHeaderContainerProps {
 
 const PostsHeaderContainer = tStyled(FlexRow) <PostsHeaderContainerProps>`
 	position: relative;
-	padding: ${spacing.small.vertical};
+	padding: ${Spacing.bat08};
 	background-color: ${p => p.theme.color.bg1};
 	border-bottom: 1px solid ${p => p.isSticking ? p.theme.color.bgComponent3 : 'transparent'};
 `;
 
 const PostsHeaderCenterContainer = tStyled(FlexRow)`
-	max-width: ${LayoutBreakpoint.tablet}px;
+	max-width: ${LayoutBreakpointRem.d40}px;
 `;
 
 interface PostDayTitle {
@@ -125,7 +125,7 @@ const PostDayTitle: React.FC<PostDayTitle> = (props) => {
 	const { widthBreakpoint } = useWindowMediaLayout();
 
 	let dayReferenceRender: JSX.Element | null = null;
-	if (widthBreakpoint >= LayoutBreakpoint.mobileRegular) {
+	if (widthBreakpoint >= LayoutBreakpointRem.d40) {
 		dayReferenceRender = getDayReferenceRender(dayReference);
 	}
 
@@ -136,7 +136,7 @@ const PostDayTitle: React.FC<PostDayTitle> = (props) => {
 	let titleFontSize = FontSize.heading3;
 	let subtitleFontSize = FontSize.textSmall;
 	let minContainerWidth = '120px';
-	if (widthBreakpoint >= LayoutBreakpoint.mobileRegular) {
+	if (widthBreakpoint >= LayoutBreakpointRem.c30) {
 		titleFontSize = FontSize.heading2;
 		subtitleFontSize = FontSize.textRegular;
 		minContainerWidth = '180px';
@@ -145,9 +145,8 @@ const PostDayTitle: React.FC<PostDayTitle> = (props) => {
 	return (
 		<PostDayTitleContainer minContainerWidth={minContainerWidth}>
 			<FreeSmallText fontSize={subtitleFontSize}>{dayReferenceRender}Day {dayNumber}</FreeSmallText>
-			<TopMargin.Nudge>
-				<FreeHeading1 fontSize={titleFontSize}>{dateText}</FreeHeading1>
-			</TopMargin.Nudge>
+			<Block.Ant04 />
+			<FreeHeading1 fontSize={titleFontSize}>{dateText}</FreeHeading1>
 		</PostDayTitleContainer>
 	);
 };

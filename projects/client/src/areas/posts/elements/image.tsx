@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { IPostImage, IPostElementType, isValidPostElement } from 'oftheday-shared';
-import { Spacing, spacing } from '@/core/layout/common';
+import { Block } from '@/core/layout/common';
 import { RegularText } from '@/core/symbol/text';
 import { tStyled } from '@/core/style/styled';
 import { OutLink } from '@/core/link';
 import { iconTypes } from '@/core/symbol/icon';
-import { LayoutBreakpoint } from '@/services/layout/window-layout';
+import { LayoutBreakpointRem } from '@/services/layout/window-layout';
 import { createPostsElement, PostCard, EmbeddedContentReveal } from './elements-common';
 import { TagList, useTags } from './tag';
 import { CardPadding } from '@/core/card/card';
@@ -20,45 +20,60 @@ export const Image = createPostsElement<IPostImage>((props) => {
 
 	const tagsStrings = useTags(isTop, isNSFW);
 
-	let sourceRender: JSX.Element | string | null = null;
+	const descriptionRender = description ? (
+		<>
+			<Block.Bat08 />
+			<RegularText>{description}</RegularText>
+		</>
+	) : null;
+
+	let sourceTextRender: JSX.Element | string | null = null;
 	if (sourceText) {
 		if (sourceLink) {
-			sourceRender = <OutLink href={sourceLink}>{sourceText}</OutLink>;
+			sourceTextRender = <OutLink href={sourceLink}>{sourceText}</OutLink>;
 		}
 		else {
-			sourceRender = sourceText;
+			sourceTextRender = sourceText;
 		}
+
+		sourceTextRender = (
+			<>
+				<Block.Ant04 />
+				<RegularText>From {sourceTextRender}</RegularText>
+			</>
+		);
 	}
+
+	const elementActionsRender = (!isForArchive) ? (
+		<>
+			<Block.Elf24 />
+			<ElementActions isViewingArchive={isForArchive} elementType={IPostElementType.image} isTop={isTop} />
+		</>
+	) : null;
+
 
 	// TODO - add accessibility for image.
 
 	return (
 		<PostCard title='Image' icon={iconTypes.image} isForArchive={isForArchive} hideTitle={hideTitle} archivePost={archivePost}>
 			<CardPadding>
-				<TagList margin={spacing.small.vertical} tags={tagsStrings} />
-				<Spacing show={description} margin={spacing.small.top}>
-					<RegularText>{description}</RegularText>
-				</Spacing>
-				<Spacing show={sourceRender} margin={spacing.nudge.top}>
-					<RegularText>From {sourceRender}</RegularText>
-				</Spacing>
-				<Spacing show={!isForArchive} margin={spacing.large.top}>
-					<ElementActions isViewingArchive={isForArchive} elementType={IPostElementType.image} isTop={isTop} />
-				</Spacing>
+				<TagList tags={tagsStrings} />
+				{descriptionRender}
+				{sourceTextRender}
+				{elementActionsRender}
 			</CardPadding>
-			<Spacing margin={spacing.large.top}>
-				<EmbeddedContentReveal isRevealedOnMount={!isForArchive}>
-					<a href={link} target='_blank' rel="noreferrer noopener" title='Click to open in a new tab'>
-						<ConstrainedImage src={link} />
-					</a>
-				</EmbeddedContentReveal>
-			</Spacing>
+			<Block.Elf24 />
+			<EmbeddedContentReveal isRevealedOnMount={!isForArchive}>
+				<a href={link} target='_blank' rel="noreferrer noopener" title='Click to open in a new tab'>
+					<ConstrainedImage src={link} />
+				</a>
+			</EmbeddedContentReveal>
 		</PostCard>
 	);
 }, IPostElementType.image, isValidPostElement.image);
 
 const ConstrainedImage = tStyled.img`
 	width: 100%;
-	max-width: ${LayoutBreakpoint.tablet}px;
+	max-width: ${LayoutBreakpointRem.d40}rem;
 	max-height: 80vh;
 `;

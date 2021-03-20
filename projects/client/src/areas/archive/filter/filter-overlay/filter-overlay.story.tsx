@@ -5,7 +5,7 @@ import { FilterOverlay } from './filter-overlay';
 import { defaultInvalidFilter, IArchiveFilter, isFilterSemanticallyEqual, isFilterSortSemanticallyEqual } from 'oftheday-shared';
 import { RegularText } from '@/core/symbol/text';
 import { FilterDescription } from '../filter-common';
-import { spacing, Spacing } from '@/core/layout/common';
+import { Block } from '@/core/layout/common';
 
 export default { title: 'Areas/Archive/Filter/Overlay' };
 
@@ -49,9 +49,9 @@ export const TestFilterOverlay = decorate('Filter Overlay', null, () => {
 			<RegularText>
 				Renders: {renders}
 			</RegularText>
-			<Spacing margin={spacing.large.vertical}>
-				<FilterDescription filter={filter} />
-			</Spacing>
+			<Block.Elf24 />
+			<FilterDescription filter={filter} />
+			<Block.Elf24 />
 			<FilterOverlay
 				isShowingPresetsInitially={false}
 				isActive={isOverlayOpen}

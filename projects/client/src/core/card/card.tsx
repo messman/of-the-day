@@ -1,6 +1,6 @@
 import { FlexColumn, FlexRow } from '@messman/react-common';
 import * as React from 'react';
-import { Spacing, spacing } from '../layout/common';
+import { Block, Spacing } from '../layout/common';
 import { borderRadiusStyle } from '../style/common';
 import { tStyled } from '../style/styled';
 import { Icon, SVGIconType } from '../symbol/icon';
@@ -14,22 +14,31 @@ export interface CardProps {
 
 export const Card: React.FC<CardProps> = (props) => {
 	const { title, subtitle, icon, children } = props;
-	const subtitleMarginTop = title && subtitle ? spacing.small.top : null;
+
+	const subtitleMarginTop = title && subtitle ? <Block.Bat08 /> : null;
+	const subtitleRender = subtitle ? (
+		<>
+			{subtitleMarginTop}
+			<RegularText>{subtitle}</RegularText>
+		</>
+	) : null;
+
+	const childrenRender = children ? (
+		<>
+			<Block.Elf24 />
+			{children}
+			<Block.Dog16 />
+		</>
+	) : null;
 
 	return (
 		<CardContainer>
 			<Background>
 				<TopCardPadding>
 					<Title title={title} icon={icon} />
-					<Spacing show={!!subtitle} margin={subtitleMarginTop}>
-						<RegularText>{subtitle}</RegularText>
-					</Spacing>
+					{subtitleRender}
 				</TopCardPadding>
-				<Spacing show={!!children} margin={spacing.large.top}>
-					<Spacing margin={spacing.medium.bottom}>
-						{children}
-					</Spacing>
-				</Spacing>
+				{childrenRender}
 			</Background>
 		</CardContainer>
 	);
@@ -49,11 +58,11 @@ const Background = tStyled.div`
 `;
 
 export const CardPadding = tStyled.div`
-	padding: ${spacing.medium.horizontal};
+	padding: ${Spacing.dog16};
 `;
 
 const TopCardPadding = tStyled.div`
-	padding: ${spacing.medium.value};
+	padding: ${Spacing.dog16};
 	padding-bottom: 0;
 `;
 
@@ -83,14 +92,19 @@ const Title: React.FC<TitleProps> = (props) => {
 export const SubtleCard: React.FC<CardProps> = (props) => {
 	const { title, children } = props;
 
+	const childrenRender = children ? (
+		<>
+			<Block.Bat08 />
+			{children}
+		</>
+	) : null;
+
 	return (
 		<CardContainer>
 			<TopCardPadding>
 				<Title title={title} />
 			</TopCardPadding>
-			<Spacing show={!!children} margin={spacing.small.top}>
-				{children}
-			</Spacing>
+			{childrenRender}
 		</CardContainer>
 	);
 };

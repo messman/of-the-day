@@ -3,7 +3,7 @@ import { FlexColumn, setClipboard } from '@messman/react-common';
 import { cloneFilter, filterPresets, IArchiveFilter, IPostElementType } from 'oftheday-shared';
 import { OverlayBox } from '@/core/overlay/overlay';
 import { tStyled } from '@/core/style/styled';
-import { spacing } from '@/core/layout/common';
+import { Spacing } from '@/core/layout/common';
 import { ActionLink } from '@/core/link';
 import { Button } from '@/core/form/button/button';
 import { useArchiveResponseContext } from '@/services/data/data-context';
@@ -206,18 +206,18 @@ const ButtonsContainer = tStyled.div`
 	}
 
 	${Button} + ${Button} {
-		margin-top: ${spacing.medium.value};
+		margin-top: ${Spacing.dog16};
 	}
 `;
 
 
 const ScrollFlexColumn = tStyled(FlexColumn)`
 	overflow-y: auto;
-	padding: ${spacing.medium.value};
+	padding: ${Spacing.dog16};
 `;
 
 const FooterActionLink = tStyled(ActionLink)`
-	padding: ${spacing.medium.value};
+	padding: ${Spacing.dog16};
 	border-top: 1px solid ${p => p.theme.color.bgComponent3};
 	text-align: center;
 `;

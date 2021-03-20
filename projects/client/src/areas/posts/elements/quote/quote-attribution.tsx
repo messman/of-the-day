@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { RegularText } from '@/core/symbol/text';
-import { Spacing, spacing } from '@/core/layout/common';
+import { Spacing } from '@/core/layout/common';
 import { OutLink } from '@/core/link';
 import { tStyled } from '@/core/style/styled';
 import { InnerQuoteProps } from './quote-inner';
@@ -43,14 +43,13 @@ export const QuoteAttribution: React.FC<InnerQuoteProps> = (props) => {
 	);
 
 	return (
-		<Right margin={spacing.small.top}>
-			<RegularText>{dashPrefix}{attributionRender}</RegularText>
-		</Right>
+		<RightText>{dashPrefix}{attributionRender}</RightText>
 	);
 };
 
-const Right = tStyled(Spacing)`
+const RightText = tStyled(RegularText)`
 	text-align: right;
 	word-wrap: break-word;
-	padding-left: ${spacing.large.value};
+	margin-top: ${Spacing.bat08};
+	padding-left: ${Spacing.elf24};
 `;

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { iconTypes, Icon } from '@/core/symbol/icon';
 import { FontSize, RegularText } from '@/core/symbol/text';
-import { Spacing, spacing } from '@/core/layout/common';
+import { Spacing } from '@/core/layout/common';
 import { borderRadiusStyle } from '@/core/style/common';
 import { tStyled } from '@/core/style/styled';
 import { lineBreakpoint } from '@/services/layout/window-layout';
@@ -24,13 +24,11 @@ export const QuotePiece: React.FC<QuotePieceProps> = (props) => {
 	return (
 		<QuoteBackground>
 			<TopLeftAbsoluteIcon type={iconTypes.quotationOpen} height={iconHeight} fillColor={c => c.textAccentOnBackground} />
-			<Spacing margin={spacing.medium.horizontal}>
-				<LineMaxWidthCenter>
-					<Align>
-						<MultilineQuoteText text={text} />
-					</Align>
-				</LineMaxWidthCenter>
-			</Spacing>
+			<LineMaxWidthCenter>
+				<Align>
+					<MultilineQuoteText text={text} />
+				</Align>
+			</LineMaxWidthCenter>
 			<BottomRightAbsoluteIcon type={iconTypes.quotationClose} height={iconHeight} fillColor={c => c.textAccentOnBackground} />
 		</QuoteBackground>
 	);
@@ -50,15 +48,14 @@ export interface QuoteBackgroundProps {
 const QuoteBackground = tStyled.div<QuoteBackgroundProps>`
 	background-color: ${p => p.theme.color.bgComponent2};
 	border: 1px solid ${p => p.theme.color.bgComponent3};
-	padding: ${spacing.medium.value};
+	padding: ${Spacing.dog16};
 	position: relative;
 	${borderRadiusStyle}
 `;
 
 const LineMaxWidthCenter = tStyled.div`
 	max-width: ${lineBreakpoint};
-	margin-left: auto;
-	margin-right: auto;
+	margin: 0 ${Spacing.dog16};
 `;
 
 const TopLeftAbsoluteIcon = tStyled(Icon)`

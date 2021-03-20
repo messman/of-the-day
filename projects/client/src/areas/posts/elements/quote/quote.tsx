@@ -6,7 +6,7 @@ import { InnerQuote, InnerSingleQuote } from './quote-inner';
 import { iconTypes } from '@/core/symbol/icon';
 import { createPostsElement, PostCard } from '../elements-common';
 import { TagList, useTags } from '../tag';
-import { Spacing, spacing } from '@/core/layout/common';
+import { Block } from '@/core/layout/common';
 import { CardPadding } from '@/core/card/card';
 import { ElementActions } from '../../element-action-overlay';
 
@@ -46,16 +46,20 @@ export const Quote = createPostsElement<IPostQuote>((props) => {
 
 	const tagsStrings = useTags(isTop, isNSFW);
 
+	const elementActionsRender = !isForArchive ? (
+		<>
+			<Block.Elf24 />
+			<ElementActions isViewingArchive={isForArchive} elementType={IPostElementType.quote} isTop={isTop} />
+		</>
+	) : null;
+
 	return (
 		<PostCard title='Quote' icon={iconTypes.quote} isForArchive={isForArchive} hideTitle={hideTitle} archivePost={archivePost}>
 			<CardPadding>
 				<TagList tags={tagsStrings} />
-				<Spacing show={!isForArchive} margin={spacing.large.top}>
-					<ElementActions isViewingArchive={isForArchive} elementType={IPostElementType.quote} isTop={isTop} />
-				</Spacing>
-				<Spacing margin={spacing.large.top}>
-					<InnerQuote quote={props.value} />
-				</Spacing>
+				{elementActionsRender}
+				<Block.Elf24 />
+				<InnerQuote quote={props.value} />
 			</CardPadding>
 		</PostCard>
 	);

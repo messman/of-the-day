@@ -2,7 +2,7 @@ import * as React from 'react';
 import { IPost } from 'oftheday-shared';
 import { DayOff } from './elements/day-off';
 import { tStyled } from '@/core/style/styled';
-import { spacing } from '@/core/layout/common';
+import { Spacing } from '@/core/layout/common';
 import { ContextGroup } from './elements/group-context';
 import { ShareGroup } from './elements/group-share';
 
@@ -39,5 +39,5 @@ export const Post: React.FC<PostProps> = (props) => {
 };
 
 const PostRoot = tStyled.div`
-	margin: ${spacing.large.bottom};
+	margin: ${Spacing.elf24};
 `;

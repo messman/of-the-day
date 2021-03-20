@@ -4,7 +4,6 @@ import { ThemeProvider } from '@/core/style/theme';
 import { DataProvider } from '@/services/data/data-context';
 import { MemoryRouter, BrowserRouter } from 'react-router-dom';
 import { WindowMediaLayoutProvider, FlexRoot, DocumentVisibilityProvider } from '@messman/react-common';
-import { FontSizeManager } from '@/core/symbol/text';
 import { lowerBreakpoints } from '@/services/layout/window-layout';
 import { OverlayPortalRoot } from '@/core/overlay/overlay';
 import { ElementActionsProvider } from '@/areas/posts/element-action-overlay';
@@ -48,17 +47,15 @@ const InnerProviders: React.FC = (props) => {
 			<ThemeProvider>
 				<OverlayPortalRoot>
 					<WindowMediaLayoutProvider lowerBreakpoints={lowerBreakpoints} breakpointUnit='px'>
-						<FontSizeManager>
-							<FlexRoot flexDirection='column'>
-								<InvalidCheck error={null}>
-									<DataProvider>
-										<ElementActionsProvider>
-											{props.children}
-										</ElementActionsProvider>
-									</DataProvider>
-								</InvalidCheck>
-							</FlexRoot>
-						</FontSizeManager>
+						<FlexRoot flexDirection='column'>
+							<InvalidCheck error={null}>
+								<DataProvider>
+									<ElementActionsProvider>
+										{props.children}
+									</ElementActionsProvider>
+								</DataProvider>
+							</InvalidCheck>
+						</FlexRoot>
 					</WindowMediaLayoutProvider>
 				</OverlayPortalRoot>
 			</ThemeProvider>

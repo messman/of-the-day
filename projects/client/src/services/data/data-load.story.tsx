@@ -3,7 +3,7 @@ import { decorate } from '@/test/decorate';
 import { boolean } from '@storybook/addon-knobs';
 import { PromiseOutput } from '@messman/react-common';
 import { DataLoad } from './data-load';
-import { spacing, Spacing } from '@/core/layout/common';
+import { Margin } from '@/core/layout/common';
 
 export default { title: 'Services/Data/Data Load' };
 
@@ -24,8 +24,8 @@ export const TestDataLoad = decorate('Data Load', null, () => {
 	};
 
 	return (
-		<Spacing margin={spacing.large.value}>
+		<Margin.Elf24>
 			<DataLoad promise={promiseOutput} />
-		</Spacing>
+		</Margin.Elf24>
 	);
 });

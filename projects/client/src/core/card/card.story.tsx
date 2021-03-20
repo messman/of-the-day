@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { decorate } from '@/test/decorate';
 import { Card } from './card';
-import { spacing, Spacing } from '../layout/common';
+import { Margin } from '../layout/common';
 import { iconTypes } from '../symbol/icon';
 import { boolean, text } from '@storybook/addon-knobs';
 import { RegularText } from '../symbol/text';
@@ -20,15 +20,12 @@ export const TestCard = decorate('Card', null, () => {
 		<RegularText>{textContent}</RegularText>
 	) : null;
 
-	const padding = `${spacing.grand.value} ${spacing.medium.value}`;
 	return (
-		<div>
-			<Spacing padding={padding}>
-				<Card title={title} icon={iconTypes.calendar}>
-					{textContentRender}
-				</Card>
-			</Spacing>
-		</div>
+		<Margin.Elf24>
+			<Card title={title} icon={iconTypes.calendar}>
+				{textContentRender}
+			</Card>
+		</Margin.Elf24>
 	);
 });
 
@@ -42,13 +39,12 @@ export const TestCardSubtitle = decorate('Card Subtitle', null, () => {
 		<RegularText>{textContent}</RegularText>
 	) : null;
 
-	const padding = `${spacing.grand.value} ${spacing.medium.value}`;
 	return (
-		<Spacing padding={padding}>
+		<Margin.Elf24>
 			<Card title={title} subtitle={subtitle} icon={iconTypes.calendar}>
 				{textContentRender}
 			</Card>
-		</Spacing>
+		</Margin.Elf24>
 	);
 });
 

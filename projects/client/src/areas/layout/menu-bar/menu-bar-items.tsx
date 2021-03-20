@@ -4,7 +4,7 @@ import { routes } from '@/services/nav/routing';
 import { RegularText } from '@/core/symbol/text';
 import { useHistory, useLocation, matchPath } from 'react-router-dom';
 import { FlexRow } from '@messman/react-common';
-import { spacing } from '@/core/layout/common';
+import { Spacing } from '@/core/layout/common';
 import { formTransitionStyle, HighlightBar } from '@/core/style/common';
 
 export interface MenuBarItemsProps {
@@ -40,7 +40,7 @@ export const MenuBarItems: React.FC<MenuBarItemsProps> = (props) => {
 			key={route.name}
 			title={route.name}
 			isDisabled={false}
-			padding={isUpper ? null : spacing.medium.value}
+			padding={isUpper ? null : Spacing.dog16}
 			isActive={isActive}
 			onClick={onClick}
 		/>;

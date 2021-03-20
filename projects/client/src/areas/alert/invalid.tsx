@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { spacing, TextCenter, TopMargin } from '@/core/layout/common';
+import { Spacing, Block } from '@/core/layout/common';
 import { tStyled } from '@/core/style/styled';
 import { Icon, iconTypes } from '@/core/symbol/icon';
 import { SmallText, Heading2, FontSize, Paragraph } from '@/core/symbol/text';
@@ -114,9 +114,7 @@ const InvalidCenter: React.FC<InvalidCenterProps> = (props) => {
 	const otherMessagesText = otherMessages.map((m, i) => {
 		const key = `${i}_${m}`;
 		return (
-			<TextCenter>
-				<Paragraph key={key}>{m}</Paragraph>
-			</TextCenter>
+			<TextCenterParagraph key={key}>{m}</TextCenterParagraph>
 		);
 	});
 
@@ -127,9 +125,10 @@ const InvalidCenter: React.FC<InvalidCenterProps> = (props) => {
 			window.location.reload();
 		};
 		clickInstruction = (
-			<TopMargin.Medium>
+			<>
+				<Block.Dog16 />
 				<SmallText>Click/tap here to refresh the application.</SmallText>
-			</TopMargin.Medium>
+			</>
 		);
 	}
 
@@ -143,9 +142,8 @@ const InvalidCenter: React.FC<InvalidCenterProps> = (props) => {
 		<InvalidCenterWrapper justifyContent='space-around' alignItems='center' onClick={onClick}>
 			<div>
 				<Icon type={iconTypes.alert} fillColor={c => c.error} height={FontSize.heading1} />
-				<TopMargin.Medium>
-					<Heading2>{firstMessage}</Heading2>
-				</TopMargin.Medium>
+				<Block.Dog16 />
+				<Heading2>{firstMessage}</Heading2>
 				{otherMessagesText}
 				{clickInstruction}
 			</div>
@@ -154,8 +152,12 @@ const InvalidCenter: React.FC<InvalidCenterProps> = (props) => {
 	);
 };
 
+/* Pad to ensure the inner Flex content doesn't run up against the edge. */
 const InvalidCenterWrapper = tStyled(FlexColumn)`
-	/* Pad to ensure the inner Flex content doesn't run up against the edge. */
-	padding: ${spacing.medium.value};
+	padding: ${Spacing.dog16};
+	text-align: center;
+`;
+
+const TextCenterParagraph = tStyled(Paragraph)`
 	text-align: center;
 `;

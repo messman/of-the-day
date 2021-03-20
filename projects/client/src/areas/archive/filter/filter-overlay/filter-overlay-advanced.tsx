@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { cloneFilter, IPostElementType, keysOfFilterRange, IArchiveFilterRange, keysOfFilterSort, IArchiveFilterSort, IArchiveFilter } from 'oftheday-shared';
-import { spacing, TopMargin } from '@/core/layout/common';
+import { Spacing, Block } from '@/core/layout/common';
 import { Heading3 } from '@/core/symbol/text';
 import { Checkbox, OpenSelect, OpenSelectOption } from './filter-overlay-forms';
 import { archiveFilterModifiersForDisplay, archiveFilterRangeForDisplay, archiveFilterSortForDisplay, isOnlyMusicTypeSelected, postElementTypeForDisplay } from '../filter-common';
@@ -81,40 +81,41 @@ export const FilterOverlayAdvanced: React.FC<FilterOverlayTabProps> = (props) =>
 					<Checkbox value={filterWorkingCopy.types.custom} onValueChange={onTypeChange(IPostElementType.custom)}>{postElementTypeForDisplay.custom}</Checkbox>
 				</CheckboxesContainer>
 			</div>
-			<TopMargin.Large>
+			<Block.Elf24 />
+			<div>
 				<Heading3>With</Heading3>
 				<CheckboxesContainer>
 					<Checkbox value={filterWorkingCopy.modifiers.includeOnlyWithTopTag} onValueChange={onTopTagModifierChange}>{archiveFilterModifiersForDisplay.includeOnlyWithTopTag}</Checkbox>
 					<Checkbox value={filterWorkingCopy.modifiers.excludeWithNSFWTag} onValueChange={onNSFWTagModifierChange}>{archiveFilterModifiersForDisplay.excludeWithNSFWTag}</Checkbox>
 				</CheckboxesContainer>
-			</TopMargin.Large>
-			<TopMargin.Large>
+			</div>
+			<Block.Elf24 />
+			<div>
 				<Heading3>For</Heading3>
-				<TopMargin.Small>
-					<OpenSelect
-						options={rangeOptions}
-						selectedIndex={filterWorkingCopy.range}
-						onSelectedIndexChange={onRangeChange}
-					/>
-				</TopMargin.Small>
-			</TopMargin.Large>
-			<TopMargin.Large>
+				<Block.Bat08 />
+				<OpenSelect
+					options={rangeOptions}
+					selectedIndex={filterWorkingCopy.range}
+					onSelectedIndexChange={onRangeChange}
+				/>
+			</div>
+			<Block.Elf24 />
+			<div>
 				<Heading3>Sorted</Heading3>
-				<TopMargin.Small>
-					<OpenSelect
-						options={sortOptions}
-						selectedIndex={filterWorkingCopy.sort}
-						onSelectedIndexChange={onSortChange}
-					/>
-				</TopMargin.Small>
-			</TopMargin.Large>
+				<Block.Bat08 />
+				<OpenSelect
+					options={sortOptions}
+					selectedIndex={filterWorkingCopy.sort}
+					onSelectedIndexChange={onSortChange}
+				/>
+			</div>
 		</>
 	);
 };
 
 const CheckboxesContainer = tStyled.div`
 	${Checkbox} {
-		margin-top: ${spacing.small.value};
+		margin-top: ${Spacing.bat08};
 	}
 `;
 

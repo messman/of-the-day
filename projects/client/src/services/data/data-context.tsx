@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { defaultInvalidFilter, IArchiveFilter, IArchiveResponse, IMeta, IOtherResponse, IPostResponse, IResponseWithMeta, isFilterSemanticallyEqual, isFilterSortSemanticallyEqual } from 'oftheday-shared';
+import { defaultInvalidFilter, IArchiveFilter, IArchiveResponse, IMeta, IPostResponse, IResponseWithMeta, isFilterSemanticallyEqual, isFilterSortSemanticallyEqual } from 'oftheday-shared';
 import { clampPromise, PromiseOutput, StalePromiseTimerComponent, StalePromiseTimerOutput, useDocumentVisibility, usePromise, useStalePromiseTimer, useTruthyTimer } from '@messman/react-common';
 import { CONSTANT } from '../constant';
 import { matchPath, useLocation } from 'react-router-dom';
 import { Route, routes } from '../nav/routing';
-import { fetchArchiveResponse, fetchOtherResponse, fetchPostResponse } from './data-request';
+import { fetchArchiveResponse, fetchPostResponse } from './data-request';
 import { DEFINE } from '../define';
-import { archiveTestData, otherTestData, postsTestData } from '@/test/data';
+import { archiveTestData, postsTestData } from '@/test/data';
 import { sortPosts } from '../archive/sort';
 
 /** Top-level data provider that holds our smaller providers. */
@@ -16,13 +16,11 @@ export const DataProvider: React.FC = (props) => {
 	return (
 		<ApplicationRefreshTimer>
 			<PostResponseProvider>
-				<OtherResponseProvider>
-					<MetaResponseProvider>
-						<ArchiveContextProvider>
-							{children}
-						</ArchiveContextProvider>
-					</MetaResponseProvider>
-				</OtherResponseProvider>
+				<MetaResponseProvider>
+					<ArchiveContextProvider>
+						{children}
+					</ArchiveContextProvider>
+				</MetaResponseProvider>
 			</PostResponseProvider>
 		</ApplicationRefreshTimer>
 	);
@@ -224,19 +222,6 @@ const postResponseActivePages = [routes.posts];
 const PostResponseProvider = createResponseProvider(PostResponseContext, postsPromiseFunc, postResponseActivePages);
 export const usePostResponse = () => React.useContext(PostResponseContext);
 
-const otherPromiseFunc = !DEFINE.isLocalData ? fetchOtherResponse : (
-	function () {
-		return clampPromise<IOtherResponse>(new Promise((resolve) => {
-			resolve(otherTestData);
-		}), CONSTANT.localDataFetchTime, null);
-	}
-);
-
-const OtherResponseContext = React.createContext<PromiseOutput<IOtherResponse>>(null!);
-// The other response also fetches the meta information - so request it on all other pages.
-const otherResponseActivePages = [routes.other, routes.archive, routes.about];
-const OtherResponseProvider = createResponseProvider(OtherResponseContext, otherPromiseFunc, otherResponseActivePages);
-export const useOtherResponse = () => React.useContext(OtherResponseContext);
 
 /*
 	The Posts and Other responses both contain Meta information.
@@ -245,18 +230,8 @@ export const useOtherResponse = () => React.useContext(OtherResponseContext);
 const MetaResponseContext = React.createContext<IMeta | null>(null);
 const MetaResponseProvider: React.FC = (props) => {
 	const postPromise = usePostResponse();
-	const otherPromise = useOtherResponse();
 
-	/*
-		Special setup here. We want to use the more recent meta from either of the two responses.
-		However, we don't want to hold the more recent one in state, 
-		because if we just got a new response then we can expect our components to re-render
-		and we want this meta to be available immediately on the same render.
-		So instead of using state and effects - we will just run our logic every time.
-		Ideally we'd be checking more information than this - using end time of promises instead of start time,
-		etc.
-	*/
-	const meta = postPromise.data?.meta || otherPromise.data?.meta || null;
+	const meta = postPromise.data?.meta || null;
 
 	return (
 		<MetaResponseContext.Provider value={meta}>

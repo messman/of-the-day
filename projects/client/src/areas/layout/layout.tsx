@@ -1,17 +1,16 @@
 import * as React from 'react';
 import { About, AboutProps } from '@/areas/about/about';
 import { Posts, PostsProps } from '@/areas/posts/posts';
-import { Other } from '@/areas/other/other';
 import { Archive, ArchiveProps } from '@/areas/archive/archive';
 import { Switch, Route } from 'react-router-dom';
 import { routes } from '@/services/nav/routing';
 import { tStyled } from '@/core/style/styled';
 import { FlexColumn, useElementIntersect, useStateDOM, useWindowMediaLayout } from '@messman/react-common';
 import { Header } from './header/header';
-import { LayoutBreakpoint } from '@/services/layout/window-layout';
+import { LayoutBreakpointRem } from '@/services/layout/window-layout';
 import { IScrollIntoViewOptions, IScrollToOptions } from 'seamless-scroll-polyfill/dist/esm/common';
 import { elementScrollTo, elementScrollIntoView } from 'seamless-scroll-polyfill';
-import { spacing } from '@/core/layout/common';
+import { Spacing } from '@/core/layout/common';
 import { ElementActionsOverlay } from '../posts/element-action-overlay';
 import { MetaMessaging } from '../alert/meta-messaging';
 import { LowerMenuBar } from './menu-bar/menu-bar-lower';
@@ -21,7 +20,6 @@ export const ApplicationLayout: React.FC = () => {
 	return (
 		<Layout
 			Posts={Posts}
-			Other={Other}
 			Archive={Archive}
 			About={About}
 		/>
@@ -31,7 +29,6 @@ export const ApplicationLayout: React.FC = () => {
 // Each component is passed as a component instead of an element so it's rendered further down the tree.
 interface LayoutProps {
 	Posts: React.FC<PostsProps>;
-	Other: React.FC;
 	Archive: React.FC<ArchiveProps>;
 	About: React.FC<AboutProps>;
 }
@@ -54,12 +51,12 @@ const scrollToStickyOptions: IScrollIntoViewOptions = {
  */
 export const Layout: React.FC<LayoutProps> = (props) => {
 	// Our page layout components.
-	const { Posts, Other, Archive, About } = props;
+	const { Posts, Archive, About } = props;
 
 	// Get the window layout so we can make decisions about the menu bar based on window width.
 	const windowLayout = useWindowMediaLayout();
-	const isAnyMobileWidth = windowLayout.widthBreakpoint <= LayoutBreakpoint.mobileLarge;
-	const isDesktopWidth = windowLayout.widthBreakpoint >= LayoutBreakpoint.desktop;
+	const isAnyMobileWidth = windowLayout.widthBreakpoint <= LayoutBreakpointRem.c30;
+	const isDesktopWidth = windowLayout.widthBreakpoint >= LayoutBreakpointRem.f60;
 
 	/*
 		Bit of a hack here. 
@@ -128,9 +125,6 @@ export const Layout: React.FC<LayoutProps> = (props) => {
 										rootElement={scrollContainerElement}
 									/>
 								</Route>
-								<Route path={routes.other.path}>
-									<Other />
-								</Route>
 								<Route path={routes.archive.path}>
 									<Archive
 										offsetPixels={stickyOffsetPixels}
@@ -163,8 +157,8 @@ const LayoutContainer = tStyled(FlexColumn)`
 `;
 
 const RouteContainer = tStyled.div`
-	padding-top: ${spacing.medium.value};
-	padding-bottom: ${spacing.grand.value};
+	padding-top: ${Spacing.dog16};
+	padding-bottom: ${Spacing.guy40};
 	min-height: 100vh;
 `;
 

@@ -5,12 +5,8 @@ export interface Route {
 
 export const routes = {
 	posts: {
-		name: 'Week',
+		name: 'Recent',
 		path: '/'
-	},
-	other: {
-		name: 'Info',
-		path: '/info'
 	},
 	archive: {
 		name: 'Archive',

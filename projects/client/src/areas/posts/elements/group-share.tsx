@@ -2,7 +2,7 @@ import * as React from 'react';
 import { IPost, IPostCustom, IPostImage, IPostMusic, IPostQuote, IPostVideo } from 'oftheday-shared';
 import { ColumnCardFlow, useMaximumRowChildren } from '@/core/card/card-flow';
 import { CardContainer } from '@/core/card/card';
-import { ApplicationMaxWidth, spacing, Spacing, useResponsiveEdgeSpacing } from '@/core/layout/common';
+import { Spacing } from '@/core/layout/common';
 import { Music } from './music';
 import { Video } from './video';
 import { Image } from './image';
@@ -24,13 +24,12 @@ export const ShareGroup: React.FC<PostProps> = (props) => {
 	const { post } = props;
 
 	const maximumRowChildren = Math.min(useMaximumRowChildren(), 2);
-	const spacingBetween = useResponsiveEdgeSpacing();
 
 	let cardFlowRender: JSX.Element = null!;
 	if (maximumRowChildren === 1) {
 		// Easy case - render as each item on its own row.
 		cardFlowRender = (
-			<ColumnCardFlow $spacing={spacingBetween.value}>
+			<ColumnCardFlow $spacing={Spacing.dog16}>
 				<Music value={post.music} />
 				<Video value={post.video} />
 				<Image value={post.image} />
@@ -73,13 +72,13 @@ export const ShareGroup: React.FC<PostProps> = (props) => {
 		});
 
 		const leftColumnRender = leftColumn.length ? (
-			<ColumnFromRowCardFlow flex='3' $spacing={spacingBetween.value}>
+			<ColumnFromRowCardFlow flex='3' $spacing={Spacing.dog16}>
 				<ShareGroupColumn postsElements={leftColumn} />
 			</ColumnFromRowCardFlow>
 		) : null;
 
 		const rightColumnRender = rightColumn.length ? (
-			<ColumnFromRowCardFlow flex='3' $spacing={spacingBetween.value}>
+			<ColumnFromRowCardFlow flex='3' $spacing={Spacing.dog16}>
 				<ShareGroupColumn postsElements={rightColumn} />
 			</ColumnFromRowCardFlow>
 		) : null;
@@ -88,7 +87,7 @@ export const ShareGroup: React.FC<PostProps> = (props) => {
 		const centeredRightFlex = rightColumnRender ? null : <Flex />;
 
 		cardFlowRender = (
-			<RowToColumnCardFlow $spacing={spacingBetween.value}>
+			<RowToColumnCardFlow $spacing={Spacing.dog16}>
 				{centeredLeftFlex}
 				{leftColumnRender}
 				{rightColumnRender}
@@ -98,11 +97,9 @@ export const ShareGroup: React.FC<PostProps> = (props) => {
 	}
 
 	return (
-		<Spacing margin={spacing.grand.top}>
-			<ApplicationMaxWidth>
-				{cardFlowRender}
-			</ApplicationMaxWidth>
-		</Spacing>
+		<>
+			{cardFlowRender}
+		</>
 	);
 };
 

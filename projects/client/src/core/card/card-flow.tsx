@@ -1,7 +1,7 @@
-import { LayoutBreakpoint } from '@/services/layout/window-layout';
+import { LayoutBreakpointRem } from '@/services/layout/window-layout';
 import { FlexRow, useWindowMediaLayout } from '@messman/react-common';
 import * as React from 'react';
-import { ApplicationMaxWidth, useResponsiveEdgeSpacing } from '../layout/common';
+import { Spacing } from '../layout/common';
 import { tStyled } from '../style/styled';
 import { CardContainer } from './card';
 
@@ -18,10 +18,10 @@ export function useMaximumRowChildren(): number {
 		such that the cards inside will get a reasonable amount of space (larger
 		than the minimum mobile width, at least)
 	*/
-	if (widthBreakpoint <= LayoutBreakpoint.tablet) {
+	if (widthBreakpoint <= LayoutBreakpointRem.d40) {
 		return 1;
 	}
-	else if (widthBreakpoint <= LayoutBreakpoint.desktop) {
+	else if (widthBreakpoint <= LayoutBreakpointRem.f60) {
 		return 2;
 	}
 	// Else	
@@ -41,16 +41,13 @@ export const EqualCardFlow: React.FC<EqualCardFlowProps> = (props) => {
 	const maximumRowChildren = useMaximumRowChildren();
 	const numberOfChildren = findNumberOfChildren(children);
 	const useFlexRow = numberOfChildren > 1 && numberOfChildren <= maximumRowChildren;
-	const spacingBetween = useResponsiveEdgeSpacing();
 
 	const FlowElement = useFlexRow ? RowCardFlow : ColumnCardFlow;
 
 	return (
-		<ApplicationMaxWidth>
-			<FlowElement $spacing={spacingBetween.value}>
-				{children}
-			</FlowElement>
-		</ApplicationMaxWidth>
+		<FlowElement $spacing={Spacing.dog16}>
+			{children}
+		</FlowElement>
 	);
 };
 

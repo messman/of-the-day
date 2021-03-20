@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { DEFINE } from '@/services/define';
 import { decorate } from '@/test/decorate';
-import { spacing } from '@/core/layout/common';
+import { Spacing } from '@/core/layout/common';
 import { tStyled } from '@/core/style/styled';
 
 export default { title: 'Services/Define' };
@@ -20,5 +20,5 @@ export const TestDefine = decorate('Define', null, () => {
 });
 
 const TextPara = tStyled.p`
-	margin: ${spacing.medium.value};
+	margin: ${Spacing.dog16};
 `;

@@ -1,5 +1,5 @@
 import { Card, CardPadding } from '@/core/card/card';
-import { Spacing, spacing, TopMargin } from '@/core/layout/common';
+import { Block, Spacing } from '@/core/layout/common';
 import { borderRadiusStyle } from '@/core/style/common';
 import { tStyled } from '@/core/style/styled';
 import { Theme, themes, useLocalStorageTheme } from '@/core/style/theme';
@@ -13,9 +13,8 @@ export const Settings: React.FC = () => {
 		<Card title='Settings' icon={iconTypes.gear}>
 			<CardPadding>
 				<Heading3>Theme</Heading3>
-				<TopMargin.Medium>
-					<ThemeControl />
-				</TopMargin.Medium>
+				<Block.Dog16 />
+				<ThemeControl />
 			</CardPadding>
 		</Card>
 	);
@@ -46,9 +45,8 @@ const ThemeControl: React.FC = () => {
 
 	return (
 		<div>
-			<Spacing margin={spacing.medium.bottom}>
-				<ThemeControlRow activeThemeIndex={themeIndex} setActiveThemeIndex={setThemeIndex} themeOptions={darkThemes} />
-			</Spacing>
+			<ThemeControlRow activeThemeIndex={themeIndex} setActiveThemeIndex={setThemeIndex} themeOptions={darkThemes} />
+			<Block.Dog16 />
 			<ThemeControlRow activeThemeIndex={themeIndex} setActiveThemeIndex={setThemeIndex} themeOptions={lightThemes} />
 		</div>
 	);
@@ -113,27 +111,27 @@ interface ThemeControlChoicePieceProps extends Omit<ThemeControlChoiceProps, 'on
 
 const ThemeControlChosenSquare = tStyled.div<ThemeControlChoicePieceProps>`
 	flex: none;
-	padding: ${spacing.small.value};
+	padding: ${Spacing.bat08};
 	background-color: ${p => p.isChosen ? p.theme.color.settingsSelection : p.theme.color.bgComponent3};
 	${borderRadiusStyle}
 
 	cursor: pointer;
 
 	& + & {
-		margin-left: ${spacing.medium.value};
+		margin-left: ${Spacing.dog16};
 	}
 `;
 
 const ThemeControlBackgroundSquare = tStyled.div<ThemeControlChoicePieceProps>`
-	padding: ${spacing.medium.value};
+	padding: ${Spacing.dog16};
 	background-color: ${p => p.choiceTheme.color.bg1};
 	box-shadow: 0 2px 8px 0 ${p => p.theme.color.bgComponentShadow1};
 	${borderRadiusStyle}
 `;
 
 const ThemeControlAccentCircle = tStyled.div<ThemeControlChoicePieceProps>`
-	width: calc(${spacing.medium.value} * 2);
-	height: calc(${spacing.medium.value} * 2);
+	width: ${Spacing.fan32};
+	height: ${Spacing.fan32};
 	border-radius: 50%;
 	background: ${p => p.choiceTheme.color.accentGradient};
 `;

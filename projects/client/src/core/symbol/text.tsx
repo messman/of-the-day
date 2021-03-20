@@ -1,9 +1,7 @@
-import * as React from 'react';
 import { tStyled } from '@/core/style/styled';
-import { defaultFontSize, FontWeight } from '../style/theme';
-import { spacing } from '../layout/common';
-import { LayoutBreakpoint, lineBreakpoint } from '@/services/layout/window-layout';
-import { useWindowMediaLayout } from '@messman/react-common';
+import { FontWeight } from '../style/theme';
+import { Spacing } from '../layout/common';
+import { lineBreakpoint } from '@/services/layout/window-layout';
 import { css } from 'styled-components';
 
 // EM value may be font-specific!
@@ -86,35 +84,19 @@ export const InlineWeight = {
 	ExtraBold: InlineExtraBold
 };
 
-export const FontSizeManager: React.FC = (props) => {
-	const windowLayout = useWindowMediaLayout();
-	const { widthBreakpoint } = windowLayout;
-
-	// As we shift into larger responsive screen sizes, increase font size.
-	React.useEffect(() => {
-		let fontSize = defaultFontSize;
-		if (widthBreakpoint >= LayoutBreakpoint.wide) {
-			fontSize = '18px';
-		}
-		document.documentElement.style.fontSize = fontSize;
-	}, [widthBreakpoint]);
-
-	return <>{props.children}</>;
-};
-
 /*
 	Versions of the text components above, with default margins.
 */
 
 export const Title = tStyled(Heading1)`
-	margin-top: ${spacing.grand.value};
+	margin-top: ${Spacing.guy40};
 `;
 
 export const Subtitle = tStyled(Heading2)`
-	margin-top: ${spacing.large.value};
+	margin-top: ${Spacing.elf24};
 `;
 
 export const Paragraph = tStyled(RegularText)`
-	margin: ${spacing.medium.vertical};
+	margin: ${Spacing.dog16};
 	max-width: ${lineBreakpoint};
 `;

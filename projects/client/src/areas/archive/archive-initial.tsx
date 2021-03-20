@@ -1,10 +1,10 @@
 import { Button } from '@/core/form/button/button';
-import { Spacing, spacing, TextCenter, TopMargin, useResponsiveEdgeSpacing } from '@/core/layout/common';
+import { Spacing, Block } from '@/core/layout/common';
 import { OutLink } from '@/core/link';
 import { tStyled } from '@/core/style/styled';
 import { Heading1, Paragraph, RegularText } from '@/core/symbol/text';
 import { useMeta } from '@/services/data/data-context';
-import { LayoutBreakpoint } from '@/services/layout/window-layout';
+import { LayoutBreakpointRem } from '@/services/layout/window-layout';
 import { IArchiveFilter } from 'oftheday-shared';
 import * as React from 'react';
 import { FilterPresets } from './filter/filter-presets';
@@ -22,33 +22,32 @@ export const ArchiveInitial: React.FC<ArchiveInitialProps> = (props) => {
 
 	const { onClickPreset, onClickOverlayOpen } = props;
 
-	const edgeSpacing = useResponsiveEdgeSpacing();
-
 	const meta = useMeta();
 	let metaPlaylistRender: JSX.Element | null = null;
 	if (meta && (meta.spotifyLink || meta.youTubeLink)) {
 
 		const spotifyLinkRender = meta.spotifyLink ? (
-			<TopMargin.Medium>
+			<>
+				<Block.Dog16 />
 				<RegularText>
 					See the <OutLink href={meta.spotifyLink}>Spotify Playlist</OutLink>
 				</RegularText>
-			</TopMargin.Medium>
+			</>
 		) : null;
 
 		const youTubeLinkRender = meta.youTubeLink ? (
-			<TopMargin.Medium>
+			<>
+				<Block.Dog16 />
 				<RegularText>
 					See the <OutLink href={meta.youTubeLink}>YouTube Playlist</OutLink>
 				</RegularText>
-			</TopMargin.Medium>
+			</>
 		) : null;
 
 		metaPlaylistRender = (
 			<TextCenter>
-				<TopMargin.Medium>
-					<RegularText>Or</RegularText>
-				</TopMargin.Medium>
+				<RegularText>Or</RegularText>
+				<Block.Dog16 />
 				{spotifyLinkRender}
 				{youTubeLinkRender}
 			</TextCenter>
@@ -56,7 +55,7 @@ export const ArchiveInitial: React.FC<ArchiveInitialProps> = (props) => {
 	}
 
 	return (
-		<Spacing margin={edgeSpacing.horizontal}>
+		<ArchiveInitialContainer>
 			<Heading1>Archive</Heading1>
 			<Paragraph>
 				Choose a preset below or create a filter.
@@ -68,21 +67,27 @@ export const ArchiveInitial: React.FC<ArchiveInitialProps> = (props) => {
 				<FilterPresets
 					onClickPreset={onClickPreset}
 				/>
+				<Block.Dog16 />
 				<TextCenter>
-					<TopMargin.Medium>
-						<RegularText>Or</RegularText>
-					</TopMargin.Medium>
+					<RegularText>Or</RegularText>
 				</TextCenter>
-				<TopMargin.Medium>
-					<Button onClick={onClickOverlayOpen} isSpecial={true}>Create advanced filter</Button>
-				</TopMargin.Medium>
+				<Block.Dog16 />
+				<Button onClick={onClickOverlayOpen} isSpecial={true}>Create advanced filter</Button>
 				{metaPlaylistRender}
 			</ButtonsContainer>
-		</Spacing>
+		</ArchiveInitialContainer>
 	);
 };
 
 const ButtonsContainer = tStyled.div`
-	max-width: ${LayoutBreakpoint.mobileRegular}px;
-	margin: ${spacing.large.value} auto;
+	max-width: ${LayoutBreakpointRem.c30}rem;
+	margin: ${Spacing.elf24} auto;
+`;
+
+const TextCenter = tStyled.div`
+	text-align: center;
+`;
+
+const ArchiveInitialContainer = tStyled.div`
+	margin: 0 ${Spacing.dog16};
 `;

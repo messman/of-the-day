@@ -3,7 +3,7 @@ import { useTransition, animated } from 'react-spring';
 import { tStyled } from '@/core/style/styled';
 import { Icon, iconTypes, SVGIconType } from '@/core/symbol/icon';
 import { FontWeight } from '@/core/style/theme';
-import { spacing } from '@/core/layout/common';
+import { Spacing } from '@/core/layout/common';
 import { borderRadiusStyle } from '@/core/style/common';
 import { sortRandom } from '@/services/archive/sort';
 
@@ -219,7 +219,7 @@ const IconPaddingWrapper = tStyled.div<IconPaddingWrapperProps>`
 	position: relative;
 	width: 100%;
 	height: 100%;
-	padding: ${spacing.medium.value};
+	padding: ${Spacing.dog16};
 `;
 
 interface IconBackgroundProps {

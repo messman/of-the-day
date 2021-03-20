@@ -4,8 +4,9 @@ import { Post } from './post';
 import { PostsHeader } from './posts-header';
 import { usePostResponse } from '@/services/data/data-context';
 import { DataLoad } from '@/services/data/data-load';
-import { Spacing, spacing } from '@/core/layout/common';
+import { Spacing } from '@/core/layout/common';
 import { RegularText } from '@/core/symbol/text';
+import { tStyled } from '@/core/style/styled';
 
 export interface PostsProps {
 	offsetPixels: number;
@@ -46,11 +47,7 @@ export const Posts: React.FC<PostsProps> = (props) => {
 
 	if (posts.length === 0) {
 		return (
-			<Spacing margin={spacing.medium.horizontal}>
-				<Spacing margin={spacing.grand.top} textAlign='center'>
-					<RegularText>There's nothing here.</RegularText>
-				</Spacing>
-			</Spacing>
+			<CenteredText>There's nothing here.</CenteredText>
 		);
 	}
 
@@ -67,3 +64,8 @@ export const Posts: React.FC<PostsProps> = (props) => {
 		</>
 	);
 };
+
+const CenteredText = tStyled(RegularText)`
+	text-align: center;
+	margin: ${Spacing.hut56} ${Spacing.dog16};
+`;

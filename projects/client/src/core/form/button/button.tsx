@@ -1,4 +1,4 @@
-import { spacing } from '@/core/layout/common';
+import { Spacing } from '@/core/layout/common';
 import { borderRadiusStyle } from '@/core/style/common';
 import { StyledFCProps, tCss, tStyled } from '@/core/style/styled';
 import { Icon, SVGIconType } from '@/core/symbol/icon';
@@ -46,11 +46,11 @@ const FlexSpan = tStyled.span`
 `;
 
 const LeftIcon = tStyled(Icon)`
-	padding-right: ${spacing.small.value};
+	padding-right: ${Spacing.bat08};
 `;
 
 const RightIcon = tStyled(Icon)`
-	padding-left: ${spacing.small.value};
+	padding-left: ${Spacing.bat08};
 `;
 
 interface InnerButtonProps {
@@ -95,7 +95,7 @@ const InnerButton = tStyled.button<InnerButtonProps>`
 	font-size: ${FontSize.textRegular};
 
 	${borderRadiusStyle}
-	padding: ${spacing.medium.value} ${spacing.large.value};
+	padding: ${Spacing.dog16} ${Spacing.elf24};
 	border: 1px solid transparent;
 
 	${p => p.$isDisabled ? disabledButtonStyle : (p.$isSpecial ? specialButtonStyle : (p.$isSelected ? selectedButtonStyle : regularButtonStyle))}

@@ -1,4 +1,4 @@
-import { IArchiveRequest, IArchiveResponse, IOtherResponse, IPostResponse } from 'oftheday-shared';
+import { IArchiveRequest, IArchiveResponse, IPostResponse } from 'oftheday-shared';
 import { sortPosts } from '../archive/sort';
 import { DEFINE } from '../define';
 import { hasParam } from '../nav/url';
@@ -11,10 +11,6 @@ export async function fetchPostResponse(): Promise<IPostResponse> {
 	const includeTomorrow = hasParam('tomorrow');
 	const path = includeTomorrow ? 'posts?tomorrow=1' : 'posts';
 	return makeRequest(path);
-}
-
-export async function fetchOtherResponse(): Promise<IOtherResponse> {
-	return makeRequest('other');
 }
 
 export async function fetchArchiveResponse(request: IArchiveRequest): Promise<IArchiveResponse> {

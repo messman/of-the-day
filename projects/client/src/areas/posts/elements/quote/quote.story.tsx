@@ -2,7 +2,7 @@ import * as React from 'react';
 import { decorate } from '@/test/decorate';
 import { text, boolean } from '@storybook/addon-knobs';
 import { MusicQuote, Quote } from './quote';
-import { spacing, Spacing } from '@/core/layout/common';
+import { Margin } from '@/core/layout/common';
 import { IPostQuote } from 'oftheday-shared';
 
 export default { title: 'Areas/Posts/Elements/Quotes' };
@@ -12,9 +12,9 @@ export const TestMusicQuote = decorate('Music Quote', null, () => {
 	const lyric = text('lyric', 'Cause it feels so empty without me');
 
 	return (
-		<Spacing margin={spacing.medium.value}>
+		<Margin.Dog16>
 			<MusicQuote lyric={lyric} />
-		</Spacing>
+		</Margin.Dog16>
 	);
 });
 
@@ -33,9 +33,9 @@ export const TestSingleQuote = decorate('Single Quote', null, () => {
 	});
 
 	return (
-		<Spacing margin={spacing.medium.value}>
+		<Margin.Dog16>
 			<Quote value={quote} />
-		</Spacing>
+		</Margin.Dog16>
 	);
 });
 
@@ -54,9 +54,9 @@ export const TestAnonymousVoicesQuote = decorate('Anonymous Voices Quote', null,
 	});
 
 	return (
-		<Spacing margin={spacing.medium.value}>
+		<Margin.Dog16>
 			<Quote value={quote} />
-		</Spacing>
+		</Margin.Dog16>
 	);
 });
 
@@ -79,9 +79,9 @@ export const TestVoicesQuote = decorate('Voices Quote', null, () => {
 	});
 
 	return (
-		<Spacing margin={spacing.medium.value}>
+		<Margin.Dog16>
 			<Quote value={quote} />
-		</Spacing>
+		</Margin.Dog16>
 	);
 });
 
@@ -104,9 +104,9 @@ export const TestLongVoicesQuote = decorate('Long Voices Quote', null, () => {
 	});
 
 	return (
-		<Spacing margin={spacing.medium.value}>
+		<Margin.Dog16>
 			<Quote value={post} />
-		</Spacing>
+		</Margin.Dog16>
 	);
 });
 

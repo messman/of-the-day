@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { IPostBasics, IPostElementType, isValidPostElement } from 'oftheday-shared';
-import { spacing } from '@/core/layout/common';
 import { TagList } from './tag';
 import { iconTypes } from '@/core/symbol/icon';
 import { SubtleTextCard } from '@/core/card/card-presets';
@@ -19,7 +18,7 @@ export const Schedule = createPostsElement<IPostBasics>((props) => {
 
 	return (
 		<SubtleTextCard title='Schedule' icon={iconTypes.calendar} text={schedule}>
-			<TagList margin={spacing.medium.top} tags={dayTypes} />
+			<TagList tags={dayTypes} />
 		</SubtleTextCard>
 	);
 }, IPostElementType.schedule, isValidPostElement.schedule);

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { tStyled } from '@/core/style/styled';
 import { borderRadiusStyle } from '@/core/style/common';
 import { FontSize, SmallText } from '@/core/symbol/text';
-import { spacing, Spacing } from '@/core/layout/common';
+import { Spacing } from '@/core/layout/common';
 import { FontWeight, useCurrentTheme } from '@/core/style/theme';
 import { createTagProps } from './tag-definitions';
 import { Icon, SVGIconType } from '@/core/symbol/icon';
@@ -42,21 +42,19 @@ const TagText = tStyled(SmallText) <TagTextProps>`
 `;
 
 const PaddedIcon = tStyled(Icon)`
-	margin-right: ${spacing.nudge.value};
+	margin-right: ${Spacing.ant04};
 `;
 
 interface TagContainerProps {
 	backgroundColor: string;
 }
 
-const negativeTopMargin = `-${spacing.small.value} 0 0 0`;
-
 const TagContainer = tStyled.div<TagContainerProps>`
 	${borderRadiusStyle};
 	display: inline-block;
-	padding: ${spacing.nudge.value} ${spacing.small.value};
-	margin-top: ${spacing.small.value};
-	margin-right: ${spacing.small.value};
+	padding: ${Spacing.ant04} ${Spacing.bat08};
+	margin-top: ${Spacing.bat08};
+	margin-right: ${Spacing.bat08};
 	white-space: nowrap;
 	border: none;
 	background-color: ${p => p.backgroundColor};
@@ -73,18 +71,21 @@ export function useTags(isTop: boolean, isNSFW: boolean, additionalTags?: string
 }
 
 export interface TagListProps {
-	margin?: string | null;
 	tags: string[];
 }
 
 export const TagList: React.FC<TagListProps> = (props) => {
-	const { margin, tags } = props;
+	const { tags } = props;
 
 	const theme = useCurrentTheme();
 
 	const tagProps = React.useMemo(() => {
 		return createTagProps(tags, theme);
 	}, [tags, theme]);
+
+	if (!tags.length) {
+		return null;
+	}
 
 	const tagsRender = tagProps.map((tagProps) => {
 		return (
@@ -95,11 +96,14 @@ export const TagList: React.FC<TagListProps> = (props) => {
 		);
 	});
 
+
 	return (
-		<Spacing show={tags.length} margin={margin}>
-			<Spacing margin={negativeTopMargin}>
-				{tagsRender}
-			</Spacing>
-		</Spacing>
+		<TagsContainer>
+			{tagsRender}
+		</TagsContainer>
 	);
 };
+
+const TagsContainer = tStyled.div`
+	margin-top: ${Spacing.bat08};
+`;

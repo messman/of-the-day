@@ -1,11 +1,11 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { spacing } from '@/core/layout/common';
+import { Spacing } from '@/core/layout/common';
 import { tStyled } from '@/core/style/styled';
 import { Heading2 } from '@/core/symbol/text';
 import { FlexColumn, createContextConsumer, useRefLayoutEffect } from '@messman/react-common';
 import { borderRadiusStyle } from '@/core/style/common';
-import { LayoutBreakpoint } from '@/services/layout/window-layout';
+import { LayoutBreakpointRem } from '@/services/layout/window-layout';
 import { useSpring, animated } from 'react-spring';
 import { ManagedOverlayBoxProps } from '@/services/overlay/overlay-manager';
 
@@ -84,7 +84,7 @@ export const OverlayBox: React.FC<OverlayBoxProps> = (props) => {
 };
 
 const OverlayTitleContainer = tStyled.div`
-	padding: ${spacing.medium.value};
+	padding: ${Spacing.dog16};
 	border-bottom: 1px solid ${p => p.theme.color.bgComponent3};
 `;
 
@@ -105,7 +105,7 @@ const OverlayComponentContainer = tStyled(animated.div)`
 	left: 0;
 	width: 100%;
 	height: 100%;
-	padding: ${spacing.medium.value};
+	padding: ${Spacing.dog16};
 `;
 
 interface BoxContainerProps {
@@ -116,8 +116,8 @@ const BoxContainer = tStyled(FlexColumn) <BoxContainerProps>`
 	pointer-events: auto;
 	position: relative;
 	${p => p.isMaxWidth ? 'width: 100%;' : ''}
-	max-width: ${LayoutBreakpoint.mobileLarge}px;
-	max-height: min(80vh, ${LayoutBreakpoint.tablet}px);
+	max-width: ${LayoutBreakpointRem.d40}rem;
+	max-height: min(80vh, ${LayoutBreakpointRem.e50}rem);
 	background-color: ${p => p.theme.color.bg2};
 	${borderRadiusStyle};
 	box-shadow: 0 2px 3px 1px ${p => p.theme.color.bgComponentShadow1};

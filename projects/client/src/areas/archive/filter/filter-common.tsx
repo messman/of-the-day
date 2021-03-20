@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { IArchiveFilter, isFilterValid, keysOfIPostElementType, IArchiveFilterRange, IArchiveFilterPreset, IArchiveFilterSort, IPostElementType, IArchiveFilterModifier, isFilterExactlyEqual, filterPresets } from 'oftheday-shared';
 import { InlineWeight, RegularText } from '@/core/symbol/text';
-import { LineMaxWidth } from '@/core/layout/common';
+import { lineBreakpoint } from '@/services/layout/window-layout';
+import { tStyled } from '@/core/style/styled';
 
 /*
 	Holds text for enums for rendering UI.
@@ -194,3 +195,7 @@ export function isOnlyMusicTypeSelected(filter: IArchiveFilter): boolean {
 		return key === IPostElementType[IPostElementType.music] ? isSelected : !isSelected;
 	});
 }
+
+const LineMaxWidth = tStyled.div`
+	max-width: ${lineBreakpoint};
+`;

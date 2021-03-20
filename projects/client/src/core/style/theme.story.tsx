@@ -4,7 +4,7 @@ import { Heading1, Heading2, Heading3, RegularText, SmallText } from '@/core/sym
 import { tStyled } from '@/core/style/styled';
 import { useCurrentTheme } from '@/core/style/theme';
 import { borderRadiusStyle } from '@/core/style/common';
-import { spacing } from '../layout/common';
+import { Spacing } from '../layout/common';
 
 export default { title: 'Core/Style/Theme' };
 
@@ -38,8 +38,8 @@ const ColorBox = tStyled.div<ColorBoxProps>`
 
 	background-color: ${p => p.backgroundColor};
 	${borderRadiusStyle};
-	margin: ${spacing.small.value};
-	padding: ${spacing.small.value};
+	margin: ${Spacing.bat08};
+	padding: ${Spacing.bat08};
 `;
 
 const TextSizesColorBox: React.FC<ColorBoxProps> = (props) => {
@@ -61,8 +61,8 @@ const LongColorBox = tStyled.div<ColorBoxProps>`
 
 	background-color: ${p => p.backgroundColor};
 	${borderRadiusStyle};
-	margin-bottom: ${spacing.small.value};
-	margin-right: ${spacing.small.value};
+	margin-bottom: ${Spacing.bat08};
+	margin-right: ${Spacing.bat08};
 `;
 
 const TextColorBox: React.FC<ColorBoxProps> = (props) => {
