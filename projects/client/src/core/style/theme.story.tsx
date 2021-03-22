@@ -15,14 +15,13 @@ export const TestTheme = decorate('Theme', null, () => {
 	return (
 		<>
 			<div>
-				<TextSizesColorBox backgroundColor={theme.color.bg1} />
-				<TextSizesColorBox backgroundColor={theme.color.bg2} />
-				<TextSizesColorBox backgroundColor={theme.color.bgComponent1} />
+				<TextSizesColorBox backgroundColor={theme.bg} />
+				<TextSizesColorBox backgroundColor={theme.subtleFill.a0Background} />
 			</div>
-			<TextColorBox backgroundColor={theme.color.error}>Error</TextColorBox>
-			<TextColorBox backgroundColor={theme.color.warning}>Warning</TextColorBox>
-			<TextColorBox backgroundColor={theme.color.success}>Success</TextColorBox>
-			<TextColorBox backgroundColor={theme.color.textLink}>Link</TextColorBox>
+			<TextColorBox backgroundColor={theme.system.error}>Error</TextColorBox>
+			<TextColorBox backgroundColor={theme.system.warning}>Warning</TextColorBox>
+			<TextColorBox backgroundColor={theme.system.success}>Success</TextColorBox>
+			<TextColorBox backgroundColor={theme.textLink}>Link</TextColorBox>
 		</>
 	);
 });

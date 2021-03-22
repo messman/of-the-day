@@ -106,8 +106,8 @@ interface PostsHeaderContainerProps {
 const PostsHeaderContainer = tStyled(FlexRow) <PostsHeaderContainerProps>`
 	position: relative;
 	padding: ${Spacing.bat08};
-	background-color: ${p => p.theme.color.bg1};
-	border-bottom: 1px solid ${p => p.isSticking ? p.theme.color.bgComponent3 : 'transparent'};
+	background-color: ${p => p.theme.bg};
+	border-bottom: 1px solid ${p => p.isSticking ? p.theme.outlineDistinct : 'transparent'};
 `;
 
 const PostsHeaderCenterContainer = tStyled(FlexRow)`
@@ -134,11 +134,11 @@ const PostDayTitle: React.FC<PostDayTitle> = (props) => {
 		without pushing the buttons on either side.
 	*/
 	let titleFontSize = FontSize.heading3;
-	let subtitleFontSize = FontSize.textSmall;
+	let subtitleFontSize = FontSize.small;
 	let minContainerWidth = '120px';
 	if (widthBreakpoint >= LayoutBreakpointRem.c30) {
 		titleFontSize = FontSize.heading2;
-		subtitleFontSize = FontSize.textRegular;
+		subtitleFontSize = FontSize.regular;
 		minContainerWidth = '180px';
 	}
 
@@ -162,7 +162,7 @@ const FreeSmallText = tStyled(SmallText).attrs((props: FreeTextProps) => {
 		style
 	};
 })`
-	color: ${p => p.theme.color.textInactive};
+	color: ${p => p.theme.textSubtle};
 `;
 
 const FreeHeading1 = tStyled(Heading1).attrs((props: FreeTextProps) => {

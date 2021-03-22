@@ -4,8 +4,8 @@ import { Flex, FlexColumn, FlexRow } from '@messman/react-common';
 import { borderRadiusStyle } from '@/core/style/common';
 import { MenuBarItems } from './menu-bar-items';
 import { animated, useSpring } from 'react-spring';
-import { Icon, iconTypes } from '@/core/symbol/icon';
-import { FontSize, Heading2 } from '@/core/symbol/text';
+import { IconSize, iconTypes, SizedIcon } from '@/core/symbol/icon';
+import { Heading2 } from '@/core/symbol/text';
 import { Spacing } from '@/core/layout/common';
 import { FontWeight } from '@/core/style/theme';
 import { isUsingFirefoxFingerprintProtection } from '@/services/feature';
@@ -69,12 +69,12 @@ const UpperMenuBarCenter = tStyled(FlexColumn)`
 
 const UpperMenuBarContainer = tStyled(FlexRow)`
 	position: relative;
-	background-color: ${p => p.theme.color.bgComponent1};
 	width: ${upperMenuCenterWidth};
 	height: ${upperMenuBarHeight}px;
 	${borderRadiusStyle}
-	border: 1px solid ${p => p.theme.color.bgComponent3};
-	box-shadow: 0 3px 6px 0 ${p => p.theme.color.bgComponentShadow1};
+	border: 1px solid ${p => p.theme.outlineDistinct};
+	background-color: ${p => p.theme.subtleFill.d3Nav};
+	box-shadow: ${p => p.theme.shadow.d3Nav};
 	overflow: hidden;
 `;
 
@@ -98,7 +98,7 @@ export const UpperStickyMenuBar: React.FC<UpperStickyMenuBarProps> = (props) => 
 
 	const topLeftTitle = isDesktopWidth ? (
 		<UpperMenuStickyTitleClickContainer onClick={onScrollToTop}>
-			<SpacedBrandIcon type={iconTypes.brand} height={FontSize.heading2} fillColor={c => c.textHeading1} />
+			<SpacedBrandIcon type={iconTypes.brand} size={IconSize.b_large} />
 			<SpacedTitle>Of The Day</SpacedTitle>
 		</UpperMenuStickyTitleClickContainer>
 	) : null;
@@ -135,7 +135,7 @@ const UpperStickyMenuBarAbsolute = tStyled(animated.div)`
 
 const UpperStickyMenuBarColor = tStyled.div`
 	height: ${stickyMenuBarColorHeight}px;
-	background: ${p => p.theme.color.accentGradient};
+	background: ${p => p.theme.accent.eGradient};
 	cursor: pointer;
 `;
 
@@ -146,8 +146,8 @@ const UpperStickyMenuBarCenter = tStyled.div`
 	position: absolute;
 	height: ${upperMenuBarHeight}px;
 	width: 100%;
-	background-color: ${p => p.theme.color.bg1};
-	border-bottom: 1px solid ${p => p.theme.color.bgComponent3};
+	background-color: ${p => p.theme.bg};
+	border-bottom: 1px solid ${p => p.theme.outlineDistinct};
 `;
 
 const UpperStickyMenuBarContainer = tStyled(FlexRow)`
@@ -162,13 +162,13 @@ const UpperMenuStickyTitleClickContainer = tStyled.div`
 	justify-content: left;
 	align-items: center;
 	cursor: pointer;
-	font-weight: ${FontWeight.bold};
+	font-weight: ${FontWeight.medium};
 `;
 
 const SpacedTitle = tStyled(Heading2)`
 	display: inline-block;
 `;
 
-const SpacedBrandIcon = tStyled(Icon)`
+const SpacedBrandIcon = tStyled(SizedIcon)`
 	margin-right: ${Spacing.dog16};
 `;

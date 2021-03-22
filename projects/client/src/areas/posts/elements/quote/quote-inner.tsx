@@ -80,7 +80,7 @@ export const InnerMultiQuote: React.FC<InnerQuoteProps> = (props) => {
 
 const Divider = tStyled.div`
 	width: ${separatorThickness};
-	background-color: ${p => p.theme.color.bgComponent3};
+	background-color: ${p => p.theme.outlineDistinct};
 `;
 
 const MultiQuoteWidthControlContainer = tStyled(FlexColumn)`

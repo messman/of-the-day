@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { decorate } from '@/test/decorate';
-import { Heading1, Heading2, Heading3, RegularText, SmallText, FontSize } from '@/core/symbol/text';
-import { iconTypes, Icon } from '@/core/symbol/icon';
+import { Heading1, Heading2, Heading3, RegularText, SmallText } from '@/core/symbol/text';
+import { IconSize, iconTypes, SizedIcon } from '@/core/symbol/icon';
 import { tStyled } from '../style/styled';
-import { spacing } from '../layout/common';
+import { Spacing } from '../layout/common';
 
 export default { title: 'Core/Symbol/Text' };
 
@@ -15,31 +15,31 @@ export const TestTextWithIcons = decorate('Text', null, () => {
 		<>
 			<Padding>
 				<Heading1>
-					<SpacedIcon type={iconType} height={FontSize.heading1} fillColor={c => c.textAccentOnBackground} />
+					<SpacedIcon type={iconType} size={IconSize.b_large} />
 					Heading 1
 				</Heading1>
 			</Padding>
 			<Padding>
 				<Heading2>
-					<SpacedIcon type={iconType} height={FontSize.heading2} fillColor={c => c.textAccentOnBackground} />
+					<SpacedIcon type={iconType} size={IconSize.b_large} />
 					Heading 2
 				</Heading2>
 			</Padding>
 			<Padding>
 				<Heading3>
-					<SpacedIcon type={iconType} height={FontSize.heading3} fillColor={c => c.textAccentOnBackground} />
+					<SpacedIcon type={iconType} size={IconSize.b_large} />
 					Heading 3
 				</Heading3>
 			</Padding>
 			<Padding>
 				<RegularText>
-					<SpacedIcon type={iconType} height={FontSize.textRegular} fillColor={c => c.textAccentOnBackground} />
+					<SpacedIcon type={iconType} size={IconSize.a_medium} />
 					Regular Text
 					</RegularText>
 			</Padding>
 			<Padding>
 				<SmallText>
-					<SpacedIcon type={iconType} height={FontSize.textSmall} fillColor={c => c.textAccentOnBackground} />
+					<SpacedIcon type={iconType} size={IconSize.a_medium} />
 					Small Text
 				</SmallText>
 			</Padding>
@@ -48,9 +48,9 @@ export const TestTextWithIcons = decorate('Text', null, () => {
 });
 
 const Padding = tStyled.div`
-	margin: ${spacing.medium.value};
+	margin: ${Spacing.dog16};
 `;
 
-const SpacedIcon = tStyled(Icon)`
-	margin-right: ${spacing.nudge.value};
+const SpacedIcon = tStyled(SizedIcon)`
+	margin-right: ${Spacing.ant04};
 `;

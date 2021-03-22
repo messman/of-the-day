@@ -88,18 +88,18 @@ const TextBox = tStyled.div`
 	padding: ${Spacing.dog16};
 	margin: 0 ${Spacing.dog16};
 	${borderRadiusStyle};
-	background-color: ${p => p.theme.color.bgComponent1};
+	background-color: ${p => p.theme.subtleFill.b1Card};
 	border: .5rem solid transparent;
 `;
 
 const BadTextBox = tStyled(TextBox)`
-	color: ${p => p.theme.color.error};
-	border-color: ${p => p.theme.color.error};
+	color: ${p => p.theme.system.error};
+	border-color: ${p => p.theme.system.error};
 `;
 
 const ImportantTextBox = tStyled(TextBox)`
-	color: ${p => p.theme.color.textAccentOnBackground};
-	border-color: ${p => p.theme.color.accentFillOnBackground};
+	color: ${p => p.theme.accent.aMain};
+	border-color: ${p => p.theme.accent.aMain};
 `;
 
 const MultiMessagingContainer = tStyled.div`

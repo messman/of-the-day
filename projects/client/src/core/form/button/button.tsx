@@ -1,7 +1,7 @@
 import { Spacing } from '@/core/layout/common';
 import { borderRadiusStyle } from '@/core/style/common';
 import { StyledFCProps, tCss, tStyled } from '@/core/style/styled';
-import { Icon, SVGIconType } from '@/core/symbol/icon';
+import { IconSize, SizedIcon, SVGIconType } from '@/core/symbol/icon';
 import { FontSize } from '@/core/symbol/text';
 import * as React from 'react';
 
@@ -16,8 +16,8 @@ export interface ButtonProps extends Pick<React.HTMLAttributes<HTMLButtonElement
 export const Button = tStyled((props: StyledFCProps<ButtonProps>) => {
 	const { className, isDisabled, isSelected, isSpecial, iconBefore, iconAfter, onClick, title, children } = props;
 
-	const iconRenderBefore = iconBefore ? <LeftIcon type={iconBefore} height={FontSize.textRegular} /> : null;
-	const iconRenderAfter = iconAfter ? <RightIcon type={iconAfter} height={FontSize.textRegular} /> : null;
+	const iconRenderBefore = iconBefore ? <LeftIcon type={iconBefore} size={IconSize.a_medium} /> : null;
+	const iconRenderAfter = iconAfter ? <RightIcon type={iconAfter} size={IconSize.a_medium} /> : null;
 
 	return (
 		<InnerButton
@@ -45,11 +45,11 @@ const FlexSpan = tStyled.span`
 	align-items: center;
 `;
 
-const LeftIcon = tStyled(Icon)`
+const LeftIcon = tStyled(SizedIcon)`
 	padding-right: ${Spacing.bat08};
 `;
 
-const RightIcon = tStyled(Icon)`
+const RightIcon = tStyled(SizedIcon)`
 	padding-left: ${Spacing.bat08};
 `;
 
@@ -61,29 +61,29 @@ interface InnerButtonProps {
 
 const regularButtonStyle = tCss`
 	cursor: pointer;
-	color: ${p => p.theme.color.textRegular};
-	background: ${p => p.theme.color.bgComponent2};
-	border-color: ${p => p.theme.color.bgComponent3};
+	color: ${p => p.theme.textDistinct};
+	background: ${p => p.theme.subtleFill.c2Button};
+	border-color: ${p => p.theme.outlineDistinct};
 `;
 
 const selectedButtonStyle = tCss`
 	cursor: pointer;
-	color: ${p => p.theme.color.textAccentOnBackground};
-	background: ${p => p.theme.color.bgComponent2};
-	border-color: ${p => p.theme.color.textAccentOnBackground};
+	color: ${p => p.theme.accent.aMain};
+	background: ${p => p.theme.subtleFill.c2Button};
+	border-color: ${p => p.theme.accent.aMain};
 `;
 
 const disabledButtonStyle = tCss`
 	cursor: not-allowed;
-	color: ${p => p.theme.color.textDisabled};
-	background: ${p => p.theme.color.bgComponent2};
-	border-color: ${p => p.theme.color.bgComponent3};
+	color: ${p => p.theme.textDisabled};
+	background: ${p => p.theme.subtleFill.c2Button};
+	border-color: ${p => p.theme.outlineDistinct};
 `;
 
 const specialButtonStyle = tCss`
 	cursor: pointer;
-	color: ${p => p.theme.color.textDistinctOnAccent};
-	background: ${p => p.theme.color.accentGradient};
+	color: ${p => p.theme.textDistinct};
+	background: ${p => p.theme.accent.eGradient};
 	border-color: transparent;
 `;
 
@@ -92,7 +92,7 @@ const InnerButton = tStyled.button<InnerButtonProps>`
 	width: 100%;
 
 	text-align: center;
-	font-size: ${FontSize.textRegular};
+	font-size: ${FontSize.regular};
 
 	${borderRadiusStyle}
 	padding: ${Spacing.dog16} ${Spacing.elf24};

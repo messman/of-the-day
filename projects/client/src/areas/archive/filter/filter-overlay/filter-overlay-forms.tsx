@@ -1,7 +1,8 @@
 import { Spacing } from '@/core/layout/common';
 import { borderRadiusStyle, formTransitionStyle, HighlightBar } from '@/core/style/common';
 import { StyledFCProps, tStyled } from '@/core/style/styled';
-import { FontSize, RegularText } from '@/core/symbol/text';
+import { FontWeight } from '@/core/style/theme';
+import { fontDeclarations, FontSize } from '@/core/symbol/text';
 import { FlexRow } from '@messman/react-common';
 import * as React from 'react';
 
@@ -35,11 +36,13 @@ const InlineRegularText = tStyled.div`
 	display: inline-block;
 `;
 
+/*${p => p.theme.color.bgComponent3};*/
+/*${p => p.theme.color.bgComponent2};*/
 const CheckboxLabel = tStyled.label`
 	display: block;
 	position: relative;
-	border: 1px solid ${p => p.theme.color.bgComponent3};
-	background-color: ${p => p.theme.color.bgComponent2};
+	border: 1px solid ${p => p.theme.outlineDistinct};
+	background-color: ${p => p.theme.subtleFill.c2Button};
 	${borderRadiusStyle}
 	padding: ${Spacing.bat08};
 	cursor: pointer;
@@ -61,15 +64,17 @@ interface CheckboxIndicatorProps {
 	$isChecked: boolean;
 }
 
+// border: 1px solid ${p => p.$isChecked ? p.theme.color.accentFillOnBackground : p.theme.color.textAccentOnBackground};
+// background-color: ${p => p.$isChecked ? p.theme.color.accentFillOnBackground : 'transparent'};
 const CheckboxIndicator = tStyled.span<CheckboxIndicatorProps>`
 	display: inline-block;
-	width: ${FontSize.textRegular};
-	height: ${FontSize.textRegular};
+	width: ${FontSize.regular};
+	height: ${FontSize.regular};
 	margin-left: ${Spacing.ant04};
 	margin-right: ${Spacing.dog16};
 	box-sizing: content-box;
-	border: 1px solid ${p => p.$isChecked ? p.theme.color.accentFillOnBackground : p.theme.color.textAccentOnBackground};
-	background-color: ${p => p.$isChecked ? p.theme.color.accentFillOnBackground : 'transparent'};
+	border: 1px solid ${p => p.theme.accent.aMain};
+	background-color: ${p => p.$isChecked ? p.theme.accent.aMain : 'transparent'};
 	${borderRadiusStyle}
 	${formTransitionStyle}
 	transition-property: border-color, background-color;
@@ -107,10 +112,7 @@ export const OpenSelect: React.FC<OpenSelectProps> = (props) => {
 				$isDisabled={isDisabled}
 				onClick={onClick}
 			>
-				<RegularText
-				>
-					{value}
-				</RegularText>
+				{value}
 			</OpenOption>
 		);
 	});
@@ -128,8 +130,8 @@ const SelectContainer = tStyled.div`
 	display: block;
 	width: 100%;
 	position: relative;
-	border: 1px solid ${p => p.theme.color.bgComponent3};
-	background-color: ${p => p.theme.color.bgComponent2};
+	border: 1px solid ${p => p.theme.outlineDistinct};
+	background-color: ${p => p.theme.subtleFill.f5Picker};
 	${borderRadiusStyle}
 	user-select: none;
 `;
@@ -142,14 +144,16 @@ interface OpenOptionProps {
 const regularTextOptionSpacing = `${Spacing.dog16} ${Spacing.elf24}`;
 
 const OpenOption = tStyled.div<OpenOptionProps>`
+	${fontDeclarations.regular}
 	text-align: center;
 	background-color: transparent;
 	padding: ${regularTextOptionSpacing};
 
 	cursor: ${p => (p.$isSelected || p.$isDisabled) ? 'not-allowed' : 'pointer'};
-	color: ${p => p.$isSelected ? p.theme.color.textAccentOnBackground : (p.$isDisabled ? p.theme.color.textDisabled : p.theme.color.textRegular)};
+	color: ${p => p.$isSelected ? p.theme.accent.aMain : (p.$isDisabled ? p.theme.textDisabled : p.theme.textDistinct)};
+	font-weight: ${p => p.$isSelected ? FontWeight.medium : FontWeight.regular};
 
 	& + & {
-		border: 1px solid ${p => p.theme.color.bgComponent3};
+		border-top: 1px solid ${p => p.theme.outlineDistinct};
 	}
 `;

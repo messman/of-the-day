@@ -1,6 +1,8 @@
 import { TagProps } from './tag';
-import { Theme, ThemePickColor } from '@/core/style/theme';
+import { Theme } from '@/core/style/theme';
 import { iconTypes, SVGIconType } from '@/core/symbol/icon';
+
+type ThemePickColor = (theme: Theme) => string;
 
 interface DynamicTagProps {
 	foregroundColor: ThemePickColor;
@@ -9,18 +11,18 @@ interface DynamicTagProps {
 }
 
 const defaultTag: DynamicTagProps = {
-	foregroundColor: c => c.textSubtleOnAccent,
-	backgroundColor: c => c.accentFillOnBackground
+	foregroundColor: c => c.textSubtle,
+	backgroundColor: c => c.accent.aMain
 };
 
 const commonTagProps: { [key: string]: DynamicTagProps; } = {
 	nsfw: {
-		foregroundColor: c => c.tagNSFWForeground,
-		backgroundColor: c => c.tagNSFWBackground
+		foregroundColor: c => c.textDistinct,
+		backgroundColor: c => c.system.tagNSFW
 	},
 	top: {
-		foregroundColor: c => c.tagTopForeground,
-		backgroundColor: c => c.tagTopBackground,
+		foregroundColor: c => c.textDistinct,
+		backgroundColor: c => c.system.tagTop,
 		icon: iconTypes.tagTop
 	},
 	work: defaultTag,
@@ -42,12 +44,11 @@ const commonTagProps: { [key: string]: DynamicTagProps; } = {
 
 export function createTagProps(tags: string[], theme: Theme): TagProps[] {
 	return tags.map<TagProps>((tag) => {
-		const themeColor = theme.color;
 		const dynamicTagProp = commonTagProps[tag.toLowerCase()] || defaultTag;
 		return {
 			value: tag,
-			foregroundColor: dynamicTagProp.foregroundColor(themeColor),
-			backgroundColor: dynamicTagProp.backgroundColor(themeColor),
+			foregroundColor: dynamicTagProp.foregroundColor(theme),
+			backgroundColor: dynamicTagProp.backgroundColor(theme),
 			icon: dynamicTagProp.icon
 		};
 	});

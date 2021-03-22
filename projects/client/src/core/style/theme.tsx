@@ -2,309 +2,183 @@ import * as React from 'react';
 import { createGlobalStyle, ThemeProps, ThemeProvider as StyledThemeProvider } from 'styled-components';
 import { UseLocalStorageReturn } from '@messman/react-common';
 import { localStorage } from '@/services/data/local-storage';
+import { ColorAccentSet, ColorElevationSet, colors, SystemColors } from './color';
 
-/** Custom application theme type. */
 export interface Theme {
-	colorName: string;
-	isLightMode: boolean;
-	color: ThemeColor;
-}
+	// Meta info.
+	themeInfo: {
+		isLight: boolean;
+		accentColor: string;
+		fullName: string;
+	},
 
-export interface ThemeColor {
-	/** Main application background. */
-	bg1: string;
-	/** Secondary version of background - used for contrast against the first. */
-	bg2: string;
+	accent: ColorAccentSet;
 
-	/** Background used for components. */
-	bgComponent1: string;
-	bgComponent2: string;
-	bgComponent3: string;
-	bgComponentShadow1: string;
+	bg: string;
+	outlineDistinct: string;
+	outlineSubtle: string;
 
+	// Elevations.
+	subtleFill: ColorElevationSet;
+	shadow: ColorElevationSet;
+	shadowBase: string;
+	system: SystemColors;
 
-	/** The gradient of the accent. */
-	accentGradient: string;
-	/**
-	 * Used specifically for a fill on top of the accent gradient, with a shadow.
-	 */
-	accentGradientFill: string;
-	accentGradientFillShadow: string;
-	/**
-	 * The accent color, on the background. May be lighter on dark themes and darker on light themes,
-	 * but not to the same extent as the text version.
-	 */
-	accentFillOnBackground: string;
-	/**
-	 * The accent color, used for text, on the background. May be lighter on dark themes and darker on light themes.
-	 */
-	textAccentOnBackground: string;
-	/** Text that is distinct on top of the accent color. */
-	textDistinctOnAccent: string;
-	/** Text that is still readable on top of the accent color, but just barely. */
-	textSubtleOnAccent: string;
-
-	textHeading1: string;
-	textHeading2: string;
-	textHeading3: string;
-	textRegular: string;
-	textInactive: string;
-	/** Does not need to conform to accessibility standards. */
+	// Text colors.
+	textDistinct: string;
+	textSubtle: string;
 	textDisabled: string;
 	textLink: string;
-
-	tagNSFWForeground: string;
-	tagNSFWBackground: string;
-	tagTopForeground: string;
-	tagTopBackground: string;
-
-	settingsSelection: string;
-
-	/** Color used for warning information. */
-	warning: string;
-	/** Color used for error information. */
-	error: string;
-	/** Color used for error text on top of the error fill color. */
-	textDistinctOnErrorFill: string;
-	/** Color used for success information. */
-	success: string;
 }
 
-const gray = {
-	dark1: '#0F0F0F',
-	dark2: '#141414',
+const baseDarkTheme: Theme = {
+	themeInfo: {
+		isLight: false,
+		accentColor: 'Dark',
+		fullName: 'Base Dark'
+	},
 
-	light1: '#F5F5F5',
-	light2: '#F0F0F0',
+	accent: null!,
+
+	bg: colors.dark.a0Darkest,
+	outlineDistinct: colors.dark.d3Lighter,
+	outlineSubtle: colors.dark.a0Darkest,
+
+	subtleFill: colors.elevation.darkFill,
+	shadow: colors.elevation.darkShadow,
+	shadowBase: colors.elevation.darkShadowBase,
+	system: colors.system.dark,
+
+	textDistinct: colors.light.e4Lightest, // White
+	textSubtle: colors.dark.e4Lightest, // "Light Gray"
+	textDisabled: colors.dark.d3Lighter, // "Dark Gray"
+	textLink: 'blue',
 };
 
-const color = {
-	darkTopBackground: '#CE9f3C',
-	lightTopBackground: '#FFC03D',
+const baseLightTheme: Theme = {
+	themeInfo: {
+		isLight: true,
+		accentColor: 'Light',
+		fullName: 'Base Light'
+	},
+
+	accent: null!,
+
+	bg: colors.light.d3Lighter,
+	outlineDistinct: colors.light.a0Darkest,
+	outlineSubtle: colors.light.b1Darker,
+
+	subtleFill: colors.elevation.lightFill,
+	shadow: colors.elevation.lightFill,
+	shadowBase: colors.elevation.lightShadowBase,
+	system: colors.system.light,
+
+	textDistinct: colors.dark.a0Darkest, // Black
+	textSubtle: colors.dark.d3Lighter, // "Dark Gray"
+	textDisabled: colors.dark.e4Lightest, // "Light Gray"
+	textLink: 'blue',
 };
 
-const commonColor: Partial<ThemeColor> = {
-	tagNSFWForeground: gray.light1,
-	tagNSFWBackground: '#A63446',
-	tagTopForeground: gray.dark1,
+// const gray = {
+// 	dark1: '#0F0F0F',
+// 	dark2: '#141414',
 
-	settingsSelection: '#55D170',
-	warning: '#DC965A',
-	error: '#A63446',
-	textDistinctOnErrorFill: '#E6DBDD',
-	success: '#4B7F52',
-};
+// 	light1: '#F5F5F5',
+// 	light2: '#F0F0F0',
+// };
+
+// const color = {
+// 	darkTopBackground: '#CE9f3C',
+// 	lightTopBackground: '#FFC03D',
+// };
+
+// const commonColor: Partial<ThemeColor> = {
+// 	tagNSFWForeground: gray.light1,
+// 	tagNSFWBackground: '#A63446',
+// 	tagTopForeground: gray.dark1,
+
+// 	settingsSelection: '#55D170',
+// 	warning: '#DC965A',
+// 	error: '#A63446',
+// 	textDistinctOnErrorFill: '#E6DBDD',
+// 	success: '#4B7F52',
+// };
 
 const purpleDarkTheme: Theme = {
-	colorName: 'Purple',
-	isLightMode: false,
-	color: {
-		...(commonColor as ThemeColor),
+	...baseDarkTheme,
+	themeInfo: {
+		isLight: false,
+		accentColor: 'Purple',
+		fullName: 'Purple / Dark'
+	},
 
-		bg1: gray.dark1,
-		bg2: gray.dark2,
-		bgComponent1: '#19191A',
-		bgComponent2: '#202022',
-		bgComponent3: '#2A2A2C',
-		bgComponentShadow1: '#0A0A0A',
-
-		accentGradient: 'linear-gradient(134deg, #6551C7 0%, #5955D1 39%, #5955D1 58%, #3948BA 100%)',
-		accentGradientFill: '#5955D1',
-		accentGradientFillShadow: '#3430A1',
-		accentFillOnBackground: '#7673E2',
-		textAccentOnBackground: '#7F7CE8',
-		textDistinctOnAccent: '#DFDFEA',
-		textSubtleOnAccent: gray.dark1,
-
-		textHeading1: '#DADADD',
-		textHeading2: '#D1D1D6',
-		textHeading3: '#C6C6CD',
-		textRegular: '#BDBDC1',
-		textInactive: '#8C8C8C',
-		textDisabled: '#666666',
-		textLink: '#7F7CE8',
-
-		tagTopBackground: color.darkTopBackground
-	}
+	accent: colors.accent.purple,
 };
 
 const purpleLightTheme: Theme = {
-	colorName: 'Purple',
-	isLightMode: true,
-	color: {
-		...(commonColor as ThemeColor),
+	...baseLightTheme,
+	themeInfo: {
+		isLight: true,
+		accentColor: 'Purple',
+		fullName: 'Purple / Light'
+	},
 
-		bg1: gray.light1,
-		bg2: gray.light2,
-		bgComponent1: '#E8E8E9',
-		bgComponent2: '#E0E0E1',
-		bgComponent3: '#D0D0D2',
-		bgComponentShadow1: 'rgba(211,211,211,0.50)',
-
-		accentGradient: 'linear-gradient(134deg, #6551C7 0%, #5955D1 39%, #5955D1 58%, #3948BA 100%)',
-		accentGradientFill: '#5955D1',
-		accentGradientFillShadow: '#3430A1',
-		accentFillOnBackground: '#5955D1',
-		textAccentOnBackground: '#534FC3',
-		textDistinctOnAccent: '#DFDFEA',
-		textSubtleOnAccent: '#DFDFEA',
-
-		textHeading1: '#242428',
-		textHeading2: '#2D2D34',
-		textHeading3: '#353540',
-		textRegular: '#3D3D42',
-		textInactive: '#737373',
-		textDisabled: '#999999',
-		textLink: '#534FC3',
-
-		tagTopBackground: color.lightTopBackground
-	}
+	accent: colors.accent.purple,
 };
 
 const yellowDarkTheme: Theme = {
-	colorName: 'Yellow',
-	isLightMode: false,
-	color: {
-		...(commonColor as ThemeColor),
+	...baseDarkTheme,
+	themeInfo: {
+		isLight: false,
+		accentColor: 'Yellow',
+		fullName: 'Yellow / Dark'
+	},
 
-		bg1: gray.dark1,
-		bg2: gray.dark2,
-		bgComponent1: '#1A1A1A',
-		bgComponent2: '#212121',
-		bgComponent3: '#2B2B2B',
-		bgComponentShadow1: '#0A0A0A',
-
-		accentGradient: 'linear-gradient(-45deg, #CD9240 0%, #F5B83D 38%, #F5B83D 65%, #F8CF7C 100%)',
-		accentGradientFill: '#F5B83D',
-		accentGradientFillShadow: '#CA9325',
-		accentFillOnBackground: '#F5B83D',
-		textAccentOnBackground: '#F7CA6F',
-		textDistinctOnAccent: gray.dark1,
-		textSubtleOnAccent: '#46371A',
-
-		textHeading1: '#DCDBDB',
-		textHeading2: '#D5D4D2',
-		textHeading3: '#CCCAC7',
-		textRegular: '#C0BFBF',
-		textInactive: '#8C8C8C',
-		textDisabled: '#666666',
-		textLink: '#F7CA6F',
-
-		tagTopBackground: color.darkTopBackground
-	}
+	accent: colors.accent.yellow,
 };
 
 const yellowLightTheme: Theme = {
-	colorName: 'Yellow',
-	isLightMode: true,
-	color: {
-		...(commonColor as ThemeColor),
+	...baseLightTheme,
+	themeInfo: {
+		isLight: true,
+		accentColor: 'Yellow',
+		fullName: 'Yellow / Light'
+	},
 
-		bg1: gray.light1,
-		bg2: gray.light2,
-		bgComponent1: '#E9E8E8',
-		bgComponent2: '#E1E1E0',
-		bgComponent3: '#D2D1D0',
-		bgComponentShadow1: 'rgba(211,211,211,0.50)',
-
-		accentGradient: 'linear-gradient(-45deg, #EBA749 0%, #F5B83D 38%, #F5B83D 65%, #F8CF7C 100%)',
-		accentGradientFill: '#F5B83D',
-		accentGradientFillShadow: '#CA9325',
-		accentFillOnBackground: '#F5B83D',
-		textAccentOnBackground: '#82601B',
-		textDistinctOnAccent: gray.dark1,
-		textSubtleOnAccent: '#624B1B',
-
-		textHeading1: '#282624',
-		textHeading2: '#33312E',
-		textHeading3: '#403C35',
-		textRegular: '#41403E',
-		textInactive: '#737373',
-		textDisabled: '#999999',
-		textLink: '#82601B',
-
-		tagTopBackground: color.lightTopBackground
-	}
+	accent: colors.accent.yellow,
 };
 
 const redDarkTheme: Theme = {
-	colorName: 'Red',
-	isLightMode: false,
-	color: {
-		...(commonColor as ThemeColor),
+	...baseDarkTheme,
+	themeInfo: {
+		isLight: false,
+		accentColor: 'Red',
+		fullName: 'Red / Dark'
+	},
 
-		bg1: gray.dark1,
-		bg2: gray.dark2,
-		bgComponent1: '#1A1A1A',
-		bgComponent2: '#212121',
-		bgComponent3: '#2B2B2B',
-		bgComponentShadow1: '#0A0A0A',
-
-		accentGradient: 'linear-gradient(135deg, #E078A4 0%, #CB697A 37%, #CB697A 65%, #DA5856 100%)',
-		accentGradientFill: '#CB697A',
-		accentGradientFillShadow: '#A04454',
-		accentFillOnBackground: '#CB697A',
-		textAccentOnBackground: '#DC697D',
-		textDistinctOnAccent: gray.dark1,
-		textSubtleOnAccent: gray.dark1,
-
-		textHeading1: '#DCDADB',
-		textHeading2: '#D2D0D0',
-		textHeading3: '#CCC7C8',
-		textRegular: '#C1BEBE',
-		textInactive: '#8C8C8C',
-		textDisabled: '#666666',
-		textLink: '#DC697D',
-
-		tagTopBackground: color.darkTopBackground
-	}
+	accent: colors.accent.red,
 };
 
 const redLightTheme: Theme = {
-	colorName: 'Red',
-	isLightMode: true,
-	color: {
-		...(commonColor as ThemeColor),
+	...baseLightTheme,
+	themeInfo: {
+		isLight: true,
+		accentColor: 'Red',
+		fullName: 'Red / Light'
+	},
 
-		bg1: gray.light1,
-		bg2: gray.light2,
-		bgComponent1: '#E9E8E8',
-		bgComponent2: '#E1E0E0',
-		bgComponent3: '#D2D0D0',
-		bgComponentShadow1: 'rgba(211,211,211,0.50)',
-
-		accentGradient: 'linear-gradient(135deg, #E078A4 0%, #CB697A 37%, #CB697A 65%, #DA5856 100%)',
-		accentGradientFill: '#CB697A',
-		accentGradientFillShadow: '#A04454',
-		accentFillOnBackground: '#CB697A',
-		textAccentOnBackground: '#984553',
-		textDistinctOnAccent: gray.dark1,
-		textSubtleOnAccent: '#361414',
-
-		textHeading1: '#282425',
-		textHeading2: '#332E2F',
-		textHeading3: '#403537',
-		textRegular: '#413E3F',
-		textInactive: '#737373',
-		textDisabled: '#999999',
-		textLink: '#984553',
-
-		tagTopBackground: color.lightTopBackground
-	}
+	accent: colors.accent.red,
 };
 
 // Index is stored in LocalStorage
 export const themes: Theme[] = [purpleDarkTheme, purpleLightTheme, yellowDarkTheme, yellowLightTheme, redDarkTheme, redLightTheme];
 const defaultThemeIndex = 0;
 
-export type ThemePick<T> = (t: Theme) => T;
-export type ThemePickColor = (c: ThemeColor) => string;
-
 // Set from Google Font. Search for 'Montserrat' across the codebase.
 export enum FontWeight {
+	regular = 400,
 	medium = 500,
-	bold = 700,
-	extraBold = 800
+	bold = 700
 };
 
 // For some reason, VS Code is not happy to colorize the CSS in this block when `createGlobalStyle` is used with a type.
@@ -312,43 +186,35 @@ export enum FontWeight {
 // Note: overscroll-behavior comes from https://stackoverflow.com/a/50846937 to prevent macs going back (since we have horizontal scroll)
 export const GlobalStyles = createGlobalStyle<ThemeProps<Theme>>`
 	html {
+		font-family: 'Montserrat', sans-serif;
+		font-weight: ${FontWeight.regular};
 		font-size: 16px;
+		box-sizing: border-box;
 	}
 
 	body {
-		background-color: ${p => p.theme.color.bg1};
-		color: ${p => p.theme.color.textRegular};
+		background-color: ${p => p.theme.bg};
+		color: ${p => p.theme.textDistinct};
 	}
 
 	html, body, #react-root, #root {
-		margin: 0;
-		padding: 0;
+		margin: 0 !important;
+		padding: 0 !important;
 		height: 100%;
 		overscroll-behavior: none;
 		overflow: hidden;
-		font-weight: ${FontWeight.medium};
 	}
 
 	* {
-		font-family: 'Montserrat', sans-serif;
 		vertical-align: top;
-		box-sizing: border-box;
 		-webkit-text-size-adjust: 100%;
 		-webkit-font-smoothing: antialiased;
+  		-moz-osx-font-smoothing: grayscale;
 	}
 
-	h1, h2, h3, h4, h5, h6, p {
-		margin: 0;
-	}
-
-	h1 {
-		color: ${p => p.theme.color.textHeading1};
-	}
-	h2 {
-		color: ${p => p.theme.color.textHeading2};
-	}
-	h3, h4, h5, h6 {
-		color: ${p => p.theme.color.textHeading3};
+	*, *:before, *:after {
+		font-family: inherit;
+		box-sizing: inherit;
 	}
 `;
 

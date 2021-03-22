@@ -59,7 +59,7 @@ const ScrollFlexColumn = tStyled(FlexColumn)`
 
 const FooterActionLink = tStyled(ActionLink)`
 	padding: ${Spacing.dog16};
-	border-top: 1px solid ${p => p.theme.color.bgComponent3};
+	border-top: 1px solid ${p => p.theme.outlineDistinct};
 	text-align: center;
 `;
 
@@ -89,7 +89,7 @@ interface ActiveHeadingProps {
 }
 
 const ActiveHeading = tStyled(Heading3) <ActiveHeadingProps>`
-	color: ${p => p.isActivePost ? p.theme.color.textAccentOnBackground : p.theme.color.textRegular};
+	color: ${p => p.isActivePost ? p.theme.accent.aMain : p.theme.outlineDistinct};
 `;
 
 interface PostListItemContainerProps {
@@ -99,11 +99,11 @@ interface PostListItemContainerProps {
 const PostListItemContainer = tStyled.div<PostListItemContainerProps>`
 	cursor: ${p => p.isActivePost ? 'not-allowed' : 'pointer'};
 	padding: ${Spacing.dog16};
-	border-top: 1px solid ${p => p.theme.color.bgComponent3};
+	border-top: 1px solid ${p => p.theme.outlineDistinct};
 	border-left: none;
 	border-right: none;
 
-	color: ${p => p.isActivePost ? p.theme.color.textAccentOnBackground : p.theme.color.textRegular};
+	color: ${p => p.isActivePost ? p.theme.accent.aMain : p.theme.outlineDistinct};
 
 	&:first-child {
 		border-top: none;

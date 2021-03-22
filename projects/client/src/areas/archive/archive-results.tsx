@@ -188,8 +188,7 @@ export const ArchiveResultsHeader: React.FC<ArchiveResultsHeaderProps> = (props)
 const ArchiveResultsHeaderContainer = tStyled(FlexRow)`
 	position: relative;
 	padding: ${Spacing.bat08} 0;
-	background-color: ${p => p.theme.color.bg1};
-	border-bottom: 1px solid ${p => p.theme.color.bgComponent3};
+	border-bottom: 1px solid ${p => p.theme.outlineDistinct};
 `;
 
 const LeftResultsCountText = tStyled(RegularText)`

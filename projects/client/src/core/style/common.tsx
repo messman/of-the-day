@@ -44,9 +44,9 @@ interface HighlightBarInnerProps {
 const highlightThickness = 4;
 const highlightBarCommonStyle = tCss`
 	position: absolute;
-	${formTransitionStyle};
-	background-color: ${p => p.theme.color.accentFillOnBackground};
+	background-color: ${p => p.theme.accent.aMain};
 	border-radius: ${highlightThickness / 2}px;
+	${formTransitionStyle}
 `;
 
 const HighlightBarHorizontal = tStyled.div<HighlightBarInnerProps>`
@@ -98,5 +98,5 @@ const EmptySpace = tStyled.div<EmptySpaceProps>`
 	flex: none;
 	height: ${p => p.$height}px;
 	pointer-events: none;
-	background-color: ${p => p.$showBackground ? p.theme.color.bg1 : 'transparent'};
+	background-color: ${p => p.$showBackground ? p.theme.bg : 'transparent'};
 `;

@@ -6,9 +6,9 @@ import { FlexColumn, FlexRow } from '@messman/react-common';
 import { IArchiveFilter, cloneFilter, isFilterValid } from 'oftheday-shared';
 import { tStyled } from '@/core/style/styled';
 import { Spacing, Block } from '@/core/layout/common';
-import { FontSize, RegularText } from '@/core/symbol/text';
+import { RegularText } from '@/core/symbol/text';
 import { matchToPreset } from '../filter-common';
-import { Icon, iconTypes } from '@/core/symbol/icon';
+import { IconSize, iconTypes, SizedIcon } from '@/core/symbol/icon';
 import { HighlightBar } from '@/core/style/common';
 import { FilterOverlayAdvanced } from './filter-overlay-advanced';
 import { FilterPresets } from '../filter-presets';
@@ -51,7 +51,7 @@ export const FilterOverlay: React.FC<FilterOverlayProps> = (props) => {
 
 	const invalidWarning = !isFilterValid(filterWorkingCopy) ? (
 		<FooterWarning>
-			<SpacedIcon type={iconTypes.alert} fillColor={c => c.warning} height={FontSize.textRegular} />
+			<WarningIcon type={iconTypes.alert} size={IconSize.a_medium} />
 			The selected filter options won't return anything.
 		</FooterWarning>
 	) : null;
@@ -128,7 +128,7 @@ export const FilterOverlay: React.FC<FilterOverlayProps> = (props) => {
 
 const TabHeaderContainer = tStyled(FlexRow)`
 	position: relative;
-	border-bottom: 1px solid ${p => p.theme.color.bgComponent3};
+	border-bottom: 1px solid ${p => p.theme.outlineDistinct};
 `;
 
 export interface FilterOverlayTabProps {
@@ -142,7 +142,7 @@ const ScrollFlexColumn = tStyled(FlexColumn)`
 `;
 
 const Footer = tStyled(FlexRow)`
-	border-top: 1px solid ${p => p.theme.color.bgComponent3};
+	border-top: 1px solid ${p => p.theme.outlineDistinct};
 `;
 
 const FooterActionLink = tStyled(ActionLink)`
@@ -152,7 +152,7 @@ const FooterActionLink = tStyled(ActionLink)`
 `;
 
 const FooterWarning = tStyled(RegularText)`
-	border-top: 1px solid ${p => p.theme.color.bgComponent3};
+	border-top: 1px solid ${p => p.theme.outlineDistinct};
 	text-align: center;
 	padding: ${Spacing.dog16};
 `;
@@ -161,7 +161,8 @@ const CenteredRegularText = tStyled(RegularText)`
 	text-align: center;
 `;
 
-const SpacedIcon = tStyled(Icon)`
+const WarningIcon = tStyled(SizedIcon)`
 	display: inline-block;
 	margin-right: ${Spacing.bat08};
+	color: ${p => p.theme.system.warning};
 `;

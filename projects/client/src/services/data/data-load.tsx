@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { PromiseOutput } from '@messman/react-common';
 import { keyframes, tStyled } from '@/core/style/styled';
-import { Icon, iconTypes } from '@/core/symbol/icon';
+import { SizedIcon, iconTypes } from '@/core/symbol/icon';
 import { RegularText } from '@/core/symbol/text';
 import { Block, Spacing } from '@/core/layout/common';
 import { ActionLink } from '@/core/link';
@@ -32,7 +32,7 @@ export const DataLoad: React.FC<DataLoadProps> = (props) => {
 	if (isStarted) {
 		icon = (
 			<LoadingCompassContainer>
-				<Icon type={iconTypes.compass} fillColor={c => c.textRegular} height='100%' />
+				<SizedIcon type={iconTypes.compass} size={iconSize} />
 			</LoadingCompassContainer>
 		);
 		text = 'Loading';
@@ -40,7 +40,7 @@ export const DataLoad: React.FC<DataLoadProps> = (props) => {
 	else if (error || isInvalidData) {
 		icon = (
 			<div>
-				<Icon type={iconTypes.alert} fillColor={c => c.error} height={iconSize} />
+				<ErrorSizedIcon type={iconTypes.alert} size={iconSize} />
 			</div>
 		);
 		text = 'There was an error with loading the data.';
@@ -70,7 +70,7 @@ export const DataLoad: React.FC<DataLoadProps> = (props) => {
 
 const DataLoadContainer = tStyled.div`
 	text-align: center;
-	margin: ${Spacing.fan32} ${Spacing.dog16}
+	margin: ${Spacing.fan32} ${Spacing.dog16};
 `;
 
 const spin = keyframes`
@@ -89,4 +89,8 @@ const LoadingCompassContainer = tStyled.div`
 	text-align: center;
 
 	animation: ${spin} 3s 0s linear infinite;
+`;
+
+const ErrorSizedIcon = tStyled(SizedIcon)`
+	color: ${p => p.theme.system.error};
 `;

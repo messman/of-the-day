@@ -218,7 +218,7 @@ const ScrollFlexColumn = tStyled(FlexColumn)`
 
 const FooterActionLink = tStyled(ActionLink)`
 	padding: ${Spacing.dog16};
-	border-top: 1px solid ${p => p.theme.color.bgComponent3};
+	border-top: 1px solid ${p => p.theme.outlineDistinct};
 	text-align: center;
 `;
 

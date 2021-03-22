@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Spacing, Block } from '@/core/layout/common';
 import { tStyled } from '@/core/style/styled';
-import { Icon, iconTypes } from '@/core/symbol/icon';
-import { SmallText, Heading2, FontSize, Paragraph } from '@/core/symbol/text';
+import { IconSize, iconTypes, SizedIcon } from '@/core/symbol/icon';
+import { SmallText, Heading2, Paragraph } from '@/core/symbol/text';
 import { CONSTANT } from '@/services/constant';
 import { useWindowMediaLayout, FlexColumn } from '@messman/react-common';
 import { isInvalidLayout } from '@/services/layout/window-layout';
@@ -141,7 +141,7 @@ const InvalidCenter: React.FC<InvalidCenterProps> = (props) => {
 	return (
 		<InvalidCenterWrapper justifyContent='space-around' alignItems='center' onClick={onClick}>
 			<div>
-				<Icon type={iconTypes.alert} fillColor={c => c.error} height={FontSize.heading1} />
+				<RedSizedIcon type={iconTypes.alert} size={IconSize.b_large} />
 				<Block.Dog16 />
 				<Heading2>{firstMessage}</Heading2>
 				{otherMessagesText}
@@ -160,4 +160,8 @@ const InvalidCenterWrapper = tStyled(FlexColumn)`
 
 const TextCenterParagraph = tStyled(Paragraph)`
 	text-align: center;
+`;
+
+const RedSizedIcon = tStyled(SizedIcon)`
+	color: ${p => p.theme.system.error};
 `;

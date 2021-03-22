@@ -3,8 +3,8 @@ import * as React from 'react';
 import { Block, Spacing } from '../layout/common';
 import { borderRadiusStyle } from '../style/common';
 import { tStyled } from '../style/styled';
-import { Icon, SVGIconType } from '../symbol/icon';
-import { FontSize, Heading2, RegularText } from '../symbol/text';
+import { IconSize, SizedIcon, SVGIconType } from '../symbol/icon';
+import { Heading2, RegularText } from '../symbol/text';
 
 export interface CardProps {
 	title?: string | null;
@@ -50,10 +50,10 @@ export const CardContainer = tStyled(FlexColumn)`
 
 const Background = tStyled.div`
 	flex: 1;
-	box-shadow: 0 2px 4px 2px ${p => p.theme.color.bgComponentShadow1};
 	overflow: hidden;
-	background-color: ${p => p.theme.color.bgComponent1};
-	border: 1px solid ${p => p.theme.color.bgComponent3};
+	border: 1px solid ${p => p.theme.outlineDistinct};
+	background-color: ${p => p.theme.subtleFill.b1Card};
+	box-shadow: 0 2px 4px 2px ${p => p.theme.shadow.b1Card};
 	${borderRadiusStyle}
 `;
 
@@ -78,7 +78,7 @@ const Title: React.FC<TitleProps> = (props) => {
 	}
 
 	const iconRender = icon ? (
-		<Icon type={icon} height={FontSize.heading2} fillColor={c => c.textHeading2} />
+		<SizedIcon type={icon} size={IconSize.b_large} />
 	) : null;
 
 	return (

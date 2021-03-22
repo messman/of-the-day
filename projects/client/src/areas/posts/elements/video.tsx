@@ -111,7 +111,7 @@ const VideoTitle: React.FC<VideoTitleProps> = (props) => {
 };
 
 const SmallActionLink = tStyled(ActionLink)`
-	font-size: ${FontSize.textSmall};
+	font-size: ${FontSize.small};
 `;
 
 export interface YouTubeVideoFrameProps {

@@ -24,6 +24,6 @@ export const LowerMenuBar: React.FC<LowerMenuBarProps> = (props) => {
 
 const LowerMenuBarContainer = tStyled(FlexRow)`
 	position: relative;
-	background-color: ${p => p.theme.color.bg2};
-	border-top: 1px solid ${p => p.theme.color.bgComponent3};
+	background-color: ${p => p.theme.subtleFill.d3Nav};
+	border-top: 1px solid ${p => p.theme.outlineDistinct};
 `;

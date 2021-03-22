@@ -32,12 +32,12 @@ export const CardGroup: React.FC<CardGroupProps> = (props) => {
 
 const AutoAlternatingBackground = tStyled.div`
 	&:nth-child(even) {
-		background-color: ${p => p.theme.color.bg2};
+		background-color: ${p => p.theme.subtleFill.a0Background};
 	}
 `;
 
 const AlternateBackground = tStyled.div`
-	background-color: ${p => p.theme.color.bg2};
+	background-color: ${p => p.theme.subtleFill.a0Background};
 `;
 
 const UnchangedBackground = tStyled.div``;

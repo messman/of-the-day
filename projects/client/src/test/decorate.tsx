@@ -55,7 +55,7 @@ const InnerTestWrapper: React.FC = (props) => {
 
 	const themeOptions: { [key: string]: number; } = {};
 	themes.forEach((theme, index) => {
-		const name = `${theme.colorName} (${theme.isLightMode ? 'Light' : 'Dark'})`;
+		const name = `${theme.themeInfo.accentColor} (${theme.themeInfo.isLight ? 'Light' : 'Dark'})`;
 		themeOptions[name] = index;
 	});
 

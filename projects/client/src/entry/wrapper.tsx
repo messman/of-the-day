@@ -46,7 +46,7 @@ const InnerProviders: React.FC = (props) => {
 		<DocumentVisibilityProvider>
 			<ThemeProvider>
 				<OverlayPortalRoot>
-					<WindowMediaLayoutProvider lowerBreakpoints={lowerBreakpoints} breakpointUnit='px'>
+					<WindowMediaLayoutProvider lowerBreakpoints={lowerBreakpoints} breakpointUnit='rem'>
 						<FlexRoot flexDirection='column'>
 							<InvalidCheck error={null}>
 								<DataProvider>

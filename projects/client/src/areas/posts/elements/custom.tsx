@@ -96,7 +96,7 @@ export const Custom = createPostsElement<IPostCustom>((props) => {
 
 const HiddenArea = tStyled.div`
 	padding: ${Spacing.dog16};
-	background-color: ${p => p.theme.color.bgComponent2};
-	border: 1px solid ${p => p.theme.color.bgComponent3};
+	background-color: ${p => p.theme.subtleFill.b1Card};
+	border: 1px solid ${p => p.theme.outlineDistinct};
 	${borderRadiusStyle}
 `;

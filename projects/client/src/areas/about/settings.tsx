@@ -35,10 +35,10 @@ const themeOptions = themes.map<ThemeControlOption>((theme, i) => {
 const ThemeControl: React.FC = () => {
 
 	const darkThemes = themeOptions.filter((option) => {
-		return !option.theme.isLightMode;
+		return !option.theme.themeInfo.isLight;
 	});
 	const lightThemes = themeOptions.filter((option) => {
-		return option.theme.isLightMode;
+		return option.theme.themeInfo.isLight;
 	});
 
 	const [themeIndex, setThemeIndex] = useLocalStorageTheme();
@@ -95,7 +95,8 @@ const ThemeControlChoice: React.FC<ThemeControlChoiceProps> = (props) => {
 
 	const { onChooseTheme, ...otherProps } = props;
 	const { choiceTheme } = otherProps;
-	const choiceName = `${choiceTheme.colorName}, ${choiceTheme.isLightMode ? 'Light' : 'Dark'}`;
+	const { accentColor, isLight } = choiceTheme.themeInfo;
+	const choiceName = `${accentColor}, ${isLight ? 'Light' : 'Dark'}`;
 
 	return (
 		<ThemeControlChosenSquare onClick={onChooseTheme} title={choiceName} {...otherProps}>
@@ -112,7 +113,7 @@ interface ThemeControlChoicePieceProps extends Omit<ThemeControlChoiceProps, 'on
 const ThemeControlChosenSquare = tStyled.div<ThemeControlChoicePieceProps>`
 	flex: none;
 	padding: ${Spacing.bat08};
-	background-color: ${p => p.isChosen ? p.theme.color.settingsSelection : p.theme.color.bgComponent3};
+	background-color: ${p => p.isChosen ? p.theme.system.selection : p.theme.outlineDistinct};
 	${borderRadiusStyle}
 
 	cursor: pointer;
@@ -124,8 +125,8 @@ const ThemeControlChosenSquare = tStyled.div<ThemeControlChoicePieceProps>`
 
 const ThemeControlBackgroundSquare = tStyled.div<ThemeControlChoicePieceProps>`
 	padding: ${Spacing.dog16};
-	background-color: ${p => p.choiceTheme.color.bg1};
-	box-shadow: 0 2px 8px 0 ${p => p.theme.color.bgComponentShadow1};
+	background-color: ${p => p.choiceTheme.bg};
+	box-shadow: ${p => p.theme.subtleFill.c2Button};
 	${borderRadiusStyle}
 `;
 
@@ -133,5 +134,5 @@ const ThemeControlAccentCircle = tStyled.div<ThemeControlChoicePieceProps>`
 	width: ${Spacing.fan32};
 	height: ${Spacing.fan32};
 	border-radius: 50%;
-	background: ${p => p.choiceTheme.color.accentGradient};
+	background: ${p => p.choiceTheme.accent.eGradient};
 `;

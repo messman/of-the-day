@@ -50,12 +50,11 @@ export const Header: React.FC = () => {
 
 const TextCenter = tStyled.div`
 	text-align: center;
-	margin: 
 `;
 
 const TextSubtitleOnAccent = tStyled(RegularText)`
 	text-align: center;
-	color: ${p => p.theme.color.textDistinctOnAccent};
+	color: ${p => p.theme.textDistinct};
 `;
 
 interface HeaderBoldTextProps {
@@ -67,8 +66,8 @@ const HeaderBoldText = tStyled.div<HeaderBoldTextProps>`
 	padding: 0;
 	line-height: ${p => p.dataFontSize};
 	font-size: ${p => p.dataFontSize};
-	font-weight: ${FontWeight.extraBold};
-	color: ${p => p.theme.color.textDistinctOnAccent};
+	font-weight: ${FontWeight.bold};
+	color: ${p => p.theme.textDistinct};
 `;
 
 const Parent = tStyled(FlexRow)`
@@ -76,7 +75,7 @@ const Parent = tStyled(FlexRow)`
 	overflow: hidden;
 	flex: none;
 	min-height: 70vh;
-	background: ${p => p.theme.color.accentGradient};
+	background: ${p => p.theme.accent.eGradient};
 `;
 
 const headerImageDataUrl = require('@/static/images/header-background.png').default as string;
@@ -100,5 +99,5 @@ const HeaderShadow = tStyled.div`
 	left: -5rem;
 	right: -5rem;
 	bottom: 0;
-	box-shadow: inset 0 0 8px 0 ${p => p.theme.color.accentGradientFillShadow};
+	box-shadow: inset 0 0 8px 0 ${p => p.theme.shadowBase};
 `;

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useTransition, animated } from 'react-spring';
 import { tStyled } from '@/core/style/styled';
-import { Icon, iconTypes, SVGIconType } from '@/core/symbol/icon';
+import { iconTypes, SizedIcon, SVGIconType } from '@/core/symbol/icon';
 import { FontWeight } from '@/core/style/theme';
 import { Spacing } from '@/core/layout/common';
 import { borderRadiusStyle } from '@/core/style/common';
@@ -151,8 +151,8 @@ interface HeightContainerProps {
 const TextContainer = tStyled.div<HeightContainerProps>`
 	line-height: ${p => p.dataHeight};
 	font-size: ${p => p.dataHeight};
-	font-weight: ${FontWeight.extraBold};
-	color: ${p => p.theme.color.textDistinctOnAccent};
+	font-weight: ${FontWeight.bold};
+	color: ${p => p.theme.textDistinct};
 `;
 
 const TextHeightContainer = tStyled.div<HeightContainerProps>`
@@ -184,7 +184,7 @@ export const HeaderIconAnimation: React.FC<HeaderIconAnimationProps> = (props) =
 		const { item, key, props } = transition;
 
 		const iconRender = item ? (
-			<Icon type={item} height='100%' fillColor={c => c.textDistinctOnAccent} />
+			<SizedIcon type={item} size='100%' />
 		) : null;
 
 		return (
@@ -232,8 +232,8 @@ const IconBackground = tStyled.div<IconBackgroundProps>`
 	width: 100%;
 	height: 100%;
 	${borderRadiusStyle}
-	background-color: ${p => p.theme.color.accentGradientFill};
-	box-shadow: 0 0 6px 1px ${p => p.theme.color.accentGradientFillShadow};
+	background-color: ${p => p.theme.accent.aMain};
+	box-shadow: 0 0 6px 1px ${p => p.theme.shadow.e4Hover};
 `;
 
 interface IconHeightContainerProps {

@@ -1,102 +1,134 @@
-import { tStyled } from '@/core/style/styled';
+import * as React from 'react';
+import { ThemedCSS, tStyled } from '@/core/style/styled';
 import { FontWeight } from '../style/theme';
-import { Spacing } from '../layout/common';
 import { lineBreakpoint } from '@/services/layout/window-layout';
 import { css } from 'styled-components';
-
-// EM value may be font-specific!
-const baseTextStyle = css`
-	margin: 0;
-	padding: 0;
-
-	svg {
-		margin-top: .1em;
-	}
-`;
 
 // Defaults for headings: 2, 1.5, 1.17, 1, ....
 export enum FontSize {
 	heading1 = '2rem',
 	heading2 = '1.5rem',
 	heading3 = '1.25rem',
-	textRegular = '1rem',
-	textSmall = '.875rem'
+	lead = '1rem',
+	regular = '1rem',
+	small = '.875rem'
 }
 
-export const Heading1 = tStyled.h1`
-	${baseTextStyle};
-	font-size: ${FontSize.heading1};
-	font-weight: ${FontWeight.bold};
-	color: ${p => p.theme.color.textHeading1};
+export const fontDeclarations: Record<keyof typeof FontSize, ThemedCSS> = {
+	heading1: css`
+		font-size: ${FontSize.heading1};
+		line-height: ${FontSize.heading1};
+		font-weight: ${FontWeight.bold};
+	`,
+	heading2: css`
+		font-size: ${FontSize.heading2};
+		line-height: ${FontSize.heading2};
+		font-weight: ${FontWeight.bold};
+	`,
+	heading3: css`
+		font-size: ${FontSize.heading3};
+		line-height: ${FontSize.heading3};
+		font-weight: ${FontWeight.bold};
+	`,
+	lead: css`
+		font-size: ${FontSize.lead};
+		line-height: ${FontSize.lead};
+		font-weight: ${FontWeight.bold};
+	`,
+	regular: css`
+		font-size: ${FontSize.regular};
+		line-height: ${FontSize.regular};
+		font-weight: ${FontWeight.regular};
+	`,
+	small: css`
+		font-size: ${FontSize.small};
+		line-height: ${FontSize.small};
+		font-weight: ${FontWeight.regular};
+	`,
+};
+
+export const lineHeights = {
+	body: css`
+		line-height: '1.5rem';
+	`,
+};
+
+export const Heading1 = tStyled.div`
+	${fontDeclarations.heading1};
 `;
 
-export const Heading2 = tStyled.h2`
-	${baseTextStyle};
-	font-size: ${FontSize.heading2};
-	font-weight: ${FontWeight.bold};
+export const Heading2 = tStyled.div`
+	${fontDeclarations.heading2};
 `;
 
-export const Heading3 = tStyled.h3`
-	${baseTextStyle};
-	font-size: ${FontSize.heading3};
-	font-weight: ${FontWeight.bold};
+export const Heading3 = tStyled.div`
+	${fontDeclarations.heading3};
+`;
+
+export const LeadText = tStyled.strong`
+	${fontDeclarations.lead};
 `;
 
 export const RegularText = tStyled.div`
-	${baseTextStyle};
-	font-size: ${FontSize.textRegular};
-	font-weight: ${FontWeight.medium};
+	${fontDeclarations.regular};
+	color: ${p => p.theme.textSubtle};
 `;
 
 export const SmallText = tStyled.div`
-	${baseTextStyle};
-	font-size: ${FontSize.textSmall};
-	font-weight: ${FontWeight.medium};
+	${fontDeclarations.small};
+	color: ${p => p.theme.textSubtle};
 `;
 
-export interface InlineWeightProps {
-	fontWeight: FontWeight;
-}
+export const BodyText = tStyled.div`
+	${fontDeclarations.regular};
+	${lineHeights.body};
+	color: ${p => p.theme.textSubtle};
+`;
 
 export const InlineItalic = tStyled.span`
 	display: inline;
 	font-style: italic;
 `;
 
-const InlineMedium = tStyled.span`
-	display: inline;
-	font-weight: ${FontWeight.medium};
-`;
-
-const InlineBold = tStyled.span`
-	display: inline;
-	font-weight: ${FontWeight.bold};
-`;
-
-const InlineExtraBold = tStyled.span`
-	display: inline;
-	font-weight: ${FontWeight.extraBold};
-`;
-
 export const InlineWeight = {
-	Medium: InlineMedium,
-	Bold: InlineBold,
-	ExtraBold: InlineExtraBold
+	Medium: tStyled.span`
+		display: inline;
+		font-weight: ${FontWeight.regular};
+	`,
+	Bold: tStyled.span`
+		display: inline;
+		font-weight: ${FontWeight.medium};
+	`,
+	ExtraBold: tStyled.span`
+		display: inline;
+		font-weight: ${FontWeight.bold};
+	`
 };
 
 /*
 	Versions of the text components above, with default margins.
 */
 
-export const Title = tStyled(Heading1)`
-	margin-top: ${Spacing.guy40};
+export const Title = tStyled.h1`
 `;
 
-export const Subtitle = tStyled(Heading2)`
-	margin-top: ${Spacing.elf24};
+export const Subtitle = tStyled.h2`
+	
 `;
 
-export const Paragraph = tStyled(RegularText)`
-	margin: ${Spacing.dog16};
+export const Paragraph = tStyled.p`
 	max-width: ${lineBreakpoint};
 `;
+
+export const ParagraphCenterContainer = tStyled.div`
+	margin: 0 auto;
+	text-align: center;
+`;
+
+export const ParagraphCenter: React.FC = (props) => {
+	return (
+		<ParagraphCenterContainer>
+			<Paragraph>{props.children}</Paragraph>
+		</ParagraphCenterContainer>
+	);
+};

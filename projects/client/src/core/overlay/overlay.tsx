@@ -85,7 +85,7 @@ export const OverlayBox: React.FC<OverlayBoxProps> = (props) => {
 
 const OverlayTitleContainer = tStyled.div`
 	padding: ${Spacing.dog16};
-	border-bottom: 1px solid ${p => p.theme.color.bgComponent3};
+	border-bottom: 1px solid ${p => p.theme.outlineDistinct};
 `;
 
 const OverlayBackdrop = tStyled(animated.div)`
@@ -94,7 +94,7 @@ const OverlayBackdrop = tStyled(animated.div)`
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background-color: ${p => p.theme.color.bg1};
+	background-color: ${p => p.theme.bg};
 `;
 
 const OverlayComponentContainer = tStyled(animated.div)`
@@ -118,10 +118,10 @@ const BoxContainer = tStyled(FlexColumn) <BoxContainerProps>`
 	${p => p.isMaxWidth ? 'width: 100%;' : ''}
 	max-width: ${LayoutBreakpointRem.d40}rem;
 	max-height: min(80vh, ${LayoutBreakpointRem.e50}rem);
-	background-color: ${p => p.theme.color.bg2};
 	${borderRadiusStyle};
-	box-shadow: 0 2px 3px 1px ${p => p.theme.color.bgComponentShadow1};
-	border: 1px solid ${p => p.theme.color.bgComponent3};
+	background-color: ${p => p.theme.subtleFill.g6Overlay};
+	box-shadow: ${p => p.theme.shadow.g6Overlay};
+	border: 1px solid ${p => p.theme.outlineDistinct};
 	overflow: hidden;
 `;
 

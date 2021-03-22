@@ -1,8 +1,5 @@
 import * as React from 'react';
 import { tStyled, StyledFC } from '@/core/style/styled';
-import { ThemePickColor } from '../style/theme';
-import { css } from 'styled-components';
-import { FontSize } from './text';
 
 export type SVGIconType = React.FC<React.SVGAttributes<SVGElement>>;
 
@@ -40,12 +37,6 @@ export const iconTypes = {
 
 export interface IconProps {
 	type: SVGIconType;
-	/** If set, overrides the default text icon color for icons that allow it. */
-	defaultColor?: ThemePickColor;
-	/** If set, overrides all colors in the icon. */
-	fillColor?: ThemePickColor;
-	width?: string;
-	height?: string;
 }
 
 export const Icon: StyledFC<IconProps> = (props) => {
@@ -58,39 +49,33 @@ export const Icon: StyledFC<IconProps> = (props) => {
 		So in summary: Fill will override all the colors coming from Sketch; color will just set the one color we want to change.
 	*/
 
-	const { className, type, defaultColor, fillColor, width, height } = props;
-
-	const SVGIcon = type;
-
-	// Note - Safari SVG does not accept 'rem' width/height - so use percent and scale using wrapper.
-	const setValue = !!width ? 'width' : 'height';
-	const iconProp = { [setValue]: '100%' };
+	const { className, type } = props;
+	const IconComponent = type;
 
 	return (
-		<SVGWrapper className={className} svgColor={defaultColor} svgFill={fillColor} wrapperWidth={width} wrapperHeight={height}>
-			<SVGIcon {...iconProp} />
-		</SVGWrapper>
+		<IconComponent className={className} />
 	);
 };
 
-interface SVGWrapperProps {
-	wrapperWidth?: string;
-	wrapperHeight?: string;
-	svgColor?: ThemePickColor;
-	svgFill?: ThemePickColor;
+export enum IconSize {
+	a_medium = '1.5rem',
+	b_large = '2rem'
 }
 
-const SVGWrapper = tStyled.span<SVGWrapperProps>`
-	display: inline-block;
-	width: ${p => p.wrapperWidth || 'unset'};
-	height: ${p => p.wrapperHeight || 'unset'}; 
+export interface SizedIconProps extends IconProps {
+	size: string;
+}
 
-	svg, svg path {
-		color: ${p => (p.svgColor ? p.svgColor!(p.theme.color) : 'currentColor')};
-		${p => !!p.svgFill && css({
-	fill: p.svgFill!(p.theme.color)
-})}
-	}
+/*
+	Possibly out-of-date note:
+	Apparently at some point in 2019/2020 there was an issue
+	where Safari could not take 'rem' units for svg.
+	In that case, you'd need to use a span wrapper element and 100% 
+	width or height on the SVG.
+*/
+export const SizedIcon = tStyled(Icon) <SizedIconProps>`
+	width: ${p => p.size};
+	height: ${p => p.size};
 `;
 
 export interface ClickableIconProps {
@@ -109,16 +94,17 @@ export const ClickableIcon: React.FC<ClickableIconProps> = (props) => {
 	}
 
 	return (
-		<InnerClickableIcon onClick={onIconClick} isDisabled={isDisabled} >
-			<Icon type={type} height={FontSize.heading2} fillColor={c => isDisabled ? c.textDisabled : c.textAccentOnBackground} />
-		</InnerClickableIcon>
+		<ClickableIconContainer onClick={onIconClick} isDisabled={isDisabled} >
+			<SizedIcon type={type} size={IconSize.a_medium} />
+		</ClickableIconContainer>
 	);
 };
 
-interface InnerClickableIconProps {
+interface ClickableIconContainerProps {
 	isDisabled: boolean;
 }
 
-const InnerClickableIcon = tStyled.span<InnerClickableIconProps>`
+const ClickableIconContainer = tStyled.span<ClickableIconContainerProps>`
 	cursor: ${p => p.isDisabled ? 'not-allowed' : 'pointer'};
+	color: ${p => p.isDisabled ? p.theme.textDisabled : p.theme.accent.aMain};
 `;

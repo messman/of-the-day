@@ -1,22 +1,23 @@
 // Handles links.
 import * as React from 'react';
 import { tStyled } from '@/core/style/styled';
-import { iconTypes, Icon } from './symbol/icon';
-import { FontSize } from './symbol/text';
+import { iconTypes, SizedIcon } from './symbol/icon';
+import { fontDeclarations } from './symbol/text';
+import { FontWeight } from './style/theme';
 
 const BasicLink = tStyled.a`
-	margin: 0;
+	${fontDeclarations.regular}
+	font-weight: ${FontWeight.medium}
 
+	margin: 0;
 	display: inline-block;
 	cursor: pointer;
 
-	font-size: ${FontSize.textRegular};
-
-	color: ${p => p.theme.color.textLink};
+	color: ${p => p.theme.textLink};
 	text-decoration: none;
 
 	&:visited, &:active, &:link, &:hover {
-		color: ${p => p.theme.color.textLink};
+		color: ${p => p.theme.textLink};
 		text-decoration: none;
 	}
 `;
@@ -39,7 +40,7 @@ export const OutLink: React.FC<LinkProps> = (props) => {
 			<Underline>
 				{text}
 			</Underline>
-			<Icon type={iconTypes.out} fillColor={c => c.textLink} height='.7rem' />
+			<SizedIcon type={iconTypes.out} size='.7rem' />
 		</BasicLink>
 	);
 };

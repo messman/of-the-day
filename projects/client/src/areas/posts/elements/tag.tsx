@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { tStyled } from '@/core/style/styled';
 import { borderRadiusStyle } from '@/core/style/common';
-import { FontSize, SmallText } from '@/core/symbol/text';
+import { SmallText } from '@/core/symbol/text';
 import { Spacing } from '@/core/layout/common';
 import { FontWeight, useCurrentTheme } from '@/core/style/theme';
 import { createTagProps } from './tag-definitions';
-import { Icon, SVGIconType } from '@/core/symbol/icon';
+import { IconSize, SizedIcon, SVGIconType } from '@/core/symbol/icon';
 import { FlexRow } from '@messman/react-common';
 
 export interface TagProps {
@@ -19,34 +19,30 @@ export const Tag: React.FC<TagProps> = (props) => {
 	const { value, backgroundColor, foregroundColor, icon } = props;
 
 	const iconRender = icon ? (
-		<PaddedIcon type={icon} height={FontSize.textSmall} fillColor={() => foregroundColor} />
+		<PaddedIcon type={icon} size={IconSize.a_medium} />
 	) : null;
 
 	return (
-		<TagContainer backgroundColor={backgroundColor}>
+		<TagContainer foregroundColor={foregroundColor} backgroundColor={backgroundColor}>
 			<FlexRow alignItems='center'>
 				{iconRender}
-				<TagText foregroundColor={foregroundColor}>{value}</TagText>
+				<TagText>{value}</TagText>
 			</FlexRow>
 		</TagContainer>
 	);
 };
 
-interface TagTextProps {
-	foregroundColor: string;
-}
-
-const TagText = tStyled(SmallText) <TagTextProps>`
-	font-weight: ${FontWeight.bold};
-	color: ${p => p.foregroundColor};
+const TagText = tStyled(SmallText)`
+	font-weight: ${FontWeight.medium};
 `;
 
-const PaddedIcon = tStyled(Icon)`
+const PaddedIcon = tStyled(SizedIcon)`
 	margin-right: ${Spacing.ant04};
 `;
 
 interface TagContainerProps {
 	backgroundColor: string;
+	foregroundColor: string;
 }
 
 const TagContainer = tStyled.div<TagContainerProps>`
@@ -58,6 +54,7 @@ const TagContainer = tStyled.div<TagContainerProps>`
 	white-space: nowrap;
 	border: none;
 	background-color: ${p => p.backgroundColor};
+	background-color: ${p => p.foregroundColor};
 
 	&:last-child {
 		margin-right: 0;

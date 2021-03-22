@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { iconTypes, Icon } from '@/core/symbol/icon';
+import { iconTypes, SizedIcon } from '@/core/symbol/icon';
 import { FontSize, RegularText } from '@/core/symbol/text';
 import { Spacing } from '@/core/layout/common';
 import { borderRadiusStyle } from '@/core/style/common';
@@ -23,13 +23,13 @@ export const QuotePiece: React.FC<QuotePieceProps> = (props) => {
 
 	return (
 		<QuoteBackground>
-			<TopLeftAbsoluteIcon type={iconTypes.quotationOpen} height={iconHeight} fillColor={c => c.textAccentOnBackground} />
+			<TopLeftAbsoluteIcon type={iconTypes.quotationOpen} size={iconHeight} />
 			<LineMaxWidthCenter>
 				<Align>
 					<MultilineQuoteText text={text} />
 				</Align>
 			</LineMaxWidthCenter>
-			<BottomRightAbsoluteIcon type={iconTypes.quotationClose} height={iconHeight} fillColor={c => c.textAccentOnBackground} />
+			<BottomRightAbsoluteIcon type={iconTypes.quotationClose} size={iconHeight} />
 		</QuoteBackground>
 	);
 };
@@ -46,8 +46,8 @@ export interface QuoteBackgroundProps {
 }
 
 const QuoteBackground = tStyled.div<QuoteBackgroundProps>`
-	background-color: ${p => p.theme.color.bgComponent2};
-	border: 1px solid ${p => p.theme.color.bgComponent3};
+	background-color: ${p => p.theme.subtleFill.b1Card};
+	border: 1px solid ${p => p.theme.outlineDistinct};
 	padding: ${Spacing.dog16};
 	position: relative;
 	${borderRadiusStyle}
@@ -58,16 +58,18 @@ const LineMaxWidthCenter = tStyled.div`
 	margin: 0 ${Spacing.dog16};
 `;
 
-const TopLeftAbsoluteIcon = tStyled(Icon)`
+const TopLeftAbsoluteIcon = tStyled(SizedIcon)`
 	position: absolute;
-	top: calc(-${p => p.height} / 3);
-	left: calc(-${p => p.height} / 4);
+	top: calc(-${p => p.size} / 3);
+	left: calc(-${p => p.size} / 4);
+	color: ${p => p.theme.accent.aMain};
 `;
 
-const BottomRightAbsoluteIcon = tStyled(Icon)`
+const BottomRightAbsoluteIcon = tStyled(SizedIcon)`
 	position: absolute;
-	bottom: calc(-${p => p.height} / 3);
-	right: calc(-${p => p.height} / 4);
+	bottom: calc(-${p => p.size} / 3);
+	right: calc(-${p => p.size} / 4);
+	color: ${p => p.theme.accent.aMain};
 `;
 
 const multilineQuoteTextSeparator = '/';
