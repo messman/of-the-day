@@ -1,7 +1,5 @@
 import { EmptySpaceHack } from '@/core/style/common';
-import { tStyled } from '@/core/style/styled';
 import { useArchiveResponseContext } from '@/services/data/data-context';
-import { LayoutBreakpointRem } from '@/services/layout/window-layout';
 import { IArchiveFilter } from 'oftheday-shared';
 import * as React from 'react';
 import { elementScrollIntoView } from 'seamless-scroll-polyfill';
@@ -70,7 +68,7 @@ export const Archive: React.FC<ArchiveProps> = (props) => {
 	}
 
 	return (
-		<ArchiveContainer>
+		<>
 			<EmptySpaceHack ref={elementIntersectRef} height={offsetPixels} />
 			{render}
 			<FilterOverlay
@@ -80,11 +78,6 @@ export const Archive: React.FC<ArchiveProps> = (props) => {
 				filter={filter}
 				isShowingPresetsInitially={false}
 			/>
-		</ArchiveContainer>
+		</>
 	);
 };
-
-const ArchiveContainer = tStyled.div`
-	max-width: ${LayoutBreakpointRem.d40}px;
-	margin: auto;
-`;

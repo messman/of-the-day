@@ -68,9 +68,9 @@ const regularButtonStyle = tCss`
 
 const selectedButtonStyle = tCss`
 	cursor: pointer;
-	color: ${p => p.theme.accent.aMain};
+	color: ${p => p.theme.accent.cLight};
 	background: ${p => p.theme.subtleFill.c2Button};
-	border-color: ${p => p.theme.accent.aMain};
+	border-color: ${p => p.theme.accent.cLight};
 `;
 
 const disabledButtonStyle = tCss`
@@ -97,6 +97,7 @@ const InnerButton = tStyled.button<InnerButtonProps>`
 	${borderRadiusStyle}
 	padding: ${Spacing.dog16} ${Spacing.elf24};
 	border: 1px solid transparent;
+	box-shadow: ${p => p.theme.shadow.c2Button};
 
 	${p => p.$isDisabled ? disabledButtonStyle : (p.$isSpecial ? specialButtonStyle : (p.$isSelected ? selectedButtonStyle : regularButtonStyle))}
 `;

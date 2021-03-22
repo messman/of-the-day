@@ -76,6 +76,7 @@ export interface SizedIconProps extends IconProps {
 export const SizedIcon = tStyled(Icon) <SizedIconProps>`
 	width: ${p => p.size};
 	height: ${p => p.size};
+	flex-shrink: 0;
 `;
 
 export interface ClickableIconProps {

@@ -233,7 +233,7 @@ const IconBackground = tStyled.div<IconBackgroundProps>`
 	height: 100%;
 	${borderRadiusStyle}
 	background-color: ${p => p.theme.accent.aMain};
-	box-shadow: 0 0 6px 1px ${p => p.theme.shadow.e4Hover};
+	border: 1px solid ${p => p.theme.accent.bDark};
 `;
 
 interface IconHeightContainerProps {

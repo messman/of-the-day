@@ -4,7 +4,7 @@ import { borderRadiusStyle } from '@/core/style/common';
 import { tStyled } from '@/core/style/styled';
 import { Theme, themes, useLocalStorageTheme } from '@/core/style/theme';
 import { iconTypes } from '@/core/symbol/icon';
-import { Heading3 } from '@/core/symbol/text';
+import { LeadText } from '@/core/symbol/text';
 import { FlexRow } from '@messman/react-common';
 import * as React from 'react';
 
@@ -12,7 +12,7 @@ export const Settings: React.FC = () => {
 	return (
 		<Card title='Settings' icon={iconTypes.gear}>
 			<CardPadding>
-				<Heading3>Theme</Heading3>
+				<LeadText>Theme</LeadText>
 				<Block.Dog16 />
 				<ThemeControl />
 			</CardPadding>

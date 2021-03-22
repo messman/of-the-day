@@ -1,12 +1,5 @@
-import { tStyled } from '../style/styled';
-import { lineBreakpoint } from '@/services/layout/window-layout';
-
-export const LineMaxWidthCenter = tStyled.div`
-	max-width: ${lineBreakpoint};
-	margin-left: auto;
-	margin-right: auto;
-	text-align: center;
-`;
+import { LayoutBreakpointRem } from '@/services/layout/window-layout';
+import { tCss, tStyled } from '../style/styled';
 
 // /** For separation of lines of text. .1875rem */
 // nudge: createSpacing('.1875rem'),
@@ -128,3 +121,14 @@ export const Block = {
 	Hut56: createBlock(Spacing.hut56),
 	Inn64: createBlock(Spacing.inn64),
 };
+
+export const contentMaxWidth = LayoutBreakpointRem.d40;
+export const contentMaxWidthValue = `${LayoutBreakpointRem.d40}rem`;
+export const contentMaxWidthStyle = tCss`
+	max-width: ${contentMaxWidthValue};
+	margin: 0 auto;
+	padding: 0 ${Spacing.dog16};
+`;
+export const SimpleContentMaxWidth = tStyled.div`
+	${contentMaxWidthStyle}
+`;

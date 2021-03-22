@@ -1,7 +1,6 @@
 import { Spacing } from '@/core/layout/common';
 import { borderRadiusStyle, formTransitionStyle, HighlightBar } from '@/core/style/common';
 import { StyledFCProps, tStyled } from '@/core/style/styled';
-import { FontWeight } from '@/core/style/theme';
 import { fontDeclarations, FontSize } from '@/core/symbol/text';
 import { FlexRow } from '@messman/react-common';
 import * as React from 'react';
@@ -41,8 +40,9 @@ const InlineRegularText = tStyled.div`
 const CheckboxLabel = tStyled.label`
 	display: block;
 	position: relative;
-	border: 1px solid ${p => p.theme.outlineDistinct};
 	background-color: ${p => p.theme.subtleFill.c2Button};
+	border: 1px solid ${p => p.theme.outlineDistinct};
+	box-shadow: ${p => p.theme.shadow.c2Button};
 	${borderRadiusStyle}
 	padding: ${Spacing.bat08};
 	cursor: pointer;
@@ -131,7 +131,7 @@ const SelectContainer = tStyled.div`
 	width: 100%;
 	position: relative;
 	border: 1px solid ${p => p.theme.outlineDistinct};
-	background-color: ${p => p.theme.subtleFill.f5Picker};
+	box-shadow: ${p => p.theme.shadow.c2Button};
 	${borderRadiusStyle}
 	user-select: none;
 `;
@@ -145,15 +145,13 @@ const regularTextOptionSpacing = `${Spacing.dog16} ${Spacing.elf24}`;
 
 const OpenOption = tStyled.div<OpenOptionProps>`
 	${fontDeclarations.regular}
-	text-align: center;
-	background-color: transparent;
+	background-color: ${p => p.$isSelected ? p.theme.subtleFill.e4Hover : p.theme.subtleFill.c2Button};
 	padding: ${regularTextOptionSpacing};
 
 	cursor: ${p => (p.$isSelected || p.$isDisabled) ? 'not-allowed' : 'pointer'};
-	color: ${p => p.$isSelected ? p.theme.accent.aMain : (p.$isDisabled ? p.theme.textDisabled : p.theme.textDistinct)};
-	font-weight: ${p => p.$isSelected ? FontWeight.medium : FontWeight.regular};
+	color: ${p => p.$isSelected ? p.theme.textDistinct : (p.$isDisabled ? p.theme.textDisabled : p.theme.textDistinct)};
 
 	& + & {
-		border-top: 1px solid ${p => p.theme.outlineDistinct};
+		border-top: 1px solid ${p => p.theme.outlineSubtle};
 	}
 `;

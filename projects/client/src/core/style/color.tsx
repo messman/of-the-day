@@ -22,6 +22,9 @@ export interface ColorSet {
 	d3Lighter: string;
 	/* 5/5: Lightest version of the color set. */
 	e4Lightest: string;
+
+	outlineDistinct: string;
+	outlineSubtle: string;
 }
 
 export interface ColorElevationSet {
@@ -94,7 +97,7 @@ export const colors: Colors = {
 		},
 		yellow: {
 			aMain: '#FFCD67',
-			bDark: '#D2A4A1',
+			bDark: '#CD9240',
 			cLight: '#FFD885',
 			dSubtle: '#FFEBC0',
 			eGradient: 'linear-gradient(-45deg, #CD9240 0%, #F5B83D 38%, #F5B83D 65%, #F8CF7C 100%)'
@@ -113,13 +116,17 @@ export const colors: Colors = {
 		c2Middle: '#F3F3F4',
 		d3Lighter: '#F9F9F9',
 		e4Lightest: '#FFFFFF',
+		outlineDistinct: '#D3D4D9',
+		outlineSubtle: '#E6E6E9'
 	},
 	dark: {
-		a0Darkest: '#202024',
-		b1Darker: '#26262B',
-		c2Middle: '#2F2F36',
-		d3Lighter: '#5D5D68',
-		e4Lightest: '#9495A0',
+		a0Darkest: '#1B1B1D',
+		b1Darker: '#29292E',
+		c2Middle: '#29292E',
+		d3Lighter: '#5D5D65',
+		e4Lightest: '#9898A0',
+		outlineDistinct: '#46464E',
+		outlineSubtle: '#3A3A41'
 	},
 	system: {
 		light: {
@@ -163,14 +170,14 @@ export const colors: Colors = {
 		},
 		lightShadowBase: 'rgba(40,41,61,0.04)',
 		darkFill: {
-			a0Background: '#2E2E38',
-			b1Card: '#30303B',
-			c2Button: '#33333E',
-			d3Nav: '#353540',
-			e4Hover: '#373743',
-			f5Picker: '#3A3A46',
-			g6Overlay: '#3C3C49',
-			inset: '#2A2B37',
+			a0Background: '#29292E',
+			b1Card: '#29292E',
+			c2Button: '#2B2B31',
+			d3Nav: '#2B2B31',
+			e4Hover: '#2E2E33',
+			f5Picker: '#2E2E33',
+			g6Overlay: '#303036',
+			inset: '#26262C',
 		},
 		darkShadow: {
 			a0Background: 'none',

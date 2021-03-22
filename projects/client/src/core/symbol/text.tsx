@@ -49,7 +49,7 @@ export const fontDeclarations: Record<keyof typeof FontSize, ThemedCSS> = {
 
 export const lineHeights = {
 	body: css`
-		line-height: '1.5rem';
+		line-height: 1.5rem;
 	`,
 };
 
@@ -117,6 +117,9 @@ export const Subtitle = tStyled.h2`
 `;
 
 export const Paragraph = tStyled.p`
+	${fontDeclarations.regular};
+	${lineHeights.body};
+	color: ${p => p.theme.textSubtle};
 	max-width: ${lineBreakpoint};
 `;
 

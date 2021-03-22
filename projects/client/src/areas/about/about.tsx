@@ -1,10 +1,9 @@
-import { Spacing } from '@/core/layout/common';
+import { contentMaxWidthStyle, Spacing } from '@/core/layout/common';
 import { OutLink } from '@/core/link';
 import { tStyled } from '@/core/style/styled';
 import { iconTypes, SizedIcon } from '@/core/symbol/icon';
 import { Title, Subtitle, Paragraph } from '@/core/symbol/text';
 import { useMeta } from '@/services/data/data-context';
-import { LayoutBreakpointRem } from '@/services/layout/window-layout';
 import * as React from 'react';
 import { Settings } from './settings';
 
@@ -138,9 +137,7 @@ export const About: React.FC<AboutProps> = () => {
 };
 
 const AboutContainer = tStyled.div`
-	max-width: ${LayoutBreakpointRem.e50}rem;
-	padding: ${Spacing.dog16};
-	margin: auto;
+	${contentMaxWidthStyle}
 `;
 
 const IconContainer = tStyled.div`

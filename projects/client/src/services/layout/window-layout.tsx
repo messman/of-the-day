@@ -19,7 +19,7 @@ export enum LayoutBreakpointRem {
 	h80Max = 80,
 }
 /** Maximum line length that we accept for paragraphs of text, in rem. */
-export const lineBreakpoint = '32rem';
+export const lineBreakpoint = '40rem';
 
 export const lowerBreakpoints: number[] = [
 	LayoutBreakpointRem.a0,

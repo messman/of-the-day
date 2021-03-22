@@ -1,8 +1,8 @@
 import { Button } from '@/core/form/button/button';
-import { Spacing, Block } from '@/core/layout/common';
+import { contentMaxWidthStyle } from '@/core/layout/common';
 import { OutLink } from '@/core/link';
 import { tStyled } from '@/core/style/styled';
-import { Heading1, Paragraph, RegularText } from '@/core/symbol/text';
+import { Title, Paragraph, ParagraphCenter } from '@/core/symbol/text';
 import { useMeta } from '@/services/data/data-context';
 import { LayoutBreakpointRem } from '@/services/layout/window-layout';
 import { IArchiveFilter } from 'oftheday-shared';
@@ -27,51 +27,40 @@ export const ArchiveInitial: React.FC<ArchiveInitialProps> = (props) => {
 	if (meta && (meta.spotifyLink || meta.youTubeLink)) {
 
 		const spotifyLinkRender = meta.spotifyLink ? (
-			<>
-				<Block.Dog16 />
-				<RegularText>
-					See the <OutLink href={meta.spotifyLink}>Spotify Playlist</OutLink>
-				</RegularText>
-			</>
+			<ParagraphCenter>
+				See the <OutLink href={meta.spotifyLink}>Spotify Playlist</OutLink>
+			</ParagraphCenter>
 		) : null;
 
 		const youTubeLinkRender = meta.youTubeLink ? (
-			<>
-				<Block.Dog16 />
-				<RegularText>
-					See the <OutLink href={meta.youTubeLink}>YouTube Playlist</OutLink>
-				</RegularText>
-			</>
+			<ParagraphCenter>
+				See the <OutLink href={meta.youTubeLink}>YouTube Playlist</OutLink>
+			</ParagraphCenter>
 		) : null;
 
 		metaPlaylistRender = (
-			<TextCenter>
-				<RegularText>Or</RegularText>
-				<Block.Dog16 />
+			<>
+				<ParagraphCenter>Or</ParagraphCenter>
 				{spotifyLinkRender}
 				{youTubeLinkRender}
-			</TextCenter>
+			</>
 		);
 	}
 
 	return (
 		<ArchiveInitialContainer>
-			<Heading1>Archive</Heading1>
+			<Title>Archive</Title>
 			<Paragraph>
 				Choose a preset below or create a filter.
 			</Paragraph>
 			<Paragraph>
-				Notes, schedules, locations, and end-of-day thoughts are not accessible in the archive.
+				Certain content (such as notes, schedules, locations, and thoughts) is not accessible in the archive.
 			</Paragraph>
 			<ButtonsContainer>
 				<FilterPresets
 					onClickPreset={onClickPreset}
 				/>
-				<Block.Dog16 />
-				<TextCenter>
-					<RegularText>Or</RegularText>
-				</TextCenter>
-				<Block.Dog16 />
+				<ParagraphCenter>Or</ParagraphCenter>
 				<Button onClick={onClickOverlayOpen} isSpecial={true}>Create advanced filter</Button>
 				{metaPlaylistRender}
 			</ButtonsContainer>
@@ -81,13 +70,9 @@ export const ArchiveInitial: React.FC<ArchiveInitialProps> = (props) => {
 
 const ButtonsContainer = tStyled.div`
 	max-width: ${LayoutBreakpointRem.c30}rem;
-	margin: ${Spacing.elf24} auto;
-`;
-
-const TextCenter = tStyled.div`
-	text-align: center;
+	margin: auto;
 `;
 
 const ArchiveInitialContainer = tStyled.div`
-	margin: 0 ${Spacing.dog16};
+	${contentMaxWidthStyle}
 `;

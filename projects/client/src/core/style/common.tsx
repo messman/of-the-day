@@ -22,8 +22,8 @@ export interface HighlightBarProps {
 export const HighlightBar: React.FC<HighlightBarProps> = (props) => {
 	const { position, index, count } = props;
 
-	const percentLength = Math.round((1 / count) * 100);
-	const percentOffset = Math.round(percentLength * index);
+	const percentLength = Math.round((1 / count) * 1000) / 10;
+	const percentOffset = percentLength * index;
 
 	const isVertical = position === 'left';
 	if (isVertical) {

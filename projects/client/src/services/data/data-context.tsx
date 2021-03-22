@@ -218,7 +218,7 @@ const postsPromiseFunc = !DEFINE.isLocalData ? fetchPostResponse : (
 );
 
 const PostResponseContext = React.createContext<PromiseOutput<IPostResponse>>(null!);
-const postResponseActivePages = [routes.posts];
+const postResponseActivePages = [routes.posts, routes.archive, routes.about];
 const PostResponseProvider = createResponseProvider(PostResponseContext, postsPromiseFunc, postResponseActivePages);
 export const usePostResponse = () => React.useContext(PostResponseContext);
 

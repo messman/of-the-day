@@ -111,7 +111,7 @@ const PostsHeaderContainer = tStyled(FlexRow) <PostsHeaderContainerProps>`
 `;
 
 const PostsHeaderCenterContainer = tStyled(FlexRow)`
-	max-width: ${LayoutBreakpointRem.d40}px;
+	max-width: ${LayoutBreakpointRem.d40}rem;
 `;
 
 interface PostDayTitle {

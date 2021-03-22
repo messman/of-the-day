@@ -4,7 +4,7 @@ import { Block, Spacing } from '../layout/common';
 import { borderRadiusStyle } from '../style/common';
 import { tStyled } from '../style/styled';
 import { IconSize, SizedIcon, SVGIconType } from '../symbol/icon';
-import { Heading2, RegularText } from '../symbol/text';
+import { Heading3, RegularText } from '../symbol/text';
 
 export interface CardProps {
 	title?: string | null;
@@ -53,7 +53,7 @@ const Background = tStyled.div`
 	overflow: hidden;
 	border: 1px solid ${p => p.theme.outlineDistinct};
 	background-color: ${p => p.theme.subtleFill.b1Card};
-	box-shadow: 0 2px 4px 2px ${p => p.theme.shadow.b1Card};
+	box-shadow: ${p => p.theme.shadow.b1Card};
 	${borderRadiusStyle}
 `;
 
@@ -83,7 +83,7 @@ const Title: React.FC<TitleProps> = (props) => {
 
 	return (
 		<FlexRow justifyContent='space-between' alignItems='center'>
-			<Heading2>{title}</Heading2>
+			<Heading3>{title}</Heading3>
 			{iconRender}
 		</FlexRow>
 	);

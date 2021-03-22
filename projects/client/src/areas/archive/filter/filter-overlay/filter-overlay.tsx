@@ -6,7 +6,7 @@ import { FlexColumn, FlexRow } from '@messman/react-common';
 import { IArchiveFilter, cloneFilter, isFilterValid } from 'oftheday-shared';
 import { tStyled } from '@/core/style/styled';
 import { Spacing, Block } from '@/core/layout/common';
-import { RegularText } from '@/core/symbol/text';
+import { fontDeclarations, RegularText } from '@/core/symbol/text';
 import { matchToPreset } from '../filter-common';
 import { IconSize, iconTypes, SizedIcon } from '@/core/symbol/icon';
 import { HighlightBar } from '@/core/style/common';
@@ -50,7 +50,7 @@ export const FilterOverlay: React.FC<FilterOverlayProps> = (props) => {
 	}
 
 	const invalidWarning = !isFilterValid(filterWorkingCopy) ? (
-		<FooterWarning>
+		<FooterWarning flex='none' justifyContent='center' alignItems='center'>
 			<WarningIcon type={iconTypes.alert} size={IconSize.a_medium} />
 			The selected filter options won't return anything.
 		</FooterWarning>
@@ -151,7 +151,8 @@ const FooterActionLink = tStyled(ActionLink)`
 	padding: ${Spacing.dog16};
 `;
 
-const FooterWarning = tStyled(RegularText)`
+const FooterWarning = tStyled(FlexRow)`
+	${fontDeclarations.regular}
 	border-top: 1px solid ${p => p.theme.outlineDistinct};
 	text-align: center;
 	padding: ${Spacing.dog16};

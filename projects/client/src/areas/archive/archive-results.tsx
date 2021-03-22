@@ -1,9 +1,9 @@
-import { Block, Spacing } from '@/core/layout/common';
+import { Block, contentMaxWidthValue, Spacing } from '@/core/layout/common';
 import { ActionLink, OutLink } from '@/core/link';
 import { EmptySpaceHack } from '@/core/style/common';
 import { tStyled } from '@/core/style/styled';
 import { ClickableIcon, iconTypes } from '@/core/symbol/icon';
-import { InlineWeight, Paragraph, RegularText } from '@/core/symbol/text';
+import { fontDeclarations, InlineWeight, Paragraph } from '@/core/symbol/text';
 import { useMeta } from '@/services/data/data-context';
 import { DataLoad } from '@/services/data/data-load';
 import { Flex, FlexRow, PromiseOutput, Sticky, useSticky } from '@messman/react-common';
@@ -116,28 +116,33 @@ export const ArchiveResults: React.FC<ArchiveResultsProps> = (props) => {
 	}
 
 	return (
-		<>
+		<ArchiveResultsContainer>
 			<ArchiveResultsHeader {...props} resultsCount={results} />
-			<ArchiveResultsContainer>
+			<ArchiveResultsContentContainer>
+				<Block.Elf24 />
 				<FilterDescription filter={filter} />
 				<Paragraph>
 					<span>Showing </span>
 					<InlineWeight.Bold>{results} </InlineWeight.Bold>
 					<span>{results === 1 ? 'item' : 'items'} across </span>
 					<InlineWeight.Bold>{posts.length} </InlineWeight.Bold>
-					<span>{posts.length === 1 ? 'day' : 'days'}</span>
+					<span>{posts.length === 1 ? 'day' : 'days'}.</span>
 				</Paragraph>
 				{metaPlaylistRender}
-				<Block.Elf24 />
 				{postsRender}
-			</ArchiveResultsContainer>
-		</>
+			</ArchiveResultsContentContainer>
+		</ArchiveResultsContainer>
 	);
 };
 
+// No padding here, since we have a full-width header inside.
 const ArchiveResultsContainer = tStyled.div`
+	max-width: ${contentMaxWidthValue};
+	margin: auto;
+`;
+
+const ArchiveResultsContentContainer = tStyled.div`
 	margin: 0 ${Spacing.dog16};
-	margin-top: ${Spacing.elf24};
 `;
 
 interface ArchiveResultsHeaderProps extends ArchiveResultsProps {
@@ -180,7 +185,6 @@ export const ArchiveResultsHeader: React.FC<ArchiveResultsHeaderProps> = (props)
 					</Flex>
 				</ArchiveResultsHeaderContainer>
 			</Sticky>
-			<Block.Elf24 />
 		</>
 	);
 };
@@ -189,9 +193,11 @@ const ArchiveResultsHeaderContainer = tStyled(FlexRow)`
 	position: relative;
 	padding: ${Spacing.bat08} 0;
 	border-bottom: 1px solid ${p => p.theme.outlineDistinct};
+	background-color: ${p => p.theme.bg};
 `;
 
-const LeftResultsCountText = tStyled(RegularText)`
+const LeftResultsCountText = tStyled.div`
+	${fontDeclarations.regular};
 	margin-left: ${Spacing.dog16};
 `;
 

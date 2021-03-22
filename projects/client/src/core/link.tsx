@@ -2,11 +2,9 @@
 import * as React from 'react';
 import { tStyled } from '@/core/style/styled';
 import { iconTypes, SizedIcon } from './symbol/icon';
-import { fontDeclarations } from './symbol/text';
 import { FontWeight } from './style/theme';
 
 const BasicLink = tStyled.a`
-	${fontDeclarations.regular}
 	font-weight: ${FontWeight.medium}
 
 	margin: 0;
@@ -22,11 +20,6 @@ const BasicLink = tStyled.a`
 	}
 `;
 
-const Underline = tStyled.span`
-	text-decoration: underline;
-`;
-
-
 export interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> { }
 
 export const OutLink: React.FC<LinkProps> = (props) => {
@@ -37,9 +30,7 @@ export const OutLink: React.FC<LinkProps> = (props) => {
 	const text = (props.children as string) || href;
 	return (
 		<BasicLink href={href} rel="noreferrer noopener" target="_blank" title="Opens in a new tab" {...otherProps}>
-			<Underline>
-				{text}
-			</Underline>
+			{text}
 			<SizedIcon type={iconTypes.out} size='.7rem' />
 		</BasicLink>
 	);

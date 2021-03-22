@@ -12,6 +12,14 @@ const createStyledComponentsTransformer = require('typescript-plugin-styled-comp
  * */
 module.exports = function updateWebpackConfig(webpackConfig, isDevelopment, isStorybook) {
 
+	const compilerOptions = isStorybook ? ({
+		sourceMap: true,
+		declaration: false,
+		declarationMap: false,
+		skipLibCheck: true,
+		incremental: false
+	}) : undefined;
+
 	const typeScriptBabelRule = {
 		test: /\.tsx?$/,
 		exclude: /node_modules/,
@@ -29,8 +37,9 @@ module.exports = function updateWebpackConfig(webpackConfig, isDevelopment, isSt
 				loader: 'ts-loader',
 				options: {
 					getCustomTransformers: () => ({ before: [createStyledComponentsTransformer()] }),
-					onlyCompileBundledFiles: true,
-					//transpileOnly: true,
+					onlyCompileBundledFiles: false, // Keep the default of false, or build time will double.
+					transpileOnly: false, // Set to true to test speed without type-checking.
+					compilerOptions: compilerOptions
 				}
 			}
 		]

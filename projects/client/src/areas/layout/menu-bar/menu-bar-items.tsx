@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { tStyled } from '@/core/style/styled';
 import { routes } from '@/services/nav/routing';
-import { RegularText } from '@/core/symbol/text';
+import { fontDeclarations } from '@/core/symbol/text';
 import { useHistory, useLocation, matchPath } from 'react-router-dom';
 import { FlexRow } from '@messman/react-common';
 import { Spacing } from '@/core/layout/common';
@@ -96,8 +96,8 @@ const ItemButton = tStyled.button<MenuBarInnerItemProps>`
   	box-shadow: none;
 `;
 
-const ItemButtonText = tStyled(RegularText) <MenuBarInnerItemProps>`
-	color: ${p => p.theme.textSubtle};
+const ItemButtonText = tStyled.div<MenuBarInnerItemProps>`
+	${fontDeclarations.regular};
+	color: ${p => p.theme.textDistinct};
 	${formTransitionStyle}
-	transition-property: color;
 `;

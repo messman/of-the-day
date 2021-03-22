@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { IArchiveFilter, isFilterValid, keysOfIPostElementType, IArchiveFilterRange, IArchiveFilterPreset, IArchiveFilterSort, IPostElementType, IArchiveFilterModifier, isFilterExactlyEqual, filterPresets } from 'oftheday-shared';
-import { InlineWeight, RegularText } from '@/core/symbol/text';
-import { lineBreakpoint } from '@/services/layout/window-layout';
+import { fontDeclarations, lineHeights } from '@/core/symbol/text';
 import { tStyled } from '@/core/style/styled';
 
 /*
@@ -41,9 +40,9 @@ export const archiveFilterPresetForDisplay: Record<keyof typeof IArchiveFilterPr
 };
 
 export const archiveFilterSortForDisplay: Record<keyof typeof IArchiveFilterSort, string> = {
-	dayIncreasing: 'By Day - Increasing',
-	dayDecreasing: 'By Day - Decreasing',
-	dayRandom: 'By Day - Randomly',
+	dayIncreasing: 'By Day Increasing',
+	dayDecreasing: 'By Day Decreasing',
+	dayRandom: 'By Day Randomly',
 	musicArtistIncreasing: 'By Music Artist',
 };
 
@@ -127,7 +126,7 @@ export const FilterDescription: React.FC<FilterDescriptionProps> = (props) => {
 	const isValid = isFilterValid(filter);
 	if (!isValid) {
 		return (
-			<RegularText>The filter options selected will not return any data.</RegularText>
+			<FilterText>The filter options selected will not return any data.</FilterText>
 		);
 	}
 
@@ -138,11 +137,11 @@ export const FilterDescription: React.FC<FilterDescriptionProps> = (props) => {
 	let start: JSX.Element | null = null!;
 	if (preset) {
 		newlineStart = (
-			<RegularText>
+			<FilterText>
 				<span>{startText}</span>
-				<InlineWeight.Bold>"{preset}"</InlineWeight.Bold>
+				<FilterValue>{preset}</FilterValue>
 				<span>: </span>
-			</RegularText>
+			</FilterText>
 		);
 	}
 	else {
@@ -154,23 +153,23 @@ export const FilterDescription: React.FC<FilterDescriptionProps> = (props) => {
 	const modifierSection = modifiers ? (
 		<>
 			<span>with </span>
-			<InlineWeight.Bold>{modifiers} </InlineWeight.Bold>
+			<FilterValue>{modifiers} </FilterValue>
 		</>
 	) : null;
 
 	return (
-		<LineMaxWidth>
+		<div>
 			{newlineStart}
-			<div>
+			<FilterText>
 				{start}
-				<InlineWeight.Bold>{types} </InlineWeight.Bold>
+				<FilterValue>{types} </FilterValue>
 				{modifierSection}
 				<span>for </span>
-				<InlineWeight.Bold>{range} </InlineWeight.Bold>
+				<FilterValue>{range} </FilterValue>
 				<span>sorted </span>
-				<InlineWeight.Bold>{sort}</InlineWeight.Bold>
-			</div>
-		</LineMaxWidth>
+				<FilterValue>{sort}</FilterValue>
+			</FilterText>
+		</div>
 	);
 };
 
@@ -196,6 +195,12 @@ export function isOnlyMusicTypeSelected(filter: IArchiveFilter): boolean {
 	});
 }
 
-const LineMaxWidth = tStyled.div`
-	max-width: ${lineBreakpoint};
+const FilterValue = tStyled.span`
+	color: ${p => p.theme.textDistinct};
+`;
+
+const FilterText = tStyled.div`
+	${fontDeclarations.regular}
+	color: ${p => p.theme.textSubtle};
+	${lineHeights.body};
 `;

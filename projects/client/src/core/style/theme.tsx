@@ -41,8 +41,8 @@ const baseDarkTheme: Theme = {
 	accent: null!,
 
 	bg: colors.dark.a0Darkest,
-	outlineDistinct: colors.dark.d3Lighter,
-	outlineSubtle: colors.dark.a0Darkest,
+	outlineDistinct: colors.dark.outlineDistinct,
+	outlineSubtle: colors.dark.outlineSubtle,
 
 	subtleFill: colors.elevation.darkFill,
 	shadow: colors.elevation.darkShadow,
@@ -65,8 +65,8 @@ const baseLightTheme: Theme = {
 	accent: null!,
 
 	bg: colors.light.d3Lighter,
-	outlineDistinct: colors.light.a0Darkest,
-	outlineSubtle: colors.light.b1Darker,
+	outlineDistinct: colors.light.outlineDistinct,
+	outlineSubtle: colors.light.outlineSubtle,
 
 	subtleFill: colors.elevation.lightFill,
 	shadow: colors.elevation.lightFill,
@@ -113,6 +113,7 @@ const purpleDarkTheme: Theme = {
 	},
 
 	accent: colors.accent.purple,
+	textLink: colors.accent.purple.cLight,
 };
 
 const purpleLightTheme: Theme = {
@@ -124,6 +125,7 @@ const purpleLightTheme: Theme = {
 	},
 
 	accent: colors.accent.purple,
+	textLink: colors.accent.purple.aMain,
 };
 
 const yellowDarkTheme: Theme = {
@@ -135,6 +137,7 @@ const yellowDarkTheme: Theme = {
 	},
 
 	accent: colors.accent.yellow,
+	textLink: colors.accent.yellow.aMain,
 };
 
 const yellowLightTheme: Theme = {
@@ -146,32 +149,33 @@ const yellowLightTheme: Theme = {
 	},
 
 	accent: colors.accent.yellow,
+	textLink: colors.accent.yellow.aMain,
 };
 
-const redDarkTheme: Theme = {
-	...baseDarkTheme,
-	themeInfo: {
-		isLight: false,
-		accentColor: 'Red',
-		fullName: 'Red / Dark'
-	},
+// const redDarkTheme: Theme = {
+// 	...baseDarkTheme,
+// 	themeInfo: {
+// 		isLight: false,
+// 		accentColor: 'Red',
+// 		fullName: 'Red / Dark'
+// 	},
 
-	accent: colors.accent.red,
-};
+// 	accent: colors.accent.red,
+// };
 
-const redLightTheme: Theme = {
-	...baseLightTheme,
-	themeInfo: {
-		isLight: true,
-		accentColor: 'Red',
-		fullName: 'Red / Light'
-	},
+// const redLightTheme: Theme = {
+// 	...baseLightTheme,
+// 	themeInfo: {
+// 		isLight: true,
+// 		accentColor: 'Red',
+// 		fullName: 'Red / Light'
+// 	},
 
-	accent: colors.accent.red,
-};
+// 	accent: colors.accent.red,
+// };
 
 // Index is stored in LocalStorage
-export const themes: Theme[] = [purpleDarkTheme, purpleLightTheme, yellowDarkTheme, yellowLightTheme, redDarkTheme, redLightTheme];
+export const themes: Theme[] = [purpleDarkTheme, purpleLightTheme, yellowDarkTheme, yellowLightTheme];
 const defaultThemeIndex = 0;
 
 // Set from Google Font. Search for 'Montserrat' across the codebase.

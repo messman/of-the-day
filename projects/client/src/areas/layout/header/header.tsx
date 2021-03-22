@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { RegularText } from '@/core/symbol/text';
+import { fontDeclarations } from '@/core/symbol/text';
 import { FlexRow, useWindowMediaLayout } from '@messman/react-common';
 import { Spacing, Block } from '@/core/layout/common';
 import { tStyled } from '@/core/style/styled';
@@ -13,10 +13,7 @@ import { HeaderIconAnimation, HeaderSubtitleAnimation, useHeaderAnimationState }
  */
 export function useHeaderDimensions(): [string, string, string] {
 	const { widthBreakpoint } = useWindowMediaLayout();
-	if (widthBreakpoint >= LayoutBreakpointRem.f60) {
-		return ['5rem', '4rem', Spacing.elf24];
-	}
-	else if (widthBreakpoint >= LayoutBreakpointRem.d40) {
+	if (widthBreakpoint >= LayoutBreakpointRem.d40) {
 		return ['4rem', '3rem', Spacing.dog16];
 	}
 	return ['2.3rem', '1.8rem', Spacing.dog16];
@@ -30,7 +27,8 @@ export const Header: React.FC = () => {
 	return (
 		<Parent justifyContent='center' alignItems='center'>
 			<HeaderImage />
-			<TextCenter>
+			<div>
+
 				<FlexRow>
 					<HeaderIconAnimation animationState={animationState} titleHeight={titleHeight} subtitleHeight={subtitleHeight} rightMargin={rightMargin} />
 					<div>
@@ -40,19 +38,16 @@ export const Header: React.FC = () => {
 				</FlexRow>
 				<Block.Elf24 />
 				<TextSubtitleOnAccent>
-					<RegularText>A place for Andrew to share things.</RegularText>
+					A place for Andrew to share things.
 				</TextSubtitleOnAccent>
-			</TextCenter>
-			<HeaderShadow />
+			</div>
+			{/* <HeaderShadow /> */}
 		</Parent>
 	);
 };
 
-const TextCenter = tStyled.div`
-	text-align: center;
-`;
-
-const TextSubtitleOnAccent = tStyled(RegularText)`
+const TextSubtitleOnAccent = tStyled.div`
+	${fontDeclarations.regular};
 	text-align: center;
 	color: ${p => p.theme.textDistinct};
 `;
@@ -74,7 +69,8 @@ const Parent = tStyled(FlexRow)`
 	position: relative;
 	overflow: hidden;
 	flex: none;
-	min-height: 70vh;
+	min-height: 20vh;
+	padding: ${Spacing.guy40} 0;
 	background: ${p => p.theme.accent.eGradient};
 `;
 
@@ -92,12 +88,12 @@ const HeaderImage = tStyled.div`
 	opacity: .075;
 `;
 
-const HeaderShadow = tStyled.div`
-	flex: none;
-	position: absolute;
-	top: -5rem;
-	left: -5rem;
-	right: -5rem;
-	bottom: 0;
-	box-shadow: inset 0 0 8px 0 ${p => p.theme.shadowBase};
-`;
+// const HeaderShadow = tStyled.div`
+// 	flex: none;
+// 	position: absolute;
+// 	top: -5rem;
+// 	left: -5rem;
+// 	right: -5rem;
+// 	bottom: 0;
+// 	box-shadow: inset 0 0 8px 0 ${p => p.theme.shadowBase};
+// `;

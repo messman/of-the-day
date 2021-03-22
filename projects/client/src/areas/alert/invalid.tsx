@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Spacing, Block } from '@/core/layout/common';
 import { tStyled } from '@/core/style/styled';
 import { IconSize, iconTypes, SizedIcon } from '@/core/symbol/icon';
-import { SmallText, Heading2, Paragraph } from '@/core/symbol/text';
+import { SmallText, Heading2, ParagraphCenter } from '@/core/symbol/text';
 import { CONSTANT } from '@/services/constant';
 import { useWindowMediaLayout, FlexColumn } from '@messman/react-common';
 import { isInvalidLayout } from '@/services/layout/window-layout';
@@ -114,7 +114,7 @@ const InvalidCenter: React.FC<InvalidCenterProps> = (props) => {
 	const otherMessagesText = otherMessages.map((m, i) => {
 		const key = `${i}_${m}`;
 		return (
-			<TextCenterParagraph key={key}>{m}</TextCenterParagraph>
+			<ParagraphCenter key={key}>{m}</ParagraphCenter>
 		);
 	});
 
@@ -125,10 +125,7 @@ const InvalidCenter: React.FC<InvalidCenterProps> = (props) => {
 			window.location.reload();
 		};
 		clickInstruction = (
-			<>
-				<Block.Dog16 />
-				<SmallText>Click/tap here to refresh the application.</SmallText>
-			</>
+			<SmallText>Click/tap here to refresh the application.</SmallText>
 		);
 	}
 
@@ -155,10 +152,6 @@ const InvalidCenter: React.FC<InvalidCenterProps> = (props) => {
 /* Pad to ensure the inner Flex content doesn't run up against the edge. */
 const InvalidCenterWrapper = tStyled(FlexColumn)`
 	padding: ${Spacing.dog16};
-	text-align: center;
-`;
-
-const TextCenterParagraph = tStyled(Paragraph)`
 	text-align: center;
 `;
 
