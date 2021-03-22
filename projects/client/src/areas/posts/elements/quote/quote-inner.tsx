@@ -1,13 +1,12 @@
 import * as React from 'react';
-import { RegularText } from '@/core/symbol/text';
 import { Block, Spacing } from '@/core/layout/common';
 import { FlexRow, FlexColumn } from '@messman/react-common';
 import { QuoteAttribution } from './quote-attribution';
 import { QuotePiece } from './quote-piece';
 import { LayoutBreakpointRem } from '@/services/layout/window-layout';
 import { tStyled } from '@/core/style/styled';
-import { separatorThickness } from '@/core/style/common';
 import { IPostQuote } from 'oftheday-shared';
+import { fontDeclarations } from '@/core/symbol/text';
 
 export interface InnerQuoteProps {
 	quote: IPostQuote;
@@ -63,32 +62,19 @@ export const InnerMultiQuote: React.FC<InnerQuoteProps> = (props) => {
 	return (
 		<FlexRow justifyContent='center'>
 			<MultiQuoteWidthControlContainer flex='none'>
-				<FlexRow>
-					<Divider />
-					<MarginFlexColumn>
-						<MultiQuotePiece text={a} voice={aVoice} isSecondVoice={false} />
-						<GapSpacing />
-						<MultiQuotePiece text={b} voice={bVoice} isSecondVoice={true} />
-					</MarginFlexColumn>
-					<Divider />
-				</FlexRow>
+				<FlexColumn>
+					<MultiQuotePiece text={a} voice={aVoice} isSecondVoice={false} />
+					<GapSpacing />
+					<MultiQuotePiece text={b} voice={bVoice} isSecondVoice={true} />
+				</FlexColumn>
 				<QuoteAttribution quote={quote} />
 			</MultiQuoteWidthControlContainer>
 		</FlexRow>
 	);
 };
 
-const Divider = tStyled.div`
-	width: ${separatorThickness};
-	background-color: ${p => p.theme.outlineDistinct};
-`;
-
 const MultiQuoteWidthControlContainer = tStyled(FlexColumn)`
 	max-width: min(${LayoutBreakpointRem.f60}rem, 100%);
-`;
-
-const MarginFlexColumn = tStyled(FlexColumn)`
-	margin: ${Spacing.bat08};
 `;
 
 interface MultiQuotePieceProps {
@@ -109,8 +95,18 @@ const MultiQuotePiece: React.FC<MultiQuotePieceProps> = (props) => {
 	}
 
 	const justify = isSecondVoice ? 'flex-end' : 'flex-start';
-	const leftRender = isSecondVoice ? <QuoteSpacing /> : null;
-	const rightRender = isSecondVoice ? null : <QuoteSpacing />;
+	const leftRender = isSecondVoice ? <Block.Fan32 /> : (
+		<>
+			<Divider />
+			<Block.Dog16 />
+		</>
+	);
+	const rightRender = isSecondVoice ? (
+		<>
+			<Block.Dog16 />
+			<Divider />
+		</>
+	) : <Block.Fan32 />;
 
 	return (
 		<FlexRow justifyContent={justify} flex='none'>
@@ -124,11 +120,15 @@ const MultiQuotePiece: React.FC<MultiQuotePieceProps> = (props) => {
 	);
 };
 
-const QuoteSpacing = tStyled.div`
-	width: 3rem;
-	flex: 0 0 auto;
+const VoiceText = tStyled.div`
+	${fontDeclarations.regular};
+	color: ${p => p.theme.textSubtle};
+	line-height: normal;
+	margin-bottom: ${Spacing.bat08};
 `;
 
-const VoiceText = tStyled(RegularText)`
-	margin-bottom: ${Spacing.dog16};
+const Divider = tStyled.div`
+	width: 1px;
+	background-color: ${p => p.theme.outlineDistinct};
+	flex-shrink: 0;
 `;

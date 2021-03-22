@@ -11,18 +11,18 @@ interface DynamicTagProps {
 }
 
 const defaultTag: DynamicTagProps = {
-	foregroundColor: c => c.textSubtle,
-	backgroundColor: c => c.accent.aMain
+	foregroundColor: c => c.tagFore,
+	backgroundColor: c => c.tagBack
 };
 
 const commonTagProps: { [key: string]: DynamicTagProps; } = {
 	nsfw: {
-		foregroundColor: c => c.textDistinct,
-		backgroundColor: c => c.system.tagNSFW
+		foregroundColor: c => c.system.tagNSFWFore,
+		backgroundColor: c => c.system.tagNSFWBack
 	},
 	top: {
-		foregroundColor: c => c.textDistinct,
-		backgroundColor: c => c.system.tagTop,
+		foregroundColor: c => c.system.tagTopFore,
+		backgroundColor: c => c.system.tagTopBack,
 		icon: iconTypes.tagTop
 	},
 	work: defaultTag,

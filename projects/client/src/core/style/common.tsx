@@ -7,8 +7,6 @@ export const borderRadiusStyle = tCss`
 	border-radius: ${borderRadiusValue};
 `;
 
-export const separatorThickness = '2px';
-
 export const formTransitionStyle = tCss`
 	transition: all .15s linear;
 `;

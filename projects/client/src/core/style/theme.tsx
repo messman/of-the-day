@@ -29,6 +29,9 @@ export interface Theme {
 	textSubtle: string;
 	textDisabled: string;
 	textLink: string;
+
+	tagFore: string;
+	tagBack: string;
 }
 
 const baseDarkTheme: Theme = {
@@ -47,12 +50,16 @@ const baseDarkTheme: Theme = {
 	subtleFill: colors.elevation.darkFill,
 	shadow: colors.elevation.darkShadow,
 	shadowBase: colors.elevation.darkShadowBase,
-	system: colors.system.dark,
+	system: colors.system,
 
 	textDistinct: colors.light.e4Lightest, // White
 	textSubtle: colors.dark.e4Lightest, // "Light Gray"
 	textDisabled: colors.dark.d3Lighter, // "Dark Gray"
+
+	// To be overridden
 	textLink: 'blue',
+	tagFore: 'red',
+	tagBack: 'green'
 };
 
 const baseLightTheme: Theme = {
@@ -69,14 +76,18 @@ const baseLightTheme: Theme = {
 	outlineSubtle: colors.light.outlineSubtle,
 
 	subtleFill: colors.elevation.lightFill,
-	shadow: colors.elevation.lightFill,
+	shadow: colors.elevation.lightShadow,
 	shadowBase: colors.elevation.lightShadowBase,
-	system: colors.system.light,
+	system: colors.system,
 
 	textDistinct: colors.dark.a0Darkest, // Black
 	textSubtle: colors.dark.d3Lighter, // "Dark Gray"
 	textDisabled: colors.dark.e4Lightest, // "Light Gray"
+
+	// To be overridden
 	textLink: 'blue',
+	tagFore: 'red',
+	tagBack: 'green'
 };
 
 // const gray = {
@@ -114,6 +125,8 @@ const purpleDarkTheme: Theme = {
 
 	accent: colors.accent.purple,
 	textLink: colors.accent.purple.cLight,
+	tagFore: colors.dark.a0Darkest,
+	tagBack: colors.accent.purple.aMain,
 };
 
 const purpleLightTheme: Theme = {
@@ -126,6 +139,8 @@ const purpleLightTheme: Theme = {
 
 	accent: colors.accent.purple,
 	textLink: colors.accent.purple.aMain,
+	tagFore: colors.light.e4Lightest,
+	tagBack: colors.accent.purple.aMain,
 };
 
 const yellowDarkTheme: Theme = {
@@ -137,7 +152,9 @@ const yellowDarkTheme: Theme = {
 	},
 
 	accent: colors.accent.yellow,
-	textLink: colors.accent.yellow.aMain,
+	textLink: colors.accent.yellow.bDark,
+	tagFore: colors.dark.a0Darkest,
+	tagBack: colors.accent.yellow.aMain,
 };
 
 const yellowLightTheme: Theme = {
@@ -149,7 +166,9 @@ const yellowLightTheme: Theme = {
 	},
 
 	accent: colors.accent.yellow,
-	textLink: colors.accent.yellow.aMain,
+	textLink: colors.accent.yellow.bDark,
+	tagFore: colors.accent.yellow.bDark,
+	tagBack: colors.accent.yellow.cLight,
 };
 
 // const redDarkTheme: Theme = {

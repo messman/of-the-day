@@ -3,6 +3,7 @@ import { decorate } from '@/test/decorate';
 import { text } from '@storybook/addon-knobs';
 import { IPostCustom } from 'oftheday-shared';
 import { Custom } from './custom';
+import { Block, SimpleContentMaxWidth } from '@/core/layout/common';
 
 export default { title: 'Areas/Posts/Elements/Custom' };
 
@@ -17,7 +18,10 @@ export const TestCustomText = decorate('Custom Text', null, () => {
 	});
 
 	return (
-		<Custom value={custom} />
+		<SimpleContentMaxWidth>
+			<Block.Dog16 />
+			<Custom value={custom} />
+		</SimpleContentMaxWidth>
 	);
 });
 
@@ -32,7 +36,10 @@ export const TestCustomTextLink = decorate('Custom Text & Link', null, () => {
 	});
 
 	return (
-		<Custom value={custom} />
+		<SimpleContentMaxWidth>
+			<Block.Dog16 />
+			<Custom value={custom} />
+		</SimpleContentMaxWidth>
 	);
 });
 
@@ -47,7 +54,10 @@ export const TestCustomTextHidden = decorate('Custom Text & Hidden', null, () =>
 	});
 
 	return (
-		<Custom value={custom} />
+		<SimpleContentMaxWidth>
+			<Block.Dog16 />
+			<Custom value={custom} />
+		</SimpleContentMaxWidth>
 	);
 });
 
@@ -62,7 +72,10 @@ export const TestCustomAll = decorate('Custom All', null, () => {
 	});
 
 	return (
-		<Custom value={custom} />
+		<SimpleContentMaxWidth>
+			<Block.Dog16 />
+			<Custom value={custom} />
+		</SimpleContentMaxWidth>
 	);
 });
 

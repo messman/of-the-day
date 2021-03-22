@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { tStyled } from '@/core/style/styled';
 import { borderRadiusStyle } from '@/core/style/common';
-import { SmallText } from '@/core/symbol/text';
+import { fontDeclarations, FontSize } from '@/core/symbol/text';
 import { Spacing } from '@/core/layout/common';
 import { FontWeight, useCurrentTheme } from '@/core/style/theme';
 import { createTagProps } from './tag-definitions';
-import { IconSize, SizedIcon, SVGIconType } from '@/core/symbol/icon';
+import { SizedIcon, SVGIconType } from '@/core/symbol/icon';
 import { FlexRow } from '@messman/react-common';
 
 export interface TagProps {
@@ -19,7 +19,7 @@ export const Tag: React.FC<TagProps> = (props) => {
 	const { value, backgroundColor, foregroundColor, icon } = props;
 
 	const iconRender = icon ? (
-		<PaddedIcon type={icon} size={IconSize.a_medium} />
+		<PaddedIcon type={icon} size={FontSize.small} />
 	) : null;
 
 	return (
@@ -32,8 +32,11 @@ export const Tag: React.FC<TagProps> = (props) => {
 	);
 };
 
-const TagText = tStyled(SmallText)`
-	font-weight: ${FontWeight.medium};
+const TagText = tStyled.span`
+	display: inline-block;
+	${fontDeclarations.small}
+	font-weight: ${FontWeight.bold};
+	color: inherit;
 `;
 
 const PaddedIcon = tStyled(SizedIcon)`
@@ -53,8 +56,8 @@ const TagContainer = tStyled.div<TagContainerProps>`
 	margin-right: ${Spacing.bat08};
 	white-space: nowrap;
 	border: none;
+	color: ${p => p.foregroundColor};
 	background-color: ${p => p.backgroundColor};
-	background-color: ${p => p.foregroundColor};
 
 	&:last-child {
 		margin-right: 0;

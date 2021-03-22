@@ -120,10 +120,7 @@ export const Layout: React.FC<LayoutProps> = (props) => {
 						<MetaMessaging>
 							<Switch>
 								<Route exact path={routes.posts.path}>
-									<Posts
-										offsetPixels={stickyOffsetPixels}
-										rootElement={scrollContainerElement}
-									/>
+									<Posts />
 								</Route>
 								<Route path={routes.archive.path}>
 									<Archive

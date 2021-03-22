@@ -9,8 +9,8 @@ import { DataLoad } from '@/services/data/data-load';
 import { Flex, FlexRow, PromiseOutput, Sticky, useSticky } from '@messman/react-common';
 import { IArchiveFilter, IArchiveResponse, IPost, IPostElementType, keysOfIPostElementType } from 'oftheday-shared';
 import * as React from 'react';
+import { usePostsList } from '../posts/post';
 import { FilterDescription } from './filter/filter-common';
-import { ArchiveResult } from './result/archive-result';
 
 export interface ArchiveResultsProps {
 	filter: IArchiveFilter;
@@ -82,13 +82,7 @@ export const ArchiveResults: React.FC<ArchiveResultsProps> = (props) => {
 
 	// I'm not sure yet if this is a good idea or something that will cause a bug.
 	// but, only re-render our posts (there could be hundreds) if those posts really change.
-	const postsRender = React.useMemo(() => {
-		return posts.map((post) => {
-			return (
-				<ArchiveResult post={post} key={post.dayNumber} hideTitles={singleElementType !== null} />
-			);
-		});
-	}, [posts, singleElementType]);
+	const postsRender = usePostsList(posts, true, singleElementType);
 
 	if (isStarted || error) {
 		return <DataLoad promise={promise} />;

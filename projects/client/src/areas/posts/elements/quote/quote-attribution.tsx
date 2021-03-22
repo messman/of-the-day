@@ -50,6 +50,6 @@ export const QuoteAttribution: React.FC<InnerQuoteProps> = (props) => {
 const RightText = tStyled(RegularText)`
 	text-align: right;
 	word-wrap: break-word;
-	margin-top: ${Spacing.bat08};
+	margin-top: ${Spacing.dog16};
 	padding-left: ${Spacing.elf24};
 `;

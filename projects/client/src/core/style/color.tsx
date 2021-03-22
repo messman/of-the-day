@@ -48,9 +48,13 @@ export interface ColorElevationSet {
 
 export interface SystemColors {
 	/** For the 'top' tag. */
-	tagTop: string;
+	tagTopFore: string;
+	/** For the 'top' tag. */
+	tagTopBack: string;
 	/** For the 'NSFW' tag. */
-	tagNSFW: string;
+	tagNSFWFore: string;
+	/** For the 'NSFW' tag. */
+	tagNSFWBack: string;
 	/** For selections. */
 	selection: string;
 	/** For warnings. */
@@ -65,16 +69,13 @@ export interface Colors {
 	accent: {
 		purple: ColorAccentSet;
 		yellow: ColorAccentSet;
-		red: ColorAccentSet;
+		//red: ColorAccentSet;
 	};
 
 	light: ColorSet;
 	dark: ColorSet;
 
-	system: {
-		light: SystemColors;
-		dark: SystemColors;
-	};
+	system: SystemColors;
 
 	elevation: {
 		lightFill: ColorElevationSet;
@@ -97,18 +98,18 @@ export const colors: Colors = {
 		},
 		yellow: {
 			aMain: '#FFCD67',
-			bDark: '#CD9240',
+			bDark: '#D3A342',
 			cLight: '#FFD885',
 			dSubtle: '#FFEBC0',
 			eGradient: 'linear-gradient(-45deg, #CD9240 0%, #F5B83D 38%, #F5B83D 65%, #F8CF7C 100%)'
 		},
-		red: {
-			aMain: '#CB697A',
-			bDark: '#BB4964',
-			cLight: '#DD819C',
-			dSubtle: '#EEC0D0',
-			eGradient: 'linear-gradient(135deg, #E078A4 0%, #CB697A 37%, #CB697A 65%, #DA5856 100%)'
-		}
+		// red: {
+		// 	aMain: '#CB697A',
+		// 	bDark: '#BB4964',
+		// 	cLight: '#DD819C',
+		// 	dSubtle: '#EEC0D0',
+		// 	eGradient: 'linear-gradient(135deg, #E078A4 0%, #CB697A 37%, #CB697A 65%, #DA5856 100%)'
+		// }
 	},
 	light: {
 		a0Darkest: '#D3D4D9',
@@ -129,22 +130,14 @@ export const colors: Colors = {
 		outlineSubtle: '#3A3A41'
 	},
 	system: {
-		light: {
-			error: '#A63446',
-			warning: '#DC965A',
-			success: '#4B7F52',
-			selection: '#55D170',
-			tagNSFW: '#A63446',
-			tagTop: '#FFC03D'
-		},
-		dark: {
-			error: '#A63446',
-			warning: '#DC965A',
-			success: '#4B7F52',
-			selection: '#55D170',
-			tagNSFW: '#A63446',
-			tagTop: '#CE9f3C'
-		}
+		error: '#A63446',
+		warning: '#DC965A',
+		success: '#4B7F52',
+		selection: '#55D170',
+		tagNSFWFore: '#FFFFFF',
+		tagNSFWBack: '#A63446',
+		tagTopFore: '#1B1B1D',
+		tagTopBack: '#FFC03D'
 	},
 
 	elevation: {

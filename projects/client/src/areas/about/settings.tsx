@@ -126,7 +126,7 @@ const ThemeControlChosenSquare = tStyled.div<ThemeControlChoicePieceProps>`
 const ThemeControlBackgroundSquare = tStyled.div<ThemeControlChoicePieceProps>`
 	padding: ${Spacing.dog16};
 	background-color: ${p => p.choiceTheme.bg};
-	box-shadow: ${p => p.theme.subtleFill.c2Button};
+	box-shadow: ${p => p.theme.shadow.c2Button};
 	${borderRadiusStyle}
 `;
 

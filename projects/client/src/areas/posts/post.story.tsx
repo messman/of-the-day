@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { decorate } from '@/test/decorate';
 import { Post } from './post';
-import { Flex } from '@messman/react-common';
 import { number } from '@storybook/addon-knobs';
 import { postsTestData } from '../../test/data';
+import { Block, SimpleContentMaxWidth } from '@/core/layout/common';
 
 export default { title: 'Areas/Posts/Post' };
 
@@ -13,10 +13,14 @@ export const Posts = decorate('Post', null, () => {
 	const post = postsTestData.posts[postIndex];
 
 	return (
-		<Flex>
+		<SimpleContentMaxWidth>
+			<Block.Dog16 />
 			<Post
 				post={post}
+				hideTitles={false}
+				isForArchive={false}
 			/>
-		</Flex>
+			<Block.Dog16 />
+		</SimpleContentMaxWidth>
 	);
 });

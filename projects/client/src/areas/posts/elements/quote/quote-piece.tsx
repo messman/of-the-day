@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { iconTypes, SizedIcon } from '@/core/symbol/icon';
-import { FontSize, RegularText } from '@/core/symbol/text';
+import { fontDeclarations, FontSize, lineHeights } from '@/core/symbol/text';
 import { Spacing } from '@/core/layout/common';
 import { borderRadiusStyle } from '@/core/style/common';
 import { tStyled } from '@/core/style/styled';
@@ -46,7 +46,8 @@ export interface QuoteBackgroundProps {
 }
 
 const QuoteBackground = tStyled.div<QuoteBackgroundProps>`
-	background-color: ${p => p.theme.subtleFill.b1Card};
+	background-color: ${p => p.theme.subtleFill.c2Button};
+	box-shadow: ${p => p.theme.shadow.c2Button};
 	border: 1px solid ${p => p.theme.outlineDistinct};
 	padding: ${Spacing.dog16};
 	position: relative;
@@ -80,7 +81,13 @@ interface MultilineQuoteTextProps {
 
 const MultilineQuoteText: React.FC<MultilineQuoteTextProps> = (props) => {
 	const lines = props.text.split(multilineQuoteTextSeparator).map((line, i) => {
-		return <RegularText key={i}>{line.trim()}</RegularText>;
+		return <QuoteText key={i}>{line.trim()}</QuoteText>;
 	});
 	return <>{lines}</>;
 };
+
+const QuoteText = tStyled.div`
+	${fontDeclarations.regular};
+	${lineHeights.body};
+	color: ${p => p.theme.textDistinct};
+`;

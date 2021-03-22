@@ -3,6 +3,7 @@ import { decorate } from '@/test/decorate';
 import { text, boolean } from '@storybook/addon-knobs';
 import { IPostVideo } from 'oftheday-shared';
 import { Video } from './video';
+import { Block, SimpleContentMaxWidth } from '@/core/layout/common';
 
 export default { title: 'Areas/Posts/Elements/Videos' };
 
@@ -28,6 +29,9 @@ export const TestVideo = decorate('Video', null, () => {
 	};
 
 	return (
-		<Video value={video} />
+		<SimpleContentMaxWidth>
+			<Block.Dog16 />
+			<Video value={video} />
+		</SimpleContentMaxWidth>
 	);
 });
