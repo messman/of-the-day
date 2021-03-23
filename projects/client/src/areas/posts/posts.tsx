@@ -4,7 +4,8 @@ import { PostElementsCountSummary, usePostsList, useValidatedPosts } from './pos
 import { usePostResponse } from '@/services/data/data-context';
 import { DataLoad } from '@/services/data/data-load';
 import { ParagraphCenter } from '@/core/symbol/text';
-import { SimpleContentMaxWidthFull } from '@/core/layout/common';
+import { Block, SimpleContentMaxWidthFull, Spacing } from '@/core/layout/common';
+import { tStyled } from '@/core/style/styled';
 
 export interface PostsProps {
 }
@@ -32,19 +33,29 @@ export const Posts: React.FC<PostsProps> = () => {
 	let render: JSX.Element = null!;
 	if (validPosts.length === 0) {
 		render = (
-			<ParagraphCenter>
-				Looks like Andrew hasn't shared anything recently. What a slacker.
-			</ParagraphCenter>
+			<SidePadding>
+				<ParagraphCenter>
+					Looks like Andrew hasn't shared anything recently. What a slacker.
+				</ParagraphCenter>
+			</SidePadding>
 		);
 	}
 	else {
 		render = (
 			<>
-				<PostElementsCountSummary
-					elementsCount={elementsCount}
-					postsCount={validPosts.length}
-				/>
+				<SidePadding>
+					<PostElementsCountSummary
+						elementsCount={elementsCount}
+						postsCount={validPosts.length}
+					/>
+				</SidePadding>
 				{postsRender}
+				<SidePadding>
+					<Block.Elf24 />
+					<ParagraphCenter>
+						That's all! See the archives for more.
+					</ParagraphCenter>
+				</SidePadding>
 			</>
 		);
 	}
@@ -55,4 +66,8 @@ export const Posts: React.FC<PostsProps> = () => {
 		</SimpleContentMaxWidthFull>
 	);
 };
+
+const SidePadding = tStyled.div`
+	padding: 0 ${Spacing.dog16};
+`;
 

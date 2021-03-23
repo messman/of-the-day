@@ -16,7 +16,7 @@ export const postsTestData: IPostResponse = {
 			date: '08/27/2020',
 			dateText: 'Thu, Aug 27',
 			dayNumber: 456,
-			dayReference: IPostDayReference.tomorrow,
+			dayReference: IPostDayReference.future,
 
 			isDayOff: false,
 			dayOffMessage: 'Here is a message about the day off',

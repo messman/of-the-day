@@ -93,13 +93,13 @@ const defaultPost: IPost = {
 	date: '03/26/2021',
 	dateText: 'Fri, Mar 26',
 	dayNumber: 366,
-	dayReference: IPostDayReference.tomorrow,
+	dayReference: IPostDayReference.future,
 	isDayOff: false,
 	dayOffMessage: '',
 };
 
 const defaultPosts: Record<keyof typeof IPostDayReference, IPost> = {
-	tomorrow: defaultPost,
+	future: defaultPost,
 	today: {
 		date: '03/25/2021',
 		dateText: 'Thu, Mar 25',

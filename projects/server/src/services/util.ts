@@ -10,3 +10,15 @@ export function keepTruthy<T>(...items: T[]): T[] {
 export function notNull<T>(value: T | null): value is T {
 	return !!value;
 }
+
+export function splitToArray(value: string | null): string[] {
+	if (!value) {
+		return [];
+	}
+	return value
+		.split('///')
+		.map((newValue) => {
+			return newValue.trim();
+		})
+		.filter(isTruthy);
+}

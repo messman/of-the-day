@@ -92,8 +92,8 @@ export const ArchiveResults: React.FC<ArchiveResultsProps> = (props) => {
 					postsCount={validPosts.length}
 				/>
 				{metaPlaylistRender}
-				{postsRender}
 			</ArchiveResultsContentContainer>
+			{postsRender}
 		</ArchiveResultsContainer>
 	);
 };

@@ -86,7 +86,6 @@ export const Custom: React.FC<PostElementProps> = (props) => {
 		>
 			<TagList tags={tagsStrings} />
 			{linkRender}
-			<Block.Dog16 />
 			<ParagraphArray value={value} />
 			{revealButton}
 			{hiddenValueRender}

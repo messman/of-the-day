@@ -1,8 +1,8 @@
 
-import { stringAt, tryParseInt } from '../../services/primitives';
+import { stringAt, stringsAt, tryParseInt } from '../../services/primitives';
 import { columnsFrom, createCell } from '../../services/google-sheets/cell';
 import { keepTruthy } from '../../services/util';
-import { IPost, IPostBasics, IPostCustom, IPostDayReference, IPostEndThoughts, IPostImage, IPostMusic, IPostQuote, IPostVideo, isValidPostElement } from 'oftheday-shared';
+import { IPost, IPostCustom, IPostDayReference, IPostImage, IPostMusic, IPostPersonal, IPostQuote, IPostVideo, isValidPostElement } from 'oftheday-shared';
 
 export const postsColumnStart = 'A';
 export const postsColumnStop = 'BG';
@@ -15,6 +15,10 @@ export function parsePost(row: any[], dayReference: IPostDayReference): IPost {
 		return stringAt(row, col(columnLetter));
 	}
 
+	function stringsAtCol(columnLetter: string): string[] {
+		return stringsAt(row, col(columnLetter));
+	}
+
 	return {
 		date: stringAtCol(postsColumnStart),
 		dateText: stringAtCol('B'),
@@ -23,15 +27,17 @@ export function parsePost(row: any[], dayReference: IPostDayReference): IPost {
 		isDayOff: !!stringAtCol('E'),
 		dayOffMessage: stringAtCol('F'),
 
-		basics: passBasics({
+		personal: passPersonal({
 			event: stringAtCol('G'),
-			note: stringAtCol('H'),
+			note: stringsAtCol('H'),
 			location: stringAtCol('I'),
 			schedule: stringAtCol('J'),
 			dayTypes: keepTruthy(stringAtCol('K'), stringAtCol('L')),
-		}),
-		endThoughts: passEndThoughts({
-			value: stringAtCol('M'),
+			/*
+				Note: in March 2021 this changed from *today* thoughts to
+				*yesterday* thoughts.
+			*/
+			previousDayThoughts: stringsAtCol('M')
 		}),
 		music: passMusic({
 			title: stringAtCol('N'),
@@ -44,7 +50,7 @@ export function parsePost(row: any[], dayReference: IPostDayReference): IPost {
 			youTubeLink: stringAtCol('W'),
 			useYouTube: !!stringAtCol('X'),
 			geniusLink: stringAtCol('Y'),
-			description: stringAtCol('Z'),
+			description: stringsAtCol('Z'),
 			quote: stringAtCol('AA'),
 		}),
 		video: passVideo({
@@ -52,7 +58,7 @@ export function parsePost(row: any[], dayReference: IPostDayReference): IPost {
 			customTitleCreator: stringAtCol('AC'),
 			originalTitle: stringAtCol('AD'),
 			link: stringAtCol('AE'),
-			description: stringAtCol('AF'),
+			description: stringsAtCol('AF'),
 			isRemoved: !!stringAtCol('AG'),
 			isNSFW: !!stringAtCol('AH'),
 			isTop: !!stringAtCol('AI'),
@@ -70,7 +76,7 @@ export function parsePost(row: any[], dayReference: IPostDayReference): IPost {
 		}),
 		image: passImage({
 			link: stringAtCol('AU'),
-			description: stringAtCol('AV'),
+			description: stringsAtCol('AV'),
 			sourceLink: stringAtCol('AW'),
 			sourceText: stringAtCol('AX'),
 			isNSFW: !!stringAtCol('AY'),
@@ -78,7 +84,7 @@ export function parsePost(row: any[], dayReference: IPostDayReference): IPost {
 		}),
 		custom: passCustom({
 			title: stringAtCol('BA'),
-			value: stringAtCol('BB'),
+			value: stringsAtCol('BB'),
 			link: stringAtCol('BC'),
 			linkText: stringAtCol('BD'),
 			hiddenValue: stringAtCol('BE'),
@@ -88,12 +94,8 @@ export function parsePost(row: any[], dayReference: IPostDayReference): IPost {
 	};
 }
 
-function passBasics(basics: IPostBasics): IPostBasics | undefined {
-	return isValidPostElement.basics(basics) ? basics : undefined;
-}
-
-function passEndThoughts(endThoughts: IPostEndThoughts): IPostEndThoughts | undefined {
-	return isValidPostElement.endThoughts(endThoughts) ? endThoughts : undefined;
+function passPersonal(personal: IPostPersonal): IPostPersonal | undefined {
+	return isValidPostElement.personal(personal) ? personal : undefined;
 }
 
 function passMusic(music: IPostMusic): IPostMusic | undefined {

@@ -41,7 +41,7 @@ export const PostElementCard: React.FC<PostElementCardProps> = (props) => {
 
 	if (isCompactView) {
 		return (
-			<Container>
+			<CompactContainer>
 				<FlexRow justifyContent='space-between' alignItems='center'>
 					<Flex>
 						<SizedIcon type={icon} size={IconSize.b_large} />
@@ -55,7 +55,7 @@ export const PostElementCard: React.FC<PostElementCardProps> = (props) => {
 				<Block.Dog16 />
 				{titleRender}
 				{contentRender}
-			</Container>
+			</CompactContainer>
 		);
 	}
 	else {
@@ -101,8 +101,14 @@ const PostElementCardContent: React.FC<PostElementCardProps> = React.memo((props
 	);
 });
 
+const CompactContainer = tStyled.div`
+	border-top: 4px solid ${p => p.theme.outlineDistinct};
+	padding: ${Spacing.dog16};
+	padding-bottom: ${Spacing.elf24};
+`;
+
 const Container = tStyled.div`
-	border-top: 1px solid ${p => p.theme.outlineDistinct};
+	border-top: 4px solid ${p => p.theme.outlineDistinct};
 	padding: ${Spacing.dog16};
 	padding-bottom: ${Spacing.elf24};
 `;
@@ -154,7 +160,7 @@ const PostDate: React.FC<PostDateProps> = (props) => {
 
 const dayReferencesText: Record<keyof typeof IPostDayReference, string> = {
 	other: '',
-	tomorrow: 'Tomorrow',
+	future: 'Future',
 	today: 'Today',
 	yesterday: 'Yesterday'
 };

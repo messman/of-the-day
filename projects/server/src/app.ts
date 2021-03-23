@@ -1,13 +1,13 @@
 import { Router, Application, Request, Response, NextFunction } from 'express';
-import { IPostResponse, IOtherResponse, IArchiveRequest, IArchiveResponse, IArchiveFilterRange, IArchiveFilterSort } from 'oftheday-shared';
+import { IPostResponse, IArchiveRequest, IArchiveResponse, IArchiveFilterRange, IArchiveFilterSort } from 'oftheday-shared';
 import { createSheetsService } from './services/google-sheets/sheets-service';
-import { getPosts, getRecentPosts, getRecentPostsIncludingTomorrow } from './features/posts';
+import { getPosts, getRecentPosts } from './features/posts';
 import { settings } from './env';
-import { getOther } from './features/other';
 import { createMemoryCache, MemoryCache } from './services/memory';
 import { minutes } from './services/time';
 import { getArchive, IArchiveCache } from './features/archive';
 import { log } from './services/util';
+import { getRecentPostsIncludingFuture } from './features/posts';
 
 export function configureApp(app: Application): void {
 
@@ -38,37 +38,18 @@ export function configureApp(app: Application): void {
 	});
 
 	router.get('/posts', async (req: Request, response: Response<IPostResponse>, next: NextFunction) => {
-		// ...?tomorrow=1
-		const includeTomorrow = req.query['tomorrow'] == '1';
+		// ...?future=1
+		const includeFuture = req.query['future'] == '1';
 
-		log('--- posts', includeTomorrow ? 'tomorrow' : '');
+		log('--- posts', includeFuture ? 'future' : '');
 		let serviceResponse: IPostResponse = null!;
 		try {
-			if (includeTomorrow) {
-				serviceResponse = await getRecentPostsIncludingTomorrow(sheetsService);
+			if (includeFuture) {
+				serviceResponse = await getRecentPostsIncludingFuture(sheetsService);
 			}
 			else {
 				serviceResponse = await getRecentPosts(sheetsService, memoryPosts);
 			}
-		}
-		catch (e) {
-			return next(e);
-		}
-		return response.json(serviceResponse);
-	});
-
-	// Create a memory cache for the other information.
-	const memoryOther: MemoryCache<IOtherResponse> = createMemoryCache({
-		isCaching: true,
-		expiration: minutes(2)
-	});
-
-	router.get('/other', async (_: Request, response: Response<IOtherResponse>, next: NextFunction) => {
-
-		log('--- other');
-		let serviceResponse: IOtherResponse = null!;
-		try {
-			serviceResponse = await getOther(sheetsService, memoryOther);
 		}
 		catch (e) {
 			return next(e);
@@ -105,10 +86,7 @@ export function configureApp(app: Application): void {
 				serviceResponse = await getArchive(sheetsService, {
 					filter: {
 						types: {
-							notes: false,
-							schedule: false,
-							location: false,
-							endThoughts: false,
+							personal: false,
 							music: true,
 							video: true,
 							image: true,

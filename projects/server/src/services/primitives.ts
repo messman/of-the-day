@@ -1,8 +1,17 @@
+import { splitToArray } from './util';
+
 export function stringAt(arr: any[], index: number): string {
 	if (!arr) {
 		return '';
 	}
 	return (arr[index] || '').toString();
+}
+
+export function stringsAt(arr: any[], index: number): string[] {
+	if (!arr) {
+		return [];
+	}
+	return splitToArray((arr[index] || '').toString());
 }
 
 export function tryParseInt(value: any, fallback: number): number {

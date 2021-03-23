@@ -55,7 +55,7 @@ export enum IPostDayReference {
 	other,
 	today,
 	yesterday,
-	tomorrow
+	future
 }
 export const keysOfIPostDayReference = enumKeys(IPostDayReference);
 
@@ -70,7 +70,10 @@ export interface IPostPersonal {
 	schedule: string;
 	/** Tags that describe the schedule */
 	dayTypes: string[];
-	/** End-of-day thoughts on the previous day. */
+	/**
+	 * End-of-day thoughts on the previous day.
+	 * Note: before March 2021, this was *today*'s thoughts, not *yesterday's*.
+	*/
 	previousDayThoughts: string[];
 }
 

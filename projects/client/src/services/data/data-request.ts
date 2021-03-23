@@ -8,8 +8,8 @@ import { hasParam } from '../nav/url';
 */
 
 export async function fetchPostResponse(): Promise<IPostResponse> {
-	const includeTomorrow = hasParam('tomorrow');
-	const path = includeTomorrow ? 'posts?tomorrow=1' : 'posts';
+	const includeFuture = hasParam('future');
+	const path = includeFuture ? 'posts?future=1' : 'posts';
 	return makeRequest(path);
 }
 

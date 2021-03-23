@@ -8,9 +8,9 @@ import { Range } from '../../services/google-sheets/cell';
 import { MemoryCache } from '../../services/memory';
 import { settings } from '../../env';
 
-const recentDaysToReturn = 7;
+const recentDaysToReturn = 14;
 
-export async function getRecentPostsIncludingTomorrow(sheetsService: SheetsService): Promise<IPostResponse> {
+export async function getRecentPostsIncludingFuture(sheetsService: SheetsService): Promise<IPostResponse> {
 	return getPosts(sheetsService, true, getDayNumber(), recentDaysToReturn);
 }
 
@@ -36,9 +36,9 @@ export async function getRecentPosts(sheetsService: SheetsService, memory: Memor
 	return response;
 }
 
-export async function getPosts(sheetsService: SheetsService, includeTomorrow: boolean, dayNumber: number, daysToReturn: number): Promise<IPostResponse> {
+export async function getPosts(sheetsService: SheetsService, includeFuture: boolean, dayNumber: number, daysToReturn: number): Promise<IPostResponse> {
 	try {
-		const postsRange = createPostsRange(dayNumber, daysToReturn, includeTomorrow);
+		const postsRange = createPostsRange(dayNumber, daysToReturn, includeFuture);
 		const ranges = [postsRange, metaRange];
 		const values = await sheetsService.batchGet(ranges);
 
@@ -52,26 +52,24 @@ export async function getPosts(sheetsService: SheetsService, includeTomorrow: bo
 		{
 			const postRecords = values[0];
 			const posts: IPost[] = [];
-			// Reverse so that most recent day (or tomorrow) is up top.
-			let dayReferenceIndex = includeTomorrow ? -1 : 0;
+			// Reverse so that most recent day (or future) is up top.
+			// We know the rows exist, even if they are invalid. So
+			// no need to do fancy validation logic just yet.
+			let daysFromFutureToToday = includeFuture ? futureDaysToReturn : 0;
 			for (let i = postRecords.length - 1; i >= 0; i--) {
-				let dayReference: IPostDayReference = null!;
-				switch (dayReferenceIndex) {
-					case -1:
-						dayReference = IPostDayReference.tomorrow;
-						break;
-					case 0:
-						dayReference = IPostDayReference.today;
-						break;
-					case 1:
-						dayReference = IPostDayReference.yesterday;
-						break;
-					default:
-						dayReference = IPostDayReference.other;
+				let dayReference = IPostDayReference.other;
+				if (daysFromFutureToToday > 0) {
+					dayReference = IPostDayReference.future;
+				}
+				else if (daysFromFutureToToday === 0) {
+					dayReference = IPostDayReference.today;
+				}
+				else if (daysFromFutureToToday === -1) {
+					dayReference = IPostDayReference.yesterday;
 				}
 
 				posts.push(parsePost(postRecords[i], dayReference));
-				dayReferenceIndex++;
+				daysFromFutureToToday--;
 			}
 			postResponse.posts = posts;
 		}
@@ -90,11 +88,13 @@ export async function getPosts(sheetsService: SheetsService, includeTomorrow: bo
 	}
 }
 
+export const futureDaysToReturn = 3;
+
 /**
  * Creates a cell range to capture the data for the day inputs provided.
  * @param daysToReturn - days (including the day number) to return, moving backwards. if null, retrieves all days.
  */
-export function createPostsRange(latestDayNumber: number, daysToReturn: number | null, includeTomorrow: boolean): Range {
+export function createPostsRange(latestDayNumber: number, daysToReturn: number | null, includeFuture: boolean): Range {
 	// Constrain our days to return to be the day number.
 	daysToReturn = Math.min(daysToReturn || latestDayNumber, latestDayNumber);
 
@@ -104,9 +104,9 @@ export function createPostsRange(latestDayNumber: number, daysToReturn: number |
 	// Subtract 1, because our starting row already counts as a row in Google Sheets.
 	let rowsUntilStop = daysToReturn - 1;
 
-	// Including tomorrow means we return an extra day instead of replacing a day.
-	if (includeTomorrow) {
-		rowsUntilStop++;
+	// Including future means we return extra days (rows) instead of replacing days.
+	if (includeFuture) {
+		rowsUntilStop += futureDaysToReturn;
 	}
 
 	const postsFromCell = postsBaseFromCell.clone();
@@ -114,7 +114,7 @@ export function createPostsRange(latestDayNumber: number, daysToReturn: number |
 	const range = postsFromCell.toRangeAdditive(postsColumnStop, rowsUntilStop);
 
 	if (settings.isDev) {
-		//log('debug', { latestDayNumber, daysToReturn, includeTomorrow, rowsUntilStop, range: range.toText() });
+		//log('debug', { latestDayNumber, daysToReturn, includeFuture, rowsUntilStop, range: range.toText() });
 	}
 	return range;
 }

@@ -19,6 +19,7 @@ export function parseMeta(rows: any[][]): IMeta {
 	}
 
 	return {
+		// These should have really just been one cell with a splitter pattern... but I'd rather not change it.
 		important: keepTruthy(tryRowSingleCell(metaRangeStartRow), tryRowSingleCell(3)),
 		error: keepTruthy(tryRowSingleCell(4), tryRowSingleCell(5)),
 		shutdown: keepTruthy(tryRowSingleCell(6), tryRowSingleCell(7)),

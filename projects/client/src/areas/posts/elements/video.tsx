@@ -93,7 +93,9 @@ export const YouTubeVideoFrame: React.FC<YouTubeVideoFrameProps> = React.memo((p
 	}
 
 	// Create an embed url.
-	const embedUrl = url.replace('https://youtu.be/', 'https://www.youtube.com/embed/');
+	const embedUrl = url
+		.replace('https://youtu.be/', 'https://www.youtube.com/embed/')
+		.replace('?t=', '?start=');
 
 	return (
 		<VideoContainer>
