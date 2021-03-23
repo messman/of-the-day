@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { IPostElementType } from 'oftheday-shared';
-import { Spacing, Block, Padding } from '@/core/layout/common';
-import { RegularText, SmallText } from '@/core/symbol/text';
+import { Spacing, Block } from '@/core/layout/common';
+import { fontDeclarations, lineHeights, SmallText } from '@/core/symbol/text';
 import { OutLink, ActionLink } from '@/core/link';
 import { tStyled } from '@/core/style/styled';
 import { borderRadiusStyle } from '@/core/style/common';
 import { iconTypes } from '@/core/symbol/icon';
 import { TagList, useTags } from './tag';
 import { ElementActions } from '../element-action-overlay';
-import { PostElementCard, PostElementProps } from '../card/card';
+import { CardTitleDistinct, PostElementCard, PostElementProps } from '../card/card';
 
 /*
 	Possible things in this section:
@@ -64,9 +64,7 @@ export const Custom: React.FC<PostElementProps> = (props) => {
 		<>
 			<Block.Bat08 />
 			<HiddenArea>
-				<RegularText>
-					{hiddenValue}
-				</RegularText>
+				{hiddenValue}
 			</HiddenArea>
 		</>
 	) : null;
@@ -79,23 +77,25 @@ export const Custom: React.FC<PostElementProps> = (props) => {
 	) : null;
 
 	return (
-		<PostElementCard elementTitleName={title} icon={iconType} isForArchive={isForArchive} hideTitle={hideTitle} post={post}>
-			<Padding.Dog16>
-				<TagList tags={tagsStrings} />
-				{linkRender}
-				<Block.Dog16 />
-				{value}
-				{revealButton}
-				{hiddenValueRender}
-				{elementActionsRender}
-			</Padding.Dog16>
+		<PostElementCard icon={iconType} isForArchive={isForArchive} hideTitle={hideTitle} post={post}>
+			<CardTitleDistinct>{title}</CardTitleDistinct>
+			<TagList tags={tagsStrings} />
+			{linkRender}
+			<Block.Dog16 />
+			{value}
+			{revealButton}
+			{hiddenValueRender}
+			{elementActionsRender}
 		</PostElementCard>
 	);
 };
 
 const HiddenArea = tStyled.div`
 	padding: ${Spacing.dog16};
-	background-color: ${p => p.theme.subtleFill.b1Card};
-	border: 1px solid ${p => p.theme.outlineDistinct};
+	background-color: ${p => p.theme.subtleFill.inset};
+	box-shadow: ${p => p.theme.shadow.inset};
+	border: 1px solid ${p => p.theme.outlineSubtle};
 	${borderRadiusStyle}
+	${fontDeclarations.regular}
+	${lineHeights.body}
 `;

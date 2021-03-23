@@ -1,8 +1,8 @@
 // Handles the music component rendering.
 
 import * as React from 'react';
-import { RegularText, Heading3, SmallText, InlineWeight } from '@/core/symbol/text';
-import { Block, Margin, Padding, Spacing, } from '@/core/layout/common';
+import { RegularText, SmallText } from '@/core/symbol/text';
+import { Block, Spacing, } from '@/core/layout/common';
 import { YouTubeVideoFrame } from './video';
 import { TagList, useTags } from './tag';
 import { tStyled } from '@/core/style/styled';
@@ -12,7 +12,7 @@ import { iconTypes } from '@/core/symbol/icon';
 import { EmbeddedContentReveal } from './elements-common';
 import { ElementActions } from '../element-action-overlay';
 import { lineBreakpoint } from '@/services/layout/window-layout';
-import { PostElementCard, PostElementProps } from '../card/card';
+import { CardTitle, CardTitleDistinct, CardTitleDistinctSpan, PostElementCard, PostElementProps } from '../card/card';
 import { IPostElementType } from 'oftheday-shared';
 
 /**
@@ -42,32 +42,28 @@ export const Music: React.FC<PostElementProps> = (props) => {
 
 	const musicRender = quote ? (
 		<>
-			<Block.Elf24 />
-			<Margin.Dog16>
-				<MusicQuote lyric={quote} />
-			</Margin.Dog16>
+			<Block.Dog16 />
+			<MusicQuote lyric={quote} />
 		</>
 	) : null;
 
 	return (
-		<PostElementCard elementTitleName='Music' icon={iconTypes.music} isForArchive={isForArchive} hideTitle={hideTitle} post={post}>
-			<Padding.Dog16>
-				<div>
-
-					<Heading3>{title}</Heading3>
-					<Heading3><InlineWeight.Medium>by</InlineWeight.Medium> {artist}</Heading3>
-					{yearRender}
-				</div>
-				<Block.Elf24 />
-				<TagList tags={tagsStrings} />
-				{descriptionRender}
-				<LinksContainer>
-					<OutLink href={spotifyLink}>Spotify</OutLink>
-					<OutLink href={youTubeLink}>YouTube</OutLink>
-					<OutLink href={geniusLink}>Lyrics</OutLink>
-					<ElementActions isViewingArchive={isForArchive} elementType={IPostElementType.music} isTop={isTop} spotifyLink={spotifyLink} youTubeLink={youTubeLink} />
-				</LinksContainer>
-			</Padding.Dog16>
+		<PostElementCard icon={iconTypes.music} isForArchive={isForArchive} hideTitle={hideTitle} post={post}>
+			<CardTitleDistinct>{title}</CardTitleDistinct>
+			<CardTitle>
+				<span>by </span>
+				<CardTitleDistinctSpan>{artist}</CardTitleDistinctSpan>
+			</CardTitle>
+			{yearRender}
+			<Block.Elf24 />
+			<TagList tags={tagsStrings} />
+			{descriptionRender}
+			<LinksContainer>
+				<OutLink href={spotifyLink}>Spotify</OutLink>
+				<OutLink href={youTubeLink}>YouTube</OutLink>
+				<OutLink href={geniusLink}>Lyrics</OutLink>
+				<ElementActions isViewingArchive={isForArchive} elementType={IPostElementType.music} isTop={isTop} spotifyLink={spotifyLink} youTubeLink={youTubeLink} />
+			</LinksContainer>
 			<Block.Elf24 />
 			<EmbeddedContentReveal isRevealedOnMount={!isForArchive}>
 				{embedRender}

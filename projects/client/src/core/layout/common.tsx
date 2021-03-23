@@ -124,11 +124,18 @@ export const Block = {
 
 export const contentMaxWidth = LayoutBreakpointRem.d40;
 export const contentMaxWidthValue = `${LayoutBreakpointRem.d40}rem`;
-export const contentMaxWidthStyle = tCss`
+export const contentMaxWidthFullStyle = tCss`
+	max-width: ${contentMaxWidthValue};
+	margin: 0 auto;
+`;
+export const contentMaxWidthPaddedStyle = tCss`
 	max-width: ${contentMaxWidthValue};
 	margin: 0 auto;
 	padding: 0 ${Spacing.dog16};
 `;
-export const SimpleContentMaxWidth = tStyled.div`
-	${contentMaxWidthStyle}
+export const SimpleContentMaxWidthFull = tStyled.div`
+	${contentMaxWidthFullStyle}
+`;
+export const SimpleContentMaxWidthPadded = tStyled.div`
+	${contentMaxWidthPaddedStyle}
 `;

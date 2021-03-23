@@ -3,7 +3,7 @@ import { decorate, usePostControl } from '@/test/decorate';
 import { text } from '@storybook/addon-knobs';
 import { IPostCustom } from 'oftheday-shared';
 import { Custom } from './custom';
-import { Block, SimpleContentMaxWidth } from '@/core/layout/common';
+import { Block, SimpleContentMaxWidthFull } from '@/core/layout/common';
 
 export default { title: 'Areas/Posts/Elements/Custom' };
 
@@ -21,10 +21,10 @@ export const TestCustomText = decorate('Custom Text', null, () => {
 	});
 
 	return (
-		<SimpleContentMaxWidth>
+		<SimpleContentMaxWidthFull>
 			<Block.Dog16 />
 			<Custom post={post} isForArchive={isForArchive} hideTitle={hideTitle} />
-		</SimpleContentMaxWidth>
+		</SimpleContentMaxWidthFull>
 	);
 });
 
@@ -42,10 +42,10 @@ export const TestCustomTextLink = decorate('Custom Text & Link', null, () => {
 	});
 
 	return (
-		<SimpleContentMaxWidth>
+		<SimpleContentMaxWidthFull>
 			<Block.Dog16 />
 			<Custom post={post} isForArchive={isForArchive} hideTitle={hideTitle} />
-		</SimpleContentMaxWidth>
+		</SimpleContentMaxWidthFull>
 	);
 });
 
@@ -63,10 +63,10 @@ export const TestCustomTextHidden = decorate('Custom Text & Hidden', null, () =>
 	});
 
 	return (
-		<SimpleContentMaxWidth>
+		<SimpleContentMaxWidthFull>
 			<Block.Dog16 />
 			<Custom post={post} isForArchive={isForArchive} hideTitle={hideTitle} />
-		</SimpleContentMaxWidth>
+		</SimpleContentMaxWidthFull>
 	);
 });
 
@@ -84,10 +84,10 @@ export const TestCustomAll = decorate('Custom All', null, () => {
 	});
 
 	return (
-		<SimpleContentMaxWidth>
+		<SimpleContentMaxWidthFull>
 			<Block.Dog16 />
 			<Custom post={post} isForArchive={isForArchive} hideTitle={hideTitle} />
-		</SimpleContentMaxWidth>
+		</SimpleContentMaxWidthFull>
 	);
 });
 

@@ -2,14 +2,14 @@ import * as React from 'react';
 import { tStyled } from '@/core/style/styled';
 import { IPostElementType, IPostVideo } from 'oftheday-shared';
 import { Block, Padding } from '@/core/layout/common';
-import { RegularText, SmallText, Heading3, FontSize, InlineWeight } from '@/core/symbol/text';
+import { RegularText, SmallText, FontSize } from '@/core/symbol/text';
 import { TagList, useTags } from './tag';
 import { ActionLink } from '@/core/link';
 import { iconTypes } from '@/core/symbol/icon';
 import { EmbeddedContentReveal } from './elements-common';
 import { ElementActions } from '../element-action-overlay';
 import { lineBreakpoint } from '@/services/layout/window-layout';
-import { PostElementCard, PostElementProps } from '../card/card';
+import { CardTitle, CardTitleDistinct, CardTitleDistinctSpan, PostElementCard, PostElementProps } from '../card/card';
 
 /**
  * Displays the video card. Shows title, description, tags, video iframe, etc.
@@ -42,10 +42,10 @@ export const Video: React.FC<PostElementProps> = (props) => {
 	) : null;
 
 	return (
-		<PostElementCard elementTitleName='Video' icon={iconTypes.video} isForArchive={isForArchive} hideTitle={hideTitle} post={post}>
+		<PostElementCard icon={iconTypes.video} isForArchive={isForArchive} hideTitle={hideTitle} post={post}>
+			<VideoTitle video={post.video!} />
 			<Padding.Dog16>
 				<Block.Elf24 />
-				<VideoTitle video={post.video!} />
 				<TagList tags={tagsStrings} />
 				{descriptionRender}
 				<Block.Elf24 />
@@ -81,7 +81,7 @@ const VideoTitle: React.FC<VideoTitleProps> = (props) => {
 
 	if (isShowingOriginalTitle) {
 		return (
-			<Heading3>{originalTitle}</Heading3>
+			<CardTitleDistinct>{originalTitle}</CardTitleDistinct>
 		);
 	}
 
@@ -98,12 +98,17 @@ const VideoTitle: React.FC<VideoTitleProps> = (props) => {
 	) : null;
 
 	const customTitleCreatorRender = customTitleCreator ? (
-		<Heading3><InlineWeight.Medium>from</InlineWeight.Medium> {customTitleCreator}</Heading3>
+		<CardTitle>
+			<span>from </span>
+			<CardTitleDistinctSpan>
+				{customTitleCreator}
+			</CardTitleDistinctSpan>
+		</CardTitle>
 	) : null;
 
 	return (
 		<>
-			<Heading3>{customTitle}</Heading3>
+			<CardTitleDistinct>{customTitle}</CardTitleDistinct>
 			{customTitleCreatorRender}
 			{originalTitleLink}
 		</>

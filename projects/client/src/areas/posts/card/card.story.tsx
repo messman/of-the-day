@@ -3,7 +3,7 @@ import { decorate, usePostControl } from '@/test/decorate';
 import { PostElementCard } from './card';
 import { text } from '@storybook/addon-knobs';
 import { Paragraph } from '@/core/symbol/text';
-import { Block, SimpleContentMaxWidth } from '@/core/layout/common';
+import { Block, SimpleContentMaxWidthFull } from '@/core/layout/common';
 import { iconTypes } from '@/core/symbol/icon';
 
 export default { title: 'Posts/Card' };
@@ -12,7 +12,6 @@ export const TestCard = decorate('Card', null, () => {
 
 	const { post, isForArchive, hideTitle } = usePostControl(null, {});
 
-	const title = text('Card Title', 'Card Title');
 	const textContent = text('Text Content', '');
 
 	const textContentRender = textContent ? (
@@ -20,12 +19,12 @@ export const TestCard = decorate('Card', null, () => {
 	) : null;
 
 	return (
-		<SimpleContentMaxWidth>
+		<SimpleContentMaxWidthFull>
 			<Block.Dog16 />
-			<PostElementCard elementTitleName={title} icon={iconTypes.calendar} isForArchive={isForArchive} hideTitle={hideTitle} post={post}>
+			<PostElementCard icon={iconTypes.calendar} isForArchive={isForArchive} hideTitle={hideTitle} post={post}>
 				{textContentRender}
 			</PostElementCard>
-		</SimpleContentMaxWidth>
+		</SimpleContentMaxWidthFull>
 	);
 });
 

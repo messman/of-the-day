@@ -1,4 +1,4 @@
-import { contentMaxWidthStyle, Spacing } from '@/core/layout/common';
+import { SimpleContentMaxWidthPadded, Spacing } from '@/core/layout/common';
 import { OutLink } from '@/core/link';
 import { tStyled } from '@/core/style/styled';
 import { iconTypes, SizedIcon } from '@/core/symbol/icon';
@@ -34,7 +34,7 @@ export const About: React.FC<AboutProps> = () => {
 	}
 
 	return (
-		<AboutContainer>
+		<SimpleContentMaxWidthPadded>
 			<Settings />
 			<div>
 				<Title>About</Title>
@@ -132,13 +132,9 @@ export const About: React.FC<AboutProps> = () => {
 			<IconContainer>
 				<SizedIcon type={iconTypes.creator} size={Spacing.hut56} />
 			</IconContainer>
-		</AboutContainer>
+		</SimpleContentMaxWidthPadded>
 	);
 };
-
-const AboutContainer = tStyled.div`
-	${contentMaxWidthStyle}
-`;
 
 const IconContainer = tStyled.div`
 	text-align: center;

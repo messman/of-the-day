@@ -3,7 +3,7 @@ import { decorate } from '@/test/decorate';
 import { Post } from './post';
 import { number } from '@storybook/addon-knobs';
 import { postsTestData } from '../../test/data';
-import { Block, SimpleContentMaxWidth } from '@/core/layout/common';
+import { Block, SimpleContentMaxWidthFull } from '@/core/layout/common';
 
 export default { title: 'Areas/Posts/Post' };
 
@@ -13,7 +13,7 @@ export const Posts = decorate('Post', null, () => {
 	const post = postsTestData.posts[postIndex];
 
 	return (
-		<SimpleContentMaxWidth>
+		<SimpleContentMaxWidthFull>
 			<Block.Dog16 />
 			<Post
 				post={post}
@@ -21,6 +21,6 @@ export const Posts = decorate('Post', null, () => {
 				isForArchive={false}
 			/>
 			<Block.Dog16 />
-		</SimpleContentMaxWidth>
+		</SimpleContentMaxWidthFull>
 	);
 });

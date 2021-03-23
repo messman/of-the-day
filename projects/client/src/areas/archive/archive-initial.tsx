@@ -1,5 +1,5 @@
 import { Button } from '@/core/form/button/button';
-import { contentMaxWidthStyle } from '@/core/layout/common';
+import { SimpleContentMaxWidthPadded } from '@/core/layout/common';
 import { OutLink } from '@/core/link';
 import { tStyled } from '@/core/style/styled';
 import { Title, Paragraph, ParagraphCenter } from '@/core/symbol/text';
@@ -48,7 +48,7 @@ export const ArchiveInitial: React.FC<ArchiveInitialProps> = (props) => {
 	}
 
 	return (
-		<ArchiveInitialContainer>
+		<SimpleContentMaxWidthPadded>
 			<Title>Archive</Title>
 			<Paragraph>
 				Choose a preset below or create a filter.
@@ -64,15 +64,11 @@ export const ArchiveInitial: React.FC<ArchiveInitialProps> = (props) => {
 				<Button onClick={onClickOverlayOpen} isSpecial={true}>Create advanced filter</Button>
 				{metaPlaylistRender}
 			</ButtonsContainer>
-		</ArchiveInitialContainer>
+		</SimpleContentMaxWidthPadded>
 	);
 };
 
 const ButtonsContainer = tStyled.div`
 	max-width: ${LayoutBreakpointRem.c30}rem;
 	margin: auto;
-`;
-
-const ArchiveInitialContainer = tStyled.div`
-	${contentMaxWidthStyle}
 `;

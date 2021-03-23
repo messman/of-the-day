@@ -4,7 +4,7 @@ import { PostElementsCountSummary, usePostsList, useValidatedPosts } from './pos
 import { usePostResponse } from '@/services/data/data-context';
 import { DataLoad } from '@/services/data/data-load';
 import { ParagraphCenter } from '@/core/symbol/text';
-import { SimpleContentMaxWidth } from '@/core/layout/common';
+import { SimpleContentMaxWidthFull } from '@/core/layout/common';
 
 export interface PostsProps {
 }
@@ -50,9 +50,9 @@ export const Posts: React.FC<PostsProps> = () => {
 	}
 
 	return (
-		<SimpleContentMaxWidth>
+		<SimpleContentMaxWidthFull>
 			{render}
-		</SimpleContentMaxWidth>
+		</SimpleContentMaxWidthFull>
 	);
 };
 

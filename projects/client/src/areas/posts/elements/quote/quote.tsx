@@ -7,7 +7,7 @@ import { iconTypes } from '@/core/symbol/icon';
 import { TagList, useTags } from '../tag';
 import { Block } from '@/core/layout/common';
 import { ElementActions } from '../../element-action-overlay';
-import { PostElementCard, PostElementProps } from '../../card/card';
+import { CardTitleDistinct, PostElementCard, PostElementProps } from '../../card/card';
 
 export interface MusicQuoteProps {
 	lyric: string;
@@ -53,13 +53,12 @@ export const Quote: React.FC<PostElementProps> = (props) => {
 	) : null;
 
 	return (
-		<PostElementCard elementTitleName='Quote' icon={iconTypes.quote} isForArchive={isForArchive} hideTitle={hideTitle} post={post}>
-			<Block.Dog16>
-				<TagList tags={tagsStrings} />
-				{elementActionsRender}
-				<Block.Elf24 />
-				<InnerQuote quote={post.quote!} />
-			</Block.Dog16>
+		<PostElementCard icon={iconTypes.quote} isForArchive={isForArchive} hideTitle={hideTitle} post={post}>
+			<CardTitleDistinct>Quote</CardTitleDistinct>
+			<TagList tags={tagsStrings} />
+			{elementActionsRender}
+			<Block.Dog16 />
+			<InnerQuote quote={post.quote!} />
 		</PostElementCard>
 	);
 };
