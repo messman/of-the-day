@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { IPostElementType } from 'oftheday-shared';
 import { Block } from '@/core/layout/common';
-import { Paragraph } from '@/core/symbol/text';
+import { Paragraph, ParagraphArray } from '@/core/symbol/text';
 import { tStyled } from '@/core/style/styled';
 import { OutLink } from '@/core/link';
 import { iconTypes } from '@/core/symbol/icon';
@@ -18,10 +18,6 @@ export const Image: React.FC<PostElementProps> = (props) => {
 	const { link, description, sourceText, sourceLink, isNSFW, isTop } = post.image!;
 
 	const tagsStrings = useTags(isTop, isNSFW);
-
-	const descriptionRender = description ? (
-		<Paragraph>{description}</Paragraph>
-	) : null;
 
 	let sourceTextRender: JSX.Element | string | null = null;
 	if (sourceText) {
@@ -51,7 +47,7 @@ export const Image: React.FC<PostElementProps> = (props) => {
 			}
 		>
 			<TagList tags={tagsStrings} />
-			{descriptionRender}
+			<ParagraphArray value={description} />
 			{sourceTextRender}
 			<Block.Bat08 />
 			<EmbeddedContentReveal isRevealedOnMount={!isForArchive}>

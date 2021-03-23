@@ -1,4 +1,4 @@
-import { IArchiveResponse, IMeta, IOtherResponse, IPostDayReference, IPostResponse } from 'oftheday-shared';
+import { IArchiveResponse, IMeta, IPostDayReference, IPostResponse } from 'oftheday-shared';
 
 const meta: IMeta = {
 	important: ['Test of the important section'],
@@ -6,77 +6,6 @@ const meta: IMeta = {
 	shutdown: [],
 	spotifyLink: 'https://andrewmessier.com',
 	youTubeLink: 'https://andrewmessier.com',
-};
-
-export const otherTestData: IOtherResponse = {
-	meta: meta,
-	other: {
-		checklistToDo: [
-			'Swim with the sharks',
-			'Climb the tallest peak',
-			'Run with the cheetahs',
-			'Do something so epic and so awesome that I have a fantastic story to tell for a long time that I never forget and this is just to take up a lot of line space',
-		],
-		checklistDone: [
-			'Sit around on the couch',
-			'Gain 50,000 pounds and then lose 50,0010 pounds and again here I am just trying to make the line length longer',
-			'Stand up paddle board'
-		],
-		lookingForward: {
-			text: `This project about lions. Aren't lions the best? I could talk about lions all the time. Day or night.`,
-			linkText: 'The Lion Project',
-			link: 'https://google.com',
-		},
-		workingOn: {
-			text: 'This project about whales. Whales are the only thing better than lions. You best believe that whales are the tops.',
-			linkText: 'The Whale Project',
-			link: 'https://google.com',
-		},
-		topArtists: [
-			{
-				text: 'Coldplay',
-				count: 10
-			},
-			{
-				text: 'John Mayer',
-				count: 7
-			},
-			{
-				text: 'Billy Joel',
-				count: 4
-			},
-		],
-		topLocations: [
-			{
-				text: 'Wells, Maine',
-				count: 70
-			},
-			{
-				text: 'Charlotte',
-				count: 50
-			},
-			{
-				text: 'Boston',
-				count: 10
-			}
-		],
-		topDayTypes: [
-			{
-				text: 'Relaxation',
-				count: 111
-			},
-			{
-				text: 'Work',
-				count: 80
-			},
-			{
-				text: 'Adventure',
-				count: 20
-			},
-		],
-		milesByBicycle: 300,
-		milesByFoot: 462
-	}
 };
 
 export const postsTestData: IPostResponse = {
@@ -94,7 +23,7 @@ export const postsTestData: IPostResponse = {
 
 			personal: {
 				event: 'Black Friday',
-				note: ['This is Black Friday. What a day. The excesses of the people shine for us all to see.'],
+				note: ['This is Black Friday. What a day. The excesses of the people shine for us all to see.', `It's not all bad though.`],
 				location: 'Wells, Maine',
 				schedule: 'Run 50 miles; sign autographs; move a house; eat breakfast.',
 				dayTypes: ['Work', 'Adventure'],
@@ -108,7 +37,7 @@ export const postsTestData: IPostResponse = {
 				youTubeLink: 'https://youtu.be/VYOjWnS4cMY',
 				useYouTube: true,
 				geniusLink: 'https://genius.com/Childish-gambino-this-is-america-lyrics',
-				description: `Art, in case you haven't seen it. I highly recommend taking a look at the Genius Lyrics (linked) to dive deep into the meaning and references.`,
+				description: [`Art, in case you haven't seen it.`, `I highly recommend taking a look at the Genius Lyrics (linked) to dive deep into the meaning and references.`],
 				quote: 'You just a black man in this world',
 				isNSFW: true,
 				isTop: true,
@@ -118,7 +47,7 @@ export const postsTestData: IPostResponse = {
 				customTitle: 'Walking 500 Miles',
 				customTitleCreator: 'The Late Late Show With James Corden',
 				originalTitle: 'Niall Horan & James Corden Would Walk 500 Miles',
-				description: 'I imagine that being a writer for a late-night TV show must be a lot of stress and anxiety because you will not always have other people think your idea is funny. This, for example, was a shot in the dark that somehow worked.',
+				description: ['I imagine that being a writer for a late-night TV show must be a lot of stress and anxiety because you will not always have other people think your idea is funny.', 'This, for example, was a shot in the dark that somehow worked.'],
 				link: 'https://youtu.be/aEWfPtxFm70',
 				isNSFW: false,
 				isTop: false,
@@ -126,7 +55,7 @@ export const postsTestData: IPostResponse = {
 				tags: [],
 			},
 			image: {
-				description: 'Testing how it is to display photos here.',
+				description: ['Testing how it is to display photos here.'],
 				link: 'https://drscdn.500px.org/photo/1019496186/m%3D900/v2?sig=a21d2c3833b5997ba905355f1b6961dbf59e3a19739fa97a10ecea93191c02ed',
 				sourceText: 'Google',
 				sourceLink: 'https://google.com',
@@ -145,7 +74,7 @@ export const postsTestData: IPostResponse = {
 			},
 			custom: {
 				title: 'Joke',
-				value: 'Did you hear about the actor who fell through the floorboards?',
+				value: ['Did you hear about the actor who fell through the floorboards?', 'Click to see the answer.'],
 				hiddenValue: 'He was just going through a stage.',
 				linkText: '',
 				link: '',
@@ -178,7 +107,7 @@ export const postsTestData: IPostResponse = {
 				youTubeLink: 'https://youtu.be/QkNym9S8uMw',
 				useYouTube: true,
 				geniusLink: 'https://genius.com/Childish-gambino-this-is-america-lyrics',
-				description: `Sara back with some empowerment and "F the patriarchy" energy.`,
+				description: [`Sara back with some empowerment and`, `"F the patriarchy"`, `energy.`],
 				quote: `The unforgettable, incredible ones who came before me/brought poetry, brought science/sowed quiet seeds of self-reliance`,
 				isNSFW: false,
 				isTop: true,
@@ -188,7 +117,7 @@ export const postsTestData: IPostResponse = {
 				customTitle: 'MacGruber: Sensitivity Training',
 				customTitleCreator: 'SNL',
 				originalTitle: 'MacGruber: Sensitivity Training - SNL',
-				description: 'MacGruber, one of my favorite recurring skits on SNL. These short skits would be interspersed throughout a single episode and leave me laughing after each one. The bomb could go off at any moment. (Also, relevant.)',
+				description: ['MacGruber, one of my favorite recurring skits on SNL.', 'These short skits would be interspersed throughout a single episode and leave me laughing after each one. The bomb could go off at any moment. (Also, relevant.)'],
 				link: 'https://youtu.be/ZPNZv8J94uA',
 				isNSFW: true,
 				isRemoved: false,
@@ -196,7 +125,7 @@ export const postsTestData: IPostResponse = {
 				tags: ['Fun', 'Impressive'],
 			},
 			image: {
-				description: '',
+				description: [],
 				link: 'https://drscdn.500px.org/photo/1019496202/m%3D900/v2?sig=a8a2e58478162534eb4635c7ca1a792e245d20f2602446b633d664eae06059d2',
 				sourceText: 'Google',
 				sourceLink: 'https://google.com',
@@ -215,7 +144,7 @@ export const postsTestData: IPostResponse = {
 			},
 			custom: {
 				title: 'Shower Thought',
-				value: 'Bees? Like, am I right?',
+				value: ['Bees? Like, am I right?'],
 				hiddenValue: '',
 				linkText: '',
 				link: '',
@@ -257,7 +186,7 @@ export const postsTestData: IPostResponse = {
 				youTubeLink: 'https://youtu.be/UIE4UjBtx-o',
 				useYouTube: true,
 				geniusLink: 'https://genius.com/Ac-dc-dirty-deeds-done-dirt-cheap-lyrics',
-				description: `A classic. Performing some dishonest acts at a fair and reasonable price.`,
+				description: [`A classic. Performing some dishonest acts at a fair and reasonable price.`],
 				quote: 'Neckties, contracts, high voltage!',
 				isNSFW: true,
 				isTop: true,
@@ -275,7 +204,7 @@ export const postsTestData: IPostResponse = {
 			},
 			custom: {
 				title: 'Recommendation',
-				value: 'I highly recommend people check out The Social Dilemma on Netflix. Social media can have deeply negative psychological effects on people.',
+				value: ['I highly recommend people check out The Social Dilemma on Netflix. Social media can have deeply negative psychological effects on people.'],
 				hiddenValue: '',
 				linkText: 'The Social Dilemma | Netflix',
 				link: 'https://www.netflix.com/title/81254224',
@@ -308,7 +237,7 @@ export const postsTestData: IPostResponse = {
 				youTubeLink: 'https://youtu.be/UIE4UjBtx-o',
 				useYouTube: true,
 				geniusLink: 'https://genius.com/Ac-dc-dirty-deeds-done-dirt-cheap-lyrics',
-				description: `A classic. Performing some dishonest acts at a fair and reasonable price.`,
+				description: [`A classic. Performing some dishonest acts at a fair and reasonable price.`],
 				quote: 'Neckties, contracts, high voltage!',
 				isNSFW: true,
 				isTop: true,
@@ -341,7 +270,7 @@ export const postsTestData: IPostResponse = {
 				youTubeLink: 'https://youtu.be/UIE4UjBtx-o',
 				useYouTube: true,
 				geniusLink: 'https://genius.com/Ac-dc-dirty-deeds-done-dirt-cheap-lyrics',
-				description: `A classic. Performing some dishonest acts at a fair and reasonable price.`,
+				description: [`A classic. Performing some dishonest acts at a fair and reasonable price.`],
 				quote: 'Neckties, contracts, high voltage!',
 				isNSFW: true,
 				isTop: true,
@@ -349,7 +278,7 @@ export const postsTestData: IPostResponse = {
 			},
 			custom: {
 				title: 'Recommendation',
-				value: 'I highly recommend people check out The Social Dilemma on Netflix. Social media can have deeply negative psychological effects on people.',
+				value: ['I highly recommend people check out The Social Dilemma on Netflix. Social media can have deeply negative psychological effects on people.'],
 				hiddenValue: '',
 				linkText: 'The Social Dilemma | Netflix',
 				link: 'https://www.netflix.com/title/81254224',

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { themes, useLocalStorageTheme } from '@/core/style/theme';
 import { TestWrapper } from '@/entry/wrapper';
-import { boolean, select, withKnobs } from '@storybook/addon-knobs';
+import { boolean, select, text, withKnobs } from '@storybook/addon-knobs';
 import { tStyled } from '@/core/style/styled';
 import { IPost, IPostDayReference, keysOfIPostDayReference } from 'oftheday-shared';
 import { PostElementProps } from '@/areas/posts/card/card';
@@ -135,4 +135,9 @@ export function usePostControl(post: IPost | null, extra: Partial<IPost>): PostE
 		isOfSameElement: boolean('Is Same Element', false),
 		isForArchive: boolean('Is For Archive', false),
 	};
+}
+
+export function useTextParagraph(name: string, defaultValue: string): string[] {
+	const input = text(name, defaultValue);
+	return input.split(' /// ');
 }

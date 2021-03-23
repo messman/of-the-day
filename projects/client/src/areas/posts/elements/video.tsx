@@ -2,7 +2,7 @@ import * as React from 'react';
 import { tStyled } from '@/core/style/styled';
 import { IPostElementType } from 'oftheday-shared';
 import { Block } from '@/core/layout/common';
-import { SmallText, Paragraph } from '@/core/symbol/text';
+import { SmallText, Paragraph, ParagraphArray } from '@/core/symbol/text';
 import { TagList, useTags } from './tag';
 import { iconTypes } from '@/core/symbol/icon';
 import { EmbeddedContentReveal } from './elements-common';
@@ -27,7 +27,8 @@ export const Video: React.FC<PostElementProps> = (props) => {
 		</>
 	) : null;
 
-	const customTitleCreatorRender = (isShowingCustom && customTitleCreator) ? (
+	// We will show the 'from' even if there is no custom title.
+	const customTitleCreatorRender = customTitleCreator ? (
 		<CardTitle>
 			<span>from </span>
 			<CardTitleDistinctSpan>
@@ -50,11 +51,7 @@ export const Video: React.FC<PostElementProps> = (props) => {
 		);
 	}
 
-	const descriptionRender = (description && !isRemoved) ? (
-		<Paragraph>
-			{description}
-		</Paragraph>
-	) : null;
+	const descriptionToRender = isRemoved ? [] : description;
 
 	return (
 		<PostElementCard
@@ -76,7 +73,7 @@ export const Video: React.FC<PostElementProps> = (props) => {
 			{originalTitleNotificationRender}
 			<Block.Dog16 />
 			<TagList tags={tagsStrings} />
-			{descriptionRender}
+			<ParagraphArray value={descriptionToRender} />
 			<Block.Dog16 />
 			<EmbeddedContentReveal isRevealedOnMount={!isForArchive || isRemoved}>
 				{internalVideoRender}

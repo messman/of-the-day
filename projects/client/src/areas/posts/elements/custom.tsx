@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { IPostElementType } from 'oftheday-shared';
 import { Spacing, Block } from '@/core/layout/common';
-import { fontDeclarations, lineHeights, SmallText } from '@/core/symbol/text';
+import { fontDeclarations, lineHeights, ParagraphArray, SmallText } from '@/core/symbol/text';
 import { OutLink, ActionLink } from '@/core/link';
 import { tStyled } from '@/core/style/styled';
 import { borderRadiusStyle } from '@/core/style/common';
@@ -87,7 +87,7 @@ export const Custom: React.FC<PostElementProps> = (props) => {
 			<TagList tags={tagsStrings} />
 			{linkRender}
 			<Block.Dog16 />
-			{value}
+			<ParagraphArray value={value} />
 			{revealButton}
 			{hiddenValueRender}
 		</PostElementCard>

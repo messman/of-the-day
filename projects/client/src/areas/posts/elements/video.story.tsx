@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { decorate, usePostControl } from '@/test/decorate';
+import { decorate, usePostControl, useTextParagraph } from '@/test/decorate';
 import { text, boolean } from '@storybook/addon-knobs';
 import { IPostVideo } from 'oftheday-shared';
 import { Video } from './video';
@@ -12,7 +12,7 @@ export const TestVideo = decorate('Video', null, () => {
 	const customTitle = text('Custom Title', '');
 	const customTitleCreator = text('Custom Title Creator', '');
 	const originalTitle = text('Original Title', 'Hilarious! Bing | Bang | Boom ON FX NETWORK');
-	const description = text('Description', 'Here is a great video I just saw the other day that shows this that and the other thing.');
+	const description = useTextParagraph('Description', 'Here is a great video I just saw the other day that shows this /// that /// and the other thing.');
 	const isRemoved = boolean('Is Removed', false);
 	const hasTags = boolean('Has Tags', true);
 

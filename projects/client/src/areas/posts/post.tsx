@@ -21,12 +21,12 @@ export const Post: React.FC<PostProps> = (props) => {
 
 	return (
 		<PostElementsContainer>
-			<Personal isForArchive={isForArchive} post={post} isOfSameElement={isOfSameElement} />
-			<Music isForArchive={isForArchive} post={post} isOfSameElement={isOfSameElement} />
-			<Video isForArchive={isForArchive} post={post} isOfSameElement={isOfSameElement} />
-			<Image isForArchive={isForArchive} post={post} isOfSameElement={isOfSameElement} />
-			<Quote isForArchive={isForArchive} post={post} isOfSameElement={isOfSameElement} />
-			<Custom isForArchive={isForArchive} post={post} isOfSameElement={isOfSameElement} />
+			{post.personal ? <Personal isForArchive={isForArchive} post={post} isOfSameElement={isOfSameElement} /> : null}
+			{post.music ? <Music isForArchive={isForArchive} post={post} isOfSameElement={isOfSameElement} /> : null}
+			{post.video ? <Video isForArchive={isForArchive} post={post} isOfSameElement={isOfSameElement} /> : null}
+			{post.image ? <Image isForArchive={isForArchive} post={post} isOfSameElement={isOfSameElement} /> : null}
+			{post.quote ? <Quote isForArchive={isForArchive} post={post} isOfSameElement={isOfSameElement} /> : null}
+			{post.custom ? <Custom isForArchive={isForArchive} post={post} isOfSameElement={isOfSameElement} /> : null}
 		</PostElementsContainer>
 	);
 };

@@ -1,7 +1,7 @@
 // Handles the music component rendering.
 
 import * as React from 'react';
-import { Paragraph, SmallText } from '@/core/symbol/text';
+import { ParagraphArray, SmallText } from '@/core/symbol/text';
 import { Block, Spacing, } from '@/core/layout/common';
 import { YouTubeVideoFrame } from './video';
 import { TagList, useTags } from './tag';
@@ -32,16 +32,9 @@ export const Music: React.FC<PostElementProps> = (props) => {
 		</>
 	) : null;
 
-	const descriptionRender = description ? (
-		<>
-			<Block.Bat08 />
-			<Paragraph>{description}</Paragraph>
-		</>
-	) : null;
-
 	const musicRender = quote ? (
 		<>
-			<Block.Dog16 />
+			<Block.Elf24 />
 			<MusicQuote lyric={quote} />
 		</>
 	) : null;
@@ -70,12 +63,12 @@ export const Music: React.FC<PostElementProps> = (props) => {
 			{yearRender}
 			<Block.Dog16 />
 			<TagList tags={tagsStrings} />
-			{descriptionRender}
+			<ParagraphArray value={description} />
 			<LinksContainer>
 				<OutLink href={spotifyLink}>Listen on Spotify</OutLink>
 				<OutLink href={geniusLink}>View Lyrics</OutLink>
 			</LinksContainer>
-			<Block.Dog16 />
+			<Block.Elf24 />
 			<EmbeddedContentReveal isRevealedOnMount={!isForArchive}>
 				{embedRender}
 			</EmbeddedContentReveal>
@@ -112,7 +105,6 @@ const EmbedContainer = tStyled.div`
 
 const LinksContainer = tStyled.div`
 	a {
-		margin-top: ${Spacing.elf24};
 		margin-right: ${Spacing.dog16};
 	}
 `;

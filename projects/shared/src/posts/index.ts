@@ -121,7 +121,7 @@ export interface IPostQuote extends IPostTopElement, IPostNSFWElement {
 
 export interface IPostImage extends IPostTopElement, IPostNSFWElement {
 	link: string;
-	description: string;
+	description: string[];
 	sourceLink: string;
 	sourceText: string;
 }

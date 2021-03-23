@@ -135,3 +135,18 @@ export const ParagraphCenter: React.FC = (props) => {
 		</ParagraphCenterContainer>
 	);
 };
+
+export interface ParagraphArrayProps {
+	value: string[];
+}
+
+export const ParagraphArray: React.FC<ParagraphArrayProps> = (props) => {
+	const render = props.value.map((para) => {
+		return (
+			<Paragraph key={para}>
+				{para}
+			</Paragraph>
+		);
+	});
+	return <>{render}</>;
+};
