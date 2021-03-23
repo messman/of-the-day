@@ -2,25 +2,25 @@
 
 import * as React from 'react';
 import { RegularText, Heading3, SmallText, InlineWeight } from '@/core/symbol/text';
-import { Block, Margin, Spacing, } from '@/core/layout/common';
+import { Block, Margin, Padding, Spacing, } from '@/core/layout/common';
 import { YouTubeVideoFrame } from './video';
 import { TagList, useTags } from './tag';
 import { tStyled } from '@/core/style/styled';
 import { OutLink } from '@/core/link';
 import { MusicQuote } from './quote/quote';
 import { iconTypes } from '@/core/symbol/icon';
-import { IPostElementType, IPostMusic, isValidPostElement } from 'oftheday-shared';
-import { createPostsElement, PostCard, EmbeddedContentReveal } from './elements-common';
-import { CardPadding } from '@/core/card/card';
+import { EmbeddedContentReveal } from './elements-common';
 import { ElementActions } from '../element-action-overlay';
 import { lineBreakpoint } from '@/services/layout/window-layout';
+import { PostElementCard, PostElementProps } from '../card/card';
+import { IPostElementType } from 'oftheday-shared';
 
 /**
  * A Music card. Shows title, artist, year, YouTube video, tags, etc.
  */
-export const Music = createPostsElement<IPostMusic>((props) => {
-	const { isForArchive, hideTitle, archivePost } = props;
-	const { title, artist, description, isTop, isNSFW, tags, spotifyLink, youTubeLink, useYouTube, geniusLink, quote, year } = props.value;
+export const Music: React.FC<PostElementProps> = (props) => {
+	const { isForArchive, hideTitle, post } = props;
+	const { title, artist, description, isTop, isNSFW, tags, spotifyLink, youTubeLink, useYouTube, geniusLink, quote, year } = post.music!;
 
 	const tagsStrings = useTags(isTop, isNSFW, tags);
 
@@ -50,8 +50,8 @@ export const Music = createPostsElement<IPostMusic>((props) => {
 	) : null;
 
 	return (
-		<PostCard title='Music' icon={iconTypes.music} isForArchive={isForArchive} hideTitle={hideTitle} archivePost={archivePost}>
-			<CardPadding>
+		<PostElementCard elementTitleName='Music' icon={iconTypes.music} isForArchive={isForArchive} hideTitle={hideTitle} post={post}>
+			<Padding.Dog16>
 				<div>
 
 					<Heading3>{title}</Heading3>
@@ -67,15 +67,15 @@ export const Music = createPostsElement<IPostMusic>((props) => {
 					<OutLink href={geniusLink}>Lyrics</OutLink>
 					<ElementActions isViewingArchive={isForArchive} elementType={IPostElementType.music} isTop={isTop} spotifyLink={spotifyLink} youTubeLink={youTubeLink} />
 				</LinksContainer>
-			</CardPadding>
+			</Padding.Dog16>
 			<Block.Elf24 />
 			<EmbeddedContentReveal isRevealedOnMount={!isForArchive}>
 				{embedRender}
 			</EmbeddedContentReveal>
 			{musicRender}
-		</PostCard>
+		</PostElementCard>
 	);
-}, IPostElementType.music, isValidPostElement.music);
+};
 
 interface SpotifyEmbedFrameProps {
 	url: string;

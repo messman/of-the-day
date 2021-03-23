@@ -1,14 +1,13 @@
 // Handles the rendering of a quote.
 
 import * as React from 'react';
-import { IPostElementType, IPostQuote, isValidPostElement } from 'oftheday-shared';
+import { IPostElementType, IPostQuote } from 'oftheday-shared';
 import { InnerQuote, InnerSingleQuote } from './quote-inner';
 import { iconTypes } from '@/core/symbol/icon';
-import { createPostsElement, PostCard } from '../elements-common';
 import { TagList, useTags } from '../tag';
 import { Block } from '@/core/layout/common';
-import { CardPadding } from '@/core/card/card';
 import { ElementActions } from '../../element-action-overlay';
+import { PostElementCard, PostElementProps } from '../../card/card';
 
 export interface MusicQuoteProps {
 	lyric: string;
@@ -40,9 +39,9 @@ export const MusicQuote: React.FC<MusicQuoteProps> = (props) => {
 };
 
 /** Displays the quote as a top-level post element section. */
-export const Quote = createPostsElement<IPostQuote>((props) => {
-	const { isForArchive, hideTitle, archivePost } = props;
-	const { isNSFW, isTop } = props.value;
+export const Quote: React.FC<PostElementProps> = (props) => {
+	const { isForArchive, hideTitle, post } = props;
+	const { isNSFW, isTop } = post.quote!;
 
 	const tagsStrings = useTags(isTop, isNSFW);
 
@@ -54,13 +53,13 @@ export const Quote = createPostsElement<IPostQuote>((props) => {
 	) : null;
 
 	return (
-		<PostCard title='Quote' icon={iconTypes.quote} isForArchive={isForArchive} hideTitle={hideTitle} archivePost={archivePost}>
-			<CardPadding>
+		<PostElementCard elementTitleName='Quote' icon={iconTypes.quote} isForArchive={isForArchive} hideTitle={hideTitle} post={post}>
+			<Block.Dog16>
 				<TagList tags={tagsStrings} />
 				{elementActionsRender}
 				<Block.Elf24 />
-				<InnerQuote quote={props.value} />
-			</CardPadding>
-		</PostCard>
+				<InnerQuote quote={post.quote!} />
+			</Block.Dog16>
+		</PostElementCard>
 	);
-}, IPostElementType.quote, isValidPostElement.quote);
+};

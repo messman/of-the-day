@@ -9,7 +9,7 @@ import { DataLoad } from '@/services/data/data-load';
 import { Flex, FlexRow, PromiseOutput, Sticky, useSticky } from '@messman/react-common';
 import { IArchiveFilter, IArchiveResponse, IPost, IPostElementType, keysOfIPostElementType } from 'oftheday-shared';
 import * as React from 'react';
-import { PostElementsCountSummary, usePostElementsCount, usePostsList } from '../posts/post';
+import { PostElementsCountSummary, usePostsList, useValidatedPosts } from '../posts/post';
 import { FilterDescription } from './filter/filter-common';
 
 export interface ArchiveResultsProps {
@@ -33,7 +33,7 @@ export const ArchiveResults: React.FC<ArchiveResultsProps> = (props) => {
 	if (data && meta && !meta.shutdown.length) {
 		posts = data.posts;
 	}
-	const postElementsCount = usePostElementsCount(posts, false);
+	const { validPosts, elementsCount } = useValidatedPosts(posts, false);
 
 	const [singleElementType, setSingleElementType] = React.useState<IPostElementType | null>(null);
 
@@ -54,7 +54,7 @@ export const ArchiveResults: React.FC<ArchiveResultsProps> = (props) => {
 
 	// I'm not sure yet if this is a good idea or something that will cause a bug.
 	// but, only re-render our posts (there could be hundreds) if those posts really change.
-	const postsRender = usePostsList(posts, true, singleElementType);
+	const postsRender = usePostsList(validPosts, true, singleElementType);
 
 	if (isStarted || error) {
 		return <DataLoad promise={promise} />;
@@ -83,13 +83,13 @@ export const ArchiveResults: React.FC<ArchiveResultsProps> = (props) => {
 
 	return (
 		<ArchiveResultsContainer>
-			<ArchiveResultsHeader {...props} resultsCount={postElementsCount} />
+			<ArchiveResultsHeader {...props} resultsCount={elementsCount} />
 			<ArchiveResultsContentContainer>
 				<Block.Elf24 />
 				<FilterDescription filter={filter} />
 				<PostElementsCountSummary
-					elementsCount={postElementsCount}
-					postsCount={posts.length}
+					elementsCount={elementsCount}
+					postsCount={validPosts.length}
 				/>
 				{metaPlaylistRender}
 				{postsRender}

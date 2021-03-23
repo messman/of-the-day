@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { decorate } from '@/test/decorate';
+import { decorate, usePostControl } from '@/test/decorate';
 import { text, boolean } from '@storybook/addon-knobs';
 import { MusicQuote, Quote } from './quote';
 import { Block, SimpleContentMaxWidth } from '@/core/layout/common';
@@ -27,17 +27,19 @@ export const TestSingleQuote = decorate('Single Quote', null, () => {
 	const useSourceLink = boolean('use source link', true);
 	const sourceLink = useSourceLink ? 'https://google.com' : '';
 
-	const quote = wrapPartialQuote({
-		a: a,
-		aVoice: aVoice,
-		sourceText: sourceText,
-		sourceLink: sourceLink
+	const { post, isForArchive, hideTitle } = usePostControl(null, {
+		quote: wrapPartialQuote({
+			a: a,
+			aVoice: aVoice,
+			sourceText: sourceText,
+			sourceLink: sourceLink
+		})
 	});
 
 	return (
 		<SimpleContentMaxWidth>
 			<Block.Dog16 />
-			<Quote value={quote} />
+			<Quote hideTitle={hideTitle} isForArchive={isForArchive} post={post} />
 		</SimpleContentMaxWidth>
 	);
 });
@@ -49,17 +51,19 @@ export const TestAnonymousVoicesQuote = decorate('Anonymous Voices Quote', null,
 	const useSourceLink = boolean('use source link', true);
 	const sourceLink = useSourceLink ? 'https://google.com' : '';
 
-	const quote = wrapPartialQuote({
-		a: a,
-		b: b,
-		sourceText: sourceText,
-		sourceLink: sourceLink
+	const { post, isForArchive, hideTitle } = usePostControl(null, {
+		quote: wrapPartialQuote({
+			a: a,
+			b: b,
+			sourceText: sourceText,
+			sourceLink: sourceLink
+		})
 	});
 
 	return (
 		<SimpleContentMaxWidth>
 			<Block.Dog16 />
-			<Quote value={quote} />
+			<Quote hideTitle={hideTitle} isForArchive={isForArchive} post={post} />
 		</SimpleContentMaxWidth>
 	);
 });
@@ -73,19 +77,21 @@ export const TestVoicesQuote = decorate('Voices Quote', null, () => {
 	const useSourceLink = boolean('use source link', true);
 	const sourceLink = useSourceLink ? 'https://google.com' : '';
 
-	const quote = wrapPartialQuote({
-		a: a,
-		aVoice: aVoice,
-		b: b,
-		bVoice: bVoice,
-		sourceText: sourceText,
-		sourceLink: sourceLink
+	const { post, isForArchive, hideTitle } = usePostControl(null, {
+		quote: wrapPartialQuote({
+			a: a,
+			aVoice: aVoice,
+			b: b,
+			bVoice: bVoice,
+			sourceText: sourceText,
+			sourceLink: sourceLink
+		})
 	});
 
 	return (
 		<SimpleContentMaxWidth>
 			<Block.Dog16 />
-			<Quote value={quote} />
+			<Quote hideTitle={hideTitle} isForArchive={isForArchive} post={post} />
 		</SimpleContentMaxWidth>
 	);
 });
@@ -99,19 +105,21 @@ export const TestLongVoicesQuote = decorate('Long Voices Quote', null, () => {
 	const useSourceLink = boolean('use source link', true);
 	const sourceLink = useSourceLink ? 'https://google.com' : '';
 
-	const post = wrapPartialQuote({
-		a: a,
-		aVoice: aVoice,
-		b: b,
-		bVoice: bVoice,
-		sourceText: sourceText,
-		sourceLink: sourceLink
+	const { post, isForArchive, hideTitle } = usePostControl(null, {
+		quote: wrapPartialQuote({
+			a: a,
+			aVoice: aVoice,
+			b: b,
+			bVoice: bVoice,
+			sourceText: sourceText,
+			sourceLink: sourceLink
+		})
 	});
 
 	return (
 		<SimpleContentMaxWidth>
 			<Block.Dog16 />
-			<Quote value={post} />
+			<Quote hideTitle={hideTitle} isForArchive={isForArchive} post={post} />
 		</SimpleContentMaxWidth>
 	);
 });

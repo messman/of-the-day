@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { decorate } from '@/test/decorate';
+import { decorate, usePostControl } from '@/test/decorate';
 import { text } from '@storybook/addon-knobs';
 import { IPostCustom } from 'oftheday-shared';
 import { Custom } from './custom';
@@ -16,11 +16,14 @@ export const TestCustomText = decorate('Custom Text', null, () => {
 		linkText: '',
 		hiddenValue: '',
 	});
+	const { post, isForArchive, hideTitle } = usePostControl(null, {
+		custom: custom
+	});
 
 	return (
 		<SimpleContentMaxWidth>
 			<Block.Dog16 />
-			<Custom value={custom} />
+			<Custom post={post} isForArchive={isForArchive} hideTitle={hideTitle} />
 		</SimpleContentMaxWidth>
 	);
 });
@@ -34,11 +37,14 @@ export const TestCustomTextLink = decorate('Custom Text & Link', null, () => {
 		linkText: text('Link Text', 'Facebook | Hungry Howie menu'),
 		hiddenValue: '',
 	});
+	const { post, isForArchive, hideTitle } = usePostControl(null, {
+		custom: custom
+	});
 
 	return (
 		<SimpleContentMaxWidth>
 			<Block.Dog16 />
-			<Custom value={custom} />
+			<Custom post={post} isForArchive={isForArchive} hideTitle={hideTitle} />
 		</SimpleContentMaxWidth>
 	);
 });
@@ -52,11 +58,14 @@ export const TestCustomTextHidden = decorate('Custom Text & Hidden', null, () =>
 		linkText: '',
 		hiddenValue: text('Hidden Value', 'Haha! Here is the hidden content!'),
 	});
+	const { post, isForArchive, hideTitle } = usePostControl(null, {
+		custom: custom
+	});
 
 	return (
 		<SimpleContentMaxWidth>
 			<Block.Dog16 />
-			<Custom value={custom} />
+			<Custom post={post} isForArchive={isForArchive} hideTitle={hideTitle} />
 		</SimpleContentMaxWidth>
 	);
 });
@@ -70,11 +79,14 @@ export const TestCustomAll = decorate('Custom All', null, () => {
 		linkText: text('Link Text', 'Facebook | Hungry Howie menu'),
 		hiddenValue: text('Hidden Value', 'Haha! Here is the hidden content!'),
 	});
+	const { post, isForArchive, hideTitle } = usePostControl(null, {
+		custom: custom
+	});
 
 	return (
 		<SimpleContentMaxWidth>
 			<Block.Dog16 />
-			<Custom value={custom} />
+			<Custom post={post} isForArchive={isForArchive} hideTitle={hideTitle} />
 		</SimpleContentMaxWidth>
 	);
 });

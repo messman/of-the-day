@@ -1,22 +1,22 @@
 import * as React from 'react';
 import { tStyled } from '@/core/style/styled';
-import { IPostElementType, IPostVideo, isValidPostElement } from 'oftheday-shared';
-import { Block } from '@/core/layout/common';
+import { IPostElementType, IPostVideo } from 'oftheday-shared';
+import { Block, Padding } from '@/core/layout/common';
 import { RegularText, SmallText, Heading3, FontSize, InlineWeight } from '@/core/symbol/text';
 import { TagList, useTags } from './tag';
 import { ActionLink } from '@/core/link';
 import { iconTypes } from '@/core/symbol/icon';
-import { createPostsElement, PostCard, EmbeddedContentReveal } from './elements-common';
-import { CardPadding } from '@/core/card/card';
+import { EmbeddedContentReveal } from './elements-common';
 import { ElementActions } from '../element-action-overlay';
 import { lineBreakpoint } from '@/services/layout/window-layout';
+import { PostElementCard, PostElementProps } from '../card/card';
 
 /**
  * Displays the video card. Shows title, description, tags, video iframe, etc.
  */
-export const Video = createPostsElement<IPostVideo>((props) => {
-	const { isForArchive, hideTitle, archivePost } = props;
-	const { description, link, isTop, isNSFW, tags, isRemoved } = props.value;
+export const Video: React.FC<PostElementProps> = (props) => {
+	const { isForArchive, hideTitle, post } = props;
+	const { description, link, isTop, isNSFW, tags, isRemoved } = post.video!;
 
 	const tagsStrings = useTags(isTop, isNSFW, tags);
 
@@ -42,23 +42,23 @@ export const Video = createPostsElement<IPostVideo>((props) => {
 	) : null;
 
 	return (
-		<PostCard title='Video' icon={iconTypes.video} isForArchive={isForArchive} hideTitle={hideTitle} archivePost={archivePost}>
-			<CardPadding>
+		<PostElementCard elementTitleName='Video' icon={iconTypes.video} isForArchive={isForArchive} hideTitle={hideTitle} post={post}>
+			<Padding.Dog16>
 				<Block.Elf24 />
-				<VideoTitle video={props.value} />
+				<VideoTitle video={post.video!} />
 				<TagList tags={tagsStrings} />
 				{descriptionRender}
 				<Block.Elf24 />
 				<ElementActions isViewingArchive={isForArchive} elementType={IPostElementType.video} isTop={isTop} youTubeLink={!isRemoved ? link : undefined} />
 				<Block.Elf24 />
-			</CardPadding>
+			</Padding.Dog16>
 			<Block.Elf24 />
 			<EmbeddedContentReveal isRevealedOnMount={!isForArchive || isRemoved}>
 				{internalVideoRender}
 			</EmbeddedContentReveal>
-		</PostCard>
+		</PostElementCard>
 	);
-}, IPostElementType.video, isValidPostElement.video);
+};
 
 interface VideoTitleProps {
 	video: IPostVideo;

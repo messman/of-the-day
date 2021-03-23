@@ -1,15 +1,14 @@
 import * as React from 'react';
-import { IPostCustom, IPostElementType, isValidPostElement } from 'oftheday-shared';
-import { Spacing, Block } from '@/core/layout/common';
+import { IPostElementType } from 'oftheday-shared';
+import { Spacing, Block, Padding } from '@/core/layout/common';
 import { RegularText, SmallText } from '@/core/symbol/text';
 import { OutLink, ActionLink } from '@/core/link';
 import { tStyled } from '@/core/style/styled';
 import { borderRadiusStyle } from '@/core/style/common';
 import { iconTypes } from '@/core/symbol/icon';
-import { createPostsElement, PostCard } from './elements-common';
 import { TagList, useTags } from './tag';
-import { CardPadding } from '@/core/card/card';
 import { ElementActions } from '../element-action-overlay';
+import { PostElementCard, PostElementProps } from '../card/card';
 
 /*
 	Possible things in this section:
@@ -23,9 +22,9 @@ import { ElementActions } from '../element-action-overlay';
 	- Recommended Media (Movie, Show) (link)
 */
 
-export const Custom = createPostsElement<IPostCustom>((props) => {
-	const { isForArchive, hideTitle, archivePost } = props;
-	const { value, title, link, linkText, hiddenValue, isTop, isNSFW } = props.value;
+export const Custom: React.FC<PostElementProps> = (props) => {
+	const { isForArchive, hideTitle, post } = props;
+	const { value, title, link, linkText, hiddenValue, isTop, isNSFW } = post.custom!;
 
 	const tagsStrings = useTags(isTop, isNSFW);
 
@@ -39,7 +38,7 @@ export const Custom = createPostsElement<IPostCustom>((props) => {
 
 	React.useEffect(() => {
 		setIsShowingHiddenValue(false);
-	}, [props.value]);
+	}, [value]);
 
 	const linkRender = link ? (
 		<>
@@ -80,8 +79,8 @@ export const Custom = createPostsElement<IPostCustom>((props) => {
 	) : null;
 
 	return (
-		<PostCard title={title} icon={iconType} isForArchive={isForArchive} hideTitle={hideTitle} archivePost={archivePost}>
-			<CardPadding>
+		<PostElementCard elementTitleName={title} icon={iconType} isForArchive={isForArchive} hideTitle={hideTitle} post={post}>
+			<Padding.Dog16>
 				<TagList tags={tagsStrings} />
 				{linkRender}
 				<Block.Dog16 />
@@ -89,10 +88,10 @@ export const Custom = createPostsElement<IPostCustom>((props) => {
 				{revealButton}
 				{hiddenValueRender}
 				{elementActionsRender}
-			</CardPadding>
-		</PostCard>
+			</Padding.Dog16>
+		</PostElementCard>
 	);
-}, IPostElementType.custom, isValidPostElement.custom);
+};
 
 const HiddenArea = tStyled.div`
 	padding: ${Spacing.dog16};

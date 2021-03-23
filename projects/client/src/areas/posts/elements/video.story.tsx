@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { decorate } from '@/test/decorate';
+import { decorate, usePostControl } from '@/test/decorate';
 import { text, boolean } from '@storybook/addon-knobs';
 import { IPostVideo } from 'oftheday-shared';
 import { Video } from './video';
@@ -28,10 +28,14 @@ export const TestVideo = decorate('Video', null, () => {
 		link: 'https://youtu.be/sFkLbj789OQ'
 	};
 
+	const { post, isForArchive, hideTitle } = usePostControl(null, {
+		video: video
+	});
+
 	return (
 		<SimpleContentMaxWidth>
 			<Block.Dog16 />
-			<Video value={video} />
+			<Video isForArchive={isForArchive} hideTitle={hideTitle} post={post} />
 		</SimpleContentMaxWidth>
 	);
 });

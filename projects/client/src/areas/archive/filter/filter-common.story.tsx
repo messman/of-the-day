@@ -15,10 +15,7 @@ export const TestFilterOverlay = decorate('Filter Description', null, () => {
 		filterPresets.random7Days,
 		{
 			types: {
-				notes: false,
-				schedule: false,
-				location: false,
-				endThoughts: false,
+				personal: false,
 				music: true,
 				video: false,
 				image: true,

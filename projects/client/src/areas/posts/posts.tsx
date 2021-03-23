@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { IPost } from 'oftheday-shared';
-import { PostElementsCountSummary, usePostElementsCount, usePostsList } from './post';
+import { PostElementsCountSummary, usePostsList, useValidatedPosts } from './post';
 import { usePostResponse } from '@/services/data/data-context';
 import { DataLoad } from '@/services/data/data-load';
 import { ParagraphCenter } from '@/core/symbol/text';
@@ -22,15 +22,15 @@ export const Posts: React.FC<PostsProps> = () => {
 		posts = data.posts;
 	}
 
-	const postsRender = usePostsList(posts, false, null);
-	const postElementsCount = usePostElementsCount(posts, true);
+	const { validPosts, elementsCount } = useValidatedPosts(posts, true);
+	const postsRender = usePostsList(validPosts, false, null);
 
 	if (isStarted || error) {
 		return <DataLoad promise={postPromise} />;
 	}
 
 	let render: JSX.Element = null!;
-	if (posts.length === 0) {
+	if (validPosts.length === 0) {
 		render = (
 			<ParagraphCenter>
 				Looks like Andrew hasn't shared anything recently. What a slacker.
@@ -41,8 +41,8 @@ export const Posts: React.FC<PostsProps> = () => {
 		render = (
 			<>
 				<PostElementsCountSummary
-					elementsCount={postElementsCount}
-					postsCount={posts.length}
+					elementsCount={elementsCount}
+					postsCount={validPosts.length}
 				/>
 				{postsRender}
 			</>

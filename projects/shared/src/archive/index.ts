@@ -166,10 +166,7 @@ export function isFilterValid(filter: IArchiveFilter): boolean {
 /** An invalid starting filter. */
 export const defaultInvalidFilter: IArchiveFilter = {
 	types: {
-		notes: false,
-		schedule: false,
-		location: false,
-		endThoughts: false,
+		personal: false,
 		music: false,
 		video: false,
 		image: false,
@@ -205,10 +202,7 @@ export function cloneFilter(filter: IArchiveFilter): IArchiveFilter {
 export const filterPresets: Record<keyof typeof IArchiveFilterPreset, IArchiveFilter> = {
 	random7Days: {
 		types: {
-			notes: false,
-			schedule: false,
-			location: false,
-			endThoughts: false,
+			personal: false,
 			music: true,
 			video: true,
 			image: true,
@@ -225,10 +219,7 @@ export const filterPresets: Record<keyof typeof IArchiveFilterPreset, IArchiveFi
 	},
 	recentTop: {
 		types: {
-			notes: false,
-			schedule: false,
-			location: false,
-			endThoughts: false,
+			personal: false,
 			music: true,
 			video: true,
 			image: true,
@@ -245,10 +236,7 @@ export const filterPresets: Record<keyof typeof IArchiveFilterPreset, IArchiveFi
 	},
 	recentMusic: {
 		types: {
-			notes: false,
-			schedule: false,
-			location: false,
-			endThoughts: false,
+			personal: false,
 			music: true,
 			video: false,
 			image: false,
@@ -265,10 +253,7 @@ export const filterPresets: Record<keyof typeof IArchiveFilterPreset, IArchiveFi
 	},
 	recentVideo: {
 		types: {
-			notes: false,
-			schedule: false,
-			location: false,
-			endThoughts: false,
+			personal: false,
 			music: false,
 			video: true,
 			image: false,

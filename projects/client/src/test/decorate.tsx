@@ -1,8 +1,10 @@
 import * as React from 'react';
 import { themes, useLocalStorageTheme } from '@/core/style/theme';
 import { TestWrapper } from '@/entry/wrapper';
-import { select, withKnobs } from '@storybook/addon-knobs';
+import { boolean, select, withKnobs } from '@storybook/addon-knobs';
 import { tStyled } from '@/core/style/styled';
+import { IPost, IPostDayReference } from 'oftheday-shared';
+import { PostElementProps } from '@/areas/posts/card/card';
 
 export interface StoryComponent {
 	(): JSX.Element;
@@ -79,3 +81,28 @@ const InnerTestWrapper: React.FC = (props) => {
 const ScrollContainer = tStyled.div`
 	overflow-y: auto;
 `;
+
+export function wrapForPost(post: IPost, extra: Partial<IPost>): IPost {
+	return {
+		...post,
+		...extra
+	};
+}
+
+const defaultPost: IPost = {
+	date: '08/27/2020',
+	dateText: 'Thu, Aug 27',
+	dayNumber: 456,
+	dayReference: IPostDayReference.yesterday,
+
+	isDayOff: false,
+	dayOffMessage: 'Here is a message about the day off',
+};
+
+export function usePostControl(post: IPost | null, extra: Partial<IPost>): PostElementProps {
+	return {
+		hideTitle: boolean('Hide Title', false),
+		isForArchive: boolean('Is For Archive', false),
+		post: wrapForPost(post || defaultPost, extra)
+	};
+}

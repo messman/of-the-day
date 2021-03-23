@@ -1,4 +1,4 @@
-import { IPostBasics, IPostCustom, IPostEndThoughts, IPostImage, IPostMusic, IPostQuote, IPostVideo } from '.';
+import { IPostPersonal, IPostCustom, IPostImage, IPostMusic, IPostQuote, IPostVideo } from '.';
 
 /*
 	Below are the validators for each subsection of a post.
@@ -7,24 +7,24 @@ import { IPostBasics, IPostCustom, IPostEndThoughts, IPostImage, IPostMusic, IPo
 	- the data is complete enough to render (client)
 */
 
-function note(basics: IPostBasics | undefined): boolean {
-	return !!basics && (!!basics.event || !!basics.note);
+function note(personal: IPostPersonal | undefined): boolean {
+	return !!personal && (!!personal.event || !!personal.note.length);
 }
 
-function schedule(basics: IPostBasics | undefined): boolean {
-	return !!basics && (!!basics.schedule || !!(basics.dayTypes && basics.dayTypes.length));
+function schedule(personal: IPostPersonal | undefined): boolean {
+	return !!personal && (!!personal.schedule || !!personal.dayTypes.length);
 }
 
-function location(basics: IPostBasics | undefined): boolean {
-	return !!basics && !!basics.location;
+function location(personal: IPostPersonal | undefined): boolean {
+	return !!personal && !!personal.location;
 }
 
-function basics(basics: IPostBasics | undefined): boolean {
-	return !!basics && (note(basics) || schedule(basics) || location(basics));
+function endThoughts(personal: IPostPersonal | undefined): boolean {
+	return !!personal && !!personal.previousDayThoughts.length;
 }
 
-function endThoughts(endThoughts: IPostEndThoughts | undefined): boolean {
-	return !!endThoughts && !!endThoughts.value;
+function personal(personal: IPostPersonal | undefined): boolean {
+	return !!personal && (note(personal) || schedule(personal) || location(personal) || endThoughts(personal));
 }
 
 function music(music: IPostMusic | undefined): boolean {
@@ -39,8 +39,8 @@ function video(video: IPostVideo | undefined): boolean {
 	if (!video) {
 		return false;
 	}
-	const { originalTitle, description, link, isRemoved } = video;
-	return !!originalTitle && (!!link || isRemoved) && (!!description || isRemoved);
+	const { originalTitle, link, isRemoved } = video;
+	return !!originalTitle && (!!link || isRemoved);
 }
 
 function image(image: IPostImage | undefined): boolean {
@@ -56,11 +56,7 @@ function custom(custom: IPostCustom | undefined): boolean {
 }
 
 export const isValidPostElement = {
-	note,
-	schedule,
-	location,
-	basics,
-	endThoughts,
+	personal,
 	music,
 	video,
 	image,

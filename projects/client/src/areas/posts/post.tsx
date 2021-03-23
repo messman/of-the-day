@@ -5,10 +5,9 @@ import { Image } from '@/areas/posts/elements/image';
 import { Music } from '@/areas/posts/elements/music';
 import { Quote } from '@/areas/posts/elements/quote/quote';
 import { Video } from '@/areas/posts/elements/video';
-import { CardContainer } from '@/core/card/card';
-import { Spacing } from '@/core/layout/common';
 import { tStyled } from '@/core/style/styled';
 import { InlineWeight, Paragraph } from '@/core/symbol/text';
+import { Personal } from './elements/personal';
 
 interface PostProps {
 	post: IPost;
@@ -22,19 +21,18 @@ export const Post: React.FC<PostProps> = (props) => {
 
 	return (
 		<PostElementsContainer>
-			<Music value={post.music} isForArchive={isForArchive} archivePost={post} hideTitle={hideTitles} />
-			<Video value={post.video} isForArchive={isForArchive} archivePost={post} hideTitle={hideTitles} />
-			<Image value={post.image} isForArchive={isForArchive} archivePost={post} hideTitle={hideTitles} />
-			<Quote value={post.quote} isForArchive={isForArchive} archivePost={post} hideTitle={hideTitles} />
-			<Custom value={post.custom} isForArchive={isForArchive} archivePost={post} hideTitle={hideTitles} />
+			<Personal isForArchive={isForArchive} post={post} hideTitle={hideTitles} />
+			<Music isForArchive={isForArchive} post={post} hideTitle={hideTitles} />
+			<Video isForArchive={isForArchive} post={post} hideTitle={hideTitles} />
+			<Image isForArchive={isForArchive} post={post} hideTitle={hideTitles} />
+			<Quote isForArchive={isForArchive} post={post} hideTitle={hideTitles} />
+			<Custom isForArchive={isForArchive} post={post} hideTitle={hideTitles} />
 		</PostElementsContainer>
 	);
 };
 
 const PostElementsContainer = tStyled.div`
-	${CardContainer} {
-		margin-top: ${Spacing.elf24};
-	}
+	
 `;
 
 export function usePostsList(posts: IPost[], isForArchive: boolean, singleElementType: IPostElementType | null) {
@@ -47,21 +45,54 @@ export function usePostsList(posts: IPost[], isForArchive: boolean, singleElemen
 	}, [posts, singleElementType]);
 }
 
-export function usePostElementsCount(posts: IPost[], includeBasics: boolean): number {
+export interface ValidatedPostsInfo {
+	validPosts: IPost[];
+	elementsCount: number;
+}
+
+export function useValidatedPosts(posts: IPost[], includePersonal: boolean): ValidatedPostsInfo {
 	return React.useMemo(() => {
-		let resultsCount = 0;
-		posts.forEach((post) => {
-			resultsCount += [
-				includeBasics && isValidPostElement.basics(post.basics) && post.basics,
-				isValidPostElement.music(post.music),
-				isValidPostElement.video(post.video),
-				isValidPostElement.image(post.image),
-				isValidPostElement.quote(post.quote),
-				isValidPostElement.custom(post.custom)
-			].filter((x) => !!x).length;
-		});
-		return resultsCount;
-	}, [posts, includeBasics]);
+		if (posts.length === 0) {
+			return {
+				validPosts: [],
+				elementsCount: 0
+			};
+		}
+		let elementsCount = 0;
+		const validatedPosts = posts.map<IPost | null>((post) => {
+			if (!post) {
+				return null;
+			}
+
+			const personal = includePersonal && isValidPostElement.personal(post.personal) ? post.personal! : undefined;
+			const music = isValidPostElement.music(post.music) ? post.music! : undefined;
+			const video = isValidPostElement.video(post.video) ? post.video! : undefined;
+			const image = isValidPostElement.image(post.image) ? post.image! : undefined;
+			const quote = isValidPostElement.quote(post.quote) ? post.quote! : undefined;
+			const custom = isValidPostElement.custom(post.custom) ? post.custom! : undefined;
+
+			const elements = [personal, music, video, image, quote, custom].filter(x => !!x).length;
+
+			if (elements === 0) {
+				return null;
+			}
+			elementsCount += elements;
+
+			return {
+				...post,
+				personal: personal,
+				music: music,
+				video: video,
+				image: image,
+				quote: quote,
+				custom: custom
+			};
+		}).filter(p => !!p) as IPost[];
+		return {
+			validPosts: validatedPosts,
+			elementsCount: elementsCount
+		};
+	}, [posts, includePersonal]);
 }
 
 export interface PostElementsCountSummaryProps {

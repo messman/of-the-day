@@ -8,10 +8,7 @@ import { tStyled } from '@/core/style/styled';
 */
 
 export const postElementTypeForDisplay: Record<keyof typeof IPostElementType, string> = {
-	notes: 'Notes',
-	schedule: 'Schedules',
-	location: 'Locations',
-	endThoughts: 'End-Of-Day Thoughts',
+	personal: 'Personal',
 	music: 'Music',
 	video: 'Video',
 	image: 'Images',

@@ -92,15 +92,13 @@ export const postsTestData: IPostResponse = {
 			isDayOff: false,
 			dayOffMessage: 'Here is a message about the day off',
 
-			basics: {
+			personal: {
 				event: 'Black Friday',
-				note: 'This is Black Friday. What a day. The excesses of the people shine for us all to see.',
+				note: ['This is Black Friday. What a day. The excesses of the people shine for us all to see.'],
 				location: 'Wells, Maine',
 				schedule: 'Run 50 miles; sign autographs; move a house; eat breakfast.',
 				dayTypes: ['Work', 'Adventure'],
-			},
-			endThoughts: {
-				value: 'Today was a great day. I had a great time doing some of this thing and some of that thing. Signing autographs while running 50 miles was a great time.',
+				previousDayThoughts: ['Today was a great day. I had a great time doing some of this thing and some of that thing. Signing autographs while running 50 miles was a great time.']
 			},
 			music: {
 				title: 'This is America',
@@ -164,12 +162,13 @@ export const postsTestData: IPostResponse = {
 			isDayOff: false,
 			dayOffMessage: '',
 
-			basics: {
+			personal: {
 				event: '',
 				location: '',
-				note: '',
+				note: [],
 				schedule: 'Do some stuff; go on a walk around X; talk to Y',
 				dayTypes: ['Relaxation', 'Adventure'],
+				previousDayThoughts: []
 			},
 			music: {
 				title: 'Armor',
@@ -242,12 +241,13 @@ export const postsTestData: IPostResponse = {
 			isDayOff: false,
 			dayOffMessage: '',
 
-			basics: {
+			personal: {
 				event: 'James\' Birthday',
-				note: 'Happy Birthday to James! I hope you have an awesome time with the family!',
+				note: ['Happy Birthday to James! I hope you have an awesome time with the family!'],
 				location: 'Colorado Springs, Colorado',
 				schedule: 'Drive over to Colorado Springs to see what has changed in the past 5 years; Stop by some of my old common hangout spots and see some friends.',
 				dayTypes: ['Relaxation', 'Adventure'],
+				previousDayThoughts: []
 			},
 			music: {
 				title: 'Dirty Deeds Done Dirt Cheap',
@@ -292,12 +292,13 @@ export const postsTestData: IPostResponse = {
 			isDayOff: false,
 			dayOffMessage: '',
 
-			basics: {
+			personal: {
 				event: '',
-				note: '',
+				note: [],
 				location: 'Colorado Springs, Colorado',
 				schedule: 'Drive over to Colorado Springs to see what has changed in the past 5 years; Stop by some of my old common hangout spots and see some friends.',
 				dayTypes: ['Relaxation', 'Adventure'],
+				previousDayThoughts: []
 			},
 			music: {
 				title: 'Dirty Deeds Done Dirt Cheap',
@@ -324,12 +325,13 @@ export const postsTestData: IPostResponse = {
 			isDayOff: false,
 			dayOffMessage: '',
 
-			basics: {
+			personal: {
 				event: `St. Patrick's Day`,
-				note: '',
+				note: [],
 				location: '',
 				schedule: 'Drive over to Colorado Springs to see what has changed in the past 5 years; Stop by some of my old common hangout spots and see some friends.',
 				dayTypes: ['Relaxation', 'Adventure'],
+				previousDayThoughts: []
 			},
 			music: {
 				title: 'Dirty Deeds Done Dirt Cheap',

@@ -1,22 +1,22 @@
 import * as React from 'react';
-import { IPostImage, IPostElementType, isValidPostElement } from 'oftheday-shared';
-import { Block } from '@/core/layout/common';
+import { IPostElementType } from 'oftheday-shared';
+import { Block, Padding } from '@/core/layout/common';
 import { RegularText } from '@/core/symbol/text';
 import { tStyled } from '@/core/style/styled';
 import { OutLink } from '@/core/link';
 import { iconTypes } from '@/core/symbol/icon';
 import { LayoutBreakpointRem } from '@/services/layout/window-layout';
-import { createPostsElement, PostCard, EmbeddedContentReveal } from './elements-common';
+import { EmbeddedContentReveal } from './elements-common';
 import { TagList, useTags } from './tag';
-import { CardPadding } from '@/core/card/card';
 import { ElementActions } from '../element-action-overlay';
+import { PostElementCard, PostElementProps } from '../card/card';
 
 /**
  * Image card. Shows, you know, an image.
  */
-export const Image = createPostsElement<IPostImage>((props) => {
-	const { isForArchive, hideTitle, archivePost } = props;
-	const { link, description, sourceText, sourceLink, isNSFW, isTop } = props.value;
+export const Image: React.FC<PostElementProps> = (props) => {
+	const { isForArchive, hideTitle, post } = props;
+	const { link, description, sourceText, sourceLink, isNSFW, isTop } = post.image!;
 
 	const tagsStrings = useTags(isTop, isNSFW);
 
@@ -55,22 +55,22 @@ export const Image = createPostsElement<IPostImage>((props) => {
 	// TODO - add accessibility for image.
 
 	return (
-		<PostCard title='Image' icon={iconTypes.image} isForArchive={isForArchive} hideTitle={hideTitle} archivePost={archivePost}>
-			<CardPadding>
+		<PostElementCard elementTitleName='Image' icon={iconTypes.image} isForArchive={isForArchive} hideTitle={hideTitle} post={post}>
+			<Padding.Dog16>
 				<TagList tags={tagsStrings} />
 				{descriptionRender}
 				{sourceTextRender}
 				{elementActionsRender}
-			</CardPadding>
+			</Padding.Dog16>
 			<Block.Elf24 />
 			<EmbeddedContentReveal isRevealedOnMount={!isForArchive}>
 				<a href={link} target='_blank' rel="noreferrer noopener" title='Click to open in a new tab'>
 					<ConstrainedImage src={link} />
 				</a>
 			</EmbeddedContentReveal>
-		</PostCard>
+		</PostElementCard>
 	);
-}, IPostElementType.image, isValidPostElement.image);
+};
 
 const ConstrainedImage = tStyled.img`
 	width: 100%;

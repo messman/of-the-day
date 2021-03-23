@@ -9,10 +9,7 @@ export interface IPostResponse extends IResponseWithMeta {
 
 /** Types of elements (subsections) of a Post. */
 export enum IPostElementType {
-	notes,
-	schedule,
-	location,
-	endThoughts,
+	personal,
 	music,
 	video,
 	image,
@@ -35,10 +32,8 @@ export interface IPost {
 	isDayOff: boolean;
 	/** The message to show if it's a day off. */
 	dayOffMessage: string;
-	/** Basics - notes, schedule, location. Not available in archives. */
-	basics?: IPostBasics;
-	/** Not available in archives. */
-	endThoughts?: IPostEndThoughts;
+	/** Personal - notes, schedule, location, end thoughts. Not available in archives. */
+	personal?: IPostPersonal;
 	music?: IPostMusic;
 	video?: IPostVideo;
 	quote?: IPostQuote;
@@ -63,21 +58,19 @@ export enum IPostDayReference {
 	tomorrow
 }
 
-export interface IPostBasics {
+export interface IPostPersonal {
 	/** Event, like 'Christmas' or 'Birthday' */
 	event: string;
 	/** Notes on the event or the day in general */
-	note: string;
+	note: string[];
 	/** Location */
 	location: string;
 	/** General schedule */
 	schedule: string;
 	/** Tags that describe the schedule */
 	dayTypes: string[];
-}
-
-export interface IPostEndThoughts {
-	value: string;
+	/** End-of-day thoughts on the previous day. */
+	previousDayThoughts: string[];
 }
 
 export interface IPostMusic extends IPostTopElement, IPostNSFWElement {
@@ -103,6 +96,7 @@ export interface IPostVideo extends IPostTopElement, IPostNSFWElement {
 	/** Required. Original title copied from YouTube. */
 	originalTitle: string;
 	link: string;
+	/** May be unspecified. Description. */
 	description: string;
 	/** If true, video isn't on YouTube or is private or can't be embedded. */
 	isRemoved: boolean;
