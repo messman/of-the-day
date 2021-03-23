@@ -1,25 +1,27 @@
 import { Block, Spacing } from '@/core/layout/common';
 import { tStyled } from '@/core/style/styled';
 import { FontWeight } from '@/core/style/theme';
-import { IconSize, iconTypes, SizedIcon, SVGIconType } from '@/core/symbol/icon';
+import { IconSize, SizedIcon, SVGIconType } from '@/core/symbol/icon';
 import { fontDeclarations, SmallText } from '@/core/symbol/text';
 import { LayoutBreakpointRem } from '@/services/layout/window-layout';
-import { FlexRow, useWindowMediaLayout } from '@messman/react-common';
+import { Flex, FlexRow, useWindowMediaLayout } from '@messman/react-common';
 import { IPost, IPostDayReference } from 'oftheday-shared';
 import * as React from 'react';
 
 export interface PostElementProps {
 	post: IPost;
+	isOfSameElement: boolean;
 	isForArchive: boolean;
-	hideTitle: boolean;
 }
 
 export interface PostElementCardProps extends PostElementProps {
-	icon: SVGIconType | null;
+	icon: SVGIconType;
+	title: string;
+	actionsRender: JSX.Element;
 }
 
 export const PostElementCard: React.FC<PostElementCardProps> = (props) => {
-	const { post, icon } = props;
+	const { icon, title, post, actionsRender } = props;
 
 	const { widthBreakpoint } = useWindowMediaLayout();
 	// This is everything from 0rem to 30rem (480px). Pretty much all mobile.
@@ -27,44 +29,50 @@ export const PostElementCard: React.FC<PostElementCardProps> = (props) => {
 
 	const contentRender = <PostElementCardContent {...props} />;
 
-	let render: JSX.Element = null!;
 	if (isCompactView) {
-		render = (
-			<>
-				<FlexRow>
-					<Block.Dog16 />
-					<SizedIcon type={icon || iconTypes.alert} size={IconSize.b_large} />
-					<PostDate isCompactView={isCompactView} post={post} />
-					<Block.Dog16 />
+		return (
+			<Container>
+				<FlexRow justifyContent='space-between' alignItems='center'>
+					<Flex>
+						<SizedIcon type={icon} size={IconSize.b_large} />
+					</Flex>
+					<FlexRow justifyContent='flex-end' alignItems='center'>
+						<PostDate post={post} />
+						<Block.Elf24 />
+						{actionsRender}
+					</FlexRow>
 				</FlexRow>
 				<Block.Dog16 />
-				<SidePadding>
-					{contentRender}
-				</SidePadding>
-			</>
+				<CardTitleDistinct>{title}</CardTitleDistinct>
+				{contentRender}
+			</Container>
 		);
 	}
 	else {
-		render = (
-			<SidePadding>
-				<PostDate isCompactView={isCompactView} post={post} />
+		return (
+			<Container>
 				<FlexRow>
-					<SizedIcon type={icon || iconTypes.alert} size={IconSize.b_large} />
+					<SizedIcon type={icon} size={IconSize.b_large} />
 					<Block.Dog16 />
-					<div>
+					<Flex>
+						<div>
+							<FloatItem alignItems='center' flex='none'>
+								<Block.Elf24 />
+								<PostDate post={post} />
+								<Block.Elf24 />
+								{actionsRender}
+							</FloatItem>
+							<CardTitleDistinct>
+								{title}
+							</CardTitleDistinct>
+						</div>
+						<FloatClear />
 						{contentRender}
-					</div>
+					</Flex>
 				</FlexRow>
-			</SidePadding>
+			</Container>
 		);
 	}
-
-	return (
-		<Container>
-			{render}
-			<Block.Elf24 />
-		</Container>
-	);
 };
 
 // NOTE: This component uses React.memo for optimization.
@@ -80,11 +88,8 @@ const PostElementCardContent: React.FC<PostElementCardProps> = React.memo((props
 
 const Container = tStyled.div`
 	border-top: 1px solid ${p => p.theme.outlineDistinct};
-	padding-top: ${Spacing.dog16};
-`;
-
-const SidePadding = tStyled.div`
-	padding: 0 ${Spacing.dog16};
+	padding: ${Spacing.dog16};
+	padding-bottom: ${Spacing.elf24};
 `;
 
 export const CardTitle = tStyled.div`
@@ -105,13 +110,20 @@ export const CardTitleDistinctSpan = tStyled.span`
 	color: ${p => p.theme.textDistinct};
 `;
 
+const FloatItem = tStyled(FlexRow)`
+	float: right;
+`;
+
+const FloatClear = tStyled.div`
+	clear: both;
+`;
+
 interface PostDateProps {
-	isCompactView: boolean;
 	post: IPost;
 }
 
 const PostDate: React.FC<PostDateProps> = (props) => {
-	const { isCompactView, post } = props;
+	const { post } = props;
 	const { date, dayNumber, dateText, dayReference } = post;
 
 	let dayReferenceString = dateText;
@@ -119,32 +131,9 @@ const PostDate: React.FC<PostDateProps> = (props) => {
 		dayReferenceString = dayReferencesText[IPostDayReference[dayReference] as keyof typeof IPostDayReference];
 	}
 
-	if (dayReferenceString) {
-		return null;
-	}
-
-	let render: JSX.Element = null!;
-	if (isCompactView) {
-		render = (
-			<div title={date}>
-				<SmallText>{dayReferenceString}</SmallText>
-				<Block.Ant04 />
-				<SmallText>Day {dayNumber}</SmallText>
-			</div>
-		);
-	}
-	else {
-		render = (
-			<SmallText title={date}>
-				{dayReferenceString}&nbsp;&middot;&nbsp;Day {dayNumber}
-			</SmallText>
-		);
-	}
-
+	const title = `${date} - Day ${dayNumber}`;
 	return (
-		<FlexRow justifyContent='flex-end'>
-			{render}
-		</FlexRow>
+		<SmallText title={title}>{dayReferenceString}</SmallText>
 	);
 };
 

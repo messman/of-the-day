@@ -7,7 +7,7 @@ import { iconTypes } from '@/core/symbol/icon';
 import { TagList, useTags } from '../tag';
 import { Block } from '@/core/layout/common';
 import { ElementActions } from '../../element-action-overlay';
-import { CardTitleDistinct, PostElementCard, PostElementProps } from '../../card/card';
+import { PostElementCard, PostElementProps } from '../../card/card';
 
 export interface MusicQuoteProps {
 	lyric: string;
@@ -40,23 +40,27 @@ export const MusicQuote: React.FC<MusicQuoteProps> = (props) => {
 
 /** Displays the quote as a top-level post element section. */
 export const Quote: React.FC<PostElementProps> = (props) => {
-	const { isForArchive, hideTitle, post } = props;
+	const { isForArchive, isOfSameElement, post } = props;
 	const { isNSFW, isTop } = post.quote!;
 
 	const tagsStrings = useTags(isTop, isNSFW);
 
-	const elementActionsRender = !isForArchive ? (
-		<>
-			<Block.Elf24 />
-			<ElementActions isViewingArchive={isForArchive} elementType={IPostElementType.quote} isTop={isTop} />
-		</>
-	) : null;
-
 	return (
-		<PostElementCard icon={iconTypes.quote} isForArchive={isForArchive} hideTitle={hideTitle} post={post}>
-			<CardTitleDistinct>Quote</CardTitleDistinct>
+		<PostElementCard
+			title='Quote'
+			icon={iconTypes.quote}
+			post={post}
+			isForArchive={isForArchive}
+			isOfSameElement={isOfSameElement}
+			actionsRender={
+				<ElementActions
+					isViewingArchive={isForArchive}
+					elementType={IPostElementType.quote}
+					isTop={isTop}
+				/>
+			}
+		>
 			<TagList tags={tagsStrings} />
-			{elementActionsRender}
 			<Block.Dog16 />
 			<InnerQuote quote={post.quote!} />
 		</PostElementCard>

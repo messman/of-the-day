@@ -52,7 +52,7 @@ function quote(quote: IPostQuote | undefined): boolean {
 }
 
 function custom(custom: IPostCustom | undefined): boolean {
-	return !!custom && !!custom.value && !!custom.title;
+	return !!custom && !!custom.value.length && !!custom.title;
 }
 
 export const isValidPostElement = {

@@ -8,13 +8,13 @@ import { iconTypes } from '@/core/symbol/icon';
 import { EmbeddedContentReveal } from './elements-common';
 import { TagList, useTags } from './tag';
 import { ElementActions } from '../element-action-overlay';
-import { CardTitleDistinct, PostElementCard, PostElementProps } from '../card/card';
+import { PostElementCard, PostElementProps } from '../card/card';
 
 /**
  * Image card. Shows, you know, an image.
  */
 export const Image: React.FC<PostElementProps> = (props) => {
-	const { isForArchive, hideTitle, post } = props;
+	const { isForArchive, isOfSameElement, post } = props;
 	const { link, description, sourceText, sourceLink, isNSFW, isTop } = post.image!;
 
 	const tagsStrings = useTags(isTop, isNSFW);
@@ -37,24 +37,23 @@ export const Image: React.FC<PostElementProps> = (props) => {
 		);
 	}
 
-	const elementActionsRender = (!isForArchive) ? (
-		<>
-			<Block.Elf24 />
-			<ElementActions isViewingArchive={isForArchive} elementType={IPostElementType.image} isTop={isTop} />
-		</>
-	) : null;
-
-
 	// TODO - add accessibility for image.
 
 	return (
-		<PostElementCard icon={iconTypes.image} isForArchive={isForArchive} hideTitle={hideTitle} post={post}>
-			<CardTitleDistinct>Image</CardTitleDistinct>
+		<PostElementCard
+			title='Image'
+			icon={iconTypes.image}
+			isForArchive={isForArchive}
+			isOfSameElement={isOfSameElement}
+			post={post}
+			actionsRender={
+				<ElementActions isViewingArchive={isForArchive} elementType={IPostElementType.image} isTop={isTop} />
+			}
+		>
 			<TagList tags={tagsStrings} />
 			{descriptionRender}
 			{sourceTextRender}
-			{elementActionsRender}
-			<Block.Elf24 />
+			<Block.Bat08 />
 			<EmbeddedContentReveal isRevealedOnMount={!isForArchive}>
 				<a href={link} target='_blank' rel="noreferrer noopener" title='Click to open in a new tab'>
 					<ConstrainedImage src={link} />
@@ -66,5 +65,5 @@ export const Image: React.FC<PostElementProps> = (props) => {
 
 const ConstrainedImage = tStyled.img`
 	width: 100%;
-	box-shadow: ${p => p.theme.shadow.b1Card};
+	box-shadow: ${p => p.theme.shadow.c2Button};
 `;

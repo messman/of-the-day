@@ -33,6 +33,7 @@ export const iconTypes = {
 	bicycling: require('@/static/icons/bicycling.svg').default as SVGIconType,
 	creator: require('@/static/icons/creator.svg').default as SVGIconType,
 	tagTop: require('@/static/icons/tag-top.svg').default as SVGIconType,
+	share: require('@/static/icons/share.svg').default as SVGIconType,
 };
 
 export interface IconProps {
@@ -59,7 +60,8 @@ export const Icon: StyledFC<IconProps> = (props) => {
 
 export enum IconSize {
 	a_medium = '1.5rem',
-	b_large = '2rem'
+	b_large = '2rem',
+	c_small = '1rem'
 }
 
 export interface SizedIconProps extends IconProps {

@@ -1,29 +1,47 @@
 import * as React from 'react';
 import { tStyled } from '@/core/style/styled';
-import { IPostElementType, IPostVideo } from 'oftheday-shared';
-import { Block, Padding } from '@/core/layout/common';
-import { RegularText, SmallText, FontSize } from '@/core/symbol/text';
+import { IPostElementType } from 'oftheday-shared';
+import { Block } from '@/core/layout/common';
+import { SmallText, Paragraph } from '@/core/symbol/text';
 import { TagList, useTags } from './tag';
-import { ActionLink } from '@/core/link';
 import { iconTypes } from '@/core/symbol/icon';
 import { EmbeddedContentReveal } from './elements-common';
 import { ElementActions } from '../element-action-overlay';
-import { lineBreakpoint } from '@/services/layout/window-layout';
-import { CardTitle, CardTitleDistinct, CardTitleDistinctSpan, PostElementCard, PostElementProps } from '../card/card';
+import { CardTitle, CardTitleDistinctSpan, PostElementCard, PostElementProps } from '../card/card';
 
 /**
  * Displays the video card. Shows title, description, tags, video iframe, etc.
  */
 export const Video: React.FC<PostElementProps> = (props) => {
-	const { isForArchive, hideTitle, post } = props;
-	const { description, link, isTop, isNSFW, tags, isRemoved } = post.video!;
+	const { isForArchive, isOfSameElement, post } = props;
+	const { description, link, isTop, isNSFW, tags, isRemoved, customTitle, customTitleCreator, originalTitle } = post.video!;
 
 	const tagsStrings = useTags(isTop, isNSFW, tags);
+
+	const isShowingCustom = customTitle && customTitle !== originalTitle;
+	// Original title must be truthy - custom title information is optional.
+	const originalTitleNotificationRender = isShowingCustom ? (
+		<>
+			<Block.Bat08 />
+			<SmallText>Andrew customized this title.</SmallText>
+		</>
+	) : null;
+
+	const customTitleCreatorRender = (isShowingCustom && customTitleCreator) ? (
+		<CardTitle>
+			<span>from </span>
+			<CardTitleDistinctSpan>
+				{customTitleCreator}
+			</CardTitleDistinctSpan>
+		</CardTitle>
+	) : null;
+
+	const titleToShow = isShowingCustom ? customTitle : originalTitle;
 
 	let internalVideoRender: JSX.Element = null!;
 	if (isRemoved) {
 		internalVideoRender = (
-			<RegularText>This video was removed from YouTube or made private.</RegularText>
+			<Paragraph>Sorry! This video was removed from YouTube or made private.</Paragraph>
 		);
 	}
 	else {
@@ -33,26 +51,33 @@ export const Video: React.FC<PostElementProps> = (props) => {
 	}
 
 	const descriptionRender = (description && !isRemoved) ? (
-		<>
-			<Block.Bat08 />
-			<RegularTextMaxWidth>
-				{description}
-			</RegularTextMaxWidth>
-		</>
+		<Paragraph>
+			{description}
+		</Paragraph>
 	) : null;
 
 	return (
-		<PostElementCard icon={iconTypes.video} isForArchive={isForArchive} hideTitle={hideTitle} post={post}>
-			<VideoTitle video={post.video!} />
-			<Padding.Dog16>
-				<Block.Elf24 />
-				<TagList tags={tagsStrings} />
-				{descriptionRender}
-				<Block.Elf24 />
-				<ElementActions isViewingArchive={isForArchive} elementType={IPostElementType.video} isTop={isTop} youTubeLink={!isRemoved ? link : undefined} />
-				<Block.Elf24 />
-			</Padding.Dog16>
-			<Block.Elf24 />
+		<PostElementCard
+			title={titleToShow}
+			icon={iconTypes.video}
+			isForArchive={isForArchive}
+			isOfSameElement={isOfSameElement}
+			post={post}
+			actionsRender={
+				<ElementActions
+					isViewingArchive={isForArchive}
+					elementType={IPostElementType.video}
+					isTop={isTop}
+					youTubeLink={!isRemoved ? link : undefined}
+				/>
+			}
+		>
+			{customTitleCreatorRender}
+			{originalTitleNotificationRender}
+			<Block.Dog16 />
+			<TagList tags={tagsStrings} />
+			{descriptionRender}
+			<Block.Dog16 />
 			<EmbeddedContentReveal isRevealedOnMount={!isForArchive || isRemoved}>
 				{internalVideoRender}
 			</EmbeddedContentReveal>
@@ -60,70 +85,11 @@ export const Video: React.FC<PostElementProps> = (props) => {
 	);
 };
 
-interface VideoTitleProps {
-	video: IPostVideo;
-}
-
-const VideoTitle: React.FC<VideoTitleProps> = (props) => {
-	const { video } = props;
-	const { customTitle, customTitleCreator, originalTitle } = video;
-
-	// Original title must be truthy - custom title information is optional.
-
-	const [isShowingOriginalTitle, setIsShowingOriginalTitle] = React.useState(() => {
-		// Show original title if we don't have a custom title.
-		return !customTitle;
-	});
-
-	React.useEffect(() => {
-		setIsShowingOriginalTitle(!video.customTitle);
-	}, [video]);
-
-	if (isShowingOriginalTitle) {
-		return (
-			<CardTitleDistinct>{originalTitle}</CardTitleDistinct>
-		);
-	}
-
-	const isCustomTitleDifferent = customTitle !== originalTitle;
-
-	function onClick() {
-		setIsShowingOriginalTitle(true);
-	}
-	const originalTitleLink = isCustomTitleDifferent ? (
-		<>
-			<Block.Bat08 />
-			<SmallText>Andrew customized this title. <SmallActionLink onClick={onClick}>See original.</SmallActionLink></SmallText>
-		</>
-	) : null;
-
-	const customTitleCreatorRender = customTitleCreator ? (
-		<CardTitle>
-			<span>from </span>
-			<CardTitleDistinctSpan>
-				{customTitleCreator}
-			</CardTitleDistinctSpan>
-		</CardTitle>
-	) : null;
-
-	return (
-		<>
-			<CardTitleDistinct>{customTitle}</CardTitleDistinct>
-			{customTitleCreatorRender}
-			{originalTitleLink}
-		</>
-	);
-};
-
-const SmallActionLink = tStyled(ActionLink)`
-	font-size: ${FontSize.small};
-`;
-
 export interface YouTubeVideoFrameProps {
 	url: string;
 }
 
-export const YouTubeVideoFrame: React.FC<YouTubeVideoFrameProps> = (props) => {
+export const YouTubeVideoFrame: React.FC<YouTubeVideoFrameProps> = React.memo((props) => {
 	const { url } = props;
 	if (!url) {
 		return null;
@@ -137,7 +103,7 @@ export const YouTubeVideoFrame: React.FC<YouTubeVideoFrameProps> = (props) => {
 			<iframe src={embedUrl} frameBorder="0" allow="encrypted-media" allowFullScreen></iframe>
 		</VideoContainer>
 	);
-};
+});
 
 /* The padding-bottom creates our aspect ratio. */
 export const VideoContainer = tStyled.div`
@@ -156,8 +122,4 @@ export const VideoContainer = tStyled.div`
 
 		overflow: hidden;
 	}
-`;
-
-const RegularTextMaxWidth = tStyled(RegularText)`
-	max-width: ${lineBreakpoint};
 `;

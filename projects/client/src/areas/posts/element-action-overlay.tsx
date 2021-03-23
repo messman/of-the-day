@@ -10,7 +10,7 @@ import { useArchiveResponseContext } from '@/services/data/data-context';
 import { useHistory } from 'react-router-dom';
 import { routes } from '@/services/nav/routing';
 import { postElementTypeForDisplay } from '../archive/filter/filter-common';
-import { iconTypes } from '@/core/symbol/icon';
+import { IconSize, iconTypes, SizedIcon } from '@/core/symbol/icon';
 
 export interface ElementActionsProps {
 	isViewingArchive?: boolean;
@@ -35,12 +35,12 @@ export const ElementActions: React.FC<ElementActionsProps> = (props) => {
 	const { isViewingArchive, elementType, isTop, youTubeLink, spotifyLink } = props;
 
 	const setActions = useSetElementActions();
-
-	if (isViewingArchive && !youTubeLink && !spotifyLink) {
-		return null;
-	}
+	const disabled = elementType === IPostElementType.personal;
 
 	function onClick() {
+		if (disabled) {
+			return;
+		}
 		setActions({
 			isViewingArchive: !!isViewingArchive,
 			elementType: elementType,
@@ -51,9 +51,22 @@ export const ElementActions: React.FC<ElementActionsProps> = (props) => {
 	}
 
 	return (
-		<ActionLink onClick={onClick}>Actions</ActionLink>
+		<InnerButton disabled={disabled} onClick={onClick}>
+			<SizedIcon type={iconTypes.share} size={IconSize.a_medium} />
+		</InnerButton>
 	);
 };
+
+const InnerButton = tStyled.button`
+	cursor: ${p => p.disabled ? 'not-allowed' : 'pointer'};
+
+	color: ${p => p.disabled ? p.theme.textDisabled : p.theme.accent.aMain};
+	border: none;
+	background-color: transparent;
+	
+	padding: ${Spacing.ant04};
+`;
+
 
 export type ElementActionsState = [ElementActions | null, React.Dispatch<React.SetStateAction<ElementActions | null>>];
 export type ElementActionsSetter = React.Dispatch<React.SetStateAction<ElementActions | null>>;

@@ -28,14 +28,14 @@ export const TestVideo = decorate('Video', null, () => {
 		link: 'https://youtu.be/sFkLbj789OQ'
 	};
 
-	const { post, isForArchive, hideTitle } = usePostControl(null, {
+	const { post, isForArchive, isOfSameElement } = usePostControl(null, {
 		video: video
 	});
 
 	return (
 		<SimpleContentMaxWidthFull>
 			<Block.Dog16 />
-			<Video isForArchive={isForArchive} hideTitle={hideTitle} post={post} />
+			<Video isForArchive={isForArchive} isOfSameElement={isOfSameElement} post={post} />
 		</SimpleContentMaxWidthFull>
 	);
 });

@@ -1,17 +1,27 @@
 import * as React from 'react';
 import { TagList } from './tag';
 import { iconTypes } from '@/core/symbol/icon';
-import { CardTitleDistinct, PostElementCard, PostElementProps } from '../card/card';
+import { PostElementCard, PostElementProps } from '../card/card';
+import { ElementActions } from '../element-action-overlay';
+import { IPostElementType } from 'oftheday-shared';
 
 /** "Personal" info, like location, event, etc. */
 export const Personal: React.FC<PostElementProps> = (props) => {
-	const { hideTitle, isForArchive, post } = props;
+	const { isOfSameElement, isForArchive, post } = props;
 	const { event, note, dayTypes, location, previousDayThoughts, schedule } = post.personal!;
 
 	return (
 		<div>
-			<PostElementCard icon={iconTypes.note} hideTitle={hideTitle} isForArchive={isForArchive} post={post}>
-				<CardTitleDistinct>Personal</CardTitleDistinct>
+			<PostElementCard
+				title='Me'
+				icon={iconTypes.activity}
+				isOfSameElement={isOfSameElement}
+				isForArchive={isForArchive}
+				post={post}
+				actionsRender={
+					<ElementActions elementType={IPostElementType.personal} />
+				}
+			>
 				<p>Event: {event}</p>
 				<p>Notes: {note.join(' / ')}</p>
 				<p>Schedule: {schedule}</p>

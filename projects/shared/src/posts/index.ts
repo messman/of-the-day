@@ -57,6 +57,7 @@ export enum IPostDayReference {
 	yesterday,
 	tomorrow
 }
+export const keysOfIPostDayReference = enumKeys(IPostDayReference);
 
 export interface IPostPersonal {
 	/** Event, like 'Christmas' or 'Birthday' */
@@ -84,7 +85,7 @@ export interface IPostMusic extends IPostTopElement, IPostNSFWElement {
 	youTubeLink: string;
 	useYouTube: boolean;
 	geniusLink: string;
-	description: string;
+	description: string[];
 	quote: string;
 }
 
@@ -97,7 +98,7 @@ export interface IPostVideo extends IPostTopElement, IPostNSFWElement {
 	originalTitle: string;
 	link: string;
 	/** May be unspecified. Description. */
-	description: string;
+	description: string[];
 	/** If true, video isn't on YouTube or is private or can't be embedded. */
 	isRemoved: boolean;
 	tags: string[];
@@ -129,7 +130,7 @@ export interface IPostCustom extends IPostTopElement, IPostNSFWElement {
 	/** Custom title, like 'Article' or 'Joke'. */
 	title: string;
 	/** Text value. */
-	value: string;
+	value: string[];
 	/** Originally-hidden value. Joke punchline, spoiler, etc. */
 	hiddenValue: string;
 	link: string;

@@ -17,7 +17,7 @@ export const Posts = decorate('Post', null, () => {
 			<Block.Dog16 />
 			<Post
 				post={post}
-				hideTitles={false}
+				isOfSameElement={false}
 				isForArchive={false}
 			/>
 			<Block.Dog16 />

@@ -11,22 +11,22 @@ import { Personal } from './elements/personal';
 
 interface PostProps {
 	post: IPost;
-	hideTitles: boolean;
+	isOfSameElement: boolean;
 	isForArchive: boolean;
 }
 
 /** Shows a post. Renders all the subcomponents (elements). */
 export const Post: React.FC<PostProps> = (props) => {
-	const { post, hideTitles, isForArchive } = props;
+	const { post, isOfSameElement, isForArchive } = props;
 
 	return (
 		<PostElementsContainer>
-			<Personal isForArchive={isForArchive} post={post} hideTitle={hideTitles} />
-			<Music isForArchive={isForArchive} post={post} hideTitle={hideTitles} />
-			<Video isForArchive={isForArchive} post={post} hideTitle={hideTitles} />
-			<Image isForArchive={isForArchive} post={post} hideTitle={hideTitles} />
-			<Quote isForArchive={isForArchive} post={post} hideTitle={hideTitles} />
-			<Custom isForArchive={isForArchive} post={post} hideTitle={hideTitles} />
+			<Personal isForArchive={isForArchive} post={post} isOfSameElement={isOfSameElement} />
+			<Music isForArchive={isForArchive} post={post} isOfSameElement={isOfSameElement} />
+			<Video isForArchive={isForArchive} post={post} isOfSameElement={isOfSameElement} />
+			<Image isForArchive={isForArchive} post={post} isOfSameElement={isOfSameElement} />
+			<Quote isForArchive={isForArchive} post={post} isOfSameElement={isOfSameElement} />
+			<Custom isForArchive={isForArchive} post={post} isOfSameElement={isOfSameElement} />
 		</PostElementsContainer>
 	);
 };
@@ -39,7 +39,7 @@ export function usePostsList(posts: IPost[], isForArchive: boolean, singleElemen
 	return React.useMemo(() => {
 		return posts.map((post) => {
 			return (
-				<Post post={post} key={post.dayNumber} isForArchive={isForArchive} hideTitles={singleElementType !== null} />
+				<Post post={post} key={post.dayNumber} isForArchive={isForArchive} isOfSameElement={singleElementType !== null} />
 			);
 		});
 	}, [posts, singleElementType]);

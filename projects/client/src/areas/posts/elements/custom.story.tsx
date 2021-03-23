@@ -16,14 +16,14 @@ export const TestCustomText = decorate('Custom Text', null, () => {
 		linkText: '',
 		hiddenValue: '',
 	});
-	const { post, isForArchive, hideTitle } = usePostControl(null, {
+	const { post, isForArchive, isOfSameElement } = usePostControl(null, {
 		custom: custom
 	});
 
 	return (
 		<SimpleContentMaxWidthFull>
 			<Block.Dog16 />
-			<Custom post={post} isForArchive={isForArchive} hideTitle={hideTitle} />
+			<Custom post={post} isForArchive={isForArchive} isOfSameElement={isOfSameElement} />
 		</SimpleContentMaxWidthFull>
 	);
 });
@@ -37,14 +37,14 @@ export const TestCustomTextLink = decorate('Custom Text & Link', null, () => {
 		linkText: text('Link Text', 'Facebook | Hungry Howie menu'),
 		hiddenValue: '',
 	});
-	const { post, isForArchive, hideTitle } = usePostControl(null, {
+	const { post, isForArchive, isOfSameElement } = usePostControl(null, {
 		custom: custom
 	});
 
 	return (
 		<SimpleContentMaxWidthFull>
 			<Block.Dog16 />
-			<Custom post={post} isForArchive={isForArchive} hideTitle={hideTitle} />
+			<Custom post={post} isForArchive={isForArchive} isOfSameElement={isOfSameElement} />
 		</SimpleContentMaxWidthFull>
 	);
 });
@@ -58,14 +58,14 @@ export const TestCustomTextHidden = decorate('Custom Text & Hidden', null, () =>
 		linkText: '',
 		hiddenValue: text('Hidden Value', 'Haha! Here is the hidden content!'),
 	});
-	const { post, isForArchive, hideTitle } = usePostControl(null, {
+	const { post, isForArchive, isOfSameElement } = usePostControl(null, {
 		custom: custom
 	});
 
 	return (
 		<SimpleContentMaxWidthFull>
 			<Block.Dog16 />
-			<Custom post={post} isForArchive={isForArchive} hideTitle={hideTitle} />
+			<Custom post={post} isForArchive={isForArchive} isOfSameElement={isOfSameElement} />
 		</SimpleContentMaxWidthFull>
 	);
 });
@@ -79,14 +79,14 @@ export const TestCustomAll = decorate('Custom All', null, () => {
 		linkText: text('Link Text', 'Facebook | Hungry Howie menu'),
 		hiddenValue: text('Hidden Value', 'Haha! Here is the hidden content!'),
 	});
-	const { post, isForArchive, hideTitle } = usePostControl(null, {
+	const { post, isForArchive, isOfSameElement } = usePostControl(null, {
 		custom: custom
 	});
 
 	return (
 		<SimpleContentMaxWidthFull>
 			<Block.Dog16 />
-			<Custom post={post} isForArchive={isForArchive} hideTitle={hideTitle} />
+			<Custom post={post} isForArchive={isForArchive} isOfSameElement={isOfSameElement} />
 		</SimpleContentMaxWidthFull>
 	);
 });

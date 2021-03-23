@@ -30,7 +30,7 @@ export const OutLink: React.FC<LinkProps> = (props) => {
 	const text = (props.children as string) || href;
 	return (
 		<BasicLink href={href} rel="noreferrer noopener" target="_blank" title="Opens in a new tab" {...otherProps}>
-			{text}
+			<span>{text} </span>
 			<SizedIcon type={iconTypes.out} size='.7rem' />
 		</BasicLink>
 	);

@@ -8,7 +8,7 @@ import { borderRadiusStyle } from '@/core/style/common';
 import { iconTypes } from '@/core/symbol/icon';
 import { TagList, useTags } from './tag';
 import { ElementActions } from '../element-action-overlay';
-import { CardTitleDistinct, PostElementCard, PostElementProps } from '../card/card';
+import { PostElementCard, PostElementProps } from '../card/card';
 
 /*
 	Possible things in this section:
@@ -23,7 +23,7 @@ import { CardTitleDistinct, PostElementCard, PostElementProps } from '../card/ca
 */
 
 export const Custom: React.FC<PostElementProps> = (props) => {
-	const { isForArchive, hideTitle, post } = props;
+	const { isForArchive, isOfSameElement, post } = props;
 	const { value, title, link, linkText, hiddenValue, isTop, isNSFW } = post.custom!;
 
 	const tagsStrings = useTags(isTop, isNSFW);
@@ -69,23 +69,27 @@ export const Custom: React.FC<PostElementProps> = (props) => {
 		</>
 	) : null;
 
-	const elementActionsRender = (!isForArchive) ? (
-		<>
-			<Block.Elf24 />
-			<ElementActions isViewingArchive={isForArchive} elementType={IPostElementType.custom} isTop={isTop} />
-		</>
-	) : null;
-
 	return (
-		<PostElementCard icon={iconType} isForArchive={isForArchive} hideTitle={hideTitle} post={post}>
-			<CardTitleDistinct>{title}</CardTitleDistinct>
+		<PostElementCard
+			title={title}
+			icon={iconType}
+			isForArchive={isForArchive}
+			isOfSameElement={isOfSameElement}
+			post={post}
+			actionsRender={
+				<ElementActions
+					isViewingArchive={isForArchive}
+					elementType={IPostElementType.custom}
+					isTop={isTop}
+				/>
+			}
+		>
 			<TagList tags={tagsStrings} />
 			{linkRender}
 			<Block.Dog16 />
 			{value}
 			{revealButton}
 			{hiddenValueRender}
-			{elementActionsRender}
 		</PostElementCard>
 	);
 };
