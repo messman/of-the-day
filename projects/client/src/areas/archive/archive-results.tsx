@@ -9,7 +9,7 @@ import { DataLoad } from '@/services/data/data-load';
 import { Flex, FlexRow, PromiseOutput, Sticky, useSticky } from '@messman/react-common';
 import { IArchiveFilter, IArchiveResponse, IPost, IPostElementType, keysOfIPostElementType } from 'oftheday-shared';
 import * as React from 'react';
-import { usePostsList } from '../posts/post';
+import { PostElementsCountSummary, usePostElementsCount, usePostsList } from '../posts/post';
 import { FilterDescription } from './filter/filter-common';
 
 export interface ArchiveResultsProps {
@@ -21,11 +21,6 @@ export interface ArchiveResultsProps {
 	onScrollToHeader: () => void;
 }
 
-interface PostsState {
-	posts: IPost[];
-	results: number;
-}
-
 /**
  * Shows the results view for the archives, including the header and description.
  */
@@ -34,11 +29,11 @@ export const ArchiveResults: React.FC<ArchiveResultsProps> = (props) => {
 	const { data, isStarted, error } = promise;
 
 	const meta = useMeta();
-
-	const [postsState, setPostsState] = React.useState<PostsState>({
-		posts: [],
-		results: 0
-	});
+	let posts: IPost[] = [];
+	if (data && meta && !meta.shutdown.length) {
+		posts = data.posts;
+	}
+	const postElementsCount = usePostElementsCount(posts, false);
 
 	const [singleElementType, setSingleElementType] = React.useState<IPostElementType | null>(null);
 
@@ -56,29 +51,6 @@ export const ArchiveResults: React.FC<ArchiveResultsProps> = (props) => {
 			setSingleElementType(null);
 		}
 	}, [filter]);
-
-	// When we get new data, update our counts of how many total sub-components (cards) will render.
-	React.useEffect(() => {
-		if (!data) {
-			setPostsState({
-				posts: [],
-				results: 0
-			});
-			return;
-		}
-		const { posts } = data;
-		let resultsCount = 0;
-		posts.forEach((post) => {
-			resultsCount! += [post.music, post.video, post.image, post.quote, post.custom].filter((x) => !!x).length;
-		});
-
-		setPostsState({
-			posts: posts,
-			results: resultsCount
-		});
-	}, [data]);
-
-	const { posts, results } = postsState;
 
 	// I'm not sure yet if this is a good idea or something that will cause a bug.
 	// but, only re-render our posts (there could be hundreds) if those posts really change.
@@ -111,17 +83,14 @@ export const ArchiveResults: React.FC<ArchiveResultsProps> = (props) => {
 
 	return (
 		<ArchiveResultsContainer>
-			<ArchiveResultsHeader {...props} resultsCount={results} />
+			<ArchiveResultsHeader {...props} resultsCount={postElementsCount} />
 			<ArchiveResultsContentContainer>
 				<Block.Elf24 />
 				<FilterDescription filter={filter} />
-				<Paragraph>
-					<span>Showing </span>
-					<InlineWeight.Bold>{results} </InlineWeight.Bold>
-					<span>{results === 1 ? 'item' : 'items'} across </span>
-					<InlineWeight.Bold>{posts.length} </InlineWeight.Bold>
-					<span>{posts.length === 1 ? 'day' : 'days'}.</span>
-				</Paragraph>
+				<PostElementsCountSummary
+					elementsCount={postElementsCount}
+					postsCount={posts.length}
+				/>
 				{metaPlaylistRender}
 				{postsRender}
 			</ArchiveResultsContentContainer>
