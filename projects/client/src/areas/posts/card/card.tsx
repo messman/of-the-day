@@ -16,18 +16,28 @@ export interface PostElementProps {
 
 export interface PostElementCardProps extends PostElementProps {
 	icon: SVGIconType;
-	title: string;
+	title: string | null;
 	actionsRender: JSX.Element;
 }
 
 export const PostElementCard: React.FC<PostElementCardProps> = (props) => {
-	const { icon, title, post, actionsRender } = props;
+	const { icon, title, post, actionsRender, isOfSameElement } = props;
 
 	const { widthBreakpoint } = useWindowMediaLayout();
 	// This is everything from 0rem to 30rem (480px). Pretty much all mobile.
 	const isCompactView = widthBreakpoint <= LayoutBreakpointRem.b20Min;
 
 	const contentRender = <PostElementCardContent {...props} />;
+
+	/*
+		Usually, a title is required.
+		But in compact view, with 'is of same element', you might not want to
+		show the title for 'Image' or 'Quote'.
+
+	*/
+	const titleRender = title ? (
+		<CardTitleDistinct>{title}</CardTitleDistinct>
+	) : null;
 
 	if (isCompactView) {
 		return (
@@ -43,17 +53,24 @@ export const PostElementCard: React.FC<PostElementCardProps> = (props) => {
 					</FlexRow>
 				</FlexRow>
 				<Block.Dog16 />
-				<CardTitleDistinct>{title}</CardTitleDistinct>
+				{titleRender}
 				{contentRender}
 			</Container>
 		);
 	}
 	else {
+
+		const leftIcon = !isOfSameElement ? (
+			<>
+				<SizedIcon type={icon} size={IconSize.b_large} />
+				<Block.Dog16 />
+			</>
+		) : null;
+
 		return (
 			<Container>
 				<FlexRow>
-					<SizedIcon type={icon} size={IconSize.b_large} />
-					<Block.Dog16 />
+					{leftIcon}
 					<Flex>
 						<div>
 							<FloatItem alignItems='center' flex='none'>
@@ -62,9 +79,7 @@ export const PostElementCard: React.FC<PostElementCardProps> = (props) => {
 								<Block.Elf24 />
 								{actionsRender}
 							</FloatItem>
-							<CardTitleDistinct>
-								{title}
-							</CardTitleDistinct>
+							{titleRender}
 						</div>
 						<FloatClear />
 						{contentRender}

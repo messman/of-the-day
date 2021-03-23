@@ -54,7 +54,7 @@ export const Quote: React.FC<PostElementProps> = (props) => {
 			isOfSameElement={isOfSameElement}
 			actionsRender={
 				<ElementActions
-					isViewingArchive={isForArchive}
+					isForArchive={isForArchive}
 					elementType={IPostElementType.quote}
 					isTop={isTop}
 				/>

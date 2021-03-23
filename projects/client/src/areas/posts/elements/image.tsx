@@ -43,7 +43,7 @@ export const Image: React.FC<PostElementProps> = (props) => {
 			isOfSameElement={isOfSameElement}
 			post={post}
 			actionsRender={
-				<ElementActions isViewingArchive={isForArchive} elementType={IPostElementType.image} isTop={isTop} />
+				<ElementActions isForArchive={isForArchive} elementType={IPostElementType.image} isTop={isTop} />
 			}
 		>
 			<TagList tags={tagsStrings} />

@@ -48,7 +48,7 @@ export const Music: React.FC<PostElementProps> = (props) => {
 			post={post}
 			actionsRender={
 				<ElementActions
-					isViewingArchive={isForArchive}
+					isForArchive={isForArchive}
 					elementType={IPostElementType.music}
 					isTop={isTop}
 					spotifyLink={spotifyLink}

@@ -5,7 +5,7 @@ import { text } from '@storybook/addon-knobs';
 import { Paragraph } from '@/core/symbol/text';
 import { Block, SimpleContentMaxWidthFull } from '@/core/layout/common';
 import { iconTypes } from '@/core/symbol/icon';
-import { ElementActions } from '../element-action-overlay';
+import { ElementActions, ElementActionsOverlay } from '../element-action-overlay';
 import { IPostElementType } from 'oftheday-shared';
 
 export default { title: 'Posts/Card' };
@@ -31,6 +31,7 @@ export const TestCard = decorate('Card', null, () => {
 			>
 				<Paragraph>Here is some text content for the card.</Paragraph>
 			</PostElementCard>
+			<ElementActionsOverlay onSelectedFilter={() => { }} />
 		</SimpleContentMaxWidthFull>
 	);
 });

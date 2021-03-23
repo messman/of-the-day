@@ -62,7 +62,7 @@ export const Video: React.FC<PostElementProps> = (props) => {
 			post={post}
 			actionsRender={
 				<ElementActions
-					isViewingArchive={isForArchive}
+					isForArchive={isForArchive}
 					elementType={IPostElementType.video}
 					isTop={isTop}
 					youTubeLink={!isRemoved ? link : undefined}

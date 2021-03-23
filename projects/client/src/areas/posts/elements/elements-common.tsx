@@ -4,6 +4,7 @@ import * as React from 'react';
 import { VideoContainer } from './video';
 
 export interface EmbeddedContentRevealProps {
+	/** If true, the content does not get revealed on scroll - it's always there. */
 	isRevealedOnMount: boolean;
 }
 

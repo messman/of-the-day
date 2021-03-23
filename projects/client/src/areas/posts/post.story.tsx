@@ -4,6 +4,7 @@ import { Post } from './post';
 import { number } from '@storybook/addon-knobs';
 import { postsTestData } from '../../test/data';
 import { Block, SimpleContentMaxWidthFull } from '@/core/layout/common';
+import { ElementActionsOverlay } from './element-action-overlay';
 
 export default { title: 'Areas/Posts/Post' };
 
@@ -20,6 +21,7 @@ export const Posts = decorate('Post', null, () => {
 				isOfSameElement={false}
 				isForArchive={false}
 			/>
+			<ElementActionsOverlay onSelectedFilter={() => { }} />
 			<Block.Dog16 />
 		</SimpleContentMaxWidthFull>
 	);

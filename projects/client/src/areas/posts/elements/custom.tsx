@@ -78,7 +78,7 @@ export const Custom: React.FC<PostElementProps> = (props) => {
 			post={post}
 			actionsRender={
 				<ElementActions
-					isViewingArchive={isForArchive}
+					isForArchive={isForArchive}
 					elementType={IPostElementType.custom}
 					isTop={isTop}
 				/>
