@@ -93,13 +93,9 @@ export const InlineItalic = tStyled.span`
 export const InlineWeight = {
 	Medium: tStyled.span`
 		display: inline;
-		font-weight: ${FontWeight.regular};
-	`,
-	Bold: tStyled.span`
-		display: inline;
 		font-weight: ${FontWeight.medium};
 	`,
-	ExtraBold: tStyled.span`
+	Bold: tStyled.span`
 		display: inline;
 		font-weight: ${FontWeight.bold};
 	`

@@ -43,6 +43,10 @@ export const Quote: React.FC<PostElementProps> = (props) => {
 	const { isForArchive, isOfSameElement, post } = props;
 	const { isNSFW, isTop } = post.quote!;
 
+	const quoteForClipboard = React.useMemo(() => {
+		return formatQuoteForClipboard(post.quote!);
+	}, [post, post.quote]);
+
 	const tagsStrings = useTags(isTop, isNSFW);
 
 	return (
@@ -57,6 +61,8 @@ export const Quote: React.FC<PostElementProps> = (props) => {
 					isForArchive={isForArchive}
 					elementType={IPostElementType.quote}
 					isTop={isTop}
+					textToCopyContentType='Quote'
+					textToCopy={quoteForClipboard}
 				/>
 			}
 		>
@@ -66,3 +72,34 @@ export const Quote: React.FC<PostElementProps> = (props) => {
 		</PostElementCard>
 	);
 };
+
+function formatQuoteForClipboard(quote: IPostQuote): string[] {
+	const { a, aVoice, b, bVoice, sourceText } = quote;
+
+	const aText = `"${a}"`;
+
+	const text = [];
+	if (b) {
+		if (aVoice) {
+			text.push(`${aVoice}:`);
+		}
+		text.push(aText);
+		text.push('');
+		if (bVoice) {
+			text.push(`${bVoice}:`);
+		}
+		const bText = `"${b}"`;
+		text.push(bText);
+	}
+	else {
+		text.push(aText);
+		if (aVoice) {
+			text.push(`- ${aVoice}`);
+		}
+	}
+	if (sourceText) {
+		text.push(`from ${sourceText}`);
+	}
+
+	return text;
+}

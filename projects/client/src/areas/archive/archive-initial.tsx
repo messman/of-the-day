@@ -51,17 +51,17 @@ export const ArchiveInitial: React.FC<ArchiveInitialProps> = (props) => {
 		<SimpleContentMaxWidthPadded>
 			<Title>Archive</Title>
 			<Paragraph>
-				Choose a preset below or create a filter.
+				Choose a filter preset below or create a filter.
 			</Paragraph>
 			<Paragraph>
-				Certain content (such as notes, schedules, locations, and thoughts) is not accessible in the archive.
+				Personal content (notes, schedules, locations, etc) is not accessible in the archive.
 			</Paragraph>
 			<ButtonsContainer>
 				<FilterPresets
 					onClickPreset={onClickPreset}
 				/>
 				<ParagraphCenter>Or</ParagraphCenter>
-				<Button onClick={onClickOverlayOpen} isSpecial={true}>Create advanced filter</Button>
+				<Button onClick={onClickOverlayOpen} isSpecial={true}>Create a filter</Button>
 				{metaPlaylistRender}
 			</ButtonsContainer>
 		</SimpleContentMaxWidthPadded>

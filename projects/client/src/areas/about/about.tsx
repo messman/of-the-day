@@ -43,13 +43,13 @@ export const About: React.FC<AboutProps> = () => {
 			<div>
 				<Title>Contact</Title>
 				<Paragraph>
-					I am <OutLink href='https://andrewmessier.com'>Andrew Messier</OutLink>.
+					I'm <OutLink href='https://andrewmessier.com'>Andrew Messier</OutLink>.
 				</Paragraph>
 				<Paragraph>
 					Reach me on <OutLink href='https://linkedin.com/in/andrewgmessier'>LinkedIn</OutLink> or <OutLink href='https://twitter.com/AndrewGMessier'>Twitter</OutLink>.
 				</Paragraph>
 				<Paragraph>
-					See the code or file a bug on <OutLink href='https://github.com/messman/of-the-day'>GitHub</OutLink>.
+					See the code or file an issue on <OutLink href='https://github.com/messman/of-the-day'>GitHub</OutLink>.
 				</Paragraph>
 			</div>
 			<IconContainer>

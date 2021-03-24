@@ -31,12 +31,6 @@ export const FilterPresets: React.FC<FilterPresetsProps> = (props) => {
 				{archiveFilterPresetForDisplay.recentTop}
 			</Button>
 			<Button
-				isSelected={selectedFilter?.preset === IArchiveFilterPreset.random7Days}
-				onClick={onClick(IArchiveFilterPreset.random7Days)}
-			>
-				{archiveFilterPresetForDisplay.random7Days}
-			</Button>
-			<Button
 				isSelected={selectedFilter?.preset === IArchiveFilterPreset.recentMusic}
 				onClick={onClick(IArchiveFilterPreset.recentMusic)}
 			>
@@ -47,6 +41,12 @@ export const FilterPresets: React.FC<FilterPresetsProps> = (props) => {
 				onClick={onClick(IArchiveFilterPreset.recentVideo)}
 			>
 				{archiveFilterPresetForDisplay.recentVideo}
+			</Button>
+			<Button
+				isSelected={selectedFilter?.preset === IArchiveFilterPreset.random7Days}
+				onClick={onClick(IArchiveFilterPreset.random7Days)}
+			>
+				{archiveFilterPresetForDisplay.random7Days}
 			</Button>
 		</ButtonsContainer>
 	);

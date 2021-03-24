@@ -105,9 +105,9 @@ export const PostElementsCountSummary: React.FC<PostElementsCountSummaryProps> =
 	return (
 		<Paragraph>
 			<span>Showing </span>
-			<InlineWeight.Bold>{elementsCount} </InlineWeight.Bold>
+			<InlineWeight.Medium>{elementsCount} </InlineWeight.Medium>
 			<span>{elementsCount === 1 ? 'item' : 'items'} across </span>
-			<InlineWeight.Bold>{postsCount} </InlineWeight.Bold>
+			<InlineWeight.Medium>{postsCount} </InlineWeight.Medium>
 			<span>{postsCount === 1 ? 'day' : 'days'}.</span>
 		</Paragraph>
 	);

@@ -132,7 +132,7 @@ export const ArchiveResultsHeader: React.FC<ArchiveResultsHeaderProps> = (props)
 				<ArchiveResultsHeaderContainer flex='none' justifyContent='space-between' alignItems='center'>
 					<Flex>
 						<LeftResultsCountText>
-							<InlineWeight.Bold>{resultsCount} </InlineWeight.Bold>
+							<InlineWeight.Medium>{resultsCount} </InlineWeight.Medium>
 							<span>{resultsCount === 1 ? 'item' : 'items'}</span>
 						</LeftResultsCountText>
 					</Flex>

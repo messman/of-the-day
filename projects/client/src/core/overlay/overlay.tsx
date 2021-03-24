@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Spacing } from '@/core/layout/common';
 import { tStyled } from '@/core/style/styled';
-import { Heading2 } from '@/core/symbol/text';
+import { Heading3 } from '@/core/symbol/text';
 import { FlexColumn, createContextConsumer, useRefLayoutEffect } from '@messman/react-common';
 import { borderRadiusStyle } from '@/core/style/common';
 import { LayoutBreakpointRem } from '@/services/layout/window-layout';
@@ -72,7 +72,7 @@ export const OverlayBox: React.FC<OverlayBoxProps> = (props) => {
 				<FlexColumn alignItems='center' justifyContent='space-evenly'>
 					<BoxContainer flex={boxFlex} isMaxWidth={true}>
 						<OverlayTitleContainer>
-							<Heading2>{headerTitle}</Heading2>
+							<Heading3>{headerTitle}</Heading3>
 						</OverlayTitleContainer>
 						{children}
 					</BoxContainer>

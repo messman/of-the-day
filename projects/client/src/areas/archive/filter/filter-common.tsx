@@ -2,6 +2,7 @@ import * as React from 'react';
 import { IArchiveFilter, isFilterValid, keysOfIPostElementType, IArchiveFilterRange, IArchiveFilterPreset, IArchiveFilterSort, IPostElementType, IArchiveFilterModifier, isFilterExactlyEqual, filterPresets } from 'oftheday-shared';
 import { fontDeclarations, lineHeights } from '@/core/symbol/text';
 import { tStyled } from '@/core/style/styled';
+import { FontWeight } from '@/core/style/theme';
 
 /*
 	Holds text for enums for rendering UI.
@@ -194,6 +195,7 @@ export function isOnlyMusicTypeSelected(filter: IArchiveFilter): boolean {
 
 const FilterValue = tStyled.span`
 	color: ${p => p.theme.textDistinct};
+	font-weight: ${FontWeight.medium};
 `;
 
 const FilterText = tStyled.div`

@@ -1,5 +1,5 @@
 import { OutLink } from '@/core/link';
-import { Title, Subtitle, Paragraph } from '@/core/symbol/text';
+import { Title, Subtitle, Paragraph, InlineWeight } from '@/core/symbol/text';
 import { IMeta } from 'oftheday-shared';
 import * as React from 'react';
 
@@ -24,7 +24,7 @@ export const AboutBasics: React.FC<AboutBasicsProps> = (props) => {
 
 		youTubePlaylistRender = meta.youTubeLink ? (
 			<Paragraph>
-				All videos from Of The Day (that have not been removed) are available on <OutLink href={meta.youTubeLink}>this YouTube Playlist</OutLink>.
+				Almost all videos from Of The Day are available on <OutLink href={meta.youTubeLink}>this YouTube Playlist</OutLink>.
 			</Paragraph>
 		) : null;
 	}
@@ -33,83 +33,100 @@ export const AboutBasics: React.FC<AboutBasicsProps> = (props) => {
 		<div>
 			<div>
 				<Title>About</Title>
-				<Subtitle>The Plan</Subtitle>
+				<Subtitle>"The Plan"</Subtitle>
 				<Paragraph>
-					After 5+ years in the software development industry, and with the support of my family, friends, and coworkers,
-					I decided to leave my awesome job in Charlotte and take at least a year 'off'. During this time, I am focusing more
-					on my own personal happiness. I am also attempting to do things I haven't given myself enough opportunity to do before:
-					travel; extended time with the family that lives outside of North Carolina; hobbies, like music and photography; fitness;
-					and most importantly, working on a long list of software development projects I've thought of over the years.
+					On March 25, 2020, with the support of my family, friends, and coworkers,
+					I left my job in Charlotte to take at least a year without work.
+					During this time, I am focusing on things for which I haven't given myself enough time:
+					travel; visiting with extended family; hobbies, like music and photography; fitness;
+					and most importantly, working on independent software development projects.
 				</Paragraph>
 				<Subtitle>Of The Day</Subtitle>
 				<Paragraph>
-					Of The Day is a way for family, friends, and coworkers to stay informed about what I'm up to, as well as a way for me to
-					share things that are important to me. Above all, however, Of The Day acts as a pseudo-journal of my time. It's an important project for me
-					regardless of whether anyone other than myself ever reads it.
+					This site, Of The Day, started as a way for family, friends, and coworkers to stay informed about what I'm up to.
+					It also served as a personal blog for myself, such that it didn't matter who read it.
+					Due to the 2020+ pandemic, I haven't had the opportunity to do the exciting things I planned.
+					Instead, Of The Day has become a platform for me to share media content I enjoy: music, videos, quotes, and more.
+					This site has also been an interesting and challenging software development project.
+					As the world re-opens, I expect Of The Day to reach some balance between media content and personal content.
 				</Paragraph>
 			</div>
 			<div>
 				<Title>F.A.Q.</Title>
-				<Subtitle>What will you do after this plan ends? Is it just a year?</Subtitle>
+				<Subtitle>What will you do after this time ends? Is it just a year?</Subtitle>
 				<Paragraph>
-					I don't know - I haven't ruled out anything. I'm confident in my skills, and I'm fortunate to be where I am. I'll
-					figure out the next step when I get to it. The original plan was indeed a year. The actual length of the plan rests on these factors:
-					the money in my bank account (that I've been fortunate to be able to save up for years); my ability to cope with not having
-					a permanent home; and whether I find a project that I would rather work on instead of continuing this plan.
+					I'm confident in my skills, and I'm fortunate to be where I am. I'll figure out the next step when I am ready.
+					The original plan was indeed a year, but the actual length of the plan rests on these factors:
+					the money in my bank account;
+					my ability to cope with not having a permanent place for myself and all my belongings;
+					and whether I find a project that I would rather work on full-time instead of continuing this plan.
 				</Paragraph>
-				<Subtitle>Where do these songs and videos come from?</Subtitle>
+				<Subtitle>Where does the media content come from?</Subtitle>
 				<Paragraph>
-					Songs are handpicked out of my personal Spotify playlists. The main criteria for a song is that I like it and want to listen to it.
-					I do not add songs solely because of their message or lyrics or how well they fit with a certain day. However, I do try to make sure my
-					selections are varied and enjoyable by almost any audience. The song selection process is enjoyable, because I am passionate about music and
-					pride myself in enjoying a relatively wide range of music.
+					Songs I shared are typically songs I've known for a long time. Occasionally, they are songs I have recently
+					discovered through friends or family. Every song on Of The Day is a recommendation I think you could enjoy and/or
+					a song I listen to regularly. Songs are my favorite to share.
 				</Paragraph>
 				{spotifyPlaylistRender}
 				<Paragraph>
-					Videos are from deep dives into my decade-long YouTube viewing history. Like with songs, I try to vary the content of videos to hit different areas,
-					like education or comedy. I also try to mix in newer videos with older ones.
-					I reject more videos than I accept, because I audit each video to ensure it is as appropriate for my family as it is for my
-					close friends.
+					Videos are from YouTube. Videos are more difficult to find, because I try to stay away from hard-to-follow or niche
+					content. I also try to vary the types of videos I share to include artistic and educational content.
 				</Paragraph>
 				{youTubePlaylistRender}
-				<Subtitle>Do you accept suggestions?</Subtitle>
 				<Paragraph>
-					I appreciate and welcome all suggestions for songs, videos, or webpages. It means a lot that people care enough to offer up items that are important to them.
-					However, I will only accept suggestions if I am willing to put my name behind that suggestion as something shareable.
-					Some songs or videos, even if they are my favorites, do not make the cut as shareable. Please do not take offense if I am unable to put your suggestion
-					on the page.
+					I appreciate and welcome all suggestions of media content to share. However, not all content is suitable for Of The Day.
+					Generally, content must follow a theme of positivity, empowerment, education, joy, or motivation. Content is not
+					just my favorite stuff.
 				</Paragraph>
-				<Subtitle>How many people view this page?</Subtitle>
+				<Subtitle>How popular is Of The Day?</Subtitle>
 				<Paragraph>
-					I don't check the statistics, and I don't really care to. I know that a significant portion of my family checks this site, as
-					they let me know when they like the things I share. The number of daily viewers is low enough that I don't have to worry about server load.
+					I don't check the statistics. The number of daily viewers is low enough that I don't have to worry about server load.
+					The only way I'll know someone has read Of The Day is when they contact me to share that they enjoyed something I've shared.
+					If you liked something I've shared, let me know!
 				</Paragraph>
-				<Subtitle>How much time do you put into this project?</Subtitle>
+				<Subtitle>How much time have you put into this project?</Subtitle>
 				<Paragraph>
-					Too damn much. Design is the most difficult part, and has cost me multiple weeks. Finding the right content to put here also takes about 1 full day out of each month.
+					I've definitely put in more time to this project than I originally intended. The jobs are many: content curation,
+					design, development of client and server, deployment, and bug-fixing. The project has been a good
+					way to improve my design and development skills, so any time spent in those roles has been rewarding.
+					Media content curation, however, has caused a lot of stress.
+					Finding media content just for the sake of having something to share (to 'fill a quota')
+					can take up about three extra hours per week.
 				</Paragraph>
-				<Subtitle>Will you add likes and comments?</Subtitle>
+				<Subtitle>Will you continue to add features to Of The Day?</Subtitle>
 				<Paragraph>
-					For now, no. I think they would be cool additions, but I would prefer to let the dust settle on this project for awhile.
-					I am also opposed to this site becoming too much like a social media site, as that is not its purpose.
+					No. While I originally intended to add accounts likes, and comments to this site, I now see
+					that it works best as a simple sharing site.
+					I also have higher-priority projects to work on these days.
 				</Paragraph>
 			</div>
 			<div>
 				<Title>Credits</Title>
-				<Paragraph>Design, Content, and Development by Andrew Messier.</Paragraph>
-				<Paragraph>Thanks to all family, friends, and colleagues who helped me get here.</Paragraph>
+				<Paragraph>
+					All design, content curation, and development is by me, Andrew Messier.
+					Thanks to all family, friends, and colleagues for encouragement and ideas.
+				</Paragraph>
 				<Subtitle>Tools</Subtitle>
 				<Paragraph>
-					Designed with Sketch. Icons from the Noun Project (licensed).
+					<InlineWeight.Bold>Designed </InlineWeight.Bold>
+					with Sketch. Icons from the Noun Project (licensed).
 				</Paragraph>
 				<Paragraph>
-					Content sourced from Spotify, YouTube, Google, and my personal photography.
+					<InlineWeight.Bold>Content </InlineWeight.Bold>
+					sourced from Spotify, YouTube, Google, and my personal photography.
 				</Paragraph>
 				<Paragraph>
-					Development with React, TypeScript, styled-components, Webpack, Storybook, VS Code, and many more.
+					<InlineWeight.Bold>Development </InlineWeight.Bold>
+					with React, TypeScript, styled-components, Webpack, Storybook, VS Code, and more.
 				</Paragraph>
 				<Paragraph>
-					Data hosted in Google Sheets so that I can update it from my phone. Code hosted through Heroku.
+					<InlineWeight.Bold>Data and hosting </InlineWeight.Bold>
+					through Heroku and Google Sheets. I keep the data for Of The Day in Google Sheets
+					so that I can edit content from my phone.
+				</Paragraph>
+				<Paragraph>
+					This site is fully responsive and can be accessed from your phone or a desktop browser. On mobile devices,
+					you can add the website to your home screen. The website will automatically refresh to show new content or update.
 				</Paragraph>
 			</div>
 		</div>
