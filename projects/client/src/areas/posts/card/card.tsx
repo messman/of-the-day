@@ -16,7 +16,7 @@ export interface PostElementProps {
 
 export interface PostElementCardProps extends PostElementProps {
 	icon: SVGIconType;
-	title: string | null;
+	title: string;
 	actionsRender: JSX.Element;
 }
 
@@ -29,17 +29,17 @@ export const PostElementCard: React.FC<PostElementCardProps> = (props) => {
 
 	const contentRender = <PostElementCardContent {...props} />;
 
-	/*
-		Usually, a title is required.
-		But in compact view, with 'is of same element', you might not want to
-		show the title for 'Image' or 'Quote'.
-
-	*/
-	const titleRender = title ? (
-		<CardTitleDistinct>{title}</CardTitleDistinct>
-	) : null;
-
 	if (isCompactView) {
+		/*
+			Usually, a title is required.
+			But in compact view, with 'is of same element', you might not want to
+			show the title for 'Image' or 'Quote'.
+	
+		*/
+		const titleRender = (!isOfSameElement || (title !== 'Image' && title !== 'Quote')) ? (
+			<CardTitleDistinct>{title}</CardTitleDistinct>
+		) : null;
+
 		return (
 			<CompactContainer>
 				<FlexRow justifyContent='space-between' alignItems='center'>
@@ -79,7 +79,7 @@ export const PostElementCard: React.FC<PostElementCardProps> = (props) => {
 								<Block.Elf24 />
 								{actionsRender}
 							</FloatItem>
-							{titleRender}
+							<CardTitleDistinct>{title}</CardTitleDistinct>
 						</div>
 						<FloatClear />
 						{contentRender}

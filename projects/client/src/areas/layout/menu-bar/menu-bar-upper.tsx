@@ -146,7 +146,7 @@ const UpperStickyMenuBarCenter = tStyled.div`
 	position: absolute;
 	height: ${upperMenuBarHeight}px;
 	width: 100%;
-	background-color: ${p => p.theme.bg};
+	background-color: ${p => p.theme.subtleFill.d3Nav};
 	border-bottom: 1px solid ${p => p.theme.outlineDistinct};
 `;
 
