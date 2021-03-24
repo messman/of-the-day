@@ -75,7 +75,7 @@ export const Video: React.FC<PostElementProps> = (props) => {
 			<TagList tags={tagsStrings} />
 			<ParagraphArray value={descriptionToRender} />
 			<Block.Dog16 />
-			<EmbeddedContentReveal isRevealedOnMount={!isForArchive || isRemoved}>
+			<EmbeddedContentReveal isRevealedOnMount={!isForArchive || isRemoved} useElementForSize={false} useLargerMargin={false}>
 				{internalVideoRender}
 			</EmbeddedContentReveal>
 		</PostElementCard>

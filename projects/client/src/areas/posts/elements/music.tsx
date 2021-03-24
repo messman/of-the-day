@@ -69,7 +69,7 @@ export const Music: React.FC<PostElementProps> = (props) => {
 				<OutLink href={geniusLink}>View Lyrics</OutLink>
 			</LinksContainer>
 			<Block.Elf24 />
-			<EmbeddedContentReveal isRevealedOnMount={!isForArchive}>
+			<EmbeddedContentReveal isRevealedOnMount={!isForArchive} useElementForSize={false} useLargerMargin={false}>
 				{embedRender}
 			</EmbeddedContentReveal>
 			{musicRender}

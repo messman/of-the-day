@@ -50,7 +50,7 @@ export const Image: React.FC<PostElementProps> = (props) => {
 			<ParagraphArray value={description} />
 			{sourceTextRender}
 			<Block.Bat08 />
-			<EmbeddedContentReveal isRevealedOnMount={!isForArchive}>
+			<EmbeddedContentReveal isRevealedOnMount={!isForArchive} useLargerMargin={true} useElementForSize={true}>
 				<a href={link} target='_blank' rel="noreferrer noopener" title='Click to open in a new tab'>
 					<ConstrainedImage src={link} />
 				</a>
