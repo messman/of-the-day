@@ -21,7 +21,7 @@ export interface PostElementCardProps extends PostElementProps {
 }
 
 export const PostElementCard: React.FC<PostElementCardProps> = (props) => {
-	const { icon, title, post, actionsRender, isOfSameElement } = props;
+	const { icon, title, post, actionsRender, isOfSameElement, isForArchive } = props;
 
 	const { widthBreakpoint } = useWindowMediaLayout();
 	// This is everything from 0rem to 30rem (480px). Pretty much all mobile.
@@ -47,7 +47,7 @@ export const PostElementCard: React.FC<PostElementCardProps> = (props) => {
 						<SizedIcon type={icon} size={IconSize.b_large} />
 					</Flex>
 					<FlexRow justifyContent='flex-end' alignItems='center'>
-						<PostDate post={post} />
+						<PostDate post={post} isForArchive={isForArchive} />
 						<Block.Elf24 />
 						{actionsRender}
 					</FlexRow>
@@ -75,7 +75,7 @@ export const PostElementCard: React.FC<PostElementCardProps> = (props) => {
 						<div>
 							<FloatItem alignItems='center' flex='none'>
 								<Block.Elf24 />
-								<PostDate post={post} />
+								<PostDate post={post} isForArchive={isForArchive} />
 								<Block.Elf24 />
 								{actionsRender}
 							</FloatItem>
@@ -102,15 +102,16 @@ const PostElementCardContent: React.FC<PostElementCardProps> = React.memo((props
 });
 
 const CompactContainer = tStyled.div`
-	border-top: 4px solid ${p => p.theme.outlineDistinct};
+	border-top: 1px solid ${p => p.theme.outlineDistinct};
 	padding: ${Spacing.dog16};
 	padding-bottom: ${Spacing.elf24};
 `;
 
 const Container = tStyled.div`
-	border-top: 4px solid ${p => p.theme.outlineDistinct};
+	border-top: 1px solid ${p => p.theme.outlineSubtle};
+	border-right: 1px solid ${p => p.theme.outlineSubtle};
 	padding: ${Spacing.dog16};
-	padding-bottom: ${Spacing.elf24};
+	padding-bottom: ${Spacing.fan32};
 `;
 
 export const CardTitle = tStyled.div`
@@ -141,18 +142,24 @@ const FloatClear = tStyled.div`
 
 interface PostDateProps {
 	post: IPost;
+	isForArchive: boolean;
 }
 
 const PostDate: React.FC<PostDateProps> = (props) => {
-	const { post } = props;
+	const { post, isForArchive } = props;
 	const { date, dayNumber, dateText, dayReference } = post;
 
-	let dayReferenceString = dateText;
+	// 'date' is 2021/03/30
+	// 'dateText' is Tue, Mar 30
+	const visibleDateText = isForArchive ? date : dateText;
+	const titleDateText = isForArchive ? dateText : date;
+
+	let dayReferenceString = visibleDateText;
 	if (dayReference !== IPostDayReference.other) {
 		dayReferenceString = dayReferencesText[IPostDayReference[dayReference] as keyof typeof IPostDayReference];
 	}
 
-	const title = `${date} - Day ${dayNumber}`;
+	const title = `${titleDateText} - Day ${dayNumber}`;
 	return (
 		<SmallText title={title}>{dayReferenceString}</SmallText>
 	);
