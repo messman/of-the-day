@@ -43,7 +43,11 @@ const ApplicationRefreshTimer: React.FC = (props) => {
 	}, documentVisibility, () => {
 		// After we reach our timeout, reload location.
 		// TODO - keep the URL params on the end.
-		window.location.replace('/');
+		let existingParams = window.location.search;
+		if (existingParams === '?') {
+			existingParams = '';
+		}
+		window.location.replace('/' + existingParams);
 	});
 
 	return <>{props.children}</>;

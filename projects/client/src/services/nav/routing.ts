@@ -15,5 +15,9 @@ export const routes = {
 	about: {
 		name: 'About',
 		path: '/about'
+	},
+	aboutYear: {
+		name: 'One Year',
+		path: '/about/year'
 	}
 };

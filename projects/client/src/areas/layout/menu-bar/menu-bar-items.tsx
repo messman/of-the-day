@@ -12,16 +12,15 @@ export interface MenuBarItemsProps {
 	onPathClick: () => void;
 }
 
+const menuBarRoutes = [routes.posts, routes.archive, routes.about];
+
 export const MenuBarItems: React.FC<MenuBarItemsProps> = (props) => {
 	const { isUpper, onPathClick } = props;
 	const history = useHistory();
 	const location = useLocation();
 
-	const keys = Object.keys(routes);
-	const length = keys.length;
 	let activeIndex = 0;
-	const items = keys.map((key, i) => {
-		const route = routes[key as keyof typeof routes];
+	const items = menuBarRoutes.map((route, i) => {
 
 		const isActive = !!matchPath(location.pathname, {
 			path: route.path,
@@ -48,13 +47,13 @@ export const MenuBarItems: React.FC<MenuBarItemsProps> = (props) => {
 
 	return (
 		<MenuBarItemsContainer>
-			<HighlightBar position={isUpper ? 'bottom' : 'top'} index={activeIndex} count={length} />
+			<HighlightBar position={isUpper ? 'bottom' : 'top'} index={activeIndex} count={menuBarRoutes.length} />
 			{items}
 		</MenuBarItemsContainer>
 	);
 };
 
-const MenuBarItemsContainer = tStyled(FlexRow)`
+export const MenuBarItemsContainer = tStyled(FlexRow)`
 	position: relative;
 `;
 

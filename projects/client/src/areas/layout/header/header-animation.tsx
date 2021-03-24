@@ -6,6 +6,7 @@ import { FontWeight } from '@/core/style/theme';
 import { Spacing } from '@/core/layout/common';
 import { borderRadiusStyle } from '@/core/style/common';
 import { sortRandom } from '@/services/archive/sort';
+import { useDocumentVisibility } from '@messman/react-common';
 
 /*
 	Holds the animating header components (subtitle and icon).
@@ -39,29 +40,17 @@ let entities: HeaderAnimationEntity[] = [
 		icon: iconTypes.quote
 	},
 	{
-		text: 'Link',
-		icon: iconTypes.link
-	},
-	{
 		text: 'Image',
 		icon: iconTypes.image
 	},
 	{
-		text: 'Thoughts',
-		icon: iconTypes.thought
+		text: 'Link',
+		icon: iconTypes.link
 	},
 	{
-		text: 'Location',
-		icon: iconTypes.compassLarge
-	},
-	{
-		text: 'Activity',
+		text: 'Update',
 		icon: iconTypes.activity
 	},
-	{
-		text: 'Project',
-		icon: iconTypes.project
-	}
 ];
 // Sort our entities on page load so it's different each time.
 entities = [baseEntity, ...sortRandom(entities)];
@@ -73,6 +62,7 @@ const delayOnEntity = 2500;
 
 // Changes the chosen entity ('Music' and its icon, for example) with a timeout.
 export function useHeaderAnimationState(): HeaderAnimationState {
+	const isDocumentVisible = useDocumentVisibility();
 	const [entityState, setEntityState] = React.useState({
 		isBlank: false,
 		index: 0
@@ -80,6 +70,10 @@ export function useHeaderAnimationState(): HeaderAnimationState {
 	const { isBlank, index } = entityState;
 
 	React.useEffect(() => {
+		if (!isDocumentVisible) {
+			return;
+		}
+
 		const isBase = !isBlank && index === 0;
 		const delay = isBase ? delayOnBase : (isBlank ? delayOnBlank : delayOnEntity);
 
@@ -96,7 +90,7 @@ export function useHeaderAnimationState(): HeaderAnimationState {
 		return () => {
 			window.clearTimeout(id);
 		};
-	}, [isBlank, index]);
+	}, [isBlank, index, isDocumentVisible]);
 
 	return {
 		entity: isBlank ? null : entities[index]
