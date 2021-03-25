@@ -302,13 +302,17 @@ interface IconAnimationContainerProps {
 	animationStatus: HeaderAnimationEntityStatus;
 }
 
+// -webkit- rules help to prevent a 1px shift... anti-aliasing, maybe?
+// https://stackoverflow.com/q/14729492
 const IconAnimationContainer = tStyled.div<IconAnimationContainerProps>`
-position: absolute;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-color: ${p => p.theme.textOnAccentFill};
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	color: ${p => p.theme.textOnAccentFill};
+	-webkit-backface-visibility: hidden;
+	-webkit-transform: translateZ(0) scale(1.0, 1.0);
 	${p => getIconAnimationForStatus(p.animationStatus)}
 `;
 
