@@ -134,6 +134,7 @@ export function usePostControl(post: IPost | null, extra: Partial<IPost>): PostE
 		post: wrapForPost(post || selectedPost, extra),
 		isOfSameElement: boolean('Is Same Element', false),
 		isForArchive: boolean('Is For Archive', false),
+		isShowingEmbeddedByDefault: boolean('Is Showing Embedded By Default', false),
 	};
 }
 

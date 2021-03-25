@@ -52,9 +52,8 @@ export const ArchiveResults: React.FC<ArchiveResultsProps> = (props) => {
 		}
 	}, [filter]);
 
-	// I'm not sure yet if this is a good idea or something that will cause a bug.
-	// but, only re-render our posts (there could be hundreds) if those posts really change.
-	const postsRender = usePostsList(validPosts, true, singleElementType);
+	// If we have more than 50 posts, don't show the embeds by default.
+	const postsRender = usePostsList(validPosts, true, singleElementType, validPosts.length <= 50);
 
 	if (isStarted || error) {
 		return <DataLoad promise={promise} />;

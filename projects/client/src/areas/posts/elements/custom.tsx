@@ -75,6 +75,7 @@ export const Custom: React.FC<PostElementProps> = (props) => {
 			icon={iconType}
 			isForArchive={isForArchive}
 			isOfSameElement={isOfSameElement}
+			isShowingEmbeddedByDefault={true}
 			post={post}
 			actionsRender={
 				<ElementActions

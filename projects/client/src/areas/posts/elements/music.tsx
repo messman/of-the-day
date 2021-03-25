@@ -18,7 +18,7 @@ import { IPostElementType } from 'oftheday-shared';
  * A Music card. Shows title, artist, year, YouTube video, tags, etc.
  */
 export const Music: React.FC<PostElementProps> = (props) => {
-	const { isForArchive, isOfSameElement, post } = props;
+	const { isForArchive, isOfSameElement, post, isShowingEmbeddedByDefault } = props;
 	const { title, artist, description, isTop, isNSFW, tags, spotifyLink, youTubeLink, useYouTube, geniusLink, quote, year } = post.music!;
 
 	const tagsStrings = useTags(isTop, isNSFW, tags);
@@ -45,6 +45,7 @@ export const Music: React.FC<PostElementProps> = (props) => {
 			icon={iconTypes.music}
 			isForArchive={isForArchive}
 			isOfSameElement={isOfSameElement}
+			isShowingEmbeddedByDefault={true}
 			post={post}
 			actionsRender={
 				<ElementActions
@@ -69,7 +70,13 @@ export const Music: React.FC<PostElementProps> = (props) => {
 				<OutLink href={geniusLink}>View Lyrics</OutLink>
 			</LinksContainer>
 			<Block.Elf24 />
-			<EmbeddedContentReveal isRevealedOnMount={!isForArchive} useElementForSize={false} useLargerMargin={false}>
+			<EmbeddedContentReveal
+				key={youTubeLink || spotifyLink}
+				isOnlyRevealedOnClick={!isShowingEmbeddedByDefault}
+				isUnloadedWhenHidden={isForArchive}
+				useElementForSize={false}
+				useLargerMargin={false}
+			>
 				{embedRender}
 			</EmbeddedContentReveal>
 			{musicRender}

@@ -57,6 +57,7 @@ export const Personal: React.FC<PostElementProps> = (props) => {
 				icon={iconTypes.activity}
 				isOfSameElement={isOfSameElement}
 				isForArchive={isForArchive}
+				isShowingEmbeddedByDefault={true}
 				post={post}
 				actionsRender={
 					<ElementActions elementType={IPostElementType.personal} />

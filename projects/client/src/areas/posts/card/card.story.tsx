@@ -25,6 +25,7 @@ export const TestCard = decorate('Card', null, () => {
 				post={post}
 				isOfSameElement={isOfSameElement}
 				isForArchive={isForArchive}
+				isShowingEmbeddedByDefault={true}
 				actionsRender={
 					<ElementActions elementType={IPostElementType.custom} />
 				}

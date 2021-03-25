@@ -14,7 +14,7 @@ import { PostElementCard, PostElementProps } from '../card/card';
  * Image card. Shows, you know, an image.
  */
 export const Image: React.FC<PostElementProps> = (props) => {
-	const { isForArchive, isOfSameElement, post } = props;
+	const { isForArchive, isOfSameElement, post, isShowingEmbeddedByDefault } = props;
 	const { link, description, sourceText, sourceLink, isNSFW, isTop } = post.image!;
 
 	const tagsStrings = useTags(isTop, isNSFW);
@@ -41,6 +41,7 @@ export const Image: React.FC<PostElementProps> = (props) => {
 			icon={iconTypes.image}
 			isForArchive={isForArchive}
 			isOfSameElement={isOfSameElement}
+			isShowingEmbeddedByDefault={true}
 			post={post}
 			actionsRender={
 				<ElementActions isForArchive={isForArchive} elementType={IPostElementType.image} isTop={isTop} />
@@ -50,7 +51,13 @@ export const Image: React.FC<PostElementProps> = (props) => {
 			<ParagraphArray value={description} />
 			{sourceTextRender}
 			<Block.Bat08 />
-			<EmbeddedContentReveal isRevealedOnMount={!isForArchive} useLargerMargin={true} useElementForSize={true}>
+			<EmbeddedContentReveal
+				key={link}
+				isOnlyRevealedOnClick={!isShowingEmbeddedByDefault}
+				isUnloadedWhenHidden={isForArchive}
+				useLargerMargin={true}
+				useElementForSize={true}
+			>
 				<a href={link} target='_blank' rel="noreferrer noopener" title='Click to open in a new tab'>
 					<ConstrainedImage src={link} />
 				</a>

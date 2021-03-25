@@ -56,6 +56,7 @@ export const Quote: React.FC<PostElementProps> = (props) => {
 			post={post}
 			isForArchive={isForArchive}
 			isOfSameElement={isOfSameElement}
+			isShowingEmbeddedByDefault={true}
 			actionsRender={
 				<ElementActions
 					isForArchive={isForArchive}

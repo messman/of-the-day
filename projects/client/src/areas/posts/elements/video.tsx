@@ -13,7 +13,7 @@ import { CardTitle, CardTitleDistinctSpan, PostElementCard, PostElementProps } f
  * Displays the video card. Shows title, description, tags, video iframe, etc.
  */
 export const Video: React.FC<PostElementProps> = (props) => {
-	const { isForArchive, isOfSameElement, post } = props;
+	const { isForArchive, isOfSameElement, post, isShowingEmbeddedByDefault } = props;
 	const { description, link, isTop, isNSFW, tags, isRemoved, customTitle, customTitleCreator, originalTitle } = post.video!;
 
 	const tagsStrings = useTags(isTop, isNSFW, tags);
@@ -59,6 +59,7 @@ export const Video: React.FC<PostElementProps> = (props) => {
 			icon={iconTypes.video}
 			isForArchive={isForArchive}
 			isOfSameElement={isOfSameElement}
+			isShowingEmbeddedByDefault={true}
 			post={post}
 			actionsRender={
 				<ElementActions
@@ -75,7 +76,13 @@ export const Video: React.FC<PostElementProps> = (props) => {
 			<TagList tags={tagsStrings} />
 			<ParagraphArray value={descriptionToRender} />
 			<Block.Dog16 />
-			<EmbeddedContentReveal isRevealedOnMount={!isForArchive || isRemoved} useElementForSize={false} useLargerMargin={false}>
+			<EmbeddedContentReveal
+				key={link}
+				isOnlyRevealedOnClick={!isShowingEmbeddedByDefault && !isRemoved}
+				isUnloadedWhenHidden={isForArchive && !isRemoved}
+				useElementForSize={false}
+				useLargerMargin={false}
+			>
 				{internalVideoRender}
 			</EmbeddedContentReveal>
 		</PostElementCard>

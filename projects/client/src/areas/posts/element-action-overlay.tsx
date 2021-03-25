@@ -105,10 +105,43 @@ export interface ElementActionsOverlayProps {
  * Overlay that can be opened from any post element card (Music, Video, etc) with actions.
  * Can copy links or move to the archive.
 */
-export const ElementActionsOverlay: React.FC<ElementActionsOverlayProps> = (props) => {
+export const ElementActionsOverlay: React.FC<ElementActionsOverlayProps> = React.memo((props) => {
 	const { onSelectedFilter } = props;
 
 	const [elementActions, setElementActions] = useElementActions();
+
+	function closeOverlay() {
+		setElementActions(null);
+	}
+
+	return (
+		<OverlayBox
+			isActive={!!elementActions}
+			onSetInactive={closeOverlay}
+			headerTitle='Actions'
+			isSetInactiveOnBackdropClick={true}
+		>
+			<ScrollFlexColumn>
+				<InnerElementActionsOverlay
+					elementActions={elementActions}
+					onSelectedFilter={onSelectedFilter}
+					close={closeOverlay}
+				/>
+			</ScrollFlexColumn>
+			<FooterActionLink onClick={closeOverlay}>Cancel</FooterActionLink>
+		</OverlayBox>
+	);
+});
+
+interface InnerElementActionsOverlayProps {
+	elementActions: ElementActions | null;
+	onSelectedFilter: () => void;
+	close: () => void;
+}
+
+const InnerElementActionsOverlay: React.FC<InnerElementActionsOverlayProps> = (props) => {
+	const { onSelectedFilter, elementActions, close } = props;
+
 	const { filter, applyFilter } = useArchiveResponseContext();
 	const history = useHistory();
 
@@ -120,10 +153,6 @@ export const ElementActionsOverlay: React.FC<ElementActionsOverlayProps> = (prop
 		};
 	});
 
-	function closeOverlay() {
-		setElementActions(null);
-	}
-
 	React.useEffect(() => {
 		setCopiedClipboards({
 			spotify: false,
@@ -132,125 +161,112 @@ export const ElementActionsOverlay: React.FC<ElementActionsOverlayProps> = (prop
 		});
 	}, [elementActions]);
 
-	let innerRender: JSX.Element | null = null;
-	if (elementActions) {
-		const { isForArchive, elementType, showTopFilterPreset, spotifyLink, youTubeLink, textToCopy, textToCopyContentType } = elementActions;
-		const filterForElementType = createFilterForElementType(elementType);
-
-		function onElementTypeButtonClick() {
-			closeOverlay();
-			applyFilter(filterForElementType);
-			onSelectedFilter();
-			history.push(routes.archive.path);
-		}
-		const elementTypeDisplay = postElementTypeForDisplay[IPostElementType[elementType] as keyof typeof IPostElementType];
-
-		// If we aren't in the archive or if we aren't currently viewing a filter just for this filter type, show it.
-		const elementTypeFilterButton = (!isForArchive || !isFilterSemanticallyEqual(filter, filterForElementType)) ? (
-			<Button onClick={onElementTypeButtonClick} iconAfter={iconTypes.right} isSpecial={true}>
-				See Recent {elementTypeDisplay}
-			</Button>
-		) : null;
-
-		function onTopButtonClick() {
-			closeOverlay();
-			applyFilter(filterPresets.recentTop);
-			onSelectedFilter();
-			history.push(routes.archive.path);
-		}
-
-		const topFilterButton = (showTopFilterPreset && (!isForArchive || !isFilterSemanticallyEqual(filter, filterPresets.recentTop))) ? (
-			<Button onClick={onTopButtonClick} iconAfter={iconTypes.right} isSpecial={true}>
-				See Recent Top Items
-			</Button>
-		) : null;
-
-		function onCopySpotifyButtonClick() {
-			setClipboard(spotifyLink!);
-			setCopiedClipboards({
-				spotify: true,
-				youTube: false,
-				text: false
-			});
-		}
-
-		const spotifyButtonText = copiedClipboards.spotify ? 'Copied Spotify Link!' : 'Copy Spotify Link';
-		const copySpotifyLinkButton = spotifyLink ? (
-			<Button onClick={onCopySpotifyButtonClick} isDisabled={copiedClipboards.spotify}>
-				{spotifyButtonText}
-			</Button>
-		) : null;
-
-		function onCopyYouTubeButtonClick() {
-			setClipboard(youTubeLink!);
-			setCopiedClipboards({
-				spotify: false,
-				youTube: true,
-				text: false
-			});
-		}
-
-		const youTubeButtonText = copiedClipboards.youTube ? 'Copied YouTube Link!' : 'Copy YouTube Link';
-		const copyYouTubeLinkButton = youTubeLink ? (
-			<Button onClick={onCopyYouTubeButtonClick} isDisabled={copiedClipboards.youTube}>
-				{youTubeButtonText}
-			</Button>
-		) : null;
-
-		function onCopyTextButtonClick() {
-			setClipboard(textToCopy!);
-			setCopiedClipboards({
-				spotify: false,
-				youTube: false,
-				text: true
-			});
-		}
-
-		let copyTextButton: JSX.Element | null = null;
-
-		if (textToCopy) {
-			const contentType = textToCopyContentType || 'Text';
-			const textButtonText = copiedClipboards.text ? `Copied ${contentType}!` : `Copy ${contentType}`;
-			copyTextButton = (
-				<Button onClick={onCopyTextButtonClick} isDisabled={copiedClipboards.text}>
-					{textButtonText}
-				</Button>
-			);
-		}
-
-		if (elementTypeFilterButton || topFilterButton || copySpotifyLinkButton || copyYouTubeLinkButton || copyTextButton) {
-			innerRender = (
-				<ButtonsContainer>
-					{elementTypeFilterButton}
-					{topFilterButton}
-					{copySpotifyLinkButton}
-					{copyYouTubeLinkButton}
-					{copyTextButton}
-				</ButtonsContainer>
-			);
-		}
-		else {
-			innerRender = (
-				<ParagraphCenter>
-					There are no actions available for this content.
-				</ParagraphCenter>
-			);
-		}
+	if (!elementActions) {
+		return null;
 	}
 
-	return (
-		<OverlayBox
-			isActive={!!elementActions}
-			onSetInactive={closeOverlay}
-			headerTitle='Actions'
-			isSetInactiveOnBackdropClick={true}
-		>
-			<ScrollFlexColumn>
-				{innerRender}
-			</ScrollFlexColumn>
-			<FooterActionLink onClick={closeOverlay}>Cancel</FooterActionLink>
-		</OverlayBox>
-	);
+	const { isForArchive, elementType, showTopFilterPreset, spotifyLink, youTubeLink, textToCopy, textToCopyContentType } = elementActions;
+	const filterForElementType = createFilterForElementType(elementType);
+
+	function onElementTypeButtonClick() {
+		close();
+		applyFilter(filterForElementType);
+		onSelectedFilter();
+		history.push(routes.archive.path);
+	}
+	const elementTypeDisplay = postElementTypeForDisplay[IPostElementType[elementType] as keyof typeof IPostElementType];
+
+	// If we aren't in the archive or if we aren't currently viewing a filter just for this filter type, show it.
+	const elementTypeFilterButton = (!isForArchive || !isFilterSemanticallyEqual(filter, filterForElementType)) ? (
+		<Button onClick={onElementTypeButtonClick} iconAfter={iconTypes.right} isSpecial={true}>
+			See Recent {elementTypeDisplay}
+		</Button>
+	) : null;
+
+	function onTopButtonClick() {
+		close();
+		applyFilter(filterPresets.recentTop);
+		onSelectedFilter();
+		history.push(routes.archive.path);
+	}
+
+	const topFilterButton = (showTopFilterPreset && (!isForArchive || !isFilterSemanticallyEqual(filter, filterPresets.recentTop))) ? (
+		<Button onClick={onTopButtonClick} iconAfter={iconTypes.right} isSpecial={true}>
+			See Recent Top Items
+		</Button>
+	) : null;
+
+	function onCopySpotifyButtonClick() {
+		setClipboard(spotifyLink!);
+		setCopiedClipboards({
+			spotify: true,
+			youTube: false,
+			text: false
+		});
+	}
+
+	const spotifyButtonText = copiedClipboards.spotify ? 'Copied Spotify Link!' : 'Copy Spotify Link';
+	const copySpotifyLinkButton = spotifyLink ? (
+		<Button onClick={onCopySpotifyButtonClick} isDisabled={copiedClipboards.spotify}>
+			{spotifyButtonText}
+		</Button>
+	) : null;
+
+	function onCopyYouTubeButtonClick() {
+		setClipboard(youTubeLink!);
+		setCopiedClipboards({
+			spotify: false,
+			youTube: true,
+			text: false
+		});
+	}
+
+	const youTubeButtonText = copiedClipboards.youTube ? 'Copied YouTube Link!' : 'Copy YouTube Link';
+	const copyYouTubeLinkButton = youTubeLink ? (
+		<Button onClick={onCopyYouTubeButtonClick} isDisabled={copiedClipboards.youTube}>
+			{youTubeButtonText}
+		</Button>
+	) : null;
+
+	function onCopyTextButtonClick() {
+		setClipboard(textToCopy!);
+		setCopiedClipboards({
+			spotify: false,
+			youTube: false,
+			text: true
+		});
+	}
+
+	let copyTextButton: JSX.Element | null = null;
+
+	if (textToCopy) {
+		const contentType = textToCopyContentType || 'Text';
+		const textButtonText = copiedClipboards.text ? `Copied ${contentType}!` : `Copy ${contentType}`;
+		copyTextButton = (
+			<Button onClick={onCopyTextButtonClick} isDisabled={copiedClipboards.text}>
+				{textButtonText}
+			</Button>
+		);
+	}
+
+	if (elementTypeFilterButton || topFilterButton || copySpotifyLinkButton || copyYouTubeLinkButton || copyTextButton) {
+		return (
+			<ButtonsContainer>
+				{elementTypeFilterButton}
+				{topFilterButton}
+				{copySpotifyLinkButton}
+				{copyYouTubeLinkButton}
+				{copyTextButton}
+			</ButtonsContainer>
+		);
+	}
+	else {
+		return (
+			<ParagraphCenter>
+				There are no actions available for this content.
+			</ParagraphCenter>
+		);
+	}
 };
 
 function createFilterForElementType(elementType: IPostElementType): IArchiveFilter {

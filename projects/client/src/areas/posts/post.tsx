@@ -8,25 +8,20 @@ import { Video } from '@/areas/posts/elements/video';
 import { tStyled } from '@/core/style/styled';
 import { InlineWeight, Paragraph } from '@/core/symbol/text';
 import { Personal } from './elements/personal';
-
-interface PostProps {
-	post: IPost;
-	isOfSameElement: boolean;
-	isForArchive: boolean;
-}
+import { PostElementProps } from './card/card';
 
 /** Shows a post. Renders all the subcomponents (elements). */
-export const Post: React.FC<PostProps> = (props) => {
-	const { post, isOfSameElement, isForArchive } = props;
+export const Post: React.FC<PostElementProps> = (props) => {
+	const { post } = props;
 
 	return (
 		<PostElementsContainer>
-			{post.personal ? <Personal isForArchive={isForArchive} post={post} isOfSameElement={isOfSameElement} /> : null}
-			{post.music ? <Music isForArchive={isForArchive} post={post} isOfSameElement={isOfSameElement} /> : null}
-			{post.video ? <Video isForArchive={isForArchive} post={post} isOfSameElement={isOfSameElement} /> : null}
-			{post.image ? <Image isForArchive={isForArchive} post={post} isOfSameElement={isOfSameElement} /> : null}
-			{post.quote ? <Quote isForArchive={isForArchive} post={post} isOfSameElement={isOfSameElement} /> : null}
-			{post.custom ? <Custom isForArchive={isForArchive} post={post} isOfSameElement={isOfSameElement} /> : null}
+			{post.personal ? <Personal {...props} /> : null}
+			{post.music ? <Music {...props} /> : null}
+			{post.video ? <Video {...props} /> : null}
+			{post.image ? <Image {...props} /> : null}
+			{post.quote ? <Quote {...props} /> : null}
+			{post.custom ? <Custom {...props} /> : null}
 		</PostElementsContainer>
 	);
 };
@@ -35,11 +30,17 @@ const PostElementsContainer = tStyled.div`
 	
 `;
 
-export function usePostsList(posts: IPost[], isForArchive: boolean, singleElementType: IPostElementType | null) {
+export function usePostsList(posts: IPost[], isForArchive: boolean, singleElementType: IPostElementType | null, isShowingEmbeddedByDefault: boolean) {
 	return React.useMemo(() => {
 		return posts.map((post) => {
 			return (
-				<Post post={post} key={post.dayNumber} isForArchive={isForArchive} isOfSameElement={singleElementType !== null} />
+				<Post
+					post={post}
+					key={post.dayNumber}
+					isForArchive={isForArchive}
+					isOfSameElement={singleElementType !== null}
+					isShowingEmbeddedByDefault={isShowingEmbeddedByDefault}
+				/>
 			);
 		});
 	}, [posts, singleElementType]);

@@ -97,7 +97,7 @@ const InnerButton = tStyled.button<InnerButtonProps>`
 	${borderRadiusStyle}
 	padding: ${Spacing.dog16} ${Spacing.elf24};
 	border: 1px solid transparent;
-	box-shadow: ${p => p.theme.shadow.c2Button};
+	box-shadow: ${p => p.theme.shadow.d3Nav};
 
 	${p => p.$isDisabled ? disabledButtonStyle : (p.$isSpecial ? specialButtonStyle : (p.$isSelected ? selectedButtonStyle : regularButtonStyle))}
 `;

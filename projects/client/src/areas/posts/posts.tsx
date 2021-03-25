@@ -24,7 +24,7 @@ export const Posts: React.FC<PostsProps> = () => {
 	}
 
 	const { validPosts, elementsCount } = useValidatedPosts(posts, true);
-	const postsRender = usePostsList(validPosts, false, null);
+	const postsRender = usePostsList(validPosts, false, null, true);
 
 	if (isStarted || error) {
 		return <DataLoad promise={postPromise} />;

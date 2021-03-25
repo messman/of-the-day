@@ -12,6 +12,7 @@ export interface PostElementProps {
 	post: IPost;
 	isOfSameElement: boolean;
 	isForArchive: boolean;
+	isShowingEmbeddedByDefault: boolean;
 }
 
 export interface PostElementCardProps extends PostElementProps {

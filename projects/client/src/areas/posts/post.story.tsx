@@ -20,6 +20,7 @@ export const Posts = decorate('Post', null, () => {
 				post={post}
 				isOfSameElement={false}
 				isForArchive={false}
+				isShowingEmbeddedByDefault={true}
 			/>
 			<ElementActionsOverlay onSelectedFilter={() => { }} />
 			<Block.Dog16 />

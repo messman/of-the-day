@@ -1,11 +1,20 @@
 import { useScrollContainerElement } from '@/areas/layout/layout';
+import { Spacing } from '@/core/layout/common';
+import { borderRadiusStyle } from '@/core/style/common';
+import { tStyled } from '@/core/style/styled';
+import { fontDeclarations } from '@/core/symbol/text';
+import { LayoutBreakpointRem } from '@/services/layout/window-layout';
 import { useElementIntersect, useElementSize } from '@messman/react-common';
 import * as React from 'react';
 import { VideoContainer } from './video';
 
 export interface EmbeddedContentRevealProps {
-	/** If true, the content does not get revealed on scroll - it's always there. */
-	isRevealedOnMount: boolean;
+	/** A key to track changes. */
+	key: string;
+	/** If true, the content is unloaded when scrolled out of view. */
+	isUnloadedWhenHidden: boolean;
+	/** If true, a button must be clicked to first reveal the content. */
+	isOnlyRevealedOnClick: boolean;
 	/**
 	 * If true, after the content is revealed the first time its width and height will be used for
 	 * the replacement content.
@@ -18,14 +27,48 @@ export interface EmbeddedContentRevealProps {
 }
 
 export const EmbeddedContentReveal: React.FC<EmbeddedContentRevealProps> = (props) => {
-	const { isRevealedOnMount, children } = props;
-	if (isRevealedOnMount) {
+	const { key, isUnloadedWhenHidden, isOnlyRevealedOnClick, children } = props;
+
+	const [isRevealedByClick, setIsRevealedByClick] = React.useState(!isOnlyRevealedOnClick);
+	React.useEffect(() => {
+		setIsRevealedByClick(!isOnlyRevealedOnClick);
+	}, [key]);
+
+	function onClick() {
+		setIsRevealedByClick(true);
+	}
+
+	if (!isRevealedByClick) {
+		return (
+			<SubtleRevealButton onClick={onClick}>Load Embedded Content</SubtleRevealButton>
+		);
+	}
+	else if (!isUnloadedWhenHidden) {
 		return <>{children}</>;
 	}
 	return (
 		<InnerEmbeddedContentReveal {...props} />
 	);
 };
+
+const SubtleRevealButton = tStyled.button`
+	display: block;
+	max-width: ${LayoutBreakpointRem.b20Min};
+	margin: 0 auto;
+
+	text-align: center;
+	${fontDeclarations.small}
+
+	${borderRadiusStyle}
+	padding: ${Spacing.dog16} ${Spacing.elf24};
+	border: 1px solid transparent;
+	box-shadow: ${p => p.theme.shadow.c2Button};
+
+	cursor: pointer;
+	color: ${p => p.theme.textDistinct};
+	background-color: transparent;
+	border-color: ${p => p.theme.outlineDistinct};
+`;
 
 // Prove it's working by setting this to negative (or, start a video and then scroll away).
 const pixelsPastScrollElementForRevealSmaller = 400;
