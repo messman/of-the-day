@@ -23,7 +23,7 @@ export const Posts: React.FC<PostsProps> = () => {
 		posts = data.posts;
 	}
 
-	const { validPosts, elementsCount } = useValidatedPosts(posts, true);
+	const { validPosts, elementsCount, elementsCountToday } = useValidatedPosts(posts, true);
 	const postsRender = usePostsList(validPosts, false, null, true);
 
 	if (isStarted || error) {
@@ -35,7 +35,7 @@ export const Posts: React.FC<PostsProps> = () => {
 		render = (
 			<SidePadding>
 				<ParagraphCenter>
-					Looks like Andrew hasn't shared anything recently. What a slacker.
+					It looks like Andrew hasn't shared anything recently.
 				</ParagraphCenter>
 			</SidePadding>
 		);
@@ -45,8 +45,10 @@ export const Posts: React.FC<PostsProps> = () => {
 			<>
 				<SidePadding>
 					<PostElementsCountSummary
-						elementsCount={elementsCount}
 						postsCount={validPosts.length}
+						elementsCount={elementsCount}
+						elementsCountToday={elementsCountToday}
+						isForArchive={false}
 					/>
 				</SidePadding>
 				{postsRender}

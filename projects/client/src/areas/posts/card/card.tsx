@@ -2,7 +2,7 @@ import { Block, Spacing } from '@/core/layout/common';
 import { tStyled } from '@/core/style/styled';
 import { FontWeight } from '@/core/style/theme';
 import { IconSize, SizedIcon, SVGIconType } from '@/core/symbol/icon';
-import { fontDeclarations, SmallText } from '@/core/symbol/text';
+import { fontDeclarations } from '@/core/symbol/text';
 import { LayoutBreakpointRem } from '@/services/layout/window-layout';
 import { Flex, FlexRow, useWindowMediaLayout } from '@messman/react-common';
 import { IPost, IPostDayReference } from 'oftheday-shared';
@@ -162,9 +162,20 @@ const PostDate: React.FC<PostDateProps> = (props) => {
 
 	const title = `${titleDateText} - Day ${dayNumber}`;
 	return (
-		<SmallText title={title}>{dayReferenceString}</SmallText>
+		<PostDateText isToday={dayReference === IPostDayReference.today} title={title}>{dayReferenceString}</PostDateText>
 	);
 };
+
+interface PostDateTextProps {
+	isToday: boolean;
+}
+
+// We ended up not using the 'isToday' prop... maybe in the future we will.
+const PostDateText = tStyled.div<PostDateTextProps>`
+	${fontDeclarations.small};
+	color: ${p => p.theme.textSubtle};
+`;
+
 
 const dayReferencesText: Record<keyof typeof IPostDayReference, string> = {
 	other: '',

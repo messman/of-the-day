@@ -1,4 +1,4 @@
-import { IPost, IPostElementType, isValidPostElement } from 'oftheday-shared';
+import { IPost, IPostDayReference, IPostElementType, isValidPostElement } from 'oftheday-shared';
 import * as React from 'react';
 import { Custom } from '@/areas/posts/elements/custom';
 import { Image } from '@/areas/posts/elements/image';
@@ -6,7 +6,7 @@ import { Music } from '@/areas/posts/elements/music';
 import { Quote } from '@/areas/posts/elements/quote/quote';
 import { Video } from '@/areas/posts/elements/video';
 import { tStyled } from '@/core/style/styled';
-import { Paragraph } from '@/core/symbol/text';
+import { Paragraph, ParagraphCenter } from '@/core/symbol/text';
 import { Personal } from './elements/personal';
 import { PostElementProps } from './card/card';
 import { FontWeight } from '@/core/style/theme';
@@ -50,6 +50,7 @@ export function usePostsList(posts: IPost[], isForArchive: boolean, singleElemen
 export interface ValidatedPostsInfo {
 	validPosts: IPost[];
 	elementsCount: number;
+	elementsCountToday: number;
 }
 
 export function useValidatedPosts(posts: IPost[], includePersonal: boolean): ValidatedPostsInfo {
@@ -57,10 +58,12 @@ export function useValidatedPosts(posts: IPost[], includePersonal: boolean): Val
 		if (posts.length === 0) {
 			return {
 				validPosts: [],
-				elementsCount: 0
+				elementsCount: 0,
+				elementsCountToday: 0
 			};
 		}
 		let elementsCount = 0;
+		let elementsCountToday = 0;
 		const validatedPosts = posts.map<IPost | null>((post) => {
 			if (!post) {
 				return null;
@@ -79,6 +82,9 @@ export function useValidatedPosts(posts: IPost[], includePersonal: boolean): Val
 				return null;
 			}
 			elementsCount += elements;
+			if (post.dayReference === IPostDayReference.today) {
+				elementsCountToday += elements;
+			}
 
 			return {
 				...post,
@@ -92,7 +98,8 @@ export function useValidatedPosts(posts: IPost[], includePersonal: boolean): Val
 		}).filter(p => !!p) as IPost[];
 		return {
 			validPosts: validatedPosts,
-			elementsCount: elementsCount
+			elementsCount: elementsCount,
+			elementsCountToday: elementsCountToday
 		};
 	}, [posts, includePersonal]);
 }
@@ -100,19 +107,97 @@ export function useValidatedPosts(posts: IPost[], includePersonal: boolean): Val
 export interface PostElementsCountSummaryProps {
 	postsCount: number;
 	elementsCount: number;
+	elementsCountToday: number;
+	isForArchive: boolean;
 }
 
 export const PostElementsCountSummary: React.FC<PostElementsCountSummaryProps> = (props) => {
-	const { elementsCount, postsCount } = props;
-	return (
-		<Paragraph>
-			<span>Showing </span>
-			<EmphasizedCountValue>{elementsCount} </EmphasizedCountValue>
-			<span>{elementsCount === 1 ? 'item' : 'items'} across </span>
-			<EmphasizedCountValue>{postsCount} </EmphasizedCountValue>
-			<span>{postsCount === 1 ? 'day' : 'days'}.</span>
-		</Paragraph>
+	const { elementsCount, postsCount, elementsCountToday, isForArchive } = props;
+
+	/*
+		Here is where we change the terms/nomenclature around.
+		elements => posts, posts => days.
+	*/
+	const elementsText = elementsCount === 1 ? 'post' : 'posts';
+
+	if (isForArchive) {
+		const daysText = postsCount === 1 ? 'day' : 'days';
+		return (
+			<Paragraph>
+				<span>Showing </span>
+				<EmphasizedCountValue>{elementsCount} </EmphasizedCountValue>
+				<span>{elementsText} across </span>
+				<EmphasizedCountValue>{postsCount} </EmphasizedCountValue>
+				<span>{daysText}.</span>
+			</Paragraph>
+		);
+	}
+
+	/*
+		Scenarios:
+
+		- new posts today, and that's all there is
+		- new posts today and more from other days
+		- no new posts today and more from other days
+		(- no new, no others - covered elsewhere)
+
+		Grammar:
+		- There are no new posts today. There are 5 posts from
+			the last two weeks.
+		- There are 2 new posts today.
+		- There are 2 new posts today and 4 total posts from 
+			the last two weeks.
+	*/
+
+	const newPostsIsAre = elementsCountToday === 1 ? 'is' : 'are';
+	const newPostsPlural = elementsCountToday === 1 ? 'post' : 'posts';
+	let newPostsCountRender: JSX.Element = null!;
+	if (elementsCountToday === 0) {
+		newPostsCountRender = <span>no </span>;
+	}
+	else {
+		newPostsCountRender = <EmphasizedCountValue>{elementsCountToday} </EmphasizedCountValue>;
+	}
+
+	const newPostsRender = (
+		<>
+			<span>There {newPostsIsAre} </span>
+			{newPostsCountRender}
+			<span>new {newPostsPlural} today</span>
+		</>
 	);
+
+	if (elementsCountToday === elementsCount) {
+		// These new posts are the only ones.
+		return (
+			<ParagraphCenter>
+				{newPostsRender}.
+			</ParagraphCenter>
+		);
+	}
+
+	const totalPostsPlural = elementsCount === 1 ? 'post' : 'posts';
+	if (elementsCountToday === 0) {
+		const totalPostsIsAre = elementsCount === 1 ? 'is' : 'are';
+		return (
+			<ParagraphCenter>
+				<div>{newPostsRender}.</div>
+				<span>There {totalPostsIsAre} </span>
+				<EmphasizedCountValue>{elementsCount} </EmphasizedCountValue>
+				<span>{totalPostsPlural} from the last two weeks.</span>
+			</ParagraphCenter>
+		);
+	}
+	else {
+		return (
+			<ParagraphCenter>
+				<div>{newPostsRender}</div>
+				<span>and </span>
+				<EmphasizedCountValue>{elementsCount} </EmphasizedCountValue>
+				<span>total {totalPostsPlural} from the last two weeks.</span>
+			</ParagraphCenter>
+		);
+	}
 };
 
 const EmphasizedCountValue = tStyled.span`

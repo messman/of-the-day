@@ -33,7 +33,7 @@ export const ArchiveResults: React.FC<ArchiveResultsProps> = (props) => {
 	if (data && meta && !meta.shutdown.length) {
 		posts = data.posts;
 	}
-	const { validPosts, elementsCount } = useValidatedPosts(posts, false);
+	const { validPosts, elementsCount, elementsCountToday } = useValidatedPosts(posts, false);
 
 	const [singleElementType, setSingleElementType] = React.useState<IPostElementType | null>(null);
 
@@ -87,8 +87,10 @@ export const ArchiveResults: React.FC<ArchiveResultsProps> = (props) => {
 				<Block.Elf24 />
 				<FilterDescription filter={filter} />
 				<PostElementsCountSummary
-					elementsCount={elementsCount}
 					postsCount={validPosts.length}
+					elementsCount={elementsCount}
+					elementsCountToday={elementsCountToday}
+					isForArchive={true}
 				/>
 				{metaPlaylistRender}
 			</ArchiveResultsContentContainer>

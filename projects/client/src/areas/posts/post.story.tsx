@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { decorate } from '@/test/decorate';
-import { Post } from './post';
-import { number } from '@storybook/addon-knobs';
+import { Post, PostElementsCountSummary } from './post';
+import { boolean, number } from '@storybook/addon-knobs';
 import { postsTestData } from '../../test/data';
-import { Block, SimpleContentMaxWidthFull } from '@/core/layout/common';
+import { Block, SimpleContentMaxWidthFull, SimpleContentMaxWidthPadded } from '@/core/layout/common';
 import { ElementActionsOverlay } from './element-action-overlay';
 
 export default { title: 'Areas/Posts/Post' };
@@ -25,5 +25,26 @@ export const Posts = decorate('Post', null, () => {
 			<ElementActionsOverlay onSelectedFilter={() => { }} />
 			<Block.Dog16 />
 		</SimpleContentMaxWidthFull>
+	);
+});
+
+export const PostsCountSummary = decorate('Post Elements Count Summary', null, () => {
+
+	const isForArchive = boolean('Is For Archive', false);
+	const postsCount = number('Posts Count', 3);
+	const elementsCount = number('Elements Count', 5);
+	const elementsCountToday = number('Elements Count Today', 5);
+
+	return (
+		<SimpleContentMaxWidthPadded>
+			<Block.Dog16 />
+			<PostElementsCountSummary
+				isForArchive={isForArchive}
+				postsCount={postsCount}
+				elementsCount={elementsCount}
+				elementsCountToday={elementsCountToday}
+			/>
+			<Block.Dog16 />
+		</SimpleContentMaxWidthPadded>
 	);
 });
