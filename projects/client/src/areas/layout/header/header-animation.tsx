@@ -60,7 +60,7 @@ const delayOnBlank = 500;
 const delayOnEntity = 2500;
 
 // Changes the chosen entity ('Music' and its icon, for example) with a timeout.
-export function useHeaderAnimationState(): HeaderAnimationState {
+export function useHeaderAnimationState(isActive: boolean): HeaderAnimationState {
 	const isDocumentVisible = useDocumentVisibility();
 	const [entityState, setEntityState] = React.useState({
 		isBlank: false,
@@ -69,7 +69,7 @@ export function useHeaderAnimationState(): HeaderAnimationState {
 	const { isBlank, index } = entityState;
 
 	React.useEffect(() => {
-		if (!isDocumentVisible) {
+		if (!isDocumentVisible || !isActive) {
 			return;
 		}
 
@@ -89,7 +89,7 @@ export function useHeaderAnimationState(): HeaderAnimationState {
 		return () => {
 			window.clearTimeout(id);
 		};
-	}, [isBlank, index, isDocumentVisible]);
+	}, [isBlank, index, isDocumentVisible, isActive]);
 
 	return {
 		entity: isBlank ? null : entities[index]

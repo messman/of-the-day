@@ -36,8 +36,3 @@ See more information on the [server README](./server/README.md).
 Design is hard. I'm happier with the desktop design than the mobile design. Design was through Sketch. Symbols come from the Noun Project (licensed account).
 
 Front-end was fun. React (with React-Router), TypeScript, Webpack (with a custom builder application I wrote), a custom React UI library I wrote, and styled-components.
-
-## Future Work
-
-- Refine the mobile experience (tighter)
-- Clean up and optimize code (for example - styled-components performance, react-spring performance)

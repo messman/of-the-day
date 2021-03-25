@@ -19,10 +19,15 @@ export function useHeaderDimensions(): [string, string, string] {
 	return ['2.3rem', '1.8rem', Spacing.dog16];
 }
 
-export const Header: React.FC = () => {
+export interface HeaderProps {
+	isActive: boolean;
+}
 
+export const Header: React.FC<HeaderProps> = (props) => {
+
+	const { isActive } = props;
 	const [titleHeight, subtitleHeight, rightMargin] = useHeaderDimensions();
-	const animationState = useHeaderAnimationState();
+	const animationState = useHeaderAnimationState(isActive);
 
 	return (
 		<Parent justifyContent='center' alignItems='center'>

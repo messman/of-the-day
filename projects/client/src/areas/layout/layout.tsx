@@ -113,7 +113,7 @@ export const Layout: React.FC<LayoutProps> = (props) => {
 			/>
 			<ScrollContainer ref={scrollContainerRef}>
 				<ScrollContainerElementContext.Provider value={scrollContainerElement}>
-					<Header />
+					<Header isActive={!isShowingStickyMenuBar} />
 					<div ref={elementIntersectRef} />
 					<UpperMenuBar isMobileWidth={isAnyMobileWidth} onPathClick={scrollToTopSticky} />
 					<RouteContainer>
