@@ -1,8 +1,9 @@
 import { Spacing } from '@/core/layout/common';
 import { borderRadiusStyle } from '@/core/style/common';
 import { StyledFCProps, tCss, tStyled } from '@/core/style/styled';
+import { FontWeight } from '@/core/style/theme';
 import { IconSize, SizedIcon, SVGIconType } from '@/core/symbol/icon';
-import { FontSize } from '@/core/symbol/text';
+import { fontDeclarations } from '@/core/symbol/text';
 import * as React from 'react';
 
 export interface ButtonProps extends Pick<React.HTMLAttributes<HTMLButtonElement>, 'onClick' | 'title'> {
@@ -82,7 +83,7 @@ const disabledButtonStyle = tCss`
 
 const specialButtonStyle = tCss`
 	cursor: pointer;
-	color: ${p => p.theme.textDistinct};
+	color: ${p => p.theme.textOnAccentFill};
 	background: ${p => p.theme.accent.eGradient};
 	border-color: transparent;
 `;
@@ -92,7 +93,8 @@ const InnerButton = tStyled.button<InnerButtonProps>`
 	width: 100%;
 
 	text-align: center;
-	font-size: ${FontSize.regular};
+	${fontDeclarations.regular}
+	font-weight: ${FontWeight.medium};
 
 	${borderRadiusStyle}
 	padding: ${Spacing.dog16} ${Spacing.elf24};

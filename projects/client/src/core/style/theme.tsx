@@ -29,9 +29,7 @@ export interface Theme {
 	textSubtle: string;
 	textDisabled: string;
 	textLink: string;
-
-	tagFore: string;
-	tagBack: string;
+	textOnAccentFill: string;
 }
 
 const baseDarkTheme: Theme = {
@@ -58,8 +56,7 @@ const baseDarkTheme: Theme = {
 
 	// To be overridden
 	textLink: 'blue',
-	tagFore: 'red',
-	tagBack: 'green'
+	textOnAccentFill: 'blue',
 };
 
 const baseLightTheme: Theme = {
@@ -86,8 +83,7 @@ const baseLightTheme: Theme = {
 
 	// To be overridden
 	textLink: 'blue',
-	tagFore: 'red',
-	tagBack: 'green'
+	textOnAccentFill: 'blue',
 };
 
 // const gray = {
@@ -125,8 +121,7 @@ const purpleDarkTheme: Theme = {
 
 	accent: colors.accent.purple,
 	textLink: colors.accent.purple.cLight,
-	tagFore: colors.dark.a0Darkest,
-	tagBack: colors.accent.purple.aMain,
+	textOnAccentFill: colors.light.e4Lightest,
 };
 
 const purpleLightTheme: Theme = {
@@ -139,8 +134,7 @@ const purpleLightTheme: Theme = {
 
 	accent: colors.accent.purple,
 	textLink: colors.accent.purple.aMain,
-	tagFore: colors.light.e4Lightest,
-	tagBack: colors.accent.purple.aMain,
+	textOnAccentFill: colors.light.e4Lightest,
 };
 
 const yellowDarkTheme: Theme = {
@@ -153,8 +147,7 @@ const yellowDarkTheme: Theme = {
 
 	accent: colors.accent.yellow,
 	textLink: colors.accent.yellow.bDark,
-	tagFore: colors.dark.a0Darkest,
-	tagBack: colors.accent.yellow.aMain,
+	textOnAccentFill: colors.dark.a0Darkest,
 };
 
 const yellowLightTheme: Theme = {
@@ -167,8 +160,7 @@ const yellowLightTheme: Theme = {
 
 	accent: colors.accent.yellow,
 	textLink: colors.accent.yellow.bDark,
-	tagFore: colors.accent.yellow.bDark,
-	tagBack: colors.accent.yellow.cLight,
+	textOnAccentFill: colors.dark.a0Darkest,
 };
 
 // const redDarkTheme: Theme = {

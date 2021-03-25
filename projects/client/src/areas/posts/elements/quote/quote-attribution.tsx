@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { RegularText } from '@/core/symbol/text';
+import { fontDeclarations } from '@/core/symbol/text';
 import { Spacing } from '@/core/layout/common';
 import { OutLink } from '@/core/link';
 import { tStyled } from '@/core/style/styled';
@@ -47,7 +47,10 @@ export const QuoteAttribution: React.FC<InnerQuoteProps> = (props) => {
 	);
 };
 
-const RightText = tStyled(RegularText)`
+const RightText = tStyled.div`
+	${fontDeclarations.regular};
+	line-height: normal;
+	color: ${p => p.theme.textSubtle};
 	text-align: right;
 	word-wrap: break-word;
 	margin-top: ${Spacing.dog16};

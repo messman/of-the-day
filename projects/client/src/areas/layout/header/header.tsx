@@ -49,7 +49,7 @@ export const Header: React.FC = () => {
 const TextSubtitleOnAccent = tStyled.div`
 	${fontDeclarations.regular};
 	text-align: center;
-	color: ${p => p.theme.textDistinct};
+	color: ${p => p.theme.textOnAccentFill};
 `;
 
 interface HeaderBoldTextProps {
@@ -62,7 +62,7 @@ const HeaderBoldText = tStyled.div<HeaderBoldTextProps>`
 	line-height: ${p => p.dataFontSize};
 	font-size: ${p => p.dataFontSize};
 	font-weight: ${FontWeight.bold};
-	color: ${p => p.theme.textDistinct};
+	color: ${p => p.theme.textOnAccentFill};
 `;
 
 const Parent = tStyled(FlexRow)`

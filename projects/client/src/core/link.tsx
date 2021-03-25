@@ -5,7 +5,7 @@ import { iconTypes, SizedIcon } from './symbol/icon';
 import { FontWeight } from './style/theme';
 
 const BasicLink = tStyled.a`
-	font-weight: ${FontWeight.medium}
+	font-weight: ${FontWeight.medium};
 
 	margin: 0;
 	display: inline-block;

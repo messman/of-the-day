@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { tStyled } from '@/core/style/styled';
-import { borderRadiusStyle } from '@/core/style/common';
 import { fontDeclarations, FontSize } from '@/core/symbol/text';
 import { Spacing } from '@/core/layout/common';
 import { FontWeight, useCurrentTheme } from '@/core/style/theme';
@@ -35,7 +34,8 @@ export const Tag: React.FC<TagProps> = (props) => {
 const TagText = tStyled.span`
 	display: inline-block;
 	${fontDeclarations.small}
-	font-weight: ${FontWeight.bold};
+	height: ${FontSize.small};
+	font-weight: ${FontWeight.medium};
 	color: inherit;
 `;
 
@@ -49,7 +49,6 @@ interface TagContainerProps {
 }
 
 const TagContainer = tStyled.div<TagContainerProps>`
-	${borderRadiusStyle};
 	display: inline-block;
 	padding: ${Spacing.ant04} ${Spacing.bat08};
 	margin-top: ${Spacing.bat08};

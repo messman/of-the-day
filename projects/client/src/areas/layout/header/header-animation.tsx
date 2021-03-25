@@ -146,7 +146,7 @@ const TextContainer = tStyled.div<HeightContainerProps>`
 	line-height: ${p => p.dataHeight};
 	font-size: ${p => p.dataHeight};
 	font-weight: ${FontWeight.bold};
-	color: ${p => p.theme.textDistinct};
+	color: ${p => p.theme.textOnAccentFill};
 `;
 
 const TextHeightContainer = tStyled.div<HeightContainerProps>`
@@ -204,6 +204,7 @@ const IconAnimationContainer = tStyled(animated.div)`
 	left: 0;
 	width: 100%;
 	height: 100%;
+	color: ${p => p.theme.textOnAccentFill};
 `;
 
 interface IconPaddingWrapperProps {
