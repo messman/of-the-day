@@ -6,6 +6,7 @@ import { tStyled } from '@/core/style/styled';
 import { LayoutBreakpointRem } from '@/services/layout/window-layout';
 import { FontWeight } from '@/core/style/theme';
 import { HeaderIconAnimation, HeaderSubtitleAnimation, useHeaderAnimationState } from './header-animation';
+import { HeaderIconAnimation2, HeaderSubtitleAnimation2, useHeaderAnimationState2 } from './header-animations';
 
 /**
  * Returns different values for [title height, subtitle height, margin]
@@ -38,6 +39,34 @@ export const Header: React.FC<HeaderProps> = (props) => {
 					<HeaderIconAnimation animationState={animationState} titleHeight={titleHeight} subtitleHeight={subtitleHeight} rightMargin={rightMargin} />
 					<div>
 						<HeaderSubtitleAnimation animationState={animationState} height={subtitleHeight} />
+						<HeaderBoldText dataFontSize={titleHeight}>Of The Day</HeaderBoldText>
+					</div>
+				</FlexRow>
+				<Block.Elf24 />
+				<TextSubtitleOnAccent>
+					A place for Andrew to share things.
+				</TextSubtitleOnAccent>
+			</div>
+			{/* <HeaderShadow /> */}
+		</Parent>
+	);
+};
+
+export const Header2: React.FC<HeaderProps> = (props) => {
+
+	const { isActive } = props;
+	const [titleHeight, subtitleHeight, rightMargin] = useHeaderDimensions();
+	const animationState = useHeaderAnimationState2(isActive);
+
+	return (
+		<Parent justifyContent='center' alignItems='center'>
+			<HeaderImage />
+			<div>
+
+				<FlexRow>
+					<HeaderIconAnimation2 animationState={animationState} titleHeight={titleHeight} subtitleHeight={subtitleHeight} rightMargin={rightMargin} />
+					<div>
+						<HeaderSubtitleAnimation2 animationState={animationState} height={subtitleHeight} />
 						<HeaderBoldText dataFontSize={titleHeight}>Of The Day</HeaderBoldText>
 					</div>
 				</FlexRow>
