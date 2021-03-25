@@ -202,7 +202,7 @@ const yellowLightTheme: Theme = {
 export const themes: Theme[] = [purpleDarkTheme, purpleLightTheme, yellowDarkTheme, yellowLightTheme];
 const defaultThemeIndex = 0;
 
-// Set from Google Font. Search for 'Montserrat' across the codebase.
+// Set from Google Font. Search for 'Poppins' across the codebase.
 export enum FontWeight {
 	regular = 400,
 	medium = 500,
@@ -214,7 +214,7 @@ export enum FontWeight {
 // Note: overscroll-behavior comes from https://stackoverflow.com/a/50846937 to prevent macs going back (since we have horizontal scroll)
 export const GlobalStyles = createGlobalStyle<ThemeProps<Theme>>`
 	html {
-		font-family: 'Montserrat', sans-serif;
+		font-family: 'Poppins', sans-serif;
 		font-weight: ${FontWeight.regular};
 		font-size: 16px;
 		box-sizing: border-box;

@@ -9,7 +9,6 @@ import { tStyled } from '@/core/style/styled';
 import { EmphasizedSpan, Paragraph, ParagraphCenter } from '@/core/symbol/text';
 import { Personal } from './elements/personal';
 import { PostElementProps } from './card/card';
-import { useMeta } from '@/services/data/data-context';
 
 /** Shows a post. Renders all the subcomponents (elements). */
 export const Post: React.FC<PostElementProps> = (props) => {
@@ -113,7 +112,6 @@ export interface PostElementsCountSummaryProps {
 
 export const PostElementsCountSummary: React.FC<PostElementsCountSummaryProps> = (props) => {
 	const { elementsCount, postsCount, elementsCountToday, isForArchive } = props;
-	const meta = useMeta();
 
 	/*
 		Here is where we change the terms/nomenclature around.
@@ -160,12 +158,6 @@ export const PostElementsCountSummary: React.FC<PostElementsCountSummaryProps> =
 		newPostsCountRender = <EmphasizedSpan>{elementsCountToday} </EmphasizedSpan>;
 	}
 
-	const dayNumberRender = (meta && meta.dayNumber > 0) ? (
-		<LineBreak>
-			It's day <EmphasizedSpan>{meta.dayNumber}</EmphasizedSpan>.
-		</LineBreak>
-	) : null;
-
 	const newPostsRender = (
 		<>
 			<span>There {newPostsIsAre} </span>
@@ -184,7 +176,6 @@ export const PostElementsCountSummary: React.FC<PostElementsCountSummaryProps> =
 		// These new posts are the only ones.
 		return (
 			<ParagraphCenter>
-				{dayNumberRender}
 				{newPostsRender}.
 				{slackerMessageRender}
 			</ParagraphCenter>
@@ -195,7 +186,6 @@ export const PostElementsCountSummary: React.FC<PostElementsCountSummaryProps> =
 	const totalPostsIsAre = elementsCount === 1 ? 'is' : 'are';
 	return (
 		<ParagraphCenter>
-			{dayNumberRender}
 			<LineBreak>{newPostsRender}.</LineBreak>
 			<span>There {totalPostsIsAre} </span>
 			<EmphasizedSpan>{elementsCount} </EmphasizedSpan>
