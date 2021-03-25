@@ -36,7 +36,7 @@ export const AboutBasics: React.FC<AboutBasicsProps> = (props) => {
 				<Subtitle>"The Plan"</Subtitle>
 				<Paragraph>
 					On March 25, 2020, with the support of my family, friends, and coworkers,
-					I left my job in Charlotte to take at least a year without work.
+					I left my job in Charlotte to take at least a year off of work.
 					During this time, I am focusing on things for which I haven't given myself enough time:
 					travel; visiting with extended family; hobbies, like music and photography; fitness;
 					and most importantly, working on independent software development projects.
@@ -63,9 +63,9 @@ export const AboutBasics: React.FC<AboutBasicsProps> = (props) => {
 				</Paragraph>
 				<Subtitle>Where does the media content come from?</Subtitle>
 				<Paragraph>
-					Songs I shared are typically songs I've known for a long time. Occasionally, they are songs I have recently
-					discovered through friends or family. Every song on Of The Day is a recommendation I think you could enjoy and/or
-					a song I listen to regularly. Songs are my favorite to share.
+					Songs I share are typically songs I've known for a long time. Occasionally, they are songs I have recently
+					discovered through friends or family. Every song on Of The Day is a recommendation.
+					I listen to almost all the songs regularly. Music is my favorite content to share.
 				</Paragraph>
 				{spotifyPlaylistRender}
 				<Paragraph>
@@ -81,7 +81,7 @@ export const AboutBasics: React.FC<AboutBasicsProps> = (props) => {
 				<Subtitle>How popular is Of The Day?</Subtitle>
 				<Paragraph>
 					I don't check the statistics. The number of daily viewers is low enough that I don't have to worry about server load.
-					The only way I'll know someone has read Of The Day is when they contact me to share that they enjoyed something I've shared.
+					I only know someone has viewed Of The Day if they contact me to let me know that they enjoyed something I've shared.
 					If you liked something I've shared, let me know!
 				</Paragraph>
 				<Subtitle>How much time have you put into this project?</Subtitle>
@@ -95,7 +95,7 @@ export const AboutBasics: React.FC<AboutBasicsProps> = (props) => {
 				</Paragraph>
 				<Subtitle>Will you continue to add features to Of The Day?</Subtitle>
 				<Paragraph>
-					No. While I originally intended to add accounts likes, and comments to this site, I now see
+					No. While I originally intended to add accounts, likes, and comments to this site, I now see
 					that it works best as a simple sharing site.
 					I also have higher-priority projects to work on these days.
 				</Paragraph>
@@ -126,7 +126,7 @@ export const AboutBasics: React.FC<AboutBasicsProps> = (props) => {
 				</Paragraph>
 				<Paragraph>
 					This site is fully responsive and can be accessed from your phone or a desktop browser. On mobile devices,
-					you can add the website to your home screen. The website will automatically refresh to show new content or update.
+					you can add the website to your home screen. The website will automatically refresh to show new content.
 				</Paragraph>
 			</div>
 		</div>

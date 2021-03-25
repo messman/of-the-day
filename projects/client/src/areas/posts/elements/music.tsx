@@ -111,6 +111,7 @@ const EmbedContainer = tStyled.div`
 `;
 
 const LinksContainer = tStyled.div`
+	margin-top: ${Spacing.dog16};
 	a {
 		margin-right: ${Spacing.cat12};
 	}

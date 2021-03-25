@@ -31,10 +31,6 @@ export const OverlayBox: React.FC<OverlayBoxProps> = (props) => {
 		}
 	}
 
-	console.log({
-		isActive
-	});
-
 	// Props for inner components - animated opacity, but instant z-index.
 	// z-index is what makes the components visible.
 	const springPropsBackdrop = useSpring({

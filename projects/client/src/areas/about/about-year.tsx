@@ -19,7 +19,7 @@ export const AboutYear: React.FC<AboutYearProps> = (_props) => {
 				<Paragraph>
 					March 25, 2021, marks one year from the start of my plan to take time off work.
 					My feelings about my journey have changed throughout the year, just like Of The Day itself.
-					This update reflects on this project at its one-year mark and talks about what's ahead.
+					This update reflects on this project at its one-year mark and discusses what is ahead.
 				</Paragraph>
 				<div>
 					<Subtitle>Version 1: New And Naïve</Subtitle>
@@ -71,15 +71,15 @@ export const AboutYear: React.FC<AboutYearProps> = (_props) => {
 					<Paragraph>
 						Design ended up stalling me for weeks. I constantly revised the design back to earlier stages because I was unhappy
 						with what I had created. I also routinely committed a sin of software development:
-						instead of splitting design and development into two separate phases, I tried to design as I developed new features.
+						instead of splitting design and development into two separate phases, I tried to design <InlineItalic>as </InlineItalic>I developed new features.
 						This added more unnecessary time to the rewrite. I cannot think of a time where I was so in control of the development
 						process and also so frustrated.
 					</Paragraph>
 					<Paragraph>
 						Eventually, <OutLink href='https://youtu.be/X2wLP0izeJE'>this video of Ira Glass</OutLink> helped me push through to the
-						end of the project. The video was important for two reasons: one, Ira perfectly described the feeling I had of
-						<InlineItalic>knowing</InlineItalic> that what I had created wasn't good but not knowing how to make it better; and two,
-						Ira related that the best way to get past that feeling was to <InlineItalic>keep going</InlineItalic> anyway.
+						end of the project. The video was important for two reasons: one, Ira perfectly described the feeling I had
+						of <InlineItalic>knowing </InlineItalic>that what I had created wasn't good but not knowing how to make it better; and two,
+						Ira related that the best way to get past that feeling was to <InlineItalic>keep going </InlineItalic>anyway.
 						It's better to have 'failed' designs to learn from than to keep trying to perfect one design when I don't yet have
 						the skills to perfect it. I finished my crappy designs and built out the rest of the application. Version two went live
 						around mid-October, and it's the version that you saw until late March 2021.
@@ -92,20 +92,20 @@ export const AboutYear: React.FC<AboutYearProps> = (_props) => {
 						I finally started working on my next big development project. Things were going well.
 					</Paragraph>
 					<Paragraph>
-						Then, of course, the pandemic worsened in the late fall in early winter.
+						Then, of course, the pandemic worsened in the late fall and early winter.
 						Staying indoors thanks to the cold and increased cases, I spent most of my days writing code.
 						As much as I love to write and talk about programming, it's not really all that exciting as content
 						for Of The Day. I also was running dry on videos and quotes to post alongside music.
 						Version two of Of The Day, which I had designed to seem less 'empty' when I didn't post,
 						actually ended up looking more empty.
-						I set quotas for myself of content to post to keep the page somewhat alive. Filling those quotas
+						I set quotas for content to post to keep the page somewhat alive. Filling those quotas
 						took more and more of my limited free time.
 					</Paragraph>
 				</div>
 				<div>
 					<Subtitle>Version 3: Past To Future</Subtitle>
 					<Paragraph>
-						Before I knew it, it was mid-March, The anniversary of my plan approached. I knew I didn't want to keep Of The Day
+						Before I knew it, it was mid-March. The anniversary of my plan approached. I knew I didn't want to keep Of The Day
 						in this state any longer. The home page, with few new posts, now looked unappealing. My to-do lists
 						and planning sections laid untouched with no immediate hope for change. I was tired of finding new content.
 						I felt trapped by Of The Day and the quotas I set for myself.
@@ -113,8 +113,8 @@ export const AboutYear: React.FC<AboutYearProps> = (_props) => {
 					<Paragraph>
 						Version three, the version you see today, is designed to help me move past the trapped feeling I had in earlier
 						versions. There is no longer a 'plans' or 'to-do' section for me to look at unhappily.
-						The design of the main page no longer gives so much importance to a post being from
-						<InlineItalic>today</InlineItalic> specifically,
+						The design of the main page no longer gives so much importance to a post being
+						from <InlineItalic>today </InlineItalic> specifically,
 						so I no longer need to stress over finding content to fill each day. The design itself is cleaner and tighter.
 						I removed features instead of adding new ones.
 						I ended up deleting much more code than I wrote for this version.

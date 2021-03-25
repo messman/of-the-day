@@ -3,7 +3,7 @@ export const CONSTANT = {
 	alertMessages: [] as string[],
 
 	/** Minimum time to wait for fetch response. */
-	fetchMinTimeout: seconds(.5),
+	fetchMinTimeout: seconds(.25),
 	/** Maximum time to wait for fetch response. */
 	fetchMaxTimeout: seconds(15),
 

@@ -110,7 +110,7 @@ export const PostElementsCountSummary: React.FC<PostElementsCountSummaryProps> =
 			<EmphasizedCountValue>{elementsCount} </EmphasizedCountValue>
 			<span>{elementsCount === 1 ? 'item' : 'items'} across </span>
 			<EmphasizedCountValue>{postsCount} </EmphasizedCountValue>
-			<span>recent {postsCount === 1 ? 'day' : 'days'}.</span>
+			<span>{postsCount === 1 ? 'day' : 'days'}.</span>
 		</Paragraph>
 	);
 };

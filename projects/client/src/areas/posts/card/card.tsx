@@ -156,7 +156,7 @@ const PostDate: React.FC<PostDateProps> = (props) => {
 	const titleDateText = isForArchive ? dateText : date;
 
 	let dayReferenceString = visibleDateText;
-	if (dayReference !== IPostDayReference.other) {
+	if (dayReference !== IPostDayReference.other && dayReference !== IPostDayReference.future) {
 		dayReferenceString = dayReferencesText[IPostDayReference[dayReference] as keyof typeof IPostDayReference];
 	}
 
