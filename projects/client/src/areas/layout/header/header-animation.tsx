@@ -4,7 +4,6 @@ import { tStyled } from '@/core/style/styled';
 import { iconTypes, SizedIcon, SVGIconType } from '@/core/symbol/icon';
 import { FontWeight } from '@/core/style/theme';
 import { Spacing } from '@/core/layout/common';
-import { borderRadiusStyle } from '@/core/style/common';
 import { sortRandom } from '@/services/archive/sort';
 import { useDocumentVisibility } from '@messman/react-common';
 
@@ -226,9 +225,7 @@ const IconBackground = tStyled.div<IconBackgroundProps>`
 	left: 0;
 	width: 100%;
 	height: 100%;
-	${borderRadiusStyle}
-	background-color: ${p => p.theme.accent.distinct};
-	box-shadow: ${p => p.theme.shadow.c2Button};
+	border: 5px solid ${p => p.theme.textOnAccentFill};
 `;
 
 interface IconHeightContainerProps {
