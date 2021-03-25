@@ -7,13 +7,14 @@ import { Title, Paragraph } from '@/core/symbol/text';
 import { useMeta } from '@/services/data/data-context';
 import { routes } from '@/services/nav/routing';
 import * as React from 'react';
-import { matchPath, Route, Switch, useHistory, useLocation } from 'react-router';
+import { matchPath, Route, Switch, useLocation } from 'react-router';
 import { AboutBasics } from './about-basics';
 import { AboutYear } from './about-year';
 import { Settings } from './settings';
 import { MenuBarItemsContainer, MenuBarItem } from '@/areas/layout/menu-bar/menu-bar-items';
 import { FlexRow } from '@messman/react-common';
 import { LayoutBreakpointRem } from '@/services/layout/window-layout';
+import { useHistoryWithParams } from '@/services/nav/url';
 
 export interface AboutProps {
 
@@ -60,7 +61,7 @@ export const About: React.FC<AboutProps> = () => {
 };
 
 const AboutMenuBarItems: React.FC = () => {
-	const history = useHistory();
+	const navigate = useHistoryWithParams();
 	const location = useLocation();
 
 	let activeIndex = 0;
@@ -78,7 +79,7 @@ const AboutMenuBarItems: React.FC = () => {
 
 		function onClick() {
 			// Note, here we *replace*
-			history.replace(route.path);
+			navigate(route.path, true);
 		}
 
 		return <MenuBarItem

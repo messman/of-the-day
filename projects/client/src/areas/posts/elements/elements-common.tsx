@@ -10,7 +10,7 @@ import { VideoContainer } from './video';
 
 export interface EmbeddedContentRevealProps {
 	/** A key to track changes. */
-	key: string;
+	changeKey: string;
 	/** If true, the content is unloaded when scrolled out of view. */
 	isUnloadedWhenHidden: boolean;
 	/** If true, a button must be clicked to first reveal the content. */
@@ -27,12 +27,12 @@ export interface EmbeddedContentRevealProps {
 }
 
 export const EmbeddedContentReveal: React.FC<EmbeddedContentRevealProps> = (props) => {
-	const { key, isUnloadedWhenHidden, isOnlyRevealedOnClick, children } = props;
+	const { changeKey, isUnloadedWhenHidden, isOnlyRevealedOnClick, children } = props;
 
 	const [isRevealedByClick, setIsRevealedByClick] = React.useState(!isOnlyRevealedOnClick);
 	React.useEffect(() => {
 		setIsRevealedByClick(!isOnlyRevealedOnClick);
-	}, [key]);
+	}, [changeKey]);
 
 	function onClick() {
 		setIsRevealedByClick(true);

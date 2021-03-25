@@ -1,9 +1,10 @@
 import { createCell, rowsFrom } from '../../services/google-sheets/cell';
 import { keepTruthy } from '../../services/util';
 import { IMeta } from 'oftheday-shared';
+import { tryParseInt } from '../../services/primitives';
 
 const metaRangeStartRow = 2;
-const metaRangeLastRow = 9;
+const metaRangeLastRow = 11;
 /** The range of our meta items. */
 export const metaRange = createCell('Read_Meta', 'B', metaRangeStartRow).toRange('B', metaRangeLastRow);
 
@@ -24,6 +25,8 @@ export function parseMeta(rows: any[][]): IMeta {
 		error: keepTruthy(tryRowSingleCell(4), tryRowSingleCell(5)),
 		shutdown: keepTruthy(tryRowSingleCell(6), tryRowSingleCell(7)),
 		spotifyLink: tryRowSingleCell(8) || '',
-		youTubeLink: tryRowSingleCell(metaRangeLastRow) || '',
+		youTubeLink: tryRowSingleCell(9) || '',
+		// SKIP start date.
+		dayNumber: tryParseInt(tryRowSingleCell(metaRangeLastRow), -1),
 	};
 }

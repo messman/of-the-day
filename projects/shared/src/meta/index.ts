@@ -7,4 +7,5 @@ export interface IMeta {
 	shutdown: string[];
 	spotifyLink: string;
 	youTubeLink: string;
+	dayNumber: number;
 }

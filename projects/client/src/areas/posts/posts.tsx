@@ -30,41 +30,27 @@ export const Posts: React.FC<PostsProps> = () => {
 		return <DataLoad promise={postPromise} />;
 	}
 
-	let render: JSX.Element = null!;
-	if (validPosts.length === 0) {
-		render = (
-			<SidePadding>
-				<ParagraphCenter>
-					It looks like Andrew hasn't shared anything recently.
-				</ParagraphCenter>
-			</SidePadding>
-		);
-	}
-	else {
-		render = (
-			<>
-				<SidePadding>
-					<PostElementsCountSummary
-						postsCount={validPosts.length}
-						elementsCount={elementsCount}
-						elementsCountToday={elementsCountToday}
-						isForArchive={false}
-					/>
-				</SidePadding>
-				{postsRender}
-				<SidePadding>
-					<Block.Elf24 />
-					<ParagraphCenter>
-						That's all! See the archives for more.
-					</ParagraphCenter>
-				</SidePadding>
-			</>
-		);
-	}
+	const endingStatementRender = validPosts.length ? (
+		<SidePadding>
+			<Block.Elf24 />
+			<ParagraphCenter>
+				That's all! See the archives for more.
+			</ParagraphCenter>
+		</SidePadding>
+	) : null;
 
 	return (
 		<SimpleContentMaxWidthFull>
-			{render}
+			<SidePadding>
+				<PostElementsCountSummary
+					postsCount={validPosts.length}
+					elementsCount={elementsCount}
+					elementsCountToday={elementsCountToday}
+					isForArchive={false}
+				/>
+			</SidePadding>
+			{postsRender}
+			{endingStatementRender}
 		</SimpleContentMaxWidthFull>
 	);
 };

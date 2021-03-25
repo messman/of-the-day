@@ -7,11 +7,11 @@ import { Spacing } from '@/core/layout/common';
 import { ActionLink } from '@/core/link';
 import { Button } from '@/core/form/button/button';
 import { useArchiveResponseContext } from '@/services/data/data-context';
-import { useHistory } from 'react-router-dom';
 import { routes } from '@/services/nav/routing';
 import { postElementTypeForDisplay } from '../archive/filter/filter-common';
 import { IconSize, iconTypes, SizedIcon } from '@/core/symbol/icon';
 import { ParagraphCenter } from '@/core/symbol/text';
+import { useHistoryWithParams } from '@/services/nav/url';
 
 export interface ElementActionsProps {
 	isForArchive?: boolean;
@@ -143,7 +143,7 @@ const InnerElementActionsOverlay: React.FC<InnerElementActionsOverlayProps> = (p
 	const { onSelectedFilter, elementActions, close } = props;
 
 	const { filter, applyFilter } = useArchiveResponseContext();
-	const history = useHistory();
+	const navigate = useHistoryWithParams();
 
 	const [copiedClipboards, setCopiedClipboards] = React.useState(() => {
 		return {
@@ -172,7 +172,7 @@ const InnerElementActionsOverlay: React.FC<InnerElementActionsOverlayProps> = (p
 		close();
 		applyFilter(filterForElementType);
 		onSelectedFilter();
-		history.push(routes.archive.path);
+		navigate(routes.archive.path);
 	}
 	const elementTypeDisplay = postElementTypeForDisplay[IPostElementType[elementType] as keyof typeof IPostElementType];
 
@@ -187,7 +187,7 @@ const InnerElementActionsOverlay: React.FC<InnerElementActionsOverlayProps> = (p
 		close();
 		applyFilter(filterPresets.recentTop);
 		onSelectedFilter();
-		history.push(routes.archive.path);
+		navigate(routes.archive.path);
 	}
 
 	const topFilterButton = (showTopFilterPreset && (!isForArchive || !isFilterSemanticallyEqual(filter, filterPresets.recentTop))) ? (

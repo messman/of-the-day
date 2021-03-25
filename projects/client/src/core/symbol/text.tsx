@@ -101,6 +101,11 @@ export const InlineWeight = {
 	`
 };
 
+export const EmphasizedSpan = tStyled.span`
+	color: ${p => p.theme.textDistinct};
+	font-weight: ${FontWeight.medium};
+`;
+
 /*
 	Versions of the text components above, with default margins.
 */

@@ -2,10 +2,11 @@ import * as React from 'react';
 import { tStyled } from '@/core/style/styled';
 import { routes } from '@/services/nav/routing';
 import { fontDeclarations } from '@/core/symbol/text';
-import { useHistory, useLocation, matchPath } from 'react-router-dom';
+import { useLocation, matchPath } from 'react-router-dom';
 import { FlexRow } from '@messman/react-common';
 import { Spacing } from '@/core/layout/common';
 import { formTransitionStyle, HighlightBar } from '@/core/style/common';
+import { useHistoryWithParams } from '@/services/nav/url';
 
 export interface MenuBarItemsProps {
 	isUpper: boolean;
@@ -16,7 +17,7 @@ const menuBarRoutes = [routes.posts, routes.archive, routes.about];
 
 export const MenuBarItems: React.FC<MenuBarItemsProps> = (props) => {
 	const { isUpper, onPathClick } = props;
-	const history = useHistory();
+	const navigate = useHistoryWithParams();
 	const location = useLocation();
 
 	let activeIndex = 0;
@@ -31,7 +32,7 @@ export const MenuBarItems: React.FC<MenuBarItemsProps> = (props) => {
 		}
 
 		function onClick() {
-			history.push(route.path);
+			navigate(route.path);
 			onPathClick();
 		}
 

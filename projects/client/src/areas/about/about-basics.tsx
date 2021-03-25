@@ -1,5 +1,5 @@
 import { OutLink } from '@/core/link';
-import { Title, Subtitle, Paragraph, InlineWeight } from '@/core/symbol/text';
+import { Title, Subtitle, Paragraph, InlineWeight, EmphasizedSpan } from '@/core/symbol/text';
 import { IMeta } from 'oftheday-shared';
 import * as React from 'react';
 
@@ -13,9 +13,17 @@ export interface AboutBasicsProps {
 export const AboutBasics: React.FC<AboutBasicsProps> = (props) => {
 
 	const { meta } = props;
+	let dayNumberRender: JSX.Element | null = null;
 	let spotifyPlaylistRender: JSX.Element | null = null;
 	let youTubePlaylistRender: JSX.Element | null = null;
 	if (meta) {
+
+		dayNumberRender = meta.spotifyLink ? (
+			<Paragraph>
+				Today is day <EmphasizedSpan>{meta.dayNumber.toString()}</EmphasizedSpan>.
+			</Paragraph>
+		) : null;
+
 		spotifyPlaylistRender = meta.spotifyLink ? (
 			<Paragraph>
 				All the songs from Of The Day are available on <OutLink href={meta.spotifyLink}>this Spotify Playlist</OutLink>.
@@ -41,6 +49,7 @@ export const AboutBasics: React.FC<AboutBasicsProps> = (props) => {
 					travel; visiting with extended family; hobbies, like music and photography; fitness;
 					and most importantly, working on independent software development projects.
 				</Paragraph>
+				{dayNumberRender}
 				<Subtitle>Of The Day</Subtitle>
 				<Paragraph>
 					This site, Of The Day, started as a way for family, friends, and coworkers to stay informed about what I'm up to.

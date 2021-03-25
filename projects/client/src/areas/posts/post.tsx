@@ -6,10 +6,10 @@ import { Music } from '@/areas/posts/elements/music';
 import { Quote } from '@/areas/posts/elements/quote/quote';
 import { Video } from '@/areas/posts/elements/video';
 import { tStyled } from '@/core/style/styled';
-import { Paragraph, ParagraphCenter } from '@/core/symbol/text';
+import { EmphasizedSpan, Paragraph, ParagraphCenter } from '@/core/symbol/text';
 import { Personal } from './elements/personal';
 import { PostElementProps } from './card/card';
-import { FontWeight } from '@/core/style/theme';
+import { useMeta } from '@/services/data/data-context';
 
 /** Shows a post. Renders all the subcomponents (elements). */
 export const Post: React.FC<PostElementProps> = (props) => {
@@ -113,6 +113,7 @@ export interface PostElementsCountSummaryProps {
 
 export const PostElementsCountSummary: React.FC<PostElementsCountSummaryProps> = (props) => {
 	const { elementsCount, postsCount, elementsCountToday, isForArchive } = props;
+	const meta = useMeta();
 
 	/*
 		Here is where we change the terms/nomenclature around.
@@ -125,9 +126,9 @@ export const PostElementsCountSummary: React.FC<PostElementsCountSummaryProps> =
 		return (
 			<Paragraph>
 				<span>Showing </span>
-				<EmphasizedCountValue>{elementsCount} </EmphasizedCountValue>
+				<EmphasizedSpan>{elementsCount} </EmphasizedSpan>
 				<span>{elementsText} across </span>
-				<EmphasizedCountValue>{postsCount} </EmphasizedCountValue>
+				<EmphasizedSpan>{postsCount} </EmphasizedSpan>
 				<span>{daysText}.</span>
 			</Paragraph>
 		);
@@ -156,8 +157,14 @@ export const PostElementsCountSummary: React.FC<PostElementsCountSummaryProps> =
 		newPostsCountRender = <span>no </span>;
 	}
 	else {
-		newPostsCountRender = <EmphasizedCountValue>{elementsCountToday} </EmphasizedCountValue>;
+		newPostsCountRender = <EmphasizedSpan>{elementsCountToday} </EmphasizedSpan>;
 	}
+
+	const dayNumberRender = (meta && meta.dayNumber > 0) ? (
+		<LineBreak>
+			It's day <EmphasizedSpan>{meta.dayNumber}</EmphasizedSpan>.
+		</LineBreak>
+	) : null;
 
 	const newPostsRender = (
 		<>
@@ -167,40 +174,37 @@ export const PostElementsCountSummary: React.FC<PostElementsCountSummaryProps> =
 		</>
 	);
 
+	const slackerMessageRender = (elementsCount === 0) ? (
+		<LineBreak>
+			It looks like Andrew has nothing to share right now.
+		</LineBreak>
+	) : null;
+
 	if (elementsCountToday === elementsCount) {
 		// These new posts are the only ones.
 		return (
 			<ParagraphCenter>
+				{dayNumberRender}
 				{newPostsRender}.
+				{slackerMessageRender}
 			</ParagraphCenter>
 		);
 	}
 
 	const totalPostsPlural = elementsCount === 1 ? 'post' : 'posts';
-	if (elementsCountToday === 0) {
-		const totalPostsIsAre = elementsCount === 1 ? 'is' : 'are';
-		return (
-			<ParagraphCenter>
-				<div>{newPostsRender}.</div>
-				<span>There {totalPostsIsAre} </span>
-				<EmphasizedCountValue>{elementsCount} </EmphasizedCountValue>
-				<span>{totalPostsPlural} from the last two weeks.</span>
-			</ParagraphCenter>
-		);
-	}
-	else {
-		return (
-			<ParagraphCenter>
-				<div>{newPostsRender}</div>
-				<span>and </span>
-				<EmphasizedCountValue>{elementsCount} </EmphasizedCountValue>
-				<span>total {totalPostsPlural} from the last two weeks.</span>
-			</ParagraphCenter>
-		);
-	}
+	const totalPostsIsAre = elementsCount === 1 ? 'is' : 'are';
+	return (
+		<ParagraphCenter>
+			{dayNumberRender}
+			<LineBreak>{newPostsRender}.</LineBreak>
+			<span>There {totalPostsIsAre} </span>
+			<EmphasizedSpan>{elementsCount} </EmphasizedSpan>
+			<span>{totalPostsPlural} from the last two weeks.</span>
+		</ParagraphCenter>
+	);
 };
 
-const EmphasizedCountValue = tStyled.span`
-	color: ${p => p.theme.textDistinct};
-	font-weight: ${FontWeight.medium};
+// To get around that 'can't have div in p' problem
+const LineBreak = tStyled.span`
+	display: block;
 `;

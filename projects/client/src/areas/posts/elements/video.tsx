@@ -77,9 +77,9 @@ export const Video: React.FC<PostElementProps> = (props) => {
 			<ParagraphArray value={descriptionToRender} />
 			<Block.Dog16 />
 			<EmbeddedContentReveal
-				key={link}
+				changeKey={link}
 				isOnlyRevealedOnClick={!isShowingEmbeddedByDefault && !isRemoved}
-				isUnloadedWhenHidden={isForArchive && !isRemoved}
+				isUnloadedWhenHidden={!isRemoved}
 				useElementForSize={false}
 				useLargerMargin={false}
 			>

@@ -71,9 +71,9 @@ export const Music: React.FC<PostElementProps> = (props) => {
 			</LinksContainer>
 			<Block.Elf24 />
 			<EmbeddedContentReveal
-				key={youTubeLink || spotifyLink}
+				changeKey={youTubeLink || spotifyLink}
 				isOnlyRevealedOnClick={!isShowingEmbeddedByDefault}
-				isUnloadedWhenHidden={isForArchive}
+				isUnloadedWhenHidden={true}
 				useElementForSize={false}
 				useLargerMargin={false}
 			>

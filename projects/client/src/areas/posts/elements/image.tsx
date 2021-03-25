@@ -52,9 +52,9 @@ export const Image: React.FC<PostElementProps> = (props) => {
 			{sourceTextRender}
 			<Block.Bat08 />
 			<EmbeddedContentReveal
-				key={link}
+				changeKey={link}
 				isOnlyRevealedOnClick={!isShowingEmbeddedByDefault}
-				isUnloadedWhenHidden={isForArchive}
+				isUnloadedWhenHidden={true}
 				useLargerMargin={true}
 				useElementForSize={true}
 			>

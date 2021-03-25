@@ -6,6 +6,7 @@ const meta: IMeta = {
 	shutdown: [],
 	spotifyLink: 'https://andrewmessier.com',
 	youTubeLink: 'https://andrewmessier.com',
+	dayNumber: 365
 };
 
 export const postsTestData: IPostResponse = {

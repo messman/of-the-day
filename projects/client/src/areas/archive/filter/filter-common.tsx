@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { IArchiveFilter, isFilterValid, keysOfIPostElementType, IArchiveFilterRange, IArchiveFilterPreset, IArchiveFilterSort, IPostElementType, IArchiveFilterModifier, isFilterExactlyEqual, filterPresets } from 'oftheday-shared';
-import { fontDeclarations, lineHeights } from '@/core/symbol/text';
+import { EmphasizedSpan, fontDeclarations, lineHeights } from '@/core/symbol/text';
 import { tStyled } from '@/core/style/styled';
-import { FontWeight } from '@/core/style/theme';
 
 /*
 	Holds text for enums for rendering UI.
@@ -137,7 +136,7 @@ export const FilterDescription: React.FC<FilterDescriptionProps> = (props) => {
 		newlineStart = (
 			<FilterText>
 				<span>{startText}</span>
-				<FilterValue>{preset}</FilterValue>
+				<EmphasizedSpan>{preset}</EmphasizedSpan>
 				<span>: </span>
 			</FilterText>
 		);
@@ -151,7 +150,7 @@ export const FilterDescription: React.FC<FilterDescriptionProps> = (props) => {
 	const modifierSection = modifiers ? (
 		<>
 			<span>with </span>
-			<FilterValue>{modifiers} </FilterValue>
+			<EmphasizedSpan>{modifiers} </EmphasizedSpan>
 		</>
 	) : null;
 
@@ -160,12 +159,12 @@ export const FilterDescription: React.FC<FilterDescriptionProps> = (props) => {
 			{newlineStart}
 			<FilterText>
 				{start}
-				<FilterValue>{types} </FilterValue>
+				<EmphasizedSpan>{types} </EmphasizedSpan>
 				{modifierSection}
 				<span>for </span>
-				<FilterValue>{range} </FilterValue>
+				<EmphasizedSpan>{range} </EmphasizedSpan>
 				<span>sorted </span>
-				<FilterValue>{sort}</FilterValue>
+				<EmphasizedSpan>{sort}</EmphasizedSpan>
 			</FilterText>
 		</div>
 	);
@@ -192,11 +191,6 @@ export function isOnlyMusicTypeSelected(filter: IArchiveFilter): boolean {
 		return key === IPostElementType[IPostElementType.music] ? isSelected : !isSelected;
 	});
 }
-
-const FilterValue = tStyled.span`
-	color: ${p => p.theme.textDistinct};
-	font-weight: ${FontWeight.medium};
-`;
 
 const FilterText = tStyled.div`
 	${fontDeclarations.regular}
