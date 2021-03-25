@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { useTransition, animated } from 'react-spring';
-import { tStyled } from '@/core/style/styled';
+import { keyframes, tCss, tStyled } from '@/core/style/styled';
 import { iconTypes, SizedIcon, SVGIconType } from '@/core/symbol/icon';
 import { FontWeight } from '@/core/style/theme';
 import { Spacing } from '@/core/layout/common';
@@ -13,11 +12,19 @@ import { useDocumentVisibility } from '@messman/react-common';
 
 export interface HeaderAnimationState {
 	entity: HeaderAnimationEntity | null;
+	index: number;
+	status: HeaderAnimationEntityStatus;
 }
 
 export interface HeaderAnimationEntity {
 	text: string;
 	icon: SVGIconType;
+}
+
+export enum HeaderAnimationEntityStatus {
+	entering,
+	entered,
+	exiting
 }
 
 const baseEntity: HeaderAnimationEntity = {
@@ -55,45 +62,83 @@ let entities: HeaderAnimationEntity[] = [
 entities = [baseEntity, ...sortRandom(entities)];
 
 // Our settings for the timing of the animations.
-const delayOnBase = 4500;
-const delayOnBlank = 500;
-const delayOnEntity = 2500;
+const delayEnteredBase = 4500;
+const delayEnteredOtherEntity = 2500;
+const delayNoEntity = 100;
+const delayEnteringExiting = 450;
+
+const defaultState: HeaderAnimationState = {
+	entity: baseEntity,
+	index: 0,
+	status: HeaderAnimationEntityStatus.entered
+};
 
 // Changes the chosen entity ('Music' and its icon, for example) with a timeout.
 export function useHeaderAnimationState(isActive: boolean): HeaderAnimationState {
 	const isDocumentVisible = useDocumentVisibility();
-	const [entityState, setEntityState] = React.useState({
-		isBlank: false,
-		index: 0
-	});
-	const { isBlank, index } = entityState;
+	const [entityState, setEntityState] = React.useState<HeaderAnimationState>(defaultState);
+	const { entity, index, status } = entityState;
 
 	React.useEffect(() => {
 		if (!isDocumentVisible || !isActive) {
 			return;
 		}
 
-		const isBase = !isBlank && index === 0;
-		const delay = isBase ? delayOnBase : (isBlank ? delayOnBlank : delayOnEntity);
+		let delay = delayEnteredOtherEntity;
+		if (!entity) {
+			// Currently blank.
+			delay = delayNoEntity;
+		}
+		else if (status === HeaderAnimationEntityStatus.exiting || status === HeaderAnimationEntityStatus.entering) {
+			// Currently entering or exiting.
+			delay = delayEnteringExiting;
+		}
+		else if (entity === baseEntity) {
+			delay = delayEnteredBase;
+		}
 
 		const id = window.setTimeout(() => {
 			setEntityState((p) => {
-				const wasBlank = p.isBlank;
-				return {
-					isBlank: !wasBlank,
-					index: wasBlank ? (p.index + 1) % entities.length : p.index
-				};
+				/*
+					Calculate new from old.
+				*/
+				const { entity, index, status } = p;
+				console.log(p);
+
+				if (!entity) {
+					const newIndex = (index + 1) % entities.length;
+					// Pick new entity.
+					return {
+						status: HeaderAnimationEntityStatus.entering,
+						entity: entities[newIndex],
+						index: newIndex
+					};
+				}
+				else if (status === HeaderAnimationEntityStatus.exiting) {
+					// Clear entity.
+					return {
+						status: status,
+						entity: null,
+						index: index
+					};
+				}
+				else {
+					// Rotate status.
+					return {
+						status: status === HeaderAnimationEntityStatus.entering ? HeaderAnimationEntityStatus.entered : HeaderAnimationEntityStatus.exiting,
+						entity: entity,
+						index: index
+					};
+				}
 			});
 		}, delay);
 
 		return () => {
 			window.clearTimeout(id);
 		};
-	}, [isBlank, index, isDocumentVisible, isActive]);
+	}, [entity, index, status, isDocumentVisible, isActive]);
 
-	return {
-		entity: isBlank ? null : entities[index]
-	};
+	return entityState;
 }
 
 export interface HeaderSubtitleAnimationProps {
@@ -103,27 +148,16 @@ export interface HeaderSubtitleAnimationProps {
 
 export const HeaderSubtitleAnimation: React.FC<HeaderSubtitleAnimationProps> = (props) => {
 	const { animationState, height } = props;
-	const { entity } = animationState;
+	const { entity, status } = animationState;
 	const text = entity?.text || '';
 
-	// Use opacity on in and out. Come in from top, out from bottom.
-	const transitions = useTransition(text, null, {
-		initial: { opacity: 1, top: `0rem` },
-		from: { opacity: 0, top: `-${height}` },
-		enter: { opacity: 1, top: `0rem` },
-		leave: { opacity: 0, top: height },
-	});
-
-	const transitionRender = transitions.map((transition) => {
-		const { item, key, props } = transition;
-		return (
-			<TextAnimationContainer key={key} style={props}>
-				<TextContainer dataHeight={height}>
-					{item}
-				</TextContainer>
-			</TextAnimationContainer>
-		);
-	});
+	const transitionRender = text ? (
+		<TextAnimationContainer animationStatus={status} >
+			<TextContainer dataHeight={height}>
+				{text}
+			</TextContainer>
+		</TextAnimationContainer>
+	) : null;
 
 	return (
 		<TextHeightContainer dataHeight={height}>
@@ -132,9 +166,54 @@ export const HeaderSubtitleAnimation: React.FC<HeaderSubtitleAnimationProps> = (
 	);
 };
 
-const TextAnimationContainer = tStyled(animated.div)`
+const textEnteringAnimation = keyframes`
+	from {
+		opacity: 0;
+		top: -100%;
+	}
+	to {
+		opacity: 1;
+		top: 0;
+	}
+`;
+
+const textExitingAnimation = keyframes`
+	from {
+		opacity: 1;
+		top: 0;
+	}
+	to {
+		opacity: 0;
+		top: 100%;
+	}
+`;
+
+const textEnteringStyle = tCss`
+	animation: ${textEnteringAnimation} ${delayEnteringExiting / 1000}s forwards ease-out;
+`;
+
+const textExitingStyle = tCss`
+	animation: ${textExitingAnimation} ${delayEnteringExiting / 1000}s forwards ease-in;
+`;
+
+function getTextAnimationForStatus(animationStatus: HeaderAnimationEntityStatus) {
+	if (animationStatus === HeaderAnimationEntityStatus.entering) {
+		return textEnteringStyle;
+	}
+	if (animationStatus === HeaderAnimationEntityStatus.exiting) {
+		return textExitingStyle;
+	}
+	return undefined;
+}
+
+interface TextAnimationContainerProps {
+	animationStatus: HeaderAnimationEntityStatus;
+}
+
+const TextAnimationContainer = tStyled.div<TextAnimationContainerProps>`
 	position: absolute;
 	left: 0;
+	${p => getTextAnimationForStatus(p.animationStatus)}
 `;
 
 interface HeightContainerProps {
@@ -144,6 +223,7 @@ interface HeightContainerProps {
 const TextContainer = tStyled.div<HeightContainerProps>`
 	line-height: ${p => p.dataHeight};
 	font-size: ${p => p.dataHeight};
+	height: ${p => p.dataHeight};
 	font-weight: ${FontWeight.bold};
 	color: ${p => p.theme.textOnAccentFill};
 `;
@@ -163,31 +243,16 @@ export interface HeaderIconAnimationProps {
 
 export const HeaderIconAnimation: React.FC<HeaderIconAnimationProps> = (props) => {
 	const { animationState, titleHeight, subtitleHeight, rightMargin } = props;
-	const { entity } = animationState;
+	const { entity, status } = animationState;
 	const icon = entity?.icon || null;
 
-	const transitions = useTransition(icon, null, {
-		initial: { opacity: 1 },
-		from: { opacity: 0 },
-		enter: { opacity: 1 },
-		leave: { opacity: 0 },
-	});
-
-	const transitionRender = transitions.map((transition) => {
-		const { item, key, props } = transition;
-
-		const iconRender = item ? (
-			<SizedIcon type={item} size='100%' />
-		) : null;
-
-		return (
-			<IconAnimationContainer key={key} style={props}>
-				<IconPaddingWrapper>
-					{iconRender}
-				</IconPaddingWrapper>
-			</IconAnimationContainer>
-		);
-	});
+	const transitionRender = icon ? (
+		<IconAnimationContainer animationStatus={status} >
+			<IconPaddingWrapper>
+				<SizedIcon type={icon} size='100%' />
+			</IconPaddingWrapper>
+		</IconAnimationContainer>
+	) : null;
 
 	return (
 		<IconHeightContainer titleHeight={titleHeight} subtitleHeight={subtitleHeight} rightMargin={rightMargin}>
@@ -197,19 +262,57 @@ export const HeaderIconAnimation: React.FC<HeaderIconAnimationProps> = (props) =
 	);
 };
 
-const IconAnimationContainer = tStyled(animated.div)`
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	color: ${p => p.theme.textOnAccentFill};
+const iconEnteringAnimation = keyframes`
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
 `;
 
-interface IconPaddingWrapperProps {
+const iconExitingAnimation = keyframes`
+	from {
+		opacity: 1;
+	}
+	to {
+		opacity: 0;
+	}
+`;
+
+const iconEnteringStyle = tCss`
+	animation: ${iconEnteringAnimation} ${delayEnteringExiting / 1000}s forwards ease-out;
+`;
+
+const iconExitingStyle = tCss`
+	animation: ${iconExitingAnimation} ${delayEnteringExiting / 1000}s forwards ease-in;
+`;
+
+function getIconAnimationForStatus(animationStatus: HeaderAnimationEntityStatus) {
+	if (animationStatus === HeaderAnimationEntityStatus.entering) {
+		return iconEnteringStyle;
+	}
+	if (animationStatus === HeaderAnimationEntityStatus.exiting) {
+		return iconExitingStyle;
+	}
+	return undefined;
 }
 
-const IconPaddingWrapper = tStyled.div<IconPaddingWrapperProps>`
+interface IconAnimationContainerProps {
+	animationStatus: HeaderAnimationEntityStatus;
+}
+
+const IconAnimationContainer = tStyled.div<IconAnimationContainerProps>`
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+color: ${p => p.theme.textOnAccentFill};
+	${p => getIconAnimationForStatus(p.animationStatus)}
+`;
+
+const IconPaddingWrapper = tStyled.div`
 	position: relative;
 	width: 100%;
 	height: 100%;
