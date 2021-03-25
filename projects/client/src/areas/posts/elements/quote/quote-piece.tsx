@@ -8,25 +8,44 @@ import { lineBreakpoint } from '@/services/layout/window-layout';
 
 export interface QuotePieceProps {
 	isLarge: boolean;
-	isLeftTextAlign: boolean;
+	isForcedLeftTextAlign: boolean;
 	text: string;
 }
 
 export const QuotePiece: React.FC<QuotePieceProps> = (props) => {
-	const { isLarge, text, isLeftTextAlign } = props;
+	const { isLarge, text, isForcedLeftTextAlign } = props;
 	if (!text) {
 		return null;
 	}
 
 	const iconHeight = isLarge ? FontSize.heading1 : FontSize.heading2;
-	const Align = isLeftTextAlign ? LeftTextAlign : CenterTextAlign;
+
+	const lines = props.text.split(multilineQuoteTextSeparator)
+		.map((line) => {
+			return line.trim();
+		})
+		.filter(x => !!x);
+	if (!lines.length) {
+		return null;
+	}
+
+	let isLeftAlign = isForcedLeftTextAlign;
+	if (!isLeftAlign) {
+		// We still want to force into left align under certain conditions, like if there is a lot of text.
+		if (lines.length === 1) {
+			const onlyLine = lines[0];
+			isLeftAlign = onlyLine.length > 150;
+		}
+	}
+
+	const Align = isLeftAlign ? LeftTextAlign : CenterTextAlign;
 
 	return (
 		<QuoteBackground>
 			<TopLeftAbsoluteIcon type={iconTypes.quotationOpen} size={iconHeight} />
 			<LineMaxWidthCenter>
 				<Align>
-					<MultilineQuoteText text={text} />
+					<MultilineQuoteText lines={lines} />
 				</Align>
 			</LineMaxWidthCenter>
 			<BottomRightAbsoluteIcon type={iconTypes.quotationClose} size={iconHeight} />
@@ -46,8 +65,7 @@ export interface QuoteBackgroundProps {
 }
 
 const QuoteBackground = tStyled.div<QuoteBackgroundProps>`
-	background-color: ${p => p.theme.subtleFill.c2Button};
-	box-shadow: ${p => p.theme.shadow.c2Button};
+	background-color: ${p => p.theme.subtleFill.a0Background};
 	border: 1px solid ${p => p.theme.outlineDistinct};
 	padding: ${Spacing.dog16};
 	position: relative;
@@ -76,14 +94,14 @@ const BottomRightAbsoluteIcon = tStyled(SizedIcon)`
 const multilineQuoteTextSeparator = '/';
 
 interface MultilineQuoteTextProps {
-	text: string;
+	lines: string[];
 }
 
 const MultilineQuoteText: React.FC<MultilineQuoteTextProps> = (props) => {
-	const lines = props.text.split(multilineQuoteTextSeparator).map((line, i) => {
-		return <QuoteText key={i}>{line.trim()}</QuoteText>;
+	const linesRender = props.lines.map((line) => {
+		return <QuoteText key={line}>{line}</QuoteText>;
 	});
-	return <>{lines}</>;
+	return <>{linesRender}</>;
 };
 
 const QuoteText = tStyled.div`

@@ -1,7 +1,6 @@
 import { Spacing } from '@/core/layout/common';
 import { borderRadiusStyle } from '@/core/style/common';
 import { StyledFCProps, tCss, tStyled } from '@/core/style/styled';
-import { FontWeight } from '@/core/style/theme';
 import { IconSize, SizedIcon, SVGIconType } from '@/core/symbol/icon';
 import { fontDeclarations } from '@/core/symbol/text';
 import * as React from 'react';
@@ -94,7 +93,6 @@ const InnerButton = tStyled.button<InnerButtonProps>`
 
 	text-align: center;
 	${fontDeclarations.regular}
-	font-weight: ${FontWeight.medium};
 
 	${borderRadiusStyle}
 	padding: ${Spacing.dog16} ${Spacing.elf24};

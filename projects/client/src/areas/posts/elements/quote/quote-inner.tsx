@@ -38,7 +38,7 @@ export const InnerSingleQuote: React.FC<InnerQuoteProps> = (props) => {
 	return (
 		<FlexRow justifyContent='center'>
 			<SingleQuoteWidthControlContainer>
-				<QuotePiece isLarge={true} text={a} isLeftTextAlign={false} />
+				<QuotePiece isLarge={true} text={a} isForcedLeftTextAlign={false} />
 				<QuoteAttribution quote={quote} />
 			</SingleQuoteWidthControlContainer>
 		</FlexRow>
@@ -113,7 +113,7 @@ const MultiQuotePiece: React.FC<MultiQuotePieceProps> = (props) => {
 			{leftRender}
 			<div>
 				{voiceRender}
-				<QuotePiece isLarge={false} text={text} isLeftTextAlign={true} />
+				<QuotePiece isLarge={false} text={text} isForcedLeftTextAlign={true} />
 			</div>
 			{rightRender}
 		</FlexRow>

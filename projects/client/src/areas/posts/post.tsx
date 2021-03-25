@@ -6,9 +6,10 @@ import { Music } from '@/areas/posts/elements/music';
 import { Quote } from '@/areas/posts/elements/quote/quote';
 import { Video } from '@/areas/posts/elements/video';
 import { tStyled } from '@/core/style/styled';
-import { InlineWeight, Paragraph } from '@/core/symbol/text';
+import { Paragraph } from '@/core/symbol/text';
 import { Personal } from './elements/personal';
 import { PostElementProps } from './card/card';
+import { FontWeight } from '@/core/style/theme';
 
 /** Shows a post. Renders all the subcomponents (elements). */
 export const Post: React.FC<PostElementProps> = (props) => {
@@ -106,10 +107,15 @@ export const PostElementsCountSummary: React.FC<PostElementsCountSummaryProps> =
 	return (
 		<Paragraph>
 			<span>Showing </span>
-			<InlineWeight.Medium>{elementsCount} </InlineWeight.Medium>
+			<EmphasizedCountValue>{elementsCount} </EmphasizedCountValue>
 			<span>{elementsCount === 1 ? 'item' : 'items'} across </span>
-			<InlineWeight.Medium>{postsCount} </InlineWeight.Medium>
-			<span>{postsCount === 1 ? 'day' : 'days'}.</span>
+			<EmphasizedCountValue>{postsCount} </EmphasizedCountValue>
+			<span>recent {postsCount === 1 ? 'day' : 'days'}.</span>
 		</Paragraph>
 	);
 };
+
+const EmphasizedCountValue = tStyled.span`
+	color: ${p => p.theme.textDistinct};
+	font-weight: ${FontWeight.medium};
+`;
