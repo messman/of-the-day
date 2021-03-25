@@ -109,5 +109,5 @@ interface ClickableIconContainerProps {
 
 const ClickableIconContainer = tStyled.span<ClickableIconContainerProps>`
 	cursor: ${p => p.isDisabled ? 'not-allowed' : 'pointer'};
-	color: ${p => p.isDisabled ? p.theme.textDisabled : p.theme.accent.aMain};
+	color: ${p => p.isDisabled ? p.theme.textDisabled : p.theme.accent.distinct};
 `;

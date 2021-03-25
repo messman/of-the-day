@@ -131,5 +131,5 @@ const ThemeControlAccentCircle = tStyled.div<ThemeControlChoicePieceProps>`
 	width: ${Spacing.elf24};
 	height: ${Spacing.elf24};
 	border-radius: 50%;
-	background: ${p => p.choiceTheme.accent.eGradient};
+	background: ${p => p.choiceTheme.accent.gradient};
 `;

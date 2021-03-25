@@ -81,14 +81,14 @@ const TopLeftAbsoluteIcon = tStyled(SizedIcon)`
 	position: absolute;
 	top: calc(-${p => p.size} / 3);
 	left: calc(-${p => p.size} / 4);
-	color: ${p => p.theme.accent.aMain};
+	color: ${p => p.theme.accent.subtle};
 `;
 
 const BottomRightAbsoluteIcon = tStyled(SizedIcon)`
 	position: absolute;
 	bottom: calc(-${p => p.size} / 3);
 	right: calc(-${p => p.size} / 4);
-	color: ${p => p.theme.accent.aMain};
+	color: ${p => p.theme.accent.subtle};
 `;
 
 const multilineQuoteTextSeparator = '/';

@@ -42,7 +42,7 @@ interface HighlightBarInnerProps {
 const highlightThickness = 4;
 const highlightBarCommonStyle = tCss`
 	position: absolute;
-	background-color: ${p => p.theme.accent.aMain};
+	background-color: ${p => p.theme.accent.distinct};
 	border-radius: ${highlightThickness / 2}px;
 	${formTransitionStyle}
 `;

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { createGlobalStyle, ThemeProps, ThemeProvider as StyledThemeProvider } from 'styled-components';
 import { UseLocalStorageReturn } from '@messman/react-common';
 import { localStorage } from '@/services/data/local-storage';
-import { ColorAccentSet, ColorElevationSet, colors, SystemColors } from './color';
+import { ColorElevationSet, colors, SystemColors } from './color';
 
 export interface Theme {
 	// Meta info.
@@ -12,7 +12,11 @@ export interface Theme {
 		fullName: string;
 	},
 
-	accent: ColorAccentSet;
+	accent: {
+		distinct: string;
+		subtle: string;
+		gradient: string;
+	};
 
 	bg: string;
 	outlineDistinct: string;
@@ -28,7 +32,6 @@ export interface Theme {
 	textDistinct: string;
 	textSubtle: string;
 	textDisabled: string;
-	textLink: string;
 	textOnAccentFill: string;
 }
 
@@ -55,7 +58,6 @@ const baseDarkTheme: Theme = {
 	textDisabled: colors.dark.d3Lighter, // "Dark Gray"
 
 	// To be overridden
-	textLink: 'blue',
 	textOnAccentFill: 'blue',
 };
 
@@ -82,7 +84,6 @@ const baseLightTheme: Theme = {
 	textDisabled: colors.dark.e4Lightest, // "Light Gray"
 
 	// To be overridden
-	textLink: 'blue',
 	textOnAccentFill: 'blue',
 };
 
@@ -119,8 +120,11 @@ const purpleDarkTheme: Theme = {
 		fullName: 'Purple / Dark'
 	},
 
-	accent: colors.accent.purple,
-	textLink: colors.accent.purple.cLight,
+	accent: {
+		distinct: colors.accent.purple.aMain,
+		subtle: colors.accent.purple.bDark,
+		gradient: colors.accent.purple.gradient
+	},
 	textOnAccentFill: colors.light.e4Lightest,
 };
 
@@ -132,8 +136,11 @@ const purpleLightTheme: Theme = {
 		fullName: 'Purple / Light'
 	},
 
-	accent: colors.accent.purple,
-	textLink: colors.accent.purple.aMain,
+	accent: {
+		distinct: colors.accent.purple.aMain,
+		subtle: colors.accent.purple.cLight,
+		gradient: colors.accent.purple.gradient
+	},
 	textOnAccentFill: colors.light.e4Lightest,
 };
 
@@ -145,8 +152,11 @@ const yellowDarkTheme: Theme = {
 		fullName: 'Yellow / Dark'
 	},
 
-	accent: colors.accent.yellow,
-	textLink: colors.accent.yellow.bDark,
+	accent: {
+		distinct: colors.accent.yellow.aMain,
+		subtle: colors.accent.yellow.bDark,
+		gradient: colors.accent.yellow.gradient
+	},
 	textOnAccentFill: colors.dark.a0Darkest,
 };
 
@@ -158,8 +168,11 @@ const yellowLightTheme: Theme = {
 		fullName: 'Yellow / Light'
 	},
 
-	accent: colors.accent.yellow,
-	textLink: colors.accent.yellow.bDark,
+	accent: {
+		distinct: colors.accent.yellow.aMain,
+		subtle: colors.accent.yellow.cLight,
+		gradient: colors.accent.yellow.gradient
+	},
 	textOnAccentFill: colors.dark.a0Darkest,
 };
 

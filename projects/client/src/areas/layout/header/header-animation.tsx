@@ -227,8 +227,8 @@ const IconBackground = tStyled.div<IconBackgroundProps>`
 	width: 100%;
 	height: 100%;
 	${borderRadiusStyle}
-	background-color: ${p => p.theme.accent.aMain};
-	border: 1px solid ${p => p.theme.accent.bDark};
+	background-color: ${p => p.theme.accent.distinct};
+	box-shadow: ${p => p.theme.shadow.b1Card};
 `;
 
 interface IconHeightContainerProps {

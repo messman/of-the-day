@@ -135,7 +135,7 @@ const UpperStickyMenuBarAbsolute = tStyled(animated.div)`
 
 const UpperStickyMenuBarColor = tStyled.div`
 	height: ${stickyMenuBarColorHeight}px;
-	background: ${p => p.theme.accent.eGradient};
+	background: ${p => p.theme.accent.gradient};
 	cursor: pointer;
 `;
 

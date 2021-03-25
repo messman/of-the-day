@@ -11,11 +11,11 @@ const BasicLink = tStyled.a`
 	display: inline-block;
 	cursor: pointer;
 
-	color: ${p => p.theme.textLink};
+	color: ${p => p.theme.accent.distinct};
 	text-decoration: none;
 
 	&:visited, &:active, &:link, &:hover {
-		color: ${p => p.theme.textLink};
+		color: ${p => p.theme.accent.distinct};
 		text-decoration: none;
 	}
 `;

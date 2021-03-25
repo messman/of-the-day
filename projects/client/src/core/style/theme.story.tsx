@@ -21,7 +21,7 @@ export const TestTheme = decorate('Theme', null, () => {
 			<TextColorBox backgroundColor={theme.system.error}>Error</TextColorBox>
 			<TextColorBox backgroundColor={theme.system.warning}>Warning</TextColorBox>
 			<TextColorBox backgroundColor={theme.system.success}>Success</TextColorBox>
-			<TextColorBox backgroundColor={theme.textLink}>Link</TextColorBox>
+			<TextColorBox backgroundColor={theme.accent.distinct}>Link</TextColorBox>
 		</>
 	);
 });

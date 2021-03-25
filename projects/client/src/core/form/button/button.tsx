@@ -68,9 +68,9 @@ const regularButtonStyle = tCss`
 
 const selectedButtonStyle = tCss`
 	cursor: pointer;
-	color: ${p => p.theme.accent.cLight};
+	color: ${p => p.theme.accent.distinct};
 	background: ${p => p.theme.subtleFill.c2Button};
-	border-color: ${p => p.theme.accent.cLight};
+	border-color: ${p => p.theme.accent.distinct};
 `;
 
 const disabledButtonStyle = tCss`
@@ -83,7 +83,7 @@ const disabledButtonStyle = tCss`
 const specialButtonStyle = tCss`
 	cursor: pointer;
 	color: ${p => p.theme.textOnAccentFill};
-	background: ${p => p.theme.accent.eGradient};
+	background: ${p => p.theme.accent.gradient};
 	border-color: transparent;
 `;
 

@@ -71,10 +71,9 @@ interface MetaMessagingLinesProps {
 
 const MetaMessagingLines: React.FC<MetaMessagingLinesProps> = (props) => {
 	const { text } = props;
-	const textRender = text.map((line, i) => {
-		const key = i;
+	const textRender = text.map((line) => {
 		return (
-			<Paragraph key={key}>
+			<Paragraph key={line}>
 				{line}
 			</Paragraph>
 		);
@@ -85,7 +84,7 @@ const MetaMessagingLines: React.FC<MetaMessagingLinesProps> = (props) => {
 };
 
 const TextBox = tStyled.div`
-	padding: ${Spacing.dog16};
+	padding: 0 ${Spacing.dog16};
 	margin: 0 ${Spacing.dog16};
 	${borderRadiusStyle};
 	background-color: ${p => p.theme.subtleFill.b1Card};
@@ -98,12 +97,12 @@ const BadTextBox = tStyled(TextBox)`
 `;
 
 const ImportantTextBox = tStyled(TextBox)`
-	color: ${p => p.theme.accent.aMain};
-	border-color: ${p => p.theme.accent.aMain};
+	color: ${p => p.theme.accent.distinct};
+	border-color: ${p => p.theme.accent.distinct};
 `;
 
 const MultiMessagingContainer = tStyled.div`
-	max-width: ${LayoutBreakpointRem.e50}rem;
+	max-width: ${LayoutBreakpointRem.d40}rem;
 	margin: ${Spacing.dog16} auto;
 
 	${TextBox} + ${TextBox} {

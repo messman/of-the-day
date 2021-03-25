@@ -68,7 +68,7 @@ export const ElementActions: React.FC<ElementActionsProps> = (props) => {
 const InnerButton = tStyled.button`
 	cursor: ${p => p.disabled ? 'not-allowed' : 'pointer'};
 
-	color: ${p => p.disabled ? p.theme.textDisabled : p.theme.accent.aMain};
+	color: ${p => p.disabled ? p.theme.textDisabled : p.theme.accent.distinct};
 	border: none;
 	background-color: transparent;
 	

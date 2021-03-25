@@ -1,14 +1,12 @@
 export interface ColorAccentSet {
-	/** Darker version of the accent main color. */
-	bDark: string;
 	/** The accent main color. */
 	aMain: string;
+	/** Darker version of the accent main color. */
+	bDark: string;
 	/** Lighter version of the accent main color. */
 	cLight: string;
-	/** Subtle version of the accent main color. */
-	dSubtle: string;
 	/** Gradient. */
-	eGradient: string;
+	gradient: string;
 }
 
 export interface ColorSet {
@@ -90,26 +88,17 @@ export interface Colors {
 export const colors: Colors = {
 	accent: {
 		purple: {
-			aMain: '#5955D1',
-			bDark: '#4744A7',
-			cLight: '#7875E1',
-			dSubtle: '#BBB9F3',
-			eGradient: 'linear-gradient(134deg, #6551C7 0%, #5955D1 39%, #5955D1 58%, #3948BA 100%)'
+			aMain: '#6966CE',
+			bDark: '#4A48AB',
+			cLight: '#8683EC',
+			gradient: 'linear-gradient(-45deg, #8566CE 0%, #6966CE 42%, #6966CE 62%, #6680CE 100%)'
 		},
 		yellow: {
-			aMain: '#FFCD67',
-			bDark: '#D3A342',
-			cLight: '#FFD885',
-			dSubtle: '#FFEBC0',
-			eGradient: 'linear-gradient(-45deg, #CD9240 0%, #F5B83D 38%, #F5B83D 65%, #F8CF7C 100%)'
+			aMain: '#F5B83D',
+			bDark: '#F1AC22',
+			cLight: '#FFCC65',
+			gradient: 'linear-gradient(-45deg, #CD9240 0%, #F5B83D 38%, #F5B83D 65%, #F8CF7C 100%)'
 		},
-		// red: {
-		// 	aMain: '#CB697A',
-		// 	bDark: '#BB4964',
-		// 	cLight: '#DD819C',
-		// 	dSubtle: '#EEC0D0',
-		// 	eGradient: 'linear-gradient(135deg, #E078A4 0%, #CB697A 37%, #CB697A 65%, #DA5856 100%)'
-		// }
 	},
 	light: {
 		a0Darkest: '#D3D4D9',

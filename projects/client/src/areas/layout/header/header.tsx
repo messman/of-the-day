@@ -71,7 +71,7 @@ const Parent = tStyled(FlexRow)`
 	flex: none;
 	min-height: 20vh;
 	padding: ${Spacing.guy40} 0;
-	background: ${p => p.theme.accent.eGradient};
+	background: ${p => p.theme.accent.gradient};
 `;
 
 const headerImageDataUrl = require('@/static/images/header-background.png').default as string;

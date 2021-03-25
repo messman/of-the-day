@@ -73,8 +73,8 @@ const CheckboxIndicator = tStyled.span<CheckboxIndicatorProps>`
 	margin-left: ${Spacing.ant04};
 	margin-right: ${Spacing.dog16};
 	box-sizing: content-box;
-	border: 1px solid ${p => p.theme.accent.aMain};
-	background-color: ${p => p.$isChecked ? p.theme.accent.aMain : 'transparent'};
+	border: 1px solid ${p => p.theme.accent.distinct};
+	background-color: ${p => p.$isChecked ? p.theme.accent.distinct : 'transparent'};
 	${borderRadiusStyle}
 	${formTransitionStyle}
 	transition-property: border-color, background-color;
