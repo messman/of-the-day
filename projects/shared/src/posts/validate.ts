@@ -7,24 +7,13 @@ import { IPostPersonal, IPostCustom, IPostImage, IPostMusic, IPostQuote, IPostVi
 	- the data is complete enough to render (client)
 */
 
-function note(personal: IPostPersonal | undefined): boolean {
-	return !!personal && (!!personal.event || !!personal.note.length);
-}
-
-function schedule(personal: IPostPersonal | undefined): boolean {
-	return !!personal && (!!personal.schedule || !!personal.dayTypes.length);
-}
-
-function location(personal: IPostPersonal | undefined): boolean {
-	return !!personal && !!personal.location;
-}
-
-function endThoughts(personal: IPostPersonal | undefined): boolean {
-	return !!personal && !!personal.previousDayThoughts.length;
-}
-
 function personal(personal: IPostPersonal | undefined): boolean {
-	return !!personal && (note(personal) || schedule(personal) || location(personal) || endThoughts(personal));
+	// Don't mark valid if it's just location and/or event.
+	return !!personal && (
+		!!personal.note.length ||
+		!!personal.schedule ||
+		!!personal.previousDayThoughts.length
+	);
 }
 
 function music(music: IPostMusic | undefined): boolean {
