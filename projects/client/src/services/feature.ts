@@ -14,7 +14,7 @@ import { LayoutBreakpointRem } from './layout/window-layout';
 export function useIsNeedingHomeBarPadding(): boolean {
 	const { widthBreakpoint, orientation } = useWindowMediaLayout();
 	// If compact portrait
-	if (widthBreakpoint < LayoutBreakpointRem.c30 && orientation === LayoutOrientation.portrait) {
+	if (widthBreakpoint < LayoutBreakpointRem.d40 && orientation === LayoutOrientation.portrait) {
 		// if full-screen https://stackoverflow.com/a/2739394
 		if ((window.navigator as any)['standalone']) {
 			// is any iOS browser (includes Chrome, but that's fine

@@ -21,14 +21,17 @@ export const LowerMenuBar: React.FC<LowerMenuBarProps> = (props) => {
 	}
 
 	return (
-		<LowerMenuBarContainer flex='none'>
-			<MenuBarItems isUpper={false} onPathClick={onPathClick} />
+		<LowerMenuBarContainer>
+			<FlexRow>
+				<MenuBarItems isUpper={false} onPathClick={onPathClick} />
+			</FlexRow>
 			{paddingSpace}
 		</LowerMenuBarContainer>
 	);
 };
 
-const LowerMenuBarContainer = tStyled(FlexRow)`
+const LowerMenuBarContainer = tStyled.div`
+	flex: none;
 	position: relative;
 	background-color: ${p => p.theme.subtleFill.d3Nav};
 	border-top: 1px solid ${p => p.theme.outlineDistinct};
