@@ -1,14 +1,12 @@
 import * as React from 'react';
-import { tStyled } from '@/core/style/styled';
+import { keyframes, tCss, ThemedCSS, tStyled } from '@/core/style/styled';
 import { Flex, FlexColumn, FlexRow } from '@messman/react-common';
 import { borderRadiusStyle } from '@/core/style/common';
 import { MenuBarItems } from './menu-bar-items';
-import { animated, useSpring } from 'react-spring';
 import { IconSize, iconTypes, SizedIcon } from '@/core/symbol/icon';
 import { Heading2 } from '@/core/symbol/text';
 import { Spacing } from '@/core/layout/common';
 import { FontWeight } from '@/core/style/theme';
-import { isUsingFirefoxFingerprintProtection } from '@/services/feature';
 
 export const upperMenuBarHeight = 50;
 export const stickyMenuBarColorHeight = 8;
@@ -93,8 +91,7 @@ export interface UpperStickyMenuBarProps {
 export const UpperStickyMenuBar: React.FC<UpperStickyMenuBarProps> = (props) => {
 	const { isShowing, isMobileWidth, isDesktopWidth, onScrollToTop, onPathClick } = props;
 
-	// If firefox with the fingerprinting protection (which disables some JS APIs), we can't animate.
-	const springProps = useSpring({ top: isShowing ? '0px' : `-${totalUpperStickyMenuBarHeight}px`, immediate: isUsingFirefoxFingerprintProtection });
+	const animationState = useTransition(isShowing, isShowing ? AnimationState.opened : AnimationState.closed);
 
 	const topLeftTitle = isDesktopWidth ? (
 		<UpperMenuStickyTitleClickContainer onClick={onScrollToTop}>
@@ -117,20 +114,115 @@ export const UpperStickyMenuBar: React.FC<UpperStickyMenuBarProps> = (props) => 
 	) : null;
 
 	return (
-		<UpperStickyMenuBarAbsolute style={springProps}>
+		<UpperStickyMenuBarAbsolute animationState={animationState}>
 			<UpperStickyMenuBarColor onClick={onScrollToTop} />
 			{stickyContent}
 		</UpperStickyMenuBarAbsolute>
 	);
 };
 
+const openingClosingAnimationTime = 1000;
+const menuBarOpeningAnimation = keyframes`
+	from {
+		top: -${totalUpperStickyMenuBarHeight}px;
+	}
+	to {
+		top: 0px;
+	}
+`;
+
+const menuBarClosingAnimation = keyframes`
+	from {
+		top: 0px;
+	}
+	to {
+		top: -${totalUpperStickyMenuBarHeight}px;
+	}
+`;
+
+enum AnimationState {
+	closed,
+	opening,
+	opened,
+	closing
+}
+
+const animationStateStyles: Record<keyof typeof AnimationState, ThemedCSS> = {
+	closed: tCss`
+		top: -${totalUpperStickyMenuBarHeight}px;
+	`,
+	opening: tCss`
+		animation: ${menuBarOpeningAnimation} ${openingClosingAnimationTime / 1000}s forwards ease-out;
+	`,
+	opened: tCss`
+		top: 0px;
+	`,
+	closing: tCss`
+		animation: ${menuBarClosingAnimation} ${openingClosingAnimationTime / 1000}s forwards ease-out;
+	`
+};
+
+// Problem with how this runs: you can't reverse an animation halfway.
+// So if the user jiggles quickly between the states, the animation will jump to the beginning again.
+function useTransition(currentValue: boolean, defaultAnimationState: AnimationState): AnimationState {
+	const isAnimatingRef = React.useRef(false);
+	const [state, setState] = React.useState(() => {
+		return {
+			lastValue: currentValue,
+			animationState: defaultAnimationState
+		};
+	});
+	const { lastValue, animationState } = state;
+
+	let newAnimationState = animationState;
+	if (currentValue !== lastValue || isAnimatingRef.current) {
+		newAnimationState = currentValue ? AnimationState.opening : AnimationState.closing;
+	}
+
+	React.useEffect(() => {
+		/*
+			currentValue
+			lastValue
+			currentState
+
+			if value is equal, change nothing.
+
+		*/
+		let timeoutId = -1;
+		if (newAnimationState === AnimationState.opened || newAnimationState === AnimationState.closed) {
+			return;
+		}
+		timeoutId = window.setTimeout(() => {
+			isAnimatingRef.current = false;
+			setState({
+				lastValue: currentValue,
+				animationState: currentValue ? AnimationState.opened : AnimationState.closed
+			});
+		}, openingClosingAnimationTime);
+		isAnimatingRef.current = true;
+
+		return () => {
+			isAnimatingRef.current = false;
+			window.clearTimeout(timeoutId);
+		};
+	}, [currentValue, newAnimationState]);
+
+	return newAnimationState;
+}
+
 /**
  * Div that will get animations applied for opacity and/or position.
  */
-const UpperStickyMenuBarAbsolute = tStyled(animated.div)`
+
+interface UpperStickyMenuBarAbsoluteProps {
+	animationState: AnimationState;
+}
+
+const UpperStickyMenuBarAbsolute = tStyled.div<UpperStickyMenuBarAbsoluteProps>`
 	position: absolute;
 	width: 100%;
 	z-index: 2;
+	${p => animationStateStyles[AnimationState[p.animationState] as keyof typeof AnimationState]}
 `;
 
 const UpperStickyMenuBarColor = tStyled.div`
