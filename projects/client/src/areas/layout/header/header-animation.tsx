@@ -103,8 +103,6 @@ export function useHeaderAnimationState(isActive: boolean): HeaderAnimationState
 					Calculate new from old.
 				*/
 				const { entity, index, status } = p;
-				console.log(p);
-
 				if (!entity) {
 					const newIndex = (index + 1) % entities.length;
 					// Pick new entity.
