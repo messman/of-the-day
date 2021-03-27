@@ -1,15 +1,13 @@
 
 import * as React from 'react';
-import { decorate } from '@/test/decorate';
+import { wrap } from '@/test/decorate';
 import { FilterOverlay } from './filter-overlay';
 import { defaultInvalidFilter, IArchiveFilter, isFilterSemanticallyEqual, isFilterSortSemanticallyEqual } from 'oftheday-shared';
 import { RegularText } from '@/core/symbol/text';
 import { FilterDescription } from '../filter-common';
 import { Block } from '@/core/layout/common';
 
-export default { title: 'Areas/Archive/Filter/Overlay' };
-
-export const TestFilterOverlay = decorate('Filter Overlay', null, () => {
+export default wrap(null, () => {
 
 	const [filter, setFilter] = React.useState<IArchiveFilter>(defaultInvalidFilter);
 	const [isOverlayOpen, setIsOverlayOpen] = React.useState(true);

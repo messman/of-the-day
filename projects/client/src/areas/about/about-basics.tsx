@@ -126,7 +126,7 @@ export const AboutBasics: React.FC<AboutBasicsProps> = (props) => {
 				</Paragraph>
 				<Paragraph>
 					<InlineWeight.Bold>Development </InlineWeight.Bold>
-					with React, TypeScript, styled-components, Webpack, Storybook, VS Code, and more.
+					with React, TypeScript, styled-components, Webpack, React Cosmos, VS Code, and more.
 				</Paragraph>
 				<Paragraph>
 					<InlineWeight.Bold>Data and hosting </InlineWeight.Bold>

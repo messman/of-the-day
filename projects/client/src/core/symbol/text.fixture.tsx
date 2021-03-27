@@ -1,13 +1,11 @@
 import * as React from 'react';
-import { decorate } from '@/test/decorate';
+import { wrap } from '@/test/decorate';
 import { Heading1, Heading2, Heading3, RegularText, SmallText } from '@/core/symbol/text';
 import { IconSize, iconTypes, SizedIcon } from '@/core/symbol/icon';
 import { tStyled } from '../style/styled';
 import { Spacing } from '../layout/common';
 
-export default { title: 'Core/Symbol/Text' };
-
-export const TestTextWithIcons = decorate('Text', null, () => {
+export default wrap(null, () => {
 
 	const iconType = iconTypes.activity;
 

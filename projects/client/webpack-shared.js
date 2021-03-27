@@ -10,7 +10,7 @@ const getDefine = require('./define');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const isDevelopment = !envToBool('PROD');
-const isCosmos = envToBool('COSMOS');
+const isCosmos = !envToBool('COSMOS');
 const isBundleAnalysis = envToBool('ANALYZE');
 
 function envToBool(variableName) {
@@ -232,8 +232,7 @@ module.exports = async () => {
 			resolve,
 			module,
 			plugins: [
-				definePlugin,
-				htmlPlugin
+				definePlugin
 			]
 		};
 	}

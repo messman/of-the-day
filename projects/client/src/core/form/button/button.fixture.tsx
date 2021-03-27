@@ -1,16 +1,13 @@
 import * as React from 'react';
-import { decorate } from '@/test/decorate';
+import { useValue, wrap } from '@/test/decorate';
 import { Margin } from '@/core/layout/common';
-import { text } from '@storybook/addon-knobs';
 import { RegularText } from '@/core/symbol/text';
 import { Button } from './button';
 import { iconTypes } from '@/core/symbol/icon';
 
-export default { title: 'Core/Form/Button' };
+export default wrap(null, () => {
 
-export const TestButton = decorate('Button', null, () => {
-
-	const buttonText = text('Button Text', 'Click Here');
+	const buttonText = useValue('Button Text', 'Click Here');
 
 	const [counter, setCounter] = React.useState(0);
 

@@ -1,14 +1,12 @@
 import * as React from 'react';
-import { decorate } from '@/test/decorate';
 import { Heading1, Heading2, Heading3, RegularText, SmallText } from '@/core/symbol/text';
 import { tStyled } from '@/core/style/styled';
 import { useCurrentTheme } from '@/core/style/theme';
 import { borderRadiusStyle } from '@/core/style/common';
 import { Spacing } from '../layout/common';
+import { wrap } from '@/test/decorate';
 
-export default { title: 'Core/Style/Theme' };
-
-export const TestTheme = decorate('Theme', null, () => {
+export default wrap(null, () => {
 
 	const theme = useCurrentTheme();
 

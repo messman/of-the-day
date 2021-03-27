@@ -1,13 +1,11 @@
 import * as React from 'react';
 import { tStyled } from '@/core/style/styled';
 import { Heading2 } from '@/core/symbol/text';
-import { decorate } from '@/test/decorate';
+import { wrap } from '@/test/decorate';
 import { LayoutOrientation, useWindowMediaLayout } from '@messman/react-common';
 import { LayoutBreakpointRem, isInvalidLayout } from './window-layout';
 
-export default { title: 'Services/Layout/Window Layout' };
-
-export const TestWindowLayout = decorate('Window Layout', null, () => {
+export default wrap(null, () => {
 
 	const windowLayout = useWindowMediaLayout();
 	let invalid: JSX.Element | null = null;

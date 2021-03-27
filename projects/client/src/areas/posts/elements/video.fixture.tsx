@@ -1,20 +1,17 @@
 import * as React from 'react';
-import { decorate, usePostControl, useTextParagraph } from '@/test/decorate';
-import { text, boolean } from '@storybook/addon-knobs';
+import { wrap, usePostControl, useTextParagraph, useValue } from '@/test/decorate';
 import { IPostVideo } from 'oftheday-shared';
 import { Video } from './video';
 import { Block, SimpleContentMaxWidthFull } from '@/core/layout/common';
 
-export default { title: 'Areas/Posts/Elements/Videos' };
+export default wrap(null, () => {
 
-export const TestVideo = decorate('Video', null, () => {
-
-	const customTitle = text('Custom Title', '');
-	const customTitleCreator = text('Custom Title Creator', '');
-	const originalTitle = text('Original Title', 'Hilarious! Bing | Bang | Boom ON FX NETWORK');
+	const customTitle = useValue('Custom Title', '');
+	const customTitleCreator = useValue('Custom Title Creator', '');
+	const originalTitle = useValue('Original Title', 'Hilarious! Bing | Bang | Boom ON FX NETWORK');
 	const description = useTextParagraph('Description', 'Here is a great video I just saw the other day that shows this /// that /// and the other thing.');
-	const isRemoved = boolean('Is Removed', false);
-	const hasTags = boolean('Has Tags', true);
+	const isRemoved = useValue('Is Removed', false);
+	const hasTags = useValue('Has Tags', true);
 
 	const video: IPostVideo = {
 		customTitle: customTitle,

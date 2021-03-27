@@ -1,16 +1,13 @@
 import * as React from 'react';
-import { decorate } from '@/test/decorate';
-import { boolean } from '@storybook/addon-knobs';
+import { useValue, wrap } from '@/test/decorate';
 import { PromiseOutput } from '@messman/react-common';
 import { DataLoad } from './data-load';
 import { Margin } from '@/core/layout/common';
 
-export default { title: 'Services/Data/Data Load' };
+export default wrap(null, () => {
 
-export const TestDataLoad = decorate('Data Load', null, () => {
-
-	let isLoading = boolean('Is Loading', true);
-	const isError = boolean('Is Error', false);
+	let isLoading = useValue('Is Loading', true);
+	const isError = useValue('Is Error', false);
 
 	isLoading = isLoading && !isError;
 

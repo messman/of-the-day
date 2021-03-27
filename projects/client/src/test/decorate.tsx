@@ -1,69 +1,43 @@
 import * as React from 'react';
 import { themes, useLocalStorageTheme } from '@/core/style/theme';
-import { TestWrapper } from '@/entry/wrapper';
-import { boolean, select, text, withKnobs } from '@storybook/addon-knobs';
+import * as Cosmos from 'react-cosmos/fixture';
 import { tStyled } from '@/core/style/styled';
+import { TestWrapper } from '@/entry/wrapper';
 import { IPost, IPostDayReference, keysOfIPostDayReference } from 'oftheday-shared';
 import { PostElementProps } from '@/areas/posts/card/card';
 
-export interface StoryComponent {
-	(): JSX.Element;
-	story?: {
-		name?: string;
-		decorators?: any[];
-	};
-}
+export function wrap(routerEntry: string | null, Component: React.FC): React.FC {
+	return () => {
 
-export function decorate(name: string, entry: string | null, Component: React.FC) {
+		const forceHidden = useValue('Global - Hidden', false);
 
-	/*
-		Some funky stuff is required here.
-		Never forget, you spent like 4 hours on this.
-	
-		See the issues below - it all comes down to how stories are exported with decorators.
-		The first made me believe that I should use <Story /> in decorators. That would solve the issue where
-		decorators (which supply the contexts) were not being applied.
-		But that ends up causing the stories to unmount themselves every time a Knob is clicked, which broke the async promise story testing.
-		Solution: wrap each story in another component to create that 'indirect' scenario. Move on with life.
-	
-		https://github.com/storybookjs/storybook/issues/10296
-		https://github.com/storybookjs/storybook/issues/4059
-	*/
-	const story: React.FC = () => {
 		return (
-			<Component />
-		);
-	};
-
-	const decorator = (story: () => JSX.Element) => {
-		return (
-			<TestWrapper entry={entry || undefined}>
+			<TestWrapper entry={routerEntry} testForceHidden={forceHidden}>
 				<InnerTestWrapper>
-					{story()}
+					<ScrollContainer>
+						<Component />
+					</ScrollContainer>
 				</InnerTestWrapper>
 			</TestWrapper>
 		);
 	};
+}
 
-	const storyComponent = story as StoryComponent;
-	storyComponent.story = {
-		name: name,
-		decorators: [decorator, withKnobs]
-	};
-	return storyComponent;
-};
+const ScrollContainer = tStyled.div`
+	overflow-y: auto;
+`;
+
+const themeOptions: { [key: string]: number; } = {};
+themes.forEach((theme, index) => {
+	themeOptions[theme.themeInfo.fullName] = index;
+});
 
 const InnerTestWrapper: React.FC = (props) => {
 
-	const themeOptions: { [key: string]: number; } = {};
-	themes.forEach((theme, index) => {
-		const name = `${theme.themeInfo.accentColor} (${theme.themeInfo.isLight ? 'Light' : 'Dark'})`;
-		themeOptions[name] = index;
-	});
-
-	const [themeIndex, setThemeIndex] = useLocalStorageTheme();
-
-	const selectedThemeIndex = select('Theme', themeOptions, themeIndex, 'Global');
+	const localStorageThemeProvider = useLocalStorageTheme();
+	const [themeIndex, setThemeIndex] = localStorageThemeProvider;
+	const [selectedThemeName] = Cosmos.useSelect('Global - Theme', { options: Object.keys(themeOptions) });
+	const selectedThemeIndex = themeOptions[selectedThemeName];
 
 	React.useEffect(() => {
 		if (themeIndex !== selectedThemeIndex) {
@@ -72,15 +46,81 @@ const InnerTestWrapper: React.FC = (props) => {
 	}, [selectedThemeIndex]);
 
 	return (
-		<ScrollContainer>
-			{props.children}
-		</ScrollContainer>
+		<>{props.children}</>
 	);
 };
 
-const ScrollContainer = tStyled.div`
-	overflow-y: auto;
+export interface TestButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+
+}
+
+export const TestButton: React.FC<TestButtonProps> = (props) => {
+	return (
+		<InnerTestButton {...props} />
+	);
+};
+
+const InnerTestButton = tStyled.button`
+	display: block;
+	border-radius: .5rem;
+	background-color: ${p => p.theme.subtleFill.c2Button};
+	color: ${p => p.theme.textDistinct};
+	border: 1px solid ${p => p.theme.textDistinct};
+	cursor: pointer;
+	padding: .5rem 1.5rem;
+	margin: .5rem;
+
+	:hover {
+		background-color: ${p => p.theme.subtleFill.e4Hover};
+		border-color: blue;
+	}
+	:active {
+		background-color: ${p => p.theme.subtleFill.b1Card};
+	}
 `;
+
+export function useTestButton(title: string, onClick: () => void): JSX.Element {
+	return <TestButton onClick={onClick}>{title}</TestButton>;
+}
+
+export type ButtonSetDefinition = { [key: string]: () => void; };
+
+export function useTestButtons(buttonSetDefinition: ButtonSetDefinition): JSX.Element {
+
+	const keys = Object.keys(buttonSetDefinition);
+	const buttons = keys.map<JSX.Element>((key) => {
+		const value = buttonSetDefinition[key];
+		return <TestButton key={key} onClick={value}>{key}</TestButton>;
+	});
+
+	return (
+		<InnerTestButtonSet>
+			{buttons}
+		</InnerTestButtonSet>
+	);
+}
+
+const InnerTestButtonSet = tStyled.div`
+	display: flex;
+	flex-direction: flex-start;
+	flex-wrap: wrap;
+	margin: .5rem;
+`;
+
+export function useValue<T>(title: string, defaultValue: T): T {
+	const [value] = Cosmos.useValue(title, { defaultValue: defaultValue as unknown as any });
+	return value as T;
+}
+
+export function useSelect<T>(title: string, dictionary: { [key: string]: T; }): [string, T] {
+	const [key] = Cosmos.useSelect(title, { options: Object.keys(dictionary) });
+	return [key, dictionary[key]];
+}
+
+export function useSelectArray(title: string, options: string[]): string {
+	const [key] = Cosmos.useSelect(title, { options: options });
+	return key;
+}
 
 export function wrapForPost(post: IPost, extra: Partial<IPost>): IPost {
 	return {
@@ -127,18 +167,18 @@ const defaultPosts: Record<keyof typeof IPostDayReference, IPost> = {
 };
 
 export function usePostControl(post: IPost | null, extra: Partial<IPost>): PostElementProps {
-	const dayReferenceKey = select('Day Reference', keysOfIPostDayReference, keysOfIPostDayReference[0]);
-	const selectedPost = defaultPosts[dayReferenceKey];
+	const dayReferenceKey = useSelectArray('Day Reference', keysOfIPostDayReference);
+	const selectedPost = defaultPosts[dayReferenceKey as keyof typeof IPostDayReference];
 
 	return {
 		post: wrapForPost(post || selectedPost, extra),
-		isOfSameElement: boolean('Is Same Element', false),
-		isForArchive: boolean('Is For Archive', false),
-		isShowingEmbeddedByDefault: boolean('Is Showing Embedded By Default', false),
+		isOfSameElement: useValue('Is Same Element', false),
+		isForArchive: useValue('Is For Archive', false),
+		isShowingEmbeddedByDefault: useValue('Is Showing Embedded By Default', false),
 	};
 }
 
 export function useTextParagraph(name: string, defaultValue: string): string[] {
-	const input = text(name, defaultValue);
+	const input = useValue(name, defaultValue);
 	return input.split(' /// ');
 }

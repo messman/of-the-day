@@ -1,18 +1,16 @@
 import * as React from 'react';
 import { RegularText } from '@/core/symbol/text';
-import { boolean, text } from '@storybook/addon-knobs';
 import { InvalidCheck } from './invalid';
-import { decorate } from '@/test/decorate';
+import { useValue, wrap } from '@/test/decorate';
 import { FlexRoot } from '@messman/react-common';
+import { Padding } from '@/core/layout/common';
 
-export default { title: 'Areas/Alert/Invalid' };
-
-export const TestInvalid = decorate('Invalid', null, () => {
+export default wrap(null, () => {
 
 	// Set up knobs.
-	const isForceAlertMessages = boolean('Force Alert Messages', false, 'Build Alert');
-	const firstAlertMessage = text('First Alert Message', 'Houston, we have a problem.', 'Build Alert');
-	const secondForceAlertMessage = text('Second Alert Message', 'but we probably do not know what that problem is.', 'Build Alert');
+	const isForceAlertMessages = useValue('Force Alert Messages', false);
+	const firstAlertMessage = useValue('First Alert Message', 'Houston, we have a problem.');
+	const secondForceAlertMessage = useValue('Second Alert Message', 'but we probably do not know what that problem is.');
 
 	// Require checkbox before we pass any strings.
 	const alertMessages = [];
@@ -23,8 +21,8 @@ export const TestInvalid = decorate('Invalid', null, () => {
 		}
 	}
 
-	const isForceInternetExplorer = boolean('Force Internet Explorer', false);
-	const isForceInvalidLayout = boolean('Force Invalid Layout', false);
+	const isForceInternetExplorer = useValue('Force Internet Explorer', false);
+	const isForceInvalidLayout = useValue('Force Invalid Layout', false);
 
 	return (
 		<FlexRoot flexDirection='column'>
@@ -56,10 +54,12 @@ const ErrorThrower: React.FC = () => {
 	}
 
 	return (
-		<div onClick={onClick}>
-			<RegularText>
-				Click here to cause an error!
+		<Padding.Dog16>
+			<div onClick={onClick}>
+				<RegularText>
+					Click here to cause an error!
 			</RegularText>
-		</div>
+			</div>
+		</Padding.Dog16>
 	);
 };

@@ -1,12 +1,10 @@
 import * as React from 'react';
 import { DEFINE } from '@/services/define';
-import { decorate } from '@/test/decorate';
+import { wrap } from '@/test/decorate';
 import { Spacing } from '@/core/layout/common';
 import { tStyled } from '@/core/style/styled';
 
-export default { title: 'Services/Define' };
-
-export const TestDefine = decorate('Define', null, () => {
+export default wrap(null, () => {
 
 	console.log(DEFINE);
 

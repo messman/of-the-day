@@ -1,11 +1,9 @@
 import * as React from 'react';
-import { decorate } from '@/test/decorate';
 import { RegularText } from '@/core/symbol/text';
 import { iconTypes, SizedIcon, IconSize } from '@/core/symbol/icon';
+import { wrap } from '@/test/decorate';
 
-export default { title: 'Core/Symbol/Icon' };
-
-export const TestIcon = decorate('Icon', null, () => {
+export default wrap(null, () => {
 
 	const iconList = Object.keys(iconTypes).map((iconName) => {
 		const icon = iconTypes[iconName as keyof typeof iconTypes];

@@ -2,6 +2,9 @@
 	"watchDirs": [
 		"./src"
 	],
+	"dom": {
+		"containerQuerySelector": "#react-root"
+	},
 	"ui": {
 		"responsivePreview": {
 			"devices": [

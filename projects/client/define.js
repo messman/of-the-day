@@ -1,4 +1,4 @@
-module.exports = async function getDefine(isDevelopment, isStorybook) {
+module.exports = async function getDefine(isDevelopment, isCosmos) {
 
 	/////////////////////////////////////////////////
 	// TEST WITHOUT SERVER instead of with a production or development server
@@ -17,7 +17,7 @@ module.exports = async function getDefine(isDevelopment, isStorybook) {
 		buildVersion: JSON.stringify(buildVersion),
 		buildTime: JSON.stringify(buildTime),
 		isDevelopment: JSON.stringify(isDevelopment),
-		isStorybook: JSON.stringify(isDevelopment && isStorybook),
+		isCosmos: JSON.stringify(isDevelopment && isCosmos),
 		isLocalData: JSON.stringify(isDevelopment && testWithoutServer),
 
 		// Overwritten by dev/prod builds

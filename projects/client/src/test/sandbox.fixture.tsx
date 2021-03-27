@@ -1,13 +1,11 @@
 import * as React from 'react';
-import { decorate } from '@/test/decorate';
+import { wrap } from '@/test/decorate';
 import { createContextConsumer, useRenderCount } from '@messman/react-common';
-
-export default { title: 'Test/Sandbox' };
 
 const [FirstProvider, useFirst] = createContextConsumer<number>(0);
 const [SecondProvider, useSecond] = createContextConsumer<number>(0);
 
-export const TestSandbox = decorate('Sandbox', null, () => {
+export default wrap(null, () => {
 
 	const [counter, setCounter] = React.useState(0);
 

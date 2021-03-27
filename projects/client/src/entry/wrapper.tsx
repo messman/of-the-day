@@ -15,7 +15,7 @@ import { ElementActionsProvider } from '@/areas/posts/element-action-overlay';
 export const Wrapper: React.FC = (props) => {
 	return (
 		<BrowserRouter>
-			<InnerProviders>
+			<InnerProviders testForceHidden={false}>
 				{props.children}
 			</InnerProviders>
 		</BrowserRouter>
@@ -23,27 +23,31 @@ export const Wrapper: React.FC = (props) => {
 };
 
 export interface TextProvidersProps {
-	entry?: string;
+	entry: string | null;
+	testForceHidden: boolean;
 }
 
 export const TestWrapper: React.FC<TextProvidersProps> = (props) => {
-	const { entry } = props;
+	const { entry, testForceHidden } = props;
 
 	const initialEntries = entry ? [entry] : undefined;
 	const initialIndex = entry ? 0 : undefined;
 	return (
 		<MemoryRouter initialEntries={initialEntries} initialIndex={initialIndex}>
-			<InnerProviders>
+			<InnerProviders testForceHidden={testForceHidden}>
 				{props.children}
 			</InnerProviders>
 		</MemoryRouter>
 	);
 };
 
-const InnerProviders: React.FC = (props) => {
+interface InnerProvidersProps {
+	testForceHidden: boolean;
+}
 
+const InnerProviders: React.FC<InnerProvidersProps> = (props) => {
 	return (
-		<DocumentVisibilityProvider>
+		<DocumentVisibilityProvider testForceHidden={props.testForceHidden}>
 			<ThemeProvider>
 				<OverlayPortalRoot>
 					<WindowMediaLayoutProvider lowerBreakpoints={lowerBreakpoints} breakpointUnit='rem'>
