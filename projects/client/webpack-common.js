@@ -37,7 +37,7 @@ module.exports = function updateWebpackConfig(webpackConfig, isDevelopment, isSt
 				loader: 'ts-loader',
 				options: {
 					getCustomTransformers: () => ({ before: [createStyledComponentsTransformer()] }),
-					onlyCompileBundledFiles: false, // Keep the default of false, or build time will double.
+					onlyCompileBundledFiles: !isStorybook, // Keep the default of false, or build time will double.
 					transpileOnly: false, // Set to true to test speed without type-checking.
 					compilerOptions: compilerOptions
 				}

@@ -19,20 +19,6 @@ module.exports = async () => {
 			filename: '[name].[contenthash].js',
 		},
 
-		optimization: {
-			moduleIds: 'hashed',
-			minimize: true,
-			splitChunks: {
-				cacheGroups: {
-					vendor: {
-						test: /[\\/]node_modules[\\/]/,
-						name: 'vendors',
-						chunks: 'all',
-					},
-				},
-			},
-		},
-
 		stats: {
 			assets: true,
 			assetsSort: '!size'
@@ -40,8 +26,6 @@ module.exports = async () => {
 
 		plugins: [
 			new webpack.DefinePlugin({ __DEFINE__: DEFINE }),
-			// Change the module id (unique identifier) to go by path instead of number, so hash names change less often.
-			new webpack.HashedModuleIdsPlugin(),
 			new HTMLWebpackPlugin(base.html),
 			new BundleAnalyzerPlugin({
 				analyzerMode: 'disabled', // Don't open the server automatically
